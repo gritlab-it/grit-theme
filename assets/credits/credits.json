@@ -1,0 +1,26 @@
+{
+    "agency": [
+        {
+            "client": "Cliente srl",
+            "client_url": "https://www.cliente.it",
+            "agency": "Poliedro Studio",
+            "agency_url": "https://www.poliedrostudio.it",
+            "agency_folder": "poliedro",
+            "grit": "GRIT Lab",
+            "grit_url": "https://www.gritlab.it",
+            "theme": "GRIT Theme"
+        },
+        {
+            "client": "Cliente srl",
+            "client_url": "https://www.cliente.it",
+            "agency": "ASTRATTO.agency",
+            "agency_url": "https://www.astratto.agency",
+            "grit": "Giorgio Rizza",
+            "agency_folder": "astratto",
+            "grit_url": "",
+            "theme": "GRIT Theme"
+        }
+
+        
+    ]
+}
