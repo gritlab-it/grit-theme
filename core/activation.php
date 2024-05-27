@@ -5,6 +5,13 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 /**
  * Theme activation
  */
+
+ function grit_deactivation() {
+    delete_option('grit_theme_activation_options');
+}
+add_action('switch_theme', 'grit_deactivation');
+
+
 if (is_admin() && isset($_GET['activated']) && 'themes.php' == $GLOBALS['pagenow']) {
     wp_redirect(admin_url('themes.php?page=theme_activation_options'));
     exit;
@@ -123,6 +130,19 @@ function grit_theme_activation_options_render_page() { ?>
                         </fieldset>
                     </td>
                 </tr>
+                <tr valign="top">
+                    <th scope="row"><?php _e('Create Contact Form 7 template?', 'grit'); ?></th>
+                    <td>
+                        <fieldset>
+                            <legend class="screen-reader-text"><span><?php _e('Create Contact Form 7 template?', 'grit'); ?></span></legend>
+                            <select name="grit_theme_activation_options[create_cf7_template]" id="create_cf7_template">
+                                <option selected="selected" value="true"><?php echo _e('Yes', 'grit'); ?></option>
+                                <option value="false"><?php echo _e('No', 'grit'); ?></option>
+                            </select>
+                            <p class="description"><?php printf(__('Create a custom Contact Form 7 form during theme activation', 'grit')); ?></p>
+                        </fieldset>
+                    </td>
+                </tr>
             </table>
             <?php submit_button(); ?>
         </form>
@@ -139,13 +159,9 @@ function grit_theme_activation_action() {
     if (strpos(wp_get_referer(), 'page=theme_activation_options') === false) {
         return;
     }
-
-
-
-    /* End - Create front page ----------------------------------------------------
-       ---------------------------------------------------- --------------------------
-    ---------------------------------------------------- End - Create front page */
-
+    
+    /* Create front page  */
+    
     if ($grit_theme_activation_options['create_additional_page'] === 'true') {
         $grit_theme_activation_options['create_additional_page'] = false;
         $default_pages[] = __('Home', 'grit');
@@ -156,15 +172,11 @@ function grit_theme_activation_action() {
         $default_pages[] = __('Cookie Policy GDPR', 'grit');
         $default_pages[] = __('Cerca', 'grit');
     }
-
-
-
-    /* End - Create front page ----------------------------------------------------
-    ---------------------------------------------------- --------------------------
-    ---------------------------------------------------- End - Create front page */
+    /* End - Create front page */  
+    
     if ($grit_theme_activation_options['create_front_page'] === 'true') {
         $grit_theme_activation_options['create_front_page'] = false;
-
+        
         $existing_pages = get_pages();
         $temp = array();
 
@@ -243,9 +255,18 @@ function grit_theme_activation_action() {
             $result = wp_insert_post($add_default_pages);
         }
 
-        $home = get_page_by_title(__('Home', 'grit'));
-        update_option('show_on_front', 'page');
-        update_option('page_on_front', $home->ID);
+        $home = get_page_by_path('home');
+
+        // Verifica se la pagina è stata trovata.
+        if ($home) {
+            // Imposta la pagina "Home" come pagina statica.
+            update_option('show_on_front', 'page');
+            update_option('page_on_front', $home->ID);
+        } else {
+            // Gestisci il caso in cui la pagina "Home" non sia stata trovata.
+            // Puoi visualizzare un messaggio di errore o impostare un fallback.
+            echo "La pagina 'Home' non è stata trovata.";
+        }
 
         $home_menu_order = array(
             'ID' => $home->ID,
@@ -310,6 +331,163 @@ function grit_theme_activation_action() {
         }
     }
     /* end - add_pages_to_primary_navigation */
+    
+    /* create_cf7_template */  
+    
+        // Funzione per creare un modulo di contatto CF7 personalizzato.
+        function create_custom_cf7_form() {
+
+            $home_url = home_url();
+            $parsed_url = parse_url($home_url);
+            $domain = $parsed_url['host'];
+            $cf7_id = wp_generate_uuid4();
+    
+            // Contenuto del modulo di contatto.
+            $form_content = sprintf('
+                [text* your-name placeholder "Il tuo nome"]
+                [text* your-surname placeholder "Il tuo cognome"]
+                [email* your-email placeholder "La tua email"]
+                [tel your-phone placeholder "Il tuo telefono"]
+                <label>[acceptance privacy]I accept the <a href="' . $home_url . '/privacy-policy/"> Privacy Policy</a>[/acceptance] </label>
+                [text referer-page ]
+                [text current-page ]
+                [textarea your-message placeholder "Il tuo messaggio"]
+                [submit "Invia"]
+            ');
+     
+    
+            // Corpo dell'email in HTML con campi dinamici.
+        $email_body = "
+        <!DOCTYPE html>
+        <html lang='it'>
+        <head>
+            <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+        </head>
+        <body style='background-color: #f8f9f9; padding: 60px 0; margin: 0;'>
+            <table align='center' width='100%' border='0' cellspacing='0' cellpadding='0'
+                   style='color: #787878; font-family: Arial, sans-serif; font-size: 14px;'>
+                <tr>
+                    <td align='center' valign='top'>
+                        <table border='0' cellpadding='0' cellspacing='0' width='600'
+                               style='background: #f7f7f7; width: 600px; border: 1px solid #e0e0e0;'>
+                            <tr style='background: #000000'>
+                                <td>
+                                    <header style='min-height: 100px; padding: 15px 30px;'>
+                                        <span style='float: left;'>
+                                            <img src='$home_url' alt='Logo' style='height: 60px;' />
+                                        </span>
+                                        <span style='float: right; color: #ffffff; font-size: 18px; text-align: right;'>
+                                            Richiesta Informazioni
+                                        </span>
+                                    </header>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style='padding: 30px;'>
+                                    <h3 style='color: #000; font-size: 18px; font-weight: normal; text-align: left;'>
+                                        Grazie, [your-name] [your-surname]
+                                    </h3>
+                                    <p style='color: #000; font-size: 14px; font-weight: normal; text-align: left;'>
+                                        La tua richiesta informazioni è stata inviata con successo.
+                                    </p>
+                                    <h4 style='color: #000; font-size: 18px; font-weight: normal; text-align: left;'>
+                                        Riepilogo
+                                    </h4>
+                                    <p><strong>Nome e Cognome:</strong><br>[your-name] [your-surname]</p>
+                                    <p><strong>Email:</strong><br>[your-email]</p>
+                                    <p><strong>Tel:</strong><br>[your-phone]</p>
+                                    <p><strong>Richiesta:</strong><br>[your-message]</p>
+                                    <p><strong>Riferimento:</strong><br>[referer-page]</p>
+                                    <p><strong>Pagina corrente:</strong><br>[current-page]</p>
+                                    <p><strong>Accettazione Privacy Policy:</strong> [privacy] in data [_date]</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style='padding: 0 30px 30px 30px; text-align: center;'>
+                                    <p>
+                                        <a href='$domain' style='color: #000;'>
+                                            <img src='$home_url' alt='Logo' style='height: 30px;' />
+                                        </a>
+                                    </p>
+                                    <div class='footer'>
+                                        <div class='prefooter'>
+                                            <p>
+                                                <a href='mailto:info@$domain' style='color: #000;'>
+                                                    info@$domain'
+                                                </a>
+                                            </p>
+                                            <p>Copyright &copy; 2024 Tutti i diritti riservati</p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </body>
+        </html>";
+            
+            // Configurazione dell'e-mail di invio.
+            $mail_settings = array(
+                '_mail' => array(
+                    'active' => true,
+                    'recipient' => 'info@' . $domain, // Email del destinatario. 
+                    'sender' => '[_site_title] <wordpress@' . $domain . '>', // Email del mittente (dinamico). 
+                    'subject' => 'Nuovo messaggio dal modulo di contatto', // Oggetto dell'email.
+                    'body' => $email_body, // Corpo dell'email in HTML con campi dinamici.
+                    'additional_headers' => 'Content-Type: text/html; charset=UTF-8', // Header per HTML.
+                    'use_html' => true, // Indica che l'email è in HTML.
+                ),
+                '_mail_2' => array(
+                    'active' => true,
+                    'recipient' => '[your-email]', // Email del destinatario. 
+                    'sender' => '[_site_title] <wordpress@' . $domain . '>', // Email del mittente (dinamico). 
+                    'subject' => 'Messaggio inviato con successo a ' . $domain . '', // Oggetto dell'email.
+                    'body' => $email_body, // Corpo dell'email in HTML con campi dinamici.
+                    'additional_headers' => 'Content-Type: text/html; charset=UTF-8', // Header per HTML.
+                    'use_html' => true, // Indica che l'email è in HTML.
+                ),
+                '_form' => $form_content
+            );
+            
+            // Dati del modulo di contatto.
+            $contact_form = array(
+                'post_title' => 'Modulo di Contatto Demo', // Titolo del modulo.
+                'post_status' => 'publish', // Stato del modulo.
+                'post_type' => 'wpcf7_contact_form', // Tipo di post specifico per CF7.
+                'post_content' => $form_content, // Contenuto del modulo.
+                'meta_input' => $mail_settings, // Configurazione dell'email.
+            );
+            
+            // Crea il modulo e ottieni l'ID.
+            $post_id = wp_insert_post($contact_form);
+
+            // Verifica se il modulo è stato creato correttamente e l'ID è stato restituito.
+            if (!is_wp_error($post_id)) {
+                // Memorizza l'ID alfanumerico univoco come meta_value
+                update_post_meta($post_id, '_hash', $cf7_id); 
+                // Crea lo shortcode con l'ID alfanumerico univoco
+                $shortcode = '[contact-form-7 id="' . $cf7_id . '" title="Modulo di Contatto"]';
+                // Memorizza lo shortcode in un'opzione per uso futuro.
+                update_option('grit_custom_cf7_shortcode', $shortcode);
+            } else {
+                // Gestione dell'errore se l'inserimento del post non ha avuto successo.
+                // Puoi aggiungere il codice per gestire l'errore qui.
+                error_log('Errore durante la creazione del modulo CF7 personalizzato: ' . $post_id->get_error_message());
+            }
+            
+            
+        }
+
+    // Controlla se l'opzione per creare il modulo CF7 personalizzato è selezionata.
+    if (isset($grit_theme_activation_options['create_cf7_template']) &&
+    $grit_theme_activation_options['create_cf7_template'] === 'true') { 
+        create_custom_cf7_form();
+    }
+    /* end - create_cf7_template */
+     
+    
     update_option('grit_theme_activation_options', $grit_theme_activation_options);
 }
 add_action('admin_init','grit_theme_activation_action');
@@ -318,20 +496,22 @@ add_action('admin_init','grit_theme_activation_action');
 ---------------------------------------------------- End - Create front page */
 
 
-/*function grit_deactivation() {
-    delete_option('grit_theme_activation_options');
-}
-add_action('switch_theme', 'grit_deactivation');*/
 
 
-function my_custom_sql_views() {
-    global $wpdb;
-    $wpdb->query("CREATE VIEW wp_articles AS SELECT * FROM `{$wpdb->prefix}posts` WHERE `post_type` = 'post';" );
-    $wpdb->query("CREATE VIEW wp_pages AS SELECT * FROM `{$wpdb->prefix}posts` WHERE `post_type` = 'page';" );
-    $wpdb->query("CREATE VIEW wp_products AS SELECT * FROM `{$wpdb->prefix}posts` WHERE `post_type` = 'product';" );
-    $wpdb->query("CREATE VIEW wp_transient AS SELECT * FROM `{$wpdb->prefix}options` WHERE `option_name` LIKE ('%\_transient\_%')" );
-    $wpdb->query("CREATE VIEW wp_posts_categories AS SELECT `{$wpdb->prefix}posts`.ID AS 'ID', `{$wpdb->prefix}posts`.post_title AS 'Title', `{$wpdb->prefix}terms`.name AS 'Category' FROM `{$wpdb->prefix}posts` INNER JOIN `{$wpdb->prefix}term_relationships` ON `{$wpdb->prefix}posts`.ID = `{$wpdb->prefix}term_relationships`.object_id INNER JOIN `{$wpdb->prefix}terms` ON `{$wpdb->prefix}term_relationships`.term_taxonomy_id = `{$wpdb->prefix}terms`.term_id INNER JOIN `{$wpdb->prefix}term_taxonomy` ON `{$wpdb->prefix}term_relationships`.term_taxonomy_id = `{$wpdb->prefix}term_taxonomy`.term_taxonomy_id WHERE `{$wpdb->prefix}posts`.post_status = 'publish' AND `{$wpdb->prefix}posts`.post_type = 'post' AND `{$wpdb->prefix}term_taxonomy`.taxonomy = 'category' ORDER BY `{$wpdb->prefix}terms`.name;" );
-    $wpdb->query("CREATE VIEW wp_products_categories AS SELECT `{$wpdb->prefix}posts`.ID AS 'ID', `{$wpdb->prefix}posts`.post_title AS 'Title', `{$wpdb->prefix}terms`.name AS 'Category' FROM `{$wpdb->prefix}posts` INNER JOIN `{$wpdb->prefix}term_relationships` ON `{$wpdb->prefix}posts`.ID = `{$wpdb->prefix}term_relationships`.object_id INNER JOIN `{$wpdb->prefix}terms` ON `{$wpdb->prefix}term_relationships`.term_taxonomy_id = `{$wpdb->prefix}terms`.term_id INNER JOIN `{$wpdb->prefix}term_taxonomy` ON `{$wpdb->prefix}term_relationships`.term_taxonomy_id = `{$wpdb->prefix}term_taxonomy`.term_taxonomy_id WHERE `{$wpdb->prefix}posts`.post_status = 'publish' AND `{$wpdb->prefix}posts`.post_type = 'product' AND `{$wpdb->prefix}term_taxonomy`.taxonomy = 'product_cat' ORDER BY `{$wpdb->prefix}terms`.name;" );
-}
 
-add_action("after_switch_theme", "my_custom_sql_views");
+// function my_custom_sql_views() {
+//     global $wpdb;
+//     $wpdb->query("CREATE VIEW wp_articles AS SELECT * FROM `{$wpdb->prefix}posts` WHERE `post_type` = 'post';" );
+//     $wpdb->query("CREATE VIEW wp_pages AS SELECT * FROM `{$wpdb->prefix}posts` WHERE `post_type` = 'page';" );
+//     $wpdb->query("CREATE VIEW wp_products AS SELECT * FROM `{$wpdb->prefix}posts` WHERE `post_type` = 'product';" );
+//     $wpdb->query("CREATE VIEW wp_transient AS SELECT * FROM `{$wpdb->prefix}options` WHERE `option_name` LIKE ('%\_transient\_%')" );
+//     $wpdb->query("CREATE VIEW wp_posts_categories AS SELECT `{$wpdb->prefix}posts`.ID AS 'ID', `{$wpdb->prefix}posts`.post_title AS 'Title', `{$wpdb->prefix}terms`.name AS 'Category' FROM `{$wpdb->prefix}posts` INNER JOIN `{$wpdb->prefix}term_relationships` ON `{$wpdb->prefix}posts`.ID = `{$wpdb->prefix}term_relationships`.object_id INNER JOIN `{$wpdb->prefix}terms` ON `{$wpdb->prefix}term_relationships`.term_taxonomy_id = `{$wpdb->prefix}terms`.term_id INNER JOIN `{$wpdb->prefix}term_taxonomy` ON `{$wpdb->prefix}term_relationships`.term_taxonomy_id = `{$wpdb->prefix}term_taxonomy`.term_taxonomy_id WHERE `{$wpdb->prefix}posts`.post_status = 'publish' AND `{$wpdb->prefix}posts`.post_type = 'post' AND `{$wpdb->prefix}term_taxonomy`.taxonomy = 'category' ORDER BY `{$wpdb->prefix}terms`.name;" );
+//     $wpdb->query("CREATE VIEW wp_products_categories AS SELECT `{$wpdb->prefix}posts`.ID AS 'ID', `{$wpdb->prefix}posts`.post_title AS 'Title', `{$wpdb->prefix}terms`.name AS 'Category' FROM `{$wpdb->prefix}posts` INNER JOIN `{$wpdb->prefix}term_relationships` ON `{$wpdb->prefix}posts`.ID = `{$wpdb->prefix}term_relationships`.object_id INNER JOIN `{$wpdb->prefix}terms` ON `{$wpdb->prefix}term_relationships`.term_taxonomy_id = `{$wpdb->prefix}terms`.term_id INNER JOIN `{$wpdb->prefix}term_taxonomy` ON `{$wpdb->prefix}term_relationships`.term_taxonomy_id = `{$wpdb->prefix}term_taxonomy`.term_taxonomy_id WHERE `{$wpdb->prefix}posts`.post_status = 'publish' AND `{$wpdb->prefix}posts`.post_type = 'product' AND `{$wpdb->prefix}term_taxonomy`.taxonomy = 'product_cat' ORDER BY `{$wpdb->prefix}terms`.name;" );
+// }
+
+// add_action("after_switch_theme", "my_custom_sql_views");
+
+
+
+
+

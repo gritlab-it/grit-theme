@@ -503,3 +503,10 @@ function update_theme_screenshot_from_json() {
 
 // Aggiungi lo script alla coda dei file JavaScript
 add_action('wp_footer', 'update_theme_screenshot_from_json');
+
+
+
+
+
+
+ 

@@ -8,7 +8,8 @@
             "agency_folder": "poliedro",
             "grit": "GRIT Lab",
             "grit_url": "https://www.gritlab.it",
-            "theme": "GRIT Theme"
+            "theme": "GRIT Theme",
+            "color": "#1D1D1B"
         },
         {
             "client": "Cliente srl",
@@ -18,9 +19,8 @@
             "grit": "Giorgio Rizza",
             "agency_folder": "astratto",
             "grit_url": "",
-            "theme": "GRIT Theme"
-        }
-
-        
+            "theme": "GRIT Theme",
+            "color": "#0000E5"
+        } 
     ]
 }

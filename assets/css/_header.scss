@@ -1,0 +1,248 @@
+.breadcrumb {
+    /*
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1rem;
+      list-style: none;
+      background-color: #e9ecef;
+      border-radius: 0.25rem;
+    */
+    background-color: transparent;
+    padding: 0.25rem 0rem;
+    margin-bottom: 0rem;
+
+    a {
+        color: $secondary;
+    }
+
+    a:hover {
+        color: $tertiary;
+    }
+
+    .breadcrumb_last {
+        color: $white;
+    }
+}
+
+
+/* A_SETTINGS sticky-menu */
+.sticky-fix {
+    &.sticky-in {
+        top: 0;
+    }
+
+    position: fixed;
+    width: 100%;
+    top: -126px;
+    z-index: 1;
+    transition: 0.4s all ease-out 0.5s;
+    background-color: $white;
+    z-index: 2;
+
+    .logo {
+        max-height: 10px;
+    }
+}
+
+/* A_SETTINGS primary-menu */
+.navbar-toggler {
+    color: $primary;
+}
+
+button.navbar-toggler:focus,
+button.navbar-toggler:focus-visible {
+    outline: none;
+}
+
+.header-menu {
+    z-index: 3;
+    position: relative;
+    background-color: $white;
+}
+
+#header-1,
+#header-2 {
+    .logo {
+        max-height: 20px;
+    }
+
+    #header-2-sidenav .logo {
+        max-height: 20px;
+    }
+
+    @media (min-width: 576px) {
+        #header-2-sidenav .logo {
+            max-height: 25px;
+        }
+
+        .logo {
+            max-height: 25px;
+        }
+    }
+
+    #primary-menu {
+        li {
+            list-style: none;
+
+            a {
+                text-decoration: none;
+                position: relative;
+                color: $primary;
+                font-size: 17px;
+                font-weight: 700;
+                font-family: $font-primary;
+                ;
+                display: block;
+                overflow: hidden;
+                transition: 0.7s all ease-in-out;
+                text-transform: uppercase;
+                padding: 10px 14px;
+            }
+        }
+
+        li:hover a {
+            color: $secondary;
+        }
+
+        li a:before {
+            content: '';
+            width: 0%;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            height: 2px;
+            background: $black;
+            position: absolute;
+            transition: 0.7s all ease-in-out;
+        }
+
+        .item-menu-icon a:before {
+            display: none;
+        }
+
+        li:hover>a:before {
+            content: '';
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            height: 2px;
+            background: $secondary;
+            ;
+            position: absolute;
+            transition: 0.7s all ease-in-out;
+        }
+
+        li.current_page_item>a:before {
+            content: '';
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            margin: 0 auto;
+            height: 2px;
+            background: $primary;
+            position: absolute;
+            transition: 0.7s all ease-in-out;
+        }
+
+        li.current_page_item>a {
+            color: $tertiary;
+            transition: 0.7s all ease-in-out;
+        }
+
+        .dropdown:hover>.dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-toggle:hover:after {
+            display: inline-block;
+        }
+    }
+}
+
+#header-2 {
+    .nav-mobile#primary-menu {
+        li {
+            display: block !important;
+            text-align: center;
+
+            a {
+                font-size: 20px;
+                text-transform: uppercase;
+            }
+        }
+
+        .dropdown-menu {
+            background-color: transparent;
+        }
+    }
+}
+
+/* A_SETTINGS menu mobile  */
+
+.overlay-content {
+    position: relative;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.full-menu-logo {
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+}
+
+/* A_SETTINGS sidenav */
+.sidenav.sidenav-open .inner-sidenav,
+.sidenav.sidenav-open .overlay-content {
+    opacity: 1;
+    transition-delay: 0.0s;
+    -webkit-transition: all 0.7s ease-in-out;
+    transition: all 0.7s ease-in-out;
+}
+
+.sidenav.sidenav-close .inner-sidenav,
+.sidenav.sidenav-close .overlay-content {
+    opacity: 0;
+    transition-delay: 0.5s;
+    -webkit-transition: all 0.7s ease-in-out;
+    transition: all 0.7s ease-in-out;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    right: 0;
+    background-color: $secondary;
+    overflow-x: hidden;
+    transition: 0.5s;
+    /*padding-top: 60px;*/
+    text-align: center;
+}
+
+/* A_SETTINGS menu mobile */
+.overlay-content {
+    position: relative;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.full-menu-logo {
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+}

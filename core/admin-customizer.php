@@ -5,7 +5,7 @@
 
 function admin_style()
 {
-    wp_enqueue_style('admin-styles', get_template_directory_uri() . '/assets/wp-admin.css');
+    wp_enqueue_style('admin-styles', get_template_directory_uri() . '/assets/css/wp-admin.css');
     /*    wp_enqueue_script( 'admin-script', get_template_directory_uri().'/assets/wp-admin.js', array( 'jquery' ), '1.2.1' );*/
 }
 
@@ -63,16 +63,20 @@ function linkedurl_function()
 
 add_action('admin_menu', 'linkedurl_function');
 
-function login_background_image()
-{
-    echo '<style type="text/css">
-        body.login{ background: #1D1D1B!important; }
-        .login #backtoblog a, 
-        .login #nav a { color:#ffffff; }
-</style>';
-}
+// function login_background_image()
+// {
+//     echo '<style type="text/css">
+//         body.login{ background: #1D1D1B!important; }
+//         .login #backtoblog a, 
+//         .login #nav a { color:#ffffff; }
+// </style>';
+// }
 
-add_action('login_head', 'login_background_image');
+// add_action('login_head', 'login_background_image');
+
+
+
+
 
 
 function get_agency_data_from_json() {
@@ -116,13 +120,13 @@ function login_logo() {
     // Percorso del file del logo in base alla cartella ottenuta
     $logo_path = get_template_directory_uri() . '/assets/credits/' . $agency_folder . '/logo.png';
     $icon_path = get_template_directory_uri() . '/assets/credits/' . $agency_folder . '/icon.svg';
+
     ?>
 
     <style type="text/css">
         #login h1 a, .login h1 a {
             background-image: url(<?php echo $logo_path; ?>);
-            background-size: 313px;
-            height: 26px;
+            background-size: 313px; 
             width: 100%;
         }
 
@@ -135,18 +139,40 @@ function login_logo() {
             background-repeat: no-repeat;
             opacity: 1;
         }
-
+         
  
     </style>
 <?php }
+
+
+
+
+ 
+
+function login_background_image() { 
+    $agency_data = get_agency_data_from_json(); 
+    // Controlla se ci sono dati sull'agenzia e se esiste la chiave "color" nel primo elemento
+    if (!empty($agency_data) && isset($agency_data[0]['color'])) {
+        // Utilizza l'URL dell'agenzia come link per il menu
+        $login_background_color = $agency_data[0]['color']; 
+        echo '<style type="text/css">
+        body.login { background-color: ' . esc_attr($login_background_color) . ' !important; }
+        .login #backtoblog a, 
+        .login #nav a { color: #ffffff; } /* Colore del testo, puoi mantenere fisso se desiderato */
+        </style>';
+    }  
+}
+
+add_action('login_head', 'login_background_image');
+
+
+
 
 // Aggiungi la funzione login_logo all'hook login_enqueue_scripts
 add_action('login_enqueue_scripts', 'login_logo');
 // Aggiungi la funzione login_logo anche per l'amministrazione
 add_action('admin_head', 'login_logo');
 add_action('wp_head', 'login_logo');
-
-
 
 function login_logo_url_title()
 {
@@ -165,6 +191,8 @@ function login_logo_url_title()
 
 add_filter('login_headerurl', 'login_logo_url_title');
 
+
+ 
 
 
 // WordPress Custom Font @ Admin

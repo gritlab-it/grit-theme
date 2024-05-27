@@ -1,0 +1,152 @@
+p {
+  font-family: $font-primary;
+}
+
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3 {
+  font-family: $font-secondary;
+}
+
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
+  font-family: $font-primary;
+}
+
+a {
+  // font-variation-settings: 'wght' 900;
+  font-variation-settings: 'slnt' 0;
+  // font-weight: bold;
+  color: $primary;
+  text-decoration: none;
+  background-color: transparent;
+  transition: 0.7s all ease-in-out;
+}
+
+a:hover {
+  // color: darken($tertiary, 20%);
+  color: $secondary;
+  // border-radius: 3px;
+  // font-variation-settings: 'wght' 300;
+  font-variation-settings: 'slnt' 12;
+  text-decoration: none;
+}
+
+/* A_SETTINGS button */
+.btn {
+  border-radius: 0px;
+  padding: 0.545em 1em;
+  text-align: center;
+  display: inline-block;
+  letter-spacing: .02em;
+  cursor: pointer;
+  text-decoration: none;
+  border: 2px solid;
+  line-height: 1;
+  position: relative;
+  font-weight: 600;
+  text-transform: uppercase;
+
+  /* Standard */
+  // border-radius: 10px;
+  // font-family: Inter;
+  // font-style: normal;
+  // font-weight: normal;
+  // font-size: 18px;
+  // line-height: 20px;
+  // text-align: center;
+  // text-transform: uppercase;
+  // padding: 0.375rem 1.75rem;
+  // transition: all 0.3s ease-in-out;
+  
+  .btn-circle {
+    width: 40px;
+    height: 40px;
+    padding: 3px;
+    margin: 0px 3px;
+    border-radius: 25px;
+    font-size: 22px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@mixin btn-color($color, $bg, $border, $h-color, $h-bg, $h-border) {
+  color: $color;
+  background: $bg;
+  border-color: $border;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: $h-color;
+    background: $h-bg;
+    border-color: $h-border;
+  }
+
+  &:active {
+    background: darken($h-color, 30%);
+    border-color: darken($h-border, 30%);
+  }
+
+  &:not(:disabled):not(.disabled).active,
+  &:not(:disabled):not(.disabled):active,
+  .show>&.dropdown-toggle {
+    background: darken($bg, 30%);
+    border-color: darken($border, 30%);
+  }
+
+  &.disabled,
+  &:disabled {
+    opacity: 0.10;
+    background: darken($bg, 30%);
+    border-color: darken($border, 30%);
+  }
+
+  &.focus,
+  &:focus {
+    box-shadow: 0 0 0 0.2rem lighten($bg, 10%);
+  }
+}
+
+// $color, $bg, $border, $h-color, $h-bg, $h-border
+
+.btn-primary {
+  @include btn-color($white, $primary, $primary, $white, $secondary, $secondary);
+}
+
+.btn-secondary {
+  @include btn-color($primary, $secondary, $secondary, $white, $primary, $primary);
+}
+
+.btn-tertiary {
+  @include btn-color($white, $tertiary, $tertiary, $white, $quaternary, $quaternary);
+}
+
+.btn-quaternary {
+  @include btn-color($white, $quaternary, $quaternary, $white, $tertiary, $tertiary);
+}
+
+.btn-outline-primary {
+  @include btn-color($primary, $white, $primary, $secondary, $white, $secondary);
+}
+
+.btn-outline-secondary {
+  @include btn-color($secondary, $white, $secondary, $primary, $white, $primary);
+}
+
+.btn-outline-tertiary {
+  @include btn-color($tertiary, $white, $tertiary, $quaternary, $white, $quaternary);
+}
+
+.btn-outline-quaternary {
+  @include btn-color($quaternary, $white, $quaternary, $tertiary, $white, $tertiary);
+}

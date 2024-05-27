@@ -1,0 +1,78 @@
+:root {
+    --primary: #f7f7f7;
+    --secondary: #231F20;
+    --tertiary: #8080F2;
+    --quaternary: #CCCCFA;
+}
+
+$primary: #f7f7f7;
+$primary-rgb: rgb(0, 0, 255);
+$primary-rgba: rgba(0, 0, 255, 1);
+
+$secondary: #231F20;
+$secondary-rgb: rgb(255, 255, 51);
+$secondary-rgba: rgba(255, 255, 51, 1);
+
+$tertiary: #8080F2;
+$tertiary-rgb: rgb(128, 128, 242);
+$tertiary-rgba: rgba(0, 0, 255, 0.5);
+
+$quaternary: #CCCCFA;
+$quaternary-rgb: rgb(204, 204, 250);
+$quaternary-rgba: rgba(0, 0, 255, 0.2);
+
+$white: #ffffff;
+$trasparent: trasparent;
+
+$black: #000000;
+$black-rgb: rgb(0, 0, 0);
+$black-rgba: rgba(0, 0, 0, 1);
+
+$black-50: #808080;
+$black-50-rgb: rgb(128, 128, 128);
+$black-50-rgba: rgba(0, 0, 0, 0.5);
+$black-20: #CCCCCC;
+$black-20-rgb: rgb(204, 204, 204);
+$black-20-rgba: rgba(0, 0, 0, 0.2);
+$black-5: #F2F2F2;
+$black-5-rgb: rgb(242, 242, 242);
+$black-5-rgba: rgba(0, 0, 0, 0.05);
+
+$colors: (
+    primary: #f7f7f7,
+    secondary: #231F20,
+    tertiary: #8080F2,
+    quaternary: #CCCCFA,
+
+    white: #ffffff,
+    black: #000000,
+);
+
+/* GRIT_SET Background Color
+    Note: Setting colors backgorund es bg-primary */
+@each $name, $value in $colors {
+    .bg-#{$name} {
+        background: $value;
+    }
+}
+
+/* GRIT_SET text Color
+    Note: Setting colors backgorund es color-primary */
+@each $name, $value in $colors {
+    .color-#{$name} {
+        color: $value;
+    }
+}
+
+.bg-half {
+    background: $primary;
+    background: -moz-linear-gradient(0deg, $primary 50%, $white 50%);
+    background: -webkit-linear-gradient(0deg, $primary 50%, $white 50%);
+    background: linear-gradient(0deg, $primary 50%, $white 50%);
+}
+
+/* GRIT_SET Fonts
+    Note: Setting fonts */
+@import url("../font/roboto/stylesheet.css");
+$font-primary: 'Roboto', sans-serif;
+$font-secondary: 'Roboto', sans-serif;

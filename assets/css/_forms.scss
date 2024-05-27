@@ -1,0 +1,308 @@
+
+/* A_SETTINGS contact-form-style-1 */
+  #contact-form-style-1 {
+    label {
+      display: block;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 23px;
+      width: 100%;
+    }
+  
+    .wpcf7-form-control,
+    input,
+    .form-control {
+      width: 100%;
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.5;
+      color: $black;
+      height: auto;
+      padding: .375rem .75rem;
+      margin: 5px 0px 20px;
+      background-clip: padding-box;
+      border: none;
+      border-radius: 3px;
+      transition: all 0.8s ease-in-out;
+    }
+  
+    .form-check-input {
+      position: absolute;
+      margin-top: .3rem;
+      margin-left: -1.1rem;
+    }
+  
+    input[type="text"],
+    .wpcf7-text,
+    input[type="textarea"],
+    .wpcf7-textarea,
+    input[type="email"],
+    .wpcf7-email,
+    input[type="tel"],
+    .wpcf7-tel {
+      border: none;
+      border-bottom: solid 3px $black-50;
+      background: $black-5;
+    }
+  
+    .wpcf7-select,
+    input[type="select"],
+    .wpcf7-date,
+    input[type="date"],
+    .wpcf7-checkbox,
+    input[type="checkbox"],
+    .wpcf7-radio,
+    input[type="radio"] {
+      width: auto;
+      border: none;
+    }
+  
+    .wpcf7-form-control:focus,
+    input:focus,
+    .form-control:focus {
+      background-color: transparent;
+      color: $black;
+      border-bottom: 3px solid $black;
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba($black-20-rgb, 0.5) !important;
+    }
+  
+    .wpcf7-select:focus,
+    input[type="select"]:focus,
+    .wpcf7-date:focus,
+    input[type="date"]:focus,
+    .wpcf7-checkbox:focus,
+    input[type="checkbox"]:focus,
+    .wpcf7-radio:focus,
+    input[type="radio"]:focus,
+    .wpcf7-file:hover,
+    input[type="file"]:focus {
+      border: none;
+      box-shadow: 0 0 0 0.2rem rgba($black-20-rgb, 0);
+    }
+  
+    .wpcf7-list-item {
+      display: block;
+    }
+  
+    .wpcf7-acceptance .wpcf7-list-item {
+      display: inline-block;
+      margin: 0 0 0 2em;
+    }
+  
+    .wpcf7-select,
+    input[type="select"],
+    .wpcf7-date,
+    input[type="date"] {
+      border: none;
+      border-bottom: solid 3px $black-50;
+      background: $black-5;
+    }
+  
+    .wpcf7-select:focus,
+    input[type="select"]:focus,
+    .wpcf7-date:focus,
+    input[type="date"]:focus {
+      border-bottom: 3px solid $black;
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba($black-20-rgb, 0.5) !important;
+    }
+  
+    ::placeholder {
+      /* Chrome, Firefox, Opera, Safari 10.1+
+      */
+      color: $black-50;
+      opacity: 1;
+      /* Firefox
+      */
+    }
+  
+    :-ms-input-placeholder {
+      /* Internet Explorer 10-11
+      */
+      color: $black-50;
+      opacity: 1;
+    }
+  
+    ::-ms-input-placeholder {
+      /* Microsoft Edge
+      */
+      color: $black-50;
+      opacity: 1;
+    }
+  
+    .wpcf7 .ajax-loader::before {
+      display: none;
+    }
+  
+    .wpcf7 .ajax-loader {
+      background: url('../img/loading.gif') no-repeat center center;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      width: 124px;
+      height: 36px;
+      bottom: -15px;
+      border-radius: 0;
+      display: inline-block;
+    }
+  
+    .wpcf7-submit {
+      width: auto;
+    }
+  }
+  /* A_SETTINGS contact-form-style-2 */
+  #contact-form-style-2 {
+    label {
+      display: block;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 23px;
+      width: 100%;
+    }
+  
+    .wpcf7-form-control,
+    input,
+    .form-control {
+      width: 100%;
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.5;
+      color: $black;
+      height: auto;
+      padding: .375rem .75rem;
+      margin-top: 20px;
+      background-color: transparent;
+      background-clip: padding-box;
+      border: none;
+      border-radius: 0;
+      transition: all 0.8s ease-in-out;
+    }
+  
+    .form-check-input {
+      position: absolute;
+      margin-top: .3rem;
+      margin-left: -1.1rem;
+    }
+  
+    input[type="text"],
+    .wpcf7-text,
+    input[type="textarea"],
+    .wpcf7-textarea,
+    input[type="email"],
+    .wpcf7-email,
+    input[type="tel"],
+    .wpcf7-tel {
+      border: none;
+      border-bottom: solid 3px $secondary;
+    }
+  
+    .wpcf7-select,
+    input[type="select"],
+    .wpcf7-date,
+    input[type="date"],
+    .wpcf7-checkbox,
+    input[type="checkbox"],
+    .wpcf7-radio,
+    input[type="radio"] {
+      width: auto;
+      border: none;
+    }
+  
+    .wpcf7-form-control:focus,
+    input:focus,
+    .form-control:focus {
+      background-color: transparent;
+      color: $primary;
+      border-bottom: 3px solid $primary;
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.5) !important;
+    }
+  
+    .wpcf7-select:focus,
+    input[type="select"]:focus,
+    .wpcf7-date:focus,
+    input[type="date"]:focus,
+    .wpcf7-checkbox:focus,
+    input[type="checkbox"]:focus,
+    .wpcf7-radio:focus,
+    input[type="radio"]:focus,
+    .wpcf7-file:hover,
+    input[type="file"]:focus {
+      border: none;
+      box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.5) !important;
+    }
+  
+    .wpcf7-list-item {
+      display: block;
+    }
+  
+    .wpcf7-acceptance .wpcf7-list-item {
+      display: inline-block;
+      margin: 0 0 0 2em;
+    }
+  
+    .wpcf7-select,
+    input[type="select"],
+    .wpcf7-date,
+    input[type="date"] {
+      border: none;
+      border-bottom: solid 3px $secondary;
+    }
+  
+    .wpcf7-select:focus,
+    input[type="select"]:focus,
+    .wpcf7-date:focus,
+    input[type="date"]:focus {
+      background-color: transparent;
+      color: $primary;
+      border-bottom: 3px solid $primary;
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.5) !important;
+    }
+  
+    ::placeholder {
+      /* Chrome, Firefox, Opera, Safari 10.1+
+      */
+      color: $primary;
+      opacity: 1;
+      /* Firefox
+      */
+    }
+  
+    :-ms-input-placeholder {
+      /* Internet Explorer 10-11
+      */
+      color: $primary;
+      opacity: 1;
+    }
+  
+    ::-ms-input-placeholder {
+      /* Microsoft Edge
+      */
+      color: $primary;
+      opacity: 1;
+    }
+  
+    .wpcf7 .ajax-loader::before {
+      display: none;
+    }
+  
+    .wpcf7 .ajax-loader {
+      background: url('../img/loading.gif') no-repeat center center;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      width: 124px;
+      height: 36px;
+      bottom: -15px;
+      border-radius: 0;
+      display: inline-block;
+    }
+  
+    .wpcf7-submit {
+      width: auto;
+    }
+  }

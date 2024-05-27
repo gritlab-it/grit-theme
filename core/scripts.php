@@ -88,7 +88,7 @@ function grit_scripts()
                         // Attiva libreria Bootstrap 4.6.2 CSS JS
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    if ($GLOBALS['assets_options']['grit_SETTING_BOOTSTRAP']) {
+    if ($GLOBALS['assets_options']['GRIT_SETTING_BOOTSTRAP']) {
         wp_enqueue_style('bootstrap', get_template_directory_uri() . '/assets/bootstrap-4.6.2-dist/css/bootstrap.min.css');
         wp_enqueue_script('bootstrap', get_template_directory_uri() . '/assets/bootstrap-4.6.2-dist/js/bootstrap.min.js', array(), '4.6.2', true);
     }
@@ -98,7 +98,7 @@ function grit_scripts()
                         // Attiva libreria Fontawesome fontawesome.com/icons
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    if ($GLOBALS['assets_options']['grit_SETTING_FA']) {
+    if ($GLOBALS['assets_options']['GRIT_SETTING_FA']) {
         wp_enqueue_script('fa', 'https://use.fontawesome.com/releases/v5.15.1/js/all.js', array(), '5.15.1', true);
         wp_enqueue_style('fa', 'https://use.fontawesome.com/releases/v5.15.1/css/fontawesome.css');
         /*wp_enqueue_script('fab', 'https://use.fontawesome.com/releases/v5.15.1/js/brands.js', array(), '5.15.1', true);*/
@@ -110,7 +110,7 @@ function grit_scripts()
                         // Attiva libreria Animate CSS animate.style
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    if ($GLOBALS['assets_options']['grit_SETTING_ANIMATE']) {
+    if ($GLOBALS['assets_options']['GRIT_SETTING_ANIMATE']) {
         wp_enqueue_style('animate', get_template_directory_uri() . '/assets/animate-css/animate.css');
         wp_enqueue_script('viewportchecker', get_template_directory_uri() . '/assets/animate-css/viewportchecker.js');
     }
@@ -120,7 +120,7 @@ function grit_scripts()
                         // Attiva libreria Hover CSS ianlunn.github.io/Hover
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    if ($GLOBALS['assets_options']['grit_SETTING_HOVER']) {
+    if ($GLOBALS['assets_options']['GRIT_SETTING_HOVER']) {
         wp_enqueue_style('hover', get_template_directory_uri() . '/assets/hover-css/css/hover.css');
     }
 
@@ -129,7 +129,7 @@ function grit_scripts()
                         // Attiva libreria GSAP https://github.com/greensock/GSAP
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    if ($GLOBALS['assets_options']['grit_SETTING_GSAP']) {
+    if ($GLOBALS['assets_options']['GRIT_SETTING_GSAP']) {
         wp_enqueue_script('gsap-core', get_template_directory_uri() . '/assets/gsap/gsap.min.js', array(), '1.0.0', true);
         wp_enqueue_script('gsap-cssruleplugin', get_template_directory_uri() . '/assets/gsap/CSSRulePlugin.min.js', array(), '1.0.0', true);
         wp_enqueue_script('gsap-scrolltrigger', get_template_directory_uri() . '/assets/gsap/ScrollTrigger.min.js', array(), '1.0.0', true);
@@ -142,7 +142,7 @@ function grit_scripts()
                             // Attiva libreria Three js threejs.org  
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    if ($GLOBALS['assets_options']['grit_SETTING_THREE']) {
+    if ($GLOBALS['assets_options']['GRIT_SETTING_THREE']) {
         wp_enqueue_script('three', get_template_directory_uri() . '/assets/three/three.min.js', array(), '1.0.0', true);
     }
 
@@ -151,7 +151,7 @@ function grit_scripts()
                             // Attiva libreria Fitty js https://rikschennink.github.io/fitty/ 
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    if ($GLOBALS['assets_options']['grit_SETTING_FITTY']) {
+    if ($GLOBALS['assets_options']['GRIT_SETTING_FITTY']) {
         wp_enqueue_script('fitty', get_template_directory_uri() . '/assets/fitty/fitty.min.js', array(), '1.0.0', true);
     }
 
@@ -160,7 +160,7 @@ function grit_scripts()
                             // Attiva libreria Images Loaded js https://imagesloaded.desandro.com/
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    if ($GLOBALS['assets_options']['grit_SETTING_IMAGESLOADED']) {
+    if ($GLOBALS['assets_options']['GRIT_SETTING_IMAGESLOADED']) {
         wp_enqueue_script('imagesloaded', get_template_directory_uri() . '/assets/imagesloaded/imagesloaded.pkgd.min', array(), '1.0.0', true);
     }
 
@@ -169,7 +169,7 @@ function grit_scripts()
                             // Attiva libreria Masonry js https://masonry.desandro.com 
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    if ($GLOBALS['assets_options']['grit_SETTING_MASONRY']) {
+    if ($GLOBALS['assets_options']['GRIT_SETTING_MASONRY']) {
         wp_enqueue_script('masonry', get_template_directory_uri() . '/assets/masonry/masonry.js', array(), '1.0.0', true);
     }
  
@@ -178,7 +178,7 @@ function grit_scripts()
                         // Attiva libreria Swiper 10.2 https://swiperjs.com/get-started
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    if ($GLOBALS['assets_options']['grit_SETTING_SWIPER']) {
+    if ($GLOBALS['assets_options']['GRIT_SETTING_SWIPER']) {
         wp_enqueue_script('swiper', get_template_directory_uri() . '/assets/swiper/swiper-bundle.min.js', array(), '1.0.0', true);
     }
 
@@ -187,7 +187,7 @@ function grit_scripts()
                         // Attiva libreria Owl Carousel CSS JS owlcarousel2.github.io/OwlCarousel2
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    if ($GLOBALS['assets_options']['grit_SETTING_OWL_CAROUSEL']) {
+    if ($GLOBALS['assets_options']['GRIT_SETTING_OWL_CAROUSEL']) {
         wp_enqueue_style('owl_carousel', get_template_directory_uri() . '/assets/owl-carousel/owl.carousel.min.css');
         wp_enqueue_script('owl_carousel', get_template_directory_uri() . '/assets/owl-carousel/owl.carousel.min.js');
     }
@@ -197,7 +197,7 @@ function grit_scripts()
                     // Attiva libreria Jarallax https://github.com/nk-o/jarallax
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    if ($GLOBALS['assets_options']['grit_SETTING_JARALLAX']) {
+    if ($GLOBALS['assets_options']['GRIT_SETTING_JARALLAX']) {
         wp_enqueue_style('jarallax', get_template_directory_uri() . '/assets/jarallax-master/dist/jarallax.css');
         wp_enqueue_script('jarallax', get_template_directory_uri() . '/assets/jarallax-master/dist/jarallax.js', array(), '', true);
         wp_enqueue_script('jarallax_video', get_template_directory_uri() . '/assets/jarallax-master/dist/jarallax-video.js', array(), '', true);
@@ -209,7 +209,7 @@ function grit_scripts()
                         // Attiva libreria NProgress CSS JS https://ricostacruz.com/nprogress/
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    if ($GLOBALS['assets_options']['grit_SETTING_NPROGRESS']) {
+    if ($GLOBALS['assets_options']['GRIT_SETTING_NPROGRESS']) {
         wp_enqueue_style('nprogress', get_template_directory_uri() . '/assets/nprogress/nprogress.css');
         wp_enqueue_script('nprogress', get_template_directory_uri() . '/assets/nprogress/nprogress.js');
     }
@@ -219,7 +219,7 @@ function grit_scripts()
                         // Attiva libreria Magic Mouse CSS JS magicmousejs.web.app
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    if ($GLOBALS['assets_options']['grit_SETTING_MAGIC_MOUSE']) {
+    if ($GLOBALS['assets_options']['GRIT_SETTING_MAGIC_MOUSE']) {
         wp_enqueue_style('magic-mouse', get_template_directory_uri() . '/assets/magic-mouse-js/magic-mouse.css');
         wp_enqueue_script('magic-mouse', get_template_directory_uri() . '/assets/magic-mouse-js/magic_mouse.js');
     }
@@ -229,7 +229,7 @@ function grit_scripts()
                         // Attiva libreria  Butter JS bcjdevelopment.github.io/butter.js
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    if ($GLOBALS['assets_options']['grit_SETTING_BUTTER']) {
+    if ($GLOBALS['assets_options']['GRIT_SETTING_BUTTER']) {
         wp_enqueue_script('butter', get_template_directory_uri() . '/assets/butter-js/butter.js');
     }
 
@@ -238,7 +238,7 @@ function grit_scripts()
                         // Attiva libreria Cocoen CSS JS github.com/jotform/before-after.js
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    if ($GLOBALS['assets_options']['grit_SETTING_COCOEN']) {
+    if ($GLOBALS['assets_options']['GRIT_SETTING_COCOEN']) {
         wp_enqueue_style('cocoen', get_template_directory_uri() . '/assets/cocoen/css/cocoen.min.css');
         wp_enqueue_script('cocoen', get_template_directory_uri() . '/assets/cocoen/js/cocoen.min.js');
     }
@@ -249,7 +249,7 @@ function grit_scripts()
                         // Carico lista percorsi CSS di terze parti in core/wp-config.php
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    foreach ($GLOBALS['grit_SETTING_CSS'] as $nome => $percorso) {
+    foreach ($GLOBALS['GRIT_SETTING_CSS'] as $nome => $percorso) {
         wp_enqueue_style($nome, $percorso);
     }
 
@@ -258,7 +258,7 @@ function grit_scripts()
                         // Carico lista percorsi JS di terze parti in core/wp-config.php
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    foreach ($GLOBALS['grit_SETTING_JS'] as $nome => $percorso) {
+    foreach ($GLOBALS['GRIT_SETTING_JS'] as $nome => $percorso) {
         wp_enqueue_script($nome, $percorso, NULL, NULL, true);
     }
 
@@ -267,8 +267,8 @@ function grit_scripts()
                         // http://www.giovannifracasso.it/accettazione-cookies-privacy-banner/
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    if ($GLOBALS['assets_options']['grit_SETTING_COOKIES']) {
-        wp_enqueue_script('cookies', get_template_directory_uri() . '/assets/cookiechoices.js', array(), '1.0.0', true);
+    if ($GLOBALS['assets_options']['GRIT_SETTING_COOKIES']) {
+        wp_enqueue_script('cookies', get_template_directory_uri() . '/assets/js/cookiechoices.js', array(), '1.0.0', true);
     }
 
 }
@@ -288,19 +288,19 @@ function grit_scripts_custom()
     ::::::::::::::    * A_SETTINGS Carico style.css
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    wp_enqueue_style('main', get_template_directory_uri() . '/assets/main.css');
+    wp_enqueue_style('main', get_template_directory_uri() . '/assets/css/main.css');
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     ::::::::::::::    * A_SETTINGS Carico il CSS custom
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    wp_enqueue_style('custom', get_template_directory_uri() . '/assets/custom.css');
+    wp_enqueue_style('custom', get_template_directory_uri() . '/assets/css/custom.css');
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     ::::::::::::::    * A_SETTINGS Carico il JS custom
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    wp_enqueue_script('scripts', get_template_directory_uri() . '/assets/custom.js', array(), '1.0.0', true);
+    wp_enqueue_script('scripts', get_template_directory_uri() . '/assets/js/custom.js', array(), '1.0.0', true);
 
  
 
@@ -348,7 +348,7 @@ function grit_cookies()
 <?php }
 
 
-if ($GLOBALS['assets_options']['grit_SETTING_COOKIES']) {
+if ($GLOBALS['assets_options']['GRIT_SETTING_COOKIES']) {
     add_action('wp_footer', 'grit_cookies', 20);
 }
 

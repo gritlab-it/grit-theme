@@ -1,58 +1,24 @@
 @charset "UTF-8";
-/* A_SETTINGS INDEX CSS 
-01 * A_SETTINGS Import
+/* A_SETTINGS INDEX CSS  
 02 * A_SETTINGS Font
-03 * A_SETTINGS Color
-04 * A_SETTINGS Background Color
-05 * A_SETTINGS Text Color
-06 * A_SETTINGS Main Section
-07 * A_SETTINGS font
-08 * A_SETTINGS img-hover
-09 * A_SETTINGS jarallax
-10 * A_SETTINGS animate
-11 * A_SETTINGS sticky-menu
-12 * A_SETTINGS primary-menu
-13 * A_SETTINGS shadow
-14 * A_SETTINGS radius
-15 * A_SETTINGS button grit
-16 * A_SETTINGS button
-17 * A_SETTINGS cf7
-18 * A_SETTINGS cf7
-19 * A_SETTINGS loader
-20 * A_SETTINGS gototop
-21 * A_SETTINGS sidenav
-22 * A_SETTINGS menu mobile
-23 * A_SETTINGS equal cols
-24 * A_SETTINGS magic-mouse-js
-25 * A_SETTINGS progress-js
-26 * A_SETTINGS breakpoints
 */
-/*  01 * A_SETTINGS Import
-    Note: Impostazioni per css @import url("style-custom.css");
-*/
-/*  02 * A_SETTINGS Font
-    Note: Impostazioni font
-*/
-@import url("font/roboto/stylesheet.css");
-/*  03 * A_SETTINGS Color
-    Note: Impostazioni colori
-*/
+/*  03 * A_SETTINGS Variables */
+@import url("../font/roboto/stylesheet.css");
 :root {
-  --primary: #0000E5;
-  --secondary: #FFFF33;
+  --primary: #f7f7f7;
+  --secondary: #231F20;
   --tertiary: #8080F2;
   --quaternary: #CCCCFA;
 }
 
-/*  04 * A_SETTINGS Background Color
-    Note: Impostazioni per css
-*/
+/* GRIT_SET Background Color
+    Note: Setting colors backgorund es bg-primary */
 .bg-primary {
-  background: #0000E5;
+  background: #f7f7f7;
 }
 
 .bg-secondary {
-  background: #FFFF33;
+  background: #231F20;
 }
 
 .bg-tertiary {
@@ -71,20 +37,14 @@
   background: #000000;
 }
 
-.bg-primary-half-white {
-  background: #0000E5;
-  background: linear-gradient(0deg, #0000E5 50%, #ffffff 50%);
-}
-
-/*  05 * A_SETTINGS Text Color
-    Note: Impostazioni per css
-*/
+/* GRIT_SET text Color
+    Note: Setting colors backgorund es color-primary */
 .color-primary {
-  color: #0000E5;
+  color: #f7f7f7;
 }
 
 .color-secondary {
-  color: #FFFF33;
+  color: #231F20;
 }
 
 .color-tertiary {
@@ -103,53 +63,16 @@
   color: #000000;
 }
 
-/*  06 * A_SETTINGS Main Section
-    Note: Impostazioni per css
-*/
-body {
-  font-family: "Roboto", sans-serif;
-  color: #000000;
-  font-weight: normal;
-  font-style: normal;
-  margin: 0;
-  padding: 0;
+.bg-half {
+  background: #f7f7f7;
+  background: -moz-linear-gradient(0deg, #f7f7f7 50%, #ffffff 50%);
+  background: -webkit-linear-gradient(0deg, #f7f7f7 50%, #ffffff 50%);
+  background: linear-gradient(0deg, #f7f7f7 50%, #ffffff 50%);
 }
 
-footer {
-  background: #000000;
-  position: relative;
-  width: 100%;
-}
-
-.breadcrumb {
-  /*
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    padding: 0.75rem 1rem;
-    margin-bottom: 1rem;
-    list-style: none;
-    background-color: #e9ecef;
-    border-radius: 0.25rem;
-  */
-  background-color: transparent;
-  padding: 0.25rem 0rem;
-  margin-bottom: 0rem;
-}
-.breadcrumb a {
-  color: #FFFF33;
-}
-.breadcrumb a:hover {
-  color: #8080F2;
-}
-.breadcrumb .breadcrumb_last {
-  color: #ffffff;
-}
-
-/*  07 * A_SETTINGS font
-    Note: Impostazioni per css
-*/
+/* GRIT_SET Fonts
+    Note: Setting fonts */
+/*  03 * A_SETTINGS Variables */
 p {
   font-family: "Roboto", sans-serif;
 }
@@ -160,7 +83,7 @@ h2,
 .h2,
 h3,
 .h3 {
-  font-family: "Kanit", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 h4,
@@ -174,389 +97,19 @@ h6,
 
 a {
   font-variation-settings: "slnt" 0;
-  color: #0000E5;
+  color: #f7f7f7;
   text-decoration: none;
   background-color: transparent;
   transition: 0.7s all ease-in-out;
 }
 
 a:hover {
-  color: #FFFF33;
+  color: #231F20;
   font-variation-settings: "slnt" 12;
   text-decoration: none;
 }
 
-.grit-underline {
-  color: #0000E5 !important;
-  -webkit-text-decoration: solid;
-          text-decoration: solid;
-  text-decoration-line: underline;
-  text-decoration-style: inherit;
-  text-decoration-color: #0000E5;
-}
-
-/*  08 * A_SETTINGS img-hover
-    Note: Impostazioni per css
-*/
-.img-hover .img-hover-inner {
-  position: relative;
-  overflow: hidden;
-}
-
-.img-hover .img-hover-inner img {
-  transition: all 0.7s;
-  transform: scale(1);
-}
-
-.img-hover:hover .img-hover-inner img {
-  transform: scale(1.1);
-}
-
-/*  09 * A_SETTINGS jarallax
-    Note: Impostazioni per css jarallax-keep-img
-*/
-.jarallax-keep-img {
-  position: relative;
-  z-index: 0;
-}
-
-.jarallax-keep-img > .jarallax-img {
-  position: relative;
-  display: block;
-  max-width: 100%;
-  height: auto;
-  z-index: -100;
-}
-
-.loaded .jarallax-keep-img:before {
-  content: "";
-  opacity: 0;
-  transition: 1s all ease-in-out;
-  transition-delay: 0.9s;
-  z-index: 10;
-}
-
-.jarallax-keep-img:before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: #0000E5;
-  opacity: 1;
-}
-
-.loaded .img-hover-inner:before {
-  content: "";
-  opacity: 0;
-  transition: 0.5s all ease-in-out;
-  transition-delay: 0.9s;
-  z-index: 10;
-}
-
-.img-hover-inner:before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: #0000E5;
-  opacity: 1;
-}
-
-/*  10 * A_SETTINGS animate
-    Note: Impostazioni per css
-*/
-/* This only changes this particular animation duration */
-.animate__animated.animate__bounce {
-  --animate-duration: 2s;
-}
-
-/* This changes all the animations global */
-:root {
-  --animate-duration: 800ms;
-  --animate-delay: 0.9s;
-}
-
-.hidden {
-  opacity: 0;
-}
-
-.visible {
-  opacity: 1;
-}
-
-/*  11 * A_SETTINGS sticky-menu
-    Note: Impostazioni per css
-*/
-.sticky-fix {
-  position: fixed;
-  width: 100%;
-  top: -126px;
-  z-index: 1;
-  transition: 0.4s all ease-out 0.5s;
-  background-color: #ffffff;
-  z-index: 2;
-}
-.sticky-fix.sticky-in {
-  top: 0;
-}
-.sticky-fix .logo {
-  max-height: 10px;
-}
-
-/*  12 * A_SETTINGS primary-menu
-    Note: Impostazioni per css
-*/
-.navbar-toggler {
-  color: #0000E5;
-}
-
-button.navbar-toggler:focus,
-button.navbar-toggler:focus-visible {
-  outline: none;
-}
-
-.header-menu {
-  z-index: 3;
-  position: relative;
-  background-color: #ffffff;
-}
-
-#header-1 .logo,
-#header-2 .logo {
-  max-height: 20px;
-}
-#header-1 #header-2-sidenav .logo,
-#header-2 #header-2-sidenav .logo {
-  max-height: 20px;
-}
-@media (min-width: 576px) {
-  #header-1 #header-2-sidenav .logo,
-  #header-2 #header-2-sidenav .logo {
-    max-height: 25px;
-  }
-  #header-1 .logo,
-  #header-2 .logo {
-    max-height: 25px;
-  }
-}
-#header-1 #primary-menu li,
-#header-2 #primary-menu li {
-  list-style: none;
-}
-#header-1 #primary-menu li a,
-#header-2 #primary-menu li a {
-  text-decoration: none;
-  position: relative;
-  color: #0000E5;
-  font-size: 17px;
-  font-weight: 700;
-  font-family: "Roboto", sans-serif;
-  display: block;
-  overflow: hidden;
-  transition: 0.7s all ease-in-out;
-  text-transform: uppercase;
-  padding: 10px 14px;
-}
-#header-1 #primary-menu li:hover a,
-#header-2 #primary-menu li:hover a {
-  color: #FFFF33;
-}
-#header-1 #primary-menu li a:before,
-#header-2 #primary-menu li a:before {
-  content: "";
-  width: 0%;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  height: 2px;
-  background: #000000;
-  position: absolute;
-  transition: 0.7s all ease-in-out;
-}
-#header-1 #primary-menu .item-menu-icon a:before,
-#header-2 #primary-menu .item-menu-icon a:before {
-  display: none;
-}
-#header-1 #primary-menu li:hover > a:before,
-#header-2 #primary-menu li:hover > a:before {
-  content: "";
-  width: 100%;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  height: 2px;
-  background: #FFFF33;
-  position: absolute;
-  transition: 0.7s all ease-in-out;
-}
-#header-1 #primary-menu li.current_page_item > a:before,
-#header-2 #primary-menu li.current_page_item > a:before {
-  content: "";
-  width: 100%;
-  bottom: 0;
-  left: 0;
-  margin: 0 auto;
-  height: 2px;
-  background: #0000E5;
-  position: absolute;
-  transition: 0.7s all ease-in-out;
-}
-#header-1 #primary-menu li.current_page_item > a,
-#header-2 #primary-menu li.current_page_item > a {
-  color: #8080F2;
-  transition: 0.7s all ease-in-out;
-}
-#header-1 #primary-menu .dropdown:hover > .dropdown-menu,
-#header-2 #primary-menu .dropdown:hover > .dropdown-menu {
-  display: block;
-}
-#header-1 #primary-menu .dropdown-toggle:hover:after,
-#header-2 #primary-menu .dropdown-toggle:hover:after {
-  display: inline-block;
-}
-
-#header-2 .nav-mobile#primary-menu li {
-  display: block !important;
-  text-align: center;
-}
-#header-2 .nav-mobile#primary-menu li a {
-  font-size: 20px;
-  text-transform: uppercase;
-}
-#header-2 .nav-mobile#primary-menu .dropdown-menu {
-  background-color: transparent;
-}
-
-/*  11 * A_SETTINGS menu mobile
-    Note: Impostazioni per css
-*/
-.overlay-content {
-  position: relative;
-  top: 25%;
-  width: 100%;
-  text-align: center;
-  margin-top: 30px;
-}
-
-.full-menu-logo {
-  position: absolute;
-  margin: 0 auto;
-  left: 0;
-  right: 0;
-}
-
-/*  21 * A_SETTINGS sidenav
-    Note: Impostazioni per css
-*/
-.sidenav.sidenav-open .inner-sidenav,
-.sidenav.sidenav-open .overlay-content {
-  opacity: 1;
-  transition-delay: 0s;
-  transition: all 0.7s ease-in-out;
-}
-
-.sidenav.sidenav-close .inner-sidenav,
-.sidenav.sidenav-close .overlay-content {
-  opacity: 0;
-  transition-delay: 0.5s;
-  transition: all 0.7s ease-in-out;
-}
-
-.sidenav {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 100;
-  top: 0;
-  right: 0;
-  background-color: #FFFF33;
-  overflow-x: hidden;
-  transition: 0.5s;
-  /*padding-top: 60px;*/
-  text-align: center;
-}
-
-/*  22 * A_SETTINGS menu mobile
-    Note: Impostazioni per css
-*/
-.overlay-content {
-  position: relative;
-  top: 25%;
-  width: 100%;
-  text-align: center;
-  margin-top: 30px;
-}
-
-.full-menu-logo {
-  position: absolute;
-  margin: 0 auto;
-  left: 0;
-  right: 0;
-}
-
-/*  13 * A_SETTINGS shadow
-    Note: Impostazioni per css
-*/
-.grit-shadow-1 {
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-/*  14 * A_SETTINGS radius
-    Note: Impostazioni per css
-*/
-.grit-radius-10 {
-  border-radius: 10px;
-}
-
-.grit-img-radius-top-10 {
-  border-radius: 0 0 10px 10px;
-}
-
-.grit-img-radius-bottom-10 {
-  border-radius: 10px 10px 0 0;
-}
-
-/*  15 * A_SETTINGS button grit
-    Note: Impostazioni per css
-*/
-.grit-btn {
-  font-size: 19px;
-  background: none;
-  color: #0000E5;
-  border: none;
-  margin: 4px auto;
-  transition: all 0.7s;
-}
-
-/*footer .grit-btn {
-  color: $white;
-}*/
-.grit-btn:hover {
-  color: #FFFF33;
-  text-decoration: none;
-}
-
-.grit-btn:before {
-  content: "";
-  display: block;
-  width: 30px;
-  margin-top: 28px;
-  height: 2px;
-  background: #FFFF33;
-  position: absolute;
-  transition: 0.7s all ease-in-out;
-}
-
-.grit-btn:hover::before {
-  width: 80px;
-  background: #0000E5;
-}
-
-/*  16 * A_SETTINGS button
-    Note: Impostazioni per css
-*/
+/* A_SETTINGS button */
 .btn {
   border-radius: 0px;
   padding: 0.545em 1em;
@@ -570,83 +123,75 @@ button.navbar-toggler:focus-visible {
   position: relative;
   font-weight: 600;
   text-transform: uppercase;
-  /*Standard*/
-  /*
-    border-radius: 10px;
-    font-family: Inter;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 20px;
-    text-align: center;
-    text-transform: uppercase;
-    padding: 0.375rem 1.75rem;
-    transition: all 0.3s ease-in-out;
-  */
+  /* Standard */
 }
 .btn .btn-circle {
   width: 40px;
   height: 40px;
   padding: 3px;
+  margin: 0px 3px;
   border-radius: 25px;
   font-size: 22px;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .btn-primary {
   color: #ffffff;
-  background: #0000E5;
-  border-color: #0000E5;
+  background: #f7f7f7;
+  border-color: #f7f7f7;
   transition: all 0.3s ease;
 }
 .btn-primary:hover {
   color: #ffffff;
-  background: #FFFF33;
-  border-color: #FFFF33;
+  background: #231F20;
+  border-color: #231F20;
 }
 .btn-primary:active {
   background: #b3b3b3;
-  border-color: #999900;
+  border-color: black;
 }
 .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
-  background: #00004c;
-  border-color: #00004c;
+  background: #ababab;
+  border-color: #ababab;
 }
 .btn-primary.disabled, .btn-primary:disabled {
   opacity: 0.1;
-  background: #00004c;
-  border-color: #00004c;
+  background: #ababab;
+  border-color: #ababab;
 }
 .btn-primary.focus, .btn-primary:focus {
-  box-shadow: 0 0 0 0.2rem #1919ff;
+  box-shadow: 0 0 0 0.2rem white;
 }
 
 .btn-secondary {
-  color: #0000E5;
-  background: #FFFF33;
-  border-color: #FFFF33;
+  color: #f7f7f7;
+  background: #231F20;
+  border-color: #231F20;
   transition: all 0.3s ease;
 }
 .btn-secondary:hover {
   color: #ffffff;
-  background: #0000E5;
-  border-color: #0000E5;
+  background: #f7f7f7;
+  border-color: #f7f7f7;
 }
 .btn-secondary:active {
   background: #b3b3b3;
-  border-color: #00004c;
+  border-color: #ababab;
 }
 .btn-secondary:not(:disabled):not(.disabled).active, .btn-secondary:not(:disabled):not(.disabled):active, .show > .btn-secondary.dropdown-toggle {
-  background: #999900;
-  border-color: #999900;
+  background: black;
+  border-color: black;
 }
 .btn-secondary.disabled, .btn-secondary:disabled {
   opacity: 0.1;
-  background: #999900;
-  border-color: #999900;
+  background: black;
+  border-color: black;
 }
 .btn-secondary.focus, .btn-secondary:focus {
-  box-shadow: 0 0 0 0.2rem #ffff66;
+  box-shadow: 0 0 0 0.2rem #3e3739;
 }
 
 .btn-tertiary {
@@ -706,56 +251,56 @@ button.navbar-toggler:focus-visible {
 }
 
 .btn-outline-primary {
-  color: #0000E5;
+  color: #f7f7f7;
   background: #ffffff;
-  border-color: #0000E5;
+  border-color: #f7f7f7;
   transition: all 0.3s ease;
 }
 .btn-outline-primary:hover {
-  color: #FFFF33;
+  color: #231F20;
   background: #ffffff;
-  border-color: #FFFF33;
+  border-color: #231F20;
 }
 .btn-outline-primary:active {
-  background: #999900;
-  border-color: #999900;
+  background: black;
+  border-color: black;
 }
 .btn-outline-primary:not(:disabled):not(.disabled).active, .btn-outline-primary:not(:disabled):not(.disabled):active, .show > .btn-outline-primary.dropdown-toggle {
   background: #b3b3b3;
-  border-color: #00004c;
+  border-color: #ababab;
 }
 .btn-outline-primary.disabled, .btn-outline-primary:disabled {
   opacity: 0.1;
   background: #b3b3b3;
-  border-color: #00004c;
+  border-color: #ababab;
 }
 .btn-outline-primary.focus, .btn-outline-primary:focus {
   box-shadow: 0 0 0 0.2rem white;
 }
 
 .btn-outline-secondary {
-  color: #FFFF33;
+  color: #231F20;
   background: #ffffff;
-  border-color: #FFFF33;
+  border-color: #231F20;
   transition: all 0.3s ease;
 }
 .btn-outline-secondary:hover {
-  color: #0000E5;
+  color: #f7f7f7;
   background: #ffffff;
-  border-color: #0000E5;
+  border-color: #f7f7f7;
 }
 .btn-outline-secondary:active {
-  background: #00004c;
-  border-color: #00004c;
+  background: #ababab;
+  border-color: #ababab;
 }
 .btn-outline-secondary:not(:disabled):not(.disabled).active, .btn-outline-secondary:not(:disabled):not(.disabled):active, .show > .btn-outline-secondary.dropdown-toggle {
   background: #b3b3b3;
-  border-color: #999900;
+  border-color: black;
 }
 .btn-outline-secondary.disabled, .btn-outline-secondary:disabled {
   opacity: 0.1;
   background: #b3b3b3;
-  border-color: #999900;
+  border-color: black;
 }
 .btn-outline-secondary.focus, .btn-outline-secondary:focus {
   box-shadow: 0 0 0 0.2rem white;
@@ -817,12 +362,297 @@ button.navbar-toggler:focus-visible {
   box-shadow: 0 0 0 0.2rem white;
 }
 
-/*  17 * A_SETTINGS cf7
-    Note: Impostazioni per css
-*/
-/*  18 * A_SETTINGS cf7
-    Note: Impostazioni per css
-*/
+/*  03 * A_SETTINGS Header */
+.breadcrumb {
+  /*
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    list-style: none;
+    background-color: #e9ecef;
+    border-radius: 0.25rem;
+  */
+  background-color: transparent;
+  padding: 0.25rem 0rem;
+  margin-bottom: 0rem;
+}
+.breadcrumb a {
+  color: #231F20;
+}
+.breadcrumb a:hover {
+  color: #8080F2;
+}
+.breadcrumb .breadcrumb_last {
+  color: #ffffff;
+}
+
+/* A_SETTINGS sticky-menu */
+.sticky-fix {
+  position: fixed;
+  width: 100%;
+  top: -126px;
+  z-index: 1;
+  transition: 0.4s all ease-out 0.5s;
+  background-color: #ffffff;
+  z-index: 2;
+}
+.sticky-fix.sticky-in {
+  top: 0;
+}
+.sticky-fix .logo {
+  max-height: 10px;
+}
+
+/* A_SETTINGS primary-menu */
+.navbar-toggler {
+  color: #f7f7f7;
+}
+
+button.navbar-toggler:focus,
+button.navbar-toggler:focus-visible {
+  outline: none;
+}
+
+.header-menu {
+  z-index: 3;
+  position: relative;
+  background-color: #ffffff;
+}
+
+#header-1 .logo,
+#header-2 .logo {
+  max-height: 20px;
+}
+#header-1 #header-2-sidenav .logo,
+#header-2 #header-2-sidenav .logo {
+  max-height: 20px;
+}
+@media (min-width: 576px) {
+  #header-1 #header-2-sidenav .logo,
+  #header-2 #header-2-sidenav .logo {
+    max-height: 25px;
+  }
+  #header-1 .logo,
+  #header-2 .logo {
+    max-height: 25px;
+  }
+}
+#header-1 #primary-menu li,
+#header-2 #primary-menu li {
+  list-style: none;
+}
+#header-1 #primary-menu li a,
+#header-2 #primary-menu li a {
+  text-decoration: none;
+  position: relative;
+  color: #f7f7f7;
+  font-size: 17px;
+  font-weight: 700;
+  font-family: "Roboto", sans-serif;
+  display: block;
+  overflow: hidden;
+  transition: 0.7s all ease-in-out;
+  text-transform: uppercase;
+  padding: 10px 14px;
+}
+#header-1 #primary-menu li:hover a,
+#header-2 #primary-menu li:hover a {
+  color: #231F20;
+}
+#header-1 #primary-menu li a:before,
+#header-2 #primary-menu li a:before {
+  content: "";
+  width: 0%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  height: 2px;
+  background: #000000;
+  position: absolute;
+  transition: 0.7s all ease-in-out;
+}
+#header-1 #primary-menu .item-menu-icon a:before,
+#header-2 #primary-menu .item-menu-icon a:before {
+  display: none;
+}
+#header-1 #primary-menu li:hover > a:before,
+#header-2 #primary-menu li:hover > a:before {
+  content: "";
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  height: 2px;
+  background: #231F20;
+  position: absolute;
+  transition: 0.7s all ease-in-out;
+}
+#header-1 #primary-menu li.current_page_item > a:before,
+#header-2 #primary-menu li.current_page_item > a:before {
+  content: "";
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  margin: 0 auto;
+  height: 2px;
+  background: #f7f7f7;
+  position: absolute;
+  transition: 0.7s all ease-in-out;
+}
+#header-1 #primary-menu li.current_page_item > a,
+#header-2 #primary-menu li.current_page_item > a {
+  color: #8080F2;
+  transition: 0.7s all ease-in-out;
+}
+#header-1 #primary-menu .dropdown:hover > .dropdown-menu,
+#header-2 #primary-menu .dropdown:hover > .dropdown-menu {
+  display: block;
+}
+#header-1 #primary-menu .dropdown-toggle:hover:after,
+#header-2 #primary-menu .dropdown-toggle:hover:after {
+  display: inline-block;
+}
+
+#header-2 .nav-mobile#primary-menu li {
+  display: block !important;
+  text-align: center;
+}
+#header-2 .nav-mobile#primary-menu li a {
+  font-size: 20px;
+  text-transform: uppercase;
+}
+#header-2 .nav-mobile#primary-menu .dropdown-menu {
+  background-color: transparent;
+}
+
+/* A_SETTINGS menu mobile  */
+.overlay-content {
+  position: relative;
+  top: 25%;
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.full-menu-logo {
+  position: absolute;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+}
+
+/* A_SETTINGS sidenav */
+.sidenav.sidenav-open .inner-sidenav,
+.sidenav.sidenav-open .overlay-content {
+  opacity: 1;
+  transition-delay: 0s;
+  -webkit-transition: all 0.7s ease-in-out;
+  transition: all 0.7s ease-in-out;
+}
+
+.sidenav.sidenav-close .inner-sidenav,
+.sidenav.sidenav-close .overlay-content {
+  opacity: 0;
+  transition-delay: 0.5s;
+  -webkit-transition: all 0.7s ease-in-out;
+  transition: all 0.7s ease-in-out;
+}
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  background-color: #231F20;
+  overflow-x: hidden;
+  transition: 0.5s;
+  /*padding-top: 60px;*/
+  text-align: center;
+}
+
+/* A_SETTINGS menu mobile */
+.overlay-content {
+  position: relative;
+  top: 25%;
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.full-menu-logo {
+  position: absolute;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+}
+
+/*  03 * A_SETTINGS Footer */
+footer {
+  background-color: #ffffff;
+  position: relative;
+  width: 100%;
+}
+
+/*  03 * A_SETTINGS Content */
+body {
+  font-family: "Roboto", sans-serif;
+  color: #000000;
+  background-color: #ffffff;
+  font-weight: normal;
+  font-style: normal;
+  margin: 0;
+  padding: 0;
+}
+
+/* A_SETTINGS equal cols  */
+.row.equal-cols {
+  display: -webkit-flex !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-flex-wrap: wrap !important;
+  -ms-flex-wrap: wrap !important;
+  flex-wrap: wrap;
+}
+
+.row.equal-cols:before,
+.row.equal-cols:after {
+  display: block;
+}
+
+.row.equal-cols > [class*=col-] {
+  display: -webkit-flex !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.row.equal-cols > [class*=col-] > * {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.row.equal-cols .tease {
+  display: -webkit-flex !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+/*  03 * A_SETTINGS Sections */
+/*  03 * A_SETTINGS Forms */
+/* A_SETTINGS contact-form-style-1 */
 #contact-form-style-1 label {
   display: block;
   font-size: 20px;
@@ -919,14 +749,6 @@ button.navbar-toggler:focus-visible {
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(204, 204, 204, 0.5) !important;
 }
-#contact-form-style-1 ::-moz-placeholder {
-  /* Chrome, Firefox, Opera, Safari 10.1+
-  */
-  color: #808080;
-  opacity: 1;
-  /* Firefox
-  */
-}
 #contact-form-style-1 ::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+
   */
@@ -952,6 +774,9 @@ button.navbar-toggler:focus-visible {
 }
 #contact-form-style-1 .wpcf7 .ajax-loader {
   background: url("../img/loading.gif") no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
   background-size: cover;
   width: 124px;
   height: 36px;
@@ -963,6 +788,7 @@ button.navbar-toggler:focus-visible {
   width: auto;
 }
 
+/* A_SETTINGS contact-form-style-2 */
 #contact-form-style-2 label {
   display: block;
   font-size: 20px;
@@ -1001,7 +827,7 @@ button.navbar-toggler:focus-visible {
 #contact-form-style-2 input[type=tel],
 #contact-form-style-2 .wpcf7-tel {
   border: none;
-  border-bottom: solid 3px #FFFF33;
+  border-bottom: solid 3px #231F20;
 }
 #contact-form-style-2 .wpcf7-select,
 #contact-form-style-2 input[type=select],
@@ -1018,8 +844,8 @@ button.navbar-toggler:focus-visible {
 #contact-form-style-2 input:focus,
 #contact-form-style-2 .form-control:focus {
   background-color: transparent;
-  color: #0000E5;
-  border-bottom: 3px solid #0000E5;
+  color: #f7f7f7;
+  border-bottom: 3px solid #f7f7f7;
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.5) !important;
 }
@@ -1048,30 +874,22 @@ button.navbar-toggler:focus-visible {
 #contact-form-style-2 .wpcf7-date,
 #contact-form-style-2 input[type=date] {
   border: none;
-  border-bottom: solid 3px #FFFF33;
+  border-bottom: solid 3px #231F20;
 }
 #contact-form-style-2 .wpcf7-select:focus,
 #contact-form-style-2 input[type=select]:focus,
 #contact-form-style-2 .wpcf7-date:focus,
 #contact-form-style-2 input[type=date]:focus {
   background-color: transparent;
-  color: #0000E5;
-  border-bottom: 3px solid #0000E5;
+  color: #f7f7f7;
+  border-bottom: 3px solid #f7f7f7;
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.5) !important;
-}
-#contact-form-style-2 ::-moz-placeholder {
-  /* Chrome, Firefox, Opera, Safari 10.1+
-  */
-  color: #0000E5;
-  opacity: 1;
-  /* Firefox
-  */
 }
 #contact-form-style-2 ::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+
   */
-  color: #0000E5;
+  color: #f7f7f7;
   opacity: 1;
   /* Firefox
   */
@@ -1079,13 +897,13 @@ button.navbar-toggler:focus-visible {
 #contact-form-style-2 :-ms-input-placeholder {
   /* Internet Explorer 10-11
   */
-  color: #0000E5;
+  color: #f7f7f7;
   opacity: 1;
 }
 #contact-form-style-2 ::-ms-input-placeholder {
   /* Microsoft Edge
   */
-  color: #0000E5;
+  color: #f7f7f7;
   opacity: 1;
 }
 #contact-form-style-2 .wpcf7 .ajax-loader::before {
@@ -1093,6 +911,9 @@ button.navbar-toggler:focus-visible {
 }
 #contact-form-style-2 .wpcf7 .ajax-loader {
   background: url("../img/loading.gif") no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
   background-size: cover;
   width: 124px;
   height: 36px;
@@ -1104,11 +925,32 @@ button.navbar-toggler:focus-visible {
   width: auto;
 }
 
-/*  19 * A_SETTINGS loader
-    Note: impostazioni per modificare il loader
-    Note: effetto al caricamento della pagina composto da logo sezioni e loader
-    Note: L'evento che fa avviare è la classe 'loaded' posizionato nel body
-*/
+/*  03 * A_SETTINGS Plugins */
+/* A_SETTINGS animate 
+  Note: This only changes this particular animation duration 
+  */
+.animate__animated.animate__bounce {
+  --animate-duration: 2s;
+}
+
+/* This changes all the animations global */
+:root {
+  --animate-duration: 800ms;
+  --animate-delay: 0.9s;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+.visible {
+  opacity: 1;
+}
+
+/* A_SETTINGS loader
+  Note: impostazioni per modificare il loader Note: effetto al caricamento della pagina composto da logo sezioni e loader
+  Note: L'evento che fa avviare è la classe 'loaded' posizionato nel body
+  */
 #main-content {
   filter: blur(13px);
   -webkit-filter: blur(13px);
@@ -1213,7 +1055,7 @@ header {
   top: 0;
   width: 50%;
   height: 100%;
-  background: #0000E5;
+  background: #f7f7f7;
   z-index: 80;
   transform: translateX(0);
   transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -1288,7 +1130,7 @@ header {
   width: 100%;
   max-width: 1140px;
   height: 100vh;
-  background: #0000E5;
+  background: #f7f7f7;
   position: absolute;
   top: 0px;
   bottom: 0px;
@@ -1308,9 +1150,38 @@ header {
   margin-top: unset;
 }
 
-/*  20 * A_SETTINGS gototop
-    Note: Impostazioni per css
-*/
+/* A_SETTINGS jarallax */
+.jarallax-keep-img {
+  position: relative;
+  z-index: 0;
+}
+
+.jarallax-keep-img > .jarallax-img {
+  position: relative;
+  display: block;
+  max-width: 100%;
+  height: auto;
+  z-index: -100;
+}
+
+.loaded .jarallax-keep-img:before {
+  content: "";
+  opacity: 0;
+  transition: 1s all ease-in-out;
+  transition-delay: 0.9s;
+  z-index: 10;
+}
+
+.jarallax-keep-img:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #f7f7f7;
+  opacity: 1;
+}
+
+/* A_SETTINGS gototop */
 #gototop-btn {
   display: none;
   position: fixed;
@@ -1321,43 +1192,14 @@ header {
   font-size: 18px;
   border: none;
   outline: none;
-  background-color: #0000E5;
+  background-color: #f7f7f7;
   color: #ffffff;
   cursor: pointer;
   padding: 5px;
   border-radius: 50%;
 }
 
-/*  23 * A_SETTINGS equal cols
-    Note: Impostazioni per css
-*/
-.row.equal-cols {
-  display: flex !important;
-  flex-wrap: wrap;
-}
-
-.row.equal-cols:before,
-.row.equal-cols:after {
-  display: block;
-}
-
-.row.equal-cols > [class*=col-] {
-  display: flex !important;
-  flex-direction: column;
-}
-
-.row.equal-cols > [class*=col-] > * {
-  flex: 1 1 auto;
-}
-
-.row.equal-cols .tease {
-  display: flex !important;
-  flex-direction: column;
-}
-
-/*  24 * A_SETTINGS magic-mouse-js
-    Note: Impostazioni per togliere il cursore definitivamente
-*/
+/* A_SETTINGS magic-mouse-js */
 body #magicMouseCursor {
   position: fixed;
   width: 35px;
@@ -1394,7 +1236,7 @@ body #magicPointer.is-hover {
   top: 0;
   left: 0;
   position: fixed;
-  background: #FFFF33;
+  background: #231F20;
   border-radius: 50%;
   pointer-events: none;
   transition: background 0.2s, width 0.2s, height 0.2s, box-shadow 0.2s;
@@ -1404,16 +1246,16 @@ body #magicPointer.pointer-blur {
   height: 50px;
   width: 50px;
   background: none;
-  border: 1px solid #FFFF33;
-  box-shadow: 0px 0px 15px -5px #FFFF33;
+  border: 1px solid #231F20;
+  box-shadow: 0px 0px 15px -5px #231F20;
 }
 
 body #magicPointer.pointer-overlay {
   height: 50px;
   width: 50px;
   mix-blend-mode: difference;
-  background: #FFFF33;
-  box-shadow: 0px 0px 0px 0px #FFFF33;
+  background: #231F20;
+  box-shadow: 0px 0px 0px 0px #231F20;
 }
 
 body .magic-hover {
@@ -1424,25 +1266,58 @@ body .magic-hover:hover {
   cursor: none;
 }
 
-/*  25 * A_SETTINGS progress-js
-    Note: Impostazioni per togliere il cursore definitivamente
-*/
+/* A_SETTINGS progress-js */
 #nprogress .bar {
-  background: #FFFF33;
+  background: #231F20;
 }
 
 #nprogress .peg {
-  box-shadow: 0 0 10px #FFFF33, 0 0 5px #FFFF33;
+  box-shadow: 0 0 10px #231F20, 0 0 5px #231F20;
 }
 
 #nprogress .spinner-icon {
-  border-top-color: #FFFF33;
-  border-left-color: #FFFF33;
+  border-top-color: #231F20;
+  border-left-color: #231F20;
 }
 
-/*  26 * A_SETTINGS breakpoints
-    Note: Impostazioni per togliere il cursore definitivamente
-Note:Bootstrap 4 breakpoints
+/*  
+08 * A_SETTINGS img-hover
+  Note: Impostazioni per css */
+.img-hover .img-hover-inner {
+  position: relative;
+  overflow: hidden;
+}
+
+.img-hover .img-hover-inner img {
+  transition: all 0.7s;
+  transform: scale(1);
+}
+
+.img-hover:hover .img-hover-inner img {
+  transform: scale(1.1);
+}
+
+.loaded .img-hover-inner:before {
+  content: "";
+  opacity: 0;
+  transition: 0.5s all ease-in-out;
+  transition-delay: 0.9s;
+  z-index: 10;
+}
+
+.img-hover-inner:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #f7f7f7;
+  opacity: 1;
+}
+
+/*  
+26 * A_SETTINGS breakpoints
+  Note: Impostazioni per togliere il cursore definitivamente
+t:Bootstrap 4 breakpoints
 Note:Extra small devices (portrait phones, less than 576px)
 Note:No media query since this is the default in Bootstrap because it is "mobile first*/
 /* Small devices (landscape phones, 576px and up*/
