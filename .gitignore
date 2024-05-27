@@ -24,7 +24,7 @@
 #!wp-content/uploads/
 #/wp-content/themes/grit-theme/assets/.sass-cache/
 #/wp-content/themes/grit-theme-child/assets/.sass-cache/
-assets/.sass-cache
+
 
 # Ignore everything in the "plugins" directory, except the plugins you
 # specify (see the commented-out examples for hints on how to do this.)
@@ -50,3 +50,10 @@ node_modules/
 *.sqlite
 *.sass-cache
 *.DS_Store
+
+# ignore composer dependency directories
+vendor/
+composer.lock
+
+# ignore sass cache dependency directories
+assets/.sass-cache
