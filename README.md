@@ -50,4 +50,4 @@ If you encounter any issues with the theme, please [open an issue](https://githu
 
 ### License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
