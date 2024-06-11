@@ -161,7 +161,7 @@ function grit_theme_activation_action() {
     }
     
     /* Create front page  */
-    
+    $default_pages = array();
     if ($grit_theme_activation_options['create_additional_page'] === 'true') {
         $grit_theme_activation_options['create_additional_page'] = false;
         $default_pages[] = __('Home', 'grit');
@@ -170,7 +170,7 @@ function grit_theme_activation_action() {
         $default_pages[] = __('Contatti', 'grit');
         $default_pages[] = __('Privacy Policy GDPR', 'grit');
         $default_pages[] = __('Cookie Policy GDPR', 'grit');
-        $default_pages[] = __('Cerca', 'grit');
+        $default_pages[] = __('Search', 'grit');
     }
     /* End - Create front page */  
     
@@ -181,75 +181,44 @@ function grit_theme_activation_action() {
         $temp = array();
 
         foreach ($existing_pages as $page) {
-            $temp[] = $page->post_title;
+            $temp[] = strtolower($page->post_title); // Converti in minuscolo per una corretta verifica
         }
 
-        $pages_to_create = array_diff($default_pages, $temp);
+        $pages_to_create = array_diff(array_map('strtolower', $default_pages), $temp);
 
-        foreach ($pages_to_create as $new_page_title) {
+        foreach ($pages_to_create as $new_page_title_lower) {
+            // Rimuovi la conversione in minuscolo per recuperare il titolo corretto
+            $new_page_title = ucwords($new_page_title_lower);
 
-            if ($new_page_title == 'Home') {
-                $add_default_pages = array(
-                    'post_title' => $new_page_title,
-                    'post_content' => '',
-                    'post_status' => 'publish',
-                    'post_type' => 'page',
-                    'page_template' => 'home.php'
-                );
-            }
-            if ($new_page_title == 'About') {
-                $add_default_pages = array(
-                    'post_title' => $new_page_title,
-                    'post_content' => '',
-                    'post_status' => 'publish',
-                    'post_type' => 'page',
-                    'page_template' => 'page.php'
-                );
-            }
-            if ($new_page_title == 'Blog') {
-                $add_default_pages = array(
-                    'post_title' => $new_page_title,
-                    'post_content' => '',
-                    'post_status' => 'publish',
-                    'post_type' => 'page',
-                    'page_template' => 'archive.php'
-                );
-            }
-            if ($new_page_title == 'Contacts') {
-                $add_default_pages = array(
-                    'post_title' => $new_page_title,
-                    'post_content' => '',
-                    'post_status' => 'publish',
-                    'post_type' => 'page',
-                    'page_template' => 'page.php'
-                );
-            }
-            if ($new_page_title == 'Privacy Policy GDPR') {
-                $add_default_pages = array(
-                    'post_title' => $new_page_title,
-                    'post_content' => '',
-                    'post_status' => 'publish',
-                    'post_type' => 'page',
-                    'page_template' => 'page.php'
-                );
-            }
-            if ($new_page_title == 'Cookie Policy GDPR') {
-                $add_default_pages = array(
-                    'post_title' => $new_page_title,
-                    'post_content' => '',
-                    'post_status' => 'publish',
-                    'post_type' => 'page',
-                    'page_template' => 'page.php'
-                );
-            }
-            if ($new_page_title == 'Search') {
-                $add_default_pages = array(
-                    'post_title' => $new_page_title,
-                    'post_content' => '',
-                    'post_status' => 'publish',
-                    'post_type' => 'page',
-                    'page_template' => 'search.php'
-                );
+            $add_default_pages = array(
+                'post_title' => $new_page_title,
+                'post_content' => '',
+                'post_status' => 'publish',
+                'post_type' => 'page',
+            );
+
+            switch ($new_page_title) {
+                case 'Home':
+                    $add_default_pages['page_template'] = 'home.php';
+                    break;
+                case 'About':
+                    $add_default_pages['page_template'] = 'page.php';
+                    break;
+                case 'Blog':
+                    $add_default_pages['page_template'] = 'archive.php';
+                    break;
+                case 'Contatti':
+                    $add_default_pages['page_template'] = 'page.php';
+                    break;
+                case 'Privacy Policy GDPR':
+                    $add_default_pages['page_template'] = 'page.php';
+                    break;
+                case 'Cookie Policy GDPR':
+                    $add_default_pages['page_template'] = 'page.php';
+                    break;
+                case 'Search':
+                    $add_default_pages['page_template'] = 'search.php';
+                    break;
             }
 
             $result = wp_insert_post($add_default_pages);
@@ -340,6 +309,11 @@ function grit_theme_activation_action() {
             $home_url = home_url();
             $parsed_url = parse_url($home_url);
             $domain = $parsed_url['host'];
+
+            // Rimuovi 'www.' dal dominio, se presente
+if (strpos($domain, 'www.') === 0) {
+    $domain = substr($domain, 4);
+}
             $cf7_id = wp_generate_uuid4();
     
             // Contenuto del modulo di contatto.
@@ -483,6 +457,7 @@ function grit_theme_activation_action() {
     // Controlla se l'opzione per creare il modulo CF7 personalizzato è selezionata.
     if (isset($grit_theme_activation_options['create_cf7_template']) &&
     $grit_theme_activation_options['create_cf7_template'] === 'true') { 
+        $grit_theme_activation_options['create_cf7_template'] = false;
         create_custom_cf7_form();
     }
     /* end - create_cf7_template */
