@@ -1,0 +1,41 @@
+{% extends "base.twig" %}
+{% block content %}
+
+ 
+
+
+    <article class="post-type-{{post.post_type}}" id="post-{{post.ID}}">
+
+        <div class="container  ">
+            <div class="row">
+                <div class="col py-5 ">
+                    <h1 class="article-h1">
+                        {{post.title}}
+                    </h1>
+                    <div class="article-body">
+                        <div class="cmplz-document cookie-statement">
+                            {% if content is empty %}
+                                 {% filter shortcodes %}
+                                        [cmplz-document type="cookie-statement" region="eu"]
+                                    {% endfilter %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </article>
+
+
+
+
+    <style>
+        @import url("{{ home }}/wp-content/plugins/complianz-gdpr/assets/css/document.min.css");
+        #cmplz-document {
+            max-width: 100%;
+            text-justify: inter-word;
+        }
+    </style>
+
+{% endblock %}
