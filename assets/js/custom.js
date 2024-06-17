@@ -91,7 +91,23 @@ $(document).ready(function () {
 });
 
 
+ /* :::::::::::::: 06 * A_SETTINGS menu showing  */
+ $(document).ready(function () {
+    // Evento per aprire il menu
+    $(".menu-toggle").on("click", function () {
+        openNav("header-2-sidenav"); // Apri il menu usando la funzione openNav
+    });
 
+    // Evento per chiudere il menu
+    $(".menu-close").on("click", function () {
+        closeNav("header-2-sidenav"); // Chiudi il menu usando la funzione closeNav
+    });
+
+    // Evento per chiudere il menu quando si clicca su una voce del menu
+    $(".overlay-content li").on("click", function () {
+        closeNav("header-2-sidenav");
+    });
+});
 
 
 function openNav(elementId) {
