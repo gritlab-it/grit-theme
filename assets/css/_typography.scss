@@ -102,6 +102,7 @@ a:hover {
   .show>&.dropdown-toggle {
     background: darken($bg, 30%);
     border-color: darken($border, 30%);
+    box-shadow: 0 0 0 0.1rem lighten($bg, 10%)!important;
   }
 
   &.disabled,
@@ -113,7 +114,9 @@ a:hover {
 
   &.focus,
   &:focus {
-    box-shadow: 0 0 0 0.2rem lighten($bg, 10%);
+    background: $h-bg;
+    border-color: $h-border;
+    box-shadow: 0 0 0 0.1rem lighten($bg, 10%);
   }
 }
 

@@ -1,0 +1,60 @@
+<section class="section_slides">
+    <div class="owl-carousel owl-theme" id="carousel-slider">
+        {% for slide in section.slides %}
+        <div class="item-slide" style="background-image:url('{{Image(slide.background.id).src}}');">
+            <div class="inner-text">
+                <div class="container-fluid section-padding">
+                    <div class="row">
+                        <div class="col-12 col-md-12 col-lg-6 pb-5 mb-5">
+                            <h1 class="color-white">
+                                {{slide.title}}
+                            </h1>
+                            {% if slide.text %}
+                            <p class="lead pb-3 color-white">
+                                {{slide.text}}
+                            </p>
+                            {% endif %} 
+                            {% if slide.link_1 %}
+                                {% set btn = {
+                                    'title': slide.link_1.title,
+                                    'url': slide.link_1.url,
+                                    'target': slide.link_1.target,
+                                    'style': 'btn btn-primary btn-lg',
+                                    }
+                                %}
+                                {% include ['/partials/btn.twig'] with btn %} 
+                            {% endif %}
+                            {% if slide.link_2 %}
+                                {% set btn = {
+                                    'title': slide.link_2.title,
+                                    'url': slide.link_2.url,
+                                    'target': slide.link_2.target,
+                                    'style': 'btn btn-secondary btn-lg',
+                                    }
+                                %}
+                                {% include ['/partials/btn.twig'] with btn %} 
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+
+<script>
+    $(document).ready(function () {
+        $("#carousel-slider").owlCarousel({
+            loop: true,
+            margin: 0,
+            responsiveClass: true,
+            nav: true,
+            dots: false,
+            items: 1,
+            navText: ["<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"]
+        });
+    });
+</script>

@@ -1,0 +1,27 @@
+{# section_text #}
+<section class="section_text py-5 bg-{{section.background}}">
+    <div class="container-fluid section-padding my-5">
+        <div class="row d-flex align-items-center ">
+            <div class="col-12  col-lg-5"> 
+                {% if section.sub_title %}
+                <h4 class="font-weight-bold">
+                    {{section.title}}
+                </h4>
+                {% else %}
+                <h1 class="font-weight-bold">
+                    {{section.title}}
+                </h1> 
+                {% endif %} 
+            </div>
+            <div class="col-12  col-lg-7">
+                {% if section.sub_title %}
+                <h2 class="font-weight-bold">{{section.sub_title}}</h2>
+                {% endif %} 
+                <div class="font-weight-normal">
+                    {{section.text}}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{# end section_text #}

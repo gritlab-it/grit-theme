@@ -9,9 +9,14 @@ body {
 
 }
 
+/* GRIT_SET container-fluid */
+@media (min-width: 768px) {
+    .section-padding {
+        padding: 0 calc(144 / 1920 * 100vw);
+    }
+}
 
-
-/* A_SETTINGS equal cols  */
+/* GRIT_SET equal cols  */
 .row.equal-cols {
     display: -webkit-flex !important;
     display: -ms-flexbox !important;
