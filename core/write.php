@@ -45,17 +45,17 @@ EOD;
     return $my_content . $rules;
 }
 
-function disable_dir_browsing( $rules )
-{
-$my_content = <<<EOD
-\n
-Options All -Indexes
-\n
-Options -Indexes
-\n
-EOD;
-    return $my_content . $rules;
-}
+// function disable_dir_browsing( $rules )
+// {
+// $my_content = <<<EOD
+// \n
+// Options All -Indexes
+// \n
+// Options -Indexes
+// \n
+// EOD;
+//     return $my_content . $rules;
+// }
 
 function expirecache( $rules )
 {
@@ -83,7 +83,7 @@ EOD;
 
 // Sicurezza
 add_filter('mod_rewrite_rules', 'wpconfig_protect');
-add_filter('mod_rewrite_rules', 'disable_dir_browsing');
+// add_filter('mod_rewrite_rules', 'disable_dir_browsing');
 add_filter('mod_rewrite_rules', 'rewrite');
 // Ottimizzazione
 add_filter('mod_rewrite_rules', 'expirecache');
