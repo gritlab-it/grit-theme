@@ -34,6 +34,9 @@ $GLOBALS['assets_options'] = array(
     // Attiva libreria Images Loaded js https://imagesloaded.desandro.com/
     'GRIT_SETTING_IMAGESLOADED' => get_theme_mod('grit_setting_imagesloaded'),
 
+    // Attiva libreria Lightbox2 https://lokeshdhakar.com/projects/lightbox2/
+    'GRIT_SETTING_LIGHTBOX2' => get_theme_mod('grit_setting_lightbox2'),
+
     // Attiva libreria Fitty js https://rikschennink.github.io/fitty/
     'GRIT_SETTING_FITTY' => get_theme_mod('grit_setting_fitty'),
 

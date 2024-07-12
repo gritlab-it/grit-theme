@@ -140,6 +140,23 @@ function grit_customize_register($wp_customize)
         'description' => __('Attiva libreria Three js threejs.org'),
     ));
 
+
+        /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    ::::::::::::::    * A_SETTINGS Attiva in base alla scalta Lightbox2
+                        // Attiva libreria Lightbox2 https://lokeshdhakar.com/projects/lightbox2/
+    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+
+    $wp_customize->add_setting('grit_setting_lightbox2', array(
+        'capability' => 'edit_theme_options',
+    ));
+    $wp_customize->add_control('grit_setting_lightbox2', array(
+        'type' => 'checkbox',
+        'section' => 'grit_framework_general_settings',
+        'label' => __('Lightbox2'),
+        'description' => __('Attiva libreria Lightbox2 https://lokeshdhakar.com/projects/lightbox2/'),
+    ));
+
+
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     ::::::::::::::    * A_SETTINGS Attiva in base alla scalta Fitty.js
                         // Attiva libreria Fitty js https://rikschennink.github.io/fitty/

@@ -69,7 +69,7 @@ if ( ! class_exists( 'Timber' ) ) {
 	add_filter(
 		'template_include',
 		function( $template ) {
-			return get_stylesheet_directory() . '/static/no-timber.html';
+			return get_template_directory_uri() . '/static/no-timber.html';
 		}
 	);
 	return;
@@ -431,16 +431,12 @@ if ( ! is_admin() ) {
 // add_filter('wpcf7_posted_data', 'save_posted_data');
  
 // Add tag referer-page with url of previous page
-function getRefererPageForm($form_tag)
+function getRefererPageForm( $form_tag )
 {
-    if ($form_tag['name'] == 'referer-page') {
-        if (isset($_SERVER['HTTP_REFERER'])) {
-            $form_tag['values'][] = htmlspecialchars($_SERVER['HTTP_REFERER']);
-        } else {
-            $form_tag['values'][] = ''; // Inserisce una stringa vuota se HTTP_REFERER non è impostato
-        }
-    }
-    return $form_tag;
+	if ( $form_tag['name'] == 'referer-page' ) {
+		$form_tag['values'][] = htmlspecialchars($_SERVER['HTTP_REFERER']);
+	}
+	return $form_tag;
 }
 if ( !is_admin() ) {
 	add_filter( 'wpcf7_form_tag', 'getRefererPageForm' );
@@ -449,16 +445,13 @@ if ( !is_admin() ) {
 // Add tag current-page with url of current page
 function getCurrentPageForm($form_tag)
 {
-    if (!is_admin()) {
-        global $wp;
-        if (isset($wp)) {
-            $current_url = home_url(add_query_arg(array(), $wp->request));
-    
-            if ($form_tag['name'] == 'current-page') {
-                $form_tag['values'][] = htmlspecialchars($current_url);
-            }
-        }
+    global $wp;
+    $current_url = home_url(add_query_arg(array(), $wp->request));
+
+    if ($form_tag['name'] == 'current-page') {
+        $form_tag['values'][] = htmlspecialchars($current_url);
     }
+
     return $form_tag;
 }
 
