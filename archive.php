@@ -88,7 +88,7 @@ if (is_day()) {
     // A_SETTINGS Page set with the same slug of cpt  
     $page_args = array(
         'post_type' => 'page',
-        'name' => $post_type_obj->name,
+        'name' => $post_type_obj->rewrite['slug'],
         'posts_per_page' => 1
     );
     $query = new WP_Query($page_args);
