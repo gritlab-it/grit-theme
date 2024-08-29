@@ -73,6 +73,13 @@ $colors: (
     black: #000000,
 );
 
+/* GRIT_SET Fonts
+    Note: Setting fonts */
+
+// @import url("../font/metropolis/stylesheet.css");
+$font-primary: 'Roboto', sans-serif;
+$font-secondary: 'Roboto', sans-serif;
+
 /* GRIT_SET Background Color
     Note: Setting colors backgorund es bg-primary */
 @each $name, $value in $colors {
@@ -89,6 +96,14 @@ $colors: (
     }
 }
 
+/* GRIT_SET border Color
+    Note: Setting colors backgorund es color-primary */
+    @each $name, $value in $colors {
+        .border-#{$name} {
+            border-color: $value!important;
+        }
+    }
+
 .bg-half {
     background: $primary;
     background: -moz-linear-gradient(0deg, $primary 50%, $white 50%);
@@ -96,9 +111,3 @@ $colors: (
     background: linear-gradient(0deg, $primary 50%, $white 50%);
 }
 
-/* GRIT_SET Fonts
-    Note: Setting fonts */
-
-// @import url("../font/metropolis/stylesheet.css");
-$font-primary: 'Roboto', sans-serif;
-$font-secondary: 'Roboto', sans-serif;
