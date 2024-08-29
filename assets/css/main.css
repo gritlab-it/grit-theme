@@ -16,6 +16,8 @@
   --denary: #6C6D81;
 }
 
+/* GRIT_SET Fonts
+    Note: Setting fonts */
 /* GRIT_SET Background Color
     Note: Setting colors backgorund es bg-primary */
 .bg-primary {
@@ -116,6 +118,56 @@
   color: #000000 !important;
 }
 
+/* GRIT_SET border Color
+    Note: Setting colors backgorund es color-primary */
+.border-primary {
+  border-color: #655F36 !important;
+}
+
+.border-secondary {
+  border-color: #E3DECF !important;
+}
+
+.border-tertiary {
+  border-color: #F4EEE9 !important;
+}
+
+.border-quaternary {
+  border-color: #82614E !important;
+}
+
+.border-quinary {
+  border-color: #DBA791 !important;
+}
+
+.border-senary {
+  border-color: #79292A !important;
+}
+
+.border-septenary {
+  border-color: #F0A049 !important;
+}
+
+.border-octonary {
+  border-color: #6C6D81 !important;
+}
+
+.border-nonary {
+  border-color: #6C6D81 !important;
+}
+
+.border-denary {
+  border-color: #6C6D81 !important;
+}
+
+.border-white {
+  border-color: #ffffff !important;
+}
+
+.border-black {
+  border-color: #000000 !important;
+}
+
 .bg-half {
   background: #655F36;
   background: -moz-linear-gradient(0deg, #655F36 50%, #ffffff 50%);
@@ -123,8 +175,6 @@
   background: linear-gradient(0deg, #655F36 50%, #ffffff 50%);
 }
 
-/* GRIT_SET Fonts
-    Note: Setting fonts */
 /*  03 * A_SETTINGS Variables */
 p {
   font-family: "Roboto", sans-serif;
@@ -437,6 +487,93 @@ a:hover {
   background: #ffffff;
   border-color: #F4EEE9;
   box-shadow: 0 0 0 0.1rem white;
+}
+
+/* Custom button styles */
+.btn-outline-transparent {
+  border-color: #ffffff;
+  background: none;
+  outline: none;
+  color: #ffffff; /* Testo bianco di default */
+  mix-blend-mode: screen;
+  transition: all 0.3s ease-in-out;
+}
+.btn-outline-transparent::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: transparent; /* Sfondo trasparente di default */
+  border-radius: 0;
+  content: "";
+  mix-blend-mode: color-burn; /* Modalità di fusione per ottenere l'effetto desiderato */
+  z-index: -1; /* Posiziona lo sfondo sotto il testo */
+  transition: all 0.3s ease-in-out;
+}
+.btn-outline-transparent:hover {
+  color: #000000; /* Cambia il colore del testo in nero in hover */
+}
+.btn-outline-transparent:hover::before {
+  background: #ffffff; /* Rende lo sfondo bianco in hover */
+}
+.btn-outline-transparent:focus {
+  outline: none; /* Rimuove il contorno predefinito */
+  box-shadow: 0 0 0 0.2rem #ffffff; /* Ombra personalizzata per il focus */
+}
+.btn-outline-transparent:active {
+  color: #000000; /* Mantiene il testo nero quando il pulsante è attivo */
+}
+.btn-outline-transparent:active::before {
+  background: #ffffff; /* Rende lo sfondo bianco quando il pulsante è attivo */
+}
+.btn-outline-transparent:disabled, .btn-outline-transparent.disabled {
+  opacity: 0.5; /* Opacità ridotta quando il pulsante è disabilitato */
+  cursor: not-allowed; /* Cambia il cursore quando il pulsante è disabilitato */
+}
+
+/* Custom button styles */
+.btn-transparent {
+  border-color: #ffffff;
+  background: none;
+  outline: none;
+  color: #000000;
+  mix-blend-mode: screen;
+  text-transform: uppercase; /* Aggiungo la trasformazione del testo in maiuscolo */
+  transition: all 0.3s ease-in-out;
+}
+.btn-transparent::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #ffffff;
+  border-radius: 0;
+  content: "";
+  mix-blend-mode: color-burn; /* Modalità di fusione per ottenere l'effetto desiderato */
+  z-index: -1; /* Posiziona lo sfondo sotto il testo */
+  transition: all 0.3s ease-in-out;
+}
+.btn-transparent:hover {
+  color: #ffffff; /* Cambia il colore del testo in bianco in hover */
+}
+.btn-transparent:hover::before {
+  background: transparent; /* Rende lo sfondo trasparente in hover */
+}
+.btn-transparent:focus {
+  outline: none; /* Rimuove il contorno predefinito */
+  box-shadow: 0 0 0 0.2rem #ffffff; /* Ombra personalizzata per il focus */
+}
+.btn-transparent:active {
+  color: #ffffff; /* Mantiene il testo bianco quando il pulsante è attivo */
+}
+.btn-transparent:active::before {
+  background: transparent; /* Rende lo sfondo trasparente quando il pulsante è attivo */
+}
+.btn-transparent:disabled, .btn-transparent.disabled {
+  opacity: 0.5; /* Opacità ridotta quando il pulsante è disabilitato */
+  cursor: not-allowed; /* Cambia il cursore quando il pulsante è disabilitato */
 }
 
 /*  03 * A_SETTINGS Header */
@@ -1118,28 +1255,6 @@ body {
   Note: impostazioni per modificare il loader Note: effetto al caricamento della pagina composto da logo sezioni e loader
   Note: L'evento che fa avviare è la classe 'loaded' posizionato nel body
   */
-#main-content {
-  filter: blur(13px);
-  -webkit-filter: blur(13px);
-  transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-
-.loaded #main-content {
-  filter: unset;
-  -webkit-filter: unset;
-}
-
-header {
-  filter: blur(13px);
-  -webkit-filter: blur(13px);
-  transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-
-.loaded header {
-  filter: unset;
-  -webkit-filter: unset;
-}
-
 .preload {
   width: 100px;
   height: 100px;
