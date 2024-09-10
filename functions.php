@@ -266,16 +266,21 @@ class StarterSite extends Timber\Site {
 			$post = get_post($id, ARRAY_A);
 			$yoast_title = get_post_meta($id, '_yoast_wpseo_title', true);
 			$yoast_desc = get_post_meta($id, '_yoast_wpseo_metadesc', true);
+			
 			$metatitle_val = wpseo_replace_vars($yoast_title, $post);
-			$metatitle_val = apply_filters('wpseo_title', $metatitle_val);
+			$metatitle_val = apply_filters('wpseo_title', $metatitle_val, $id);  
+			
 			$metadesc_val = wpseo_replace_vars($yoast_desc, $post);
-			$metadesc_val = apply_filters('wpseo_metadesc', $metadesc_val);
+			$metadesc_val = apply_filters('wpseo_metadesc', $metadesc_val, $id);  
+			
 			$context['metatitle'] = $metatitle_val;
 			$context['metadesc'] = $metadesc_val;
+		
 			if (function_exists('yoast_breadcrumb')) {
 				$context['breadcrumbs'] = yoast_breadcrumb('<div id="breadcrumbs" class="breadcrumb">', '</div>', false);
 			}
 		}
+		
 		return $context;
 	}
 	
