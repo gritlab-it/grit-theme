@@ -1,6 +1,6 @@
 {# section_carousel #} 
-<section class="section_id_{{ section.section_index }} section_carousel  bg-{{section.background_color}}{% if section.background_half %}-half{% endif %}">
-    <div class="container-fluid {% if section.contained %} contained {% endif %}">
+
+    <div class="container-fluid">
         <div class="row  ">
             <div class="owl-carousel owl-theme carousel-base" id="">
                     {% for item in section.carousel %} 
@@ -32,7 +32,7 @@
             </div> 
         </div> 
     </div> 
-</section>
+
 
 <script> 
     $(document).ready(function () {

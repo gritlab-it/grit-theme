@@ -1,0 +1,60 @@
+{# section_plus #}
+ 
+    <div class="container-fluid">
+        <div class="row">
+            {% set total_items = section.chapters | length %}
+            {% for item in section.chapters %}
+            <div class="
+                {% if total_items == 1 %}
+                    col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2  
+                {% elseif total_items == 2 %}
+                    col-12 col-md-6  
+                {% elseif total_items == 3 %}
+                    col-12 col-lg-4 
+                {% else %}
+                    col-12 col-md-3 
+                {% endif %}
+            "> 
+                <div class="item-chapters">
+                
+                    {% if item.image %}
+                    {% set image = {
+                        'alt': item.image.alt,
+                        'src': Image(item.image.id).src ,
+                        'class': 'img-fluid'
+                        }
+                    %}
+                    {% include ['/partials/img.twig'] with image %}
+                    {% endif %}
+                    <div class="inner-item">
+                <h2> {{ item.title }}</h2>
+                <h5>{{ item.subtitle }}</h5>
+                {{ item.text }}
+                {% if item.link_1 %}
+                        {% set btn = {
+                        'title': item.link_1.title,
+                        'url': item.link_1.url,
+                        'target': item.link_1.target,
+                        'style': 'btn btn-' ~ section.link_1_color ~ ' btn-md',
+                        }
+                        %}
+                        {% include ['/partials/btn.twig'] with btn %}
+                {% endif %}
+                {% if item.link_2 %}
+                        {% set btn = {
+                        'title': item.link_2.title,
+                        'url': item.link_2.url,
+                        'target': item.link_2.target,
+                        'style': 'btn btn-' ~ section.link_2_color ~ ' btn-md',
+                        }
+                        %}
+                        {% include ['/partials/btn.twig'] with btn %}
+                {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+ 
+{# end section_plus #}

@@ -30,10 +30,10 @@
 /*  
 08 * A_SETTINGS img-hover
   Note: Impostazioni per css */
-.img-hover .img-hover-inner {
-  position: relative;
-  overflow: hidden;
-}
+  .img-hover .img-hover-inner {
+    position: relative;
+    overflow: hidden;
+  }
 
 .img-hover .img-hover-inner img {
   transition: all 0.7s;

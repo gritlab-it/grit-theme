@@ -5,15 +5,15 @@
     {% set image_ids = image_ids ~ ',' ~ image.id %}
 {% endfor %}
 
-<section class="section_id_{{ section.section_index }}  section_carousel  bg-{{section.background_color}}{% if section.background_half %}-half{% endif %}">
-    <div class="container-fluid {% if section.contained %} contained {% endif %}">
+
+    <div class="container-fluid">
         <div class="row"> 
             <div class="section_gallery" >
                 {{ function('do_shortcode', '[gallery ids="' ~ image_ids ~ '" columns="'~ section.columns ~'" size="' ~ section.size ~ '" ]') }}
             </div>
         </div>
     </div>
-</section>
+
 
 <style>
     .section_gallery .gallery-item {

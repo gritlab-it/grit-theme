@@ -1,11 +1,17 @@
 {# section_image #}
-<section class="section_id_{{ section.section_index }} section_image  bg-{{section.background_color}}{% if section.background_half %}-half{% endif %}">
-    <div class="container-fluid {% if section.contained %} contained {% endif %}">
-        <div class="row">
-            <div class="col-12 col-md-8 offset-md-2 text-center">
-                <img src="{{ Image(section.image.id).src}}" alt="" class="img-fluid ">   
-            </div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-8 offset-md-2"> 
+        {% if section.image %}
+            {% set image = {
+                'alt': section.image.alt,
+                'src': Image(section.image.id).src ,
+                'class': 'img-fluid'
+                }
+            %}
+            {% include ['/partials/img.twig'] with image %}
+        {% endif %}
         </div>
     </div>
-</section>
+</div>
 {# end section_image #}

@@ -1,11 +1,11 @@
 {# section_hero #}
-<section class="section_id_{{ section.section_index }}  section_hero">
-    <div class="container-fluid contained my-5"> 
-        <div class="inner-hero text-white p-5 bg-{{section.background_color}}" {% if section.background %} style="background-image:url('{{Image(section.background.id).src}}');" {% endif %}>
+ 
+    <div class="container-fluid"> 
+        <div class="inner-hero p-5 bg-{{section.inner_background_color}}" {% if section.background %} style="background-image:url('{{Image(section.background.id).src}}');" {% endif %}>
             <div class="row">
                 <div class="col col-12 col-md-6 offset-md-6  d-flex flex-column justify-content-between">
-                    <div class="inner-title text-right">
-                        <h1 class="color-{{section.text_color}}">{{section.title}}</h1>
+                    <div class="inner-title">
+                        <h1 class="">{{section.title}}</h1>
                         {% if section.link_1 %}
                             {% set btn = {
                                 'title': section.link_1.title,
@@ -27,12 +27,12 @@
                             {% include ['/partials/btn.twig'] with btn %}
                         {% endif %}
                     </div>
-                    <div class="inner-text text-right color-{{section.text_color}}">
+                    <div class="inner-text">
                         {{section.text}}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
+ 
 {# end section_hero #}

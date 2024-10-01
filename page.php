@@ -27,14 +27,20 @@ $context['post'] = $timber_post;
 $templates        = array( 'page.twig', 'index.twig' );
 
 //  A_SETTINGS Assegno tutte le variabili di ACF a Twig
-$fields = get_field_objects(get_queried_object_id($timber_post));
-if ($fields):
-    foreach ($fields as $field):
-        $name_id = $field['name'];
-        $value_id = $field['value'];
-        $context[$name_id] = $value_id;
-    endforeach;
-endif;
+// Verifica se ACF è attivo prima di chiamare la funzione get_field_objects()
+if (function_exists('get_field_objects')) {
+    $fields = get_field_objects(get_queried_object_id($timber_post));
+    if ($fields) {
+        foreach ($fields as $field) {
+            $name_id = $field['name'];
+            $value_id = $field['value'];
+            $context[$name_id] = $value_id;
+        }
+    }
+} else {
+    // ACF non è attivo, gestisci l'errore o continua senza i campi ACF
+    error_log('ACF non è attivo. Impossibile recuperare i campi personalizzati.');
+}
 
 
 

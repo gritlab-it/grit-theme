@@ -18,6 +18,8 @@
 
 /* GRIT_SET Fonts
     Note: Setting fonts */
+/* GRIT_SET Trasitions
+    Note: Setting trasitions */
 /*  03 * A_SETTINGS Content */
 body {
   font-family: "Roboto", sans-serif;
@@ -1149,6 +1151,64 @@ footer {
 }
 .section_faq .pagination-list-js li a:hover {
   color: #ffffff;
+}
+
+.section_plus.layout-plus-1 .col-12 {
+  padding: 0;
+}
+.section_plus.layout-plus-1 .col-12:hover .item-chapters {
+  background-color: #403d39;
+}
+.section_plus.layout-plus-1 .col-12 .item-chapters {
+  background-color: #eb5e28;
+  min-height: 400px;
+  padding: 35px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 3rem;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.section_plus.layout-plus-1 .col-12 .item-chapters img {
+  width: 40px;
+  padding-bottom: 65px;
+}
+
+.section_text.layout-text-1 {
+  padding-bottom: 0px !important;
+}
+.section_text.layout-text-1 .container-fluid {
+  background-color: #403d39;
+  border-top-left-radius: 3rem;
+  border-top-right-radius: 3rem;
+}
+
+.section_text.layout-text-2 {
+  padding-top: 0px !important;
+}
+.section_text.layout-text-2 .container-fluid {
+  background-color: #403d39;
+  border-bottom-left-radius: 3rem;
+  border-bottom-right-radius: 3rem;
+}
+
+.section_carousel.layout-carousel-1 {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+.section_carousel.layout-carousel-1 .container-fluid {
+  background-color: #403d39;
+  min-height: 450px;
+  padding: 20px 0px;
+}
+.section_carousel.layout-carousel-1 .container-fluid .owl-carousel {
+  position: absolute;
+  left: 0;
 }
 
 /*  03 * A_SETTINGS Forms */

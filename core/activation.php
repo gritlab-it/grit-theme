@@ -505,6 +505,12 @@ add_action('admin_init','grit_theme_activation_action');
 ---------------------------------------------------- End - Create front page */
 
 function import_acf_fields_from_json() {
+    // Verifica se ACF è attivo
+    if (!function_exists('acf_import_field_group')) {
+        error_log('ACF non è attivo o la funzione acf_import_field_group() non è disponibile.');
+        return; // Esci dalla funzione se ACF non è attivo
+    }
+
     // Percorso del file JSON che contiene i campi ACF
     $json_file_path = get_template_directory() . '/core/acf-fields.json'; // Assicurati che il file sia nella tua cartella del tema
 
@@ -532,7 +538,13 @@ function import_acf_fields_from_json() {
     }
 }
 
+
 function acf_field_group_exists($group_title) {
+    // Verifica se la funzione ACF esiste
+    if (!function_exists('acf_get_field_groups')) {
+        return false; // ACF non è attivo, quindi non può esistere il gruppo
+    }
+
     // Recupera tutti i gruppi di campi ACF esistenti
     $existing_groups = acf_get_field_groups();
 

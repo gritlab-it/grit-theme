@@ -6,15 +6,15 @@
 	{% for section in sections %}
 	    {% if section.pre_content %}
 			{% set section = section|merge({'section_index': loop.index}) %} 
-			{% include ['/sections/'~ section.acf_fc_layout ~'.twig'] with section %}
+			{% include ['/sections/section.twig'] with section %}
 	    {% endif %}
 	{% endfor %}
  
 	{% if content is not empty %}
-	    <section class="section-page pt-3">
-	        <div class="container-fluid contained py-3">
+	    <section class="section_page contained py-3">
+	        <div class="container-fluid">
 	            <div class="row">
-	                <div class="col-12 ">
+	                <div class="col-12">
 	                    {{ content }}
 	                </div>
 	            </div>
@@ -25,7 +25,7 @@
 	{% for section in sections %}
 	    {% if not section.pre_content %}
 			{% set section = section|merge({'section_index': loop.index}) %} 
-			{% include ['/sections/'~ section.acf_fc_layout ~'.twig'] with section %}
+			{% include ['/sections/section.twig'] with section %}
 	    {% endif %}
 	{% endfor %} 
 

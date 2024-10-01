@@ -1,0 +1,32 @@
+{# section_main #} 
+{% set acf_fc_layout = section.acf_fc_layout %}
+
+{% if section.background_color %}
+    {% set background_color = 'bg-'~ section.background_color %} 
+{% endif %}
+
+{% if section.text_color %}
+    {% set text_color = 'color-'~ section.text_color %} 
+{% endif %}
+
+{% if section.align %}
+    {% set align = 'text-'~ section.align %} 
+{% endif %}
+
+{% if section.contained %}
+    {% set contained = 'contained' %} 
+{% endif %}
+
+{% if section.class %}
+    {% set class = section.class %} 
+{% endif %} 
+
+{% if section.background_half %}
+    {% set background_half = '-half' %} 
+{% endif %} 
+ 
+ 
+<section class="{{acf_fc_layout}} py-5 {{background_color}}{{background_half}} {{align}} {{text_color}} {{contained}} {{class}} " id="section_id_{{ section.section_index }}"> 
+        {% include ['/sections/'~ section.acf_fc_layout ~'.twig'] with section %} 
+</section>
+{# end section_main #}

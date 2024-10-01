@@ -186,8 +186,7 @@ class StarterSite extends Timber\Site {
 		// * A_SETTINGS Sidebar
 		$context['sidebar_primary'] = Timber::get_widgets('sidebar_primary');
 		
-		// * A_SETTINGS Slide
-		$context['slider'] = get_field('slider');
+		// * A_SETTINGS Slide 
 		$context['main_container'] = get_theme_mod("grit_setting_main_container");
 		$context['grit_setting_gototop'] = get_theme_mod("grit_setting_gototop");
 		$context['grit_setting_butter'] = get_theme_mod("grit_setting_butter");

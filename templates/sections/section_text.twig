@@ -1,45 +1,58 @@
 {# section_text #}
-<section class="section_id_{{ section.section_index }} section_text py-5 bg-{{section.background_color}}">
-    <div class="container-fluid contained">
-        <div class="row">
-            {% set total_items = section.chapters | length %}
-            {% for item in section.chapters %}
-            <div class=" text-{{ section.align }} color-{{section.text_color}}
-                {% if total_items == 1 %}
-                    col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2 p-md-5
-                {% elseif total_items == 2 %}
-                    col-12 col-md-6 p-md-5
-                {% elseif total_items == 3 %}
-                    col-12 col-md-4 p-md-5
-                {% else %}
-                    col-12 col-md-3 p-md-5
-                {% endif %}
-            ">
-                <h5> {{ item.title }}</h4>
-                {{ item.text }}
-                {% if item.link_1 %}
-                        {% set btn = {
-                        'title': item.link_1.title,
-                        'url': item.link_1.url,
-                        'target': item.link_1.target,
-                        'style': 'btn btn-' ~ section.link_1_color ~ ' btn-md',
-                        }
-                        %}
-                        {% include ['/partials/btn.twig'] with btn %}
-                {% endif %}
-                {% if item.link_2 %}
-                        {% set btn = {
-                        'title': item.link_2.title,
-                        'url': item.link_2.url,
-                        'target': item.link_2.target,
-                        'style': 'btn btn-' ~ section.link_2_color ~ ' btn-md',
-                        }
-                        %}
-                        {% include ['/partials/btn.twig'] with btn %}
-                {% endif %}
-            </div>
-            {% endfor %}
+ 
+ 
+<div class="container-fluid">
+    <div class="row">
+        {% set total_items = section.chapters | length %}
+        {% for item in section.chapters %}
+        <div class="item-chapters
+            {% if total_items == 1 %}
+                col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2 p-md-5
+            {% elseif total_items == 2 %}
+                col-12 col-md-6 p-md-5
+            {% elseif total_items == 3 %}
+                col-12 col-md-4 p-md-5
+            {% else %}
+                col-12 col-md-3 p-md-5
+            {% endif %}
+        "> 
+        <div class="inner-item">
+            {% if item.image %}
+            {% set image = {
+                'alt': item.image.alt,
+                'src': Image(item.image.id).src ,
+                'class': 'img-fluid'
+                }
+            %}
+            {% include ['/partials/img.twig'] with image %}
+            {% endif %}
+            <h2> {{ item.title }}</h2>
+            <h5>{{ item.subtitle }}</h5>
+            {{ item.text }}
+            {% if item.link_1 %}
+                    {% set btn = {
+                    'title': item.link_1.title,
+                    'url': item.link_1.url,
+                    'target': item.link_1.target,
+                    'style': 'btn btn-' ~ section.link_1_color ~ ' btn-md',
+                    }
+                    %}
+                    {% include ['/partials/btn.twig'] with btn %}
+            {% endif %}
+            {% if item.link_2 %}
+                    {% set btn = {
+                    'title': item.link_2.title,
+                    'url': item.link_2.url,
+                    'target': item.link_2.target,
+                    'style': 'btn btn-' ~ section.link_2_color ~ ' btn-md',
+                    }
+                    %}
+                    {% include ['/partials/btn.twig'] with btn %}
+            {% endif %}
         </div>
+        </div>
+        {% endfor %}
     </div>
-</section>
+</div>
+ 
 {# end section_text #}

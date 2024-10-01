@@ -38,6 +38,15 @@ $black-5: #F2F2F2;
 $black-5-rgb: rgb(242, 242, 242);
 $black-5-rgba: rgba(0, 0, 0, 0.05);
 
+$general-radius: 3rem;
+
+$smallmob-res: 479px;
+$mob-res: 767px;
+$med-res: 992px;
+$max-res: 1200px;
+$desk-res: 1600px;
+$fullhd-res: 1920px;
+
 :root {
     --primary: #eb5e28;
     --secondary: #403d39;
@@ -75,6 +84,44 @@ $font-primary: 'Roboto', sans-serif;
 $font-secondary: 'Roboto', sans-serif;
 
 
-
-
+/* GRIT_SET Trasitions
+    Note: Setting trasitions */
+    
+@mixin transition($args...) {
+    -webkit-transition: $args;
+    -moz-transition: $args;
+    -ms-transition: $args;
+    -o-transition: $args;
+    transition: $args;
+  }
+  
+  @mixin transform($transforms) {
+    -webkit-transform: $transforms;
+    -moz-transform: $transforms;
+    -ms-transform: $transforms;
+    transform: $transforms;
+  }
+  
+  @mixin rotate($deg) {
+    @include transform(rotate(#{$deg}deg));
+  }
+  
+  @mixin scale($scale) {
+    @include transform(scale($scale));
+  }
+  
+  @mixin translate($x, $y) {
+    @include transform(translate($x, $y));
+  }
+  
+  @mixin skew($x, $y) {
+    @include transform(skew(#{$x}deg, #{$y}deg));
+  }
+  
+  @mixin transform-origin($origin) {
+    -webkit-transform-origin: $origin;
+    -moz-transform-origin: $origin;
+    -ms-transform-origin: $origin;
+    transform-origin: $origin;
+  }
  
