@@ -138,10 +138,43 @@ function grit_customize_register($wp_customize)
         'section' => 'grit_framework_general_settings',
         'label' => __('Three js'),
         'description' => __('Attiva libreria Three js threejs.org'),
+    )); 
+
+    
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    ::::::::::::::    * A_SETTINGS Attiva in base alla scalta Lenis
+                        // Attiva libreria Lenis https://github.com/darkroomengineering/lenis
+    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+
+    $wp_customize->add_setting('grit_setting_lenis', array(
+        'capability' => 'edit_theme_options',
+    ));
+    $wp_customize->add_control('grit_setting_lenis', array(
+        'type' => 'checkbox',
+        'section' => 'grit_framework_general_settings',
+        'label' => __('Lenis'),
+        'description' => __('Attiva libreria Lenis https://github.com/darkroomengineering/lenis'),
+    ));
+            
+
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    ::::::::::::::    * A_SETTINGS Attiva in base alla scalta Locomotive
+                        // Attiva libreria Locomotive https://github.com/locomotivemtl/locomotive-scroll
+    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+
+    $wp_customize->add_setting('grit_setting_locomotive', array(
+        'capability' => 'edit_theme_options',
+    ));
+    $wp_customize->add_control('grit_setting_locomotive', array(
+        'type' => 'checkbox',
+        'section' => 'grit_framework_general_settings',
+        'label' => __('Locomotive'),
+        'description' => __('Attiva libreria Locomotive https://github.com/locomotivemtl/locomotive-scroll'),
     ));
 
 
-        /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     ::::::::::::::    * A_SETTINGS Attiva in base alla scalta Lightbox2
                         // Attiva libreria Lightbox2 https://lokeshdhakar.com/projects/lightbox2/
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
@@ -327,19 +360,7 @@ function grit_customize_register($wp_customize)
         'section' => 'grit_framework_general_settings',
         'label' => __('Go To Top Button'),
     ));
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Cookies
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-
-    $wp_customize->add_setting('grit_setting_cookies', array(
-        'capability' => 'edit_theme_options',
-    ));
-    $wp_customize->add_control('grit_setting_cookies', array(
-        'type' => 'checkbox',
-        'section' => 'grit_framework_general_settings',
-        'label' => __('Cookies'),
-    ));
+ 
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     ::::::::::::::    * A_SETTINGS Disable Comments
@@ -352,6 +373,20 @@ function grit_customize_register($wp_customize)
         'type' => 'checkbox',
         'section' => 'grit_framework_general_settings',
         'label' => __('Disable comments'),
+    ));
+
+
+        /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    ::::::::::::::    * A_SETTINGS HIDE ADMIN BAR
+    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+
+    $wp_customize->add_setting('grit_adv_adminbar', array(
+        'capability' => 'edit_theme_options',
+    ));
+    $wp_customize->add_control('grit_adv_adminbar', array(
+        'type' => 'checkbox',
+        'section' => 'grit_framework_general_settings',
+        'label' => __('Hide Admin Bar'),
     ));
 
 
@@ -451,106 +486,14 @@ function grit_customize_register($wp_customize)
         'section' => 'grit_framework_tracking_settings',
         'label' => __('Hotjar ID'),
     ));
+ 
+
+ 
 
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS COOKIES SETTINGS
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-
-    $wp_customize->add_section('grit_framework_cookies_settings', array(
-        'title' => __('Cookies settings', 'grit_framework'),
-        'priority' => 120,
-    ));
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Privacy Message
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-
-    $wp_customize->add_setting('grit_setting_pri_msg', array(
-        'capability' => 'edit_theme_options',
-    ));
-    $wp_customize->add_control('grit_setting_pri_msg', array(
-        'type' => 'textarea',
-        'section' => 'grit_framework_cookies_settings',
-        'label' => __('Privacy Policy message'),
-    ));
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Privacy close text
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-
-    $wp_customize->add_setting('grit_setting_pri_close', array(
-        'capability' => 'edit_theme_options',
-    ));
-    $wp_customize->add_control('grit_setting_pri_close', array(
-        'type' => 'text',
-        'section' => 'grit_framework_cookies_settings',
-        'label' => __('Close button message'),
-    ));
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Privacy title
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-
-    $wp_customize->add_setting('grit_setting_pri_title', array(
-        'capability' => 'edit_theme_options',
-    ));
-    $wp_customize->add_control('grit_setting_pri_title', array(
-        'type' => 'text',
-        'section' => 'grit_framework_cookies_settings',
-        'label' => __('Privacy Policy title'),
-    ));
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Privacy url
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-
-    $wp_customize->add_setting('grit_setting_pri_url', array(
-        'capability' => 'edit_theme_options',
-    ));
-    $wp_customize->add_control('grit_setting_pri_url', array(
-        'type' => 'dropdown-pages',
-        'section' => 'grit_framework_cookies_settings',
-        'label' => __('Privacy Policy URL'),
-    ));
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS ADVANCED SETTINGS
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-
-    $wp_customize->add_section('grit_framework_advanced_settings', array(
-        'title' => __('Advanced settings', 'grit_framework'),
-        'priority' => 120,
-    ));
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Privacy Message
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-
-    $wp_customize->add_setting('grit_adv_twig', array(
-        'capability' => 'edit_theme_options',
-    ));
-    $wp_customize->add_control('grit_adv_twig', array(
-        'type' => 'checkbox',
-        'section' => 'grit_framework_advanced_settings',
-        'label' => __('Twig'),
-    ));
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS COOKIES SETTINGS
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-
-    $wp_customize->add_setting('grit_adv_adminbar', array(
-        'capability' => 'edit_theme_options',
-    ));
-    $wp_customize->add_control('grit_adv_adminbar', array(
-        'type' => 'checkbox',
-        'section' => 'grit_framework_advanced_settings',
-        'label' => __('Hide Admin Bar'),
-    ));
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS COOKIES SETTINGS
+    ::::::::::::::    * A_SETTINGS THEME FIELDS
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
     $wp_customize->add_section('grit_framework_theme_fileds', array(

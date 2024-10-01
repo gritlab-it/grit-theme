@@ -48,8 +48,7 @@ add_filter('user_contactmethods','new_contactmethods',10,1);
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ::::::::::::::    * A_SETTINGS Custom admin footer message
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/ 
 
 
 function remove_footer_admin() {
@@ -67,18 +66,31 @@ function remove_footer_admin() {
       // Accesso alle informazioni sull'agenzia
       $agency = $data['agency'][0]; // Prendi il primo elemento dell'array "agency"
 
+
+      // Percorso dell'immagine dello screenshot (logo o immagine del tema) dal JSON
+		$screenshot_path = get_template_directory() . '/assets/credits/' . $agency['agency_folder'] . '/screenshot.png';
+		$dest_path = get_template_directory() . '/screenshot.png';
+  
+    $child_screenshot_path = get_template_directory() . '/assets/credits/' . $agency['agency_folder'] . '/screenshot-child.png';
+		$child_dest_path = get_stylesheet_directory() . '/screenshot.png';
+  
+		// Copia lo screenshot solo se il file sorgente esiste
+		if (file_exists($screenshot_path)) {
+			copy($screenshot_path, $dest_path);
+		}
+  
+		// Copia lo screenshot solo se il file sorgente esiste
+		if (file_exists($child_screenshot_path )) {
+			copy($child_screenshot_path , $child_dest_path);
+		}
+
+
       // Costruisci il footer admin con le informazioni dinamiche sull'agenzia
       $footer_text = '<span id="footer-thankyou">Developed by <a href="' . $agency['agency_url'] . '" target="_blank">' . $agency['agency'] . '</a> with ' . $agency['theme'] . '. Powered by <a href="' . $agency['grit_url'] . '" target="_blank">' . $agency['grit'] . '</a>.</span>';
 
       // Stampa il footer admin
       echo $footer_text;
-
-      // Includi lo script JavaScript per stampare i crediti nella console
-      echo '<script>';
-      echo 'console.log("© ' . $agency['client'] . '. Tutti i diritti sono riservati");'; 
-      echo 'console.log("Developed by ' . $agency['agency'] . ' with ' . $agency['theme'] . '. Powered by ' . $agency['grit'] . '.");';  
-
-      echo '</script>';
+ 
   } else {
       // Messaggio di errore se il file JSON non è stato decodificato correttamente
       echo '<span id="footer-thankyou">Errore: impossibile caricare le informazioni sull\'agenzia.</span>';
@@ -87,6 +99,76 @@ function remove_footer_admin() {
 
 // Aggiungi la tua funzione di filtro
 add_filter('admin_footer_text', 'remove_footer_admin');
+
+
+function update_theme_credits() {
+  // Percorso del file JSON
+  $json_file_path = get_template_directory() . '/assets/credits/credits.json';
+
+  // Leggi il contenuto del file JSON
+  $json_data = file_get_contents($json_file_path);
+
+  // Decodifica il contenuto JSON in un array associativo
+  $data = json_decode($json_data, true);
+
+  // Controlla se la decodifica è avvenuta con successo
+  if ($data !== null && isset($data['agency'][0])) {
+      // Accesso alle informazioni sull'agenzia
+      $agency = $data['agency'][0]; // Prendi il primo elemento dell'array "agency" 
+       
+
+      // Stampa il console log con i dati presi dal JSON
+  echo '<script>';
+  echo 'console.log("© ' . $agency['client'] . '. Tutti i diritti sono riservati");'; 
+  echo 'console.log("Developed by %c' . $agency['agency'] . '%c with ' . $agency['theme'] . '. Powered by ' . $agency['grit'] . '.", "color: #3ABEB9; font-weight:600;", "");';   
+  echo 'console.log("' . $agency['grit_url'] . '");'; 
+  echo '</script>';
+
+  $theme = wp_get_theme();
+  $theme_name = $agency['theme']; // Supponendo che $agency['theme'] sia stato definito correttamente
+  $theme_version = $theme->get('Version');
+
+  if (is_child_theme()) {
+      // Recupera il tema genitore se è un tema child
+      $theme_parent = wp_get_theme()->parent();
+      
+      // Controlla se il tema genitore esiste
+      if ($theme_parent) {
+          $theme_parent_name = $agency['theme'] . ' Child';
+          $theme_parent_version = $theme_parent->get('Version');
+          ?>
+          <script>
+              console.log('<?php echo $theme_name . ' ' . $theme_version . ' => ' . $theme_parent_name . ' ' . $theme_parent_version; ?>');
+          </script>
+          <?php
+      } else {
+          // Gestisci il caso in cui il tema genitore non esiste (cosa improbabile)
+          ?>
+          <script>
+              console.error('Errore: Il tema genitore non è stato trovato.');
+          </script>
+          <?php
+      }
+  } else {
+      ?>
+      <script>
+          console.log('<?php echo $theme_name . ' -- ' . $theme_version; ?>');
+      </script>
+      <?php
+  }
+  } else {
+      // Messaggio di errore se il file JSON non è stato decodificato correttamente
+      echo '<script>';
+      echo 'console.error("Errore: impossibile recuperare i dati dal file JSON.");'; 
+      echo '</script>';
+  }
+}
+
+// Aggiungi lo script alla coda dei file JavaScript
+add_action('wp_footer', 'update_theme_credits');
+
+
+
 
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

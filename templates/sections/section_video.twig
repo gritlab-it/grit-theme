@@ -1,0 +1,15 @@
+{# section_video #}
+<section class="section_id_{{ section.section_index }} section_video  bg-{{section.background_color}}{% if section.background_half %}-half{% endif %}">
+    <div class="container-fluid {% if section.contained %} contained {% endif %}">
+        <div class="row">
+            <div class="col-12">
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/{{section.id_video}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div> 
+            </div>
+        </div>
+    </div>
+</section>
+{# end section_video #}
+ 
+

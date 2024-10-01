@@ -1,90 +1,91 @@
 {# Section #section_cube #}
-<section class="section_cube ">
+<section class="section_id_{{ section.section_index }} section_cube  {% if section.contained %} contained  {% else %}  bg-{{section.background_color}}  {% endif %}">
     <div class="container-fluid ">
-        <div class="row  ">
-            <div class="col-12 col-md-7   p-0 m-0 col-text d-flex flex-column justify-content-center {% if loop.index is even %} order-first order-md-last {% endif %} ">
-                <div class="inner-text ">
-                    <h1 class="display-3 font-weight-bold">
+        <div class="row align-items-stretch ">
+            <div class="col-12 col-md-6 bg-{{section.background_color}} p-0 m-0 col-text d-flex flex-column justify-content-center order-first {% if section.invert %} order-md-last {% else %}  {% endif %}">
+                <div class="inner-text color-{{section.color}}">
+                    <h3 class="text-uppercase color-{{section.text_color}}">
                         {{section.title}}
-                    </h5>
-                    <div class="py-4 mb-5">
-                        {{section.text}}
-                    </div>
+                    </h3>
+                    <div class="py-4 color-{{section.text_color}}">
+                        {{section.text}} 
+                    </div>  
                     {% if section.lists %}
-                    <div class="owl-carousel owl-theme carousel-single-plus pt-5"  >
+                    <div class="row pb-4">
                         {% for item in section.lists %}
-                           
-                            
-                            <div class="item-plus  {% if section.lists_style == 'style1' %} bg-secondary {% endif %}  px-3 py-4 mt-4">
-                                {% if item.icon %}
-                                    <img src="{{ Image(item.icon.id).src|resize(50,50)}}" alt="" class=" ">
-                                {% endif %}
-                                
-                                
-                                {% if item.bedge %}
-                                <div class="bedge"><p  class="m-0 p-0">{{item.bedge}}</p></div>
-                                {% endif %}
-                                
-                                 
-                                <div class="inner-plus {% if item.icon %} pt-5 {% else %} pt-4 {% endif %}">
-                                    <h5 >{{item.title}}</h5>
-                                <p>{{item.text}}</p>
+                            <div class="col-12 col-md-6 item-list " >
+                                <div class="inner-item-list border-{{section.text_color}}  d-flex align-items-center mb-3 pb-2">
+                                    <img src="{{ Image(item.icon.id).src|resize(60,60)}}" alt="" class="img-fluid pr-2">
+                                <p class="p-0 m-0 color-{{section.text_color}}">
+                                    {{item.text}}
+                                </p>
                                 </div>
                             </div>
-                           
-                        {% endfor %}
-                     </div> 
-                    {% endif %} 
-                    {% if section.link %}
-                        <a href="{{section.link.url}}" class="btn btn-primary btn-rounded btn-lg">
-                            {{section.link.title}}
-                        </a>
+                        {% endfor %} 
+                    </div> 
+                    {% endif %}
+                    
+                    {% if section.link_1 %}
+                        {% set btn = {
+                            'title': section.link_1.title,
+                            'url': section.link_1.url,
+                            'target': section.link_1.target,
+                            'style': 'btn btn-' ~ section.link_1_color ~ ' btn-md',
+                            }
+                        %}
+                        {% include ['/partials/btn.twig'] with btn %}
+                    {% endif %}
+                    {% if section.link_2 %}
+                        {% set btn = {
+                            'title': section.link_2.title,
+                            'url': section.link_2.url,
+                            'target': section.link_2.target,
+                            'style': 'btn btn-' ~ section.link_2_color ~ ' btn-md',
+                            }
+                        %}
+                        {% include ['/partials/btn.twig'] with btn %}
                     {% endif %}
                 </div>
             </div>
-            <div class="col-12 col-md-5  p-5 m-0 col-img  {% if loop.index is even %} order-last order-md-first {% endif %}">
-                <img src="{{ Image(section.image.id).src}}" alt="" class="img-fluid">
+            <div class="col-12 col-md-6 p-0 m-0 col-img order-last {% if section.invert %} order-md-first {% else %}  {% endif %}"  {% if section.gallery|length == 1 %} style="background-image: url('{{ Image(section.gallery[0].id).src|resize(1400,1400)}}');" {% endif %}>
+               
+                
+                
+                
+                {% if section.gallery|length > 1 %}
+                <div class="owl-carousel owl-theme cube-carousel" >
+                    {% for gallery_img in section.gallery %}
+                    <img src="{{ Image(gallery_img.id).src|resize(1400,1400)}}" alt="" class="img-fluid">
+                    {% endfor %}
+                </div>
+                {% else %}   
+                {# <img src="{{ Image(section.gallery[0].id).src|resize(1400,1400)}}" alt="" class="img-fluid"> #}
+                {% endif %}
+                
+                
             </div>
         </div>
     </div>
 </section>
 
+
+
+
 <script>
  
 
-$(document).ready(function () {
-    $(".carousel-single-plus").owlCarousel({
-        loop: true,
-        margin: 20,
-        responsiveClass: true, 
-        nav: false,
-        dots: true,
-         items: 1, // Impostazioni per schermi molto piccoli
-        navText: ["<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"],
-        responsive: {
-            0: {
-                items: 1, // Impostazioni per schermi molto piccoli
-                nav: true,
-            },
-            576: {
-                items: 1, // Impostazioni per schermi piccoli
-                nav: true,
-            },
-            768: {
-                items: 1, // Impostazioni per schermi medi
-                nav: true,
-            },
-            992: {
-                items: 1, // Impostazioni per schermi grandi
-                nav: false,
-            },
-            1200: {
-                items: 2, // Impostazioni per schermi molto grandi
-                nav: false,
-            }
-        }
-        
-    });
-});
-</script>
+ $(document).ready(function () {
+     $(".cube-carousel").owlCarousel({
+         loop: true,
+         margin: 0,
+         responsiveClass: true, 
+         nav: true,
+         dots: true,
+         navText: ["<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"],
+         items: 1,
+     });
+ });
+ 
+ </script>
+
 {# end Section #section_cube #}

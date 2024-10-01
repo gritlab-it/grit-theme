@@ -1,4 +1,4 @@
-/* A_SETTINGS animate 
+/* GRIT_SET animate 
   Note: This only changes this particular animation duration 
   */
 .animate__animated.animate__bounce {
@@ -20,7 +20,7 @@
 }
 
 
-/* A_SETTINGS loader
+/* GRIT_SET loader
   Note: impostazioni per modificare il loader Note: effetto al caricamento della pagina composto da logo sezioni e loader
   Note: L'evento che fa avviare è la classe 'loaded' posizionato nel body
   */
@@ -227,7 +227,7 @@ header {
   margin-top: unset;
 }
 
-/* A_SETTINGS jarallax */
+/* GRIT_SET jarallax */
 .jarallax-keep-img {
   position: relative;
   z-index: 0;
@@ -259,7 +259,7 @@ header {
   opacity: 1;
 }
 
-/* A_SETTINGS gototop */
+/* GRIT_SET gototop */
 #gototop-btn {
   display: none;
   position: fixed;
@@ -278,7 +278,7 @@ header {
 }
 
 
-/* A_SETTINGS magic-mouse-js */
+/* GRIT_SET magic-mouse-js */
 body #magicMouseCursor {
   position: fixed;
   width: 35px;
@@ -345,7 +345,7 @@ body .magic-hover:hover {
   cursor: none;
 }
 
-/* A_SETTINGS progress-js */
+/* GRIT_SET progress-js */
 #nprogress .bar {
   background: $secondary;
 }

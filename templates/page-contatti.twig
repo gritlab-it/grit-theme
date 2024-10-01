@@ -1,6 +1,6 @@
 {% extends "base.twig" %}
 {% block content %}
-	<div class="content-wrapper">
+ 
 		<article class="post-type-{{post.post_type}}" id="post-{{post.ID}}">
 			<section class="article-content">
                 <div class="container">
@@ -17,7 +17,7 @@
 				            </div>
                         </div>
                         <div class="col-12 py-2 my-2">
-                            <section id="contact-form-style-1">
+                            <section class="contact-form-style-1">
                                 {{ function('do_shortcode', '[contact-form-7 id="18" title="Contact Form 1"]') }}
                             </section>
                         </div>
@@ -25,8 +25,7 @@
                 </div>
             </section>
 		</article>
-	</div>
-    <!-- /content-wrapper -->
+ 
 {% endblock %}
 
 

@@ -1,6 +1,6 @@
 # Grit Theme
 
-## V.24.6
+## V.24.7
 
 Welcome to the Grit Theme repository!
 

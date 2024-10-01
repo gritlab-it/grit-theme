@@ -1,18 +1,65 @@
 body {
     font-family: $font-primary;
-    color: $black;
-    background-color: $white;
+    color: $text-color;
+    background-color: $bg-color;
     font-weight: normal;
     font-style: normal;
     margin: 0;
     padding: 0;
+ 
 
 }
 
+ 
+.smooth-scroll {
+    height: 100%;
+    overflow: hidden;
+ 
+  }
+
+ 
+
+/* GRIT_SET text Color
+   Note: Setting colors background as color-primary */
+   @each $name, $value in $colors {
+    .color-#{$name} {
+        color: $value !important;
+    }
+}
+
+/* GRIT_SET border Color
+   Note: Setting colors background as border-primary */
+@each $name, $value in $colors {
+    .border-#{$name} {
+        border-color: $value !important;
+    }
+}
+
+/* GRIT_SET Background Color
+   Note: Setting colors background as bg-primary */
+@each $name, $value in $colors {
+    .bg-#{$name} {
+        background-color: $value !important;
+    }
+}
+
+/* GRIT_SET half color
+   Note: Setting colors half background */
+@each $name, $value in $colors {
+    .bg-#{$name}-half {
+        background: $value;
+        background: -moz-linear-gradient(0deg, $value 50%, $white 50%);
+        background: -webkit-linear-gradient(0deg, $value 50%, $white 50%);
+        background: linear-gradient(0deg, $value 50%, $white 50%);
+    }
+}
+
+
+
 /* GRIT_SET container-fluid */
 @media (min-width: 768px) {
-    .section-padding {
-        padding: 0 calc(144 / 1920 * 100vw);
+    .contained {
+        padding: 0 calc(140 / 1920 * 100vw);
     }
 }
 

@@ -1,51 +1,32 @@
-:root {
-    --primary: #655F36;
-    --secondary: #E3DECF;
-    --tertiary: #F4EEE9;
-    --quaternary: #82614E;
-    --quinary: #DBA791;
-    --senary: #79292A;
-    --septenary: #F0A049;
-    --octonary: #6C6D81;
-    --nonary: #6C6D81;
-    --denary: #6C6D81;
-}
+$floral-white: #fffcf2;
+$alabaster: #f3efe4;
+$alabaster-2: #e6e1d6;
+$timberwolf: #ccc5b9;
+$battleship-gray: #868179;
+$black-olive: #403d39;
+$eerie-black: #252422;
+$sienna: #884125;
+$flame: #eb5e28;
+$burnt-sienna: #ed6d3c;
 
-$primary: #655F36;
-$primary-rgb: rgb(101, 95, 54);
-
-$secondary: #E3DECF;
-$secondary-rgb: rgb(227, 222, 207);
-
-$tertiary: #F4EEE9;
-$tertiary-rgb: rgb(244, 238, 233);
-
-$quaternary: #82614E;
-$quaternary-rgb: rgb(130, 97, 78);
-
-$quinary: #DBA791;
-$quinary-rgb: rgb(219, 167, 145);
-
-$senary: #79292A;
-$senary-rgb: rgb(121, 41, 42);
-
-$septenary: #F0A049;
-$septenary-rgb: rgb(240, 160, 73);
-
-$octonary: #6C6D81;
-$octonary-rgb: rgb(108, 109, 129);
-
-$nonary: #6C6D81;
-$nonary-rgb: rgb(108, 109, 129);
-
-$denary: #6C6D81;
-$denary-rgb: rgb(108, 109, 129);
-
+$primary: $flame;
+$secondary: $black-olive;
+$tertiary: $alabaster;
+$quaternary: $floral-white;
+$quinary: $alabaster-2;
+$senary: $timberwolf;
+$septenary: $battleship-gray;
+$octonary: $eerie-black;
+$nonary: $sienna;
+$denary: $burnt-sienna;
 
 $white: #ffffff;
 $black: #000000;
 $trasparent: trasparent;
- 
+
+
+$text-color: $black;
+$bg-color: $white;
 
 $black-50: #808080;
 $black-50-rgb: rgb(128, 128, 128);
@@ -57,20 +38,33 @@ $black-5: #F2F2F2;
 $black-5-rgb: rgb(242, 242, 242);
 $black-5-rgba: rgba(0, 0, 0, 0.05);
 
-$colors: (
-    primary: #655F36,
-    secondary: #E3DECF,
-    tertiary: #F4EEE9,
-    quaternary: #82614E,
-    quinary: #DBA791,
-    senary: #79292A,
-    septenary: #F0A049,
-    octonary: #6C6D81,
-    nonary: #6C6D81,
-    denary: #6C6D81,
+:root {
+    --primary: #eb5e28;
+    --secondary: #403d39;
+    --tertiary: #f3efe4;
+    --quaternary: #fffcf2;
+    --quinary: #e6e1d6;
+    --senary: #ccc5b9;
+    --septenary: #868179;
+    --octonary: #252422;
+    --nonary: #884125;
+    --denary: #ed6d3c;
+}
 
-    white: #ffffff,
-    black: #000000,
+$colors: (
+    primary: $primary,
+    secondary: $secondary,
+    tertiary: $tertiary,
+    quaternary: $quaternary,
+    quinary: $quinary,
+    senary: $senary,
+    septenary: $septenary,
+    octonary: $octonary,
+    nonary: $nonary,
+    denary: $denary,
+    
+    white: $white,
+    black: $black,
 );
 
 /* GRIT_SET Fonts
@@ -80,34 +74,7 @@ $colors: (
 $font-primary: 'Roboto', sans-serif;
 $font-secondary: 'Roboto', sans-serif;
 
-/* GRIT_SET Background Color
-    Note: Setting colors backgorund es bg-primary */
-@each $name, $value in $colors {
-    .bg-#{$name} {
-        background: $value!important;
-    }
-}
 
-/* GRIT_SET text Color
-    Note: Setting colors backgorund es color-primary */
-@each $name, $value in $colors {
-    .color-#{$name} {
-        color: $value!important;
-    }
-}
 
-/* GRIT_SET border Color
-    Note: Setting colors backgorund es color-primary */
-    @each $name, $value in $colors {
-        .border-#{$name} {
-            border-color: $value!important;
-        }
-    }
 
-.bg-half {
-    background: $primary;
-    background: -moz-linear-gradient(0deg, $primary 50%, $white 50%);
-    background: -webkit-linear-gradient(0deg, $primary 50%, $white 50%);
-    background: linear-gradient(0deg, $primary 50%, $white 50%);
-}
-
+ 

@@ -146,6 +146,30 @@ function grit_scripts()
         wp_enqueue_script('three', get_template_directory_uri() . '/assets/three/three.min.js', array(), '1.0.0', true);
     }
 
+
+        
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    ::::::::::::::    * A_SETTINGS Attiva in base alla scalta Lenis
+                        // Attiva libreria Lenis https://github.com/darkroomengineering/lenis
+    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+
+    if ($GLOBALS['assets_options']['GRIT_SETTING_LENIS']) { 
+        wp_enqueue_script('lenis', 'https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js'); 
+    }
+
+
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    ::::::::::::::    * A_SETTINGS Attiva in base alla scalta Locomotive
+                        // Attiva libreria Locomotive https://github.com/locomotivemtl/locomotive-scroll
+    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+
+    if ($GLOBALS['assets_options']['GRIT_SETTING_LOCOMOTIVE']) {
+
+        wp_enqueue_style('locomotive', 'https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css' );
+        wp_enqueue_script('locomotive', 'https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js'); 
+    }
+
+
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     ::::::::::::::    * A_SETTINGS Attiva in base alla scalta Lightbox2
                         // Attiva libreria Lightbox2 https://lokeshdhakar.com/projects/lightbox2/
@@ -273,14 +297,7 @@ function grit_scripts()
         wp_enqueue_script($nome, $percorso, NULL, NULL, true);
     }
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Attiva in base alla scalta cookiechoices.js
-                        // http://www.giovannifracasso.it/accettazione-cookies-privacy-banner/
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-
-    if ($GLOBALS['assets_options']['GRIT_SETTING_COOKIES']) {
-        wp_enqueue_script('cookies', get_template_directory_uri() . '/assets/js/cookiechoices.js', array(), '1.0.0', true);
-    }
+ 
 
 }
 
@@ -344,24 +361,7 @@ function grit_jquery_local_fallback($src, $handle = null)
 add_action('wp_head', 'grit_jquery_local_fallback');
 
 
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * A_SETTINGS Cookies directive script
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-
-
-function grit_cookies()
-{ ?>
-    <script>
-        document.addEventListener('DOMContentLoaded', function (event) {
-            cookieChoices.showCookieConsentBar('<?php echo get_theme_mod("grit_setting_pri_msg"); ?>', '<?php echo get_theme_mod("grit_setting_pri_close"); ?>', '<?php echo get_theme_mod("grit_setting_pri_title"); ?>', '<?php echo get_post_permalink(get_theme_mod("grit_setting_pri_url")); ?>');
-        });
-    </script>
-<?php }
-
-
-if ($GLOBALS['assets_options']['GRIT_SETTING_COOKIES']) {
-    add_action('wp_footer', 'grit_cookies', 20);
-}
+ 
 
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -494,35 +494,4 @@ if (get_theme_mod('grit_setting_hotjar') != '') {
     add_action('wp_footer', 'grit_hotjar_analytics', 20);
 }
 
-
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * A_SETTINGS Stampo log nome thempalte e versione
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-
-function grit_theme_version()
-
-{
-    $theme = wp_get_theme();
-    $theme_name = $theme->get('Name');
-    $theme_version = $theme->get('Version');
-
-    if (is_child_theme()) {
-        $theme_parent = wp_get_theme()->parent();
-        $theme_parent_name = $theme_parent->get('Name');
-        $theme_parent_version = $theme_parent->get('Version');
-        ?>
-        <script>console.log('<?php echo $theme_parent_name . ' ' . $theme_parent_version ?>');</script>
-        <script>console.log('<?php echo $theme_name . ' ' . $theme_version . ' => ' . $theme_parent_name . ' ' . $theme_parent_version ?>');</script>
-        <?php
-    } else {
-        ?>
-        <script>console.log('<?php echo $theme_name . ' -- ' . $theme_version ?>');</script>
-        <?php
-    }
-
-
-}
-
-add_action('wp_footer', 'grit_theme_version', 22);
-
-?>
+ 

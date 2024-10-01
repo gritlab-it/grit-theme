@@ -1,35 +1,80 @@
-<section class="section_slides">
-    <div class="owl-carousel owl-theme" id="carousel-slider">
-        {% for slide in section.slides %}
-        <div class="item-slide" style="background-image:url('{{Image(slide.background.id).src}}');">
+<section class="section_id_{{ section.section_index }} section_slides">
+    {% if section.slides|length > 1 %}
+        <div class="owl-carousel owl-theme" id="carousel-slider">
+            {% for slide in section.slides %}
+            <div class="item-slide bg-{{slide.background_color}}" {% if slide.background %} style="background-image:url('{{Image(slide.background.id).src}}');" {% endif %}> 
+                <div class="inner-text">
+                    <div class="container-fluid contained">
+                        <div class="row">
+                            <div class="col-12 col-md-12 col-lg-12 pb-5 mb-5 text-center">
+                                <h1 class=" display-1  color-{{slide.text_color}}">
+                                    {{slide.title}} {{slide.background.id}}
+                                </h1>
+                                {% if slide.text %}
+                                <p class="lead font-weight-normal pb-3 color-{{slide.text_color}}">
+                                    {{slide.text}}
+                                </p>
+                                {% endif %} 
+                                {% if slide.link_1 %}
+                                    {% set btn = {
+                                        'title': slide.link_1.title,
+                                        'url': slide.link_1.url,
+                                        'target': slide.link_1.target,
+                                        'style': 'btn btn-' ~ slide.link_1_color ~ ' btn-md',
+                                        }
+                                    %}
+                                    {% include ['/partials/btn.twig'] with btn %} 
+                                {% endif %}
+                                {% if slide.link_2 %}
+                                    {% set btn = {
+                                        'title': slide.link_2.title,
+                                        'url': slide.link_2.url,
+                                        'target': slide.link_2.target,
+                                        'style': 'btn btn-' ~ slide.link_2_color ~ ' btn-md',
+                                        }
+                                    %}
+                                    {% include ['/partials/btn.twig'] with btn %} 
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}      
+        <div class="item-slide item-slide-single bg-{{section.slides[0].background_color}}" {% if section.slides[0].background %} style="background-image:url('{{Image(section.slides[0].background.id).src}}');" {% endif %}>
             <div class="inner-text">
-                <div class="container-fluid section-padding">
+                <div class="container-fluid contained">
                     <div class="row">
-                        <div class="col-12 col-md-12 col-lg-6 pb-5 mb-5">
-                            <h1 class="color-white">
-                                {{slide.title}}
+                        <div class="col-12 col-md-12 col-lg-12 pb-5 mb-5 text-center">
+                            <h1 class=" display-1 color-{{section.slides[0].text_color}} ">
+                                {{section.slides[0].title}}
                             </h1>
-                            {% if slide.text %}
-                            <p class="lead pb-3 color-white">
-                                {{slide.text}}
-                            </p>
+                            
+                            
+                            {% if section.slides[0].text %}
+                                <p class="lead font-weight-normal pb-3 color-{{section.slides[0].text_color}}">
+                                    {{section.slides[0].text}}
+                                </p>
                             {% endif %} 
-                            {% if slide.link_1 %}
+                            {% if section.slides[0].link_1 %}
                                 {% set btn = {
-                                    'title': slide.link_1.title,
-                                    'url': slide.link_1.url,
-                                    'target': slide.link_1.target,
-                                    'style': 'btn btn-primary btn-lg',
+                                    'title' : section.slides[0].link_1.title,
+                                    'url'   : section.slides[0].link_1.url,
+                                    'target': section.slides[0].link_1.target,
+                                    'style' : 'btn btn-' ~ section.slides[0].link_1_color ~ ' btn-md',
                                     }
                                 %}
                                 {% include ['/partials/btn.twig'] with btn %} 
                             {% endif %}
-                            {% if slide.link_2 %}
+                            {% if section.slides[0].link_2 %}
                                 {% set btn = {
-                                    'title': slide.link_2.title,
-                                    'url': slide.link_2.url,
-                                    'target': slide.link_2.target,
-                                    'style': 'btn btn-secondary btn-lg',
+                                    'title' : section.slides[0].link_2.title,
+                                    'url'   : section.slides[0].link_2.url,
+                                    'target': section.slides[0].link_2.target,
+                                    'style' : 'btn btn-' ~ section.slides[0].link_2_color ~ ' btn-md',
                                     }
                                 %}
                                 {% include ['/partials/btn.twig'] with btn %} 
@@ -40,8 +85,7 @@
                 </div>
             </div>
         </div>
-        {% endfor %}
-    </div>
+    {% endif %}
 </section>
 
 
@@ -52,7 +96,7 @@
             margin: 0,
             responsiveClass: true,
             nav: true,
-            dots: false,
+            dots: true,
             items: 1,
             navText: ["<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"]
         });

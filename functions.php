@@ -247,7 +247,7 @@ class StarterSite extends Timber\Site {
 		
 		// * A_SETTINGS Google Maps
 		$gmaps_api_key = get_theme_mod('grit_setting_maps');
-		$context['google_maps_api'] = 'https://maps.googleapis.com/maps/api/js?key=' . $gmaps_api_key . '&amp;sensor=false&callback=initMap';
+		$context['google_maps_api'] = 'https://maps.googleapis.com/maps/api/js?key=' . $gmaps_api_key . '&loading=async&callback=initMap';
 
 		// * A_SETTINGS Google Recaptcha v3		
 		function add_recaptcha_lib() {
@@ -436,12 +436,17 @@ if ( ! is_admin() ) {
 // add_filter('wpcf7_posted_data', 'save_posted_data');
  
 // Add tag referer-page with url of previous page
-function getRefererPageForm( $form_tag )
-{
-	if ( $form_tag['name'] == 'referer-page' ) {
-		$form_tag['values'][] = htmlspecialchars($_SERVER['HTTP_REFERER']);
-	}
-	return $form_tag;
+function getRefererPageForm( $form_tag ) {
+    if ( $form_tag['name'] == 'referer-page' ) {
+        // Verifica se HTTP_REFERER è definito
+        if ( isset($_SERVER['HTTP_REFERER']) ) {
+            $form_tag['values'][] = htmlspecialchars($_SERVER['HTTP_REFERER']);
+        } else {
+            // In alternativa, puoi assegnare un valore predefinito
+            $form_tag['values'][] = 'No referer';
+        }
+    }
+    return $form_tag;
 }
 if ( !is_admin() ) {
 	add_filter( 'wpcf7_form_tag', 'getRefererPageForm' );
@@ -476,38 +481,7 @@ add_filter('upload_mimes', 'cc_mime_types');
 
 
 
-function update_theme_screenshot_from_json() {
-    // Percorso del file JSON
-    $json_file_path = get_template_directory() . '/assets/credits/credits.json';
 
-    // Leggi il contenuto del file JSON
-    $json_data = file_get_contents($json_file_path);
-
-    // Decodifica il contenuto JSON in un array associativo
-    $data = json_decode($json_data, true);
-
-    // Controlla se la decodifica è avvenuta con successo
-    if ($data !== null && isset($data['agency'][0])) {
-        // Accesso alle informazioni sull'agenzia
-        $agency = $data['agency'][0]; // Prendi il primo elemento dell'array "agency" 
-         
-
-        // Stampa il console log con i dati presi dal JSON
-        echo '<script>';
-        echo 'console.log("© ' . $agency['client'] . '. Tutti i diritti sono riservati");'; 
-        echo 'console.log("Developed by %c' . $agency['agency'] . '%c with ' . $agency['theme'] . '. Powered by ' . $agency['grit'] . '.", "color: #3ABEB9; font-weight:600;", "");';   
-        echo 'console.log("https://www.gritlab.it");';
-        echo '</script>';
-    } else {
-        // Messaggio di errore se il file JSON non è stato decodificato correttamente
-        echo '<script>';
-        echo 'console.error("Errore: impossibile recuperare i dati dal file JSON.");'; 
-        echo '</script>';
-    }
-}
-
-// Aggiungi lo script alla coda dei file JavaScript
-add_action('wp_footer', 'update_theme_screenshot_from_json');
 
 
 

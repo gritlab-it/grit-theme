@@ -1,0 +1,26 @@
+{# section_counter #}
+<section class="section_id_{{ section.section_index }} section_counter py-5 bg-{{section.background_color}}">
+    <div class="container-fluid {% if section.contained %} contained {% endif %}">
+        <div class="row">
+            {% set total_items = section.counters | length %}
+            {% for item in section.counters %}
+            <div class=" text-{{ section.align }} 
+                {% if total_items == 1 %}
+                    col-12 col-md-10 offset-md-1 p-md-5
+                {% elseif total_items == 2 %}
+                    col-12 col-md-6 p-md-5
+                {% elseif total_items == 3 %}
+                    col-12 col-md-4 p-md-5
+                {% else %}
+                    col-12 col-md-3 p-md-5
+                {% endif %}
+            ">
+                <h1 class="display-1 font-weight-medium">{{item.prefix}} {{ item.number }} {{item.suffix}}</h1>
+                <h2> {{ item.text }} </h2>
+               
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{# end section_counter #}

@@ -1,32 +1,49 @@
 {
-    "agency": [ 
-        {
-            "client": "Cliente srl",
-            "client_url": "https://www.cliente.it",
+	"agency": [
 
-            "agency": "ASTRATTO",
-            "agency_url": "https://www.astratto.agency",
-            "agency_folder": "astratto",
+		{
+			"client": "Cliente srl",
+			"client_url": "https://www.cliente.it",
 
-            "grit": "Giorgio Rizza",
-            "grit_url": "",
+			"agency": "Grit Lab",
+			"agency_url": "https://www.gritlab.it",
+			"agency_folder": "gritlab",
 
-            "theme": "GRIT Theme",
-            "color": "#0000E5"
-        } ,
-        {
-            "client": "Cliente srl",
-            "client_url": "https://www.cliente.it",
+			"grit": "Giorgio Rizza",
+			"grit_url": "https://www.gritlab.it",
 
-            "agency": "Poliedro",
-            "agency_url": "https://www.poliedrostudio.it",
-            "agency_folder": "poliedro",
+			"theme": "GRIT Theme",
+			"color": "#252422"
+		},
+ 
+		{
+			"client": "Cliente srl",
+			"client_url": "https://www.cliente.it",
 
-            "grit": "GRIT Lab",
-            "grit_url": "https://www.gritlab.it",
-            
-            "theme": "GRIT Theme",
-            "color": "#1D1D1B"
-        }
-    ]
+			"agency": "ASTRATTO",
+			"agency_url": "https://www.astratto.agency",
+			"agency_folder": "astratto",
+
+			"grit": "Giorgio Rizza",
+			"grit_url": "https://www.astratto.agency",
+
+			"theme": "ASTRATTO THEME",
+			"color": "#0000E5"
+		},
+
+		{
+			"client": "Cliente srl",
+			"client_url": "https://www.cliente.it",
+
+			"agency": "Poliedro",
+			"agency_url": "https://www.poliedrostudio.it",
+			"agency_folder": "poliedro",
+
+			"grit": "GRIT Lab",
+			"grit_url": "https://www.gritlab.it",
+
+			"theme": "GRIT Theme",
+			"color": "#1D1D1B"
+		}
+	]
 }

@@ -70,6 +70,12 @@ function grit_framework_register_required_plugins()
             'external_url' => '', // If set, overrides default API URL and points to an external URL.
             'is_callable' => '', // If set, this callable will be be checked for availability to determine if a plugin is active.
         ),
+
+        array(
+            'name' => 'Responsive Lightbox Lite',
+            'slug' => 'responsive-lightbox-lite',
+            'required' => false,
+        ), 
         
         array(
             'name' => 'E-mail Log',

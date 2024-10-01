@@ -1,9 +1,9 @@
 {# section_image #}
-<section class="section_image bg-half">
-    <div class="container-fluid section-padding">
+<section class="section_id_{{ section.section_index }} section_image  bg-{{section.background_color}}{% if section.background_half %}-half{% endif %}">
+    <div class="container-fluid {% if section.contained %} contained {% endif %}">
         <div class="row">
-            <div class="col-12 col-md-8 offset-md-2 text-center mb-5">
-                <img src="{{ Image(section.image.id).src}}" alt="" class="img-fluid ">  
+            <div class="col-12 col-md-8 offset-md-2 text-center">
+                <img src="{{ Image(section.image.id).src}}" alt="" class="img-fluid ">   
             </div>
         </div>
     </div>

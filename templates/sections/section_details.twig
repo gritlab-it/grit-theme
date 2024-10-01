@@ -1,0 +1,46 @@
+{# section_details #}
+<section class="section_id_{{ section.section_index }} section_details py-5 color-{{section.text_color}} bg-{{section.background_color}}">
+    <div class="container-fluid {% if section.contained %} contained {% endif %} ">
+        <div class="row justify-content-around">
+            <div class="col-12 col-md-6 col-lg-5 d-flex flex-column justify-content-between ">
+                <div class="inner-intro py-4 mb-5">
+                    <h1>{{section.title}}</h1>
+                    <div class="inner-text pb-2">
+                        {{section.intro}}
+                    </div>
+                {% if section.link_1 %}
+                {% set btn = {
+                    'title': link_1.title,
+                    'url': link_1.url,
+                    'target': link_1.target,
+                    'style': 'btn btn-' ~ section.link_1_color ~ ' btn-md',
+                    }
+                    %}
+                    {% include ['/partials/btn.twig'] with btn %} 
+                {% endif %}
+                </div>
+                <img src="{{ Image(section.image_1.id).src }}" alt="" class="img-fluid">
+            </div>
+            <div class="col-12 col-md-6 col-lg-5 d-flex flex-column justify-content-between">
+                <img src="{{ Image(section.image_2.id).src }}" alt="" class="img-fluid">
+                <div class="inner-subtext py-4 mt-5">
+                    <h4 class="font-secodandary">{{section.subtitle}}</h4>
+                    <div class="inner-text pb-2">
+                        {{section.subtext}}
+                    </div>
+                    {% if section.link_2 %}
+                    {% set btn = {
+                    'title': section.link_2.title,
+                    'url': section.link_2.url,
+                    'target': section.link_2.target,
+                    'style': 'btn btn-' ~ section.link_2_color ~ ' btn-md',
+                    }
+                    %}
+                    {% include ['/partials/btn.twig'] with btn %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{# end section_details #}

@@ -1,0 +1,107 @@
+{# section_list #}
+<section class="section_id_{{ section.section_index }} section_list py-5 bg-{{section.background_color}} color-{{section.text_color}} ">
+    <div class="container-fluid  {% if section.contained %} contained {% endif %}">
+        <div class="row">
+            <div class="col col-md-6 ">
+                <h1 class="font-weight-medium">{{section.title}}</h1>
+                {{section.text}}
+                {% if section.link_1 %}
+                {% set btn = {
+                    'title': link_1.title,
+                    'url': link_1.url,
+                    'target': link_1.target,
+                    'style': 'btn btn-' ~ section.link_1_color ~ ' btn-md',
+                    }
+                    %}
+                    {% include ['/partials/btn.twig'] with btn %} 
+                {% endif %}
+            </div>
+
+            <div class="col-12 col-md-6 ">
+                <div class="accordion pt-5 pt-md-0" id="accordion_list">
+                    {% for item in section.lists %}
+                    <div class="  card_list">
+                        <div id="heading_list_{{loop.index}}" class=" accordion_heading  {{ (loop.first) ? '' : 'collapsed' }}"
+                            type="button" data-toggle="collapse" data-target="#collapse_list_{{loop.index}}"
+                            aria-expanded="{{ (loop.first) ? 'true' : 'false' }}" collapsed
+                            aria-controls="collapse_list_{{loop.index}}">
+                            <div class="row">
+                                <div class="col-6 col-md-5  ">
+                                    <p>{{item.pre_title}}</p>
+                                </div>
+                                <div class="col-12 col-md-6 ">
+                                    <p>{{item.title}} </p>
+                                </div>
+                                
+                                <div class="col-6 col-md-1  text-center"><p class="collapse-symbol" id="symbol_{{loop.index}}">{% include ['/img/plus.svg'] %}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="collapse_list_{{loop.index}}" class="accordion_body collapse {{ (loop.first) ? 'show' : ' ' }}"
+                            aria-labelledby="heading_list_{{loop.index}}" data-parent="#accordion_list">
+
+                            <div class="row">
+                                <div class="col-12 col-md-12 ">
+                                    {{item.text}} 
+                                    
+                                </div>
+                            </div>
+                            
+                                
+                                    {% for sub_item in item.sublist %}
+                                    <div class=" sub_item ml-3  ">
+                                        <p>{{sub_item.text}}</p>
+                                    </div>
+                                    {% endfor %}
+                               
+                           
+                        </div>
+                    </div>
+                    <hr class="border-{{section.text_color}}">
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var headers = document.querySelectorAll('.accordion_heading');
+
+    headers.forEach(function(header) {
+        header.addEventListener('click', function() {
+            var symbol = this.querySelector('.collapse-symbol');
+            var target = document.querySelector(this.getAttribute('data-target'));
+
+            if (target.classList.contains('show')) {
+                symbol.innerHTML = `{% include '/img/plus.svg' %}`;
+            } else {
+                headers.forEach(function(h) {
+                    var s = h.querySelector('.collapse-symbol');
+                    s.innerHTML = `{% include '/img/plus.svg' %}`;
+                });
+                symbol.innerHTML = `{% include '/img/minus.svg' %}`;
+            }
+        });
+    });
+
+    // Gestione clic sull'icona
+    var symbols = document.querySelectorAll('.collapse-symbol');
+    symbols.forEach(function(symbol) {
+        symbol.addEventListener('click', function(e) {
+            e.stopPropagation(); // Evita che l'evento venga gestito solo dall'icona
+            this.closest('.accordion_heading').click(); // Simula il clic sull'intestazione
+        });
+    });
+
+    var firstHeader = document.querySelector('.accordion_heading:not(.collapsed)');
+    if (firstHeader) {
+        var firstSymbol = firstHeader.querySelector('.collapse-symbol');
+        firstSymbol.innerHTML = `{% include '/img/minus.svg' %}`;
+    }
+});
+
+</script>
+{# end section_list #}

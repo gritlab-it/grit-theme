@@ -1,30 +1,29 @@
-{# Section #section-gallery-lightbox #}
+{# section_gallery #} 
 
 {% set image_ids = '' %}
-{% for image in section_gallery %}
+{% for image in section.gallery %}
     {% set image_ids = image_ids ~ ',' ~ image.id %}
 {% endfor %}
 
-<div class="container-fluid bg-light p-5">
-    <div class="row">
-        <div class="col-12 py-5">
-            <h1>Section: #section-gallery-lightbox</h1>
-            <p>id #section-gallery-lightbox</p>
-        </div>
-        <div class="col-12" id="section-gallery-lightbox">
-            {{ function('do_shortcode', '[gallery ids="' ~ image_ids ~ '" columns="'~ section_gallery_col ~'" size="' ~ section_gallery_size ~ '" ]') }}
+<section class="section_id_{{ section.section_index }}  section_carousel  bg-{{section.background_color}}{% if section.background_half %}-half{% endif %}">
+    <div class="container-fluid {% if section.contained %} contained {% endif %}">
+        <div class="row"> 
+            <div class="section_gallery" >
+                {{ function('do_shortcode', '[gallery ids="' ~ image_ids ~ '" columns="'~ section.columns ~'" size="' ~ section.size ~ '" ]') }}
+            </div>
         </div>
     </div>
-</div>
+</section>
 
 <style>
-    #section-gallery-lightbox .gallery-item {
+    .section_gallery .gallery-item {
         margin: 0 !important;
         margin-top: 0 !important;
         padding: 5px;
+        float: left;
     }
 
-    #section-gallery-lightbox .gallery .gallery-item img {
+    .section_gallery .gallery .gallery-item img {
         width: 100% !important;
         height: auto !important;
         border: none !important;

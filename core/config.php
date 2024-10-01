@@ -34,6 +34,12 @@ $GLOBALS['assets_options'] = array(
     // Attiva libreria Images Loaded js https://imagesloaded.desandro.com/
     'GRIT_SETTING_IMAGESLOADED' => get_theme_mod('grit_setting_imagesloaded'),
 
+    // Attiva libreria Lenis https://github.com/darkroomengineering/lenis
+    'GRIT_SETTING_LENIS' => get_theme_mod('grit_setting_lenis'),
+
+    // Attiva libreria Locomotive https://github.com/locomotivemtl/locomotive-scroll
+    'GRIT_SETTING_LOCOMOTIVE' => get_theme_mod('grit_setting_locomotive'),
+
     // Attiva libreria Lightbox2 https://lokeshdhakar.com/projects/lightbox2/
     'GRIT_SETTING_LIGHTBOX2' => get_theme_mod('grit_setting_lightbox2'),
 
@@ -69,9 +75,7 @@ $GLOBALS['assets_options'] = array(
 
     // Inserisci API key di Google Recaptcha V3 console.cloud.google.com/security/recaptcha
     'GRIT_SETTING_RECAPTCHA' => get_theme_mod('grit_setting_recaptcha'),
-
-    // http://www.giovannifracasso.it/accettazione-cookies-privacy-banner/
-    'GRIT_SETTING_COOKIES' => get_theme_mod('grit_setting_cookies'),
+ 
 
 );
 

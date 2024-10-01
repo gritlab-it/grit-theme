@@ -1,18 +1,23 @@
 {# section-contacts #}
-<section class="section-contacts py-md-5">
-    <div class="container-fluid py-4 section-padding">
+<section class="section_id_{{ section.section_index }} section_details py-5 color-{{section.text_color}} bg-{{section.background_color}}">
+    <div class="container-fluid {% if section.contained %} contained {% endif %} ">
         <div class="row">
             <div class="col-12 col-md-5">
             {% if section.title %}
              <h1 class="font-weight-bold display-3">
-                    {{section.title}}
+                {{section.title}}
                 </h1>
             {% endif %}
                 {% if section.text %}
                     <p>
-                        {{section.text}}
+                        {{section.text}} 
                     </p>
                     <div class="inner-social d-inline-block h3 pt-5">
+                        <p>{% if setting_facebook %}
+                            <a href="{{setting_facebook}}" target="_blank" class=" ">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                        {% endif %}
                         {% if setting_instagram %}
                             <a href="{{setting_instagram}}" target="_blank" class=" ">
                                 <i class="fab fa-instagram"></i>
@@ -23,13 +28,14 @@
                                 <i class="fab fa-linkedin"></i>
                             </a>
                         {% endif %}
+                    </p>
                     </div>
                 {% endif %}
             </div> 
 
             <div class="col-12 col-md-7">
-                <div id="contact-form-style-1">
-                    {{ function('do_shortcode', '[contact-form-7 id="50724a4" title="Modulo di Contatto Demo"]') }}
+                <div class="contact-form-style-1">
+                    {{ function('do_shortcode', section.cf7) }}
                 </div>
             </div>
 
