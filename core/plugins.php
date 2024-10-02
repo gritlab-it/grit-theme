@@ -60,8 +60,8 @@ function grit_framework_register_required_plugins()
      */
     $plugins = array(
         array(
-            'name' => 'ACF Pro', // The plugin name.
-            'slug' => 'advanced-custom-fields', // The plugin slug (typically the folder name).
+            'name' => 'Advanced Custom Fields PRO', // The plugin name.
+            'slug' => 'advanced-custom-fields-pro', // The plugin slug (typically the folder name).
             // 'source' => get_template_directory_uri() . '/core/plugins/advanced-custom-fields-pro.zip', // The plugin source.
             'required' => true, // If false, the plugin is only 'recommended' instead of required.
             'version' => '', // E.g. 1.0.0. If set, the active plugin must be this version or higher. If the plugin version is higher than the plugin version installed, the user will be notified to update the plugin.
@@ -141,20 +141,13 @@ function grit_framework_register_required_plugins()
             'slug' => 'post-meta-inspector',
             'required' => true,
         ),
-
-        array(
-            'name' => 'Clear cache for Timber',
-            'slug' => 'clear-cache-for-timber',
-            'required' => true,
-        ), 
+ 
         array(
             'name' => 'Sucuri Security',
             'slug' => 'sucuri-scanner',
             'required' => false,
         ), 
-
-        
-
+ 
         array(
             'name' => 'Complianz GDPR',
             'slug' => 'complianz-gdpr',
