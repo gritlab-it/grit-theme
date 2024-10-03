@@ -12,11 +12,13 @@
 }
 
 .hidden {
-  opacity: 0;
+  opacity: 0;  /* Nasconde visivamente l'elemento */
+  visibility: hidden;  /* Nasconde l'elemento dal layout senza interferire con il flusso della pagina */
 }
 
 .visible {
   opacity: 1;
+  visibility: visible;
 }
 
 
