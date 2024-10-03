@@ -6,8 +6,15 @@
 {% endfor %}
 
 
-    <div class="container-fluid">
+    <div class="container-fluid py-5">
         <div class="row"> 
+            {% if section.title %} 
+            <div class="col pb-4"> 
+                <h1 class="display-2">{{section.title}}</h1>
+            </div>
+            {% endif %}
+            
+            
             <div class="section_gallery" >
                 {{ function('do_shortcode', '[gallery ids="' ~ image_ids ~ '" columns="'~ section.columns ~'" size="' ~ section.size ~ '" ]') }}
             </div>
