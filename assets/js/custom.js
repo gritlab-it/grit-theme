@@ -1,44 +1,15 @@
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * A_SETTINGS INDEX
-:::::::::::::: 01 * A_SETTINGS loader
-:::::::::::::: 02 * A_SETTINGS animate
-:::::::::::::: 03 * A_SETTINGS sticky
-:::::::::::::: 04 * A_SETTINGS magicMouse
-:::::::::::::: 05 * A_SETTINGS butter-js
-:::::::::::::: 06 * A_SETTINGS menu showing
-:::::::::::::: 07 * A_SETTINGS jarallax-js
-:::::::::::::: 08 * A_SETTINGS NProgress-js
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* :::::::::::::: 00 * GRIT_SET loader */
+/* :::::::::::::: 01 * GRIT_SET animate.css  */
+/* :::::::::::::: 02 * GRIT_SET menu showing */
+/* :::::::::::::: 03 * GRIT_SET sticky */
+/* :::::::::::::: 04 * GRIT_SET magicMouse */
+/* :::::::::::::: 05 * GRIT_SET butter-js  */
+/* :::::::::::::: 06 * GRIT_SET jarallax-js  */
+/* :::::::::::::: 07 * GRIT_SET NProgress-js */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-
-
-
-jQuery(document).ready(function($) {
-// Percorso del file JSON
-var json_file_path = '<?php echo get_template_directory_uri() ?>/agency/agency.json';
-
-// Effettua la richiesta AJAX per recuperare i dati dal file JSON
-$.getJSON(json_file_path, function(data) {
-// Controlla se il file JSON contiene l'array 'agency'
-if (data.agency && data.agency.length > 0) {
-var agency = data.agency[0]; // Prendi il primo elemento dell'array 'agency'
-
-// Stampa i crediti nella console
-console.log('© ' + agency.name + '. Tutti i diritti sono riservati');
-console.log('Realizzazione siti web %c' + agency.theme, 'color: #3ABEB9; font-weight:600;');
-console.log(agency.url);
-} else {
-console.log('Errore: Nessuna informazione sull\'agenzia trovata nel file JSON.');
-}
-}).fail(function() {
-console.log('Errore: Impossibile recuperare il file JSON.');
-});
-});
-
-
-
-/* :::::::::::::: 01 * A_SETTINGS loader
-:::::::::::::::::    add loaded and set timeout loader */
+/* :::::::::::::: 00 * GRIT_SET loader */
 $(function () {
     setTimeout(function () {
         /* init loader effect */
@@ -79,29 +50,62 @@ $(document).ready(function () {
     });
 });
 
-/* :::::::::::::: 02 * A_SETTINGS animate */
-$(document).ready(function () {
-    var viewportchecker_active = document.getElementById("viewportchecker-js");
+/* :::::::::::::: 01 * GRIT_SET animate.css  */
+// example          <div class="in__animate" data-animation="animate__fadeInUp animate__slow animate__delay-2s"  >
+document.addEventListener("DOMContentLoaded", function () { 
+    var viewportchecker_active = document.getElementById("content");
     if (viewportchecker_active) {
-        /* init animate and add visibile item in viewport after with offset */
-        jQuery('.in__animate').addClass("hidden").viewportChecker({
-            classToAdd: 'visible animate__animated animate__fadeIn animate__slow ',
-            offset: 300,
-            repeat: true,
+        var elements = document.querySelectorAll('.in__animate');
+
+        // Nasconde tutti gli elementi inizialmente
+        elements.forEach(function (element) {
+            element.classList.add('hidden'); // Nasconde gli elementi finché non sono nel viewport
+        });
+
+        // Usa IntersectionObserver per rilevare quando gli elementi entrano nel viewport
+        var observer = new IntersectionObserver(function (entries, observer) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    // Ottiene l'animazione specifica dall'attributo data-animation
+                    var animationClasses = entry.target.getAttribute('data-animation');
+                    
+                    // Controlla che data-animation non sia vuoto o undefined
+                    if (animationClasses && animationClasses.trim() !== "") {
+                        // Rimuove la classe 'hidden' e aggiunge le classi di animazione dal data attribute
+                        entry.target.classList.remove('hidden');
+
+                        // Forza il reflow per riapplicare le animazioni
+                        void entry.target.offsetWidth; // Questo forza il reflow
+
+                        // Aggiunge animate__animated e le classi specifiche di animazione
+                        entry.target.classList.add('animate__animated');
+                        entry.target.classList.add(...animationClasses.trim().split(' ').filter(Boolean)); // Rimuove eventuali spazi vuoti
+                    } else {
+                        console.warn("data-animation è vuoto o non definito per l'elemento:", entry.target);
+                    }
+                } 
+            });
+        }, {
+            threshold: 0.1, // Inizia l'animazione quando il 10% dell'elemento è visibile
+            rootMargin: '0px 0px -100px 0px' // Simula un offset per far iniziare l'animazione in anticipo
+        });
+
+        // Osserva ogni elemento .in__animate
+        elements.forEach(function (element) {
+            observer.observe(element);
         });
     }
 });
 
-/* :::::::::::::: 06 * A_SETTINGS menu showing  */
+/* :::::::::::::: 02 * GRIT_SET menu showing */
+ 
 $(document).ready(function () {
     $(".menu-icon").on("click", function () {
         $("nav ul").toggleClass("showing");
         // alert('showing menu-icon');
     });
-});
+}); 
 
-
-/* :::::::::::::: 06 * A_SETTINGS menu showing  */
 $(document).ready(function () {
     // Evento per aprire il menu
     $(".menu-toggle").on("click", function () {
@@ -143,7 +147,7 @@ function closeNav(elementId) {
 }
 
 
-/* :::::::::::::: 03 * A_SETTINGS sticky */
+/* :::::::::::::: 03 * GRIT_SET sticky */
 $(function () {
     // Caches a jQuery object containing the header element
     var header = $(".sticky");
@@ -160,7 +164,7 @@ $(function () {
     });
 });
 
-/* :::::::::::::: 04 * A_SETTINGS magicMouse */
+/* :::::::::::::: 04 * GRIT_SET magicMouse */
 var magicmouse_active = document.getElementById("magic-mouse-js");
 $(document).ready(function () {
     if (magicmouse_active) {
@@ -184,7 +188,7 @@ $(document).ready(function () {
     }
 });
 
-/* :::::::::::::: 05 * A_SETTINGS butter-js  */
+/* :::::::::::::: 05 * GRIT_SET butter-js  */
 var butter_active = document.getElementById("butter-js");
 $(document).ready(function () {
     if (butter_active) {
@@ -209,7 +213,7 @@ $(document).ready(function () {
 
 
 
-/* :::::::::::::: 07 * A_SETTINGS jarallax-js  */
+/* :::::::::::::: 06 * GRIT_SET jarallax-js  */
 owl_carousel_active = document.getElementById('owl_carousel-js')
 if (owl_carousel_active) {
     /* init jarallax-js with original class */
@@ -228,7 +232,7 @@ if (owl_carousel_active) {
 }
 
 
-/* :::::::::::::: 08 * A_SETTINGS NProgress-js */
+/* :::::::::::::: 07 * GRIT_SET NProgress-js */
 nprogress_active = document.getElementById('nprogress-js')
 if (nprogress_active) {
     $('body').show();
