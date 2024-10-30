@@ -1,40 +1,43 @@
  
     <div class="container-fluid ">
         <div class="row">
-            <div class="col-12 my-5" id="section-faq-list-search">
+            <div class="col-12 my-5" id="section-list-list-search">
                 <div class="contact-form-style-1" id="search_list">
-                    <input class="search" placeholder="Come possiamo aiutarti?"/>
+                    <div class="pb-3">
+                        <input type="search" class="search" placeholder="Come possiamo aiutarti?"/>
+                    </div> 
                     <ul class="list p-0 w-100 list-unstyled">
-                        {% for faq in section.list_faq %}
-                            {% set faq_id = faq.faq_args|replace({' ': ''}) %}
-                            {% for questions in faq.faq_questions %}
-                                <li class="item-search ">
-                                    <div class="row">
-                                        <div class="col-12 pt-4">
-                                            <div class="row collapsed"
-                                                id="heading_{{ faq_id }}_{{ loop.index }}"
+                        {% for list in section.lists %}
+                            {% set list_id = list.args|replace({' ': ''}) %}
+                            {% for item in list.item %}
+                                <li class="item-search mb-1">
+ 
+                                            <div class="collapsed w-100 bg-grey"
+                                                id="heading_{{ list_id }}_{{ loop.index }}"
                                                 data-toggle="collapse"
-                                                data-target="#collapse_search_{{ faq_id }}_{{ loop.index }}"
+                                                data-target="#collapse_search_{{ list_id }}_{{ loop.index }}"
                                                 aria-expanded="true"
-                                                aria-controls="collapse_search_{{ faq_id }}_{{ loop.index }}">
-                                                <div class="col-9">
-                                                    <h5 class="search_question p-0 m-0">{{ questions.question }}</h5>
-                                                    <p class="color-{{ faq.faq_args_color }} grit-p-sm">{{ faq.faq_args }}</p>
+                                                aria-controls="collapse_search_{{ list_id }}_{{ loop.index }}">
+                                                <div class="row p-3">
+                                                    <div class="col-9">
+                                                        <h5 class="m-0 search_title">{{ item.title }}</h5>
+                                                        <p class="m-0 color-{{ list.args_color }} "><small>{{ list.args }}</small></p>
+                                                    </div>
+                                                    <div class="col-3 text-right">
+                                                         <i class="fas fa-plus color-{{ list.args_color }}"></i>
+                                                    </div>
+
                                                 </div>
-                                                <div class="col-3 text-right">
-                                                    <i class="far fa-question-circle color-{{ faq.faq_args_color }}"></i>
+                                                
+                                            </div>
+                                            <div id="collapse_search_{{ list_id }}_{{ loop.index }}" class="border collapse"
+                                                aria-labelledby="heading_{{ list_id }}_{{ loop.index }}" data-parent="#accordion">
+                                                <div class="p-3 search_text"> 
+                                                    {{ item.text }}
+                                                     
                                                 </div>
                                             </div>
-                                            <div id="collapse_search_{{ faq_id }}_{{ loop.index }}" class="collapse"
-                                                aria-labelledby="heading_{{ faq_id }}_{{ loop.index }}" data-parent="#accordion">
-                                                <div class="pb-4 search_answer">
-                                                    <hr>
-                                                    {{ questions.answer }}
-                                                    <hr>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+ 
                                 </li>
                             {% endfor %}
                         {% endfor %}
@@ -43,37 +46,36 @@
                 </div>
             </div>
         </div>
-
         <div id="accordion">
             <div class="row">
-                {% for faq in section.list_faq %}
-                    {% set faq_id = faq.faq_args|replace({' ': ''}) %}
+                {% for list in section.lists %}
+                    {% set list_id = list.args|replace({' ': ''}) %}
                     <div class="col-12 pt-5">
-                        <h2 class="color-{{ faq.faq_args_color }}">{{ faq.faq_args }}</h2>
+                        <h2 class="color-{{ list.args_color }}">{{ list.args }}</h2>
                     </div>
                     <div class="col">
                         <div class="row">
-                            {% for questions in faq.faq_questions %}
-                                <div class="col-12 col-md-6">
-                                    <div class="row {% if loop.index != 1 %} collapsed {% endif %}"
-                                        id="heading_{{ faq_id }}_{{ loop.index }}"
+                            {% for item in list.item %}
+                                <div class="col-12 mb-1 ">
+                                    <div class=" w-100 bg-grey {% if loop.index != 1 %} collapsed {% endif %}"
+                                        id="heading_{{ list_id }}_{{ loop.index }}"
                                         data-toggle="collapse"
-                                        data-target="#collapse_{{ faq_id }}_{{ loop.index }}"
+                                        data-target="#collapse_{{ list_id }}_{{ loop.index }}"
                                         aria-expanded="true"
-                                        aria-controls="collapse_{{ faq_id }}_{{ loop.index }}">
-                                        <div class="col-9 pt-3">
-                                            <h5>{{ questions.question }}</h5>
-                                        </div>
-                                        <div class="col-3 text-right pt-3">
-                                            <i class="far fa-question-circle color-{{ faq.faq_args_color }}"></i>
+                                        aria-controls="collapse_{{ list_id }}_{{ loop.index }}">
+                                        <div class="row p-3">
+                                            <div class="col-9 ">
+                                                <h5 class="m-0">{{ item.title }}</h5>
+                                            </div>
+                                            <div class="col-3 text-right "> 
+                                                <i class="fas fa-plus color-{{ list.args_color }}"></i>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div id="collapse_{{ faq_id }}_{{ loop.index }}" class="collapse {% if loop.index == 1 %} show {% endif %}"
-                                        aria-labelledby="heading_{{ faq_id }}_{{ loop.index }}" data-parent="#accordion">
-                                        <div class="pb-2">
-                                            <hr>
-                                            {{ questions.answer }}
-                                            <hr>
+                                    <div id="collapse_{{ list_id }}_{{ loop.index }}" class=" border collapse {% if loop.index == 1 %} show {% endif %}"
+                                        aria-labelledby="heading_{{ list_id }}_{{ loop.index }}" data-parent="#accordion">
+                                        <div class=" p-3">
+                                            {{ item.text }} 
                                         </div>
                                     </div>
                                 </div>
@@ -87,44 +89,14 @@
  
 
 <style>
-    #search_list .search {
-        font-size: 30px;
-        line-height: 35px;
-    }
-
-    .item-search {
-        width: 100%;
-    }
-
-    .pagination-list-js li {
-        background: var(--elit-blu-primary);
-        color: #fff;
-        margin-right: 5px;
-        padding: 5px;
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-        text-align: center;
-    }
-
-    .pagination-list-js li.active {
-        background: var(--elit-magenta-primary);
-    }
-
-    .pagination-list-js li a {
-        color: #fff;
-    }
-
-    .pagination-list-js li a:hover {
-        color: #fff;
-    }
+ 
 </style>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
 <script>
     $(document).ready(function () {
         var options = {
-            valueNames: ['search_question', 'search_answer'],
+            valueNames: ['search_title', 'search_text'],
             page: 3,
             pagination: true
         };

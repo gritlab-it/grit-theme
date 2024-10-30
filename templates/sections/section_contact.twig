@@ -1,46 +1,141 @@
-{# section-contacts #}
- 
-    <div class="container-fluid ">
-        <div class="row">
-            <div class="col-12 col-md-5">
+
+{% if '.section_contact_1' in class %}
+
+{# .section_contact_1 #}
+<div class="container-fluid ">
+    <div class="row">
+        <div class="col-12 col-md-5">
             {% if section.title %}
-             <h1 class="font-weight-bold display-3">
-                {{section.title}}
+                <h1 class="">
+                    {{section.title}}
                 </h1>
             {% endif %}
-                {% if section.text %}
-                    <p>
-                        {{section.text}} 
-                    </p>
-                    <div class="inner-social d-inline-block h3 pt-5">
-                        <p>{% if setting_facebook %}
-                            <a href="{{setting_facebook}}" target="_blank" class=" ">
-                                <i class="fab fa-facebook"></i>
-                            </a>
-                        {% endif %}
-                        {% if setting_instagram %}
-                            <a href="{{setting_instagram}}" target="_blank" class=" ">
-                                <i class="fab fa-instagram"></i>
-                            </a>
-                        {% endif %}
-                        {% if setting_linkedin %}
-                            <a href="{{setting_linkedin}}" target="_blank" class=" ">
-                                <i class="fab fa-linkedin"></i>
-                            </a>
-                        {% endif %}
-                    </p>
-                    </div>
-                {% endif %}
-            </div> 
-
-            <div class="col-12 col-md-7">
-                <div class="contact-form-style-1">
-                    {{ function('do_shortcode', section.cf7) }}
-                </div>
+            {% if section.text %}
+                <p>
+                    {{section.text}} 
+                </p> 
+            {% endif %}
+            <div class=" py-3"> 
+                {% if setting_indirizzo_1 %}
+                <p>
+                    <i class="fas fa-map-marker-alt"></i>
+                    {{ setting_indirizzo_1 }}
+                </p>  
+                {% endif %} 
+                {% if setting_mail_1 %}
+                <p>
+                    <i class="fas fa-at"></i>
+                    <a href="mailto:{{ setting_mail_1 }}">
+                        {{ setting_mail_1 }}
+                    </a>
+                </p>  
+                {% endif %} 
+                {% if setting_tel_1 %}
+                <p>
+                    <i class="fas fa-phone"></i>
+                    <a href="tel:{{ setting_tel_1 }}">
+                        {{ setting_tel_1 }}
+                    </a>
+                </p>  
+                {% endif %}  
             </div>
-
-
-        </div>
+            <div class="inner-social d-inline-block h3 py-3">
+                <p>
+                {% if setting_facebook %}
+                    <a href="{{setting_facebook}}" target="_blank" class=" ">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                {% endif %}
+                {% if setting_instagram %}
+                    <a href="{{setting_instagram}}" target="_blank" class=" ">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                {% endif %}
+                {% if setting_linkedin %}
+                    <a href="{{setting_linkedin}}" target="_blank" class=" ">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                {% endif %}
+                </p>
+            </div>
+            
+        </div>  
+        <div class="col-12 col-md-7">
+            <div class="contact-form-style-2"> 
+                {{ function('do_shortcode', section.cf7) }}
+            </div>
+        </div> 
     </div>
+</div> 
+{# end .section_contact_1 #}
+
+{% else %}
+
+{# .section_contact #}
+<div class="container-fluid ">
+    <div class="row">
+        <div class="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2 ">
+            {% if section.title %}
+                <h1 class="">
+                    {{section.title}}
+                </h1>
+            {% endif %}
+            {% if section.text %}
+                <p>
+                    {{section.text}} 
+                </p> 
+            {% endif %}
+            <div class=" py-3"> 
+                {% if setting_indirizzo_1 %}
+                <p>
+                    <i class="fas fa-map-marker-alt"></i>
+                    {{ setting_indirizzo_1 }}
+                </p>  
+                {% endif %} 
+                {% if setting_mail_1 %}
+                <p>
+                    <i class="fas fa-at"></i>
+                    <a href="mailto:{{ setting_mail_1 }}">
+                        {{ setting_mail_1 }}
+                    </a>
+                </p>  
+                {% endif %} 
+                {% if setting_tel_1 %}
+                <p>
+                    <i class="fas fa-phone"></i>
+                    <a href="tel:{{ setting_tel_1 }}">
+                        {{ setting_tel_1 }}
+                    </a>
+                </p>  
+                {% endif %}  
+            </div>
+            <div class="inner-social d-inline-block h3 py-3">
+                <p>{% if setting_facebook %}
+                    <a href="{{setting_facebook}}" target="_blank" class=" ">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                {% endif %}
+                {% if setting_instagram %}
+                    <a href="{{setting_instagram}}" target="_blank" class=" ">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                {% endif %}
+                {% if setting_linkedin %}
+                    <a href="{{setting_linkedin}}" target="_blank" class=" ">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                {% endif %}
+            </p>
+            </div>
+        </div>  
+        <div class="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2 ">
+            <div class="contact-form-style-1">
+                {{ function('do_shortcode', section.cf7) }}
+            </div>
+        </div> 
+    </div>
+</div>
+{# end .section_contact #}
+
+{% endif %}
  
-{# end section-contacts #}

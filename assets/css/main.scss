@@ -1,76 +1,6 @@
 /* A_SETTINGS INDEX CSS  
 02 * A_SETTINGS Font
-*/
- 
-
-/*  03 * A_SETTINGS Variables */
-@import 'variables';  
-
-/*  03 * A_SETTINGS Content */
-@import 'content';  
-
-/*  03 * A_SETTINGS Variables */
-@import 'typography';  
-
-/*  03 * A_SETTINGS Header */
-@import 'header';  
-
-/*  03 * A_SETTINGS Footer */
-@import 'footer';  
-
-/*  03 * A_SETTINGS Sections */
-@import 'sections';  
- 
-/*  03 * A_SETTINGS Forms */
-@import 'forms';  
-
-/*  03 * A_SETTINGS Plugins */
-@import 'plugins';  
- 
-/*  
-08 * A_SETTINGS img-hover
-  Note: Impostazioni per css */
-  .img-hover .img-hover-inner {
-    position: relative;
-    overflow: hidden;
-  }
-
-.img-hover .img-hover-inner img {
-  transition: all 0.7s;
-  transform: scale(1);
-}
-
-.img-hover:hover .img-hover-inner img {
-  transform: scale(1.1);
-}
-
-
-.loaded .img-hover-inner:before {
-  content: '';
-  opacity: 0;
-  transition: 0.5s all ease-in-out;
-  transition-delay: 0.9s;
-  z-index: 10;
-}
-
-.img-hover-inner:before {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: $primary;
-  // background: linear-gradient(0deg, rgba(240,250,249,1) 0%, rgba(87,201,187,1) 100%);
-  opacity: 1;
-}
-
-
-
-
-
-
-
-
-
+*/ 
 
 /*  
 26 * A_SETTINGS breakpoints
@@ -98,3 +28,28 @@ Note:No media query since this is the default in Bootstrap because it is "mobile
 f94144,f3722c,f8961e,f9844a,f9c74f,90be6d,43aa8b,4d908e,577590,277da1
 https://coolors.co/f94144-f3722c-f8961e-f9844a-f9c74f-90be6d-43aa8b-4d908e-577590-277da1
 */
+
+
+/*  03 * A_SETTINGS Variables */
+@import './variables';  
+
+/*  03 * A_SETTINGS Content */
+@import './content';  
+
+/*  03 * A_SETTINGS Variables */
+@import './typography';  
+
+/*  03 * A_SETTINGS Header */
+@import './header';  
+
+/*  03 * A_SETTINGS Footer */
+@import './footer';  
+
+/*  03 * A_SETTINGS Sections */
+@import './sections';  
+ 
+/*  03 * A_SETTINGS Forms */
+@import './forms';  
+
+/*  03 * A_SETTINGS Plugins */
+@import './plugins';  

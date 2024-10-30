@@ -1,34 +1,50 @@
 {% extends "base.twig" %}
 {% block content %}
 
- 
-
 
     <article class="post-type-{{post.post_type}}" id="post-{{post.ID}}">
 
-        <div class="container  ">
-            <div class="row">
-                <div class="col py-5 ">
-                    <h1 class="article-h1">
-                        {{post.title}}
-                    </h1>
-                    <div class="article-body">
-                        <div class="cmplz-document cookie-statement">
-                            {% if content is empty %}
-                                 {% filter shortcodes %}
-                                        [cmplz-document type="cookie-statement" region="eu"]
-                                    {% endfilter %}
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+ 
 
+
+    {% for section in sections %}
+	    {% if section.pre_content %}
+			{% set section = section|merge({'section_index': loop.index}) %} 
+			{% include ['/sections/section.twig'] with section %}
+	    {% endif %}
+	{% endfor %}
+ 
+	{% if content is not empty %}
+	    <section class="section_page contained py-3">
+	        <div class="container-fluid">
+	            <div class="row">
+	                <div class="col-12">
+	                    {{ content }}
+	                </div>
+	            </div>
+	        </div>
+	    </section>
+        {% else %}
+        <section class="section_page contained py-3">
+	        <div class="container-fluid">
+	            <div class="row">
+	                <div class="col-12">
+                        {% filter shortcodes %}
+                                [cmplz-document type="cookie-statement" region="eu"]
+                            {% endfilter %}
+	                </div>
+	            </div>
+	        </div>
+	    </section> 
+	{% endif %}
+
+	{% for section in sections %}
+	    {% if not section.pre_content %}
+			{% set section = section|merge({'section_index': loop.index}) %} 
+			{% include ['/sections/section.twig'] with section %}
+	    {% endif %}
+	{% endfor %} 
     </article>
-
-
-
 
     <style>
         @import url("{{ home }}/wp-content/plugins/complianz-gdpr/assets/css/document.min.css");
@@ -37,5 +53,6 @@
             text-justify: inter-word;
         }
     </style>
-
 {% endblock %}
+
+

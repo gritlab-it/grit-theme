@@ -38,6 +38,52 @@ function grit_customize_register($wp_customize)
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
 
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    ::::::::::::::    * A_SETTINGS Header
+    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+
+    $wp_customize->add_setting('grit_setting_header', array(
+        'capability' => 'edit_theme_options',
+        'default' => 'header_1',
+    ));
+    $wp_customize->add_control('grit_setting_header', array(
+        'type' => 'select',
+        'section' => 'grit_framework_general_settings',
+        'label' => __('Header Style'),
+        'description' => __('Scegli la tipologia di header'),
+        'choices' => array(
+            'header_1' => __('header_1'),
+            'header_2' => __('header_2'),
+            'header_3' => __('header_3'),
+            'header_4' => __('header_4'),
+            'header_5' => __('header_5'),
+        ),
+    ));
+
+
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    ::::::::::::::    * A_SETTINGS Footer
+    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+
+    $wp_customize->add_setting('grit_setting_footer', array(
+        'capability' => 'edit_theme_options',
+        'default' => 'footer_1',
+    ));
+    $wp_customize->add_control('grit_setting_footer', array(
+        'type' => 'select',
+        'section' => 'grit_framework_general_settings',
+        'label' => __('Footer Style'),
+        'description' => __('Scegli la tipologia di footer'),
+        'choices' => array(
+            'footer_1' => __('footer_1'),
+            'footer_2' => __('footer_2'),
+            'footer_3' => __('footer_3'),
+            'footer_4' => __('footer_4'),
+            'footer_5' => __('footer_5'),
+        ),
+    ));
+
+
     $wp_customize->add_setting('grit_setting_google_fonts', array(
         'capability' => 'edit_theme_options',
     ));
@@ -390,23 +436,7 @@ function grit_customize_register($wp_customize)
     ));
 
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Container / Fluid
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    $wp_customize->add_setting('grit_setting_main_container', array(
-        'capability' => 'edit_theme_options',
-    ));
-    $wp_customize->add_control('grit_setting_main_container', array(
-        'type' => 'select',
-        'section' => 'grit_framework_general_settings',
-        'label' => __('Main Container'),
-        'description' => __('Scegli la tipologia di container'),
-        'choices' => array(
-            'container' => __('Section Boxed ( container )'),
-            'container-fluid' => __('Section Full Width ( container-fluid )'),
-        ),
-    ));
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     ::::::::::::::    * A_SETTINGS TRACKING SETTINGS
@@ -607,6 +637,7 @@ function grit_customize_register($wp_customize)
         'type' => 'text',
         'section' => 'grit_framework_theme_fileds',
         'label' => __('Indirizzo 2'),
+        'description' => __('Se presente attiva link in BIO')
     ]);
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -619,6 +650,8 @@ function grit_customize_register($wp_customize)
         'type' => 'text',
         'section' => 'grit_framework_theme_fileds',
         'label' => __('Indirizzo 3'),
+        'description' => __('Se presente attiva link in BIO')
+
     ]);
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -643,6 +676,20 @@ function grit_customize_register($wp_customize)
         'type' => 'text',
         'section' => 'grit_framework_theme_fileds',
         'label' => __('Telefono 2'),
+        'description' => __('Se presente attiva link in BIO')
+    ]);
+
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    ::::::::::::::    * A_SETTINGS Telefono 3
+    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    $wp_customize->add_setting('grit_setting_tel_3', [
+        'capability' => 'edit_theme_options',
+    ]);
+    $wp_customize->add_control('grit_setting_tel_3', [
+        'type' => 'text',
+        'section' => 'grit_framework_theme_fileds',
+        'label' => __('Telefono 3'),
+        'description' => __('Se presente attiva link Whats App in BIO')
     ]);
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

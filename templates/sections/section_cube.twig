@@ -1,15 +1,22 @@
-{# Section #section_cube #}
+{# section_cube #}
  
     <div class="container-fluid ">
         <div class="row align-items-stretch ">
             <div class="col-12 col-md-6 bg-{{section.background_color}} p-0 m-0 col-text d-flex flex-column justify-content-center order-first {% if section.invert %} order-md-last {% else %}  {% endif %}">
                 <div class="inner-text color-{{section.color}}">
-                    <h3 class="text-uppercase color-{{section.text_color}}">
-                        {{section.title}}
-                    </h3>
-                    <div class="py-4 color-{{section.text_color}}">
-                        {{section.text}} 
-                    </div>  
+
+                    {% if section.title %}
+                        <h3 class="text-uppercase color-{{section.text_color}}">
+                            {{section.title}}
+                        </h3>
+                    {% endif %}
+                    
+                    {% if section.text %}
+                        <div class="py-4 color-{{section.text_color}}">
+                            {{section.text}} 
+                        </div>
+                    {% endif %}
+
                     {% if section.lists %}
                     <div class="row pb-4">
                         {% for item in section.lists %}
@@ -24,42 +31,74 @@
                         {% endfor %} 
                     </div> 
                     {% endif %}
-                    
+                    <div class="box-buttons"> 
                     {% if section.link_1 %}
                         {% set btn = {
                             'title': section.link_1.title,
                             'url': section.link_1.url,
                             'target': section.link_1.target,
-                            'style': 'btn btn-' ~ section.link_1_color ~ ' btn-md',
+                            'style': 'btn btn-' ~ section.color_link_1 ~ ' btn-md',
                             }
                         %}
                         {% include ['/partials/btn.twig'] with btn %}
                     {% endif %}
+
                     {% if section.link_2 %}
                         {% set btn = {
                             'title': section.link_2.title,
                             'url': section.link_2.url,
                             'target': section.link_2.target,
-                            'style': 'btn btn-' ~ section.link_2_color ~ ' btn-md',
+                            'style': 'btn btn-' ~ section.color_link_2 ~ ' btn-md',
                             }
                         %}
                         {% include ['/partials/btn.twig'] with btn %}
                     {% endif %}
+                    
+                    </div>
+                    
+
                 </div>
             </div>
-            <div class="col-12 col-md-6 p-0 m-0 col-img order-last {% if section.invert %} order-md-first {% else %}  {% endif %}"  {% if section.gallery|length == 1 %} style="background-image: url('{{ Image(section.gallery[0].id).src|resize(1400,1400)}}');" {% endif %}>
-               
-                
-                
+ 
+            <div class="col-12 col-md-6 p-0 m-0 col-img order-last 
+                {% if 'parallax' in section.class %} jarallax-keep-img {% endif %} 
+                {% if section.invert %} order-md-first {% else %}  {% endif %}"  
+                {% if section.gallery|length == 1 %} style="background-image: url('{{ Image(section.gallery[0].id).src|resize(1400,1400)}}');" {% endif %} >
                 
                 {% if section.gallery|length > 1 %}
-                <div class="owl-carousel owl-theme cube-carousel" >
-                    {% for gallery_img in section.gallery %}
-                    <img src="{{ Image(gallery_img.id).src|resize(1400,1400)}}" alt="" class="img-fluid">
-                    {% endfor %}
-                </div>
-                {% else %}   
-                {# <img src="{{ Image(section.gallery[0].id).src|resize(1400,1400)}}" alt="" class="img-fluid"> #}
+                    <div class="owl-carousel owl-theme carousel-cube" > 
+                        {% for gallery_img in section.gallery %}
+
+                            {% if 'parallax' in section.class %}
+
+                                <div class="jarallax-keep-img" data-speed="0.5"> 
+                                    {% set image = {
+                                        'alt': gallery_img.alt,
+                                        'src': Image(gallery_img.id).src|resize(1400,1400) ,
+                                        'class': 'img-fluid jarallax-img'
+                                    } %}
+                                    {% include ['/partials/img.twig'] with image %}   
+                                </div>
+
+                            {% else %}
+
+                                {% set image = {
+                                    'alt': gallery_img.alt,
+                                    'src': Image(gallery_img.id).src|resize(1400,1400) ,
+                                    'class': 'img-fluid '
+                                } %}
+                                {% include ['/partials/img.twig'] with image %} 
+
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% else %} 
+                    {# {% set image = {
+                        'alt': section.gallery[0].alt,
+                        'src': Image(section.gallery[0].id).src|resize(1400,1400) ,
+                        'class': 'img-fluid '
+                    } %}
+                    {% include ['/partials/img.twig'] with image %}   #}
                 {% endif %}
                 
                 
@@ -75,7 +114,7 @@
  
 
  $(document).ready(function () {
-     $(".cube-carousel").owlCarousel({
+     $(".carousel-cube").owlCarousel({
          loop: true,
          margin: 0,
          responsiveClass: true, 
@@ -88,4 +127,4 @@
  
  </script>
 
-{# end Section #section_cube #}
+{# end section_cube #}

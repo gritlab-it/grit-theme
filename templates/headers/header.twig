@@ -1,0 +1,128 @@
+<div class="header-menu shadow-sm ">
+    <div class="sidenav sidenav-close" id="header-sidenav">
+        <div class="inner-sidenav">
+            <nav class=" navbar navbar-expand-lg static-top"> 
+                <a class="navbar-brand" href="{{ home }}" title="{{ site.name }} - {{ site.description }}" >
+                    <img class="logo img-fluid"
+                        src="{% if custom_logo_url %}{{ custom_logo_url[0] }}{% else %}{{ template_directory_uri }}/img/logo-grit-b.png{% endif %}" alt="{{ site.name }} - {{ site.description }}">
+                </a>
+                <button class="navbar-toggler  " type="button"
+                    data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarNav"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span style="font-size:30px; cursor:pointer" class="closebtn" onclick="closeNav('header-sidenav');">
+                        <i class="fas fa-times"></i>
+                    </span>
+                </button>
+            </nav>
+        </div>
+        <div class="overlay-content">
+            {% include "/templates/headers/menu.twig" with {'primary_menu': primary_menu.get_items} %} 
+        </div>
+
+        <ul class="nav-social ">
+            {% if setting_facebook %}
+                <li class="social-link">
+                    <a href="{{setting_facebook}}" target="_blank" >
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </li>
+                {% endif %}
+                {% if setting_instagram %}
+                <li class="social-link">
+                    <a href="{{setting_instagram}}" target="_blank" >
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </li>
+                {% endif %}
+                {% if setting_linkedin %}
+                <li class="social-link">
+                    <a href="{{setting_linkedin}}" target="_blank" >
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </li>
+            {% endif %}
+        </ul> 
+    </div>
+    <nav class=" navbar navbar-expand-lg static-top">
+        <a class="navbar-brand" href="{{ home }}" title="{{ site.name }} - {{ site.description }}">
+            <img class="logo img-fluid"
+                src="{% if custom_logo_url %}{{ custom_logo_url[0] }}{% else %}{{ template_directory_uri }}/img/logo-grit-b.png{% endif %}">
+        </a>
+        <button class="navbar-toggler  " type="button"
+            data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarNav" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span style="font-size:30px; cursor:pointer" onclick="openNav('header-sidenav');">
+                <i class="fas fa-bars"></i>
+            </span>
+        </button>
+        <div class="navbar-collapse collapse  " id="navbarResponsive">
+            {% include "/templates/headers/menu.twig" with {'primary_menu': primary_menu.get_items} %}
+            <ul class="nav-social ">
+                {% if setting_facebook %}
+                    <li class="social-link">
+                        <a href="{{setting_facebook}}" target="_blank" >
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% if setting_instagram %}
+                    <li class="social-link">
+                        <a href="{{setting_instagram}}" target="_blank" >
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% if setting_linkedin %}
+                    <li class="social-link">
+                        <a href="{{setting_linkedin}}" target="_blank" title="">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul> 
+        </div>  
+    </nav>
+</div>
+<div class="sticky sticky-fix shadow-sm ">
+    <nav class=" navbar navbar-expand-lg static-top">
+        <a class="navbar-brand" href="{{ home }}" title="{{ site.name }} - {{ site.description }}">
+            <img class="logo img-fluid"
+                src="{% if custom_logo_url %}{{ custom_logo_url[0] }}{% else %}{{ template_directory_uri }}/img/logo-grit-b.png{% endif %}">
+        </a>
+        <button class="navbar-toggler  " type="button"
+            data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarNav" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span style="font-size:30px; cursor:pointer" onclick="openNav('header-sidenav');">
+                <i class="fas fa-bars"></i>
+            </span>
+        </button>
+        <div class="navbar-collapse collapse  " id="navbarResponsive">
+            {% include "/templates/headers/menu.twig" with {'primary_menu': primary_menu.get_items} %}
+            <ul class="nav-social ">
+                {% if setting_facebook %}
+                    <li class="social-link">
+                        <a href="{{setting_facebook}}" target="_blank" >
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% if setting_instagram %}
+                    <li class="social-link">
+                        <a href="{{setting_instagram}}" target="_blank" >
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% if setting_linkedin %}
+                    <li class="social-link">
+                        <a href="{{setting_linkedin}}" target="_blank" >
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul> 
+        </div>
+        
+    </nav>
+    
+</div>

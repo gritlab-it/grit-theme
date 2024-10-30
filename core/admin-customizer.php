@@ -126,7 +126,7 @@ function login_logo() {
     <style type="text/css">
         #login h1 a, .login h1 a {
             background-image: url(<?php echo $logo_path; ?>);
-            background-size: 313px; 
+            background-size: contain; 
             width: 100%;
         }
 

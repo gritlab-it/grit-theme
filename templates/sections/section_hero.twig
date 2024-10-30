@@ -1,33 +1,37 @@
-{# section_hero #}
- 
-    <div class="container-fluid"> 
-        <div class="inner-hero p-5 bg-{{section.inner_background_color}}" {% if section.background %} style="background-image:url('{{Image(section.background.id).src}}');" {% endif %}>
+{# section_hero #} 
+    <div class="container-fluid px-0"> 
+        <div class="inner-hero {% if 'parallax' in section.class %} jarallax-keep-img {% endif %} p-5 bg-{{section.inner_background_color}}" {% if section.background %} style="background-image:url('{{Image(section.background.id).src}}');" {% endif %}>
             <div class="row">
                 <div class="col col-12 col-md-6 offset-md-6  d-flex flex-column justify-content-between">
-                    <div class="inner-title">
+                    <div class="inner-title in__animate " data-animation="animate__fadeIn animate__slow ">
                         <h1 class="">{{section.title}}</h1>
-                        {% if section.link_1 %}
+
+                        <div class="box-buttons">
+                            {% if section.link_1 %}
                             {% set btn = {
-                                'title': section.link_1.title,
-                                'url': section.link_1.url,
-                                'target': section.link_1.target,
-                                'style': 'btn btn-' ~ section.link_1_color ~ ' btn-md',
+                                'title': link_1.title,
+                                'url': link_1.url,
+                                'target': link_1.target,
+                                'style': 'btn btn-' ~ section.color_link_1 ~ '  ',
                                 }
-                            %}
-                            {% include ['/partials/btn.twig'] with btn %}
-                        {% endif %}
-                        {% if section.link_2 %}
+                                %}
+                                {% include ['/partials/btn.twig'] with btn %} 
+                            {% endif %}
+            
+                            {% if section.link_2 %}
                             {% set btn = {
-                                'title': section.link_2.title,
-                                'url': section.link_2.url,
-                                'target': section.link_2.target,
-                                'style': 'btn btn-' ~ section.link_2_color ~ ' btn-md',
+                                'title': link_2.title,
+                                'url': link_2.url,
+                                'target': link_2.target,
+                                'style': 'btn btn-' ~ section.color_link_2 ~ '  ',
                                 }
-                            %}
-                            {% include ['/partials/btn.twig'] with btn %}
-                        {% endif %}
+                                %}
+                                {% include ['/partials/btn.twig'] with btn %} 
+                            {% endif %}
+                        </div> 
+
                     </div>
-                    <div class="inner-text">
+                    <div class="inner-text in__animate " data-animation="animate__fadeIn animate__slow ">
                         {{section.text}}
                     </div>
                 </div>

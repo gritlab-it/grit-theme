@@ -1,104 +1,120 @@
  
-    {% if section.slides|length > 1 %}
-        <div class="owl-carousel owl-theme" id="carousel-slider">
-            {% for slide in section.slides %}
-            <div class="item-slide bg-{{slide.background_color}}" {% if slide.background %} style="background-image:url('{{Image(slide.background.id).src}}');" {% endif %}> 
-                <div class="inner-text">
-                    <div class="container-fluid contained">
-                        <div class="row">
-                            <div class="col-12 col-md-12 col-lg-12 pb-5 mb-5 text-center">
-                                <h1 class=" display-1  color-{{slide.text_color}}">
-                                    {{slide.title}} {{slide.background.id}}
-                                </h1>
-                                {% if slide.text %}
-                                <p class="lead font-weight-normal pb-3 color-{{slide.text_color}}">
-                                    {{slide.text}}
-                                </p>
-                                {% endif %} 
-                                {% if slide.link_1 %}
-                                    {% set btn = {
-                                        'title': slide.link_1.title,
-                                        'url': slide.link_1.url,
-                                        'target': slide.link_1.target,
-                                        'style': 'btn btn-' ~ slide.link_1_color ~ ' btn-md',
-                                        }
-                                    %}
-                                    {% include ['/partials/btn.twig'] with btn %} 
-                                {% endif %}
-                                {% if slide.link_2 %}
-                                    {% set btn = {
-                                        'title': slide.link_2.title,
-                                        'url': slide.link_2.url,
-                                        'target': slide.link_2.target,
-                                        'style': 'btn btn-' ~ slide.link_2_color ~ ' btn-md',
-                                        }
-                                    %}
-                                    {% include ['/partials/btn.twig'] with btn %} 
-                                {% endif %}
+ {% if section.slides|length > 1 %}
+ <div class="owl-carousel owl-theme carousel-slider">
+    {% for slide in section.slides %}
+    <div class="item-slide bg-{{slide.background_color}} {% if 'parallax' in section.class %} jarallax-keep-img {% endif %}"  {% if slide.background %} style="background-image:url('{{Image(slide.background.id).src}}');" {% endif %}> 
+        <div class="inner-text">
+            <div class="container-fluid contained in__animate " data-animation="animate__fadeIn animate__slow ">
+                <div class="row">
+                    <div class="col-12 col-md-12 col-lg-12 pb-5 mb-5 ">
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    {% else %}      
-        <div class="item-slide item-slide-single bg-{{section.slides[0].background_color}}" {% if section.slides[0].background %} style="background-image:url('{{Image(section.slides[0].background.id).src}}');" {% endif %}>
-            <div class="inner-text">
-                <div class="container-fluid contained">
-                    <div class="row">
-                        <div class="col-12 col-md-12 col-lg-12 pb-5 mb-5 text-center">
-                            <h1 class=" display-1 color-{{section.slides[0].text_color}} ">
-                                {{section.slides[0].title}}
-                            </h1>
-                            
-                            
-                            {% if section.slides[0].text %}
-                                <p class="lead font-weight-normal pb-3 color-{{section.slides[0].text_color}}">
-                                    {{section.slides[0].text}}
-                                </p>
-                            {% endif %} 
-                            {% if section.slides[0].link_1 %}
-                                {% set btn = {
-                                    'title' : section.slides[0].link_1.title,
-                                    'url'   : section.slides[0].link_1.url,
-                                    'target': section.slides[0].link_1.target,
-                                    'style' : 'btn btn-' ~ section.slides[0].link_1_color ~ ' btn-md',
-                                    }
-                                %}
-                                {% include ['/partials/btn.twig'] with btn %} 
-                            {% endif %}
-                            {% if section.slides[0].link_2 %}
-                                {% set btn = {
-                                    'title' : section.slides[0].link_2.title,
-                                    'url'   : section.slides[0].link_2.url,
-                                    'target': section.slides[0].link_2.target,
-                                    'style' : 'btn btn-' ~ section.slides[0].link_2_color ~ ' btn-md',
-                                    }
-                                %}
-                                {% include ['/partials/btn.twig'] with btn %} 
-                            {% endif %}
+                        {% if slide.title %}
+                            <h1 class=" display-1  color-{{slide.text_color}}"> 
+                                {{slide.title}}  
+                            </h1> 
+                        {% endif %}
+                    
+                    
+                        {% if slide.text %}
+                            <p class="lead font-weight-normal pb-3 color-{{slide.text_color}}">
+                                {{slide.text}}
+                            </p>
+                        {% endif %}
 
-                        </div>
+                        <div class="box-buttons">
+                            {% if slide.link_1 %}
+                            {% set btn = {
+                                'title': slide.link_1.title,
+                                'url': slide.link_1.url,
+                                'target': slide.link_1.target,
+                                'style': 'btn btn-' ~ slide.color_link_1 ~ ' btn-md',
+                            }
+                            %}
+                            {% include ['/partials/btn.twig'] with btn %} 
+                            {% endif %}
+                            {% if slide.link_2 %}
+                            {% set btn = {
+                                'title': slide.link_2.title,
+                                'url': slide.link_2.url,
+                                'target': slide.link_2.target,
+                                'style': 'btn btn-' ~ slide.color_link_2 ~ ' btn-md',
+                            }
+                            %}
+                            {% include ['/partials/btn.twig'] with btn %} 
+                            {% endif %}
+                        </div> 
                     </div>
                 </div>
             </div>
         </div>
-    {% endif %}
- 
-
-
+    </div>
+    {% endfor %}
+</div>
 <script>
     $(document).ready(function () {
-        $("#carousel-slider").owlCarousel({
+        $(".carousel-slider").owlCarousel({
             loop: true,
             margin: 0,
             responsiveClass: true,
             nav: true,
             dots: true,
             items: 1,
-            navText: ["<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"]
+            navText: [`{% include ['/partials/arrow.twig'] %}`, `{% include ['/partials/arrow.twig'] %}`], 
+            /* navText: ["<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"] */
         });
     });
 </script>
+
+{% else %}      
+<div class="item-slide item-slide-single bg-{{section.slides[0].background_color}} {% if 'parallax' in section.class %} jarallax-keep-img {% endif %}" {% if section.slides[0].background %} style="background-image:url('{{Image(section.slides[0].background.id).src}}');" {% endif %}>
+    <div class="inner-text">
+        <div class="container-fluid contained in__animate " data-animation="animate__fadeIn animate__slow ">
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-12 pb-5 mb-5 "> 
+
+                    {% if section.slides[0].title %}
+                    <h1 class=" display-1 color-{{section.slides[0].text_color}} ">
+                        {{section.slides[0].title}}
+                    </h1>
+                    {% endif %}
+
+                    {% if section.slides[0].text %}
+                    <p class="lead font-weight-normal pb-3 color-{{section.slides[0].text_color}}">
+                        {{section.slides[0].text}}
+                    </p>
+                    {% endif %} 
+                    <div class="box-buttons">
+                        {% if section.slides[0].link_1 %}
+                        {% set btn = {
+                            'title' : section.slides[0].link_1.title,
+                            'url'   : section.slides[0].link_1.url,
+                            'target': section.slides[0].link_1.target,
+                            'style' : 'btn btn-' ~ section.slides[0].color_link_1 ~ ' btn-md',
+                        }
+                        %}
+                        {% include ['/partials/btn.twig'] with btn %} 
+                        {% endif %}
+
+                        {% if section.slides[0].link_2 %}
+                        {% set btn = {
+                            'title' : section.slides[0].link_2.title,
+                            'url'   : section.slides[0].link_2.url,
+                            'target': section.slides[0].link_2.target,
+                            'style' : 'btn btn-' ~ section.slides[0].color_link_2 ~ ' btn-md',
+                        }
+                        %}
+                        {% include ['/partials/btn.twig'] with btn %} 
+                        {% endif %}
+
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+

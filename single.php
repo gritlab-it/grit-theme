@@ -46,6 +46,7 @@ $args = array(
 );
 $context['archive_posts'] = $archive_posts = new Timber\PostQuery($args);
 	
+ 
 
 if ( post_password_required( $timber_post->ID ) ) {
     Timber::render( 'single-password.twig', $context );

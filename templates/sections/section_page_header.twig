@@ -1,27 +1,74 @@
-{# Section #section_page_header #}
-     <div class="container-fluid">
+
+
+ 
+{% if 'section_page_header_1' in class %}
+ 
+{# .section_page_header_1 #}
+<div class="d-flex">
+    <div class="polygon">{{breadcrumbs}} </div>
+</div> 
+<div class="sub-header {{ section.contained ? 'contained' : '' }} {% if 'parallax' in section.class %} jarallax-keep-img {% endif %} " style="background-image: url('{{Image(section.image.id).src ?: placeholder}}');">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-12"> 
-                <h1 class="display-1 font-weight-normal ">
-                    {{section.title}}
+            <div class="col-12 py-5 mt-5">
+                <h1 class="display-1">
+                    {{ section.title ?: post.title ?: post_title }}
                 </h1>
-            </div>
-            <div class="col-12 my-4">
-                <hr class="border-{{section.text_color}}">
-            </div>
-            <div class="col-12 col-md-6">
-                {% if section.subtitle %}
-                    <p class=" text-uppercase ">{{section.subtitle}}</p>
-                {% endif %}
-              </div>
-            <div class="col-12 col-md-6 text-right">
-                <p class=" text-uppercase d-none d-xl-block">
-                    <a href="#" class="scrollbtn color-{{section.text_color}}">
-                         {{__('Scroll Down', 'grit_theme')}}
-                    </a> 
+                <p class=""> 
+                    {{ section.subtitle ?: post.post_excerpt }} 
+                    
                 </p>
             </div>
         </div>
     </div>
+</div>
+{# end .section_page_header_1 #}
  
-{# end Section #section_page_header #}
+{% elseif 'section_page_header_2' in class %}
+
+{# .section_page_header_2 #}
+<div class="sub-header {{ section.contained ? 'contained' : '' }} {% if 'parallax' in section.class %} jarallax-keep-img {% endif %} " style="background-image: url('{{Image(section.image.id).src ?: placeholder}}');">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 py-5 mt-5">
+                <h3 class="m-0">{{ section.title ?: post.title ?: post_title }}</h3>
+                {{ breadcrumbs }}
+            </div>
+        </div>
+    </div>
+</div>
+{# end .section_page_header_2 #}
+
+{% else %}
+
+{# .section_page_header #} 
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="display-1 ">
+                {{ section.title ?: post.post_title ?: post_title }}
+            </h1>
+        </div>
+        <div class="col-12 my-4">
+            <hr class="border-{{section.text_color}}">
+        </div>
+        <div class="col-12 col-md-6">
+            <p class=""> 
+                {{ section.subtitle ?: post.post_excerpt  }}
+            </p> 
+        </div>
+        <div class="col-12 col-md-6 text-right">
+            <p class="d-none d-xl-block">
+                <a href="#" class="scrollbtn color-{{section.text_color}}">
+                    {{__('Scroll Down', 'grit_theme')}}
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+{# end .section_page_header #}
+
+{% endif %}
+
+

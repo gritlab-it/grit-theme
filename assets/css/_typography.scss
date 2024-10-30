@@ -20,14 +20,19 @@ h6,
   font-family: $font-primary;
 }
 
+.text-muted {
+  color: $text-color;
+  opacity: 0.8;
+}
+
 a {
   // font-variation-settings: 'wght' 900;
   font-variation-settings: 'slnt' 0;
   // font-weight: bold;
-  color: $primary;
+  color: $accent;
   text-decoration: none;
   background-color: transparent;
-  transition: 0.7s all ease-in-out;
+  @include transition(all 0.5s ease-in-out);
 }
 
 a:hover {
@@ -41,7 +46,7 @@ a:hover {
 
 /* A_SETTINGS button */
 .btn {
-  border-radius: 0px;
+  border-radius: 3px;
   padding: 0.545em 1em;
   text-align: center;
   display: inline-block;
@@ -53,7 +58,7 @@ a:hover {
   position: relative;
   font-weight: 600;
   text-transform: uppercase;
-
+  @include transition(all 0.5s ease-in-out);
   /* Standard */
   // border-radius: 10px;
   // font-family: Inter;
@@ -64,9 +69,9 @@ a:hover {
   // text-align: center;
   // text-transform: uppercase;
   // padding: 0.375rem 1.75rem;
-  // transition: all 0.3s ease-in-out;
+  // @include transition(all 0.5s ease-in-out);
   
-  .btn-circle {
+  &.btn-circle {
     width: 40px;
     height: 40px;
     padding: 3px;
@@ -80,6 +85,7 @@ a:hover {
   }
 }
 
+// $color, $bg, $border, $h-color, $h-bg, $h-border
 @mixin btn-color($color, $bg, $border, $h-color, $h-bg, $h-border) {
   color: $color;
   background: $bg;
@@ -111,7 +117,7 @@ a:hover {
     background: darken($bg, 30%);
     border-color: darken($border, 30%);
   }
-
+ 
   &.focus,
   &:focus {
     background: $h-bg;
@@ -120,51 +126,152 @@ a:hover {
   }
 }
 
-// $color, $bg, $border, $h-color, $h-bg, $h-border
 
+ 
+
+// Pulsanti per ogni colore
+
+// Accent
+.btn-accent {
+  @include btn-color($light, $accent, $accent, $accent, $light, $light);
+}
+
+.btn-outline-accent {
+  @include btn-color($accent, $light, $accent, $accent, $light, $light);
+}
+// Primary
 .btn-primary {
-  @include btn-color($white, $primary, $primary, $white, $secondary, $secondary);
-}
-
-.btn-secondary {
-  @include btn-color($primary, $secondary, $secondary, $white, $primary, $primary);
-}
-
-.btn-tertiary {
-  @include btn-color($white, $tertiary, $tertiary, $white, $quaternary, $quaternary);
-}
-
-.btn-quaternary {
-  @include btn-color($white, $quaternary, $quaternary, $white, $tertiary, $tertiary);
+  @include btn-color($light, $primary, $primary, $primary, $light, $light);
 }
 
 .btn-outline-primary {
-  @include btn-color($primary, $white, $primary, $secondary, $white, $secondary);
+  @include btn-color($primary, $light, $primary, $primary, $light, $light);
+}
+
+// Secondary
+.btn-secondary {
+  @include btn-color($light, $secondary, $secondary, $secondary, $light, $light);
 }
 
 .btn-outline-secondary {
-  @include btn-color($secondary, $white, $secondary, $primary, $white, $primary);
+  @include btn-color($secondary, $light, $secondary, $secondary, $light, $light);
+}
+
+// Tertiary
+.btn-tertiary {
+  @include btn-color($light, $tertiary, $tertiary, $tertiary, $light, $light);
 }
 
 .btn-outline-tertiary {
-  @include btn-color($tertiary, $white, $tertiary, $quaternary, $white, $quaternary);
+  @include btn-color($tertiary, $light, $tertiary, $tertiary, $light, $light);
+}
+
+// Quaternary
+.btn-quaternary {
+  @include btn-color($light, $quaternary, $quaternary, $quaternary, $light, $light);
 }
 
 .btn-outline-quaternary {
-  @include btn-color($quaternary, $white, $quaternary, $tertiary, $white, $tertiary);
+  @include btn-color($quaternary, $light, $quaternary, $quaternary, $light, $light);
 }
+
+// Quinary
+.btn-quinary {
+  @include btn-color($light, $quinary, $quinary, $quinary, $light, $light);
+}
+
+.btn-outline-quinary {
+  @include btn-color($quinary, $light, $quinary, $quinary, $light, $light);
+}
+
+// Senary
+.btn-senary {
+  @include btn-color($light, $senary, $senary, $senary, $light, $light);
+}
+
+.btn-outline-senary {
+  @include btn-color($senary, $light, $senary, $senary, $light, $light);
+}
+
+// Septenary
+.btn-septenary {
+  @include btn-color($light, $septenary, $septenary, $septenary, $light, $light);
+}
+
+.btn-outline-septenary {
+  @include btn-color($septenary, $light, $septenary, $septenary, $light, $light);
+}
+
+// Octonary
+.btn-octonary {
+  @include btn-color($light, $octonary, $octonary, $octonary, $light, $light);
+}
+
+.btn-outline-octonary {
+  @include btn-color($octonary, $light, $octonary, $octonary, $light, $light);
+}
+
+// Nonary
+.btn-nonary {
+  @include btn-color($light, $nonary, $nonary, $nonary, $light, $light);
+}
+
+.btn-outline-nonary {
+  @include btn-color($nonary, $light, $nonary, $nonary, $light, $light);
+}
+
+// Denary
+.btn-denary {
+  @include btn-color($light, $denary, $denary, $denary, $light, $light);
+}
+
+.btn-outline-denary {
+  @include btn-color($denary, $light, $denary, $denary, $light, $light);
+}
+
+
+
+// Grey
+.btn-grey {
+  @include btn-color($light, $grey, $grey, $grey, $light, $light);
+}
+
+.btn-outline-grey {
+  @include btn-color($grey, $light, $grey, $grey, $light, $light);
+}
+
+// White
+.btn-white {
+  @include btn-color($dark, $white, $white, $white, $dark, $dark);
+}
+
+.btn-outline-white {
+  @include btn-color($white, $dark, $white, $white, $dark, $dark);
+}
+
+// Black
+.btn-black {
+  @include btn-color($light, $black, $black, $black, $light, $light);
+}
+
+.btn-outline-black {
+  @include btn-color($black, $light, $black, $black, $light, $light);
+}
+
+
+ 
 
 
 
 
 /* Custom button styles */
 .btn-outline-transparent { 
-  border-color: $white;
+  border-color: $light;
   background: none;
   outline: none;
-  color: $white;; /* Testo bianco di default */
+  color: $light;; /* Testo bianco di default */
   mix-blend-mode: screen;
-  transition: all 0.3s ease-in-out;
+  @include transition(all 0.5s ease-in-out);
 
   // Pseudo-elemento per lo sfondo bianco
   &::before {
@@ -178,28 +285,28 @@ a:hover {
     content: '';
     mix-blend-mode: color-burn; /* Modalità di fusione per ottenere l'effetto desiderato */
     z-index: -1; /* Posiziona lo sfondo sotto il testo */
-    transition: all 0.3s ease-in-out;
+    @include transition(all 0.5s ease-in-out);
   }
 
   // Effetti in hover
   &:hover {
-    color: $black; /* Cambia il colore del testo in nero in hover */
+    color: $dark; /* Cambia il colore del testo in nero in hover */
 
     &::before {
-      background: $white;; /* Rende lo sfondo bianco in hover */
+      background: $light;; /* Rende lo sfondo bianco in hover */
     }
   }
 
   &:focus {
     outline: none; /* Rimuove il contorno predefinito */
-    box-shadow: 0 0 0 0.2rem $white;; /* Ombra personalizzata per il focus */
+    box-shadow: 0 0 0 0.2rem $light;; /* Ombra personalizzata per il focus */
   }
 
   &:active {
-    color: $black; /* Mantiene il testo nero quando il pulsante è attivo */
+    color: $dark; /* Mantiene il testo nero quando il pulsante è attivo */
 
     &::before {
-      background: $white;; /* Rende lo sfondo bianco quando il pulsante è attivo */
+      background: $light;; /* Rende lo sfondo bianco quando il pulsante è attivo */
     }
   }
 
@@ -213,13 +320,13 @@ a:hover {
 
  /* Custom button styles */
  .btn-transparent {
-  border-color: $white;
+  border-color: $light;
   background: none;
   outline: none;
-  color: $black;
+  color: $dark;
   mix-blend-mode: screen;
   text-transform: uppercase; /* Aggiungo la trasformazione del testo in maiuscolo */ 
-  transition: all 0.3s ease-in-out; 
+  @include transition(all 0.5s ease-in-out); 
   // Pseudo-elemento per lo sfondo bianco
   &::before {
     position: absolute;
@@ -227,17 +334,17 @@ a:hover {
     right: 0;
     bottom: 0;
     left: 0;
-    background: $white;
+    background: $light;
     border-radius: 0;
     content: '';
     mix-blend-mode: color-burn; /* Modalità di fusione per ottenere l'effetto desiderato */
     z-index: -1; /* Posiziona lo sfondo sotto il testo */
-    transition: all 0.3s ease-in-out;
+    @include transition(all 0.5s ease-in-out);
   }
 
   // Effetti in hover
   &:hover {
-    color: $white;/* Cambia il colore del testo in bianco in hover */
+    color: $light;/* Cambia il colore del testo in bianco in hover */
     
     &::before {
       background: transparent; /* Rende lo sfondo trasparente in hover */
@@ -246,11 +353,11 @@ a:hover {
 
   &:focus {
     outline: none; /* Rimuove il contorno predefinito */
-    box-shadow: 0 0 0 0.2rem $white; /* Ombra personalizzata per il focus */
+    box-shadow: 0 0 0 0.2rem $light; /* Ombra personalizzata per il focus */
   }
 
   &:active {
-    color: $white; /* Mantiene il testo bianco quando il pulsante è attivo */
+    color: $light; /* Mantiene il testo bianco quando il pulsante è attivo */
     
     &::before {
       background: transparent; /* Rende lo sfondo trasparente quando il pulsante è attivo */
@@ -264,6 +371,12 @@ a:hover {
   }
 }
  
+
+.box-buttons {
+  .btn:nth-of-type(2) {
+    margin-left: 1rem;
+}
+}
  
 
 

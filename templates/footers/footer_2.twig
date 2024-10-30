@@ -1,0 +1,127 @@
+<section class="section-footer contained py-5  "> 
+    <div class="container-fluid py-5">
+        <div class="row">
+            <div class="col-12 col-md-5 col-lg-4 ">
+                <div class="footer-logo  text-center text-md-left">
+                    <a href="{{home}}" title="{{ site.name }} - {{ site.description }}">
+                        <img src="{% if custom_logo_url %}{{ custom_logo_url[0] }}{% else %}{{ template_directory_uri }}/img/logo-grit-b.png{% endif %}" alt="{{ site.name }} - {{ site.description }}" class="img-fluid"> 
+                    </a>
+                </div>  
+                <div class="py-5">
+                    <h3 class="">{{ setting_intestazione }}</h3>
+                    <p class=""> 
+                    <a href="https://www.google.com/maps/dir/?api=1&destination={{ setting_indirizzo_1 | url_encode }}" target="_blank">
+                        {{ setting_indirizzo_1 }}
+                    </a>
+                    </p>
+                </div>
+                <div class="row py-5">
+                    <div class="col-3">
+                        <p><span class=" ">{{__('E-Mail:', 'grit_theme')}}</span></p>
+                    </div>
+                    <div class="col-9">
+                        <a href="mailto:{{ setting_mail_1 }}" class="link-footer">{{ setting_mail_1 }}</a>
+                    </div>
+                    <div class="col-3"> 
+                        <p><span class=" ">{{__('Tel:', 'grit_theme')}}</span></p>
+                    </div>
+                    <div class="col-9">
+                        <a href="tel:{{ setting_tel_1 }}" class="link-footer">{{ setting_tel_1 }}</a>
+                    </div> 
+                </div> 
+                
+            </div> 
+            <div class="col-12 col-md-7 offset-lg-1">
+                <div class="row">
+                    <div class="col-6 col-sm-6 col-md-6 col-lg-4"> 
+                        {{footer_col_1}}
+                        <ul class="footer-menu"> 
+                            {% for item in primary_menu.get_items %}
+                            <li class="{{ item.classes | join(' ') }} link-footer"> <a href="{{ item.get_link }}" {% if item.custom._menu_item_target %} target="{{item.custom._menu_item_target}}" {% endif %} > {{ item.title }} </a> </li> 
+                            {% endfor %} 
+                        </ul>
+                        
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-6 col-lg-4">
+                        {{footer_col_2}}
+                        <ul class="footer-menu"> 
+                            {% for item in primary_menu.get_items %}
+                            <li class="{{ item.classes | join(' ') }} link-footer"> <a href="{{ item.get_link }}" {% if item.custom._menu_item_target %} target="{{item.custom._menu_item_target}}" {% endif %} > {{ item.title }} </a> </li>
+                            {% endfor %} 
+                        </ul> 
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-6 col-lg-4"> 
+                        {{footer_col_3}}
+                        <ul class="footer-menu"> 
+                            {% for item in primary_menu.get_items %}
+                            <li class="{{ item.classes | join(' ') }} link-footer"> <a href="{{ item.get_link }}" {% if item.custom._menu_item_target %} target="{{item.custom._menu_item_target}}" {% endif %} > {{ item.title }} </a> </li>
+                            {% endfor %} 
+                        </ul> 
+                    </div>
+                    <div class="col-12 my-4">
+                        <hr>
+                    </div>
+                     
+                    <div class="col-12 col-md-6">
+                        <div class="inner-social d-inline-block my-2">
+                            <p class="lead">
+                                {% if setting_facebook %}
+                                <a href="{{setting_facebook}}" target="_blank" class="mr-2 ">
+                                    <i class="fab fa-facebook"></i>
+                                </a>
+                                {% endif %}
+                                {% if setting_instagram %}
+                                <a href="{{setting_instagram}}" target="_blank" class="mr-2 ">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                {% endif %}
+                                {% if setting_linkedin %}
+                                <a href="{{setting_linkedin}}" target="_blank" class="mr-2 ">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        {{footer_bottom}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="footer-bottom contained py-1">
+    <div class="container-fluid ">
+        <div class="row">
+            <div class="col">
+                Copyright
+                {{ "now"|date('Y') }}
+                -
+                <span class="text-uppercase">
+                    {{ setting_intestazione }}
+                </span>
+                P.IVA
+                {{ setting_piva }} 
+                {% if setting_indirizzo_1 %}
+                    <i class="fas fa-map-marker-alt"></i>
+                    {{ setting_indirizzo_1 }}
+                {% endif %}
+                
+                {% if setting_mail_1 %}
+                    <i class="fas fa-at"></i>
+                    <a href="mailto:{{ setting_mail_1 }}">
+                        {{ setting_mail_1 }}
+                    </a>
+                {% endif %}
+                
+                {% if setting_tel_1 %}
+                    <i class="fas fa-phone"></i>
+                    <a href="tel:{{ setting_tel_1 }}">
+                        {{ setting_tel_1 }}
+                    </a>
+                {% endif %}              
+            </div>
+        </div>
+    </div>
+</section> 

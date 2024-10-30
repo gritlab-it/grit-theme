@@ -159,8 +159,8 @@ class StarterSite extends Timber\Site {
 		$context['the_excerpt'] = get_the_excerpt();
 		
 		// * A_SETTINGS Placeholder
-		//   https://source.unsplash.com/
-		$context['placeholder'] = 'https://source.unsplash.com/';
+		//   https://picsum.photos/1920/1080?random
+		$context['placeholder'] = 'https://picsum.photos/1920/1080?';
 		
 		// * A_SETTINGS Time & Data
 		$context['time'] = get_the_time('c');
@@ -187,10 +187,21 @@ class StarterSite extends Timber\Site {
 		$context['sidebar_primary'] = Timber::get_widgets('sidebar_primary');
 		
 		// * A_SETTINGS Slide 
-		$context['main_container'] = get_theme_mod("grit_setting_main_container");
+		$context['grit_setting_header'] = get_theme_mod("grit_setting_header");
+		$context['grit_setting_footer'] = get_theme_mod("grit_setting_footer");
+		
 		$context['grit_setting_gototop'] = get_theme_mod("grit_setting_gototop");
 		$context['grit_setting_butter'] = get_theme_mod("grit_setting_butter");
 		$context['grit_setting_magic_mouse'] = get_theme_mod("grit_setting_magic_mouse");
+
+
+		$args = array(
+			'post_type' => 'post',
+			'posts_per_page' => 8, 
+			'orderby' => 'date',
+			'order' => 'ASC',
+		);
+		$context['last_posts'] = $last_posts = new Timber\PostQuery($args); 
 		
 		/*
 		// * A_SETTINGS Google Fonts
@@ -469,7 +480,6 @@ if (!is_admin()) {
 }
 
 
-// This code adds additional MIME types for JSON and SVG files. 
 function cc_mime_types($mimes)
 {
 	$mimes['json'] = 'application/json';
@@ -477,6 +487,20 @@ function cc_mime_types($mimes)
 	return $mimes;
 }
 add_filter('upload_mimes', 'cc_mime_types');
+
+function allow_svg_mime_types( $data, $file, $filename, $mimes ) {
+    $ext = strtolower( pathinfo( $filename, PATHINFO_EXTENSION ) );
+    if ( $ext === 'svg' ) {
+        $data['ext']  = 'svg';
+        $data['type'] = 'image/svg+xml';
+    }
+    return $data;
+}
+add_filter( 'wp_check_filetype_and_ext', 'allow_svg_mime_types', 10, 4 );
+
+
+
+
 
 
 

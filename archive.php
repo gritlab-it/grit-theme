@@ -22,7 +22,9 @@ Template Name: Template Archive
 $templates = array('archive.twig', 'index.twig');
 $context = Timber::context(); 
 $post_type_obj = get_post_type_object(get_post_type()); 
-$context['post_type'] = $post_type_obj->name;
+
+$context['post_type'] = $post_type = $post_type_obj->name ?? 'post';
+
 $context['term'] = $term = new Timber\Term(get_queried_object_id()); 
 // A_SETTINGS Assignment of the pagination number of posts per page
 $paginazione = get_option('posts_per_page');
@@ -57,6 +59,9 @@ if (is_day()) {
         'tag.twig'
     );
 } elseif (is_category() || is_tax()) {
+ 
+
+
     $context['title'] = single_cat_title('', false);
     $context['content']  = term_description(); 
     // A_SETTINGS Get Child of current cat 
@@ -85,6 +90,7 @@ if (is_day()) {
         'archive-' . get_query_var('cat') . '.twig',
     );
 }  elseif (is_post_type_archive()) {
+
     // A_SETTINGS Page set with the same slug of cpt  
     $page_args = array(
         'post_type' => 'page',
@@ -97,13 +103,17 @@ if (is_day()) {
         $query->the_post();
         $context['post'] = $post = get_post(get_the_ID()); 
         $page_id = get_the_ID();
-        $context['title'] = get_the_title($page_id);
+        $context['page_id'] = $page_id;
+        $context['page_title'] = get_the_title($page_id);
         $context['content'] = get_the_content($page_id);  
+ 
         wp_reset_postdata();
     } else {
         $context['title'] = $post_type_obj->labels->singular_name;
         $context['content'] = get_the_post_type_description();
+ 
     }
+    
     array_unshift($templates, 'archive-' . $post_type_obj->name . '.twig');
 } elseif (is_page()) {
     // A_SETTINGS Page with setting tempalte archive   
@@ -114,9 +124,16 @@ if (is_day()) {
     $context['title'] = get_the_title($page_id);
     $context['content'] = get_the_content($page_id);
     $context['the_excerpt'] = get_the_excerpt($page_id); 
+
+ 
+
 } else {
     echo 'not set type of archive';
 } 
+
+
+
+ 
 //  A_SETTINGS Assign all ACF variables to Twig
 $fields = get_field_objects($page_id);
 if ($fields) :
@@ -134,6 +151,26 @@ $args = array(
     'orderby' => 'date',
     'order' => 'ASC',
 );
+
+
+
+if (is_category()) {
+    // Filtra per categoria usando `cat`
+    $args['cat'] = $term->term_id;
+} elseif (is_tag()) {
+    // Filtra per tag usando `tag_id`
+    $args['tag_id'] = $term->term_id;
+} elseif (is_tax()) {
+    // Filtra per tassonomia personalizzata
+    $args['tax_query'] = [
+        [
+            'taxonomy' => $term->taxonomy, // La tassonomia corrente
+            'field'    => 'term_id',
+            'terms'    => $term->term_id,  // L'ID del termine corrente
+        ]
+    ];
+}
+
 $context['posts'] = $posts = new Timber\PostQuery($args); 
 //  A_SETTINGS Managing page numbering and their corresponding values
 $context['found_posts'] = $posts->found_posts;

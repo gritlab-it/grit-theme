@@ -1,17 +1,64 @@
-{# section_image #}
+ {# section_image #}
 <div class="container-fluid">
     <div class="row">
-        <div class="col-12 col-md-8 offset-md-2"> 
-        {% if section.image %}
-            {% set image = {
-                'alt': section.image.alt,
-                'src': Image(section.image.id).src ,
-                'class': 'img-fluid'
-                }
-            %}
-            {% include ['/partials/img.twig'] with image %}
-        {% endif %}
+        <div class="col-12 col-md-8 offset-md-2 in__animate " data-animation="animate__fadeIn animate__slow "> 
+            {% if section.image %}
+                {% if 'parallax' in section.class %}
+                        <div class="jarallax-keep-img overlay-in" data-speed="0.5"> 
+                            {% set image = {
+                                'alt': section.image.alt,
+                                'src': Image(section.image.id).src,
+                                'class': 'img-fluid jarallax-img'
+                            } %}
+                             {% include ['/partials/img.twig'] with image %}
+                        </div>
+                    {% elseif 'parallax' in section.class %}
+
+                    <div class="parallax-container">
+                        <img src="https://picsum.photos/1920/1980?random" alt="Parallax Image" class="pasrallax-image" id="parallaxImage">
+                         
+                    </div>
+
+
+                    <script>
+        // Inizializza GSAP con ScrollTrigger per controllare parallax e zoom
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.to("#parallaxImage", {
+            scale: 1.2, // Zoom finale
+            y: "-30%", // Effetto parallax verticale
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".parallax-container",
+                start: "top bottom", // Inizia quando il top del contenitore è nel bottom del viewport
+                end: "bottom top", // Finisce quando il bottom del contenitore è nel top del viewport
+                scrub: true, // Permette l'animazione continua al variare dello scroll
+            }
+        });
+    </script>
+
+
+                        <div class="jarallax-keep-img overlay-in" data-speed="0.5"> 
+                            {% set image = {
+                                'alt': section.image.alt,
+                                'src': Image(section.image.id).src,
+                                'class': 'img-fluid jarallax-img'
+                            } %}
+                             {% include ['/partials/img.twig'] with image %}
+                        </div>
+                    {% else %}
+                        {% set image = {
+                            'alt': section.image.alt,
+                            'src': Image(section.image.id).src,
+                            'class': 'img-fluid'
+                        } %}
+                         {% include ['/partials/img.twig'] with image %} 
+                {% endif %}  
+            {% endif %}
         </div>
     </div>
 </div>
 {# end section_image #}
+ 
+
+ 

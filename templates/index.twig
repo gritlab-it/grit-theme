@@ -3,8 +3,11 @@
 {% block content %}
 	{# <h2>{{ foo }}</h2>
 	<p>{{ qux }}</p> #}
-	{% for post in posts %}
-		{% include ['tease-'~post.post_type~'.twig', 'tease.twig'] %}
+ 
+	{% for post in posts %} 
+		{% include ['partials/tease-'~ post.post_type ~'.twig', 'partials/tease.twig'] %}
 	{% endfor %}
- 	{% include 'partials/pagination.twig' with { pagination: posts.pagination({show_all: false, mid_size: 3, end_size: 2}) } %}
-{% endblock %}
+	<div class="col-12 d-flex justify-content-center">
+		{% include 'partials/pagination.twig' with { pagination: posts.pagination({show_all: false, mid_size: 3, end_size: 2}) } %}
+	</div>
+ {% endblock %}

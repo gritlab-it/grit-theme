@@ -1,50 +1,55 @@
-{# section_carousel #} 
-
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col">
-                <div class="owl-carousel owl-theme carousel-base" id="">
-                    {% for item in section.carousel %} 
+{# section_carousel #}  
+<div class="container-fluid">
+    <div class="row">
+        <div class="col p-0">
+            <div class="owl-carousel owl-theme carousel-base">
+                {% for item in section.carousel %}
                     {% set attachment = TimberPost(item.image.id) %}
                     {% set height = TimberImage(item.image.id).height %}
                     {% set width = TimberImage(item.image.id).width %}
                     {% set sizewh = height / width %}
+                    {% set imageSrc = TimberImage(item.image.id).src %}
+                    
                     {% if sizewh < 1 %}
-                    
-                        <a class="item item-img-gallery no-load img-oriz {{ sizewh }} {{ width }} {{ height }}"
-                           data-lightbox-gallery="item-gallery" href="{{ TimberImage(item.image.id).src }}"
-                           title="h:{{ height }},w:{{ width }},sizewh:{{ sizewh }}" >
-                           <img src="{{ TimberImage(item.image.id).src|resize(570, 400) }}" alt=""
-                    class="img-fluid"> 
+                        <a class="item item-img-gallery no-load img-oriz"
+                           data-lightbox-gallery="item-gallery"
+                           data-width="{{ width }}"
+                           data-height="{{ height }}"
+                           data-ratio="{{ sizewh }}"
+                           href="{{ imageSrc }}"
+                           title="h:{{ height }}, w:{{ width }}, sizewh:{{ sizewh }}">
+                            <img src="{{ imageSrc|resize(570, 400) }}" alt="" class="img-fluid in__animate " data-animation="animate__fadeIn animate__faster ">
                         </a>
-                        {% elseif sizewh == 1 %}
-                    
-                        <a class="item item-img-gallery no-load img-oriz {{ sizewh }} {{ width }} {{ height }}"
-                           data-lightbox-gallery="item-gallery" href="{{ TimberImage(item.image.id).src }}"
-                           title="h:{{ height }},w:{{ width }},sizewh:{{ sizewh }}" >
-                           <img src="{{ TimberImage(item.image.id).src|resize(400, 400) }}" alt=""
-                    class="img-fluid"> 
+                    {% elseif sizewh == 1 %}
+                        <a class="item item-img-gallery no-load img-oriz"
+                           data-lightbox-gallery="item-gallery"
+                           data-width="{{ width }}"
+                           data-height="{{ height }}"
+                           data-ratio="{{ sizewh }}"
+                           href="{{ imageSrc }}"
+                           title="h:{{ height }}, w:{{ width }}, sizewh:{{ sizewh }}">
+                            <img src="{{ imageSrc|resize(400, 400) }}" alt="" class="img-fluid in__animate " data-animation="animate__fadeIn animate__faster ">
                         </a>
                     {% else %}
-                   
-                        <a class="item item-img-gallery no-load img-vert {{ sizewh }} {{ width }} {{ height }}"
-                           data-lightbox-gallery="item-gallery" href="{{ TimberImage(item.image.id).src }}"
-                           title="h:{{ height }},w:{{ width }},sizewh:{{ sizewh }}" >
-                           <img src="{{ TimberImage(item.image.id).src|resize(270, 400) }}" alt=""
-                           class="img-fluid">
-                            
+                        <a class="item item-img-gallery no-load img-vert"
+                           data-lightbox-gallery="item-gallery"
+                           data-width="{{ width }}"
+                           data-height="{{ height }}"
+                           data-ratio="{{ sizewh }}"
+                           href="{{ imageSrc }}"
+                           title="h:{{ height }}, w:{{ width }}, sizewh:{{ sizewh }}">
+                            <img src="{{ imageSrc|resize(270, 400) }}" alt="" class="img-fluid in__animate " data-animation="animate__fadeIn animate__faster ">
                         </a>
                     {% endif %}
-                    
-   
-                    {% endfor %}
+                {% endfor %}
             </div> 
-            </div>
-        </div> 
+        </div>
     </div> 
+</div>
 
 
-<script> 
+
+<script>  
     $(document).ready(function () {
         $(".carousel-base").owlCarousel({
             loop: true,
@@ -55,8 +60,11 @@
             center:true,
             nav: true,
             dots: true,
-            // navText: [`{% include ['/partials/arrow.twig'] %}`, `{% include ['/partials/arrow.twig'] %}`], 
-            navText: ["<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"],
+            
+            /* navText: [`{% include ['/partials/arrow.twig'] %}`, `{% include ['/partials/arrow.twig'] %}`], */
+
+
+             navText: [`<i class='fa fa-chevron-left'></i>`, `<i class='fa fa-chevron-right'></i>`], 
 
             responsive: {
                 0: {
@@ -76,7 +84,7 @@
                 
                 },
                 1200: {
-                    items: 4.2, // Impostazioni per schermi molto grandi
+                    items: 3.2, // Impostazioni per schermi molto grandi
                 
                 }
             }
@@ -128,56 +136,6 @@
 </script>
 
 {# end section_carousel #}
-
-
-
-{# <div class="spacer"></div>
-<div class="containerr">
-    <div class="element"></div>
-    <div class="element"></div>
-    <div class="element"></div>
-    <div class="element"></div>
-    <div class="element"></div>
-</div>    #}
  
 
-
-<style>
-
-    /* .container-video{
-border: 1px solid red;
-background: #8d6f6f;
-width: 100%;
-height: 500px;
-margin: 0 auto;
-opacity: 0.5;
-}
-spacer{
-height: 80vh;
-}
-
-
-
-.spacer {
-    height: 90vh;
-}
-.element { 
-    background: coral;
-    border-radius: 20px; 
-    width: 100%; margin: 1%; 
-    min-height:200px;
-}
-.containerr{ 
-    display: flex;
-    justify-content: space-between; 
-    margin: 1%; 
-    flex-wrap: wrap;
-}
-@media (max-width: 768px){ 
-    .element {
-        width: 98%;
-    }
-} */
-
  
-</style>

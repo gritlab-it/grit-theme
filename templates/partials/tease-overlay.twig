@@ -1,0 +1,53 @@
+{% extends "partials/tease.twig" %}
+
+{% block content %} 
+
+
+<div class="card text-white">
+	{% if post.thumbnail %} 
+			{% set image = {
+			'alt': post.thumbnail,
+			'src': Image(post.thumbnail.id).src|resize(400, 500) ,
+			'class': 'img-fluid card-img'
+			}
+			%}
+			{% include ['/partials/img.twig'] with image %} 
+		{% endif %}
+	<div class="card-img-overlay"> 
+		<h5 class="card-title"><a href="{{post.link}}">{{post.title}}</a></h5>
+		<h6 class="card-subtitle mb-2">{{ post.terms('') | join(', ') }}</h6>
+		<p class="card-text">{{ post.get_preview( split_content_post|length + 50, false, '<span>...</span>', false )|apply_filters('the_content') }}</p> 
+		<a href="{{post.link}}" class="btn btn-accent">Leggi</a> 
+	</div>
+</div>
+
+
+
+{# <div class="card" >
+	<div class="card-header"> 
+		<small class="text-muted">Last updated 3 mins ago</small>
+	</div>
+	<div class="card-img">
+		{% if post.thumbnail %} 
+			{% set image = {
+			'alt': post.thumbnail,
+			'src': Image(post.thumbnail.id).src ,
+			'class': 'img-fluid '
+			}
+			%}
+			{% include ['/partials/img.twig'] with image %} 
+		{% endif %}
+	</div> 
+	<div class="card-body">
+	  <h5 class="card-title"><a href="{{post.link}}">{{post.title}}</a></h5>
+	  <h6 class="card-subtitle mb-2">{{ post.terms('') | join(', ') }}</h6>
+	  <p class="card-text">{{ post.get_preview( split_content_post|length + 50, false, '<span>...</span>', false )|apply_filters('the_content') }}</p> 
+	</div>
+	<div class="card-body">
+		 <a href="{{post.link}}" class="btn btn-accent">Leggi</a>
+	</div>
+	<div class="card-footer">
+		<small class="text-muted">Last updated 3 mins ago</small>
+	  </div>
+  </div>   #}
+{% endblock %}

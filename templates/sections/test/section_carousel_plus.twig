@@ -1,0 +1,90 @@
+{# section_carousel_plus #}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col p-0"> 
+            <div class="owl-carousel owl-theme carousel-plus">
+                {% for item in section.lists %}
+                    <div class="item-plus"> 
+
+                        {% if item.image %}
+                            {% set image = {
+                                'alt': item.image.alt,
+                                'src': Image(item.image.id).src ,
+                                'class': 'img-fluid'
+                                }
+                            %}
+                            {% include ['/partials/img.twig'] with image %}
+                        {% endif %} 
+
+                        <div class="inner-plus py-2">
+                            {% if item.title %}
+                                <h1 >{{item.title}}</h1>
+                            {% endif %}
+
+                            {% if item.sub_title %}
+                                <h3 >{{item.sub_title}}</h3>
+                            {% endif %}
+
+                            {{item.text}}
+
+                            {% if item.link_1 %}
+                            {% set btn = {
+                                'title': item.link_1.title,
+                                'url': item.link_1.url,
+                                'target': item.link_1.target,
+                                'style': 'btn btn-' ~ item.color_link_1 ~ 'btn-sm ',
+                            }
+                            %}
+                            {% include ['/partials/btn.twig'] with btn %} 
+                            {% endif %} 
+                        </div>
+
+                    </div>
+                   
+                {% endfor %}
+            </div>  
+        </div>
+    </div>
+</div>
+ 
+<script>
+ 
+
+$(document).ready(function () {
+    $(".carousel-plus").owlCarousel({
+        loop: true,
+        margin: 20, 
+        autoHeight: false,
+        autoWidth: false, 
+        center: false,
+        nav: true,
+        dots: true, 
+        navText: ["<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"],
+        responsive: {
+            0: {
+                items: 1, // Impostazioni per schermi molto piccoli
+                  dots: true,
+            },
+            576: {
+                items: 2, // Impostazioni per schermi piccoli
+           dots: true,
+            },
+            768: {
+                items: 3, // Impostazioni per schermi medi
+              dots: true,
+            },
+            992: {
+                items: 3, // Impostazioni per schermi grandi
+                 dots: true,
+            },
+            1200: {
+                items: 4, // Impostazioni per schermi molto grandi
+                  dots: true,
+            }
+        }
+    });
+});
+
+</script>
+
+{# end section_carousel_plus #}

@@ -1,7 +1,117 @@
- 
- 
- .section_slides {
-    #carousel-slider {
+/* :::::::::::::: 00 * GRIT_SET section_page_header_1  */
+.section_page_header { 
+
+    &.section_page_header_1 {
+        background-color: $transparent!important ;
+        padding: 0px !important; 
+        .sub-header {
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        } 
+        .polygon {
+            float: left;
+            width: 100%;
+            min-height: 30px;
+            @include gradient-1(90deg, $gradient-colors-1);
+            shape-outside: polygon(20px 0,
+                    100% 0,
+                    100% 100%,
+                    0 100%);
+            clip-path: polygon(20px 0,
+                    100% 0,
+                    100% 100%,
+                    0 100%); 
+            .breadcrumb {
+                margin: 0px 30px;
+                font-weight: normal;
+                color: $light; 
+                a {
+                    color: $light;
+                    @include transition(all 0.2s ease-in-out);
+    
+                    &:hover {
+                        color: $accent;
+                    }
+                }
+            }
+        }
+    }
+    &.section_page_header_2 {
+        background-color: $transparent!important ;
+        padding: 0px !important; 
+        .sub-header {
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        } 
+    }
+} 
+
+/* :::::::::::::: 00 * GRIT_SET section_carousel  */
+ .section_carousel { 
+    &.contained {
+        .owl-carousel { 
+            @media (min-width: $sm-res) {
+                .owl-nav {
+                    button.owl-prev {
+                        left: -60px;
+                      } 
+                      button.owl-next {
+                        right: -60px;
+                      }
+                }
+            }
+        } 
+    } 
+ }
+
+/* :::::::::::::: 00 * GRIT_SET section_video  */
+.section_video {
+    .video-embed iframe {
+        width: 100%;
+        min-height: 54vw;
+        height: auto;
+    }
+    .video-file { 
+        position: relative;
+        video {
+          width: 100%;
+          border-radius: $general-radius;
+        }
+        span {
+          display: block;
+          cursor: pointer;
+          @extend .absolute_center;
+          width: 4.5em;
+          height: 4.5em;
+          border-radius: 50%;
+          background-color: $tertiary;
+          @include transition(all 0.2s ease-in-out);
+          &:after {
+            @extend .absolute_center;
+            content: '';
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 18px 0 18px 24px;
+            border-color: transparent transparent transparent $light;
+            @include transition(all 0.2s ease-in-out);
+            margin-left: .25em;
+          }
+          &:hover {
+            background-color: $tertiary;
+            &:after {
+              border-color: transparent transparent transparent $accent;
+            }
+          }
+        }
+      }
+} 
+
+/* :::::::::::::: 00 * GRIT_SET section_slides  */ 
+.section_slides {
+    .carousel-slider {
         .item-slide {
             width: 100%;
             min-height: 100vh;
@@ -13,7 +123,17 @@
             align-items: flex-end;
             justify-content: center;
         }
-    }
+        .owl-nav { 
+            button.owl-prev,
+            button.owl-next { 
+                color: $light; 
+            }
+            &:hover button.owl-prev,
+            &:hover button.owl-next  {
+                color: $accent; 
+            }
+        }
+    } 
     .item-slide.item-slide-single {
         width: 100%;
         min-height: 100vh;
@@ -24,128 +144,53 @@
         display: flex;
         align-items: flex-end;
         justify-content: center;
-    }
-    
+    } 
     .inner-text {
         width: 100%;
-    } 
-    .owl-dots {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        text-align: center;
-        margin: 0 auto;
-        button.owl-dot {
-            width: 15px;
-            height: 15px;
-            margin: 0.1rem;
-            background-color: $white;
-            &.active {
-                background-color: $black;
-            }
-        }
-    }
-    .owl-nav {
-        position: absolute;
-        bottom: 0;
-        right: 0; 
-        button.owl-prev,
-        button.owl-next {
-            margin-left: 1rem;
-            width: 40px;
-            height: 40px;
-            color: $black;
-            background-color: $white;
-            font-size: 1.5rem !important;
-            text-align: center;
-            padding: 0px 0 !important;
-            transition: all 0.4s; 
-        } 
-    }
-    
-    @media (min-width: 768px) {
-        .owl-nav {
-            bottom: 50px;
-            right: 50px;
-        }
-    }
+    }   
 }
 
-
-
+/* :::::::::::::: 00 * GRIT_SET section_hero  */ 
 .section_hero .inner-hero {
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: cover;
-    
+    background-size: cover; 
     .col {
+        min-height: 500px;
         height: 70vh;
         width: 100%;
-    }
-    h1 {
-        font-size: 3rem;
-        line-height: 1;
-        margin-bottom: 1rem;
-    }
-    
-    @media (min-width: 767px) {
+    } 
+    @media (min-width: $sm-res) {
         .col {
             padding-right: 1rem;
             padding-top: 1rem;
+        } 
+        .inner-text { 
+            text-wrap: balance; 
         }
-        h1 {
-            font-size: 4rem;
-        }
-        .inner-text {
-            font-size: 18px;
-            max-width: 90%;
-            text-wrap: balance;
-            margin-left: auto;
-        }
-    }
-    @media (min-width: 1399px) {
-        .col {
-            padding-right: 2rem;
-            padding-top: 1.5rem;
-        }
-        h1 {
-            font-size: 5rem;
-            margin-bottom: 20px;
-        }
-    }
+    } 
 }
 
-
-
-
+/* :::::::::::::: 00 * GRIT_SET section_cube  */
 .section_cube {
     .col-text {
-      display: flex;
-      flex-direction: column;
-      justify-content: center; // Per centrare verticalmente il testo
-      .inner-text {
-        padding: calc(140 / 1920 * 100vw);
-      }
+        display: flex;
+        flex-direction: column;
+        justify-content: center; 
+        .inner-text {
+            padding: calc(140 / 1920 * 100vw);
+        }
     }
-    
     &.contained {
         padding: 0px calc(70 / 1920 * 100vw);
     }
-    
     .inner-item-list {
-        border-bottom: 1px solid;
-        
+        border-bottom: 1px solid; 
         img {
             width: 40px;
         }
     }
-    .btn:nth-of-type(2) {
-        margin-left: 1.5rem;
-    }
-
     .col-img {
- 
         background-position: center center;
         background-repeat: no-repeat;
         background-size: cover;
@@ -153,82 +198,163 @@
             content: '';
             display: block;
             padding-top: 100%; // Mantiene il rapporto 1:1 tra larghezza e altezza
-          }
-      }
-
-    .cube-carousel {
-        .owl-dots {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            text-align: center;
-            margin: 0 auto;
-            button.owl-dot {
-                width: 15px;
-                height: 15px;
-                margin: 0.1rem;
-                background-color: $white;
-                &.active {
-                    background-color: $black;
-                }
-            }
-        }
-        .owl-nav {
-            position: absolute;
-            bottom: 0;
-            right: 0; 
-            z-index: 2;
-            button.owl-prev,
-            button.owl-next {
-                margin-left: 1rem;
-                width: 40px;
-                height: 40px;
-                color: $black;
-                background-color: $white;
-                font-size: 1.5rem !important;
-                text-align: center;
-                padding: 0px 0 !important;
-                transition: all 0.4s; 
-            } 
         }
     }
-    
+    .carousel-cube {  }
+}
+
+/* :::::::::::::: 00 * GRIT_SET section_gallery  */
+.section_gallery {
+    .gallery {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .gallery-item {
+        margin: 0 !important;
+        padding: .25rem;
+        float: left;
+        img {
+            width: 100% !important;
+            height: auto !important;
+            border: none !important;
+        }
+    }
+    .gallery-columns-3 .gallery-item {
+        width: 33.33% !important;
+    }
+    .gallery-columns-4 .gallery-item {
+        width: 25% !important;
+    }
+    .gallery-columns-2 .gallery-item {
+        width: 50% !important;
+    }
+    @media (min-width: $md-res) {
+        .gallery-columns-2 .gallery-item {
+            width: 50% !important;
+        }
+    }
+    @media (min-width: $md-res) {
+        .gallery-columns-3 .gallery-item {
+            width: 33.33% !important;
+        }
+
+        .gallery-columns-4 .gallery-item {
+            width: 25% !important;
+        }
+    }
+    @media (max-width: $sm-res) {
+        .gallery-columns-2 .gallery-item,
+        .gallery-columns-3 .gallery-item,
+        .gallery-columns-4 .gallery-item {
+            width: 100% !important; 
+        }
+    }
+    .gallery-columns-3 .gallery-item:nth-child(3n+1) {
+        clear: none !important;
+    }
+    .gallery-columns-4 .gallery-item:nth-child(4n+1) {
+        clear: none !important;
+    }
+}
+
+/* :::::::::::::: 00 * GRIT_SET section_list  */
+.section_list {
+    .owl-carousel {
+        .owl-dots {
+            bottom: -20px;
+        }
+    }
+    &.contained {
+        .owl-carousel { 
+            @media (min-width: $sm-res) {
+                .owl-nav {
+                    button.owl-prev {
+                        left: -60px;
+                      } 
+                      button.owl-next {
+                        right: -60px;
+                      }
+                }
+            }
+        } 
+    } 
 }
 
 
 
+/* :::::::::::::: 00 * GRIT_SET section_archive  */
+.section_archive {
+    .card {
+         
+        
+    }
+    &.section_archive_carousel {
+        .owl-carousel {
+            .owl-dots {
+                bottom: -20px;
+            } 
+            
+        }
+    }
+    &.contained {
+        @media (min-width: 576px) {
+            .owl-nav {
+                button.owl-prev {
+                    left: -60px;
+                }
+                button.owl-next {
+                    right: -60px;
+                }
+            }
+        }
+    }
+}
+ 
+
+
+.section_bio {
+    .link-list-bio {
+        a {
+            svg {
+                position: absolute;
+                left: 10px;
+            }
+        }
+    } 
+}
+
 
 .section_faq {
-    #search_list {
-        .search {
-            font-size: 30px;
-            line-height: 35px;
-        } 
-    }
     .pagination-list-js {
         li {
-            background: $primary;
-            color: $white;
+            background: $dark;
+            color: $light;
             margin-right: 5px;
             padding: 5px;
             width: 35px;
             height: 35px;
             border-radius: 50%;
-            text-align: center; 
+            text-align: center;
+            @include transition(all 0.5s ease-in-out);
             &.active {
-                background: $primary;
+                background: $dark;
             }
-            
-            a {
-                color: $white;
-                
-                &:hover {
-                    color: $white;
+            &:hover {
+                background: $light;
+                a {
+                    color: $accent;
                 }
             }
+
+            a {
+                color: $light;
+
+                 
+            }
         }
-        
+
     }
 }
 
@@ -237,26 +363,29 @@
 
 
 
-.section_plus.layout-plus-1 .col-12{
-    padding: 0; 
+.section_plus.layout-plus-1 .col-12 {
+    padding: 0;
+
     &:hover {
         .item-chapters {
-        background-color: $secondary;
+            background-color: $secondary;
         }
     }
-    .item-chapters { 
-        background-color: $primary;
+
+    .item-chapters {
+        background-color: $accent;
         min-height: 400px;
-        padding:35px ;
+        padding: 35px;
         margin: 10px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         border-radius: $general-radius;
         @include transition(all 0.2s ease-in-out);
+
         img {
             width: 40px;
-            padding-bottom:65px ;
+            padding-bottom: 65px;
         }
     }
 }
@@ -265,7 +394,8 @@
 
 
 .section_text.layout-text-1 {
-    padding-bottom: 0px!important;
+    padding-bottom: 0px !important;
+
     .container-fluid {
         background-color: $secondary;
         border-top-left-radius: $general-radius;
@@ -274,7 +404,8 @@
 }
 
 .section_text.layout-text-2 {
-    padding-top: 0px!important;
+    padding-top: 0px !important;
+
     .container-fluid {
         background-color: $secondary;
         border-bottom-left-radius: $general-radius;
@@ -285,13 +416,53 @@
 .section_carousel.layout-carousel-1 {
     padding-top: 0px !important;
     padding-bottom: 0px !important;
+
     .container-fluid {
-        background-color: $secondary; 
+        background-color: $secondary;
         min-height: 450px;
         padding: 20px 0px;
+
         .owl-carousel {
             position: absolute;
             left: 0;
         }
     }
+}
+
+
+
+/*  
+08 * A_SETTINGS img-hover
+  Note: Impostazioni per css */
+  .img-hover .img-hover-inner {
+    position: relative;
+    overflow: hidden;
+  }
+
+.img-hover .img-hover-inner img {
+  transition: all 0.7s;
+  transform: scale(1);
+}
+
+.img-hover:hover .img-hover-inner img {
+  transform: scale(1.1);
+}
+
+
+.loaded .img-hover-inner:before {
+  content: '';
+  opacity: 0;
+  transition: 0.5s all ease-in-out;
+  transition-delay: 0.9s;
+  z-index: 10;
+}
+
+.img-hover-inner:before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: $accent;
+  // background: linear-gradient(0deg, rgba(240,250,249,1) 0%, rgba(87,201,187,1) 100%);
+  opacity: 1;
 }

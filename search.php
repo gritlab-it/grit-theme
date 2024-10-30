@@ -14,7 +14,7 @@
 $templates = array( 'search.twig', 'archive.twig', 'index.twig' );
 
 $context          = Timber::context();
-$context['title'] = 'Search results for ' . get_search_query();
+$context['post_title'] = 'Search results for ' . get_search_query();
 
 // A_SETTINGS Assegnazione del numero di paginazione di post per pagina
 $paginazione = get_option('posts_per_page');
@@ -36,12 +36,8 @@ if (get_query_var('paged')) {
 }
 
 /* ascolta url per prendere campo di ricerca */
-if ($_GET['s'] && !empty($_GET['s'])) {
-    $search_query = $_GET['s'];
-} else {
-    $search_query = '';
-}
-
+$search_query = isset($_GET['s']) ? sanitize_text_field($_GET['s']) : '';
+$context['search_query'] = get_search_query();
 $context['s'] = $search_query;
 
 /* assegno tutte le variabili di ACF */
@@ -84,11 +80,14 @@ $tax_query = array(
 */
 
 /*  A_SETTINGS Elaboro una query per la ricerca effettuata */
+
 $args = array(
-    'post_type' => 'any', //////////// Nome del custom post
-    'posts_per_page' => $paginazione, //////////// Numero custom post ( -1 = tutti )
+    'post_type' => 'any',
+    'posts_per_page' => $paginazione,
+    'paged' => $paged,
+ 
     's' => $search_query,
-    'paged' => $paged,  //////////// Impaginazione
+ 
     /*'tax_query'             => $tax_query, //////////// Combo ricerca fra due categorie */
 
     /************************ ordinamento per quelle che prima hanno immagini o no
@@ -108,10 +107,8 @@ $args = array(
      */
     /************************ ordinamento per titolo e poi per data */
     'orderby' => array(
-        array(
-            'post_title' => 'ASC',
-            'post_date' => 'ASC',
-        )
+        'title' => 'ASC',
+        'date' => 'ASC',
     ),
     /************************ ordinamento per meta
     'meta_query' => array(
@@ -132,13 +129,14 @@ $posts_search = new WP_Query($args);
 /* se query da risultiti */
 if ($posts_search->have_posts()) {
 
-    $context['title'] = 'Risultati della ricerca per: ' . $search_query;
+    $context['post_title'] = 'Risultati della ricerca per: ' . $search_query;
     /* elaboro query */
-    $posts = new Timber\PostQuery($args);
+    $context['posts'] = $posts = new Timber\PostQuery($args);
+ 
 } /* se query è vuota */
 else {
     /*  A_SETTINGS Elaboro una query per i related incaso non la prima quesry fosse vuota */
-    $context['title'] = 'Nessun risultato trovato per: ' . $search_query;
+    $context['post_title'] = 'Nessun risultato trovato per: ' . $search_query;
 
     /* query delle tassonomie alternativa
     $tax_query2 = array(
@@ -166,10 +164,8 @@ else {
         /*'tax_query'             => $tax_query2,*/
 
         'orderby' => array(
-            array(
-                'post_title' => 'ASC',
-                'post_date' => 'ASC',
-            )
+            'title' => 'ASC',
+            'date' => 'ASC',
         ),
 
 
@@ -180,7 +176,7 @@ else {
 /*  A_SETTINGS Assegno query definitiva */
 // $context['posts'] = new Timber\PostQuery();
 
-$context['posts'] = $posts;
+ 
 
 
 

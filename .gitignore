@@ -56,4 +56,4 @@ vendor/
 composer.lock
 
 # ignore sass cache dependency directories
-assets/.sass-cache
+assets/.sass-cache 

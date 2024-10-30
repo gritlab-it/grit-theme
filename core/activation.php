@@ -180,6 +180,8 @@ function grit_theme_activation_action() {
         $default_pages[] = __('Privacy Policy GDPR', 'grit');
         $default_pages[] = __('Cookie Policy GDPR', 'grit');
         $default_pages[] = __('Search', 'grit');
+        $default_pages[] = __('Bio', 'grit');
+        $default_pages[] = __('Style', 'grit');
     }
     /* End - Create front page */  
     
@@ -227,6 +229,12 @@ function grit_theme_activation_action() {
                     break;
                 case 'Search':
                     $add_default_pages['page_template'] = 'search.php';
+                    break;
+                case 'Bio':
+                    $add_default_pages['page_template'] = 'page.php';
+                    break;    
+                case 'Style':
+                    $add_default_pages['page_template'] = 'page.php';
                     break;
             }
 
@@ -347,10 +355,10 @@ $cf7_id = wp_generate_uuid4();
                 [email* your-email placeholder "La tua email*"]
                 [tel your-phone placeholder "Il tuo telefono"] 
                 [textarea your-message placeholder "Il tuo messaggio"]
-                <label>[acceptance privacy]I accept the <a href="' . $home_url . '/privacy-policy/"> Privacy Policy</a>[/acceptance] </label>
+                <label>Acconsento al trattamento dei dati personali[acceptance privacy]Dichiaro di aver preso visione della <a href="' . $home_url . '/privacy-policy/"> Privacy Policy</a> del sito e acconsento al trattamento per la finalità specifica e con le modalità in essa descritte[/acceptance] </label>
                 [text referer-page ]
                 [text current-page ]
-                [submit "Invia"]
+                [submit class:btn class:btn-primary "Invia"]
             ');
      
     

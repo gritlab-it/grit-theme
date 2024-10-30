@@ -8,73 +8,135 @@
 
     <article class="single single-type-{{ post.post_type }}" id="post-{{ post.ID }}">
         <section class="section-single">
-            <div class="container">
+            <div class="container my-5">
                 <div class="row">
-                    <div class="col-12 py-2 my-2">
-                        <h1>Single {{ title }}</h1>
-                        <p>{{ post.excerpt }}</p>
+                    <!-- Titolo e Descrizione -->
+                    <div class="col-12 py-4 text-center">
+                        <h1 class="display-4">{{ title }}</h1>
+                        <p class="lead text-muted">{{ post.excerpt }}</p>
                     </div>
-                    <div class="col-12 py-2 my-2">
-
+                </div>
+            
+                <div class="row">
+                    <!-- Immagine Principale -->
+                    <div class="col-12 mb-4">
                         <img src="{% if post.thumbnail %}{{ post.thumbnail.src|resize(1400, 600) }}{% else %}{{ placeholder }}/1400x600/?wordpress{% endif %}"
-                             alt="" class="img-fluid my-2">
-                        {# Section single-{{ post.post_type }}-header #}
-                        <section class="single-{{ post.post_type }}-header">
-                            <p class="single-{{ post.post_type }}-author pb-3">
-                                <b class="text-uppercase">{{ post.post_type }}</b> scritta da <a
-                                        href="{{ post.author.path }}"> {{ post.author.name }} </a>
+                             alt="Immagine di {{ title }}" class="img-fluid rounded shadow-sm">
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <!-- Header della Sezione -->
+                        <section class="single-{{ post.post_type }}-header mb-4 text-center">
+                            <p class="single-{{ post.post_type }}-author text-muted">
+                                <strong class="text-uppercase">{{ post.post_type }}</strong> scritta da 
+                                <a href="{{ post.author.path }}" class="text-decoration-none"> {{ post.author.name }} </a>
                             </p>
-                            <p class="single-{{ post.post_type }}-date pb-3">
-                                Data {{ post.published_at|date("d/M/Y g:ia") }}
+                            <p class="single-{{ post.post_type }}-date text-muted">
+                                <small>Data: {{ post.published_at|date("d/M/Y g:ia") }}</small>
                             </p>
-
-                            <h5 class="single-{{ post.post_type }}-category">Category:
+            
+                            <!-- Categorie -->
+                            <h5 class="single-{{ post.post_type }}-category mt-3">
+                                <strong>Category:</strong>
                                 {% for category in post.terms('category') %}
-                                    <a href="{{ category.link }}"
-                                       title="{{ post.title }} - {{ category.name }}">{{ category.name }}</a>
+                                    <a href="{{ category.link }}" title="{{ post.title }} - {{ category.name }}" class="badge bg-primary me-1">{{ category.name }}</a>
                                 {% endfor %}
                             </h5>
-
-                            <h5 class="single-{{ post.post_type }}-tag">Tag:
+            
+                            <!-- Tag -->
+                            <h5 class="single-{{ post.post_type }}-tag mt-3">
+                                <strong>Tag:</strong>
                                 {% for tag in post.terms('post_tag') %}
-                                    <a href="{{ tag.link }}"
-                                       title="{{ post.title }} - {{ tag.name }}">{{ tag.name }}</a>
+                                    <a href="{{ tag.link }}" title="{{ post.title }} - {{ tag.name }}" class="badge bg-secondary me-1">{{ tag.name }}</a>
                                 {% endfor %}
                             </h5>
-
-                            <h5 class="single-{{ post.post_type }}-tax">Tax:
+            
+                            <!-- Tassonomia Personalizzata -->
+                            <h5 class="single-{{ post.post_type }}-tax mt-3">
+                                <strong>Tax:</strong>
                                 {% for tax in post.terms('custom_taxonomy') %}
-                                    <a href="{{ tax.link }}"
-                                       title="{{ post.title }} - {{ tax.name }}">{{ tax.name }}</a>
+                                    <a href="{{ tax.link }}" title="{{ post.title }} - {{ tax.name }}" class="badge bg-info me-1">{{ tax.name }}</a>
                                 {% endfor %}
                             </h5>
-
                         </section>
-                        {# .end Section single-{{ post.post_type }}-header #}
-
-
-                        <div class="single-{{ post.post_type }}-body">
+                        <!-- Fine Header della Sezione -->
+            
+                        <!-- Corpo del Post -->
+                        <div class="single-{{ post.post_type }}-body mb-4">
                             {{ post.content }}
                         </div>
-                        <hr>
+            
+                        <!-- Separatore -->
+                        <hr class="my-4">
                     </div>
                 </div>
             </div>
-
-            {% if post.post_type == 'sections' %}
-                <section class="section-post">
-                    {% include "sections/" ~ post.slug ~ ".twig" %}
-                </section>
-            {% endif %}
-
-
+            <section class="section_archive section_archive_carousel contained">
+                <div class="container">
+                    <div class="row ">  
+                        <div class="owl-carousel owl-theme archive_carousel">
+                            {% set grid = 'col' %} 
+                            {% for single_post in archive_posts %} 
+                                {% include ['./partials/tease-'~ post.post_type ~'.twig', './partials/tease.twig'] with {'post': single_post, 'grid': grid} %}
+                            {% endfor %} 
+                        </div>
+                    </div> 
+                </div> 
+            </section>
+            
+            
+            <script>
+                $(document).ready(function () {
+                    $(".archive_carousel").owlCarousel({
+                        loop: false,
+                        margin: 20,
+                        responsiveClass: true,
+                        autoHeight: false,
+                        autoWidth: false,
+                        center: false,
+                        nav: true,
+                        dots: true,
+                        
+                         navText: [`{% include ['/partials/arrow.twig'] %}`, `{% include ['/partials/arrow.twig'] %}`],
+            
+            
+                        /* navText: [`<i class='fa fa-chevron-left'></i>`, `<i class='fa fa-chevron-right'></i>`],  */
+            
+                        responsive: {
+                            0: {
+                                items: 1, // Impostazioni per schermi molto piccoli
+             
+                            },
+                            576: {
+                                items: 2, // Impostazioni per schermi piccoli
+                          
+                            },
+                            768: {
+                                items: 3, // Impostazioni per schermi medi
+                    
+                            },
+                            992: {
+                                items: 3, // Impostazioni per schermi grandi
+                            
+                            },
+                            1200: {
+                                items: 3, // Impostazioni per schermi molto grandi
+                            
+                            }
+                        }
+                    });
+                });
+            </script>
+ 
             <div class="container">
                 <div class="row">
                     <div class="col-12 py-5">
                         <hr>
-                        <h1>Commenti:</h1>
-                        <p>Area commneti utilizzando function('comment_form')</p>
-                        <section class="comment-box">
+                        <h1>Area Commenti</h1>
+                        <p>Area commenti utilizzando function('comment_form')</p>
+                        <section class="comment-box contact-form-style-1">
                             <div class="comments">
                                 {% for comment in post.comments %}
                                     <article class="comment" id="comment-{{ comment.id }}">
@@ -86,22 +148,22 @@
                             </div>
                         </section>
                         <hr>
-                        <h1>Commenti:</h1>
-                        <p>Area commneti utilizzando Twig</p>
+                        <h1>Area Commenti</h1>
+                        <p>Area commenti utilizzando Twig</p>
                         <!-- comment box -->
                         <section class="comment-box">
                             <!-- comments -->
                             <div class="comments">
                                 {% if post.comments %}
-                                    <h3> Comments </h3>
+                                    <h3>{{__('Commenti   ', 'grit_theme')}}</h3>
                                     {% for cmt in post.comments %}
                                         {% include "comment.twig" with {comment:cmt} %}
                                     {% endfor %}
                                 {% endif %}
                             </div>
-
+                            <hr>
                             {% if post.comment_status == "closed" %}
-                                <p> Comments for this post are closed </p>
+                                <p>{{__('I commenti su questo articolo sono chiusi ', 'grit_theme')}}</p>
                             {% else %}
                                 <!-- comment form -->
                                 {% include "comment-form.twig" %}

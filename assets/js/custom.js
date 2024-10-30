@@ -7,6 +7,7 @@
 /* :::::::::::::: 05 * GRIT_SET butter-js  */
 /* :::::::::::::: 06 * GRIT_SET jarallax-js  */
 /* :::::::::::::: 07 * GRIT_SET NProgress-js */
+/* :::::::::::::: 08 * GRIT_SET section_video */
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
 /* :::::::::::::: 00 * GRIT_SET loader */
@@ -97,8 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-/* :::::::::::::: 02 * GRIT_SET menu showing */
- 
+/* :::::::::::::: 02 * GRIT_SET menu showing */ 
 $(document).ready(function () {
     $(".menu-icon").on("click", function () {
         $("nav ul").toggleClass("showing");
@@ -121,8 +121,7 @@ $(document).ready(function () {
     $(".overlay-content li").on("click", function () {
         closeNav("header-2-sidenav");
     });
-});
-
+}); 
 
 function openNav(elementId) {
     var element = document.getElementById(elementId);
@@ -163,6 +162,91 @@ $(function () {
         }
     });
 });
+
+/* :::::::::::::: 03 * GRIT_SET owl-carousel */
+$(document).ready(function () { 
+    $(".carousel-plus").owlCarousel({
+        loop: true,
+        margin: 20, 
+        autoHeight: false,
+        autoWidth: false, 
+        center:true,
+        nav: true,
+        dots: true, 
+        navText: [`{% include ['/partials/arrow.twig'] %}`, `{% include ['/partials/arrow.twig'] %}`], 
+        /* navText: [`<i class='fa fa-chevron-left'></i>`, `<i class='fa fa-chevron-right'></i>`], */ 
+        responsive: {
+            0: {
+                items: 1, // Impostazioni per schermi molto piccoli
+
+            },
+            576: {
+                items: 2, // Impostazioni per schermi piccoli
+          
+            },
+            768: {
+                items: 3, // Impostazioni per schermi medi
+    
+            },
+            992: {
+                items: 3, // Impostazioni per schermi grandi
+            
+            },
+            1200: {
+                items: 4, // Impostazioni per schermi molto grandi
+            
+            }
+        }
+    });
+});
+
+
+
+
+/* :::::::::::::: 03 * GRIT_SET nivoLightbox */
+
+$(document).ready(function () {
+    $('.item-img-gallery').nivoLightbox({ 
+        // The effect to use when showing the lightbox
+        // fade, fadeScale, slideLeft, slideRight, slideUp, slideDown, fall
+        effect: 'slideUp',
+
+        // The lightbox theme to use
+        theme: 'default',
+
+        // Enable/Disable keyboard navigation
+        keyboardNav: true,
+
+        // Click image to close
+        clickImgToClose: false,
+
+        // Click overlay to close
+        clickOverlayToClose: true,
+
+        // Callback functions
+        onInit: function(){},
+        beforeShowLightbox: function(){},
+        afterShowLightbox: function(lightbox){},
+        beforeHideLightbox: function(){},
+        afterHideLightbox: function(){},
+        beforePrev: function(element){},
+        onPrev: function(element){},
+        beforeNext: function(element){},
+        onNext: function(element){},
+
+        // Error message
+        errorMessage: 'The requested content cannot be loaded. Please try again later.'
+
+    });
+});
+
+
+    // Prevenzione dell'apertura del link in una nuova scheda
+    $('.item-img-gallery').on('click', function (event) {
+    event.preventDefault(); // Previene il comportamento predefinito del link
+});
+
+
 
 /* :::::::::::::: 04 * GRIT_SET magicMouse */
 var magicmouse_active = document.getElementById("magic-mouse-js");
@@ -215,21 +299,33 @@ $(document).ready(function () {
 
 /* :::::::::::::: 06 * GRIT_SET jarallax-js  */
 owl_carousel_active = document.getElementById('owl_carousel-js')
+
 if (owl_carousel_active) {
-    /* init jarallax-js with original class */
-    $('.jarallax').jarallax({
-        keepImg: true,
-    });
-    /* init jarallax-js with class .jarallax-keep-img */
-    $('.jarallax-keep-img').jarallax({
-        keepImg: true,
-    });
+    $(document).ready(function () {
     
-    /* init jarallax-js  with class  con una class .jarallax-overlay */
-    $('.jarallax-overlay').jarallax({
-        keepImg: true,
+        /* init jarallax-js with original class */
+        $('.jarallax').jarallax({
+            keepImg: true,
+        });
+    
+        /* init jarallax-js with class .jarallax-keep-img */
+        $('.jarallax-keep-img').jarallax({
+            keepImg: true,
+        });
+        
+        /* init jarallax-js  with class  con una class .jarallax-overlay */
+        $('.jarallax-overlay').jarallax({
+            keepImg: true,
+        });
+
     });
+
 }
+
+
+
+
+
 
 
 /* :::::::::::::: 07 * GRIT_SET NProgress-js */
@@ -255,6 +351,107 @@ if (nprogress_active) {
         NProgress.done();
     });
 }
+
+
+
+
+/* :::::::::::::: 08 * A_SETTINGS section_video */
+$(document).ready(function() {
+    // Funzione per gestire la visibilità del pulsante play
+    function togglePlayButton(videoElement, show) {
+        const playButton = $(videoElement).parent().find('span');
+        playButton.toggleClass('d-none', !show); // Mostra il pulsante se 'show' è true
+    }
+
+    // Gestisce il click sul pulsante play
+    $('.video-file span').click(function() {
+        const videoElement = $(this).parent().find('video').get(0);
+        togglePlayButton(videoElement, false); // Nasconde il pulsante play
+        videoElement.play();
+    });
+
+    // Gestisce il click sul video per fermarlo o avviarlo
+    $('.video-file video').on('click', function() {
+        const videoElement = $(this).get(0);
+        togglePlayButton(videoElement, videoElement.paused); // Mostra il pulsante se in pausa
+    });
+
+    // Event listener per quando il video viene messo in pausa
+    $('.video-file video').on('pause', function() {
+        togglePlayButton(this, true); // Mostra il pulsante play
+    });
+
+    // Event listener per quando il video viene riprodotto
+    $('.video-file video').on('play', function() {
+        togglePlayButton(this, false); // Nasconde il pulsante play
+    });
+});
+
+
+
+
+function startCounterAnimation() {
+    const counters = document.getElementsByClassName('number-animate'); 
+    for (let i = 0; i < counters.length; i++) {
+        const counter = counters[i];
+        const startNumber = +counter.getAttribute('number-animate-start');
+        const target = +counter.getAttribute('number-animate-end');
+        const delay = +counter.getAttribute('number-animate-delay');
+        const add = +counter.getAttribute('number-animate-increment');
+        let current = startNumber;
+        let animationId;
+        let isInView = false;
+
+        function updateCounter() {
+            if (current >= target) {
+                clearInterval(animationId);
+            } 
+            else if(add){
+                current+= add;
+                counter.textContent = current;
+            }
+            else {
+                current++;
+                counter.textContent = current;
+            }
+        }
+
+        function checkInView() {
+            const rect = counter.getBoundingClientRect();
+            const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+            const windowWidth = window.innerWidth || document.documentElement.clientWidth;
+
+            const inView = (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= windowHeight &&
+                rect.right <= windowWidth
+            );
+
+            if (inView && !isInView) {
+                isInView = true;
+                current = startNumber;
+                counter.textContent = current;
+                animationId = setInterval(updateCounter, delay);
+                counter.style.opacity = 1;
+            } else if (!inView && isInView) {
+                isInView = false;
+                clearInterval(animationId);
+                current = startNumber;
+                counter.textContent = current;
+                counter.style.opacity = 0;
+            }
+        }
+
+        window.addEventListener('scroll', checkInView);
+        window.addEventListener('resize', checkInView);
+        checkInView(); // Check if already in view on page load
+    }
+}
+
+// Call the function when the document is ready
+document.addEventListener('DOMContentLoaded', startCounterAnimation);
+
 
 
 

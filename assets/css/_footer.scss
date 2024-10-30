@@ -1,5 +1,123 @@
-footer { 
-    background-color: $white;
+.footer_1 {  
     position: relative;
     width: 100%;
+    background-color: $dark;
+    color: $light; 
+    .section-footer {
+        ul {
+            list-style-type: none;
+            padding-inline-start: 0px; 
+            &.footer-menu {
+                li {
+                    padding-bottom: 15px; 
+                    &.link-footer a {
+                        color: $light;
+                        opacity: 0.5;
+                    }
+                    &.link-footer:hover a {
+                        opacity: 1;
+                        color: $accent;
+                    }
+                }
+            }
+        } 
+        .menu-policy {
+            list-style-type: disc;
+            padding-inline-start: 30px; 
+            li {
+                margin: 0 20px ;
+            }
+        }
+    
+
+        a {
+            color: $light; 
+        }
+        a:hover {
+     
+            color: $accent;
+        }
+        
+        hr {
+            border-color: $light ;
+            opacity: 0.2;
+        }
+    }
+    
+
+    .footer-bottom {
+        background-color: $primary;
+        color: $light; 
+        font-size: 10px;
+        a { 
+            color: $dark;
+        }
+        a:hover { 
+            color: $light; 
+        }
+    }
+}
+
+
+.footer_2 {  
+    position: relative;
+    width: 100%;
+    background-color: $light;
+    color: $dark; 
+    .footer-logo img {
+        max-width: 40px;
+    }
+    .section-footer {
+        ul {
+            list-style-type: none;
+            padding-inline-start: 0px; 
+            &.footer-menu {
+                li {
+                    padding-bottom: 15px; 
+                    &.link-footer a {
+                        color: $dark;
+                        opacity: 0.5;
+                    }
+                    &.link-footer:hover a {
+                        opacity: 1;
+                        color: $accent;
+                    }
+                }
+            }
+        } 
+        .menu-policy {
+            list-style-type: disc;
+            padding-inline-start: 30px; 
+            li {
+                margin: 0 20px ;
+            }
+        }
+    
+
+        a {
+            color: $dark; 
+        }
+        a:hover {
+     
+            color: $accent;
+        }
+        
+        hr {
+            border-color: $dark ;
+            opacity: 0.2;
+        }
+    }
+    
+
+    .footer-bottom {
+        background-color: $dark;
+        color: $light; 
+        font-size: 10px;
+        a { 
+            color: $light; 
+        }
+        a:hover { 
+            color: $accent; 
+        }
+    }
 }

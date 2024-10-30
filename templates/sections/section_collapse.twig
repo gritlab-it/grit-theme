@@ -1,0 +1,217 @@
+
+{% if 'section_collpase_1' in class %}
+{# section_collpase_1 #}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-md-6 ">
+
+                {% if section.title %}
+                    <h1 class="">{{section.title}}</h1>
+                {% endif %}
+                
+                {% if section.text %}
+                    {{section.text}}
+                {% endif %}
+                
+                <div class="box-buttons"> 
+                    {% if section.link_1 %}
+                    {% set btn = {
+                        'title': link_1.title,
+                        'url': link_1.url,
+                        'target': link_1.target,
+                        'style': 'btn btn-' ~ section.link_1_color ~ '  ',
+                        }
+                        %}
+                        {% include ['/partials/btn.twig'] with btn %} 
+                    {% endif %}
+    
+                    {% if section.link_2 %}
+                    {% set btn = {
+                        'title': link_2.title,
+                        'url': link_2.url,
+                        'target': link_2.target,
+                        'style': 'btn btn-' ~ section.link_2_color ~ '  ',
+                        }
+                        %}
+                        {% include ['/partials/btn.twig'] with btn %} 
+                    {% endif %} 
+               </div>  
+
+            </div>
+            <div class="col-12 col-md-6 ">
+                <div class="accordion pt-5 pt-md-4" id="accordion_1_{{ section.section_index }}">
+                    {% for item in section.lists %}
+                    <div class="inner-collapse">
+                        <div id="heading_{{ section.section_index }}_{{loop.index}}" class=" accordion_heading  {{ (loop.first) ? '' : 'collapsed' }}"
+                            type="button" data-toggle="collapse" data-target="#collapse_{{ section.section_index }}_{{loop.index}}"
+                            aria-expanded="{{ (loop.first) ? 'true' : 'false' }}" collapsed
+                            aria-controls="collapse_{{ section.section_index }}_{{loop.index}}">
+                            <div class="row">
+                                <div class="col-6 col-md-5  ">
+                                    <p>{{item.pre_title}}</p>
+                                </div>
+                                <div class="col-12 col-md-6 ">
+                                    <p>{{item.title}} </p>
+                                </div> 
+                                <div class="col-6 col-md-1  text-center"><p class="collapse-symbol" id="symbol_{{loop.index}}">{% include ['/img/plus.svg'] %}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="collapse_{{ section.section_index }}_{{loop.index}}" class="accordion_body collapse {{ (loop.first) ? 'show' : ' ' }}"
+                            aria-labelledby="heading_{{ section.section_index }}_{{loop.index}}" data-parent="#accordion_{{ section.section_index }}">
+
+                            <div class="row">
+                                {% if item.text %}
+                                    <div class="col-12 col-md-12 ">
+                                        {{item.text}}  
+                                    </div>
+                                {% endif %} 
+                            </div> 
+
+                            {% if item.sublist %}
+                                {% for sub_item in item.sublist %}
+                                    <div class=" sub_item ml-3  ">
+                                        <p>{{sub_item.text}}</p>
+                                    </div>
+                                {% endfor %}
+                            {% endif %} 
+                        </div>
+                    </div>
+                    <hr class="border-{{section.text_color}}">
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div> 
+{# end section_collpase_1 #}
+
+{% else %}
+
+{# section_collpase #}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-12 ">
+            
+            {% if section.title %}
+                <h1 class="">{{section.title}}</h1>
+            {% endif %}
+            
+            {% if section.text %}
+                {{section.text}}
+            {% endif %} 
+           
+            <div class="box-buttons">
+                {% if section.link_1 %}
+                {% set btn = {
+                    'title': link_1.title,
+                    'url': link_1.url,
+                    'target': link_1.target,
+                    'style': 'btn btn-' ~ section.link_1_color ~ '  ',
+                    }
+                    %}
+                    {% include ['/partials/btn.twig'] with btn %} 
+                {% endif %}
+
+                {% if section.link_2 %}
+                {% set btn = {
+                    'title': link_2.title,
+                    'url': link_2.url,
+                    'target': link_2.target,
+                    'style': 'btn btn-' ~ section.link_2_color ~ '  ',
+                    }
+                    %}
+                    {% include ['/partials/btn.twig'] with btn %} 
+                {% endif %}
+            </div>
+
+        </div>
+        <div class="col-12 col-md-12 ">
+            <div class="accordion pt-5 pt-md-4" id="accordion_{{ section.section_index }}">
+                {% for item in section.lists %}
+                <div class="inner-collapse">
+                    <div id="heading_{{ section.section_index }}_{{loop.index}}" class=" accordion_heading  {{ (loop.first) ? '' : 'collapsed' }}"
+                        type="button" data-toggle="collapse" data-target="#collapse_{{ section.section_index }}_{{loop.index}}"
+                        aria-expanded="{{ (loop.first) ? 'true' : 'false' }}" collapsed
+                        aria-controls="collapse_{{ section.section_index }}_{{loop.index}}">
+                        <div class="row">
+                            <div class="col  ">
+                                <p>{{item.title}}</p>
+                            </div> 
+                            <div class="col  text-right"><p class="collapse-symbol" id="symbol_{{loop.index}}">{% include ['/img/plus.svg'] %}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="collapse_{{ section.section_index }}_{{loop.index}}" class="accordion_body collapse {{ (loop.first) ? 'show' : ' ' }}"
+                        aria-labelledby="heading_{{ section.section_index }}_{{loop.index}}" data-parent="#accordion_{{ section.section_index }}">
+
+                        <div class="row">
+                            {% if item.text %}
+                                <div class="col-12 col-md-12 ">
+                                    {{item.text}}  
+                                </div>
+                            {% endif %} 
+                        </div> 
+
+                        {% if item.sublist %}
+                            {% for sub_item in item.sublist %}
+                                <div class=" sub_item ml-3  ">
+                                    <p>{{sub_item.text}}</p>
+                                </div>
+                            {% endfor %}
+                        {% endif %} 
+                    </div>
+                </div>
+                <hr class="border-{{section.text_color}}">
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</div>
+
+ 
+
+{# end section_collpase #}
+
+{% endif %}
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var headers = document.querySelectorAll('.accordion_heading');
+
+    headers.forEach(function(header) {
+        header.addEventListener('click', function() {
+            var symbol = this.querySelector('.collapse-symbol');
+            var target = document.querySelector(this.getAttribute('data-target'));
+
+            if (target.classList.contains('show')) {
+                symbol.innerHTML = `{% include '/img/plus.svg' %}`;
+            } else {
+                headers.forEach(function(h) {
+                    var s = h.querySelector('.collapse-symbol');
+                    s.innerHTML = `{% include '/img/plus.svg' %}`;
+                });
+                symbol.innerHTML = `{% include '/img/minus.svg' %}`;
+            }
+        });
+    });
+
+    // Gestione clic sull'icona
+    var symbols = document.querySelectorAll('.collapse-symbol');
+    symbols.forEach(function(symbol) {
+        symbol.addEventListener('click', function(e) {
+            e.stopPropagation(); // Evita che l'evento venga gestito solo dall'icona
+            this.closest('.accordion_heading').click(); // Simula il clic sull'intestazione
+        });
+    });
+
+    var firstHeader = document.querySelector('.accordion_heading:not(.collapsed)');
+    if (firstHeader) {
+        var firstSymbol = firstHeader.querySelector('.collapse-symbol');
+        firstSymbol.innerHTML = `{% include '/img/minus.svg' %}`;
+    }
+}); 
+</script>

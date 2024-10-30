@@ -1,13 +1,39 @@
 {# section_video #}
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <div class="video-container">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/{{section.id_video}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div> 
-            </div>
-        </div>
-    </div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-12">
+			<div class="video-container text-center">
+				{% if section.embed %}
+				<div class="video-embed">
+					{{ section.embed }}
+				</div>
+				{% endif %}  
+
+                {% if section.id_video %}
+				<div class="video-iframe">
+					<iframe
+						width="560"
+						height="315"
+						src="https://www.youtube.com/embed/{{ section.id_video }}"
+						frameborder="0"
+						allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen
+					></iframe>
+				</div>
+				{% endif %} 
+                
+                {% if section.video_file %}
+				<div class="video-file">
+					<video controls loop playsinline plainsinline>
+						<source src="{{ section.video_file.url }}" type="video/mp4" />
+					</video>
+					<span></span>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
 {# end section_video #}
  
 

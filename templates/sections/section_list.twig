@@ -1,106 +1,218 @@
-{# section_list #}
- 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col col-md-6 ">
-                <h1 class="font-weight-medium">{{section.title}}</h1>
-                {{section.text}}
-                {% if section.link_1 %}
-                {% set btn = {
-                    'title': link_1.title,
-                    'url': link_1.url,
-                    'target': link_1.target,
-                    'style': 'btn btn-' ~ section.link_1_color ~ ' btn-md',
-                    }
-                    %}
-                    {% include ['/partials/btn.twig'] with btn %} 
-                {% endif %}
-            </div>
-            <div class="col-12 col-md-6 ">
-                <div class="accordion pt-5 pt-md-0" id="accordion_list">
-                    {% for item in section.lists %}
-                    <div class="  card_list">
-                        <div id="heading_list_{{loop.index}}" class=" accordion_heading  {{ (loop.first) ? '' : 'collapsed' }}"
-                            type="button" data-toggle="collapse" data-target="#collapse_list_{{loop.index}}"
-                            aria-expanded="{{ (loop.first) ? 'true' : 'false' }}" collapsed
-                            aria-controls="collapse_list_{{loop.index}}">
-                            <div class="row">
-                                <div class="col-6 col-md-5  ">
-                                    <p>{{item.pre_title}}</p>
-                                </div>
-                                <div class="col-12 col-md-6 ">
-                                    <p>{{item.title}} </p>
-                                </div>
-                                
-                                <div class="col-6 col-md-1  text-center"><p class="collapse-symbol" id="symbol_{{loop.index}}">{% include ['/img/plus.svg'] %}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="collapse_list_{{loop.index}}" class="accordion_body collapse {{ (loop.first) ? 'show' : ' ' }}"
-                            aria-labelledby="heading_list_{{loop.index}}" data-parent="#accordion_list">
+{% if 'section_carousel_list' in class %}
+ {# section_carousel_list #}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col p-0"> 
+            <div class="owl-carousel owl-theme carousel_list ">
+                {% for item in section.lists %}
+                    <div class="item-list in__animate " data-animation="animate__fadeIn animate__faster ">  
+                        
+                        {% if item.image %}
+                            {% set image = {
+                                'alt': item.image.alt,
+                                'src': Image(item.image.id).src ,
+                                'class': 'img-fluid'
+                                }
+                            %}
+                            {% include ['/partials/img.twig'] with image %}
+                        {% endif %} 
 
-                            <div class="row">
-                                <div class="col-12 col-md-12 ">
-                                    {{item.text}} 
-                                    
-                                </div>
-                            </div>
-                            
-                                
-                                    {% for sub_item in item.sublist %}
-                                    <div class=" sub_item ml-3  ">
-                                        <p>{{sub_item.text}}</p>
-                                    </div>
-                                    {% endfor %}
-                               
-                           
+                        <div class="inner-list py-2">
+                            {% if item.title %}
+                                <h1 >{{item.title}}</h1>
+                            {% endif %}
+
+                            {% if item.sub_title %}
+                                <h3 >{{item.sub_title}}</h3>
+                            {% endif %}
+
+                            {{item.text}}
+
+                            {% if item.link_1 %}
+                            {% set btn = {
+                                'title': item.link_1.title,
+                                'url': item.link_1.url,
+                                'target': item.link_1.target,
+                                'style': 'btn btn-' ~ item.color_link_1 ~ ' btn-sm',
+                            }
+                            %}
+                            {% include ['/partials/btn.twig'] with btn %} 
+                            {% endif %} 
                         </div>
+
                     </div>
-                    <hr class="border-{{section.text_color}}">
-                    {% endfor %}
-                </div>
+                   
+                {% endfor %}
+            </div>  
+        </div>
+    </div>
+</div> 
+<script> 
+    $(document).ready(function () {
+        $(".carousel_list").owlCarousel({
+            loop: true,
+            margin: 20, 
+            autoHeight: false,
+            autoWidth: false, 
+            center: false,
+            nav: true,
+            dots: true, 
+            
+             navText: [`{% include ['/partials/arrow.twig'] %}`, `{% include ['/partials/arrow.twig'] %}`], 
+
+
+            /* navText: [`<i class='fa fa-chevron-left'></i>`, `<i class='fa fa-chevron-right'></i>`], */
+
+            responsive: {
+                0: {
+                    items: 1, // Impostazioni per schermi molto piccoli
+ 
+                },
+                576: {
+                    items: 2, // Impostazioni per schermi piccoli
+              
+                },
+                768: {
+                    items: 3, // Impostazioni per schermi medi
+        
+                },
+                992: {
+                    items: 3, // Impostazioni per schermi grandi
+                
+                },
+                1200: {
+                    items: 4, // Impostazioni per schermi molto grandi
+                
+                }
+            }
+        });
+    }); 
+</script> 
+{# end section_carousel_list #}
+{% else %}
+ {# section_list #}
+ <div class="container-fluid">
+    <div class="row">
+        {% for item in section.lists  %}
+        <div class="item-list
+                {% if total_items == 1 %}
+                    col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2 
+                {% elseif total_items == 2 %}
+                    col-12 col-md-6 
+                {% elseif total_items == 3 %}
+                    col-12 col-sm-6 col-md-4  
+                {% else %}
+                    col-12 col-sm-6 col-md-3 
+                {% endif %}
+                  in__animate " data-animation="animate__fadeIn animate__faster ">  
+                        
+            {% if item.image %}
+                {% set image = {
+                    'alt': item.image.alt,
+                    'src': Image(item.image.id).src ,
+                    'class': 'img-fluid'
+                    }
+                %}
+                {% include ['/partials/img.twig'] with image %}
+            {% endif %} 
+
+            <div class="inner-list py-2">
+                {% if item.title %}
+                    <h1 >{{item.title}}</h1>
+                {% endif %}
+
+                {% if item.sub_title %}
+                    <h3 >{{item.sub_title}}</h3>
+                {% endif %}
+
+                {{item.text}}
+
+                {% if item.link_1 %}
+                {% set btn = {
+                    'title': item.link_1.title,
+                    'url': item.link_1.url,
+                    'target': item.link_1.target,
+                    'style': 'btn btn-' ~ item.color_link_1 ~ ' btn-sm',
+                }
+                %}
+                {% include ['/partials/btn.twig'] with btn %} 
+                {% endif %} 
             </div>
 
         </div>
+        
+        
+        {% endfor %}
+        
     </div>
- 
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-    var headers = document.querySelectorAll('.accordion_heading');
-
-    headers.forEach(function(header) {
-        header.addEventListener('click', function() {
-            var symbol = this.querySelector('.collapse-symbol');
-            var target = document.querySelector(this.getAttribute('data-target'));
-
-            if (target.classList.contains('show')) {
-                symbol.innerHTML = `{% include '/img/plus.svg' %}`;
-            } else {
-                headers.forEach(function(h) {
-                    var s = h.querySelector('.collapse-symbol');
-                    s.innerHTML = `{% include '/img/plus.svg' %}`;
-                });
-                symbol.innerHTML = `{% include '/img/minus.svg' %}`;
-            }
-        });
-    });
-
-    // Gestione clic sull'icona
-    var symbols = document.querySelectorAll('.collapse-symbol');
-    symbols.forEach(function(symbol) {
-        symbol.addEventListener('click', function(e) {
-            e.stopPropagation(); // Evita che l'evento venga gestito solo dall'icona
-            this.closest('.accordion_heading').click(); // Simula il clic sull'intestazione
-        });
-    });
-
-    var firstHeader = document.querySelector('.accordion_heading:not(.collapsed)');
-    if (firstHeader) {
-        var firstSymbol = firstHeader.querySelector('.collapse-symbol');
-        firstSymbol.innerHTML = `{% include '/img/minus.svg' %}`;
-    }
-});
-
-</script>
+</div> 
 {# end section_list #}
+{% endif %}
+    
+
+
+
+
+
+
+
+{# section_plus #}
+ 
+    {# <div class="container-fluid">
+        <div class="row">
+            {% set total_items = section.chapters | length %}
+            {% for item in section.chapters %}
+            <div class="
+                {% if total_items == 1 %}
+                    col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2  
+                {% elseif total_items == 2 %}
+                    col-12 col-md-6  
+                {% elseif total_items == 3 %}
+                    col-12 col-lg-4 
+                {% else %}
+                    col-12 col-md-3 
+                {% endif %}
+            "> 
+                <div class="item-chapters">
+                
+                    {% if item.image %}
+                    {% set image = {
+                        'alt': item.image.alt,
+                        'src': Image(item.image.id).src ,
+                        'class': 'img-fluid'
+                        }
+                    %}
+                    {% include ['/partials/img.twig'] with image %}
+                    {% endif %}
+                    <div class="inner-item">
+                <h2> {{ item.title }}</h2>
+                <h5>{{ item.subtitle }}</h5>
+                {{ item.text }}
+                {% if item.link_1 %}
+                        {% set btn = {
+                        'title': item.link_1.title,
+                        'url': item.link_1.url,
+                        'target': item.link_1.target,
+                        'style': 'btn btn-' ~ section.color_link_1 ~ ' btn-md',
+                        }
+                        %}
+                        {% include ['/partials/btn.twig'] with btn %}
+                {% endif %}
+                {% if item.link_2 %}
+                        {% set btn = {
+                        'title': item.link_2.title,
+                        'url': item.link_2.url,
+                        'target': item.link_2.target,
+                        'style': 'btn btn-' ~ section.color_link_2 ~ ' btn-md',
+                        }
+                        %}
+                        {% include ['/partials/btn.twig'] with btn %}
+                {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div> #}
+ 
+{# end section_plus #}

@@ -17,44 +17,28 @@ body {
  
   }
 
+
+  .absolute_center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    @include translate(-50%, -50%);
+  }
+
+
+
+/* Stile per scrollbar in browser WebKit (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+    width: 1px; /* Larghezza della scrollbar */
+}
+
  
-
-/* GRIT_SET text Color
-   Note: Setting colors background as color-primary */
-   @each $name, $value in $colors {
-    .color-#{$name} {
-        color: $value !important;
-    }
+/* Stile per Firefox */
+* {
+    scrollbar-width: thin; /* Imposta la scrollbar sottile in Firefox */ 
 }
 
-/* GRIT_SET border Color
-   Note: Setting colors background as border-primary */
-@each $name, $value in $colors {
-    .border-#{$name} {
-        border-color: $value !important;
-    }
-}
-
-/* GRIT_SET Background Color
-   Note: Setting colors background as bg-primary */
-@each $name, $value in $colors {
-    .bg-#{$name} {
-        background-color: $value !important;
-    }
-}
-
-/* GRIT_SET half color
-   Note: Setting colors half background */
-@each $name, $value in $colors {
-    .bg-#{$name}-half {
-        background: $value;
-        background: -moz-linear-gradient(0deg, $value 50%, $white 50%);
-        background: -webkit-linear-gradient(0deg, $value 50%, $white 50%);
-        background: linear-gradient(0deg, $value 50%, $white 50%);
-    }
-}
-
-
+ 
 
 /* GRIT_SET container-fluid */
 @media (min-width: 768px) {

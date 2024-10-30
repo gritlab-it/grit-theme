@@ -41,10 +41,12 @@
 		</header> #}
 
 		{# ::::::::::::::  * A_SETTINGS header #}
-    	<header>
+    	<header id="{{ grit_setting_header }}">
+ 
     	    {% block header %}
-    	        {% include "headers/header-2/header-2.twig" %}
+    	        {% include "headers/header.twig" %}
     	    {% endblock %}
+ 
     	</header>
     	{# :::::::::::::: end * A_SETTINGS header #}
  
@@ -63,8 +65,12 @@
 		</section>
         {# ::::::::::::::  * A_SETTINGS footer #}
         {% block footer %}
-            <footer id="footer" class="">
-                {% include 'footer.twig' %}
+            <footer id="footer" class="{{ grit_setting_footer }}">
+				{% if grit_setting_footer %}
+						{% include ['/footers/'~ grit_setting_footer ~'.twig'] %}
+					{% else %}
+						{% include ['/footers/footer_1.twig'] %}
+				{% endif %} 
             </footer>
 			{{ function('wp_footer') }}
         {% endblock %}

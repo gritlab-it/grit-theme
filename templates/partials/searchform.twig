@@ -1,0 +1,7 @@
+<form role="search" method="get" id="searchform" class="contact-form-style-1" action="{{ site.link }}/cerca">
+    <label class="" for="search_query">{{__('Cerca ora:', 'grit_theme')}}</label>
+    <div class="d-flex"> 
+        <input type="text" value="" name="s" placeholder="{{ s ?: 'Cerca' }}" id="s"/>
+        <input type="submit" id="searchsubmit" class="mx-2 btn btn-accent" value="{{__('Cerca', 'grit_theme')}}"/>
+    </div>
+</form>

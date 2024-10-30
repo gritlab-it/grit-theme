@@ -1,7 +1,59 @@
+{# see `archive.twig` for an alternative strategy of extending templates #}
 {% extends "base.twig" %}
 
 {% block content %}
-	{% for post in posts %}
-		{% include ["tease-"~post.post_type~".twig", "tease.twig"] %}
-	{% endfor %}
+
+
+{% for section in sections %} 
+	{% if section.pre_content %}
+		{% set section = section|merge({'section_index': loop.index}) %} 
+		{% include ['/sections/section.twig'] with section %}
+	{% endif %}
+{% endfor %}
+
+{% if content is not empty %}
+	<section class="section_page contained py-3">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-12">  
+					{{ content }}
+				</div>
+			</div>
+		</div>
+	</section>
+{% endif %}
+
+<div class="page_archive contained py-3">
+	<div class="container-fluid">
+		<div class="row pb-3">
+			<div class="col-12 col-md-6 ">
+				{% include 'partials/searchform.twig' %}
+			</div>
+			<div class="col-12 col-md-6 text-md-right">
+				<p class="m-0">{{__('Vista dei risultati da', 'grit_theme')}}
+					<b>{{ startpost }}</b>
+					{{__('a', 'grit_theme')}}
+					<b>{{ endpost }}</b>
+					{{__('di', 'grit_theme')}}
+					<b>{{ found_posts }}</b>
+				</p>
+			</div>
+		</div>
+		<div class="row"> 
+			{% for post in posts %}
+				{% include ['partials/tease-'~ post.post_type ~'.twig', 'partials/tease.twig'] %}
+			{% endfor %}  
+			{% include '/templates/partials/pagination.twig' with { pagination: posts.pagination({show_all: false, mid_size: 3, end_size: 2}) } %}
+		</div>
+	</div>
+</div>
+
+{% for section in sections %}
+	{% if not section.pre_content %}
+		{% set section = section|merge({'section_index': loop.index}) %} 
+		{% include ['/sections/section.twig'] with section %}
+	{% endif %}
+{% endfor %} 
+ 
+ 
 {% endblock %}
