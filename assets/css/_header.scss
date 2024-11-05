@@ -199,16 +199,23 @@
         }
     } 
 
-    .sticky-fix {
-        z-index: 2;
+    .sticky-fix { 
         position: fixed;
         width: 100%;
-        top: -126px; 
-        transition: 0.4s all ease-out 0.5s; 
-
+        top: -126px; // posizione iniziale fuori schermo
+        z-index: 2;
+        opacity: 0; 
+        transition: all 0.5s ease-in-out; // transizione di default lenta
+    
         &.sticky-in {
+            opacity: 1;
             top: 0;
-        } 
+            transition: all 0.5s ease-in; // transizione più lenta in entrata
+        }
+    
+        &:not(.sticky-in) {
+            transition: all 0.2s ease-out; // transizione veloce in uscita
+        }
     } 
 }
 

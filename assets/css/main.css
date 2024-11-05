@@ -1643,15 +1643,22 @@ a:hover {
 }
 #header_1 .sticky-fix,
 #header_2 .sticky-fix {
-  z-index: 2;
   position: fixed;
   width: 100%;
   top: -126px;
-  transition: 0.4s all ease-out 0.5s;
+  z-index: 2;
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
 }
 #header_1 .sticky-fix.sticky-in,
 #header_2 .sticky-fix.sticky-in {
+  opacity: 1;
   top: 0;
+  transition: all 0.5s ease-in;
+}
+#header_1 .sticky-fix:not(.sticky-in),
+#header_2 .sticky-fix:not(.sticky-in) {
+  transition: all 0.2s ease-out;
 }
 
 #header_1 .nav .dropdown:hover > .dropdown-menu {

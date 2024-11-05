@@ -204,47 +204,54 @@ $(document).ready(function () {
 
 
 /* :::::::::::::: 03 * GRIT_SET nivoLightbox */
+lightbox_nivo_active = document.getElementById('responsive-lightbox-nivo_lightbox-js')
 
-$(document).ready(function () {
-    $('.item-img-gallery').nivoLightbox({ 
-        // The effect to use when showing the lightbox
-        // fade, fadeScale, slideLeft, slideRight, slideUp, slideDown, fall
-        effect: 'slideUp',
-
-        // The lightbox theme to use
-        theme: 'default',
-
-        // Enable/Disable keyboard navigation
-        keyboardNav: true,
-
-        // Click image to close
-        clickImgToClose: false,
-
-        // Click overlay to close
-        clickOverlayToClose: true,
-
-        // Callback functions
-        onInit: function(){},
-        beforeShowLightbox: function(){},
-        afterShowLightbox: function(lightbox){},
-        beforeHideLightbox: function(){},
-        afterHideLightbox: function(){},
-        beforePrev: function(element){},
-        onPrev: function(element){},
-        beforeNext: function(element){},
-        onNext: function(element){},
-
-        // Error message
-        errorMessage: 'The requested content cannot be loaded. Please try again later.'
-
+if (lightbox_nivo_active) {
+    $(document).ready(function () {
+        $('.item-img-gallery').nivoLightbox({ 
+            // The effect to use when showing the lightbox
+            // fade, fadeScale, slideLeft, slideRight, slideUp, slideDown, fall
+            effect: 'slideUp',
+    
+            // The lightbox theme to use
+            theme: 'default',
+    
+            // Enable/Disable keyboard navigation
+            keyboardNav: true,
+    
+            // Click image to close
+            clickImgToClose: false,
+    
+            // Click overlay to close
+            clickOverlayToClose: true,
+    
+            // Callback functions
+            onInit: function(){},
+            beforeShowLightbox: function(){},
+            afterShowLightbox: function(lightbox){},
+            beforeHideLightbox: function(){},
+            afterHideLightbox: function(){},
+            beforePrev: function(element){},
+            onPrev: function(element){},
+            beforeNext: function(element){},
+            onNext: function(element){},
+    
+            // Error message
+            errorMessage: 'The requested content cannot be loaded. Please try again later.'
+    
+        });
     });
-});
-
-
-    // Prevenzione dell'apertura del link in una nuova scheda
+     
+        // Prevenzione dell'apertura del link in una nuova scheda
     $('.item-img-gallery').on('click', function (event) {
-    event.preventDefault(); // Previene il comportamento predefinito del link
-});
+        event.preventDefault(); // Previene il comportamento predefinito del link
+    });
+
+}
+
+
+
+
 
 
 
@@ -255,10 +262,10 @@ $(document).ready(function () {
         $(".main").addClass("magicmouse_active");
         // Attivo su tutte le immagini
         $("img").addClass("magic-hover", "magic-hover__square");
-        // $("a").addClass("magic-hover","magic-hover__square");
+        $(".btn").addClass("magic-hover","magic-hover__square");
         
         document.body.style.cursor = 'none!important';
-        //cursorOuter	Default: "circle-basic", other options : "disable"
+        // cursorOuter	Default: "circle-basic", other options : "disable"
         // hoverEffect	default: "circle-move", other options : "pointer-blur", "pointer-overlay"
         options = {
             "cursorOuter": "circle-basic",

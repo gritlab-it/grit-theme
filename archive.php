@@ -60,7 +60,7 @@ if (is_day()) {
     );
 } elseif (is_category() || is_tax()) {
  
-
+    $page_id = get_the_ID();
 
     $context['title'] = single_cat_title('', false);
     $context['content']  = term_description(); 
@@ -122,7 +122,7 @@ if (is_day()) {
     $page_id = get_option('page_for_posts'); 
     $context['post'] = $post = get_post($page_id);
     $context['title'] = get_the_title($page_id);
-    $context['content'] = get_the_content($page_id);
+    $context['content'] = apply_filters('the_content', get_post_field('post_content', $page_id)); 
     $context['the_excerpt'] = get_the_excerpt($page_id); 
 
  
