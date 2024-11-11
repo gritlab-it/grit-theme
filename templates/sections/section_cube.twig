@@ -1,14 +1,15 @@
 {# section_cube #}
  
     <div class="container-fluid ">
-        <div class="row align-items-stretch ">
-            <div class="col-12 col-md-6 bg-{{section.background_color}} p-0 m-0 col-text d-flex flex-column justify-content-center order-first {% if section.invert %} order-md-last {% else %}  {% endif %}">
-                <div class="inner-text color-{{section.color}}">
-
+        <div class="row align-items-stretch {{ section.contained ? 'bg-'~ section.background_color : '' }} ">
+            
+            
+            <div class="col-12 col-md-6 p-0 m-0 col-text d-flex flex-column justify-content-center {{ section.contained ? '' : 'bg-'~ section.background_color }} order-first {% if section.invert %} order-md-last {% else %}  {% endif %}">
+                <div class="inner-text color-{{section.color}} ">
                     {% if section.title %}
-                        <h3 class="text-uppercase color-{{section.text_color}}">
+                        <h1 class=" color-{{section.text_color}}">
                             {{section.title}}
-                        </h3>
+                        </h1>
                     {% endif %}
                     
                     {% if section.text %}
@@ -20,9 +21,11 @@
                     {% if section.lists %}
                     <div class="row pb-4">
                         {% for item in section.lists %}
-                            <div class="col-12 col-md-6 item-list " >
+                            <div class="col-12 item-list " >
                                 <div class="inner-item-list border-{{section.text_color}}  d-flex align-items-center mb-3 pb-2">
+                                {% if item.icon %}
                                     <img src="{{ Image(item.icon.id).src|resize(60,60)}}" alt="" class="img-fluid pr-2">
+                                {% endif %} 
                                 <p class="p-0 m-0 color-{{section.text_color}}">
                                     {{item.text}}
                                 </p>
@@ -62,6 +65,7 @@
  
             <div class="col-12 col-md-6 p-0 m-0 col-img order-last 
                 {% if 'parallax' in section.class %} jarallax-keep-img {% endif %} 
+                {% if section.gallery|length == 1 %} single-image {% endif %}
                 {% if section.invert %} order-md-first {% else %}  {% endif %}"  
                 {% if section.gallery|length == 1 %} style="background-image: url('{{ Image(section.gallery[0].id).src|resize(1400,1400)}}');" {% endif %} >
                 

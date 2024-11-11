@@ -7,7 +7,7 @@
                     {% set attachment = TimberPost(item.image.id) %}
                     {% set height = TimberImage(item.image.id).height %}
                     {% set width = TimberImage(item.image.id).width %}
-                    {% set sizewh = height / width %}
+                    {% set sizewh = height / (width ?: 1) %}
                     {% set imageSrc = TimberImage(item.image.id).src %}
                     
                     {% if sizewh < 1 %}

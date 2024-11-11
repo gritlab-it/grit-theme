@@ -8,41 +8,27 @@
 
 /* :::::::::::::: 01 * GRIT_SET Color */ 
 
-$burnt-sienna: #ee6c4dff;
+ 
 
-$light-cyan: #e0fbfcff; 
-$gunmetal: #293241ff;
+$accent: #fe7f2d;
 
-$rich-black: #11151cff;
-$rich-black-2: #151b25ff;
-$raisin-black: #19212eff;
-$prussian-blue: #212d40ff;
-$prussian-blue-2: #273246ff;
-$prussian-blue-3: #2c374bff;
-$charcoal: #313c51ff;
-$charcoal-2: #343f54ff;
-$charcoal-3: #364156ff;
-$charcoal-4: #485265ff;
+$light: #F8F9FA;
+$dark: #1D1D1B;
+$grey:#CED4DA;
 
-$accent: $burnt-sienna;
-
-$light: #dfdfdf;
-$dark: #343434;
-
-$primary: $rich-black;
-$secondary: $rich-black-2;
-$tertiary: $raisin-black;
-$quaternary: $prussian-blue;
-$quinary: $prussian-blue-2;
-$senary: $prussian-blue-3;
-$septenary: $charcoal;
-$octonary: $charcoal-2;
-$nonary: $charcoal-3;
-$denary: $charcoal-4; 
+$primary: #fcca46; 
+$secondary:  #a1c181;
+$tertiary: #619b8a;
+$quaternary: #212529;
+$quinary: #343A40;
+$senary: #495057;
+$septenary: #6C757D;
+$octonary: #ADB5BD;
+$nonary: #DEE2E6;
+$denary: #E9ECEF;
 
 $white: #ffffff; 
 $black: #000000; 
-$grey:#d2d2d2;
 
 $transparent: transparent;
 
@@ -122,7 +108,7 @@ $colors: (
 /* :::::::::::::: 02 * GRIT_SET Gradinet */
 
 $gradient-colors-1: (
-  $primary 0%,
+  $dark 0%,
   // $secondary 10%,
   // $tertiary 20%,
   // $quaternary 30%,
@@ -132,7 +118,7 @@ $gradient-colors-1: (
   // $octonary 70%,
   // $nonary 80%,
   // $denary 90%,
-  $nonary 100%
+  $quinary 100%
 );
 
 @mixin gradient-1($direction: 90deg, $colors: ()) {
@@ -167,6 +153,8 @@ $md: 992;
 $lg: 1200;
 $xl: 1600;
 $xxl: 1920;
+
+$c-gap: 140;
 
 $general-radius: 3rem;
 

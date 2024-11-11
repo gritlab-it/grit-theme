@@ -73,6 +73,13 @@
                     </div>
                 </div>
             </div>
+
+    {% for section in sections %} 
+			{% set section = section|merge({'section_index': loop.index}) %} 
+			{% include ['/sections/section.twig'] with section %} 
+	{% endfor %}
+
+
             <section class="section_archive section_archive_carousel contained">
                 <div class="container">
                     <div class="row ">  

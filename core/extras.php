@@ -138,7 +138,7 @@ function update_theme_credits() {
           $theme_parent_version = $theme_parent->get('Version');
           ?>
           <script>
-              console.log('<?php echo $theme_name . ' ' . $theme_version . ' => ' . $theme_parent_name . ' ' . $theme_parent_version; ?>');
+            console.log('<?php echo $theme_name . ' ' . $theme_parent_version . ' => ' . $theme_parent_name . ' ' . $theme_version; ?>');
           </script>
           <?php
       } else {

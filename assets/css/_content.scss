@@ -5,19 +5,13 @@ body {
     font-weight: normal;
     font-style: normal;
     margin: 0;
-    padding: 0;
- 
-
+    padding: 0; 
+    cursor: default!important;
+    // scroll-behavior: smooth !important;
 }
+ 
 
  
-.smooth-scroll {
-    height: 100%;
-    overflow: hidden;
- 
-  }
-
-
   .absolute_center {
     position: absolute;
     top: 50%;
@@ -41,9 +35,9 @@ body {
  
 
 /* GRIT_SET container-fluid */
-@media (min-width: 768px) {
+@media (min-width: $sm-res) {
     .contained {
-        padding: 0 calc(140 / 1920 * 100vw);
+        padding: 0 calc($c-gap / $xxl * 100vw);
     }
 }
 

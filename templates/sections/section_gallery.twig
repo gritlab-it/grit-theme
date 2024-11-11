@@ -1,13 +1,62 @@
-{# section_gallery #}
-{% set image_ids = section.gallery | map(image => image.id) | join(',') %}
-<div class="container-fluid ">
-    <div class="row">
-        <div class="col p-1">
-            <div class="section_gallery">
-                {{ function('do_shortcode', '[gallery ids="' ~ image_ids ~ '" columns="'~ section.columns ~'" size="' ~ section.size ~ '" ]') }}
+{% if section.gallery|length > 1 %}
+    {# section_gallery #}
+    {% set image_ids = section.gallery | map(image => image.id) | join(',') %}
+    <div class="container-fluid ">
+        <div class="row">
+            <div class="col p-1">
+                <div class="section_gallery">
+                    {{ function('do_shortcode', '[gallery ids="' ~ image_ids ~ '" columns="'~ section.columns ~'" size="' ~ section.size ~ '" ]') }}
+                </div>
             </div>
-        </div> 
+        </div>
     </div>
-</div> 
-{# end section_gallery #}
+    {# end section_gallery #}
+{% else %}
+    {# section_image #}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-md-8 offset-md-2 in__animate " data-animation="animate__fadeIn animate__slow ">
+                {% set classes = section.class ? section.class|split(' ') : [] %}
+
+                {% if section.gallery[0] %} 
+                    {% if 'parallax-gsap' in classes %}
+                          
+                        <div class="gsap-parallax-container">
+                            {% set image = {
+                            'alt': section.gallery[0].alt,
+                            'src': Image(section.gallery[0].id).src,
+                            'class': 'gsap-parallaxImage'
+                        } %}
+                            {% include ['/partials/img.twig'] with image %}
+                        </div>
+                        <style> 
+                            .gsap-parallax-container {
+                                height: 500px; /* o un'altra altezza significativa */
+                                position: relative;
+                                overflow: hidden;
+                            }
+                        </style>   
+                {% elseif 'parallax' in classes %} 
+                
+                    <div class="jarallax-keep-img overlay-in" data-speed="0.2">
+                        {% set image = {
+                                'alt': section.gallery[0].alt,
+                                'src': Image(section.gallery[0].id).src,
+                                'class': 'img-fluid jarallax-img'
+                            } %}
+                        {% include ['/partials/img.twig'] with image %}
+                    </div> 
+                {% else %}
+                    {% set image = {
+                            'alt': section.gallery[0].alt,
+                            'src': Image(section.gallery[0].id).src,
+                            'class': 'img-fluid'
+                        } %}
+                    {% include ['/partials/img.twig'] with image %}
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{# end section_image #}{% endif %}
 

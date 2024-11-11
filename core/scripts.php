@@ -130,10 +130,13 @@ function grit_scripts()
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
     if ($GLOBALS['assets_options']['GRIT_SETTING_GSAP']) {
-        wp_enqueue_script('gsap-core', get_template_directory_uri() . '/assets/gsap/gsap.min.js', array(), '1.0.0', true);
-        wp_enqueue_script('gsap-cssruleplugin', get_template_directory_uri() . '/assets/gsap/CSSRulePlugin.min.js', array(), '1.0.0', true);
-        wp_enqueue_script('gsap-scrolltrigger', get_template_directory_uri() . '/assets/gsap/ScrollTrigger.min.js', array(), '1.0.0', true);
-        wp_enqueue_script('gsap-splitext', get_template_directory_uri() . '/assets/gsap/splitext.js', array(), '1.0.0', true);
+        wp_enqueue_script('gsap-core', get_template_directory_uri() . '/assets/gsap/gsap.min.js', array(), '3.0.0', false);
+    
+        // Carica i plugin GSAP come dipendenti di `gsap-core`
+        wp_enqueue_script('gsap-cssruleplugin', get_template_directory_uri() . '/assets/gsap/CSSRulePlugin.min.js', array('gsap-core'), '3.0.0', false);
+        wp_enqueue_script('gsap-scrolltrigger', get_template_directory_uri() . '/assets/gsap/ScrollTrigger.min.js', array('gsap-core'), '3.0.0', false);
+        wp_enqueue_script('gsap-scrolltoplugin', get_template_directory_uri() . '/assets/gsap/ScrollToPlugin.min.js', array('gsap-core'), '3.0.0', false);
+        wp_enqueue_script('gsap-splitext', get_template_directory_uri() . '/assets/gsap/splitext.js', array('gsap-core'), '3.0.0', false);
         //wp_enqueue_script('gsap-gsdevtools', get_template_directory_uri() . '/assets/gsap/gsdevtools.js', array(), '1.0.0', true);    
     }
 
@@ -257,15 +260,6 @@ function grit_scripts()
     if ($GLOBALS['assets_options']['GRIT_SETTING_MAGIC_MOUSE']) {
         wp_enqueue_style('magic-mouse', get_template_directory_uri() . '/assets/magic-mouse-js/magic-mouse.css');
         wp_enqueue_script('magic-mouse', get_template_directory_uri() . '/assets/magic-mouse-js/magic_mouse.js');
-    }
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Attiva in base alla scalta Butter JS
-                        // Attiva libreria  Butter JS bcjdevelopment.github.io/butter.js
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-
-    if ($GLOBALS['assets_options']['GRIT_SETTING_BUTTER']) {
-        wp_enqueue_script('butter', get_template_directory_uri() . '/assets/butter-js/butter.js');
     }
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

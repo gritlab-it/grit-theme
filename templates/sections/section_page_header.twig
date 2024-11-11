@@ -1,17 +1,21 @@
 
-
+{% set bg_image_id = '' %} 
+{% if section.gallery|length == 1 %} 
+    {% for item in section.gallery %}
+        {% set bg_image_id = item.id %} 
+    {% endfor %}
+{% endif %}
  
 {% if 'section_page_header_1' in class %}
- 
-{# .section_page_header_1 #}
+{# section_page_header_1 #}
 <div class="d-flex">
     <div class="polygon">{{breadcrumbs}} </div>
 </div> 
-<div class="sub-header {{ section.contained ? 'contained' : '' }} {% if 'parallax' in section.class %} jarallax-keep-img {% endif %} " style="background-image: url('{{Image(section.image.id).src ?: placeholder}}');">
-    <div class="container-fluid">
+<div class="sub-header bg-{{section.background_color}} {{ section.contained ? 'contained' : '' }} {% if 'parallax' in section.class %} jarallax-keep-img {% endif %} " style="background-image: url('{{Image(bg_image_id).src ?: post.thumbnail.src}}');">
+    <div class="container-fluid ">
         <div class="row">
             <div class="col-12 py-5 mt-5">
-                <h1 class="display-1">
+                <h1 class="">
                     {{ section.title ?: post.title ?: post_title }}
                 </h1>
                 <p class=""> 
@@ -22,53 +26,146 @@
         </div>
     </div>
 </div>
-{# end .section_page_header_1 #}
+{# end section_page_header_1 #}
  
 {% elseif 'section_page_header_2' in class %}
-
-{# .section_page_header_2 #}
-<div class="sub-header {{ section.contained ? 'contained' : '' }} {% if 'parallax' in section.class %} jarallax-keep-img {% endif %} " style="background-image: url('{{Image(section.image.id).src ?: placeholder}}');">
+{# section_page_header_2 #}
+<div class="sub-header {{ section.contained ? 'contained' : '' }} {% if 'parallax' in section.class %} jarallax-keep-img {% endif %}" style="background-image: url('{{Image(bg_image_id).src ?: post.thumbnail.src}}');">
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 py-5 mt-5">
+            <div class="col-12 py-5">
                 <h3 class="m-0">{{ section.title ?: post.title ?: post_title }}</h3>
                 {{ breadcrumbs }}
             </div>
         </div>
     </div>
 </div>
-{# end .section_page_header_2 #}
+{# end section_page_header_2 #} 
 
-{% else %}
+{% elseif 'section_page_header_3' in class %}
+{# section_page_header_3 #}
+<div class="sub-header {{ section.contained ? 'contained' : '' }} {% if 'parallax' in section.class %} jarallax-keep-img {% endif %} " style="background-image: url('{{Image(bg_image_id).src ?: post.thumbnail.src}}');" >
+    <div class="container-fluid" >
+        <div class="row d-flex align-content-between">
+            <div class="col-12 pt-3 pb-5 d-flex align-self-center ">
+             {{ breadcrumbs }}
+            </div>
+            <div class="col-12  py-5">
+                <h1 class="">
+                    {{ section.title ?: post.post_title ?: post_title }}
+                </h1>
+            </div>
 
-{# .section_page_header #} 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <h1 class="display-1 ">
-                {{ section.title ?: post.post_title ?: post_title }}
-            </h1>
         </div>
-        <div class="col-12 my-4">
-            <hr class="border-{{section.text_color}}">
-        </div>
-        <div class="col-12 col-md-6">
-            <p class=""> 
-                {{ section.subtitle ?: post.post_excerpt  }}
-            </p> 
-        </div>
-        <div class="col-12 col-md-6 text-right">
-            <p class="d-none d-xl-block">
-                <a href="#" class="scrollbtn color-{{section.text_color}}">
-                    {{__('Scroll Down', 'grit_theme')}}
-                </a>
-            </p>
+    </div>
+</div> 
+{# end section_page_header_3 #}
+
+{% elseif 'section_page_header_4' in class %}
+{# section_page_header_4 #}  
+<div class="sub-header {{ section.contained ? 'contained' : '' }} {% if 'parallax' in section.class %} jarallax-keep-img {% endif %} " style="background-image: url('{{Image(bg_image_id).src ?: post.thumbnail.src}}');" >
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="mt-5">
+                    {{ section.title ?: post.post_title ?: post_title }}
+                </h1>
+            </div>
+            <div class="col-12 ">
+                <hr class="border-{{section.text_color}}">
+            </div>
+            <div class="col-12 col-md-6">
+                <p class=""> 
+                    {{ section.subtitle ?: post.post_excerpt  }}
+                </p> 
+            </div>
+            <div class="col-12 col-md-6 ">
+                <div class="float-md-right">
+                    {{ breadcrumbs }}
+                </div>
+                
+            </div>
         </div>
     </div>
 </div>
-{# end .section_page_header #}
+{# end section_page_header_4 #}
+
+{% elseif 'section_page_header_5' in class %}
+{# .section_page_header_5 #} 
+<div class=" sub-header {{ section.contained ? 'contained' : '' }} " >
+    <div class="container-fluid" >
+        <div class="row d-flex align-content-between">
+            <div class="col-12 pt-3 pb-5 d-flex align-self-center ">
+                 {{ breadcrumbs }}
+            </div> 
+             <div class="col-12 py-5">
+                <h1 class="">
+                    {{ section.title ?: post.post_title ?: post_title }}
+                </h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="owl-carousel owl-theme carousel-header">
+    {% for item in section.gallery %}
+        <div class="item-header {% if 'parallax' in section.class %} jarallax-keep-img {% endif %} " {% if item.id %} style="background-image: url('{{Image(item.id).src }}');" {% endif %}> 
+        </div>
+    {% endfor %}
+</div>
+<script>  
+    $(document).ready(function () {
+        $(".carousel-header").owlCarousel({
+            loop: true,
+            margin: 0,
+            responsiveClass: true,
+            nav: true,
+            dots: false,
+            items: 1, 
+            navText: [`<i class='fa fa-chevron-left'></i>`, `<i class='fa fa-chevron-right'></i>`],   
+        });
+    });
+</script>
+{# end .section_page_header_5 #}
+
+{% elseif 'section_page_header_6' in class %}
+{# section_page_header_6 #}
+<div class="sub-header   {{ section.contained ? 'contained' : '' }} {% if 'parallax' in section.class %} jarallax-keep-img {% endif %} " style="background-image: url('{{Image(bg_image_id).src ?: post.thumbnail.src}}');" > 
+   <div class="inner-header position-absolute">
+     <div class="container-fluid p-2 " >
+        <div class="row justify-content-center justify-content-md-start">
+            <div class="col-10 col-md-8 col-lg-5  p-3 p-md-4 p-lg-5 bg-{{section.background_color}} ">
+                {{ breadcrumbs }} 
+                <h1 class="">
+                    {{ section.title ?: post.post_title ?: post_title }}
+                </h1>
+                 <p class=""> 
+                    {{ section.subtitle ?: post.post_excerpt  }}
+                </p> 
+            </div> 
+        </div>
+    </div>
+   </div>
+</div> 
+{# end section_page_header_6 #}
+
+{% else %}
+
+{# section_page_header #} 
+<div class="sub-header {{ section.contained ? 'contained' : '' }} {% if 'parallax' in section.class %} jarallax-keep-img {% endif %} " style="background-image: url('{{Image(bg_image_id).src ?: post.thumbnail.src}}');" >
+    <div class="container-fluid" >
+        <div class="row d-flex align-content-between">
+            <div class="col-12 pt-3 pb-5 d-flex align-self-center ">
+                 {{ breadcrumbs }}
+            </div> 
+        </div>
+    </div>
+</div>
+{# end section_page_header #}
 
 {% endif %}
 
 
+ 
+
+ 

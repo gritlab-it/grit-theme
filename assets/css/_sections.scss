@@ -1,6 +1,32 @@
 /* :::::::::::::: 00 * GRIT_SET section_page_header_1  */
 .section_page_header { 
-
+    padding: 0px !important;   
+    .breadcrumb {
+        /*
+          display: -ms-flexbox;
+          display: flex;
+          -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+          padding: 0.75rem 1rem;
+          margin-bottom: 1rem;
+          list-style: none;
+          background-color: #e9ecef;
+          border-radius: 0.25rem;
+        */
+        background-color: transparent;
+        padding: 0.25rem 0rem;
+        margin-bottom: 0rem;
+        color: $light; 
+        a {
+            color: $light;
+        } 
+        a:hover {
+            color: $accent;
+        } 
+        .breadcrumb_last {
+            color: $accent;
+        }
+      }
     &.section_page_header_1 {
         background-color: $transparent!important ;
         padding: 0px !important; 
@@ -38,12 +64,94 @@
         }
     }
     &.section_page_header_2 {
-        background-color: $transparent!important ;
+         
         padding: 0px !important; 
         .sub-header {
             background-position: center;
             background-size: cover;
             background-repeat: no-repeat;
+        } 
+    }
+    &.section_page_header_3 { 
+        padding: 0px !important; 
+        .sub-header { 
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            .container-fluid .row {
+                min-height: 300px;
+                @media (min-width: $md-res) { 
+                    min-height: 500px; 
+                }
+            }
+        } 
+    }
+    &.section_page_header_4 { 
+        padding: 0px !important;  
+        .sub-header {
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        } 
+    }
+ 
+    &.section_page_header_5 { 
+
+        padding: 0px !important; 
+        .sub-header {
+            position: absolute;
+            width: 100%;
+          
+            z-index: 2;
+            .container-fluid .row {
+                min-height: 500px;
+                @media (min-width: $md-res) { 
+                    min-height: 700px; 
+                }
+            }
+        }
+        .carousel-header {
+            z-index: unset;
+            .item-header { 
+                z-index: 0;
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat; 
+                min-height: 500px;
+                    @media (min-width: $md-res) { 
+                        min-height: 700px; 
+                    }
+            } 
+            .owl-nav { 
+                position: absolute;
+                z-index: 2;
+                top: auto;
+                bottom: 35px;
+                right: calc(($c-gap / 2 ) / ( $xxl / 2 ) * 100vw);
+                width: 150px;
+           
+            }
+        }
+        
+    }
+    &.section_page_header_6 { 
+        padding: 0px !important; 
+        background-color: transparent;
+        margin-bottom: 180px;
+        .sub-header { 
+            position: relative;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat; 
+            min-height: 300px;
+            @media (min-width: $md-res) { 
+                min-height: 500px; 
+            }
+            .inner-header {
+                bottom: -150px;
+                 
+            }
+    
         } 
     }
 } 
@@ -173,16 +281,18 @@
 
 /* :::::::::::::: 00 * GRIT_SET section_cube  */
 .section_cube {
+    background-color: transparent!important;
     .col-text {
         display: flex;
         flex-direction: column;
         justify-content: center; 
         .inner-text {
-            padding: calc(140 / 1920 * 100vw);
+            padding: calc($c-gap / $xxl * 100vw);
         }
     }
     &.contained {
-        padding: 0px calc(70 / 1920 * 100vw);
+        padding: 0 calc(($c-gap / 2) / $xxl * 100vw); 
+        
     }
     .inner-item-list {
         border-bottom: 1px solid; 
@@ -198,6 +308,11 @@
             content: '';
             display: block;
             padding-top: 100%; // Mantiene il rapporto 1:1 tra larghezza e altezza
+        }
+        &.single-image::before {
+            content: '';
+            display: block;
+            padding-top: 100%; // Mantiene il rapporto 1:1
         }
     }
     .carousel-cube {  }
@@ -259,29 +374,7 @@
     }
 }
 
-/* :::::::::::::: 00 * GRIT_SET section_list  */
-.section_list {
-    .owl-carousel {
-        .owl-dots {
-            bottom: -20px;
-        }
-    }
-    &.contained {
-        .owl-carousel { 
-            @media (min-width: $sm-res) {
-                .owl-nav {
-                    button.owl-prev {
-                        left: -60px;
-                      } 
-                      button.owl-next {
-                        right: -60px;
-                      }
-                }
-            }
-        } 
-    } 
-}
-
+ 
 
 
 /* :::::::::::::: 00 * GRIT_SET section_archive  */
@@ -391,27 +484,31 @@
 }
 
 
-
-
-.section_text.layout-text-1 {
-    padding-bottom: 0px !important;
-
-    .container-fluid {
-        background-color: $secondary;
-        border-top-left-radius: $general-radius;
-        border-top-right-radius: $general-radius;
+.section_text {
+    &.section_carousel_list {
+        .owl-carousel {
+            .owl-dots {
+                bottom: -20px;
+            }
+        }
+        &.contained {
+            .owl-carousel { 
+                @media (min-width: $sm-res) {
+                    .owl-nav {
+                        button.owl-prev {
+                            left: -80px;
+                          } 
+                          button.owl-next {
+                            right: -80px;
+                          }
+                    }
+                }
+            } 
+        } 
     }
 }
 
-.section_text.layout-text-2 {
-    padding-top: 0px !important;
-
-    .container-fluid {
-        background-color: $secondary;
-        border-bottom-left-radius: $general-radius;
-        border-bottom-right-radius: $general-radius;
-    }
-}
+ 
 
 .section_carousel.layout-carousel-1 {
     padding-top: 0px !important;

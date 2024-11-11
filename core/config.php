@@ -63,10 +63,7 @@ $GLOBALS['assets_options'] = array(
 
     // Attiva libreria Magic Mouse CSS JS magicmousejs.web.app
     'GRIT_SETTING_MAGIC_MOUSE' => get_theme_mod('grit_setting_magic_mouse'),
-
-    // Attiva libreria  Butter JS bcjdevelopment.github.io/butter.js
-    'GRIT_SETTING_BUTTER' => get_theme_mod('grit_setting_butter'),
-
+ 
     // Attiva libreria Cocoen CSS JS github.com/jotform/before-after.js
     'GRIT_SETTING_COCOEN' => get_theme_mod('grit_setting_cocoen'),
 

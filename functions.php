@@ -191,7 +191,7 @@ class StarterSite extends Timber\Site {
 		$context['grit_setting_footer'] = get_theme_mod("grit_setting_footer");
 		
 		$context['grit_setting_gototop'] = get_theme_mod("grit_setting_gototop");
-		$context['grit_setting_butter'] = get_theme_mod("grit_setting_butter");
+		$context['grit_setting_gsap'] = get_theme_mod("grit_setting_gsap");
 		$context['grit_setting_magic_mouse'] = get_theme_mod("grit_setting_magic_mouse");
 
 

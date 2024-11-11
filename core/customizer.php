@@ -359,23 +359,7 @@ function grit_customize_register($wp_customize)
         'section' => 'grit_framework_general_settings',
         'label' => __('Magic Mouse CSS JS'),
         'description' => __('Attiva libreria Magic Mouse CSS JS magicmousejs.web.app'),
-    ));
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Attiva in base alla scalta Butter JS
-                        // Attiva libreria  Butter JS bcjdevelopment.github.io/butter.js
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-
-    $wp_customize->add_setting('grit_setting_butter', array(
-        'capability' => 'edit_theme_options',
-    ));
-    $wp_customize->add_control('grit_setting_butter', array(
-        'type' => 'checkbox',
-        'section' => 'grit_framework_general_settings',
-        'label' => __('Butter JS'),
-        'description' => __('Attiva libreria  Butter JS bcjdevelopment.github.io/butter.js'),
-
-    ));
+    )); 
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     ::::::::::::::    * A_SETTINGS Attiva in base alla scalta Cocoen CSS JS
