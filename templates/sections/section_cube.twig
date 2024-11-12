@@ -4,8 +4,8 @@
         <div class="row align-items-stretch {{ section.contained ? 'bg-'~ section.background_color : '' }} ">
             
             
-            <div class="col-12 col-md-6 p-0 m-0 col-text d-flex flex-column justify-content-center {{ section.contained ? '' : 'bg-'~ section.background_color }} order-first {% if section.invert %} order-md-last {% else %}  {% endif %}">
-                <div class="inner-text color-{{section.color}} ">
+            <div class="col-12 col-md-8 col-lg-6 p-0 m-0 col-text d-flex flex-column justify-content-center {{ section.contained ? '' : 'bg-'~ section.background_color }} order-first {% if section.invert %} order-md-last {% else %}  {% endif %}">
+                <div class="inner-text color-{{section.color}}  in__animate " data-animation="animate__fadeIn animate__slow ">
                     {% if section.title %}
                         <h1 class=" color-{{section.text_color}}">
                             {{section.title}}
@@ -13,7 +13,7 @@
                     {% endif %}
                     
                     {% if section.text %}
-                        <div class="py-4 color-{{section.text_color}}">
+                        <div class="py-3 color-{{section.text_color}}">
                             {{section.text}} 
                         </div>
                     {% endif %}
@@ -21,20 +21,20 @@
                     {% if section.lists %}
                     <div class="row pb-4">
                         {% for item in section.lists %}
-                            <div class="col-12 item-list " >
+                            <div class="col-12 item-list  in__animate " data-animation="animate__fadeIn animate__slow " >
                                 <div class="inner-item-list border-{{section.text_color}}  d-flex align-items-center mb-3 pb-2">
                                 {% if item.icon %}
                                     <img src="{{ Image(item.icon.id).src|resize(60,60)}}" alt="" class="img-fluid pr-2">
                                 {% endif %} 
-                                <p class="p-0 m-0 color-{{section.text_color}}">
+                                <div class="p-0 m-0 color-{{section.text_color}}">
                                     {{item.text}}
-                                </p>
+                                </div>
                                 </div>
                             </div>
                         {% endfor %} 
                     </div> 
                     {% endif %}
-                    <div class="box-buttons"> 
+                    <div class="box-buttons  in__animate " data-animation="animate__fadeIn animate__slow "> 
                     {% if section.link_1 %}
                         {% set btn = {
                             'title': section.link_1.title,
@@ -63,7 +63,7 @@
                 </div>
             </div>
  
-            <div class="col-12 col-md-6 p-0 m-0 col-img order-last 
+            <div class="col-12 col-md-4 col-lg-6 p-0 m-0 col-img order-last 
                 {% if 'parallax' in section.class %} jarallax-keep-img {% endif %} 
                 {% if section.gallery|length == 1 %} single-image {% endif %}
                 {% if section.invert %} order-md-first {% else %}  {% endif %}"  

@@ -1,39 +1,97 @@
 {# section_video #}
 <div class="container-fluid">
-	<div class="row">
-		<div class="col-12">
-			<div class="video-container text-center">
-				{% if section.embed %}
-				<div class="video-embed">
-					{{ section.embed }}
-				</div>
-				{% endif %}  
+    <div class="row d-flex justify-content-center">
+        <div class="col-8">
+            <div class="video-container in__animate " data-animation="animate__fadeIn animate__slow ">
 
+                <!-- Copertina con il pulsante play -->
+                <div class="video-thumbnail" onclick="playVideo(this)">
+                    <img src="{{ Image(section.preview) }}" alt="Video Thumbnail" class="thumbnail-img" /> 
+						<div class="play-button"><i class="fas fa-play"></i></div>  
+                </div>
+
+                <!-- Video da embed (codice HTML integrato) -->
+                {% if section.embed %}
+                <div class="video-embed" style="display: none;">
+                    {{ section.embed | raw }} <!-- Usa raw per evitare problemi di rendering -->
+                </div>
+                {% endif %}
+
+                <!-- Video da ID YouTube (iframe) -->
                 {% if section.id_video %}
-				<div class="video-iframe">
-					<iframe
-						width="560"
-						height="315"
-						src="https://www.youtube.com/embed/{{ section.id_video }}"
-						frameborder="0"
-						allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-						allowfullscreen
-					></iframe>
-				</div>
-				{% endif %} 
-                
-                {% if section.video_file %}
-				<div class="video-file">
-					<video controls loop playsinline plainsinline>
-						<source src="{{ section.video_file.url }}" type="video/mp4" />
-					</video>
-					<span></span>
-				</div>
-				{% endif %}
-			</div>
-		</div>
-	</div>
-</div>
-{# end section_video #}
- 
+                <div class="video-iframe" style="display: none;">
+                    <iframe
+                        width="560"
+                        height="315"
+                        src=""
+                        data-src="https://www.youtube.com/embed/{{ section.id_video }}"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                    ></iframe>
+                </div>
+                {% endif %}
 
+                <!-- Video da file (video mp4) -->
+                {% if section.video_file %}
+                <div class="video-file" style="display: none;">
+                    <video controls loop playsinline>
+                        <source src="{{ section.video_file.url }}" type="video/mp4" />
+                    </video>
+                </div>
+                {% endif %}
+				
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+// Funzione per configurare ogni sezione video
+function initializeVideoSections() {
+    // Seleziona tutte le sezioni video
+    const videoSections = document.querySelectorAll('.section_video');
+
+    // Itera su ciascuna sezione
+    videoSections.forEach((section) => {
+        const thumbnail = section.querySelector('.video-thumbnail');
+        const videoEmbed = section.querySelector('.video-embed');
+        const videoIframeContainer = section.querySelector('.video-iframe');
+        const videoFile = section.querySelector('.video-file video');
+
+        // Aggiunge un evento di clic alla miniatura
+        thumbnail.addEventListener('click', function () {
+            // Nasconde la miniatura
+            thumbnail.style.display = 'none';
+
+            // Mostra e avvia il video in base al tipo
+            if (videoEmbed) {
+                videoEmbed.style.display = 'block';
+            } else if (videoIframeContainer) {
+                const iframe = videoIframeContainer.querySelector('iframe');
+                const originalSrc = iframe.getAttribute('data-src') || iframe.getAttribute('src');
+                
+                // Aggiunge "autoplay=1" solo se non è già presente
+                iframe.src = originalSrc.includes('autoplay=1') ? originalSrc : `${originalSrc}?autoplay=1`;
+                videoIframeContainer.style.display = 'block';
+            } else if (videoFile) {
+                const videoContainer = section.querySelector('.video-file');
+                videoContainer.style.display = 'block';
+                videoFile.play();
+            }
+        });
+    });
+}
+
+// Esegue la funzione di inizializzazione al caricamento della pagina
+document.addEventListener('DOMContentLoaded', initializeVideoSections);
+</script>
+
+
+
+
+{# Stili per la copertina e il pulsante play #}
+ 
+{# end section_video #}

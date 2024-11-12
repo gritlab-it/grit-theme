@@ -327,36 +327,36 @@ if (nprogress_active) {
 }
 
 /* :::::::::::::: 08 * A_SETTINGS section_video */
-$(document).ready(function () {
-    // Funzione per gestire la visibilità del pulsante play
-    function togglePlayButton(videoElement, show) {
-        const playButton = $(videoElement).parent().find("span");
-        playButton.toggleClass("d-none", !show); // Mostra il pulsante se 'show' è true
-    }
+// $(document).ready(function () {
+//     // Funzione per gestire la visibilità del pulsante play
+//     function togglePlayButton(videoElement, show) {
+//         const playButton = $(videoElement).parent().find("span");
+//         playButton.toggleClass("d-none", !show); // Mostra il pulsante se 'show' è true
+//     }
     
-    // Gestisce il click sul pulsante play
-    $(".video-file span").click(function () {
-        const videoElement = $(this).parent().find("video").get(0);
-        togglePlayButton(videoElement, false); // Nasconde il pulsante play
-        videoElement.play();
-    });
+//     // Gestisce il click sul pulsante play
+//     $(".video-file span").click(function () {
+//         const videoElement = $(this).parent().find("video").get(0);
+//         togglePlayButton(videoElement, false); // Nasconde il pulsante play
+//         videoElement.play();
+//     });
     
-    // Gestisce il click sul video per fermarlo o avviarlo
-    $(".video-file video").on("click", function () {
-        const videoElement = $(this).get(0);
-        togglePlayButton(videoElement, videoElement.paused); // Mostra il pulsante se in pausa
-    });
+//     // Gestisce il click sul video per fermarlo o avviarlo
+//     $(".video-file video").on("click", function () {
+//         const videoElement = $(this).get(0);
+//         togglePlayButton(videoElement, videoElement.paused); // Mostra il pulsante se in pausa
+//     });
     
-    // Event listener per quando il video viene messo in pausa
-    $(".video-file video").on("pause", function () {
-        togglePlayButton(this, true); // Mostra il pulsante play
-    });
+//     // Event listener per quando il video viene messo in pausa
+//     $(".video-file video").on("pause", function () {
+//         togglePlayButton(this, true); // Mostra il pulsante play
+//     });
     
-    // Event listener per quando il video viene riprodotto
-    $(".video-file video").on("play", function () {
-        togglePlayButton(this, false); // Nasconde il pulsante play
-    });
-});
+//     // Event listener per quando il video viene riprodotto
+//     $(".video-file video").on("play", function () {
+//         togglePlayButton(this, false); // Nasconde il pulsante play
+//     });
+// });
 
 
 /* :::::::::::::: 09 * GRIT_SET Lenis js */ 

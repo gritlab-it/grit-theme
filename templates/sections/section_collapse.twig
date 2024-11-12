@@ -91,8 +91,8 @@
 {# section_collpase #}
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-12 col-md-12 ">
+    <div class="row d-flex justify-content-center">
+        <div class="col-12 col-md-8">
             
             {% if section.title %}
                 <h1 class="">{{section.title}}</h1>
@@ -127,32 +127,33 @@
             </div>
 
         </div>
-        <div class="col-12 col-md-12 ">
-            <div class="accordion pt-5 pt-md-4" id="accordion_{{ section.section_index }}">
+        <div class="col-12 col-md-10 col-lg-9 ">
+            <div class="accordion pt-5 pt-md-4 " id="accordion_{{ section.section_index }}">
                 {% for item in section.lists %}
-                <div class="inner-collapse">
-                    <div id="heading_{{ section.section_index }}_{{loop.index}}" class=" accordion_heading  {{ (loop.first) ? '' : 'collapsed' }}"
+                <div class="inner-collapse bg-light mb-4">
+                    <div id="heading_{{ section.section_index }}_{{loop.index}} " class="py-2 px-3 py-md-4 px-md-5 bg-primary accordion_heading  {{ (loop.first) ? '' : 'collapsed' }}"
                         type="button" data-toggle="collapse" data-target="#collapse_{{ section.section_index }}_{{loop.index}}"
                         aria-expanded="{{ (loop.first) ? 'true' : 'false' }}" collapsed
                         aria-controls="collapse_{{ section.section_index }}_{{loop.index}}">
                         <div class="row">
-                            <div class="col  ">
-                                <p>{{item.title}}</p>
+                            <div class="col-10"> 
+                                <p class="m-0"> {% if item.pre_title %}<b>{{item.pre_title}}</b>{% endif %}
+                                 {{item.title}}</p>
                             </div> 
-                            <div class="col  text-right"><p class="collapse-symbol" id="symbol_{{loop.index}}">{% include ['/img/plus.svg'] %}</p>
+                            <div class="col-2  text-right"><p class="m-0 collapse-symbol" id="symbol_{{loop.index}}">{% include ['/img/plus.svg'] %}</p>
                             </div>
                         </div>
                     </div>
                     <div id="collapse_{{ section.section_index }}_{{loop.index}}" class="accordion_body collapse {{ (loop.first) ? 'show' : ' ' }}"
                         aria-labelledby="heading_{{ section.section_index }}_{{loop.index}}" data-parent="#accordion_{{ section.section_index }}">
 
-                        <div class="row">
+                   
                             {% if item.text %}
-                                <div class="col-12 col-md-12 ">
+                                <div class="col-12 col-md-12 py-2 px-3 py-md-4 px-md-5">
                                     {{item.text}}  
                                 </div>
                             {% endif %} 
-                        </div> 
+              
 
                         {% if item.sublist %}
                             {% for sub_item in item.sublist %}
@@ -163,7 +164,7 @@
                         {% endif %} 
                     </div>
                 </div>
-                <hr class="border-{{section.text_color}}">
+                
                 {% endfor %}
             </div>
         </div>

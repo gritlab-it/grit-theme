@@ -1,7 +1,7 @@
 {% if 'section_carousel_list' in class %}
  {# section_carousel_list #}
 <div class="container-fluid">
-    <div class="row">
+    <div class="row ">
         <div class="col p-0"> 
             <div class="owl-carousel owl-theme carousel_list pb-5 mb-3">
                 {% for item in section.chapters %}
@@ -245,13 +245,13 @@
     {# section_text #}
 {% set total_items = section.chapters | length %}
 <div class="container-fluid">
-    <div class="row"> 
+    <div class="row {% if section.align == 'center' %}justify-content-center{% endif %}">  
 
         {% for item in section.chapters %}
             <div class="item-chapters py-5
                 {% if total_items == 1 %} 
                     {% if 'center' in section.align %}
-                        col-md-10 offset-md-1 col-xl-8 offset-xl-2  
+                        col-md-10  col-xl-8 
                         {% else %}
                         col-12 col-md-12
                     {% endif %} 
@@ -264,9 +264,9 @@
                 {% endif %}
             "> 
         
-                <div class="inner-item in__animate " data-animation="animate__fadeIn animate__slow ">   
+                <div class="inner-item   ">   
                     {% if item.image %}
-                    <div class="inner-img pb-3"> 
+                    <div class="inner-img pb-3  in__animate " data-animation="animate__fadeIn animate__slow "> 
                         {% set image = {
                             'alt': item.image.alt,
                             'src': Image(item.image.id).src ,

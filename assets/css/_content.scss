@@ -81,3 +81,75 @@ body {
 }
 
 
+
+
+// Definisci i valori extra per padding e margin con incrementi progressivi
+$extra-spacing-values: (6: 24px, 7: 28px, 8: 34px, 9: 40px, 10: 50px);
+$viewport-width: 1920; // Larghezza massima del viewport di riferimento
+
+// Mixin per creare padding/margin responsive con moltiplicatore
+@mixin responsive-spacing($property, $base-size, $viewport-width, $scale-factor: 1) {
+  // Applica il moltiplicatore sia al valore base che al valore vw
+  $scaled-base: $base-size * $scale-factor;
+  $vw-value: $scaled-base / $viewport-width * 100;
+  #{$property}: calc(#{$scaled-base} + #{$vw-value});
+}
+
+// Genera le classi di padding e margin per ciascun valore nel mapping
+@each $size, $base-size in $extra-spacing-values {
+
+    // Moltiplicatore per controllare l'ingrandimento
+    $scale-factor: 3.2; // Puoi cambiare questo valore per aumentare o diminuire il padding/margin
+
+    // Classi di padding
+    .p-#{$size} {
+        @include responsive-spacing(padding, $base-size, $viewport-width, $scale-factor);
+    }
+    .pt-#{$size} {
+        @include responsive-spacing(padding-top, $base-size, $viewport-width, $scale-factor);
+    }
+    .pr-#{$size} {
+        @include responsive-spacing(padding-right, $base-size, $viewport-width, $scale-factor);
+    }
+    .pb-#{$size} {
+        @include responsive-spacing(padding-bottom, $base-size, $viewport-width, $scale-factor);
+    }
+    .pl-#{$size} {
+        @include responsive-spacing(padding-left, $base-size, $viewport-width, $scale-factor);
+    }
+    .px-#{$size} {
+        @include responsive-spacing(padding-left, $base-size, $viewport-width, $scale-factor);
+        @include responsive-spacing(padding-right, $base-size, $viewport-width, $scale-factor);
+    }
+    .py-#{$size} {
+        @include responsive-spacing(padding-top, $base-size, $viewport-width, $scale-factor);
+        @include responsive-spacing(padding-bottom, $base-size, $viewport-width, $scale-factor);
+    }
+
+    // Classi di margin
+    .m-#{$size} {
+        @include responsive-spacing(margin, $base-size, $viewport-width, $scale-factor);
+    }
+    .mt-#{$size} {
+        @include responsive-spacing(margin-top, $base-size, $viewport-width, $scale-factor);
+    }
+    .mr-#{$size} {
+        @include responsive-spacing(margin-right, $base-size, $viewport-width, $scale-factor);
+    }
+    .mb-#{$size} {
+        @include responsive-spacing(margin-bottom, $base-size, $viewport-width, $scale-factor);
+    }
+    .ml-#{$size} {
+        @include responsive-spacing(margin-left, $base-size, $viewport-width, $scale-factor);
+    }
+    .mx-#{$size} {
+        @include responsive-spacing(margin-left, $base-size, $viewport-width, $scale-factor);
+        @include responsive-spacing(margin-right, $base-size, $viewport-width, $scale-factor);
+    }
+    .my-#{$size} {
+        @include responsive-spacing(margin-top, $base-size, $viewport-width, $scale-factor);
+        @include responsive-spacing(margin-bottom, $base-size, $viewport-width, $scale-factor);
+    }
+}
+
+
