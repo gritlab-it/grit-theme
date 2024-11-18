@@ -8,9 +8,7 @@
                        target="{{ item.custom._menu_item_target }}"
                    {% endif %}>
                     <span data-letters="{{ item.title }}">{{ item.title }}</span>
-                    {% if item.get_children %}
-                        <i class="fas fa-caret-down"></i>
-                    {% endif %}
+                     
                 </a>
 
                 {% if item.get_children %}
@@ -23,9 +21,7 @@
                                        target="{{ subitem.custom._menu_item_target }}"
                                    {% endif %}>
                                     <span data-letters="{{ subitem.title }}">{{ subitem.title }}</span>
-                                    {% if subitem.get_children %}
-                                        <i class="fas fa-caret-down"></i>
-                                    {% endif %}
+                                    
                                 </a>
 
                                 {% if subitem.get_children %}
