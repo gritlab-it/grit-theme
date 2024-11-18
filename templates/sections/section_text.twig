@@ -141,7 +141,7 @@
                         {{ item.text }}
                     {% endif %}  
                 </div>  
-                
+                {% if item.link_1 is not empty and item.link_2 is not empty %} 
                 <div class="box-buttons pb-5 in__animate " data-animation="animate__fadeIn animate__slow ">
                     {% if item.link_1 %}
                             {% set btn = {
@@ -165,7 +165,8 @@
                             {% include ['/partials/btn.twig'] with btn %}
                     {% endif %}
                 </div>
-
+                {% endif %}
+                
                 
 
             </div>
@@ -200,6 +201,7 @@
                         {{ item.text }}
                     {% endif %}  
                 </div>   
+                {% if item.link_1 is not empty and item.link_2 is not empty %} 
                 <div class="box-buttons pb-5 in__animate " data-animation="animate__fadeIn animate__slow ">
                     {% if item.link_1 %}
                             {% set btn = {
@@ -223,6 +225,7 @@
                             {% include ['/partials/btn.twig'] with btn %}
                     {% endif %}
                 </div>
+                {% endif %}
 
                 
 
@@ -288,7 +291,8 @@
                             {{ item.text }}
                         {% endif %}  
                     </div> 
-                    <div class="box-buttons in__animate " data-animation="animate__fadeIn animate__slow ">
+                    {% if item.link_1 is not empty and item.link_2 is not empty %} 
+                    <div class="box-buttons pb-5 in__animate " data-animation="animate__fadeIn animate__slow ">
                         {% if item.link_1 %}
                                 {% set btn = {
                                 'title': item.link_1.title,
@@ -298,7 +302,8 @@
                                 }
                                 %}
                                 {% include ['/partials/btn.twig'] with btn %}
-                        {% endif %} 
+                        {% endif %}
+                            
                         {% if item.link_2 %}
                                 {% set btn = {
                                 'title': item.link_2.title,
@@ -309,7 +314,8 @@
                                 %}
                                 {% include ['/partials/btn.twig'] with btn %}
                         {% endif %}
-                    </div> 
+                    </div>
+                    {% endif %}
                 </div> 
             </div>
         {% endfor %} 

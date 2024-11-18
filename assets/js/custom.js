@@ -285,19 +285,16 @@ owl_carousel_active = document.getElementById("owl_carousel-js");
 
 if (owl_carousel_active) {
     $(document).ready(function () {
-        /* init jarallax-js with original class */
-        $(".jarallax").jarallax({
-            keepImg: true,
-        });
-        
-        /* init jarallax-js with class .jarallax-keep-img */
-        $(".jarallax-keep-img").jarallax({
-            keepImg: true,
-        });
-        
-        /* init jarallax-js  with class  con una class .jarallax-overlay */
-        $(".jarallax-overlay").jarallax({
-            keepImg: true,
+        /* Inizializza jarallax-js con classi dinamiche */
+        $(".jarallax, .jarallax-keep-img, .jarallax-overlay").each(function () {
+            var $this = $(this);
+            var speed = $this.data("speed") || 0.1; // Valore di default se data-speed non è definito
+            
+            $this.jarallax({
+                speed: speed,
+                keepImg: true,
+                imgPosition: '50% 50%', 
+            });
         });
     });
 }
@@ -377,12 +374,17 @@ if (typeof Lenis !== "undefined") {
     function startLenisRAF() {
       function raf(time) {
         lenis.raf(time);
+        ScrollTrigger.update(); // Aggiorna ScrollTrigger
         requestAnimationFrame(raf);
       }
       requestAnimationFrame(raf);
     } 
 
     startLenisRAF(); 
+
+
+
+    
   }
   
 

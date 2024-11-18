@@ -116,7 +116,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -157,7 +157,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -528,7 +528,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -569,7 +569,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -595,6 +595,27 @@
                                 "placeholder": ""
                             },
                             {
+                                "key": "field_67377d66a0c93",
+                                "label": "Background Half",
+                                "name": "background_half",
+                                "aria-label": "",
+                                "type": "true_false",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "message": "",
+                                "default_value": 0,
+                                "allow_in_bindings": 1,
+                                "ui": 0,
+                                "ui_on_text": "",
+                                "ui_off_text": ""
+                            },
+                            {
                                 "key": "field_66d976bac817e",
                                 "label": "Color Link 1",
                                 "name": "color_link_1",
@@ -610,7 +631,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -651,7 +672,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -979,7 +1000,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -1020,7 +1041,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -1243,7 +1264,7 @@
                                 },
                                 "layout": "row",
                                 "min": 0,
-                                "max": 3,
+                                "max": 0,
                                 "collapsed": "",
                                 "button_label": "Aggiungi Riga",
                                 "rows_per_page": 20,
@@ -1422,7 +1443,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -1463,7 +1484,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -1504,7 +1525,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -1545,7 +1566,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -1733,7 +1754,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -1774,7 +1795,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -2050,7 +2071,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -2288,7 +2309,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -2562,7 +2583,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -2851,7 +2872,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -2892,7 +2913,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -2933,7 +2954,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -2974,7 +2995,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -3015,7 +3036,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -3725,7 +3746,7 @@
                                         "label": "Text",
                                         "name": "text",
                                         "aria-label": "",
-                                        "type": "text",
+                                        "type": "wysiwyg",
                                         "instructions": "",
                                         "required": 0,
                                         "conditional_logic": 0,
@@ -3735,10 +3756,11 @@
                                             "id": ""
                                         },
                                         "default_value": "",
-                                        "maxlength": "",
-                                        "placeholder": "",
-                                        "prepend": "",
-                                        "append": "",
+                                        "allow_in_bindings": 1,
+                                        "tabs": "all",
+                                        "toolbar": "full",
+                                        "media_upload": 1,
+                                        "delay": 0,
                                         "parent_repeater": "field_667573481a35e"
                                     }
                                 ]
@@ -3805,7 +3827,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -3846,7 +3868,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -3887,7 +3909,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -3928,7 +3950,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -4275,7 +4297,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -4316,7 +4338,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -4357,7 +4379,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -4398,7 +4420,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -4657,7 +4679,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -4698,7 +4720,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -4739,7 +4761,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -4780,7 +4802,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -5018,6 +5040,7 @@
                                         "collapsed": "",
                                         "button_label": "Add Question",
                                         "rows_per_page": 20,
+                                        "parent_repeater": "field_61603ea431fad",
                                         "sub_fields": [
                                             {
                                                 "key": "field_61603f0c31fb1",
@@ -5063,8 +5086,7 @@
                                                 "delay": 0,
                                                 "parent_repeater": "field_61603ee131fb0"
                                             }
-                                        ],
-                                        "parent_repeater": "field_61603ea431fad"
+                                        ]
                                     }
                                 ]
                             },
@@ -5102,7 +5124,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -5143,7 +5165,7 @@
                                 },
                                 "choices": {
                                     "dark": "dark",
-                                    "light": "light", 
+                                    "light": "light",
                                     "accent": "accent",
                                     "primary": "primary",
                                     "secondary": "secondary",
@@ -5396,7 +5418,7 @@
                 {
                     "param": "post_type",
                     "operator": "==",
-                    "value": "section"
+                    "value": "post"
                 }
             ]
         ],

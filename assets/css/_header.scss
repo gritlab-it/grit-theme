@@ -113,9 +113,10 @@
      
 }
 
-  
+
 #header_1,
-#header_2 {
+#header_2,
+#header_4 {
 
     .header-menu,
     .sticky-fix {
@@ -142,7 +143,7 @@
 
         .nav {
             .dropdown:hover>.dropdown-menu {
-                text-align: left;
+                text-align: center;
                 @media (min-width: $md-res) {
                     text-align: left;
                 } 
@@ -254,6 +255,80 @@
     }
 }
 
+#header_4 {
+    position: absolute;
+
+    width: 100%;
+    .header-menu,
+    .sticky-fix {
+        background-color: transparent;
+        .navbar {
+            padding: 0;
+            width: 100%;
+            background-color: transparent;
+            .navbar-brand {
+                padding: 15px;
+                background-color: $light; 
+                box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
+                .logo {
+                    height: 50px;
+                }
+            }
+            .nav {
+                padding: 8px;
+                width: auto;
+                display: flex;
+                justify-content:right;
+                background-color: $light;
+                box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
+                .dropdown:hover>.dropdown-menu {
+                   
+                    border-radius: 0;
+                    padding: 0;
+                    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
+                    li {
+                        text-align: center;
+                        @media (min-width: $md-res) {
+                            text-align: left;
+                        } 
+                    }
+                }
+                li a { 
+                    padding: 20px 25px;
+                    &:hover {
+                        background-color: $accent;
+                    }
+                }
+             }
+             .navbar-toggler {
+                padding: 1.5rem 2rem;
+                background-color: $light; 
+                border-radius: 0;
+             }
+        }
+        &.sticky-in {
+            background-color: hsla(0, 0%, 100%, 0.304);
+        }
+        
+    }
+    @media (min-width: 992px) {
+        .navbar-expand-lg .navbar-collapse {
+
+            justify-content: flex-end;
+        }
+    }
+    .navbar-collapse {
+        display: none;
+
+    } 
+    .sidenav {
+        display: flex;
+
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+}
 
  
 

@@ -96,8 +96,8 @@
                             <br>
                             <p>{{ Image(post.get_thumbnail).src|resize(150, 150) }}</p>
                             {% set height = post.thumbnail.height %}
-                            {% set width = post.thumbnail.width %}
-                            {% set sizewh = height / width %}
+                            {% set width = post.thumbnail.width %} 
+                            {% set sizewh = height / (width ?: 1) %}
                             <p>{{ height }} x {{ width }} = {{ sizewh }}</p>
                             {% if sizewh == 1 %}
                                 <img src="{{ post.thumbnail.src|resize(200,200) }}" class="img-fluid" alt="{{ title }}"/>

@@ -1,67 +1,58 @@
 {% if primary_menu %}
     <ul class="nav navbar-nav" id="primary-menu">
         {% for item in primary_menu %}
-            {% if (item.get_children) %}
-                <li class="dropdown nav-item {{ item.classes | join(' ') }}">
-                    <a href="javascript:void(0)">
-                        <span data-letters="{{ item.title }}">{{ item.title }}</span>
-                    </a>
+            <li class="nav-item dropdown {{ item.classes | join(' ') }}">
+                <a href="{{ item.get_children ? 'javascript:void(0)' : item.get_link }}"
+                   class="{{ item.get_children ? 'dropdown-toggle' : '' }}"
+                   {% if not item.get_children %}
+                       target="{{ item.custom._menu_item_target }}"
+                   {% endif %}>
+                    <span data-letters="{{ item.title }}">{{ item.title }}</span>
+                    {% if item.get_children %}
+                        <i class="fas fa-caret-down"></i>
+                    {% endif %}
+                </a>
+
+                {% if item.get_children %}
                     <ul class="dropdown-menu">
                         {% for subitem in item.get_children %}
-                            {% if (subitem.get_children) %}
-                                <li class="dropdown nav-item {{ subitem.classes | join(' ') }}">
-                                    <a href="#"
-                                       class="dropdown-toggle"
-                                       data-toggle="dropdown"
-                                       role="button"
-                                       aria-haspopup="true"
-                                       aria-expanded="false">
-                                        <span data-letters="{{ subitem.title }}">{{ subitem.title }}</span>
-                                        <span class="caret"></span>
-                                    </a>
+                            <li class="nav-item dropdown {{ subitem.classes | join(' ') }}">
+                                <a href="{{ subitem.get_children ? 'javascript:void(0)' : subitem.get_link }}"
+                                   class="{{ subitem.get_children ? 'dropdown-toggle' : '' }}"
+                                   {% if not subitem.get_children %}
+                                       target="{{ subitem.custom._menu_item_target }}"
+                                   {% endif %}>
+                                    <span data-letters="{{ subitem.title }}">{{ subitem.title }}</span>
+                                    {% if subitem.get_children %}
+                                        <i class="fas fa-caret-down"></i>
+                                    {% endif %}
+                                </a>
+
+                                {% if subitem.get_children %}
                                     <ul class="dropdown-menu">
                                         {% for subsubitem in subitem.get_children %}
-                                            {% if (subsubitem.get_children) %}
-                                            {% else %}
-                                                <li class="{{ subsubitem.classes | join(' ') }}">
-                                                    <a href="{{ subsubitem.get_link }}" target="{{item.custom._menu_item_target}}">
-                                                        <span data-letters="{{ subsubitem.title }}">{{ subsubitem.title }}</span>
-                                                    </a>
-                                                </li>
-                                            {% endif %}
+                                            <li class="{{ subsubitem.classes | join(' ') }}">
+                                                <a href="{{ subsubitem.get_link }}"
+                                                   target="{{ subsubitem.custom._menu_item_target }}">
+                                                    <span data-letters="{{ subsubitem.title }}">{{ subsubitem.title }}</span>
+                                                </a>
+                                            </li>
                                         {% endfor %}
                                     </ul>
-                                </li>
-                            {% else %}
-                                <li class="{{ subitem.classes | join(' ') }}">
-                                    <a href="{{ subitem.get_link }}" target="{{item.custom._menu_item_target}}">
-                                        <span data-letters="{{ subitem.title }}">{{ subitem.title }}</span>
-                                    </a>
-                                </li>
-                            {% endif %}
+                                {% endif %}
+                            </li>
                         {% endfor %}
                     </ul>
-                </li>
-            {% else %}
-                <li class="{{ item.classes | join(' ') }}">
-                    <a href="{{ item.get_link }}" target="{{item.custom._menu_item_target}}">
-                        <span data-letters="{{ item.title }}">{{ item.title }}</span>
-                    </a>
-                    {% include "/templates/headers/menu.twig" with {'primary_menu': item.get_children} %}
-                </li>
-               
-            {% endif %}
+                {% endif %}
+            </li>
         {% endfor %}
+
         {% if function('is_user_logged_in') %}
-            <li> 
-                <a href="{{ function('wp_logout_url', home) }}" class=""> 
-                    <span> Esci </span>
+            <li>
+                <a href="{{ function('wp_logout_url', home) }}">
+                    <span>Esci</span>
                 </a>
             </li>
         {% endif %}
-
-        
-    </ul> 
-   
+    </ul>
 {% endif %}
-
