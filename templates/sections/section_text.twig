@@ -141,8 +141,8 @@
                         {{ item.text }}
                     {% endif %}  
                 </div>  
-                {% if item.link_1 is not empty and item.link_2 is not empty %} 
-                <div class="box-buttons pb-5 in__animate " data-animation="animate__fadeIn animate__slow ">
+                {% if item.link_1 is not empty or item.link_2 is not empty %} 
+                <div class="box-buttons pt-3 in__animate " data-animation="animate__fadeIn animate__slow ">
                     {% if item.link_1 %}
                             {% set btn = {
                             'title': item.link_1.title,
@@ -201,8 +201,8 @@
                         {{ item.text }}
                     {% endif %}  
                 </div>   
-                {% if item.link_1 is not empty and item.link_2 is not empty %} 
-                <div class="box-buttons pb-5 in__animate " data-animation="animate__fadeIn animate__slow ">
+                {% if item.link_1 is not empty or item.link_2 is not empty %} 
+                <div class="box-buttons pt-3 in__animate " data-animation="animate__fadeIn animate__slow ">
                     {% if item.link_1 %}
                             {% set btn = {
                             'title': item.link_1.title,
@@ -291,7 +291,7 @@
                             {{ item.text }}
                         {% endif %}  
                     </div> 
-                    {% if item.link_1 is not empty and item.link_2 is not empty %} 
+                    {% if item.link_1 is not empty or item.link_2 is not empty %} 
                     <div class="box-buttons pb-5 in__animate " data-animation="animate__fadeIn animate__slow ">
                         {% if item.link_1 %}
                                 {% set btn = {
@@ -303,7 +303,7 @@
                                 %}
                                 {% include ['/partials/btn.twig'] with btn %}
                         {% endif %}
-                            
+
                         {% if item.link_2 %}
                                 {% set btn = {
                                 'title': item.link_2.title,
