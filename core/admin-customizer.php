@@ -225,3 +225,94 @@ function custom_admin_open_sans_font_login_page()
 }
 
 add_action('login_head', 'custom_admin_open_sans_font_login_page');
+
+
+
+
+
+// ACF Flexible Titles
+function custom_acf_flexible_titles() {
+    if (!class_exists('ACF')) {
+        return;
+    }
+
+    ?>
+    <script>
+    jQuery(document).ready(function ($) {
+        /**
+         * Funzione per aggiornare i titoli dei layout
+         */
+        function updateLayoutTitles() {
+            $('.acf-flexible-content .layout').each(function () {
+                var $layout = $(this);
+                var $layoutTitle = $layout.find('.acf-fc-layout-handle');
+                var classField = $layout.find('[data-name="class"] input[type="text"]');
+
+                // Aggiorna il titolo solo se il campo "class" esiste
+                if (classField.length) {
+                    var classValue = classField.val();
+                    var firstWord = classValue ? classValue.split(' ')[0] : '';
+
+                    // Memorizza il titolo originale solo una volta
+                    if (!$layout.data('original-title')) {
+                        var originalTitle = $layoutTitle.text().split(' - ')[0];
+                        $layout.data('original-title', originalTitle);
+                    }
+
+                    // Recupera il titolo originale e aggiorna
+                    var originalTitle = $layout.data('original-title');
+                    var updatedTitle = firstWord ? `${originalTitle} - ${firstWord}` : originalTitle;
+
+                    // Evita aggiornamenti ridondanti
+                    if ($layoutTitle.text() !== updatedTitle) {
+                        $layoutTitle.html(`<span class="acf-fc-layout-order">${$layout.index() + 1}</span> ${updatedTitle}`);
+                    }
+                }
+            });
+        }
+
+        /**
+         * Funzione per ritardare l'aggiornamento dei titoli dopo la chiusura
+         */
+        function delayedUpdate() {
+            setTimeout(() => {
+                updateLayoutTitles();
+            }, 1000); // Ritardo di 1 secondo
+        }
+
+        // Inizializza i titoli
+        updateLayoutTitles();
+
+        // Aggiorna i titoli quando viene modificato il campo "class"
+        $(document).on('input change', '[data-name="class"] input[type="text"]', function () {
+            updateLayoutTitles();
+        });
+
+        // Intercetta il clic sul pulsante di chiusura del layout
+        $(document).on('click', '.acf-fc-layout-handle', function () {
+            setTimeout(() => {
+                delayedUpdate(); // Aggiorna i titoli dopo un ritardo
+            }, 300); // Ritardo per consentire il completamento dell'azione di chiusura
+        });
+
+        // Ascolta l'aggiunta di nuovi layout
+        if (typeof acf.add_action !== 'undefined') {
+            acf.add_action('append', function () {
+                updateLayoutTitles();
+            });
+        }
+
+        // Aggiorna al caricamento della pagina
+        $(window).on('load', function () {
+            updateLayoutTitles();
+        });
+
+        // Sincronizza i titoli durante il focusout
+        $(document).on('focusout blur', '[data-name="class"] input[type="text"]', function () {
+            delayedUpdate();
+        });
+    });
+    </script>
+    <?php
+}
+add_action('acf/input/admin_head', 'custom_acf_flexible_titles');
