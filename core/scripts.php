@@ -1,7 +1,7 @@
 <?php
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * A_SETTINGS Remove query string from static resources
+::::::::::::::    * GRIT_SET Remove query string from static resources
 ::::::::::::::      https://kinsta.com/it/knowledgebase/rimuovere-le-query-string-dalle-risorse-statiche/
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
@@ -16,7 +16,7 @@ add_filter('style_loader_src', '_remove_script_version', 15, 1);
 
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * A_SETTINGS Add prefetching rules
+::::::::::::::    * GRIT_SET Add prefetching rules
 ::::::::::::::      https://authoritywebsiteincome.com/speed-up-wordpress-with-dns-prefetching/
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
@@ -31,7 +31,7 @@ function ism_dns_prefetch()
 add_action('wp_head', 'ism_dns_prefetch', 0);
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * A_SETTINGS Imposto gli script che mi interessano come async & defer
+::::::::::::::    * GRIT_SET Imposto gli script che mi interessano come async & defer
 ::::::::::::::      in particolare google mappe.
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
@@ -47,14 +47,14 @@ function make_script_async($tag, $handle, $src)
 add_filter('script_loader_tag', 'make_script_async', 10, 3);
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * A_SETTINGS Carico la lista di CSS  e JS
+::::::::::::::    * GRIT_SET Carico la lista di CSS  e JS
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
 function grit_scripts()
 {
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Autoload
+    ::::::::::::::    * GRIT_SET Autoload
     ::::::::::::::      jQuery is loaded using the same method from HTML5 Boilerplate:
     ::::::::::::::      It's kept in the header instead of footer to avoid conflicts with plugins.
     ::::::::::::::      Grab Google CDN's latest jQuery with a protocol relative URL; fallback to CDNJS if offline
@@ -71,12 +71,12 @@ function grit_scripts()
     wp_enqueue_script('jquery', '//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js');
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Popper
+    ::::::::::::::    * GRIT_SET Popper
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
     wp_enqueue_script('popper', get_template_directory_uri() . '/assets/popper/popper.min.js', array(), '2.9.2', true);
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Javascript for comments
+    ::::::::::::::    * GRIT_SET Javascript for comments
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
     if (is_single() && comments_open() && get_option('thread_comments')) {
@@ -84,7 +84,7 @@ function grit_scripts()
     }
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Attiva in base alla scalta Bootstrap 4.6.2 CSS JS
+    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Bootstrap 4.6.2 CSS JS
                         // Attiva libreria Bootstrap 4.6.2 CSS JS
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
@@ -94,7 +94,7 @@ function grit_scripts()
     }
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Attiva in base alla scalta Fontawesome
+    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Fontawesome
                         // Attiva libreria Fontawesome fontawesome.com/icons
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
@@ -106,7 +106,7 @@ function grit_scripts()
     }
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Attiva in base alla scalta Animate CSS
+    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Animate CSS
                         // Attiva libreria Animate CSS animate.style
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
@@ -116,7 +116,7 @@ function grit_scripts()
     }
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Attiva in base alla scalta Hover CSS
+    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Hover CSS
                         // Attiva libreria Hover CSS ianlunn.github.io/Hover
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
@@ -125,7 +125,7 @@ function grit_scripts()
     }
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Attiva in base alla scalta GSAP
+    ::::::::::::::    * GRIT_SET Attiva in base alla scalta GSAP
                         // Attiva libreria GSAP https://github.com/greensock/GSAP
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
@@ -141,7 +141,7 @@ function grit_scripts()
     }
 
         /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Attiva in base alla scalta Three.js
+    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Three.js
                             // Attiva libreria Three js threejs.org  
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
@@ -152,7 +152,7 @@ function grit_scripts()
 
         
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Attiva in base alla scalta Lenis
+    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Lenis
                         // Attiva libreria Lenis https://github.com/darkroomengineering/lenis
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
@@ -162,7 +162,7 @@ function grit_scripts()
 
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Attiva in base alla scalta Locomotive
+    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Locomotive
                         // Attiva libreria Locomotive https://github.com/locomotivemtl/locomotive-scroll
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
@@ -174,7 +174,7 @@ function grit_scripts()
 
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Attiva in base alla scalta Lightbox2
+    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Lightbox2
                         // Attiva libreria Lightbox2 https://lokeshdhakar.com/projects/lightbox2/
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
@@ -185,7 +185,7 @@ function grit_scripts()
     }
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Attiva in base alla scalta Fitty
+    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Fitty
                             // Attiva libreria Fitty js https://rikschennink.github.io/fitty/ 
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
@@ -194,7 +194,7 @@ function grit_scripts()
     }
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Attiva in base alla scalta Images Loaded 
+    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Images Loaded 
                             // Attiva libreria Images Loaded js https://imagesloaded.desandro.com/
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
@@ -203,7 +203,7 @@ function grit_scripts()
     }
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Attiva in base alla scalta Masonry
+    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Masonry
                             // Attiva libreria Masonry js https://masonry.desandro.com 
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
@@ -212,7 +212,7 @@ function grit_scripts()
     }
  
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Attiva in base alla scalta Swiper
+    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Swiper
                         // Attiva libreria Swiper 10.2 https://swiperjs.com/get-started
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
@@ -221,7 +221,7 @@ function grit_scripts()
     }
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Attiva in base alla scalta Owl Carousel CSS JS
+    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Owl Carousel CSS JS
                         // Attiva libreria Owl Carousel CSS JS owlcarousel2.github.io/OwlCarousel2
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
@@ -231,7 +231,7 @@ function grit_scripts()
     }
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Attiva in base alla scalta Jarallax
+    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Jarallax
                     // Attiva libreria Jarallax https://github.com/nk-o/jarallax
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
@@ -243,7 +243,7 @@ function grit_scripts()
     }
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Attiva in base alla scalta NProgress CSS JS
+    ::::::::::::::    * GRIT_SET Attiva in base alla scalta NProgress CSS JS
                         // Attiva libreria NProgress CSS JS https://ricostacruz.com/nprogress/
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
@@ -253,7 +253,7 @@ function grit_scripts()
     }
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Attiva in base alla scalta Magic Mouse CSS JS
+    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Magic Mouse CSS JS
                         // Attiva libreria Magic Mouse CSS JS magicmousejs.web.app
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
@@ -263,7 +263,7 @@ function grit_scripts()
     }
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Attiva in base alla scalta Cocoen CSS JS
+    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Cocoen CSS JS
                         // Attiva libreria Cocoen CSS JS github.com/jotform/before-after.js
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
@@ -274,7 +274,7 @@ function grit_scripts()
 
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS CSS
+    ::::::::::::::    * GRIT_SET CSS
                         // Carico lista percorsi CSS di terze parti in core/wp-config.php
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
@@ -283,7 +283,7 @@ function grit_scripts()
     }
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS JS
+    ::::::::::::::    * GRIT_SET JS
                         // Carico lista percorsi JS di terze parti in core/wp-config.php
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
@@ -301,25 +301,25 @@ add_action('wp_enqueue_scripts', 'grit_scripts', 100);
 function grit_scripts_custom()
 {
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Carico style.css
+    ::::::::::::::    * GRIT_SET Carico style.css
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
     wp_enqueue_style('style', get_template_directory_uri() . '/style.css');
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Carico style.css
+    ::::::::::::::    * GRIT_SET Carico style.css
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
     wp_enqueue_style('main', get_template_directory_uri() . '/assets/css/main.css');
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Carico il CSS custom
+    ::::::::::::::    * GRIT_SET Carico il CSS custom
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
     wp_enqueue_style('custom', get_template_directory_uri() . '/assets/css/custom.css');
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Carico il JS custom
+    ::::::::::::::    * GRIT_SET Carico il JS custom
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
     wp_enqueue_script('scripts', get_template_directory_uri() . '/assets/js/custom.js', array(), '1.0.0', true);
@@ -332,7 +332,7 @@ add_action('wp_enqueue_scripts', 'grit_scripts_custom', 110);
 
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * A_SETTINGS Gestisco un sostituto per JQuery nel caso in cui il primo sia offline
+::::::::::::::    * GRIT_SET Gestisco un sostituto per JQuery nel caso in cui il primo sia offline
 ::::::::::::::      http://wordpress.stackexchange.com/a/12450
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
@@ -359,7 +359,7 @@ add_action('wp_head', 'grit_jquery_local_fallback');
 
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * A_SETTINGS Google Recaptcha
+::::::::::::::    * GRIT_SET Google Recaptcha
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
  
@@ -374,7 +374,7 @@ add_action('wp_head', 'grit_jquery_local_fallback');
  
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * A_SETTINGS Google Analytics script
+::::::::::::::    * GRIT_SET Google Analytics script
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
 if (get_theme_mod('grit_setting_analytics') != '') {
@@ -418,7 +418,7 @@ if (get_theme_mod('grit_setting_analytics') != '') {
 }
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * A_SETTINGS Google Tag Manager
+::::::::::::::    * GRIT_SET Google Tag Manager
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 if (get_theme_mod('grit_setting_gtag') != '') {
 
@@ -462,7 +462,7 @@ if (get_theme_mod('grit_setting_gtag') != '') {
 }
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * A_SETTINGS Hotjar Tracking Code
+::::::::::::::    * GRIT_SET Hotjar Tracking Code
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
 if (get_theme_mod('grit_setting_hotjar') != '') {

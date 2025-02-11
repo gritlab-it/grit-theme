@@ -1,21 +1,83 @@
-{% if section.gallery|length > 1 %}
-    {# section_gallery #}
+{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#}
+{# :::::::::::::: 01 * GRIT_SET gallery_carousel #}
+{# :::::::::::::: 02 * GRIT_SET gallery #}
+{# :::::::::::::: 03 * GRIT_SET single_image #} 
+{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#} 
+ 
+{% if section.gallery|length > 1 %}  
+    {% if 'gallery_carousel' in class %} 
+        {# :::::::::::::: 01 * GRIT_SET gallery_carousel #} 
+        <div class="container-fluid ">
+            <div class="row">
+                <div class="col ">
+                    <div class="owl-carousel owl-theme ">
+                        {% for item in section.gallery %}
+                            {% set attachment = TimberPost(item.id) %}
+                            {% set height = TimberImage(item.id).height %}
+                            {% set width = TimberImage(item.id).width %}
+                            {% set sizewh = height / (width ?: 1) %}
+                            {% set imageSrc = TimberImage(item.id).src %}
+                            {% set imageAlt = item.alt %}
+                            {% if sizewh < 1 %}
+                                <a class="item item-img-gallery no-load img-oriz"
+                                   data-lightbox-gallery="item-gallery-{{ section.section_index }}"
+                                   data-width="{{ width }}"
+                                   data-height="{{ height }}"
+                                   data-ratio="{{ sizewh }}"
+                                   href="{{ imageSrc }}"
+                                   title="{{imageAlt}} h:{{ height }}, w:{{ width }}, sizewh:{{ sizewh }}">
+                                    <img src="{{ imageSrc|resize(570, 400) }}" alt="{{imageAlt}}" class="img-fluid in__animate " data-animation="animate__fadeIn animate__faster ">
+                                </a>
+                            {% elseif sizewh == 1 %}
+                                <a class="item item-img-gallery no-load img-oriz"
+                                   data-lightbox-gallery="item-gallery-{{ section.section_index }}"
+                                   data-width="{{ width }}"
+                                   data-height="{{ height }}"
+                                   data-ratio="{{ sizewh }}"
+                                   href="{{ imageSrc }}"
+                                   title="{{imageAlt}} h:{{ height }}, w:{{ width }}, sizewh:{{ sizewh }}">
+                                    <img src="{{ imageSrc|resize(400, 400) }}" alt="{{imageAlt}}" class="img-fluid in__animate " data-animation="animate__fadeIn animate__faster ">
+                                </a>
+                            {% else %}
+                                <a class="item item-img-gallery no-load img-vert"
+                                   data-lightbox-gallery="item-gallery-{{ section.section_index }}"
+                                   data-width="{{ width }}"
+                                   data-height="{{ height }}"
+                                   data-ratio="{{ sizewh }}"
+                                   href="{{ imageSrc }}"
+                                   title="{{imageAlt}} h:{{ height }}, w:{{ width }}, sizewh:{{ sizewh }}">
+                                    <img src="{{ imageSrc|resize(270, 400) }}" alt="{{imageAlt}}" class="img-fluid in__animate " data-animation="animate__fadeIn animate__faster ">
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div> 
+                </div>
+            </div> 
+        </div>
+        <script> 
+            window.navLeftArrow = `{% include '/partials/arrow.twig' %}`;
+            window.navRightArrow = `{% include '/partials/arrow.twig' %}`; 
+        </script> 
+        {# :::::::::::::: 01 * GRIT_SET gallery_carousel END #}
+    {% else %}
+    {# :::::::::::::: 02 * GRIT_SET section_gallery #} 
     {% set image_ids = section.gallery | map(image => image.id) | join(',') %}
     <div class="container-fluid ">
         <div class="row">
-            <div class="col p-1">
+            <div class="col-12">
                 <div class="section_gallery">
                     {{ function('do_shortcode', '[gallery ids="' ~ image_ids ~ '" columns="'~ section.columns ~'" size="' ~ section.size ~ '" ]') }}
                 </div>
             </div>
         </div>
     </div>
-    {# end section_gallery #}
+    {# :::::::::::::: 02 * GRIT_SET section_gallery END #} 
+    {% endif %} 
 {% else %}
-    {# section_image #}
+    {# :::::::::::::: 03 * GRIT_SET single_image #}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 col-md-8 offset-md-2 in__animate " data-animation="animate__fadeIn animate__slow ">
+            <div class="col-12 in__animate " data-animation="animate__fadeIn animate__slow ">
                 {% set classes = section.class ? section.class|split(' ') : [] %}
 
                 {% if section.gallery[0] %} 
@@ -54,9 +116,10 @@
                         } %}
                     {% include ['/partials/img.twig'] with image %}
                 {% endif %}
-            {% endif %}
+                {% endif %}
+            </div>
         </div>
     </div>
-</div>
-{# end section_image #}{% endif %}
+    {# :::::::::::::: 03 * GRIT_SET single_image END #}
+{% endif %}
 

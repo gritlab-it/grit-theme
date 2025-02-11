@@ -1,40 +1,52 @@
-{# section_counter #}
+{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#}
+{# :::::::::::::: 01 * GRIT_SET section_counter #}
+{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#} 
 
-
-{# Definisci il tempo totale di animazione in millisecondi #}
+{# :::::::::::::: 01 * GRIT_SET section_counter #}
 {% set total_duration = 3000 %}
 
-    <div class="container-fluid">
-        <div class="row">
-            {% set total_items = section.counters | length %}
-            {% for item in section.counters %}
-            <div class=" text-{{ section.align }} 
-                {% if total_items == 1 %}
-                    col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2 
+    <div class="container-fluid ">
+        <div class="row {% if section.align == 'center' %}justify-content-center{% endif %}">  
+            {% for item in section.counters %} 
+            {% set classes = item.inner_class ? item.inner_class|split(' ') : [] %}
+            {% set col_classes = classes|filter(class => class matches '/^col-.*$/') %}
+            {% set other_classes = classes|filter(class => not (class matches '/^col-.*$/')) %}
+
+            {% if not col_classes %}
+                {% set col_classes = '' %}
+                {% set total_items = section.counters | length %}
+                {% if total_items == 1 %} 
+                    {% if 'center' in section.align %}
+                            {% set col_classes = 'col-md-10  col-xl-8 ' %}
+                        {% else %}
+                            {% set col_classes = 'col-12 col-md-12' %}
+                    {% endif %} 
                 {% elseif total_items == 2 %}
-                    col-12 col-md-6 
+                    {% set col_classes = 'col-12 col-md-6 ' %}
                 {% elseif total_items == 3 %}
-                    col-12 col-sm-6 col-md-4  
+                    {% set col_classes = 'col-12 col-sm-6 col-md-4' %}  
                 {% else %}
-                    col-12 col-sm-6 col-md-3 
+                    {% set col_classes = 'col-12 col-sm-6 col-md-3 ' %}
                 {% endif %}
-            ">
-            <div class="inner-item in__animate " data-animation="animate__fadeIn animate__slow ">  
-                <div class="inner-img pb-3">
+            {% endif %} 
+            <div class="item-counter tot-{{total_items}} {{ col_classes|join(' ') }} {{ other_classes|join(' ') }}">
+                <div class="inner-item">  
                     {% if item.image %}
-                    {% set image = {
-                        'alt': item.image.alt,
-                        'src': Image(item.image.id).src ,
-                        'class': 'img-fluid '
-                        }
-                    %}
-                    {% include ['/partials/img.twig'] with image %}
+                    <div class="inner-img pb-3 in__animate " data-animation="animate__fadeIn animate__slow "> 
+                        {% set image = {
+                            'alt': item.image.alt,
+                            'src': Image(item.image.id).src ,
+                            'class': 'img-fluid '
+                            }
+                        %}
+                        {% include ['/partials/img.twig'] with image %} 
+                    </div>
                     {% endif %}
-                </div>
-                    {# Calcola `increment` e `delay` #}
-                    {% set steps = 10 %}
+                    
+                    {% set steps = 100 %}
                     {% set increment = (item.number / steps) | round(0, 'ceil') %}
                     {% set delay = (total_duration / steps) | round(0, 'ceil') %}
+                    <div class="inner-text in__animate " data-animation="animate__fadeIn animate__slow "> 
 
                     <h3 class=" ">
                         {{item.prefix}}  
@@ -47,79 +59,14 @@
                         </span>
                         {{item.suffix}}
                     </h3>
-                    <h5> {{ item.text }} </h5> 
-                </div>
-                
-            </div>
-            
+                    {% if item.text %}
+                        <h5> {{ item.text }} </h5> 
+                    {% endif %}   
+                    </div>
+                </div> 
+            </div> 
             {% endfor %}
         </div>
     </div> 
-{# end section_counter #}
-
-
-<script>
-
-function startCounterAnimation() {
-    const counters = document.getElementsByClassName('number-animate'); 
-    for (let i = 0; i < counters.length; i++) {
-        const counter = counters[i];
-        const startNumber = +counter.getAttribute('number-animate-start');
-        const target = +counter.getAttribute('number-animate-end');
-        const delay = +counter.getAttribute('number-animate-delay');
-        const add = +counter.getAttribute('number-animate-increment');
-        let current = startNumber;
-        let animationId;
-        let isInView = false;
-
-        function updateCounter() {
-            if (current >= target) {
-                clearInterval(animationId);
-            } 
-            else if(add){
-                current+= add;
-                counter.textContent = current;
-            }
-            else {
-                current++;
-                counter.textContent = current;
-            }
-        }
-
-        function checkInView() {
-            const rect = counter.getBoundingClientRect();
-            const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-            const windowWidth = window.innerWidth || document.documentElement.clientWidth;
-
-            const inView = (
-                rect.top >= 0 &&
-                rect.left >= 0 &&
-                rect.bottom <= windowHeight &&
-                rect.right <= windowWidth
-            );
-
-            if (inView && !isInView) {
-                isInView = true;
-                current = startNumber;
-                counter.textContent = current;
-                animationId = setInterval(updateCounter, delay);
-                counter.style.opacity = 1;
-            } else if (!inView && isInView) {
-                isInView = false;
-                clearInterval(animationId);
-                current = startNumber;
-                counter.textContent = current;
-                counter.style.opacity = 0;
-            }
-        }
-
-        window.addEventListener('scroll', checkInView);
-        window.addEventListener('resize', checkInView);
-        checkInView(); // Check if already in view on page load
-    }
-}
-
-// Call the function when the document is ready
-document.addEventListener('DOMContentLoaded', startCounterAnimation);
-</script>
+{# :::::::::::::: 01 * GRIT_SET section_counter END #}
 

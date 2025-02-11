@@ -3,13 +3,21 @@
 /* :::::::::::::: 01 * GRIT_SET animate.css  */
 /* :::::::::::::: 02 * GRIT_SET menu showing */
 /* :::::::::::::: 03 * GRIT_SET sticky */
+/* :::::::::::::: 03 * GRIT_SET owl-carousel */
+/* :::::::::::::: 03 * GRIT_SET nivoLightbox */
 /* :::::::::::::: 04 * GRIT_SET magicMouse */
 /* :::::::::::::: 06 * GRIT_SET jarallax-js  */
 /* :::::::::::::: 07 * GRIT_SET NProgress-js */
+/* :::::::::::::: 07 * GRIT_SET section_collpase */
 /* :::::::::::::: 08 * GRIT_SET section_video */
-/* :::::::::::::: 09 * GRIT_SET GSAP js */
-/* :::::::::::::: 10 * GRIT_SET Counters js */
+/* :::::::::::::: 09 * GRIT_SET Lenis js */ 
+/* :::::::::::::: 10 * GRIT_SET GSAP js */ 
+/* :::::::::::::: 11 * GRIT_SET Counters js */
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+
+
+
+
 
 /* :::::::::::::: 00 * GRIT_SET loader */
 $(function () {
@@ -184,27 +192,188 @@ $(function () {
 owl_carousel_active = document.getElementById("owl_carousel-js");
 if (owl_carousel_active) {
     $(document).ready(function () {
-        $(".owl-carousel").owlCarousel({
-            loop: true,
-            margin: 20,
-            autoHeight: false,
-            autoWidth: false,
-            center: true,
-            nav: true,
-            dots: true,
-            // navText: [`{% include ['/partials/arrow.twig'] %}`, `{% include ['/partials/arrow.twig'] %}`],
-            navText: [
-                `<i class='fa fa-chevron-left'></i>`,
-                `<i class='fa fa-chevron-right'></i>`,
-            ],
-            responsive: {
-                0: { items: 1 },
-                576: { items: 2 },
-                768: { items: 3 },
-                992: { items: 4 },
-                1200: { items: 5 },
-                1400: { items: 6 },
-            },
+
+    // Definisci il contenuto HTML delle frecce direttamente nel JavaScript
+    var navLeftArrow = typeof window.navLeftArrow !== 'undefined' ? window.navLeftArrow : `<i class='fa fa-chevron-left'></i>`;
+    var navRightArrow = typeof window.navRightArrow !== 'undefined' ? window.navRightArrow : `<i class='fa fa-chevron-right'></i>`;
+
+        function initCarouselStandard($carousel) {
+            $carousel.owlCarousel({
+                loop: true,
+                margin: 20,
+                autoHeight: false,
+                autoWidth: false,
+                center: false,
+                nav: true,
+                dots: true,
+                navText: [navLeftArrow, navRightArrow],
+                responsive: {
+                    0: { items: 1 },
+                    576: { items: 2 },
+                    768: { items: 3 },
+                    992: { items: 4 },
+                    1200: { items: 5 },
+                    1400: { items: 5 },
+                },
+            });
+        }
+    
+        function initCarouselCenter($carousel) {
+            $carousel.owlCarousel({
+                loop: true,
+                margin: 20,
+                autoHeight: true,
+                autoWidth: true,
+                center: true,
+                nav: true,
+                dots: true,
+                navText: [navLeftArrow, navRightArrow],
+                responsive: {
+                    0: { items: 1.2 },
+                    576: { items: 2.2 },
+                    768: { items: 3.2 },
+                    992: { items: 3.2 },
+                    1200: { items: 3.2 },
+                    1400: { items: 3.2 },
+                },
+            });
+        }
+
+        function initCarouselLeft($carousel) {
+            $carousel.owlCarousel({
+                loop: true,
+                margin: 20,
+                autoHeight: true,
+                autoWidth: true,
+                center: false,
+                nav: true,
+                dots: true,
+                navText: [navLeftArrow, navRightArrow], 
+
+                responsive: {
+                    0: { items: 1.5 },
+                    576: { items: 2.5 },
+                    768: { items: 3.5 },
+                    992: { items: 3.5 },
+                    1200: { items: 3.5 },
+                    1400: { items: 3.5 },
+                },
+            });
+        }
+
+        function initCarouselCube($carousel) {
+            $carousel.owlCarousel({
+                loop: true,
+                margin: 0,
+                responsiveClass: true, 
+                nav: true,
+                dots: true,
+                navText: [navLeftArrow, navRightArrow], 
+                items: 1, 
+            });
+        }
+
+        function initCarouselText($carousel) {
+            $carousel.owlCarousel({
+                loop: true,
+                margin: 20, 
+                autoHeight: false,
+                autoWidth: false, 
+                center: false,
+                nav: true,
+                dots: true,  
+                navText: [navLeftArrow, navRightArrow], 
+                responsive: {
+                    0: {
+                        items: 1, // Impostazioni per schermi molto piccoli 
+                    },
+                    576: {
+                        items: 2, // Impostazioni per schermi piccoli 
+                    },
+                    768: {
+                        items: 3, // Impostazioni per schermi medi 
+                    },
+                    992: {
+                        items: 3, // Impostazioni per schermi grandi 
+                    },
+                    1200: {
+                        items: 4, // Impostazioni per schermi molto grandi 
+                    }
+                }
+            });
+        }
+
+
+        function initCarouselSlide($carousel) {
+            $carousel.owlCarousel({
+                loop: true,
+                margin: 0,
+                responsiveClass: true,
+                nav: true,
+                dots: true,
+                items: 1,
+                navText: [navLeftArrow, navRightArrow],  
+
+                autoplay: true, // Abilita l'autoplay
+                autoplayTimeout: 5000, // Imposta il timeout dell'autoplay (in millisecondi)
+                autoplayHoverPause: true // Pausa l'autoplay al passaggio del mouse
+            });
+        }
+
+        function initCarouselArchive($carousel) {
+            $carousel.owlCarousel({
+                loop: false,
+                margin: 20,
+                responsiveClass: true,
+                autoHeight: false,
+                autoWidth: false,
+                center: false,
+                nav: true,
+                dots: true,
+                navText: [navLeftArrow, navRightArrow],  
+                responsive: {
+                    0: {
+                        items: 1, // Impostazioni per schermi molto piccoli
+     
+                    },
+                    576: {
+                        items: 2, // Impostazioni per schermi piccoli
+                  
+                    },
+                    768: {
+                        items: 3, // Impostazioni per schermi medi
+            
+                    },
+                    992: {
+                        items: 3, // Impostazioni per schermi grandi
+                    
+                    },
+                    1200: {
+                        items: 3, // Impostazioni per schermi molto grandi
+                    
+                    }
+                }
+            });
+        }
+ 
+        $(".owl-carousel").each(function () {
+            var $carousel = $(this);
+            var $section = $carousel.closest('section');
+            if ($section.hasClass("carousel-center")) {
+                initCarouselCenter($carousel);
+            } else if ($section.hasClass("carousel-left")) {
+                initCarouselLeft($carousel);
+            } else if ($section.hasClass("section_cube")) {
+                initCarouselCube($carousel);
+            } else if ($section.hasClass("section_slides")) {
+                initCarouselSlide($carousel);
+            } else if ($section.hasClass("section_archive_carousel")) {
+                initCarouselArchive($carousel);
+            } else if ($section.hasClass("section_carousel_text")) {
+                initCarouselText($carousel);
+            } else {
+                initCarouselStandard($carousel);
+            }
         });
     });
 }
@@ -248,6 +417,10 @@ if (lightbox_nivo_active) {
             errorMessage:
             "The requested content cannot be loaded. Please try again later.",
         });
+        // Prevenzione dell'apertura del link in una nuova scheda
+        $('.item-img-gallery').on('click', function (event) {
+            event.preventDefault(); // Previene il comportamento predefinito del link
+        });
     });
     
     // Prevenzione dell'apertura del link in una nuova scheda
@@ -288,7 +461,7 @@ if (owl_carousel_active) {
         /* Inizializza jarallax-js con classi dinamiche */
         $(".jarallax, .jarallax-keep-img, .jarallax-overlay").each(function () {
             var $this = $(this);
-            var speed = $this.data("speed") || 0.1; // Valore di default se data-speed non è definito
+            var speed = $this.data("speed") || 0.9; // Valore di default se data-speed non è definito
             
             $this.jarallax({
                 speed: speed,
@@ -298,7 +471,7 @@ if (owl_carousel_active) {
         });
     });
 }
-
+ 
 /* :::::::::::::: 07 * GRIT_SET NProgress-js */
 nprogress_active = document.getElementById("nprogress-js");
 if (nprogress_active) {
@@ -323,70 +496,177 @@ if (nprogress_active) {
     });
 }
 
-/* :::::::::::::: 08 * A_SETTINGS section_video */
-// $(document).ready(function () {
-//     // Funzione per gestire la visibilità del pulsante play
-//     function togglePlayButton(videoElement, show) {
-//         const playButton = $(videoElement).parent().find("span");
-//         playButton.toggleClass("d-none", !show); // Mostra il pulsante se 'show' è true
-//     }
-    
-//     // Gestisce il click sul pulsante play
-//     $(".video-file span").click(function () {
-//         const videoElement = $(this).parent().find("video").get(0);
-//         togglePlayButton(videoElement, false); // Nasconde il pulsante play
-//         videoElement.play();
-//     });
-    
-//     // Gestisce il click sul video per fermarlo o avviarlo
-//     $(".video-file video").on("click", function () {
-//         const videoElement = $(this).get(0);
-//         togglePlayButton(videoElement, videoElement.paused); // Mostra il pulsante se in pausa
-//     });
-    
-//     // Event listener per quando il video viene messo in pausa
-//     $(".video-file video").on("pause", function () {
-//         togglePlayButton(this, true); // Mostra il pulsante play
-//     });
-    
-//     // Event listener per quando il video viene riprodotto
-//     $(".video-file video").on("play", function () {
-//         togglePlayButton(this, false); // Nasconde il pulsante play
-//     });
-// });
 
 
-/* :::::::::::::: 09 * GRIT_SET Lenis js */ 
-// Verifica se Lenis è disponibile
-if (typeof Lenis !== "undefined") {
-    // Inizializza Lenis per il smooth scroll
-    const lenis = new Lenis({
-      duration: 1.1,
-      easing: (t) => 1 - Math.pow(1 - t, 3),
-      smooth: true,
-      direction: 'vertical',
-      gestureDirection: 'vertical',
-      smoothTouch: true,
-      touchMultiplier: 2,
+/* :::::::::::::: 07 * GRIT_SET section_collpase */
+$(document).ready(function () {
+    // Controlla se esiste una sezione con la classe 'section_collapse'
+    if (document.querySelector('.section_collapse')) {
+ 
+        var headers = document.querySelectorAll('.accordion_heading');
+    
+        headers.forEach(function (header) {
+            header.addEventListener('click', function () {
+                var symbol = this.querySelector('.collapse-symbol');
+                var target = document.querySelector(this.getAttribute('data-target'));
+
+                if (target.classList.contains('show')) {
+                    symbol.innerHTML = `<i class="fas fa-plus"></i>`;
+                    // symbol.innerHTML = `{% include '/img/plus.svg' %}`;
+                } else {
+                    headers.forEach(function (h) {
+                        var s = h.querySelector('.collapse-symbol');
+                        s.innerHTML = `<i class="fas fa-plus"></i>`;
+                        // s.innerHTML = `{% include '/img/plus.svg' %}`;
+                    });
+                    symbol.innerHTML = `<i class="fas fa-minus"></i>`;
+                    // symbol.innerHTML = `{% include '/img/minus.svg' %}`;
+                }
+            });
+        });
+
+        // Gestione clic sull'icona
+        var symbols = document.querySelectorAll('.collapse-symbol');
+        symbols.forEach(function (symbol) {
+            symbol.addEventListener('click', function (e) {
+                e.stopPropagation(); // Evita che l'evento venga gestito solo dall'icona
+                this.closest('.accordion_heading').click(); // Simula il clic sull'intestazione
+            });
+        });
+
+        var firstHeader = document.querySelector('.accordion_heading:not(.collapsed)');
+        if (firstHeader) {
+            var firstSymbol = firstHeader.querySelector('.collapse-symbol');
+            firstSymbol.innerHTML = `<i class="fas fa-minus"></i>`;
+            // firstSymbol.innerHTML = `{% include '/img/minus.svg' %}`;
+        }
+
+        var searchHeaders = document.querySelectorAll('.accordion_search_heading');
+
+        searchHeaders.forEach(function (header) {
+            header.addEventListener('click', function () {
+                var symbol = this.querySelector('.collapse-symbol');
+                var target = document.querySelector(this.getAttribute('data-target'));
+
+                if (target.classList.contains('show')) {
+                    symbol.innerHTML = `<i class="fas fa-plus"></i>`;
+                    // symbol.innerHTML = `{% include '/img/plus.svg' %}`;
+                } else {
+                    searchHeaders.forEach(function (h) {
+                        var s = h.querySelector('.collapse-symbol');
+                        s.innerHTML = `<i class="fas fa-plus"></i>`;
+                        // s.innerHTML = `{% include '/img/plus.svg' %}`;
+                    });
+                    symbol.innerHTML = `<i class="fas fa-minus"></i>`;
+                    // symbol.innerHTML = `{% include '/img/minus.svg' %}`;
+                    
+                }
+            });
+        });
+
+        // Gestione clic sull'icona
+        var searchSymbols = document.querySelectorAll('.collapse-symbol');
+        searchSymbols.forEach(function (symbol) {
+            symbol.addEventListener('click', function (e) {
+                e.stopPropagation(); // Evita che l'evento venga gestito solo dall'icona
+                this.closest('.accordion_search_heading').click(); // Simula il clic sull'intestazione
+            });
+        });
+
+        var firstSearchHeader = document.querySelector('.accordion_search_heading:not(.collapsed)');
+        if (firstSearchHeader) {
+            var firstSearchSymbol = firstSearchHeader.querySelector('.collapse-symbol');
+            firstSearchSymbol.innerHTML = `<i class="fas fa-minus"></i>`;
+            // firstSearchSymbol.innerHTML = `{% include '/img/minus.svg' %}`;
+        }
+    }
+});
+
+
+
+/* :::::::::::::: 08 * GRIT_SET section_video */
+
+
+function initializeVideoSections() {
+    const videoSections = document.querySelectorAll('.section-video');
+
+    videoSections.forEach((section) => {
+        const thumbnail = section.querySelector('.video-thumbnail');
+        const videoEmbed = section.querySelector('.video-embed');
+        const videoIframeContainer = section.querySelector('.video-iframe');
+        const videoFile = section.querySelector('.video-file video');
+
+        thumbnail.addEventListener('click', function () {
+            thumbnail.style.display = 'none';
+
+            if (videoEmbed) {
+                videoEmbed.style.display = 'block';
+            } else if (videoIframeContainer) {
+                const iframe = videoIframeContainer.querySelector('iframe');
+                const originalSrc = iframe.getAttribute('data-src') || iframe.getAttribute('src');
+                iframe.src = originalSrc.includes('autoplay=1') ? originalSrc : `${originalSrc}?autoplay=1`;
+                videoIframeContainer.style.display = 'block';
+            } else if (videoFile) {
+                const videoContainer = section.querySelector('.video-file');
+                videoContainer.style.display = 'block';
+                videoFile.play().catch(function(error) {
+                    console.log('Autoplay non riuscito:', error);
+                });
+            }
+        });
     });
+}
+
+document.addEventListener('DOMContentLoaded', initializeVideoSections);
+
+
+
+/* :::::::::::::: 09 * GRIT_SET Lenis js */
   
-    // Funzione per avviare il loop di Lenis
-    function startLenisRAF() {
-      function raf(time) {
-        lenis.raf(time);
-        ScrollTrigger.update(); // Aggiorna ScrollTrigger
+
+
+  // Aspetta che il DOM sia pronto
+document.addEventListener("DOMContentLoaded", function () {
+    // Verifica se Lenis è disponibile
+    if (typeof Lenis !== "undefined") {
+        // console.log("Lenis caricato correttamente");
+
+        const lenis = new Lenis({
+            duration: 1.1,
+            easing: (t) => 1 - Math.pow(1 - t, 3),
+            smooth: true,
+            direction: "vertical",
+            gestureDirection: "vertical",
+            smoothTouch: true,
+            touchMultiplier: 1, // Ridotto
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            ScrollTrigger.update();
+            requestAnimationFrame(raf);
+        }
         requestAnimationFrame(raf);
-      }
-      requestAnimationFrame(raf);
-    } 
 
-    startLenisRAF(); 
+        // Verifica che ci sia un elemento scroller valido prima di configurare ScrollTrigger
+        const lenisScroller = document.querySelector("[data-lenis]");
+        if (lenisScroller) {
+            ScrollTrigger.defaults({
+                scroller: lenisScroller,
+            });
+        } else {
+            // console.warn("Attenzione: Nessun elemento [data-lenis] trovato per ScrollTrigger.");
+        }
 
+        // Debug degli eventi di scroll
+        window.addEventListener("scroll", () => {
+            // console.log('Scroll position:', window.scrollY);
+        });
+    } else {
+        // console.error("Errore: Lenis non è definito. Assicurati che il file lenis.min.js sia caricato correttamente.");
+    }
+});
 
-
-    
-  }
-  
 
 
 
@@ -468,7 +748,7 @@ if (parallaxImage && parallaxContainer) {
 
 
 
-/* :::::::::::::: 10 * GRIT_SET Counters js */
+/* :::::::::::::: 11 * GRIT_SET Counters js */
 
 function startCounterAnimation() {
     const counters = document.getElementsByClassName("number-animate");
@@ -531,135 +811,3 @@ function startCounterAnimation() {
 // Call the function when the document is ready
 document.addEventListener("DOMContentLoaded", startCounterAnimation);
 
-// gsap. set('.element', { y:100, opacity: 0});
-
-// ScrollTrigger.batch('.element', {
-//     start: 'top 50%',
-//     onEnter: batch => gsap.to(batch, {
-//         opacity: 1,
-//         y:0,
-//         stagger: 0.15
-//     }),
-//     markers:true
-// })
-
-// let tl = gsap.timeline({
-//     scrollTrigger: {
-//         trigger: '.container-video',
-//         start: 'top center',
-//         end: '50% center' ,
-//         scrub: true,
-//         markers: true,
-//     }
-// });
-// tl.to(".container-video", {
-//     opacity: 1,
-//     width: '80%',
-// });
-
-// gsap.registerPlugin(ScrollTrigger);
-
-// const locoScroll = new LocomotiveScroll({
-//   el: document.querySelector(".smooth-scroll"),
-//   smooth: true
-// });
-
-// // Assicurati che Locomotive Scroll venga aggiornato correttamente dopo il caricamento della pagina
-// locoScroll.update();
-
-// window.addEventListener('load', function () {
-//   locoScroll.update();
-//   ScrollTrigger.refresh();
-// });
-
-// // Ogni volta che ScrollTrigger viene aggiornato, aggiorna anche Locomotive Scroll
-// ScrollTrigger.addEventListener("refresh", () => locoScroll.update());
-
-// // Sincronizza Locomotive Scroll con ScrollTrigger
-// locoScroll.on("scroll", ScrollTrigger.update);
-
-// // Configura il proxy di ScrollTrigger per usare Locomotive Scroll
-// ScrollTrigger.scrollerProxy(".smooth-scroll", {
-//   scrollTop(value) {
-//     return arguments.length ? locoScroll.scrollTo(value, 0, 0) : locoScroll.scroll.instance.scroll.y;
-//   },
-//   getBoundingClientRect() {
-//     return {top: 0, left: 0, width: window.innerWidth, height: window.innerHeight};
-//   },
-//   pinType: document.querySelector(".smooth-scroll").style.transform ? "transform" : "fixed"
-// });
-
-// // Assicurati che Locomotive Scroll aggiorni tutto al ridimensionamento della finestra
-// window.addEventListener('resize', function () {
-//   locoScroll.update();
-//   ScrollTrigger.refresh();
-// });
-
-// locoScroll.on("scroll", (args) => {
-    //     console.log("Scroll position: ", args.scroll.y);
-//     ScrollTrigger.update();
-//   });
-
-//   ScrollTrigger.addEventListener("refresh", () => {
-    //     console.log("ScrollTrigger refreshed");
-//   });
-
-// var header = $(".sticky");
-// var lastScrollTop = 0;
-
-// // Ascolta l'evento di scroll di Locomotive Scroll
-// locoScroll.on("scroll", (args) => {
-    //   // Recupera la posizione di scroll attuale
-//   var scroll = args.scroll.y;
-
-//   if (scroll >= 500) {
-//     header.addClass("sticky-in");
-//   } else {
-//     header.removeClass("sticky-in");
-//   }
-// });
-
-// // Inizializza GSAP
-// gsap.registerPlugin(ScrollTrigger);
-
-// // Inizializza Lenis
-// const lenis = new Lenis({
-//   duration: 1.2,      // Durata dell'effetto smooth scroll
-//   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),  // Funzione di easing per lo scroll
-//   smooth: true,       // Abilita smooth scroll
-//   smoothTouch: false, // Disabilita smooth scroll su dispositivi touch (opzionale)
-//   direction: 'vertical', // Scroll verticale (default)
-// });
-
-// // Funzione per sincronizzare Lenis con GSAP
-// function raf(time) {
-//   lenis.raf(time); // Aggiorna Lenis
-//   requestAnimationFrame(raf); // Continua l'animazione
-// }
-
-// requestAnimationFrame(raf);
-
-// // Sincronizza GSAP ScrollTrigger con Lenis
-// lenis.on('scroll', (e) => {
-    //   ScrollTrigger.update(); // Aggiorna GSAP ScrollTrigger su ogni scroll
-// });
-
-// // Esempio di animazione GSAP basata sullo scroll con ScrollTrigger
-// gsap.to('.smooth-scroll', {
-//     scrollTrigger: {
-//       trigger: '.smooth-scroll',
-//       start: 'top top',
-//       end: () => document.querySelector('.smooth-scroll').offsetHeight + 'px', // Imposta l'altezza dinamica in base ai contenuti
-//       scrub: true, // Attiva l'animazione con lo scroll
-//       invalidateOnRefresh: true, // Garantisce che le dimensioni vengano ricalcolate correttamente
-//       pinSpacing: false, // Evita lo spazio extra creato dal pinning
-//     },
-//     opacity: 1,  // Esempio di animazione per la trasparenza
-//     y: -100,     // Trasla l'elemento verso l'alto
-//     onComplete: () => {
-    //       ScrollTrigger.refresh(); // Forza l'aggiornamento di GSAP una volta completata l'animazione
-//     }
-//   });
-
-// console.log("Scroll height: ", document.documentElement.scrollHeight);
-// console.log("Viewport height: ", window.innerHeight);

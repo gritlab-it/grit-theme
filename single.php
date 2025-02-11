@@ -15,7 +15,7 @@ $timber_post     = Timber::get_post();
 $context['post'] = $timber_post;
 
 
-/*  A_SETTINGS Assegno tutte le variabili di ACF a Twig
+/* GRIT_SET Assegno tutte le variabili di ACF a Twig
 in caso avessi necessità puoi sostituire il valore $post con l'ID della pagina */
 $fields = get_field_objects($timber_post);
 if ($fields):
@@ -27,7 +27,7 @@ if ($fields):
 endif;
 
 
-/*  A_SETTINGS Elaboro una query per estrapolare la categoria */
+/* GRIT_SET Elaboro una query per estrapolare la categoria */
 $terms = get_the_terms($timber_post->ID, 'category');
 if ($terms) {
     foreach ($terms as $term) {
@@ -37,10 +37,11 @@ if ($terms) {
     }
 }
 
-/*  A_SETTINGS Elaboro una query per i related con escluso i post corrente per categoria corrente */
+/* GRIT_SET Elaboro una query per i related con escluso i post corrente per categoria corrente */
 $args = array(
     'post_type' => get_post_type(''), // Nome del custom post
     'orderby' => 'date',
+	'posts_per_page' => get_option('posts_per_page'), 
     'order' => 'ASC',
 	'post__not_in' => array( get_the_ID() ) // Escludi il post corrente
 );

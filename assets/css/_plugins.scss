@@ -1,124 +1,288 @@
-.owl-carousel { 
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* :::::::::::::: 01 * GRIT_SET owl-carousel */ 
+/* :::::::::::::: 02 * GRIT_SET animate */ 
+/* :::::::::::::: 03 * GRIT_SET jarallax */ 
+/* :::::::::::::: 04 * GRIT_SET lenis.js */ 
+/* :::::::::::::: 05 * GRIT_SET loader */ 
+/* :::::::::::::: 06 * GRIT_SET gototop */ 
+/* :::::::::::::: 07 * GRIT_SET magic-mouse-js */ 
+/* :::::::::::::: 08 * GRIT_SET progress-js */ 
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+
+/* :::::::::::::: 01 * GRIT_SET owl-carousel */ 
+section {
   
-  .owl-dots {
-    width: auto;
-    position: absolute; 
-    text-align: center;
+  &.contained {
+    .owl-carousel { 
+      @media (min-width: $sm-res) {
+        .owl-nav {
+          button.owl-prev {
+            left: -40px;
+          } 
+          button.owl-next {
+            right: -40px;
+          }
+        }
+      }
+    }  
+  } 
+  &.carousel-left {
+    @media (min-width: $sm-res) { 
+      padding-left:  calc(($c-gap) / $xxl * 100vw); 
+    }
+  }
+  &.owl-dots-inner {
+    .owl-carousel {
+      .owl-dots {
+        bottom: 20px;
+      }
+    } 
+  }
 
-    margin: 0 auto; 
-    bottom: 20px;
-    left: 0;
-    right: 0;
+  
+  &.owl-nav-top-left {
+    .owl-carousel {
+      .owl-nav {  
+        position: absolute;
+        top: -50px;
+        left: 0;
+        margin-left: 0px;
+        padding-left: calc(($c-gap) / $xxl * 100vw); 
+        width: auto;
+        transform: translateY(-50%);
+        display: flex;
+        pointer-events: none;
+        z-index: 1;
+        justify-content: center;
+        button.owl-prev,
+        button.owl-next { 
+          left: 0;
+          right: 0; 
+        }
+      }
+    }
+    &.carousel-left {
+      .owl-carousel {
+          .owl-nav {
+            padding-left: 0px;
+          }
+      }
+    }
+  }
+  &.contained.gallery_carousel.owl-nav-top-left {
+    .owl-nav {
+      padding-left: 0px;
+    }
+  }
+  
+  &.owl-nav-bottom-left {
+    .owl-carousel {
+      .owl-nav {  
+        position: absolute;
+        bottom: -50px;
+        left: 0;
+        margin-left: 0px;
+        padding-left: calc(($c-gap) / $xxl * 100vw); 
+        width: auto;
+        transform: translateY(50%);
+        display: flex;
+        pointer-events: none;
+        z-index: 1;
+        justify-content: center;
+        button.owl-prev,
+        button.owl-next { 
+          left: 0;
+          right: 0; 
+        }
+      }
+    }
+    &.carousel-left {
+      .owl-carousel {
+          .owl-nav {
+            padding-left: 0px;
+          }
+      }
+    }
+  }
+  &.contained.gallery_carousel.owl-nav-bottom-left {
+    .owl-nav {
+      padding-left: 0px;
+    }
+  }
 
-    button.owl-dot {
-      width: 15px;
-      height: 15px;
-
-      margin: 0.3rem;
-      border-radius: 50%;
-
-      background-color: $light;
-
-      &.active {
-        background-color: $accent;
+  &.owl-nav-top-right {
+    .owl-carousel {
+      .owl-nav {  
+        position: absolute;
+        top: -50px;
+        right: 0;
+        margin-right: 0px;
+        padding-right: calc(($c-gap) / $xxl * 100vw); 
+        width: auto;
+        transform: translateY(-50%);
+        display: flex;
+        pointer-events: none;
+        z-index: 1;
+        justify-content: center;
+        button.owl-prev,
+        button.owl-next { 
+          left: 0;
+          right: 0; 
+        }
+      }
+    }
+  }
+  &.contained.gallery_carousel.owl-nav-top-right {
+    .owl-nav {
+      padding-right: 0px;
+    }
+  }
+  
+  &.owl-nav-bottom-right {
+    .owl-carousel {
+      .owl-nav {  
+        position: absolute;
+        bottom: -50px;
+        right: 0;
+        margin-right: 0px;
+        padding-right: calc(($c-gap) / $xxl * 100vw); 
+        width: auto;
+        transform: translateY(50%);
+        display: flex;
+        pointer-events: none;
+        z-index: 1;
+        justify-content: center;
+        button.owl-prev,
+        button.owl-next { 
+          left: 0;
+          right: 0; 
+        }
       }
     }
   } 
-
-  .owl-nav {
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    transform: translateY(-50%);
-    display: flex;
-    justify-content: space-between;
-    pointer-events: none;
-    z-index: 1;
-
-    button.owl-prev,
-    button.owl-next {
+  &.contained.gallery_carousel.owl-nav-bottom-right {
+    .owl-nav {
+      padding-right: 0px;
+    }
+  }
+  
+  .owl-carousel {  
+    .owl-dots {
+      width: auto;
+      position: absolute; 
       text-align: center;
-      z-index: 3;
-      pointer-events: all;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      z-index: 1; 
-      @include transition(all 0.3s ease-in-out); 
+      
+      margin: 0 auto; 
+      
+      bottom: -30px;
+      left: 0;
+      right: 0;
+      
+      button.owl-dot {
+        width: 15px;
+        height: 15px;
+        
+        margin: 0.3rem;
+        border-radius: 50%;
 
-      padding: 3px;
-      margin: 0px 10px;
-      border-radius: 25px;
-      font-size: 22px; 
-
-      .btn svg path {
-        @include transition(all 0.3s ease-in-out);
-        stroke: $light;
+        border: solid 1px $dark;
+        background-color: $light;
+        
+        &.active {
+          border: solid 1px $light;
+          background-color: $dark;
+          
+        }
       }
-
-      &:hover .btn svg path,
-      &:active .btn svg path {
-        stroke: $dark;
-      } 
-    }
-
-    button.owl-prev .btn {
-      rotate: 180deg;
-    }
-
-    button.owl-prev {
-      left: 10px;
-    }
-
-    button.owl-next {
-      right: 10px;
-    }
-
-    @media (max-width: 768px) {
+    } 
+    
+    .owl-nav {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      transform: translateY(-50%);
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+      z-index: 1;
+      
+      button.owl-prev,
+      button.owl-next {
+        text-align: center;
+        z-index: 3;
+        pointer-events: all;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        z-index: 1; 
+        @include transition(all 0.3s ease-in-out); 
+        
+        padding: 3px;
+        margin: 0px 10px;
+        border-radius: 25px;
+        font-size: 22px; 
+        
+        .btn svg path {
+          @include transition(all 0.3s ease-in-out);
+          stroke: $light;
+        }
+        
+        &:hover .btn svg path,
+        &:active .btn svg path {
+          stroke: $dark;
+        } 
+      }
+      
+      button.owl-prev .btn {
+        rotate: 180deg;
+      }
+      
       button.owl-prev {
         left: 10px;
       }
-
+      
       button.owl-next {
         right: 10px;
       }
-    }
-  } 
+      
+      @media (max-width: $md-res) {
+        button.owl-prev {
+          left: 10px;
+        }
+        
+        button.owl-next {
+          right: 10px;
+        }
+      }
+    } 
+  }
 }
 
-
-
-
-
-/* GRIT_SET animate 
-  Note: This only changes this particular animation duration 
-  */
+/* :::::::::::::: 02 * GRIT_SET animate */ 
+/* Note: This only changes this particular animation duration 
+*/
 .animate__animated.animate__bounce {
   --animate-duration: 2s;
 }
-
 /* This changes all the animations global */
 :root {
   --animate-duration: 800ms;
   --animate-delay: 0.9s;
   scroll-behavior: smooth;
 }
-
 .hidden {
   opacity: 0;  
   visibility: hidden;   
 }
-
 .visible {
   opacity: 1;
   visibility: visible;
 }
 
 
-
-/* GRIT_SET jarallax */
+/* :::::::::::::: 03 * GRIT_SET jarallax */ 
 .jarallax-keep-img {
   position: relative;
   z-index: 0; 
@@ -130,11 +294,9 @@
     z-index: -100; // Assicura che l'immagine sia sotto altri elementi
   } 
 }
-
 .jarallax-overlay div[id*="jarallax-container"] div {
   background-blend-mode: overlay;
 } 
-
 .loaded .jarallax-keep-img.overlay-in:before {
   content: '';
   opacity: 0;
@@ -143,7 +305,6 @@
   transition-delay: 0.9s;
   z-index: 10;
 }
-
 .jarallax-keep-img.overlay-in:before {
   content: '';
   left: 0;
@@ -156,9 +317,7 @@
 }
 
 
-
- 
-/* GRIT_SET Lenis js */ 
+/* :::::::::::::: 04 * GRIT_SET lenis.js */ 
 html.lenis {
   height: auto;
 }
@@ -171,13 +330,13 @@ html.lenis {
 .lenis.lenis-stopped {
   overflow: hidden;
 }
- 
 
 
+/* :::::::::::::: 05 * GRIT_SET loader */ 
 /* GRIT_SET loader
-  Note: impostazioni per modificare il loader Note: effetto al caricamento della pagina composto da logo sezioni e loader
-  Note: L'evento che fa avviare è la classe 'loaded' posizionato nel body
-  */
+Note: impostazioni per modificare il loader Note: effetto al caricamento della pagina composto da logo sezioni e loader
+Note: L'evento che fa avviare è la classe 'loaded' posizionato nel body
+*/
 #main-content {
   // filter: blur(13px);
   // -webkit-filter: blur(13px);
@@ -307,7 +466,7 @@ header {
     -ms-transform: rotate(-0deg);
     -o-transform: rotate(-0deg);
   }
-
+  
   100% {
     transform: rotate(360deg);
     -webkit-transform: rotate(360deg);
@@ -317,7 +476,7 @@ header {
   }
 }
 
-/* loader loaded effect exi*/
+/* loader loaded effect exit */
 .loaded #loader-wrapper .loader-section.section-left {
   transform: translateX(-100%);
   opacity: 0;
@@ -383,7 +542,41 @@ header {
 
 
 
-/* GRIT_SET gototop */
+.img-hover-inner {
+  .inner-img {
+      position: relative;
+      overflow: hidden;
+
+      img {
+          @include transition(all 1.5s ease-in-out);
+          transform: scale(1);
+      }
+
+      &:hover img {
+          transform: scale(1.03);
+      }
+
+      &:before {
+          content: '';
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: $grey;
+          // background: linear-gradient(0deg, rgba(240,250,249,1) 0%, rgba(87,201,187,1) 100%);
+          opacity: 1;
+          z-index: 10;
+          @include transition(all 0.5s ease-in-out);
+      }
+  }
+}
+
+.loaded .img-hover-inner .inner-img:before {
+  opacity: 0;
+  transition-delay: 1s;
+}
+
+
+/* :::::::::::::: 06 * GRIT_SET gototop */ 
 #gototop-btn {
   display: none;
   position: fixed;
@@ -401,8 +594,7 @@ header {
   border-radius: 50%;
 }
 
-
-/* GRIT_SET magic-mouse-js */
+/* :::::::::::::: 07 * GRIT_SET magic-mouse-js */ 
 body #magicMouseCursor {
   position: fixed;
   width: 35px;
@@ -469,7 +661,10 @@ body .magic-hover:hover {
   cursor: auto;
 }
 
-/* GRIT_SET progress-js */
+
+
+ 
+/* :::::::::::::: 08 * GRIT_SET progress-js */ 
 #nprogress .bar {
   background: $accent;
 }

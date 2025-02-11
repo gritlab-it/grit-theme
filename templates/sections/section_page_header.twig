@@ -1,3 +1,15 @@
+{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#}
+{# :::::::::::::: 01 * GRIT_SET section_page_header_1 #}
+{# :::::::::::::: 02 * GRIT_SET section_page_header_2 #}
+{# :::::::::::::: 03 * GRIT_SET section_page_header_3 #}
+{# :::::::::::::: 04 * GRIT_SET section_page_header_4 #}
+{# :::::::::::::: 05 * GRIT_SET section_page_header_5 #}
+{# :::::::::::::: 06 * GRIT_SET section_page_header_6 #}
+{# :::::::::::::: 07 * GRIT_SET section_page_header_7 #}
+{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#} 
+ 
+
+
 
 {% set bg_image_id = '' %} 
 {% if section.gallery|length == 1 %} 
@@ -7,7 +19,7 @@
 {% endif %}
  
 {% if 'section_page_header_1' in class %}
-{# section_page_header_1 #}
+{# :::::::::::::: 01 * GRIT_SET section_page_header_1 #}
 <div class="d-flex">
     <div class="polygon">{{breadcrumbs}} </div>
 </div> 
@@ -26,10 +38,10 @@
         </div>
     </div>
 </div>
-{# end section_page_header_1 #}
+{# :::::::::::::: 01 * GRIT_SET section_page_header_1 END #}
  
 {% elseif 'section_page_header_2' in class %}
-{# section_page_header_2 #}
+{# :::::::::::::: 07 * GRIT_SET section_page_header_2 #}
 <div class="sub-header {{ section.contained ? 'contained' : '' }} {% if 'parallax' in section.class %} jarallax-keep-img {% endif %}" style="background-image: url('{{Image(bg_image_id).src ?: post.thumbnail.src}}');">
 
     <div class="container-fluid">
@@ -41,10 +53,10 @@
         </div>
     </div>
 </div>
-{# end section_page_header_2 #} 
+{# :::::::::::::: 07 * GRIT_SET section_page_header_2 END #} 
 
 {% elseif 'section_page_header_3' in class %}
-{# section_page_header_3 #}
+{# :::::::::::::: 07 * GRIT_SET section_page_header_3 #}
 <div class="sub-header {{ section.contained ? 'contained' : '' }} {% if 'parallax' in section.class %} jarallax-keep-img {% endif %} " style="background-image: url('{{Image(bg_image_id).src ?: post.thumbnail.src}}');" >
     <div class="container-fluid" >
         <div class="row d-flex align-content-between">
@@ -60,10 +72,10 @@
         </div>
     </div>
 </div> 
-{# end section_page_header_3 #}
+{# :::::::::::::: 07 * GRIT_SET section_page_header_3 END #}
 
 {% elseif 'section_page_header_4' in class %}
-{# section_page_header_4 #}  
+{# :::::::::::::: 07 * GRIT_SET section_page_header_4 #}  
 <div class="sub-header {{ section.contained ? 'contained' : '' }} {% if 'parallax' in section.class %} jarallax-keep-img {% endif %} " style="background-image: url('{{Image(bg_image_id).src ?: post.thumbnail.src}}');" >
     <div class="container-fluid">
         <div class="row">
@@ -89,10 +101,10 @@
         </div>
     </div>
 </div>
-{# end section_page_header_4 #}
+{# :::::::::::::: 07 * GRIT_SET section_page_header_4 END #}
 
 {% elseif 'section_page_header_5' in class %}
-{# .section_page_header_5 #} 
+{# :::::::::::::: 07 * GRIT_SET section_page_header_5 #}
 <div class=" sub-header {{ section.contained ? 'contained' : '' }} " >
     <div class="container-fluid" >
         <div class="row d-flex align-content-between">
@@ -126,10 +138,10 @@
         });
     });
 </script>
-{# end .section_page_header_5 #}
+{# :::::::::::::: 07 * GRIT_SET section_page_header_5 END #}
 
 {% elseif 'section_page_header_6' in class %}
-{# section_page_header_6 #}
+{# :::::::::::::: 07 * GRIT_SET section_page_header_6 #}
 <div class="sub-header   {{ section.contained ? 'contained' : '' }} {% if 'parallax' in section.class %} jarallax-keep-img {% endif %} " style="background-image: url('{{Image(bg_image_id).src ?: post.thumbnail.src}}');" > 
    <div class="inner-header position-absolute">
      <div class="container-fluid p-2 " >
@@ -147,7 +159,7 @@
     </div>
    </div>
 </div> 
-{# end section_page_header_6 #}
+{# :::::::::::::: 07 * GRIT_SET section_page_header_6 END #}
 
 {% else %}
 

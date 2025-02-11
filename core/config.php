@@ -2,12 +2,12 @@
 
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * A_SETTINGS Configurazione variabili GLOBALS
+::::::::::::::    * GRIT_SET Configurazione variabili GLOBALS
                     // Asseganzione variabili grit_setting ad array assets_options
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * A_SETTINGS assets_option third parties
+::::::::::::::    * GRIT_SET assets_option third parties
                     // Asseganzione variabili grit_setting ad array assets_options
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
@@ -72,7 +72,6 @@ $GLOBALS['assets_options'] = array(
 
     // Inserisci API key di Google Recaptcha V3 console.cloud.google.com/security/recaptcha
     'GRIT_SETTING_RECAPTCHA' => get_theme_mod('grit_setting_recaptcha'),
- 
 
 );
 

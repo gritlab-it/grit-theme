@@ -8,8 +8,6 @@
 
 /* :::::::::::::: 01 * GRIT_SET Color */ 
 
- 
-
 $accent: #fe7f2d;
 
 $light: #F8F9FA;
@@ -90,6 +88,9 @@ $colors: (
 
   .color-#{$name} {
     color: $value !important;
+    label {
+      color: $value !important;
+    }
   }
 
   .border-#{$name} {
@@ -169,7 +170,7 @@ $xxxl: 1920;
 
 $c-gap: 140;
 
-$general-radius: 3rem;
+$general-radius: 10px;
 
 /* :::::::::::::: 05 * GRIT_SET Trasitions */ 
 

@@ -2,7 +2,7 @@
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * A_SETTINGS WOOOCOMMERCE
+::::::::::::::    * GRIT_SET WOOOCOMMERCE
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
@@ -11,7 +11,7 @@
 if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Conditional function detecting if the current user has an active subscription
+    ::::::::::::::    * GRIT_SET Conditional function detecting if the current user has an active subscription
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
     function has_active_subscription($user_id = null)
     {
@@ -33,7 +33,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
     }
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Conditionally checking and adding your subscription when a product is added to cart
+    ::::::::::::::    * GRIT_SET Conditionally checking and adding your subscription when a product is added to cart
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
     add_action('woocommerce_add_to_cart', 'add_subscription_to_cart', 10, 6);
@@ -60,7 +60,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
 
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Add custom checkout field: woocommerce_review_order_before_submit
+    ::::::::::::::    * GRIT_SET Add custom checkout field: woocommerce_review_order_before_submit
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
     add_action('woocommerce_review_order_before_submit', 'my_custom_checkout_field_condizioni_generali');
@@ -156,7 +156,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
     }
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Inseriemnto del Prezzo Totale se disponibile nel Prodotto
+    ::::::::::::::    * GRIT_SET Inseriemnto del Prezzo Totale se disponibile nel Prodotto
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
 
@@ -191,7 +191,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
     add_filter('woocommerce_cart_item_name', 'show_sku_in_cart_items', 99, 3);
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Remove image zoom product
+    ::::::::::::::    * GRIT_SET Remove image zoom product
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
     function remove_image_zoom_support()
@@ -213,7 +213,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
 
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Rename product data tabs
+    ::::::::::::::    * GRIT_SET Rename product data tabs
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
     add_filter('woocommerce_product_tabs', 'woo_rename_tabs', 98);
     function woo_rename_tabs($tabs)
@@ -227,7 +227,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
     }
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * A_SETTINGS Utility function to get the childs array from a parent product category
+    ::::::::::::::    * GRIT_SET Utility function to get the childs array from a parent product category
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
 

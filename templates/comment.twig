@@ -1,10 +1,18 @@
+{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#}
+{# :::::::::::::: 01 * GRIT_SET Comment #} 
+{# :::::::::::::: 02 * GRIT_SET comment-form #}
+{# :::::::::::::: 03 * GRIT_SET child comment #}
+{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#} 
+
 <div class="blog-comment {{comment.comment_type}}" id="blog-comment-{{comment.ID}}">
 	<h5 class="comment-author">{{comment.author.name}} {{__('commenta', 'grit_theme')}}</h5>
 	<div class="comment-content">{{comment.comment_content|wpautop}}</div> 
 	<section class="comment-box contact-form-style-1"> 
-		<!-- comment form -->
+
+		{# :::::::::::::: 02 * GRIT_SET comment-form #} 
 		{% include "comment-form.twig" %} 
-		<!-- child comments -->
+		
+		{# :::::::::::::: 02 * GRIT_SET child comment #}  
 		{% if post.comments %}
 			<h4> {{__('Risposte', 'grit_theme')}}</h4>
 			<div class="comments">
@@ -13,5 +21,7 @@
 				{% endfor %}
 			</div>
 		{% endif %} 
+		{# :::::::::::::: 02 * GRIT_SET child comment END #}
+
 	</section>
 </div>

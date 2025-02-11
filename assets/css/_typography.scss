@@ -1,3 +1,11 @@
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* :::::::::::::: 01 * GRIT_SET typography */
+/* :::::::::::::: 02 * GRIT_SET btn */
+/* :::::::::::::: 03 * GRIT_SET btn-color */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+
+
+/* :::::::::::::: 01 * GRIT_SET typography */
 p {
   font-family: $font-primary;
 }
@@ -19,6 +27,8 @@ h6,
 .h6 {
   font-family: $font-primary;
 }
+
+ 
 
 .text-muted {
   color: $text-color;
@@ -44,7 +54,7 @@ a:hover {
   text-decoration: none;
 }
 
-/* A_SETTINGS button */
+/* :::::::::::::: 02 * GRIT_SET btn */
 .btn {
   border-radius: 3px;
   padding: 0.545em 1em;
@@ -129,7 +139,7 @@ a:hover {
 
  
 
-// Pulsanti per ogni colore
+/* :::::::::::::: 03 * GRIT_SET btn-color */
 
 // Accent
 .btn-accent {
@@ -381,10 +391,13 @@ a:hover {
 
 
 
+
+
+
+
 // @mixin set_size($property, $variable1, $variable2: 1920) {
 //   #{$property}: calc(#{$variable1}/#{$variable2}*100vw);
 // }
-
 
 // h1 {
 //   @include set_size ('font-size', 54 );

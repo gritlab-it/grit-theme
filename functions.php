@@ -1,7 +1,7 @@
 <?php
 
 /*
-:::::::::::::     * A_SETTINGS GRIT-Framework includes
+:::::::::::::     * GRIT_SET GRIT-Framework includes
 The $grit_includes array determines the code library included in your theme.
 Add or remove files to the array as needed. Supports child theme overrides.
 Please note that missing files will produce a fatal error.
@@ -121,26 +121,26 @@ class StarterSite extends Timber\Site {
 		$context['menu']  = new Timber\Menu();
 		$context['site']  = $this;
 		
-		// * A_SETTINGS Site
+		// * GRIT_SET Site
 		$context['home'] = site_url();
 		
-		// * A_SETTINGS Logo
+		// * GRIT_SET Logo
 		
 		$custom_logo_id = get_theme_mod('custom_logo');
 		$custom_logo_url = wp_get_attachment_image_src($custom_logo_id, 'full');
 		$context['custom_logo_url'] = $custom_logo_url;
 		
-		// * A_SETTINGS Menu
+		// * GRIT_SET Menu
 		$context['primary_menu'] = new Timber\Menu('Primary Navigation');
 		// $context['footer_menu'] = new Timber\Menu('Footer Navigation 1');
 		
-		// * A_SETTINGS Theme Dir
+		// * GRIT_SET Theme Dir
 		$context['tema_url'] = get_template_directory_uri();
 		$context['urltema'] = get_template_directory_uri();
 		$context['template_directory_uri'] = get_template_directory_uri();
 		$context['stylesheet_directory_uri'] = get_stylesheet_directory_uri();
 		
-		// * A_SETTINGS Post
+		// * GRIT_SET Post
 		$context['post_title'] = get_the_title();
 		
 		$context['title'] = get_the_title();
@@ -158,24 +158,24 @@ class StarterSite extends Timber\Site {
 		$context['intro'] = get_the_excerpt();
 		$context['the_excerpt'] = get_the_excerpt();
 		
-		// * A_SETTINGS Placeholder
+		// * GRIT_SET Placeholder
 		//   https://picsum.photos/1920/1080?random
 		$context['placeholder'] = 'https://picsum.photos/1920/1080?';
 		
-		// * A_SETTINGS Time & Data
+		// * GRIT_SET Time & Data
 		$context['time'] = get_the_time('c');
 		$context['date'] = get_the_date();
 		
-		// * A_SETTINGS User
+		// * GRIT_SET User
 		$context['author_url'] = get_author_posts_url(get_the_author_meta('ID'));
 		$context['author'] = get_the_author();
 		
-		// * A_SETTINGS User WooCommerce Memberships
+		// * GRIT_SET User WooCommerce Memberships
 		if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
 			// $context['memberships'] = $memberships = wc_memberships_get_user_active_memberships(get_current_user_id());
 		}
 		
-		// * A_SETTINGS Footer
+		// * GRIT_SET Footer
 		$context['pre_footer'] = Timber::get_widgets('pre_footer');
 		$context['footer_col_1'] = Timber::get_widgets('footer_col_1');
 		$context['footer_col_2'] = Timber::get_widgets('footer_col_2');
@@ -183,10 +183,10 @@ class StarterSite extends Timber\Site {
 		$context['footer_col_4'] = Timber::get_widgets('footer_col_4');
 		$context['footer_bottom'] = Timber::get_widgets('footer_bottom');
 		
-		// * A_SETTINGS Sidebar
+		// * GRIT_SET Sidebar
 		$context['sidebar_primary'] = Timber::get_widgets('sidebar_primary');
 		
-		// * A_SETTINGS Slide 
+		// * GRIT_SET Slide 
 		$context['grit_setting_header'] = get_theme_mod("grit_setting_header");
 		$context['grit_setting_footer'] = get_theme_mod("grit_setting_footer");
 		
@@ -195,16 +195,25 @@ class StarterSite extends Timber\Site {
 		$context['grit_setting_magic_mouse'] = get_theme_mod("grit_setting_magic_mouse");
 
 
-		$args = array(
-			'post_type' => 'post',
-			'posts_per_page' => 8, 
+		$post_args = array(
+			'post_type' => 'post', 
+			'posts_per_page' => get_option('posts_per_page'), 
 			'orderby' => 'date',
 			'order' => 'ASC',
 		);
-		$context['last_posts'] = $last_posts = new Timber\PostQuery($args); 
+		$context['archive_posts'] = $archive_posts = new Timber\PostQuery($post_args); 
+
+
+		$section_args = array(
+			'post_type' => 'section',
+			'posts_per_page' => get_option('posts_per_page'), 
+			'orderby' => 'date',
+			'order' => 'ASC',
+		);
+		$context['archive_section'] = $archive_section = new Timber\PostQuery($section_args); 
 		
 		/*
-		// * A_SETTINGS Google Fonts
+		// * GRIT_SET Google Fonts
 		// Attiva Google Fonts per ogni riga fonts.google.com
 		*/
 		
@@ -223,7 +232,7 @@ class StarterSite extends Timber\Site {
 		$context['setting_google_font_names'] = $fontNames;
 
 		
-		// * A_SETTINGS Setting
+		// * GRIT_SET Setting
 		$context['setting_intestazione'] = get_theme_mod('grit_setting_intestazione');
 		$context['setting_piva'] = get_theme_mod('grit_setting_piva');
 		$context['setting_rea'] = get_theme_mod('grit_setting_rea');
@@ -246,7 +255,7 @@ class StarterSite extends Timber\Site {
 		$context['setting_linkedin'] = get_theme_mod('grit_setting_linkedin');
 		$context['setting_instagram'] = get_theme_mod('grit_setting_instagram');
 		
-		// * A_SETTINGS WooCommerce 
+		// * GRIT_SET WooCommerce 
 		if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
 			if (WC()->cart->get_cart_contents_count() == 0) {
 				$context['carrello'] = '';
@@ -255,11 +264,11 @@ class StarterSite extends Timber\Site {
 			}
 		}
 		
-		// * A_SETTINGS Google Maps
+		// * GRIT_SET Google Maps
 		$gmaps_api_key = get_theme_mod('grit_setting_maps');
 		$context['google_maps_api'] = 'https://maps.googleapis.com/maps/api/js?key=' . $gmaps_api_key . '&loading=async&callback=initMap';
 
-		// * A_SETTINGS Google Recaptcha v3		
+		// * GRIT_SET Google Recaptcha v3		
 		function add_recaptcha_lib() {
 			$recaptcha_api_key = get_theme_mod('grit_setting_recaptcha');
 			if (!empty($recaptcha_api_key)) {
@@ -270,7 +279,7 @@ class StarterSite extends Timber\Site {
 		
 		
 		
-		// * A_SETTINGS Yoast
+		// * GRIT_SET Yoast
 		if ( is_plugin_active( 'wordpress-seo/wp-seo.php' ) || is_plugin_active( 'wordpress-seo-premium/wp-seo-premium.php' ) ) {
 			$id = get_the_ID();
 			$post = get_post($id, ARRAY_A);
@@ -377,10 +386,10 @@ add_action( 'after_setup_theme', 'theme_add_woocommerce_support' );
 
 new StarterSite();
 
-// * A_SETTINGS Allow excertp in page
+// * GRIT_SET Allow excertp in page
 add_post_type_support('page', 'excerpt');
 
-// * A_SETTINGS gmap
+// * GRIT_SET gmap
 // Method 1: Filter.
 function my_acf_google_map_api($api) {
     $api['key'] = get_theme_mod('grit_setting_maps');
@@ -394,7 +403,7 @@ function my_acf_init() {
 }
 add_action('acf/init', 'my_acf_init');
 
-// * A_SETTINGS Remove the default search var and add a custom one
+// * GRIT_SET Remove the default search var and add a custom one
 
 if ( ! is_admin() ) {
 	add_filter('init', function () {
@@ -411,7 +420,7 @@ if ( ! is_admin() ) {
 	});
 };
 
-// * A_SETTINGS CF7
+// * GRIT_SET CF7
 // Create post form CF7
 // function save_posted_data($posted_data)
 // {
@@ -500,15 +509,19 @@ add_filter( 'wp_check_filetype_and_ext', 'allow_svg_mime_types', 10, 4 );
 
 
 
+add_filter('acf/update_value', 'skip_empty_acf_fields', 10, 3);
+
+function skip_empty_acf_fields($value, $post_id, $field) {
+    // Se il valore è vuoto, restituisci null per evitare di salvare il campo
+    if (empty($value)) {
+        return null;
+    }
+    return $value;
+}
 
 
 
 
 
 
-
-
-
-
-
- 
+add_filter('doing_it_wrong_trigger_error', '__return_false', 0);

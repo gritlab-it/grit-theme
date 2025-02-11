@@ -24,9 +24,9 @@
 $context = Timber::context(); 
 $timber_post     = new Timber\Post();
 $context['post'] = $timber_post;
-$templates        = array( 'page.twig', 'index.twig' );
+$templates       = array( 'page.twig', 'index.twig' );
 
-//  A_SETTINGS Assegno tutte le variabili di ACF a Twig
+// * GRIT_SET Assegno tutte le variabili di ACF a Twig
 // Verifica se ACF è attivo prima di chiamare la funzione get_field_objects()
 if (function_exists('get_field_objects')) {
     $fields = get_field_objects(get_queried_object_id($timber_post));
@@ -42,17 +42,6 @@ if (function_exists('get_field_objects')) {
     error_log('ACF non è attivo. Impossibile recuperare i campi personalizzati.');
 }
 
-
-
- //  A_SETTINGS Main query
- $args = array(
-    'post_type' => 'post', 
-    'paged' => 2,
-    'orderby' => 'date',
-    'order' => 'ASC',
-);
-$context['posts'] = $posts = new Timber\PostQuery($args); 
- 
 
 if ( is_front_page() ) {  
     array_unshift( $templates, 'home.twig' );

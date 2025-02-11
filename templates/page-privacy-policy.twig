@@ -1,24 +1,31 @@
+{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#}
+{# :::::::::::::: 01 * GRIT_SET Page Privacy Policy #} 
+{# :::::::::::::: 02 * GRIT_SET Section Pre Content #} 
+{# :::::::::::::: 03 * GRIT_SET Privacy Policy Content #} 
+{# :::::::::::::: 04 * GRIT_SET Section #} 
+{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#} 
+
 {% extends "base.twig" %}
+
 {% block content %}
 
+<article class="post-type-{{post.post_type}}" id="post-{{post.ID}}">
 
-    <article class="post-type-{{post.post_type}}" id="post-{{post.ID}}">
-
- 
-
-
-    {% for section in sections %}
+{# :::::::::::::: 02 * GRIT_SET Section Pre Content #} 
+	{% for section in sections %} 
 	    {% if section.pre_content %}
 			{% set section = section|merge({'section_index': loop.index}) %} 
 			{% include ['/sections/section.twig'] with section %}
 	    {% endif %}
 	{% endfor %}
- 
+{# :::::::::::::: 02 * GRIT_SET Section Pre Content END  #} 
+
+{# :::::::::::::: 03 * GRIT_SET Privacy Policy Content #} 
 	{% if content is not empty %}
 	    <section class="section_page contained py-3">
 	        <div class="container-fluid">
 	            <div class="row">
-	                <div class="col-12">
+	                <div class="col-12">   
 	                    {{ content }}
 	                </div>
 	            </div>
@@ -118,7 +125,7 @@
                                     Cookies
                                 </h4>
                                 <p>
-                                    I dettagli sui cookie utilizzati sul Sito sono disponibili nella “cookie policy” consultabile al
+                                    I dettagli sui cookie utilizzati sul Sito sono disponibili nella “Privacy policy” consultabile al
                                                                             seguente link, ove potrete personalizzare l’esperienza d’uso del Sito.
                                 </p>
                                 <br>
@@ -279,16 +286,19 @@
 	                </div>
 	            </div>
 	        </div>
-	    </section> 
+	    </section>  
 	{% endif %}
+{# :::::::::::::: 03 * GRIT_SET Privacy Policy Content END #} 
 
+{# :::::::::::::: 04 * GRIT_SET Section #} 
 	{% for section in sections %}
 	    {% if not section.pre_content %}
 			{% set section = section|merge({'section_index': loop.index}) %} 
 			{% include ['/sections/section.twig'] with section %}
 	    {% endif %}
 	{% endfor %} 
-    </article>
+{# :::::::::::::: 04 * GRIT_SET Section #} 
 
+</article>
 
-{% endblock %}
+{% endblock %} 

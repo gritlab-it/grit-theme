@@ -1,12 +1,18 @@
-/* A_SETTINGS INDEX CSS  
-02 * A_SETTINGS Font
-*/ 
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* :::::::::::::: 00 * GRIT_SET INDEX CSS */
+/* :::::::::::::: 01 * GRIT_SET breakpoints */
+/* :::::::::::::: 02 * GRIT_SET variables */ 
+/* :::::::::::::: 03 * GRIT_SET content */ 
+/* :::::::::::::: 04 * GRIT_SET typography */ 
+/* :::::::::::::: 05 * GRIT_SET header */ 
+/* :::::::::::::: 06 * GRIT_SET footer */ 
+/* :::::::::::::: 07 * GRIT_SET sections */ 
+/* :::::::::::::: 08 * GRIT_SET forms */ 
+/* :::::::::::::: 09 * GRIT_SET plugins */  
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-/*  
-26 * A_SETTINGS breakpoints
-  Note: Impostazioni per togliere il cursore definitivamente
-t:Bootstrap 4 breakpoints
-Note:Extra small devices (portrait phones, less than 576px)
+/* :::::::::::::: 01 * GRIT_SET breakpoints */
+/* Note:Extra small devices (portrait phones, less than 576px)
 Note:No media query since this is the default in Bootstrap because it is "mobile first*/
 /* Small devices (landscape phones, 576px and up*/
 @media (min-width: 576px) {}
@@ -23,33 +29,33 @@ Note:No media query since this is the default in Bootstrap because it is "mobile
 /* Custom media queries Set width to make card deck cards 100% widt*/
 @media (max-width: 950px) {}
 
-/* TODO readme paletta colori dedicata alle note tod*/
+/* :::::::::::::: 02 * GRIT_SET variables */ 
+@import './variables';  
+
+/* :::::::::::::: 03 * GRIT_SET content */ 
+@import './content';  
+
+/* :::::::::::::: 04 * GRIT_SET typography */ 
+@import './typography';  
+
+/* :::::::::::::: 05 * GRIT_SET header */ 
+@import './header';  
+
+/* :::::::::::::: 06 * GRIT_SET footer */ 
+@import './footer';  
+
+/* :::::::::::::: 07 * GRIT_SET sections */ 
+@import './sections';  
+ 
+/* :::::::::::::: 08 * GRIT_SET forms */ 
+@import './forms';  
+
+/* :::::::::::::: 09 * GRIT_SET plugins */  
+@import './plugins';  
+
+
+/* TODO readme paletta colori dedicata alle note todo */
 /*
 f94144,f3722c,f8961e,f9844a,f9c74f,90be6d,43aa8b,4d908e,577590,277da1
 https://coolors.co/f94144-f3722c-f8961e-f9844a-f9c74f-90be6d-43aa8b-4d908e-577590-277da1
 */
-
-
-/*  03 * A_SETTINGS Variables */
-@import './variables';  
-
-/*  03 * A_SETTINGS Content */
-@import './content';  
-
-/*  03 * A_SETTINGS Variables */
-@import './typography';  
-
-/*  03 * A_SETTINGS Header */
-@import './header';  
-
-/*  03 * A_SETTINGS Footer */
-@import './footer';  
-
-/*  03 * A_SETTINGS Sections */
-@import './sections';  
- 
-/*  03 * A_SETTINGS Forms */
-@import './forms';  
-
-/*  03 * A_SETTINGS Plugins */
-@import './plugins';  

@@ -1,21 +1,57 @@
 
-{% if 'section_contact_1' in class %}
+ {#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#}
+{# :::::::::::::: 01 * GRIT_SET section_contact_2col #}
+{# :::::::::::::: 02 * GRIT_SET section_contact #} 
+{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#} 
 
-{# .section_contact_1 #}
+
+{# :::::::::::::: 01 * GRIT_SET section_contact_2col #}
+{% if 'section_contact_2col' in class %}
+    {% set columns_1 = "col-12 col-md-5" %} 
+    {% set columns_2 = "col-12 col-md-7" %} 
+{% else %}
+    {% set columns_1 = col_classes|join(' ')  | default('col col-12 ') %}
+    {% set columns_2 = col_classes|join(' ')  | default('col col-12 ') %}
+{% endif %}
+
+{# :::::::::::::: 02 * GRIT_SET section_contact #} 
 <div class="container-fluid ">
-    <div class="row">
-        <div class="col-12 col-md-5">
+    <div class="row ">
+        <div class="{{ columns_1 }} mx-auto in__animate " data-animation="animate__fadeIn animate__slow ">
             {% if section.title %}
                 <h1 class="">
                     {{section.title}}
                 </h1>
             {% endif %}
-            {% if section.text %}
-                <p>
-                    {{section.text}} 
-                </p> 
+            {% if section.text %} 
+                    {{section.text}}  
             {% endif %}
-            <div class=" py-3"> 
+            {% if  section.link_1 is not empty or  section.link_2 is not empty %} 
+            <div class="box-buttons  py-3 in__animate " data-animation="animate__fadeIn animate__slow ">
+                {% if  section.link_1 %}
+                        {% set btn = {
+                        'title':  section.link_1.title,
+                        'url':  section.link_1.url,
+                        'target':  section.link_1.target,
+                        'style': 'btn btn-' ~ section.color_link_1 ~ ' btn-md',
+                        }
+                        %}
+                        {% include ['/partials/btn.twig'] with btn %}
+                {% endif %}
+
+                {% if  section.link_2 %}
+                        {% set btn = {
+                        'title':  section.link_2.title,
+                        'url':  section.link_2.url,
+                        'target':  section.link_2.target,
+                        'style': 'btn btn-' ~ section.color_link_2 ~ ' btn-md',
+                        }
+                        %}
+                        {% include ['/partials/btn.twig'] with btn %}
+                {% endif %}
+            </div>
+            {% endif %} 
+            <div class=" py-3 in__animate " data-animation="animate__fadeIn animate__slow "> 
                 {% if setting_indirizzo_1 %}
                 <p>
                     <i class="fas fa-map-marker-alt"></i>
@@ -39,9 +75,8 @@
                 </p>  
                 {% endif %}  
             </div>
-            <div class="inner-social d-inline-block h3 py-3">
-                <p>
-                {% if setting_facebook %}
+            <div class="inner-social d-inline-block h3 py-3 in__animate " data-animation="animate__fadeIn animate__slow ">
+                <p>{% if setting_facebook %}
                     <a href="{{setting_facebook}}" target="_blank" class=" ">
                         <i class="fab fa-facebook"></i>
                     </a>
@@ -58,84 +93,15 @@
                 {% endif %}
                 </p>
             </div>
-            
-        </div>  
-        <div class="col-12 col-md-7">
-            <div class="contact-form-style-2"> 
-                {{ function('do_shortcode', section.cf7) }}
-            </div>
-        </div> 
-    </div>
-</div> 
-{# end .section_contact_1 #}
-
-{% else %}
-
-{# .section_contact #}
-<div class="container-fluid ">
-    <div class="row">
-        <div class="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2 ">
-            {% if section.title %}
-                <h1 class="">
-                    {{section.title}}
-                </h1>
-            {% endif %}
-            {% if section.text %}
-                <p>
-                    {{section.text}} 
-                </p> 
-            {% endif %}
-            <div class=" py-3"> 
-                {% if setting_indirizzo_1 %}
-                <p>
-                    <i class="fas fa-map-marker-alt"></i>
-                    {{ setting_indirizzo_1 }}
-                </p>  
-                {% endif %} 
-                {% if setting_mail_1 %}
-                <p>
-                    <i class="fas fa-at"></i>
-                    <a href="mailto:{{ setting_mail_1 }}">
-                        {{ setting_mail_1 }}
-                    </a>
-                </p>  
-                {% endif %} 
-                {% if setting_tel_1 %}
-                <p>
-                    <i class="fas fa-phone"></i>
-                    <a href="tel:{{ setting_tel_1 }}">
-                        {{ setting_tel_1 }}
-                    </a>
-                </p>  
-                {% endif %}  
-            </div>
-            <div class="inner-social d-inline-block h3 py-3">
-                <p>{% if setting_facebook %}
-                    <a href="{{setting_facebook}}" target="_blank" class=" ">
-                        <i class="fab fa-facebook"></i>
-                    </a>
-                {% endif %}
-                {% if setting_instagram %}
-                    <a href="{{setting_instagram}}" target="_blank" class=" ">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                {% endif %}
-                {% if setting_linkedin %}
-                    <a href="{{setting_linkedin}}" target="_blank" class=" ">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                {% endif %}
-            </p>
-            </div>
-        </div>  
-        <div class="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2 ">
-            <div class="contact-form-style-1">
+        </div>
+        <div class="{{ columns_2 }} mx-auto in__animate " data-animation="animate__fadeIn animate__slow "> 
+            <div class="contact-form">
                 {{ function('do_shortcode', section.cf7) }}
             </div>
         </div> 
     </div>
 </div>
-{# end .section_contact #}
+{# :::::::::::::: 02 * GRIT_SET section_contact END #} 
 
-{% endif %}
+ 
  

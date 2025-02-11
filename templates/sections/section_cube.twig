@@ -1,39 +1,41 @@
-{# section_cube #}
- 
-    <div class="container-fluid ">
-        <div class="row align-items-stretch {{ section.contained ? 'bg-'~ section.background_color : '' }} ">
-            
-            
-            <div class="col-12 col-md-8 col-lg-6 p-0 m-0 col-text d-flex flex-column justify-content-center {{ section.contained ? '' : 'bg-'~ section.background_color }} order-first {% if section.invert %} order-md-last {% else %}  {% endif %}">
-                <div class="inner-text color-{{section.color}}  in__animate " data-animation="animate__fadeIn animate__slow ">
-                    {% if section.title %}
-                        <h1 class=" color-{{section.text_color}}">
-                            {{section.title}}
-                        </h1>
-                    {% endif %}
-                    
-                    {% if section.text %}
-                        <div class="py-3 color-{{section.text_color}}">
-                            {{section.text}} 
-                        </div>
-                    {% endif %}
+{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#}
+{# :::::::::::::: 01 * GRIT_SET section_cube #} 
+{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#}
 
-                    {% if section.lists %}
-                    <div class="row pb-4">
-                        {% for item in section.lists %}
-                            <div class="col-12 item-list  in__animate " data-animation="animate__fadeIn animate__slow " >
-                                <div class="inner-item-list border-{{section.text_color}}  d-flex align-items-center mb-3 pb-2">
-                                {% if item.icon %}
-                                    <img src="{{ Image(item.icon.id).src|resize(60,60)}}" alt="" class="img-fluid pr-2">
-                                {% endif %} 
-                                <div class="p-0 m-0 color-{{section.text_color}}">
-                                    {{item.text}}
-                                </div>
-                                </div>
+{# :::::::::::::: 01 * GRIT_SET section_cube #}  
+<div class="container-fluid ">
+    <div class="row align-items-stretch {{ section.contained ? 'bg-'~ section.background_color : '' }} ">
+        <div class="col-12 col-md-8 col-lg-6 p-0 m-0 col-text d-flex flex-column justify-content-center {{ section.contained ? '' : 'bg-'~ section.background_color }} order-first {% if section.invert %} order-md-last {% else %}  {% endif %}">
+            <div class="inner-text color-{{section.color}}  in__animate " data-animation="animate__fadeIn animate__slow ">
+                {% if section.title %}
+                    <h1 class=" color-{{section.text_color}}">
+                        {{section.title}}
+                    </h1>
+                {% endif %}
+                
+                {% if section.text %}
+                    <div class="py-3 color-{{section.text_color}}">
+                        {{section.text}} 
+                    </div>
+                {% endif %}
+                {% if section.lists %}
+                <div class="row pb-4">
+                    {% for item in section.lists %}
+                        <div class="col-12 item-list  in__animate " data-animation="animate__fadeIn animate__slow " >
+                            <div class="inner-item-list border-{{section.text_color}}  d-flex align-items-center mb-3 pb-2">
+                            {% if item.icon %}
+                                <img src="{{ Image(item.icon.id).src|resize(60,60)}}" alt="" class="img-fluid pr-2">
+                            {% endif %} 
+                            <div class="p-0 m-0 color-{{section.text_color}}">
+                                {{item.text}}
                             </div>
-                        {% endfor %} 
-                    </div> 
-                    {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %} 
+                </div> 
+                {% endif %}
+                
+                {% if section.link_1 is not empty or section.link_2 is not empty %} 
                     <div class="box-buttons  in__animate " data-animation="animate__fadeIn animate__slow "> 
                     {% if section.link_1 %}
                         {% set btn = {
@@ -45,7 +47,6 @@
                         %}
                         {% include ['/partials/btn.twig'] with btn %}
                     {% endif %}
-
                     {% if section.link_2 %}
                         {% set btn = {
                             'title': section.link_2.title,
@@ -55,80 +56,58 @@
                             }
                         %}
                         {% include ['/partials/btn.twig'] with btn %}
-                    {% endif %}
-                    
-                    </div>
-                    
-
-                </div>
+                    {% endif %} 
+                    </div> 
+                {% endif %}
             </div>
- 
-            <div class="col-12 col-md-4 col-lg-6 p-0 m-0 col-img order-last 
-                {% if 'parallax' in section.class %} jarallax-keep-img {% endif %} 
-                {% if section.gallery|length == 1 %} single-image {% endif %}
-                {% if section.invert %} order-md-first {% else %}  {% endif %}"  
-                {% if section.gallery|length == 1 %} style="background-image: url('{{ Image(section.gallery[0].id).src|resize(1400,1400)}}');" {% endif %} data-speed="0.90">
-                
-                {% if section.gallery|length > 1 %}
-                    <div class="owl-carousel owl-theme carousel-cube" > 
-                        {% for gallery_img in section.gallery %}
+        </div>
 
-                            {% if 'parallax' in section.class %}
+        <div class="col-12 col-md-4 col-lg-6 p-0 m-0 col-img order-last 
+            {% if 'parallax' in section.class %}  {% if section.gallery|length == 1 %} jarallax-keep-img {% endif %} {% endif %} 
+            {% if section.gallery|length == 1 %} single-image {% endif %}
+            {% if section.invert %} order-md-first {% else %}  {% endif %}"  
+            {% if section.gallery|length == 1 %} style="background-image: url('{{ Image(section.gallery[0].id).src|resize(1400,1400)}}');" {% endif %} data-speed="0.90">
+            
+            {% if section.gallery|length > 1 %}
+                <div class="owl-carousel owl-theme carousel-cube" > 
+                    {% for gallery_img in section.gallery %}
 
-                                <div class="jarallax-keep-img "  data-speed="0.90" > 
-                                    {% set image = {
-                                        'alt': gallery_img.alt,
-                                        'src': Image(gallery_img.id).src|resize(1400,1400) ,
-                                        'class': 'img-fluid jarallax-img'
-                                    } %}
-                                    {% include ['/partials/img.twig'] with image %}   
-                                </div>
+                        <div class="item-gallery">
+                        {% if 'parallax' in section.class %}
 
-                            {% else %}
-
+                            <div class="jarallax-keep-img "  data-speed="0.90" > 
                                 {% set image = {
                                     'alt': gallery_img.alt,
                                     'src': Image(gallery_img.id).src|resize(1400,1400) ,
-                                    'class': 'img-fluid '
+                                    'class': 'img-fluid jarallax-img ddd'
                                 } %}
-                                {% include ['/partials/img.twig'] with image %} 
+                                {% include ['/partials/img.twig'] with image %}   
+                            </div>
 
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                {% else %} 
-                    {# {% set image = {
-                        'alt': section.gallery[0].alt,
-                        'src': Image(section.gallery[0].id).src|resize(1400,1400) ,
-                        'class': 'img-fluid '
-                    } %}
-                    {% include ['/partials/img.twig'] with image %}   #}
-                {% endif %}
-                
-                
-            </div>
+                        {% else %}
+
+                            {% set image = {
+                                'alt': gallery_img.alt,
+                                'src': Image(gallery_img.id).src|resize(1400,1400) ,
+                                'class': 'img-fluid '
+                            } %}
+                            {% include ['/partials/img.twig'] with image %} 
+
+                        {% endif %}
+                        </div>
+                        
+                    {% endfor %}
+                </div>
+            {% else %} 
+                {# {% set image = {
+                    'alt': section.gallery[0].alt,
+                    'src': Image(section.gallery[0].id).src|resize(1400,1400) ,
+                    'class': 'img-fluid '
+                } %}
+                {% include ['/partials/img.twig'] with image %}   #}
+            {% endif %}
+             
         </div>
     </div>
- 
-
-
-
-
-<script>
- 
-
- $(document).ready(function () {
-     $(".carousel-cube").owlCarousel({
-         loop: true,
-         margin: 0,
-         responsiveClass: true, 
-         nav: true,
-         dots: true,
-         navText: ["<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"],
-         items: 1,
-     });
- });
- 
- </script>
-
-{# end section_cube #}
+</div> 
+{# :::::::::::::: 01 * GRIT_SET section_cube END #}  

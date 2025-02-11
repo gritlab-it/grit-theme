@@ -1,24 +1,25 @@
 @charset "UTF-8";
-/* A_SETTINGS INDEX CSS  
-02 * A_SETTINGS Font
-*/
-/*  
-26 * A_SETTINGS breakpoints
-  Note: Impostazioni per togliere il cursore definitivamente
-t:Bootstrap 4 breakpoints
-Note:Extra small devices (portrait phones, less than 576px)
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* :::::::::::::: 00 * GRIT_SET INDEX CSS */
+/* :::::::::::::: 01 * GRIT_SET breakpoints */
+/* :::::::::::::: 02 * GRIT_SET variables */
+/* :::::::::::::: 03 * GRIT_SET content */
+/* :::::::::::::: 04 * GRIT_SET typography */
+/* :::::::::::::: 05 * GRIT_SET header */
+/* :::::::::::::: 06 * GRIT_SET footer */
+/* :::::::::::::: 07 * GRIT_SET sections */
+/* :::::::::::::: 08 * GRIT_SET forms */
+/* :::::::::::::: 09 * GRIT_SET plugins */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* :::::::::::::: 01 * GRIT_SET breakpoints */
+/* Note:Extra small devices (portrait phones, less than 576px)
 Note:No media query since this is the default in Bootstrap because it is "mobile first*/
 /* Small devices (landscape phones, 576px and up*/
 /* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoin*/
 /* Large devices (desktops, 992px and up*/
 /* Extra large devices (large desktops, 1200px and up*/
 /* Custom media queries Set width to make card deck cards 100% widt*/
-/* TODO readme paletta colori dedicata alle note tod*/
-/*
-f94144,f3722c,f8961e,f9844a,f9c74f,90be6d,43aa8b,4d908e,577590,277da1
-https://coolors.co/f94144-f3722c-f8961e-f9844a-f9c74f-90be6d-43aa8b-4d908e-577590-277da1
-*/
-/*  03 * A_SETTINGS Variables */
+/* :::::::::::::: 02 * GRIT_SET variables */
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /* :::::::::::::: 01 * GRIT_SET Color */
 /* :::::::::::::: 02 * GRIT_SET Gradinet */
@@ -47,6 +48,9 @@ https://coolors.co/f94144-f3722c-f8961e-f9844a-f9c74f-90be6d-43aa8b-4d908e-57759
 .color-primary {
   color: #fcca46 !important;
 }
+.color-primary label {
+  color: #fcca46 !important;
+}
 
 .border-primary {
   border-color: #fcca46 !important;
@@ -64,6 +68,9 @@ https://coolors.co/f94144-f3722c-f8961e-f9844a-f9c74f-90be6d-43aa8b-4d908e-57759
 }
 
 .color-secondary {
+  color: #a1c181 !important;
+}
+.color-secondary label {
   color: #a1c181 !important;
 }
 
@@ -85,6 +92,9 @@ https://coolors.co/f94144-f3722c-f8961e-f9844a-f9c74f-90be6d-43aa8b-4d908e-57759
 .color-tertiary {
   color: #619b8a !important;
 }
+.color-tertiary label {
+  color: #619b8a !important;
+}
 
 .border-tertiary {
   border-color: #619b8a !important;
@@ -102,6 +112,9 @@ https://coolors.co/f94144-f3722c-f8961e-f9844a-f9c74f-90be6d-43aa8b-4d908e-57759
 }
 
 .color-quaternary {
+  color: #212529 !important;
+}
+.color-quaternary label {
   color: #212529 !important;
 }
 
@@ -123,6 +136,9 @@ https://coolors.co/f94144-f3722c-f8961e-f9844a-f9c74f-90be6d-43aa8b-4d908e-57759
 .color-quinary {
   color: #343A40 !important;
 }
+.color-quinary label {
+  color: #343A40 !important;
+}
 
 .border-quinary {
   border-color: #343A40 !important;
@@ -140,6 +156,9 @@ https://coolors.co/f94144-f3722c-f8961e-f9844a-f9c74f-90be6d-43aa8b-4d908e-57759
 }
 
 .color-senary {
+  color: #495057 !important;
+}
+.color-senary label {
   color: #495057 !important;
 }
 
@@ -161,6 +180,9 @@ https://coolors.co/f94144-f3722c-f8961e-f9844a-f9c74f-90be6d-43aa8b-4d908e-57759
 .color-septenary {
   color: #6C757D !important;
 }
+.color-septenary label {
+  color: #6C757D !important;
+}
 
 .border-septenary {
   border-color: #6C757D !important;
@@ -178,6 +200,9 @@ https://coolors.co/f94144-f3722c-f8961e-f9844a-f9c74f-90be6d-43aa8b-4d908e-57759
 }
 
 .color-octonary {
+  color: #ADB5BD !important;
+}
+.color-octonary label {
   color: #ADB5BD !important;
 }
 
@@ -199,6 +224,9 @@ https://coolors.co/f94144-f3722c-f8961e-f9844a-f9c74f-90be6d-43aa8b-4d908e-57759
 .color-nonary {
   color: #DEE2E6 !important;
 }
+.color-nonary label {
+  color: #DEE2E6 !important;
+}
 
 .border-nonary {
   border-color: #DEE2E6 !important;
@@ -216,6 +244,9 @@ https://coolors.co/f94144-f3722c-f8961e-f9844a-f9c74f-90be6d-43aa8b-4d908e-57759
 }
 
 .color-denary {
+  color: #E9ECEF !important;
+}
+.color-denary label {
   color: #E9ECEF !important;
 }
 
@@ -237,6 +268,9 @@ https://coolors.co/f94144-f3722c-f8961e-f9844a-f9c74f-90be6d-43aa8b-4d908e-57759
 .color-white {
   color: #ffffff !important;
 }
+.color-white label {
+  color: #ffffff !important;
+}
 
 .border-white {
   border-color: #ffffff !important;
@@ -254,6 +288,9 @@ https://coolors.co/f94144-f3722c-f8961e-f9844a-f9c74f-90be6d-43aa8b-4d908e-57759
 }
 
 .color-black {
+  color: #000000 !important;
+}
+.color-black label {
   color: #000000 !important;
 }
 
@@ -275,6 +312,9 @@ https://coolors.co/f94144-f3722c-f8961e-f9844a-f9c74f-90be6d-43aa8b-4d908e-57759
 .color-accent {
   color: #fe7f2d !important;
 }
+.color-accent label {
+  color: #fe7f2d !important;
+}
 
 .border-accent {
   border-color: #fe7f2d !important;
@@ -292,6 +332,9 @@ https://coolors.co/f94144-f3722c-f8961e-f9844a-f9c74f-90be6d-43aa8b-4d908e-57759
 }
 
 .color-light {
+  color: #F8F9FA !important;
+}
+.color-light label {
   color: #F8F9FA !important;
 }
 
@@ -313,6 +356,9 @@ https://coolors.co/f94144-f3722c-f8961e-f9844a-f9c74f-90be6d-43aa8b-4d908e-57759
 .color-dark {
   color: #1D1D1B !important;
 }
+.color-dark label {
+  color: #1D1D1B !important;
+}
 
 .border-dark {
   border-color: #1D1D1B !important;
@@ -332,6 +378,9 @@ https://coolors.co/f94144-f3722c-f8961e-f9844a-f9c74f-90be6d-43aa8b-4d908e-57759
 .color-grey {
   color: #CED4DA !important;
 }
+.color-grey label {
+  color: #CED4DA !important;
+}
 
 .border-grey {
   border-color: #CED4DA !important;
@@ -348,7 +397,14 @@ https://coolors.co/f94144-f3722c-f8961e-f9844a-f9c74f-90be6d-43aa8b-4d908e-57759
 /* :::::::::::::: 03 * GRIT_SET Fonts */
 /* :::::::::::::: 04 * GRIT_SET Varriables */
 /* :::::::::::::: 05 * GRIT_SET Trasitions */
-/*  03 * A_SETTINGS Content */
+/* :::::::::::::: 03 * GRIT_SET content */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* :::::::::::::: 01 * GRIT_SET body */
+/* :::::::::::::: 02 * GRIT_SET contained */
+/* :::::::::::::: 03 * GRIT_SET equal-cols */
+/* :::::::::::::: 04 * GRIT_SET padding */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* :::::::::::::: 01 * GRIT_SET body */
 body {
   font-family: "Open Sans", sans-serif;
   color: #000000;
@@ -380,13 +436,13 @@ body {
   scrollbar-width: thin; /* Imposta la scrollbar sottile in Firefox */
 }
 
-/* GRIT_SET container-fluid */
+/* :::::::::::::: 02 * GRIT_SET contained */
 @media (min-width: 576px) {
   .contained {
     padding: 0 8.75vw;
   }
 }
-/* GRIT_SET equal cols  */
+/* :::::::::::::: 03 * GRIT_SET equal-cols */
 .row.equal-cols {
   display: -webkit-flex !important;
   display: -ms-flexbox !important;
@@ -425,6 +481,7 @@ body {
   flex-direction: column;
 }
 
+/* :::::::::::::: 04 * GRIT_SET padding */
 .p-6 {
   padding: calc(76.8px + 4px) !important;
 }
@@ -2117,7 +2174,13 @@ body {
     margin-bottom: calc(160px + 8.3333333333px) !important;
   }
 }
-/*  03 * A_SETTINGS Variables */
+/* :::::::::::::: 04 * GRIT_SET typography */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* :::::::::::::: 01 * GRIT_SET typography */
+/* :::::::::::::: 02 * GRIT_SET btn */
+/* :::::::::::::: 03 * GRIT_SET btn-color */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* :::::::::::::: 01 * GRIT_SET typography */
 p {
   font-family: "Open Sans", sans-serif;
 }
@@ -2163,7 +2226,7 @@ a:hover {
   text-decoration: none;
 }
 
-/* A_SETTINGS button */
+/* :::::::::::::: 02 * GRIT_SET btn */
 .btn {
   border-radius: 3px;
   padding: 0.545em 1em;
@@ -2197,6 +2260,7 @@ a:hover {
   align-items: center;
 }
 
+/* :::::::::::::: 03 * GRIT_SET btn-color */
 .btn-accent {
   color: #F8F9FA;
   background: #fe7f2d;
@@ -3172,7 +3236,17 @@ a:hover {
   margin-left: 1rem;
 }
 
-/*  03 * A_SETTINGS Header */
+/* :::::::::::::: 05 * GRIT_SET header */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* :::::::::::::: 01 * GRIT_SET nav */
+/* :::::::::::::: 02 * GRIT_SET nav-social */
+/* :::::::::::::: 03 * GRIT_SET header_* */
+/* :::::::::::::: 04 * GRIT_SET header_1 */
+/* :::::::::::::: 05 * GRIT_SET header_2 */
+/* :::::::::::::: 06 * GRIT_SET header_3 */
+/* :::::::::::::: 07 * GRIT_SET header_4 */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* :::::::::::::: 01 * GRIT_SET nav */
 .nav {
   width: 100%;
   display: flex;
@@ -3218,6 +3292,7 @@ a:hover {
   display: inline-block;
 }
 
+/* :::::::::::::: 02 * GRIT_SET nav-social */
 .nav-social {
   display: flex;
   padding-left: 0;
@@ -3235,6 +3310,7 @@ a:hover {
   padding: 10px 10px;
 }
 
+/* :::::::::::::: 03 * GRIT_SET header_* */
 #header_1 .header-menu,
 #header_1 .sticky-fix,
 #header_2 .header-menu,
@@ -3375,6 +3451,7 @@ a:hover {
   transition: all 0.2s ease-out;
 }
 
+/* :::::::::::::: 04 * GRIT_SET header_1 */
 #header_1 .nav .dropdown:hover > .dropdown-menu {
   text-align: left;
 }
@@ -3387,6 +3464,7 @@ a:hover {
   display: none;
 }
 
+/* :::::::::::::: 05 * GRIT_SET header_2 */
 #header_2 .nav .dropdown:hover > .dropdown-menu {
   text-align: center;
 }
@@ -3404,87 +3482,7 @@ a:hover {
   justify-content: space-between;
 }
 
-#header_4 {
-  position: absolute;
-  width: 100%;
-}
-#header_4 .header-menu,
-#header_4 .sticky-fix {
-  background-color: transparent;
-}
-#header_4 .header-menu .navbar,
-#header_4 .sticky-fix .navbar {
-  padding: 0;
-  width: 100%;
-  background-color: transparent;
-}
-#header_4 .header-menu .navbar .navbar-brand,
-#header_4 .sticky-fix .navbar .navbar-brand {
-  padding: 15px;
-  background-color: #F8F9FA;
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
-}
-#header_4 .header-menu .navbar .navbar-brand .logo,
-#header_4 .sticky-fix .navbar .navbar-brand .logo {
-  height: 50px;
-}
-#header_4 .header-menu .navbar .nav,
-#header_4 .sticky-fix .navbar .nav {
-  padding: 8px;
-  width: auto;
-  display: flex;
-  justify-content: right;
-  background-color: #F8F9FA;
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
-}
-#header_4 .header-menu .navbar .nav .dropdown:hover > .dropdown-menu,
-#header_4 .sticky-fix .navbar .nav .dropdown:hover > .dropdown-menu {
-  border-radius: 0;
-  padding: 0;
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
-}
-#header_4 .header-menu .navbar .nav .dropdown:hover > .dropdown-menu li,
-#header_4 .sticky-fix .navbar .nav .dropdown:hover > .dropdown-menu li {
-  text-align: center;
-}
-@media (min-width: 768px) {
-  #header_4 .header-menu .navbar .nav .dropdown:hover > .dropdown-menu li,
-  #header_4 .sticky-fix .navbar .nav .dropdown:hover > .dropdown-menu li {
-    text-align: left;
-  }
-}
-#header_4 .header-menu .navbar .nav li a,
-#header_4 .sticky-fix .navbar .nav li a {
-  padding: 20px 25px;
-}
-#header_4 .header-menu .navbar .nav li a:hover,
-#header_4 .sticky-fix .navbar .nav li a:hover {
-  background-color: #fe7f2d;
-}
-#header_4 .header-menu .navbar .navbar-toggler,
-#header_4 .sticky-fix .navbar .navbar-toggler {
-  padding: 1.5rem 2rem;
-  background-color: #F8F9FA;
-  border-radius: 0;
-}
-#header_4 .header-menu.sticky-in,
-#header_4 .sticky-fix.sticky-in {
-  background-color: hsla(0, 0%, 100%, 0.304);
-}
-@media (min-width: 992px) {
-  #header_4 .navbar-expand-lg .navbar-collapse {
-    justify-content: flex-end;
-  }
-}
-#header_4 .navbar-collapse {
-  display: none;
-}
-#header_4 .sidenav {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
+/* :::::::::::::: 06 * GRIT_SET header_3 */
 #header_3 {
   display: flex;
   justify-content: center;
@@ -3610,7 +3608,94 @@ a:hover {
   top: 0;
 }
 
-/*  03 * A_SETTINGS Footer */
+/* :::::::::::::: 07 * GRIT_SET header_4 */
+#header_4 {
+  position: absolute;
+  width: 100%;
+}
+#header_4 .header-menu,
+#header_4 .sticky-fix {
+  background-color: transparent;
+}
+#header_4 .header-menu .navbar,
+#header_4 .sticky-fix .navbar {
+  padding: 0;
+  width: 100%;
+  background-color: transparent;
+}
+#header_4 .header-menu .navbar .navbar-brand,
+#header_4 .sticky-fix .navbar .navbar-brand {
+  padding: 15px;
+  background-color: #F8F9FA;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+#header_4 .header-menu .navbar .navbar-brand .logo,
+#header_4 .sticky-fix .navbar .navbar-brand .logo {
+  height: 50px;
+}
+#header_4 .header-menu .navbar .nav,
+#header_4 .sticky-fix .navbar .nav {
+  padding: 8px;
+  width: auto;
+  display: flex;
+  justify-content: right;
+  background-color: #F8F9FA;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+#header_4 .header-menu .navbar .nav .dropdown:hover > .dropdown-menu,
+#header_4 .sticky-fix .navbar .nav .dropdown:hover > .dropdown-menu {
+  border-radius: 0;
+  padding: 0;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+#header_4 .header-menu .navbar .nav .dropdown:hover > .dropdown-menu li,
+#header_4 .sticky-fix .navbar .nav .dropdown:hover > .dropdown-menu li {
+  text-align: center;
+}
+@media (min-width: 768px) {
+  #header_4 .header-menu .navbar .nav .dropdown:hover > .dropdown-menu li,
+  #header_4 .sticky-fix .navbar .nav .dropdown:hover > .dropdown-menu li {
+    text-align: left;
+  }
+}
+#header_4 .header-menu .navbar .nav li a,
+#header_4 .sticky-fix .navbar .nav li a {
+  padding: 20px 25px;
+}
+#header_4 .header-menu .navbar .nav li a:hover,
+#header_4 .sticky-fix .navbar .nav li a:hover {
+  background-color: #fe7f2d;
+}
+#header_4 .header-menu .navbar .navbar-toggler,
+#header_4 .sticky-fix .navbar .navbar-toggler {
+  padding: 1.5rem 2rem;
+  background-color: #F8F9FA;
+  border-radius: 0;
+}
+#header_4 .header-menu.sticky-in,
+#header_4 .sticky-fix.sticky-in {
+  background-color: hsla(0, 0%, 100%, 0.304);
+}
+@media (min-width: 992px) {
+  #header_4 .navbar-expand-lg .navbar-collapse {
+    justify-content: flex-end;
+  }
+}
+#header_4 .navbar-collapse {
+  display: none;
+}
+#header_4 .sidenav {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* :::::::::::::: 06 * GRIT_SET footer */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* :::::::::::::: 01 * GRIT_SET footer_1 */
+/* :::::::::::::: 02 * GRIT_SET footer_2 */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* :::::::::::::: 01 * GRIT_SET footer_1 */
 .footer_1 {
   position: relative;
   width: 100%;
@@ -3661,6 +3746,7 @@ a:hover {
   color: #F8F9FA;
 }
 
+/* :::::::::::::: 02 * GRIT_SET footer_2 */
 .footer_2 {
   position: relative;
   width: 100%;
@@ -3714,8 +3800,20 @@ a:hover {
   color: #fe7f2d;
 }
 
-/*  03 * A_SETTINGS Sections */
-/* :::::::::::::: 00 * GRIT_SET section_page_header_1  */
+/* :::::::::::::: 07 * GRIT_SET sections */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* :::::::::::::: 01 * GRIT_SET section_page_header */
+/* :::::::::::::: 02 * GRIT_SET section_carousel */
+/* :::::::::::::: 03 * GRIT_SET section_video */
+/* :::::::::::::: 04 * GRIT_SET section_slides */
+/* :::::::::::::: 05 * GRIT_SET section_hero */
+/* :::::::::::::: 06 * GRIT_SET section_cube */
+/* :::::::::::::: 07 * GRIT_SET section_gallery */
+/* :::::::::::::: 08 * GRIT_SET section_archive */
+/* :::::::::::::: 09 * GRIT_SET section_collapse */
+/* :::::::::::::: 10 * GRIT_SET section_bio */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* :::::::::::::: 01 * GRIT_SET section_page_header */
 .section_page_header {
   padding: 0px !important;
 }
@@ -3731,7 +3829,7 @@ a:hover {
     background-color: #e9ecef;
     border-radius: 0.25rem;
   */
-  background-color: transparent;
+  background: transparent;
   padding: 0.25rem 0rem;
   margin-bottom: 0rem;
   color: #F8F9FA;
@@ -3871,17 +3969,8 @@ a:hover {
   overflow: hidden;
 }
 
-/* :::::::::::::: 00 * GRIT_SET section_carousel  */
-@media (min-width: 576px) {
-  .section_carousel.contained .owl-carousel .owl-nav button.owl-prev {
-    left: -60px;
-  }
-  .section_carousel.contained .owl-carousel .owl-nav button.owl-next {
-    right: -60px;
-  }
-}
-
-/* :::::::::::::: 00 * GRIT_SET section_video  */
+/* :::::::::::::: 02 * GRIT_SET section_carousel */
+/* :::::::::::::: 03 * GRIT_SET section_video */
 .section_video .video-container {
   position: relative;
   width: 100%;
@@ -3938,23 +4027,26 @@ a:hover {
   object-fit: cover;
 }
 
-/* :::::::::::::: 00 * GRIT_SET section_slides  */
-.section_slides .carousel-slider .item-slide {
+/* :::::::::::::: 04 * GRIT_SET section_slides */
+.section_slides .owl-carousel .owl-item.active .item-slide {
+  background-size: 103% !important;
+}
+.section_slides .owl-carousel .item-slide {
   width: 100%;
   min-height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 100%;
   position: relative;
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  transition: background-size 6s ease-in-out;
 }
-.section_slides .carousel-slider .owl-nav button.owl-prev,
-.section_slides .carousel-slider .owl-nav button.owl-next {
+.section_slides .owl-carousel .owl-nav button.owl-prev button.owl-next {
   color: #F8F9FA;
 }
-.section_slides .carousel-slider .owl-nav:hover button.owl-prev, .section_slides .carousel-slider .owl-nav:hover button.owl-next {
+.section_slides .owl-carousel .owl-nav:hover button.owl-prev, .section_slides .owl-carousel .owl-nav:hover button.owl-next {
   color: #fe7f2d;
 }
 .section_slides .item-slide.item-slide-single {
@@ -3962,17 +4054,21 @@ a:hover {
   min-height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 100%;
   position: relative;
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  transition: background-size 6s ease-in-out;
+}
+.section_slides .item-slide.item-slide-single:hover {
+  background-size: 103% !important;
 }
 .section_slides .inner-text {
   width: 100%;
 }
 
-/* :::::::::::::: 00 * GRIT_SET section_hero  */
+/* :::::::::::::: 05 * GRIT_SET section_hero */
 .section_hero .inner-hero {
   background-repeat: no-repeat;
   background-position: center center;
@@ -3993,7 +4089,7 @@ a:hover {
   }
 }
 
-/* :::::::::::::: 00 * GRIT_SET section_cube  */
+/* :::::::::::::: 06 * GRIT_SET section_cube */
 .section_cube {
   background-color: transparent !important;
 }
@@ -4014,6 +4110,9 @@ a:hover {
 .section_cube .inner-item-list img {
   width: 40px;
 }
+.section_cube .inner-item-list p {
+  margin: 0;
+}
 .section_cube .col-img {
   background-position: center center;
   background-repeat: no-repeat;
@@ -4029,7 +4128,25 @@ a:hover {
   display: block;
   padding-top: 100%;
 }
-/* :::::::::::::: 00 * GRIT_SET section_gallery  */
+.section_cube .owl-carousel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Assicurati che il contenitore abbia un'altezza */
+}
+.section_cube .owl-carousel .owl-dots {
+  bottom: 20px;
+}
+@media (min-width: 576px) {
+  .section_cube.contained .owl-carousel .owl-nav button.owl-prev {
+    left: 10px;
+  }
+  .section_cube.contained .owl-carousel .owl-nav button.owl-next {
+    right: 10px;
+  }
+}
+
+/* :::::::::::::: 07 * GRIT_SET section_gallery */
 .section_gallery .gallery {
   display: flex;
   flex-direction: row;
@@ -4082,25 +4199,9 @@ a:hover {
   clear: none !important;
 }
 
-/* :::::::::::::: 00 * GRIT_SET section_archive  */
-.section_archive.section_archive_carousel .owl-carousel .owl-dots {
-  bottom: -20px;
-}
-@media (min-width: 576px) {
-  .section_archive.contained .owl-nav button.owl-prev {
-    left: -60px;
-  }
-  .section_archive.contained .owl-nav button.owl-next {
-    right: -60px;
-  }
-}
-
-.section_bio .link-list-bio a svg {
-  position: absolute;
-  left: 10px;
-}
-
-.section_faq .pagination-list-js li {
+/* :::::::::::::: 08 * GRIT_SET section_archive */
+/* :::::::::::::: 09 * GRIT_SET section_collapse */
+.section_collapse .pagination-list-js li {
   background: #1D1D1B;
   color: #F8F9FA;
   margin-right: 5px;
@@ -4115,122 +4216,46 @@ a:hover {
   -o-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
 }
-.section_faq .pagination-list-js li.active {
+.section_collapse .pagination-list-js li.active {
   background: #1D1D1B;
 }
-.section_faq .pagination-list-js li:hover {
+.section_collapse .pagination-list-js li:hover {
   background: #F8F9FA;
 }
-.section_faq .pagination-list-js li:hover a {
+.section_collapse .pagination-list-js li:hover a {
   color: #fe7f2d;
 }
-.section_faq .pagination-list-js li a {
+.section_collapse .pagination-list-js li a {
   color: #F8F9FA;
 }
 
-.section_plus.layout-plus-1 .col-12 {
-  padding: 0;
-}
-.section_plus.layout-plus-1 .col-12:hover .item-chapters {
-  background-color: #a1c181;
-}
-.section_plus.layout-plus-1 .col-12 .item-chapters {
-  background-color: #fe7f2d;
-  min-height: 400px;
-  padding: 35px;
-  margin: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border-radius: 3rem;
-  -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  -ms-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-}
-.section_plus.layout-plus-1 .col-12 .item-chapters img {
-  width: 40px;
-  padding-bottom: 65px;
-}
-
-.section_text.section_carousel_list .owl-carousel .owl-dots {
-  bottom: -20px;
-}
-@media (min-width: 576px) {
-  .section_text.section_carousel_list.contained .owl-carousel .owl-nav button.owl-prev {
-    left: -80px;
-  }
-  .section_text.section_carousel_list.contained .owl-carousel .owl-nav button.owl-next {
-    right: -80px;
-  }
-}
-
-.section_carousel.layout-carousel-1 {
-  padding-top: 0px !important;
-  padding-bottom: 0px !important;
-}
-.section_carousel.layout-carousel-1 .container-fluid {
-  background-color: #a1c181;
-  min-height: 450px;
-  padding: 20px 0px;
-}
-.section_carousel.layout-carousel-1 .container-fluid .owl-carousel {
+/* :::::::::::::: 10 * GRIT_SET section_bio */
+.section_bio .link-list-bio a svg {
   position: absolute;
-  left: 0;
+  left: 10px;
 }
 
-/*  
-08 * A_SETTINGS img-hover
-  Note: Impostazioni per css */
-.img-hover .img-hover-inner {
-  position: relative;
-  overflow: hidden;
-}
-
-.img-hover .img-hover-inner img {
-  transition: all 0.7s;
-  transform: scale(1);
-}
-
-.img-hover:hover .img-hover-inner img {
-  transform: scale(1.1);
-}
-
-.loaded .img-hover-inner:before {
-  content: "";
-  opacity: 0;
-  transition: 0.5s all ease-in-out;
-  transition-delay: 0.9s;
-  z-index: 10;
-}
-
-.img-hover-inner:before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: #fe7f2d;
-  opacity: 1;
-}
-
-/*  03 * A_SETTINGS Forms */
-.contact-form-style-1 label {
+/* :::::::::::::: 08 * GRIT_SET forms */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* :::::::::::::: 01 * GRIT_SET form */
+/* :::::::::::::: 02 * GRIT_SET section_carousel */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* :::::::::::::: 01 * GRIT_SET form */
+form label {
   display: block;
   font-weight: normal;
   width: 100%;
-  color: #1D1D1B;
 }
-.contact-form-style-1 .wpcf7-form-control-wrap {
+form .wpcf7-form-control-wrap {
   display: block;
   padding: 0px 0px 10px;
 }
-.contact-form-style-1 input,
-.contact-form-style-1 button,
-.contact-form-style-1 textarea,
-.contact-form-style-1 .wpcf7-form-control,
-.contact-form-style-1 .form-control {
-  border-radius: 3rem;
+form input:not(.wpcf7-submit):not([type=submit]),
+form button,
+form textarea,
+form .wpcf7-form-control:not(.wpcf7-submit),
+form .form-control {
+  border-radius: 10px;
   padding: 10px 20px;
   color: #1D1D1B;
   -webkit-transition: all 0.3s ease-in-out;
@@ -4240,78 +4265,77 @@ a:hover {
   transition: all 0.3s ease-in-out;
   width: 100%;
 }
-.contact-form-style-1 .form-check-input {
+form .form-check-input {
   position: absolute;
   margin-top: 0.3rem;
   margin-left: -1.1rem;
 }
-.contact-form-style-1 .wpcf7-text,
-.contact-form-style-1 input[type=text],
-.contact-form-style-1 textarea,
-.contact-form-style-1 .wpcf7-textarea,
-.contact-form-style-1 input[type=email],
-.contact-form-style-1 .wpcf7-email,
-.contact-form-style-1 input[type=tel],
-.contact-form-style-1 .wpcf7-date,
-.contact-form-style-1 input[type=date],
-.contact-form-style-1 .wpcf7-tel,
-.contact-form-style-1 .wpcf7-select,
-.contact-form-style-1 input[type=select],
-.contact-form-style-1 input[type=password],
-.contact-form-style-1 input[type=url],
-.contact-form-style-1 input[type=search] {
+form .wpcf7-text,
+form input[type=text],
+form textarea,
+form .wpcf7-textarea,
+form input[type=email],
+form .wpcf7-email,
+form input[type=tel],
+form .wpcf7-date,
+form input[type=date],
+form .wpcf7-tel,
+form .wpcf7-select,
+form input[type=select],
+form input[type=password],
+form input[type=url],
+form input[type=search] {
   border: solid 1px #CED4DA;
   background: #CED4DA;
 }
-.contact-form-style-1 .wpcf7-submit,
-.contact-form-style-1 button,
-.contact-form-style-1 input[type=submit] {
+form .wpcf7-submit,
+form button,
+form input[type=submit] {
   width: auto;
-  border: solid 1px #CED4DA;
   line-height: 1.5;
 }
-.contact-form-style-1 select,
-.contact-form-style-1 .wpcf7-select,
-.contact-form-style-1 input[type=select],
-.contact-form-style-1 .wpcf7-date,
-.contact-form-style-1 input[type=date],
-.contact-form-style-1 .wpcf7-checkbox,
-.contact-form-style-1 input[type=checkbox],
-.contact-form-style-1 .wpcf7-radio,
-.contact-form-style-1 input[type=radio],
-.contact-form-style-1 .wpcf7-file,
-.contact-form-style-1 input[type=file] {
+form select,
+form .wpcf7-select,
+form input[type=select],
+form .wpcf7-date,
+form input[type=date],
+form .wpcf7-checkbox,
+form input[type=checkbox],
+form .wpcf7-radio,
+form input[type=radio],
+form .wpcf7-file,
+form input[type=file] {
   width: auto;
   padding: 10px 20px;
 }
-.contact-form-style-1 .wpcf7-form-control:focus,
-.contact-form-style-1 input:focus,
-.contact-form-style-1 .form-control:focus,
-.contact-form-style-1 textarea:focus {
+form .wpcf7-form-control:not(.wpcf7-submit):focus,
+form input:not(.wpcf7-submit):focus,
+form .form-control:focus,
+form textarea:focus {
   background-color: #F8F9FA;
   color: #1D1D1B;
   border: solid 1px #1D1D1B;
   outline: 0;
   box-shadow: none;
 }
-.contact-form-style-1 .wpcf7-acceptance {
+form .wpcf7-acceptance {
   margin: 0;
   padding: 0;
   font-size: 12px;
   line-height: 14px;
 }
-.contact-form-style-1 .wpcf7-acceptance input, .contact-form-style-1 .wpcf7-acceptance label {
+form .wpcf7-acceptance input, form .wpcf7-acceptance label {
   margin: 0;
   padding: 0;
   font-size: 12px;
   line-height: 14px;
 }
-.contact-form-style-1 ::placeholder,
-.contact-form-style-1 :-ms-input-placeholder,
-.contact-form-style-1 ::-ms-input-placeholder {
+form ::placeholder,
+form :-ms-input-placeholder,
+form ::-ms-input-placeholder {
   opacity: 0.8;
 }
-.contact-form-style-1 .wpcf7 .ajax-loader {
+form .wpcf7 .ajax-loader {
   background: url("../img/loading.gif") no-repeat center center;
   background-size: contain;
   width: 124px;
@@ -4322,27 +4346,185 @@ a:hover {
   position: relative;
 }
 
-/*  03 * A_SETTINGS Plugins */
-.owl-carousel .owl-dots {
+/* :::::::::::::: 01 * GRIT_SET form-style-2 */
+.form-style-2 form input:not(.wpcf7-submit),
+.form-style-2 form button,
+.form-style-2 form textarea,
+.form-style-2 form .wpcf7-form-control:not(.wpcf7-submit),
+.form-style-2 form .form-control {
+  border-radius: 0px;
+}
+.form-style-2 form .wpcf7-text,
+.form-style-2 form input[type=text],
+.form-style-2 form textarea,
+.form-style-2 form .wpcf7-textarea,
+.form-style-2 form input[type=email],
+.form-style-2 form .wpcf7-email,
+.form-style-2 form input[type=tel],
+.form-style-2 form .wpcf7-date,
+.form-style-2 form input[type=date],
+.form-style-2 form .wpcf7-tel,
+.form-style-2 form .wpcf7-select,
+.form-style-2 form input[type=select],
+.form-style-2 form input[type=password],
+.form-style-2 form input[type=url],
+.form-style-2 form input[type=search] {
+  background-color: transparent;
+  border: none;
+  border-bottom: solid 1px #1D1D1B;
+}
+.form-style-2 form .wpcf7-form-control:focus,
+.form-style-2 form input:focus,
+.form-style-2 form .form-control:focus,
+.form-style-2 form textarea:focus {
+  background-color: #F8F9FA;
+  color: #1D1D1B;
+  border: none;
+  border-bottom: solid 1px #1D1D1B;
+  outline: 0;
+  box-shadow: none;
+}
+
+/* :::::::::::::: 09 * GRIT_SET plugins */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* :::::::::::::: 01 * GRIT_SET owl-carousel */
+/* :::::::::::::: 02 * GRIT_SET animate */
+/* :::::::::::::: 03 * GRIT_SET jarallax */
+/* :::::::::::::: 04 * GRIT_SET lenis.js */
+/* :::::::::::::: 05 * GRIT_SET loader */
+/* :::::::::::::: 06 * GRIT_SET gototop */
+/* :::::::::::::: 07 * GRIT_SET magic-mouse-js */
+/* :::::::::::::: 08 * GRIT_SET progress-js */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* :::::::::::::: 01 * GRIT_SET owl-carousel */
+@media (min-width: 576px) {
+  section.contained .owl-carousel .owl-nav button.owl-prev {
+    left: -40px;
+  }
+  section.contained .owl-carousel .owl-nav button.owl-next {
+    right: -40px;
+  }
+}
+@media (min-width: 576px) {
+  section.carousel-left {
+    padding-left: 8.75vw;
+  }
+}
+section.owl-dots-inner .owl-carousel .owl-dots {
+  bottom: 20px;
+}
+section.owl-nav-top-left .owl-carousel .owl-nav {
+  position: absolute;
+  top: -50px;
+  left: 0;
+  margin-left: 0px;
+  padding-left: 8.75vw;
+  width: auto;
+  transform: translateY(-50%);
+  display: flex;
+  pointer-events: none;
+  z-index: 1;
+  justify-content: center;
+}
+section.owl-nav-top-left .owl-carousel .owl-nav button.owl-prev,
+section.owl-nav-top-left .owl-carousel .owl-nav button.owl-next {
+  left: 0;
+  right: 0;
+}
+section.owl-nav-top-left.carousel-left .owl-carousel .owl-nav {
+  padding-left: 0px;
+}
+section.contained.gallery_carousel.owl-nav-top-left .owl-nav {
+  padding-left: 0px;
+}
+section.owl-nav-bottom-left .owl-carousel .owl-nav {
+  position: absolute;
+  bottom: -50px;
+  left: 0;
+  margin-left: 0px;
+  padding-left: 8.75vw;
+  width: auto;
+  transform: translateY(50%);
+  display: flex;
+  pointer-events: none;
+  z-index: 1;
+  justify-content: center;
+}
+section.owl-nav-bottom-left .owl-carousel .owl-nav button.owl-prev,
+section.owl-nav-bottom-left .owl-carousel .owl-nav button.owl-next {
+  left: 0;
+  right: 0;
+}
+section.owl-nav-bottom-left.carousel-left .owl-carousel .owl-nav {
+  padding-left: 0px;
+}
+section.contained.gallery_carousel.owl-nav-bottom-left .owl-nav {
+  padding-left: 0px;
+}
+section.owl-nav-top-right .owl-carousel .owl-nav {
+  position: absolute;
+  top: -50px;
+  right: 0;
+  margin-right: 0px;
+  padding-right: 8.75vw;
+  width: auto;
+  transform: translateY(-50%);
+  display: flex;
+  pointer-events: none;
+  z-index: 1;
+  justify-content: center;
+}
+section.owl-nav-top-right .owl-carousel .owl-nav button.owl-prev,
+section.owl-nav-top-right .owl-carousel .owl-nav button.owl-next {
+  left: 0;
+  right: 0;
+}
+section.contained.gallery_carousel.owl-nav-top-right .owl-nav {
+  padding-right: 0px;
+}
+section.owl-nav-bottom-right .owl-carousel .owl-nav {
+  position: absolute;
+  bottom: -50px;
+  right: 0;
+  margin-right: 0px;
+  padding-right: 8.75vw;
+  width: auto;
+  transform: translateY(50%);
+  display: flex;
+  pointer-events: none;
+  z-index: 1;
+  justify-content: center;
+}
+section.owl-nav-bottom-right .owl-carousel .owl-nav button.owl-prev,
+section.owl-nav-bottom-right .owl-carousel .owl-nav button.owl-next {
+  left: 0;
+  right: 0;
+}
+section.contained.gallery_carousel.owl-nav-bottom-right .owl-nav {
+  padding-right: 0px;
+}
+section .owl-carousel .owl-dots {
   width: auto;
   position: absolute;
   text-align: center;
   margin: 0 auto;
-  bottom: 20px;
+  bottom: -30px;
   left: 0;
   right: 0;
 }
-.owl-carousel .owl-dots button.owl-dot {
+section .owl-carousel .owl-dots button.owl-dot {
   width: 15px;
   height: 15px;
   margin: 0.3rem;
   border-radius: 50%;
+  border: solid 1px #1D1D1B;
   background-color: #F8F9FA;
 }
-.owl-carousel .owl-dots button.owl-dot.active {
-  background-color: #fe7f2d;
+section .owl-carousel .owl-dots button.owl-dot.active {
+  border: solid 1px #F8F9FA;
+  background-color: #1D1D1B;
 }
-.owl-carousel .owl-nav {
+section .owl-carousel .owl-nav {
   position: absolute;
   top: 50%;
   width: 100%;
@@ -4352,8 +4534,8 @@ a:hover {
   pointer-events: none;
   z-index: 1;
 }
-.owl-carousel .owl-nav button.owl-prev,
-.owl-carousel .owl-nav button.owl-next {
+section .owl-carousel .owl-nav button.owl-prev,
+section .owl-carousel .owl-nav button.owl-next {
   text-align: center;
   z-index: 3;
   pointer-events: all;
@@ -4373,8 +4555,8 @@ a:hover {
   border-radius: 25px;
   font-size: 22px;
 }
-.owl-carousel .owl-nav button.owl-prev .btn svg path,
-.owl-carousel .owl-nav button.owl-next .btn svg path {
+section .owl-carousel .owl-nav button.owl-prev .btn svg path,
+section .owl-carousel .owl-nav button.owl-next .btn svg path {
   -webkit-transition: all 0.3s ease-in-out;
   -moz-transition: all 0.3s ease-in-out;
   -ms-transition: all 0.3s ease-in-out;
@@ -4382,32 +4564,32 @@ a:hover {
   transition: all 0.3s ease-in-out;
   stroke: #F8F9FA;
 }
-.owl-carousel .owl-nav button.owl-prev:hover .btn svg path, .owl-carousel .owl-nav button.owl-prev:active .btn svg path,
-.owl-carousel .owl-nav button.owl-next:hover .btn svg path,
-.owl-carousel .owl-nav button.owl-next:active .btn svg path {
+section .owl-carousel .owl-nav button.owl-prev:hover .btn svg path, section .owl-carousel .owl-nav button.owl-prev:active .btn svg path,
+section .owl-carousel .owl-nav button.owl-next:hover .btn svg path,
+section .owl-carousel .owl-nav button.owl-next:active .btn svg path {
   stroke: #1D1D1B;
 }
-.owl-carousel .owl-nav button.owl-prev .btn {
+section .owl-carousel .owl-nav button.owl-prev .btn {
   rotate: 180deg;
 }
-.owl-carousel .owl-nav button.owl-prev {
+section .owl-carousel .owl-nav button.owl-prev {
   left: 10px;
 }
-.owl-carousel .owl-nav button.owl-next {
+section .owl-carousel .owl-nav button.owl-next {
   right: 10px;
 }
 @media (max-width: 768px) {
-  .owl-carousel .owl-nav button.owl-prev {
+  section .owl-carousel .owl-nav button.owl-prev {
     left: 10px;
   }
-  .owl-carousel .owl-nav button.owl-next {
+  section .owl-carousel .owl-nav button.owl-next {
     right: 10px;
   }
 }
 
-/* GRIT_SET animate 
-  Note: This only changes this particular animation duration 
-  */
+/* :::::::::::::: 02 * GRIT_SET animate */
+/* Note: This only changes this particular animation duration 
+*/
 .animate__animated.animate__bounce {
   --animate-duration: 2s;
 }
@@ -4429,7 +4611,7 @@ a:hover {
   visibility: visible;
 }
 
-/* GRIT_SET jarallax */
+/* :::::::::::::: 03 * GRIT_SET jarallax */
 .jarallax-keep-img {
   position: relative;
   z-index: 0;
@@ -4465,7 +4647,7 @@ a:hover {
   opacity: 1;
 }
 
-/* GRIT_SET Lenis js */
+/* :::::::::::::: 04 * GRIT_SET lenis.js */
 html.lenis {
   height: auto;
 }
@@ -4482,10 +4664,11 @@ html.lenis {
   overflow: hidden;
 }
 
+/* :::::::::::::: 05 * GRIT_SET loader */
 /* GRIT_SET loader
-  Note: impostazioni per modificare il loader Note: effetto al caricamento della pagina composto da logo sezioni e loader
-  Note: L'evento che fa avviare è la classe 'loaded' posizionato nel body
-  */
+Note: impostazioni per modificare il loader Note: effetto al caricamento della pagina composto da logo sezioni e loader
+Note: L'evento che fa avviare è la classe 'loaded' posizionato nel body
+*/
 .preload {
   width: 100px;
   height: 100px;
@@ -4601,7 +4784,7 @@ html.lenis {
     -o-transform: rotate(360deg);
   }
 }
-/* loader loaded effect exi*/
+/* loader loaded effect exit */
 .loaded #loader-wrapper .loader-section.section-left {
   transform: translateX(-100%);
   opacity: 0;
@@ -4663,7 +4846,42 @@ html.lenis {
   margin-top: unset;
 }
 
-/* GRIT_SET gototop */
+.img-hover-inner .inner-img {
+  position: relative;
+  overflow: hidden;
+}
+.img-hover-inner .inner-img img {
+  -webkit-transition: all 1.5s ease-in-out;
+  -moz-transition: all 1.5s ease-in-out;
+  -ms-transition: all 1.5s ease-in-out;
+  -o-transition: all 1.5s ease-in-out;
+  transition: all 1.5s ease-in-out;
+  transform: scale(1);
+}
+.img-hover-inner .inner-img:hover img {
+  transform: scale(1.03);
+}
+.img-hover-inner .inner-img:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #CED4DA;
+  opacity: 1;
+  z-index: 10;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
+.loaded .img-hover-inner .inner-img:before {
+  opacity: 0;
+  transition-delay: 1s;
+}
+
+/* :::::::::::::: 06 * GRIT_SET gototop */
 #gototop-btn {
   display: none;
   position: fixed;
@@ -4681,7 +4899,7 @@ html.lenis {
   border-radius: 50%;
 }
 
-/* GRIT_SET magic-mouse-js */
+/* :::::::::::::: 07 * GRIT_SET magic-mouse-js */
 body #magicMouseCursor {
   position: fixed;
   width: 35px;
@@ -4744,7 +4962,7 @@ body .magic-hover:hover {
   cursor: auto;
 }
 
-/* GRIT_SET progress-js */
+/* :::::::::::::: 08 * GRIT_SET progress-js */
 #nprogress .bar {
   background: #fe7f2d;
 }
@@ -4756,4 +4974,10 @@ body .magic-hover:hover {
 #nprogress .spinner-icon {
   border-top-color: #fe7f2d;
   border-left-color: #fe7f2d;
-}/*# sourceMappingURL=main.css.map */
+}
+
+/* TODO readme paletta colori dedicata alle note todo */
+/*
+f94144,f3722c,f8961e,f9844a,f9c74f,90be6d,43aa8b,4d908e,577590,277da1
+https://coolors.co/f94144-f3722c-f8961e-f9844a-f9c74f-90be6d-43aa8b-4d908e-577590-277da1
+*//*# sourceMappingURL=main.css.map */

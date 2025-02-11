@@ -1,35 +1,147 @@
-{# section_hero #} 
-    <div class="container-fluid px-0"> 
-        <div class="inner-hero {% if 'parallax' in section.class %} jarallax-keep-img {% endif %} p-5 bg-{{section.inner_background_color}}" {% if section.background %} style="background-image:url('{{Image(section.background.id).src}}');" {% endif %}>
-            <div class="row">
-                <div class="col col-12 col-md-6 offset-md-6  d-flex flex-column justify-content-between">
-                    <div class="inner-title in__animate " data-animation="animate__fadeIn animate__slow ">
-                        <h1 class="">{{section.title}}</h1>
+{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#}
+{# :::::::::::::: 01 * GRIT_SET section_details #}
+{# :::::::::::::: 02 * GRIT_SET section_hero #} 
+{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#} 
 
-                        <div class="box-buttons">
+{% if 'section_details' in class %} 
+{# :::::::::::::: 01 * GRIT_SET section_details #}  
+
+<div class="container-fluid ">
+ 
+    <div class="inner-details p-2 p-sm-4 p-md-5 {{ section.inner_background_color ? 'bg-' ~ section.inner_background_color : ''  }}">
+        <div class="row justify-content-around ">
+
+            <div class="col-12 col-md-6 col-lg-5 d-flex flex-column justify-content-between ">
+                <div class="inner-intro mb-5 in__animate " data-animation="animate__fadeIn animate__slow ">
+                        {% if section.title %}
+                        <h1>{{section.title}}</h1>
+                        {% endif %}
+
+                        {% if section.text %}
+                        <div class="inner-text pb-2"> 
+                        {{section.text}}
+                        </div>
+                        {% endif %} 
+                        {% if section.link_1 is not empty %} 
+                            <div class="box-buttons   in__animate " data-animation="animate__fadeIn animate__slow ">
                             {% if section.link_1 %}
-                            {% set btn = {
-                                'title': link_1.title,
-                                'url': link_1.url,
-                                'target': link_1.target,
-                                'style': 'btn btn-' ~ section.color_link_1 ~ '  ',
-                                }
-                                %}
-                                {% include ['/partials/btn.twig'] with btn %} 
-                            {% endif %}
-            
+                                    {% set btn = {
+                                    'title': section.link_1.title,
+                                    'url': section.link_1.url,
+                                    'target': section.link_1.target,
+                                    'style': 'btn btn-' ~ section.color_link_1 ~ ' btn-md',
+                                    }
+                                    %}
+                                    {% include ['/partials/btn.twig'] with btn %}
+                            {% endif %} 
+                            </div>
+                        {% endif %}  
+                </div> 
+                <div class="inner-img in__animate " data-animation="animate__fadeIn animate__slow ">
+                        {% if 'parallax' in section.class %}
+                            <div class="jarallax-keep-img overlay-in" data-speed="0.5"> 
+                                {% set image = {
+                                    'alt': section.image_1.alt,
+                                    'src': Image(section.image_1.id).src ,
+                                    'class': 'img-fluid jarallax-img'
+                                } %}
+                                {% include ['/partials/img.twig'] with image %}
+                            </div>
+                        {% else %}
+                        {% set image = {
+                            'alt': section.image_1.alt,
+                            'src': Image(section.image_1.id).src ,
+                            'class': 'img-fluid '
+                        } %}
+                        {% include ['/partials/img.twig'] with image %} 
+                        {% endif %}   
+                </div> 
+            </div> 
+
+            <div class="col-12 col-md-6 col-lg-5 d-flex flex-column justify-content-between"> 
+                <div class="inner-img in__animate " data-animation="animate__fadeIn animate__slow ">   
+                    {% if 'parallax' in section.class %}
+                    <div class="jarallax-keep-img overlay-in" data-speed="0.5"> 
+                        {% set image = {
+                            'alt':  section.image_2.alt,
+                            'src': Image(section.image_2.id).src ,
+                            'class': 'img-fluid jarallax-img'
+                        } %}
+                        {% include ['/partials/img.twig'] with image %}
+                    </div>
+                    {% else %}
+                    {% set image = {
+                        'alt': section.image_2.alt,
+                        'src': Image(section.image_2.id).src ,
+                        'class': 'img-fluid '
+                    } %}
+                    {% include ['/partials/img.twig'] with image %} 
+                    {% endif %}   
+                </div> 
+                <div class="inner-subtext mt-5 in__animate " data-animation="animate__fadeIn animate__slow ">
+                    {% if section.subtitle %}
+                    <h4 class="font-secodandary">{{section.subtitle}}</h4>
+                    {% endif %} 
+                    {% if section.subtext %}
+                    <div class="inner-text pb-2"> 
+                        {{section.subtext}}
+                    </div>
+                    {% endif %}   
+                    {% if section.link_2 is not empty %} 
+                        <div class="box-buttons   in__animate " data-animation="animate__fadeIn animate__slow "> 
                             {% if section.link_2 %}
-                            {% set btn = {
-                                'title': link_2.title,
-                                'url': link_2.url,
-                                'target': link_2.target,
-                                'style': 'btn btn-' ~ section.color_link_2 ~ '  ',
-                                }
-                                %}
-                                {% include ['/partials/btn.twig'] with btn %} 
+                                    {% set btn = {
+                                    'title': section.link_2.title,
+                                    'url': section.link_2.url,
+                                    'target': section.link_2.target,
+                                    'style': 'btn btn-' ~ section.color_link_2 ~ ' btn-md',
+                                    }
+                                    %}
+                                    {% include ['/partials/btn.twig'] with btn %}
                             {% endif %}
                         </div> 
+                    {% endif %}
+                </div> 
+            </div>
+    </div>
+ 
+</div> 
+{# :::::::::::::: 01 * GRIT_SET section_details END #}  
+{% else %} 
+{# :::::::::::::: 02 * GRIT_SET section_hero #}  
+    <div class="container-fluid {% if not section.contained %} px-0{% endif %}"> 
+        <div class="inner-hero {% if 'parallax' in section.class %} jarallax-keep-img {% endif %} p-2 p-sm-4 p-md-5 {{ section.inner_background_color ? 'bg-' ~ section.inner_background_color : ''  }}  " {% if section.background %} style="background-image:url('{{Image(section.background.id).src}}');" {% endif %}>
+            <div class="row ">
+                <div class="col col-12 col-md-6 {% if section.align == 'center' %} mx-auto {% elseif section.align == 'right' %} ml-auto {% endif %} d-flex flex-column justify-content-between">
+                    <div class="inner-title in__animate " data-animation="animate__fadeIn animate__slow ">
+                        {% if section.title %}
+                            <h1 class="">{{section.title}}</h1>
+                        {% endif %} 
+                        {% if section.link_1 is not empty or section.link_2 is not empty %} 
+                        <div class="box-buttons   in__animate " data-animation="animate__fadeIn animate__slow ">
+                            {% if section.link_1 %}
+                                    {% set btn = {
+                                    'title': section.link_1.title,
+                                    'url': section.link_1.url,
+                                    'target': section.link_1.target,
+                                    'style': 'btn btn-' ~ section.color_link_1 ~ ' btn-md',
+                                    }
+                                    %}
+                                    {% include ['/partials/btn.twig'] with btn %}
+                            {% endif %}
 
+                            {% if section.link_2 %}
+                                    {% set btn = {
+                                    'title': section.link_2.title,
+                                    'url': section.link_2.url,
+                                    'target': section.link_2.target,
+                                    'style': 'btn btn-' ~ section.color_link_2 ~ ' btn-md',
+                                    }
+                                    %}
+                                    {% include ['/partials/btn.twig'] with btn %}
+                            {% endif %}
+                        </div>
+                        {% endif %} 
                     </div>
                     <div class="inner-text in__animate " data-animation="animate__fadeIn animate__slow ">
                         {{section.text}}
@@ -37,6 +149,9 @@
                 </div>
             </div>
         </div>
-    </div>
- 
-{# end section_hero #}
+    </div> 
+{# :::::::::::::: 02 * GRIT_SET section_hero END #} 
+{% endif %}
+
+
+

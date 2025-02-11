@@ -16,12 +16,12 @@ $templates = array( 'search.twig', 'archive.twig', 'index.twig' );
 $context          = Timber::context();
 $context['post_title'] = 'Search results for ' . get_search_query();
 
-// A_SETTINGS Assegnazione del numero di paginazione di post per pagina
+// * GRIT_SET Assegnazione del numero di paginazione di post per pagina
 $paginazione = get_option('posts_per_page');
 $num_pagina = $paginazione -1;
 $exp_reg_pag = '%/page/('.$num_pagina.')%';
 
-// A_SETTINGS Elaborazione dell'impaginato impostare il numero successivo qui '%/page/([0-3]+)%' in base al valore assegnato nella paginazione
+// * GRIT_SET Elaborazione dell'impaginato impostare il numero successivo qui '%/page/([0-3]+)%' in base al valore assegnato nella paginazione
 preg_match($exp_reg_pag, $_SERVER['REQUEST_URI'], $matches );
 if (get_query_var('paged')) {
     $paged = get_query_var('paged');
@@ -79,7 +79,7 @@ $tax_query = array(
 );
 */
 
-/*  A_SETTINGS Elaboro una query per la ricerca effettuata */
+/*  * GRIT_SET Elaboro una query per la ricerca effettuata */
 
 $args = array(
     'post_type' => 'any',
@@ -135,7 +135,7 @@ if ($posts_search->have_posts()) {
  
 } /* se query è vuota */
 else {
-    /*  A_SETTINGS Elaboro una query per i related incaso non la prima quesry fosse vuota */
+    /*  * GRIT_SET Elaboro una query per i related incaso non la prima quesry fosse vuota */
     $context['post_title'] = 'Nessun risultato trovato per: ' . $search_query;
 
     /* query delle tassonomie alternativa
@@ -173,14 +173,14 @@ else {
     /* elaboro query con risultati alternativi */
     $posts = new Timber\PostQuery($args_empty);
 }
-/*  A_SETTINGS Assegno query definitiva */
+/*  * GRIT_SET Assegno query definitiva */
 // $context['posts'] = new Timber\PostQuery();
 
  
 
 
 
-//  A_SETTINGS Gestisco la numerazione della pagine e i corrispettivi valori trovati
+//  * GRIT_SET Gestisco la numerazione della pagine e i corrispettivi valori trovati
 $context['found_posts'] = $posts->found_posts;
 $context['startpost'] = $startpost = 1;
 $context['startpost'] = $startpost = $paginazione * ($paged - 1) + 1;

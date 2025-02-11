@@ -1,72 +1,43 @@
+{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#}
+{# :::::::::::::: 01 * GRIT_SET section_archive_carosuel #}
+{# :::::::::::::: 02 * GRIT_SET section_archive #}
+{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#} 
+
+{% set tease = section.tease | default('post') %}       
+{% set post_type = section.post_type | default('post') %}       
+{% set posts = attribute(_context, 'archive_' ~ post_type) %}
 
 {% if 'section_archive_carousel' in class %}
-{# section_archive_carosuel #} 
+{# :::::::::::::: 01 * GRIT_SET section_archive_carosuel #}
 {% set grid = ' ' %} 
 <div class="container-fluid">
     <div class="row ">  
-        <div class="owl-carousel owl-theme archive_carousel">
-            {% for single_post in last_posts %}
+        <div class="col">
+            <div class="owl-carousel owl-theme">
+            {% for single_post in posts %}
                 {% include ['./partials/tease-'~ section.tease ~'.twig', './partials/tease.twig'] with {'post': single_post, 'grid': grid} %}
             {% endfor %} 
+            </div>
         </div>
     </div> 
 </div> 
 
-<script>
-    $(document).ready(function () {
-        $(".archive_carousel").owlCarousel({
-            loop: false,
-            margin: 20,
-            responsiveClass: true,
-            autoHeight: false,
-            autoWidth: false,
-            center: false,
-            nav: true,
-            dots: true,
-            
-             navText: [`{% include ['/partials/arrow.twig'] %}`, `{% include ['/partials/arrow.twig'] %}`],
-
-
-            /* navText: [`<i class='fa fa-chevron-left'></i>`, `<i class='fa fa-chevron-right'></i>`],  */
-
-            responsive: {
-                0: {
-                    items: 1, // Impostazioni per schermi molto piccoli
- 
-                },
-                576: {
-                    items: 2, // Impostazioni per schermi piccoli
-              
-                },
-                768: {
-                    items: 3, // Impostazioni per schermi medi
-        
-                },
-                992: {
-                    items: 3, // Impostazioni per schermi grandi
-                
-                },
-                1200: {
-                    items: 3, // Impostazioni per schermi molto grandi
-                
-                }
-            }
-        });
-    });
-</script>
-{# end section_archive_carousel #}
+{# :::::::::::::: 01 * GRIT_SET section_archive_carosuel END #}
 {% else %}
-{# section_archive #} 
-{% set grid = 'col col-12 col-sm-6 col-md-4 col-lg-3' %} 
+{# :::::::::::::: 02 * GRIT_SET section_archive #}
+{% set grid = 'col col-12 col-sm-6 col-md-4 col-lg-3' %}
 <div class="container-fluid">
-    <div class="row "> 
-        {% for single_post in last_posts %}
-            {% include ['./partials/tease-'~ section.tease ~'.twig', './partials/tease.twig'] with {'post': single_post, 'grid': grid} %}
-        {% endfor %} 
+    <div class="row justify-content-center">  
+        <div class="{{ col_classes|join(' ')  | default('col col-12') }} ">
+            <div class="row">
+                {% for single_post in posts %}
+                    {% include ['./partials/tease-'~ tease ~'.twig', './partials/tease.twig'] with {'post': single_post, 'grid': grid} %}
+                {% endfor %} 
+            </div>
+        </div>
     </div> 
 </div> 
-{# end section_archive #}
-{% endif %}
-
+{# :::::::::::::: 02 * GRIT_SET section_archive END #}
+{% endif %} 
 
 

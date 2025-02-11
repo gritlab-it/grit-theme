@@ -1,4 +1,11 @@
-{# section_main #} 
+{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#}
+{# :::::::::::::: 01 * GRIT_SET section_main #} 
+{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#} 
+
+
+
+
+{# :::::::::::::: 01 * GRIT_SET section_main #} 
 {% set acf_fc_layout = section.acf_fc_layout %}
 
 {% if section.background_color %}
@@ -25,8 +32,15 @@
     {% set background_half = '-half' %} 
 {% endif %} 
  
+
+{% set classes = class ? class|split(' ') : [] %}
+{% set col_classes = classes|filter(class =>  class == 'col' or class matches '/^col-.*$/' ) %}
+{% set other_classes = classes|filter(class => not ( class == 'col' or class matches '/^col-.*$/')) %}
+{# class: {{ class }}<br>
+col_classes: {{ col_classes|join(' ') | default('col col-12') }}<br>
+other_classes: {{ other_classes|join(' ') }}<br>  #}
  
-<section class="{{acf_fc_layout}} {{background_color}}{{background_half}} {{align}} {{text_color}} {{contained}} {{class}} " id="section_id_{{ section.section_index }}"> 
+<section class="{{acf_fc_layout}} {{background_color}}{{background_half}} {{align}} {{text_color}} {{contained}} {{ other_classes|join(' ') }} " id="section_id_{{ section.section_index }}"> 
         {% include ['/sections/'~ section.acf_fc_layout ~'.twig'] with section %} 
 </section>
-{# end section_main #}
+{# :::::::::::::: 01 * GRIT_SET section_main END #} 

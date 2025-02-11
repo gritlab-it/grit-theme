@@ -1,3 +1,11 @@
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* :::::::::::::: 01 * GRIT_SET body */
+/* :::::::::::::: 02 * GRIT_SET contained */ 
+/* :::::::::::::: 03 * GRIT_SET equal-cols */ 
+/* :::::::::::::: 04 * GRIT_SET padding */  
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+
+/* :::::::::::::: 01 * GRIT_SET body */
 body {
     font-family: $font-primary;
     color: $text-color;
@@ -9,39 +17,32 @@ body {
     cursor: default!important;
     // scroll-behavior: smooth !important;
 }
- 
 
- 
-  .absolute_center {
+.absolute_center {
     position: absolute;
     top: 50%;
     left: 50%;
     @include translate(-50%, -50%);
-  }
-
-
+}
 
 /* Stile per scrollbar in browser WebKit (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
     width: 1px; /* Larghezza della scrollbar */
 }
-
  
 /* Stile per Firefox */
 * {
     scrollbar-width: thin; /* Imposta la scrollbar sottile in Firefox */ 
 }
 
- 
-
-/* GRIT_SET container-fluid */
+/* :::::::::::::: 02 * GRIT_SET contained */ 
 @media (min-width: $sm-res) {
     .contained {
         padding: 0 calc($c-gap / $xxl * 100vw);
     }
 }
 
-/* GRIT_SET equal cols  */
+/* :::::::::::::: 03 * GRIT_SET equal-cols */ 
 .row.equal-cols {
     display: -webkit-flex !important;
     display: -ms-flexbox !important;
@@ -80,23 +81,18 @@ body {
     flex-direction: column;
 }
 
-
-
-
-
+/* :::::::::::::: 04 * GRIT_SET padding */ 
 // Definisci i valori extra per padding e margin con incrementi progressivi
 $extra-spacing-values: (6: 24px, 7: 28px, 8: 34px, 9: 40px, 10: 50px);
 $viewport-width: 1920; // Larghezza massima del viewport di riferimento
 $scale-factor: 3.2; // Moltiplicatore per la scalabilità dello spacing
 
-
 // Mixin per creare padding/margin responsive con moltiplicatore
 @mixin responsive-spacing($property, $base-size, $viewport-width, $scale-factor) {
     $scaled-base: $base-size * $scale-factor;
-    $vw-value: $scaled-base / $viewport-width * 100;
+    $vw-value: calc($scaled-base / $viewport-width * 100);
     #{$property}: calc(#{$scaled-base} + #{$vw-value})!important;
-  }
-
+}
 
 // Generazione delle classi standard (senza media query)
 @each $size, $base-size in $extra-spacing-values {

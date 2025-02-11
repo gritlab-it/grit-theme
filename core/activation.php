@@ -350,7 +350,7 @@ $cf7_id = wp_generate_uuid4();
     
             // Contenuto del modulo di contatto.
             $form_content = sprintf('
-                [text* your-name placeholder "Il tuo nome+"]
+                [text* your-name placeholder "Il tuo nome*"]
                 [text* your-surname placeholder "Il tuo cognome*"]
                 [email* your-email placeholder "La tua email*"]
                 [tel your-phone placeholder "Il tuo telefono"] 

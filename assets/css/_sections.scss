@@ -1,4 +1,17 @@
-/* :::::::::::::: 00 * GRIT_SET section_page_header_1  */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* :::::::::::::: 01 * GRIT_SET section_page_header */
+/* :::::::::::::: 02 * GRIT_SET section_carousel */
+/* :::::::::::::: 03 * GRIT_SET section_video */
+/* :::::::::::::: 04 * GRIT_SET section_slides */ 
+/* :::::::::::::: 05 * GRIT_SET section_hero */ 
+/* :::::::::::::: 06 * GRIT_SET section_cube */
+/* :::::::::::::: 07 * GRIT_SET section_gallery */
+/* :::::::::::::: 08 * GRIT_SET section_archive */
+/* :::::::::::::: 09 * GRIT_SET section_collapse */
+/* :::::::::::::: 10 * GRIT_SET section_bio */
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+
+/* :::::::::::::: 01 * GRIT_SET section_page_header */
 .section_page_header { 
     padding: 0px !important;   
     .breadcrumb {
@@ -13,7 +26,7 @@
           background-color: #e9ecef;
           border-radius: 0.25rem;
         */
-        background-color: transparent;
+        background: transparent;
         padding: 0.25rem 0rem;
         margin-bottom: 0rem;
         color: $light; 
@@ -94,7 +107,6 @@
             background-repeat: no-repeat;
         } 
     }
- 
     &.section_page_header_5 { 
 
         padding: 0px !important; 
@@ -157,25 +169,10 @@
     }
 } 
 
-/* :::::::::::::: 00 * GRIT_SET section_carousel  */
- .section_carousel { 
-    &.contained {
-        .owl-carousel { 
-            @media (min-width: $sm-res) {
-                .owl-nav {
-                    button.owl-prev {
-                        left: -60px;
-                      } 
-                      button.owl-next {
-                        right: -60px;
-                      }
-                }
-            }
-        } 
-    } 
- }
+/* :::::::::::::: 02 * GRIT_SET section_carousel */
+ .section_carousel { }
 
-/* :::::::::::::: 00 * GRIT_SET section_video  */
+/* :::::::::::::: 03 * GRIT_SET section_video */
 .section_video {
     .video-container {
         position: relative;
@@ -237,24 +234,27 @@
     }
 }
 
-
-
-/* :::::::::::::: 00 * GRIT_SET section_slides  */ 
+/* :::::::::::::: 04 * GRIT_SET section_slides */ 
 .section_slides {
-    .carousel-slider {
+    .owl-carousel {
+        .owl-item.active .item-slide {
+            background-size: 103% !important;
+        }
         .item-slide {
             width: 100%;
             min-height: 100vh;
             background-position: center;
             background-repeat: no-repeat;
-            background-size: cover;
+            background-size: 100%;
             position: relative;
             display: flex;
             align-items: flex-end;
             justify-content: center;
+            transition: background-size 6s ease-in-out; // Aggiungi la transizione
+
         }
         .owl-nav { 
-            button.owl-prev,
+            button.owl-prev
             button.owl-next { 
                 color: $light; 
             }
@@ -269,18 +269,23 @@
         min-height: 100vh;
         background-position: center;
         background-repeat: no-repeat;
-        background-size: cover;
+        background-size: 100%;
         position: relative;
         display: flex;
         align-items: flex-end;
         justify-content: center;
+        transition: background-size 6s ease-in-out; // Aggiungi la transizione
+        &:hover {
+            background-size: 103% !important;
+        }
+
     } 
     .inner-text {
         width: 100%;
     }   
 }
 
-/* :::::::::::::: 00 * GRIT_SET section_hero  */ 
+/* :::::::::::::: 05 * GRIT_SET section_hero */ 
 .section_hero .inner-hero {
     background-repeat: no-repeat;
     background-position: center center;
@@ -301,7 +306,7 @@
     } 
 }
 
-/* :::::::::::::: 00 * GRIT_SET section_cube  */
+/* :::::::::::::: 06 * GRIT_SET section_cube */
 .section_cube {
     background-color: transparent!important;
     .col-text {
@@ -321,6 +326,9 @@
         img {
             width: 40px;
         }
+        p {
+            margin: 0;
+        }
     }
     .col-img {
         background-position: center center;
@@ -337,10 +345,34 @@
             padding-top: 100%; // Mantiene il rapporto 1:1
         }
     }
-    .carousel-cube {  }
+    .owl-carousel {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%; /* Assicurati che il contenitore abbia un'altezza */
+        .owl-dots {
+            bottom: 20px;
+        }
+    }
+ 
+    &.contained {
+        .owl-carousel { 
+          @media (min-width: $sm-res) {
+            .owl-nav {
+              button.owl-prev {
+                left: 10px;
+              } 
+              button.owl-next {
+                right: 10px;
+              }
+            }
+          }
+        }  
+      } 
+    
 }
 
-/* :::::::::::::: 00 * GRIT_SET section_gallery  */
+/* :::::::::::::: 07 * GRIT_SET section_gallery */
 .section_gallery {
     .gallery {
         display: flex;
@@ -396,52 +428,14 @@
     }
 }
 
- 
-
-
-/* :::::::::::::: 00 * GRIT_SET section_archive  */
+/* :::::::::::::: 08 * GRIT_SET section_archive */
 .section_archive {
-    .card {
-         
-        
+    .card { 
     }
-    &.section_archive_carousel {
-        .owl-carousel {
-            .owl-dots {
-                bottom: -20px;
-            } 
-            
-        }
-    }
-    &.contained {
-        @media (min-width: 576px) {
-            .owl-nav {
-                button.owl-prev {
-                    left: -60px;
-                }
-                button.owl-next {
-                    right: -60px;
-                }
-            }
-        }
-    }
-}
- 
+} 
 
-
-.section_bio {
-    .link-list-bio {
-        a {
-            svg {
-                position: absolute;
-                left: 10px;
-            }
-        }
-    } 
-}
-
-
-.section_faq {
+/* :::::::::::::: 09 * GRIT_SET section_collapse */
+.section_collapse {
     .pagination-list-js {
         li {
             background: $dark;
@@ -464,124 +458,25 @@
             }
 
             a {
-                color: $light;
-
-                 
+                color: $light; 
             }
         }
 
     }
 }
 
-
-
-
-
-
-.section_plus.layout-plus-1 .col-12 {
-    padding: 0;
-
-    &:hover {
-        .item-chapters {
-            background-color: $secondary;
-        }
-    }
-
-    .item-chapters {
-        background-color: $accent;
-        min-height: 400px;
-        padding: 35px;
-        margin: 10px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        border-radius: $general-radius;
-        @include transition(all 0.2s ease-in-out);
-
-        img {
-            width: 40px;
-            padding-bottom: 65px;
-        }
-    }
-}
-
-
-.section_text {
-    &.section_carousel_list {
-        .owl-carousel {
-            .owl-dots {
-                bottom: -20px;
+/* :::::::::::::: 10 * GRIT_SET section_bio */
+.section_bio {
+    .link-list-bio {
+        a {
+            svg {
+                position: absolute;
+                left: 10px;
             }
         }
-        &.contained {
-            .owl-carousel { 
-                @media (min-width: $sm-res) {
-                    .owl-nav {
-                        button.owl-prev {
-                            left: -80px;
-                          } 
-                          button.owl-next {
-                            right: -80px;
-                          }
-                    }
-                }
-            } 
-        } 
-    }
+    } 
 }
+
+  
 
  
-
-.section_carousel.layout-carousel-1 {
-    padding-top: 0px !important;
-    padding-bottom: 0px !important;
-
-    .container-fluid {
-        background-color: $secondary;
-        min-height: 450px;
-        padding: 20px 0px;
-
-        .owl-carousel {
-            position: absolute;
-            left: 0;
-        }
-    }
-}
-
-
-
-/*  
-08 * A_SETTINGS img-hover
-  Note: Impostazioni per css */
-  .img-hover .img-hover-inner {
-    position: relative;
-    overflow: hidden;
-  }
-
-.img-hover .img-hover-inner img {
-  transition: all 0.7s;
-  transform: scale(1);
-}
-
-.img-hover:hover .img-hover-inner img {
-  transform: scale(1.1);
-}
-
-
-.loaded .img-hover-inner:before {
-  content: '';
-  opacity: 0;
-  transition: 0.5s all ease-in-out;
-  transition-delay: 0.9s;
-  z-index: 10;
-}
-
-.img-hover-inner:before {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: $accent;
-  // background: linear-gradient(0deg, rgba(240,250,249,1) 0%, rgba(87,201,187,1) 100%);
-  opacity: 1;
-}

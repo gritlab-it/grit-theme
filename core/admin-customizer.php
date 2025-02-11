@@ -1,6 +1,6 @@
 <?php
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * A_SETTINGS Aggiorno il CSS nell’area amministratore
+::::::::::::::    * GRIT_SET Aggiorno il CSS nell’area amministratore
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
 function admin_style()
@@ -12,7 +12,7 @@ function admin_style()
 // Esegue la funzione admin_style() all’azione admin_enqueue_scripts di WP
 add_action('admin_enqueue_scripts', 'admin_style');
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * A_SETTINGS Customizer admin menu bar
+::::::::::::::    * GRIT_SET Customizer admin menu bar
                     https://heera.it/customize-admin-menu-bar-in-wordpress
                     https://webriti.com/customizing-wordpress-admin-bar/
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
@@ -251,7 +251,9 @@ function custom_acf_flexible_titles() {
                 // Aggiorna il titolo solo se il campo "class" esiste
                 if (classField.length) {
                     var classValue = classField.val();
-                    var firstWord = classValue ? classValue.split(' ')[0] : '';
+                    var classArray = classValue ? classValue.split(' ') : [];
+                    var firstClass = classArray.length > 0 ? `<strong>${classArray[0]}</strong>` : '';
+                    var remainingClasses = classArray.slice(1).join(' ');
 
                     // Memorizza il titolo originale solo una volta
                     if (!$layout.data('original-title')) {
@@ -261,10 +263,10 @@ function custom_acf_flexible_titles() {
 
                     // Recupera il titolo originale e aggiorna
                     var originalTitle = $layout.data('original-title');
-                    var updatedTitle = firstWord ? `${originalTitle} - ${firstWord}` : originalTitle;
+                    var updatedTitle = classValue ? `${originalTitle} - ${firstClass} ${remainingClasses}` : originalTitle;
 
                     // Evita aggiornamenti ridondanti
-                    if ($layoutTitle.text() !== updatedTitle) {
+                    if ($layoutTitle.html() !== updatedTitle) {
                         $layoutTitle.html(`<span class="acf-fc-layout-order">${$layout.index() + 1}</span> ${updatedTitle}`);
                     }
                 }

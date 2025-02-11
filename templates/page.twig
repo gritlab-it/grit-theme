@@ -1,37 +1,47 @@
+{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#}
+{# :::::::::::::: 01 * GRIT_SET Archive #} 
+{# :::::::::::::: 02 * GRIT_SET Section Pre Content #} 
+{# :::::::::::::: 03 * GRIT_SET Content #}  
+{# :::::::::::::: 04 * GRIT_SET Section #} 
+{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#} 
+
 {% extends "base.twig" %}
 
 {% block content %}
 <article class="post-type-{{post.post_type}}" id="post-{{post.ID}}"> 
 
-	{% for section in sections %}
+{# :::::::::::::: 02 * GRIT_SET Section Pre Content #} 
+	{% for section in sections %} 
 	    {% if section.pre_content %}
 			{% set section = section|merge({'section_index': loop.index}) %} 
 			{% include ['/sections/section.twig'] with section %}
 	    {% endif %}
 	{% endfor %}
- 
+{# :::::::::::::: 02 * GRIT_SET Section Pre Content END  #} 
+
+{# :::::::::::::: 03 * GRIT_SET Content #} 
 	{% if content is not empty %}
 	    <section class="section_page contained py-3">
 	        <div class="container-fluid">
 	            <div class="row">
-	                <div class="col-12">
+	                <div class="col-12">  
 	                    {{ content }}
 	                </div>
 	            </div>
 	        </div>
 	    </section>
 	{% endif %}
+{# :::::::::::::: 03 * GRIT_SET Content END #} 
 
+{# :::::::::::::: 04 * GRIT_SET Section #} 
 	{% for section in sections %}
 	    {% if not section.pre_content %}
 			{% set section = section|merge({'section_index': loop.index}) %} 
 			{% include ['/sections/section.twig'] with section %}
 	    {% endif %}
 	{% endfor %} 
+{# :::::::::::::: 04 * GRIT_SET Section END #} 
 
 </article> 
-
-
-
 
 {% endblock %}

@@ -5,7 +5,7 @@ if (get_theme_mod('grit_adv_adminbar')) {
 }
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * A_SETTINGS Post IDs viewable in the back-end
+::::::::::::::    * GRIT_SET Post IDs viewable in the back-end
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
     add_filter('manage_posts_columns', 'posts_columns_id', 5);
@@ -24,7 +24,7 @@ if (get_theme_mod('grit_adv_adminbar')) {
     }
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * A_SETTINGS Add Modern Social support for profiles
+::::::::::::::    * GRIT_SET Add Modern Social support for profiles
 ::::::::::::::      https://laceytechsolutions.co.uk/blog/add-social-media-contact-methods-wordpress-user-profiles/
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
@@ -47,7 +47,7 @@ add_filter('user_contactmethods','new_contactmethods',10,1);
 
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * A_SETTINGS Custom admin footer message
+::::::::::::::    * GRIT_SET Custom admin footer message
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/ 
 
 
@@ -172,7 +172,7 @@ add_action('wp_footer', 'update_theme_credits');
 
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * A_SETTINGS Remove anused metaboxes from dashboard
+::::::::::::::    * GRIT_SET Remove anused metaboxes from dashboard
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
 function remove_dashboard_widgets()
@@ -186,7 +186,7 @@ function remove_dashboard_widgets()
 add_action('wp_dashboard_setup', 'remove_dashboard_widgets' );
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * A_SETTINGS Breadcrumbs
+::::::::::::::    * GRIT_SET Breadcrumbs
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
 function breadcrumbs() {

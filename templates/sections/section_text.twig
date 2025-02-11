@@ -1,60 +1,69 @@
-{% if 'section_carousel_list' in class %}
- {# section_carousel_list #}
+
+{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#}
+{# :::::::::::::: 01 * GRIT_SET section_carousel_text #}
+{# :::::::::::::: 02 * GRIT_SET section_text #} 
+{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#} 
+
+{% if 'section_carousel_text' in class %} 
+
+{# :::::::::::::: 01 * GRIT_SET section_carousel_text #}
 <div class="container-fluid">
     <div class="row ">
         <div class="col p-0"> 
-            <div class="owl-carousel owl-theme carousel_list pb-5 mb-3">
+            <div class="owl-carousel owl-theme ">
                 {% for item in section.chapters %}
+
+                    {% set classes = item.inner_class ? item.inner_class|split(' ') : [] %} 
+                    {% set other_classes = classes|filter(class => not (class matches '/^col-.*$/')) %}
                     
-                <div class="inner-list py-2">
-                    {% if item.image %}
-                    <div class="inner-img pb-3 " data-animation="animate__fadeIn animate__slow "> 
-                        {% set image = {
-                            'alt': item.image.alt,
-                            'src': Image(item.image.id).src ,
-                            'class': 'img-fluid '
-                            }
-                        %}
-                        {% include ['/partials/img.twig'] with image %} 
-                    </div>
-                    {% endif %}
-
-                    <div class="inner-text in__animate " data-animation="animate__fadeIn animate__slow "> 
-                        {% if item.title %}
-                            <h1> {{ item.title }}</h1>
-                        {% endif %} 
-                        {% if item.subtitle %}
-                            <h3>{{ item.subtitle }}</h3>
-                        {% endif %}  
-                        {% if item.text %}
-                            {{ item.text }}
-                        {% endif %}  
-                    </div> 
-
-                    <div class="box-buttons in__animate " data-animation="animate__fadeIn animate__slow ">
-                        {% if item.link_1 %}
-                                {% set btn = {
-                                'title': item.link_1.title,
-                                'url': item.link_1.url,
-                                'target': item.link_1.target,
-                                'style': 'btn btn-' ~ section.color_link_1 ~ ' btn-md',
+                    <div class="inner-list {{ other_classes|join(' ') }}">
+                        {% if item.image %}
+                        <div class="inner-img pb-3 " data-animation="animate__fadeIn animate__slow "> 
+                            {% set image = {
+                                'alt': item.image.alt,
+                                'src': Image(item.image.id).src ,
+                                'class': 'img-fluid '
                                 }
-                                %}
-                                {% include ['/partials/btn.twig'] with btn %}
-                        {% endif %} 
-                        {% if item.link_2 %}
-                                {% set btn = {
-                                'title': item.link_2.title,
-                                'url': item.link_2.url,
-                                'target': item.link_2.target,
-                                'style': 'btn btn-' ~ section.color_link_2 ~ ' btn-md',
-                                }
-                                %}
-                                {% include ['/partials/btn.twig'] with btn %}
+                            %}
+                            {% include ['/partials/img.twig'] with image %} 
+                        </div>
                         {% endif %}
+    
+                        <div class="inner-text in__animate " data-animation="animate__fadeIn animate__slow "> 
+                            {% if item.title %}
+                                <h1> {{ item.title }}</h1>
+                            {% endif %} 
+                            {% if item.subtitle %}
+                                <h3>{{ item.subtitle }}</h3>
+                            {% endif %}  
+                            {% if item.text %}
+                                {{ item.text }}
+                            {% endif %}  
+                        </div> 
+    
+                        <div class="box-buttons in__animate " data-animation="animate__fadeIn animate__slow ">
+                            {% if item.link_1 %}
+                                    {% set btn = {
+                                    'title': item.link_1.title,
+                                    'url': item.link_1.url,
+                                    'target': item.link_1.target,
+                                    'style': 'btn btn-' ~ section.color_link_1 ~ ' btn-md',
+                                    }
+                                    %}
+                                    {% include ['/partials/btn.twig'] with btn %}
+                            {% endif %} 
+                            {% if item.link_2 %}
+                                    {% set btn = {
+                                    'title': item.link_2.title,
+                                    'url': item.link_2.url,
+                                    'target': item.link_2.target,
+                                    'style': 'btn btn-' ~ section.color_link_2 ~ ' btn-md',
+                                    }
+                                    %}
+                                    {% include ['/partials/btn.twig'] with btn %}
+                            {% endif %}
+                        </div>  
                     </div> 
-                    
-                </div> 
                    
                 {% endfor %}
             </div>  
@@ -63,217 +72,77 @@
 </div> 
 <script> 
     $(document).ready(function () {
-        $(".carousel_list").owlCarousel({
+        $(".carousel_text").owlCarousel({
             loop: true,
             margin: 20, 
             autoHeight: false,
             autoWidth: false, 
             center: false,
             nav: true,
-            dots: true, 
-            
-             navText: [`{% include ['/partials/arrow.twig'] %}`, `{% include ['/partials/arrow.twig'] %}`], 
-
-
-            /* navText: [`<i class='fa fa-chevron-left'></i>`, `<i class='fa fa-chevron-right'></i>`], */
-
+            dots: true,  
+             navText: [`{% include ['/partials/arrow.twig'] %}`, `{% include ['/partials/arrow.twig'] %}`],  
+            /* navText: [`<i class='fa fa-chevron-left'></i>`, `<i class='fa fa-chevron-right'></i>`], */ 
             responsive: {
                 0: {
-                    items: 1, // Impostazioni per schermi molto piccoli
- 
+                    items: 1, // Impostazioni per schermi molto piccoli 
                 },
                 576: {
-                    items: 2, // Impostazioni per schermi piccoli
-              
+                    items: 2, // Impostazioni per schermi piccoli 
                 },
                 768: {
-                    items: 3, // Impostazioni per schermi medi
-        
+                    items: 3, // Impostazioni per schermi medi 
                 },
                 992: {
-                    items: 3, // Impostazioni per schermi grandi
-                
+                    items: 3, // Impostazioni per schermi grandi 
                 },
                 1200: {
-                    items: 4, // Impostazioni per schermi molto grandi
-                
+                    items: 4, // Impostazioni per schermi molto grandi 
                 }
             }
         });
     }); 
 </script> 
-{# end section_carousel_list #}
+{# :::::::::::::: 01 * GRIT_SET section_carousel_text END #}
 
-
-{% elseif 'section_text_4_7' in class %}
-{# section_text_4_7 #}
-<div class="container-fluid">
-    <div class="row"> 
-        {% for item in section.chapters %}
-            <div class="col-12">
-            {% if item.image %}
-                    <div class="inner-img pb-5 in__animate " data-animation="animate__fadeIn animate__slow "> 
-                        {% set image = {
-                            'alt': item.image.alt,
-                            'src': Image(item.image.id).src ,
-                            'class': 'img-fluid '
-                            }
-                        %}
-                        {% include ['/partials/img.twig'] with image %} 
-                    </div>
-                {% endif %}
-            </div>
-            <div class="col-12 col-md-4">
-                <div class="inner-title in__animate " data-animation="animate__fadeIn animate__slow ">
-                    <div class="inner-text">  
-                        {% if item.title %}
-                            <h1> {{ item.title }}</h1>
-                        {% endif %} 
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-7 offset-md-1 in__animate " data-animation="animate__fadeIn animate__slow "> 
-                <div class="inner-text pb-3">  
-                    {% if item.subtitle %}
-                        <h3>{{ item.subtitle }}</h3>
-                    {% endif %}  
-                    {% if item.text %}
-                        {{ item.text }}
-                    {% endif %}  
-                </div>  
-                {% if item.link_1 is not empty or item.link_2 is not empty %} 
-                <div class="box-buttons pt-3 in__animate " data-animation="animate__fadeIn animate__slow ">
-                    {% if item.link_1 %}
-                            {% set btn = {
-                            'title': item.link_1.title,
-                            'url': item.link_1.url,
-                            'target': item.link_1.target,
-                            'style': 'btn btn-' ~ section.color_link_1 ~ ' btn-md',
-                            }
-                            %}
-                            {% include ['/partials/btn.twig'] with btn %}
-                    {% endif %}
-                        
-                    {% if item.link_2 %}
-                            {% set btn = {
-                            'title': item.link_2.title,
-                            'url': item.link_2.url,
-                            'target': item.link_2.target,
-                            'style': 'btn btn-' ~ section.color_link_2 ~ ' btn-md',
-                            }
-                            %}
-                            {% include ['/partials/btn.twig'] with btn %}
-                    {% endif %}
-                </div>
-                {% endif %}
-                
-                
-
-            </div>
-        {% endfor %}
-    </div>
-</div>
-{# end section_text_4_7 #}
-{% elseif 'section_text_7_4' in class %} 
-{# section_text_7_4 #}
-<div class="container-fluid">
-    <div class="row"> 
-        {% for item in section.chapters %}
-            <div class="col-12">
-            {% if item.image %}
-                    <div class="inner-img pb-5 in__animate " data-animation="animate__fadeIn animate__slow "> 
-                        {% set image = {
-                            'alt': item.image.alt,
-                            'src': Image(item.image.id).src ,
-                            'class': 'img-fluid '
-                            }
-                        %}
-                        {% include ['/partials/img.twig'] with image %} 
-                    </div>
-                {% endif %}
-            </div>
-            <div class="col-12 col-md-7 order-1 order-md-0 in__animate " data-animation="animate__fadeIn animate__slow "> 
-                <div class="inner-text pb-3">  
-                    {% if item.subtitle %}
-                        <h3>{{ item.subtitle }}</h3>
-                    {% endif %}  
-                    {% if item.text %}
-                        {{ item.text }}
-                    {% endif %}  
-                </div>   
-                {% if item.link_1 is not empty or item.link_2 is not empty %} 
-                <div class="box-buttons pt-3 in__animate " data-animation="animate__fadeIn animate__slow ">
-                    {% if item.link_1 %}
-                            {% set btn = {
-                            'title': item.link_1.title,
-                            'url': item.link_1.url,
-                            'target': item.link_1.target,
-                            'style': 'btn btn-' ~ section.color_link_1 ~ ' btn-md',
-                            }
-                            %}
-                            {% include ['/partials/btn.twig'] with btn %}
-                    {% endif %}
-                        
-                    {% if item.link_2 %}
-                            {% set btn = {
-                            'title': item.link_2.title,
-                            'url': item.link_2.url,
-                            'target': item.link_2.target,
-                            'style': 'btn btn-' ~ section.color_link_2 ~ ' btn-md',
-                            }
-                            %}
-                            {% include ['/partials/btn.twig'] with btn %}
-                    {% endif %}
-                </div>
-                {% endif %}
-
-                
-
-            </div>
-            <div class="col-12 col-md-4 offset-md-1 order-0 order-md-1">
-                <div class="inner-title in__animate " data-animation="animate__fadeIn animate__slow ">
-                    <div class="inner-text">  
-                        {% if item.title %}
-                            <h1> {{ item.title }}</h1>
-                        {% endif %} 
-                    </div>
-                </div>
-            </div>
-
-        {% endfor %}
-    </div>
-</div>
-{# end section_text_7_4 #}
 {% else %}
-    {# section_text #}
-{% set total_items = section.chapters | length %}
-<div class="container-fluid">
+
+{# :::::::::::::: 02 * GRIT_SET section_text #} 
+<div class="container-fluid img-hover-inner">
     <div class="row {% if section.align == 'center' %}justify-content-center{% endif %}">  
 
-        {% for item in section.chapters %}
-            <div class="item-chapters py-5
+        {% for item in section.chapters %} 
+
+            {% set classes = item.inner_class ? item.inner_class|split(' ') : [] %}
+            {% set col_classes = classes|filter(class => class matches '/^col-.*$/') %}
+            {% set other_classes = classes|filter(class => not (class matches '/^col-.*$/')) %}
+
+            {% if not col_classes %}
+                {% set col_classes = '' %}
+                {% set total_items = section.chapters | length %}
                 {% if total_items == 1 %} 
                     {% if 'center' in section.align %}
-                        col-md-10  col-xl-8 
+                            {% set col_classes = 'col-md-10  col-xl-8 ' %}
                         {% else %}
-                        col-12 col-md-12
+                            {% set col_classes = 'col-12 col-md-12' %}
                     {% endif %} 
                 {% elseif total_items == 2 %}
-                    col-12 col-md-6 
+                    {% set col_classes = 'col-12 col-md-6 ' %}
                 {% elseif total_items == 3 %}
-                    col-12 col-sm-6 col-md-4  
+                    {% set col_classes = 'col-12 col-sm-6 col-md-4' %}  
                 {% else %}
-                    col-12 col-sm-6 col-md-3 
+                    {% set col_classes = 'col-12 col-sm-6 col-md-3 ' %}
                 {% endif %}
-            "> 
+            {% endif %} 
+
+            <div class="item-chapters {{ col_classes|join(' ') }} {{ other_classes|join(' ') }} "> 
         
                 <div class="inner-item   ">   
                     {% if item.image %}
-                    <div class="inner-img pb-3  in__animate " data-animation="animate__fadeIn animate__slow "> 
+                    <div class="inner-img in__animate " data-animation="animate__fadeIn animate__slow "> 
                         {% set image = {
                             'alt': item.image.alt,
                             'src': Image(item.image.id).src ,
-                            'class': 'img-fluid '
+                            'class': 'img-fluid'
                             }
                         %}
                         {% include ['/partials/img.twig'] with image %} 
@@ -292,7 +161,7 @@
                         {% endif %}  
                     </div> 
                     {% if item.link_1 is not empty or item.link_2 is not empty %} 
-                    <div class="box-buttons pb-5 in__animate " data-animation="animate__fadeIn animate__slow ">
+                    <div class="box-buttons   in__animate " data-animation="animate__fadeIn animate__slow ">
                         {% if item.link_1 %}
                                 {% set btn = {
                                 'title': item.link_1.title,
@@ -321,7 +190,7 @@
         {% endfor %} 
     </div>
 </div> 
-{# end section_text #}
+{# :::::::::::::: 02 * GRIT_SET section_text END #} 
 
 {% endif %}
 

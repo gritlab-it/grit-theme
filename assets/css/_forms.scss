@@ -1,23 +1,28 @@
 
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* :::::::::::::: 01 * GRIT_SET form */
+/* :::::::::::::: 02 * GRIT_SET section_carousel */ 
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-// A_SETTINGS contact-form-style-1
-.contact-form-style-1 {
+
+/* :::::::::::::: 01 * GRIT_SET form */
+form {
+  
   label {
     display: block; 
     font-weight: normal; 
-    width: 100%;
-    color: $dark;
+    width: 100%; 
   }
-
+  
   .wpcf7-form-control-wrap {
     display: block; 
     padding: 0px 0px 10px;
   }
   
-  input,
+  input:not(.wpcf7-submit):not([type="submit"]),
   button,
-  textarea,
-  .wpcf7-form-control,
+  textarea, 
+  .wpcf7-form-control:not(.wpcf7-submit),
   .form-control {
     border-radius: $general-radius;
     padding: 10px 20px; 
@@ -25,15 +30,15 @@
     @include transition(all 0.3s ease-in-out); 
     width: 100%;  
   }
-
- 
-
+  
+  
+  
   .form-check-input {
     position: absolute;
     margin-top: .3rem;
     margin-left: -1.1rem;
   }
-
+  
   .wpcf7-text,
   input[type="text"], 
   textarea,
@@ -52,19 +57,19 @@
     border: solid 1px $grey;
     background: $grey;
   }
-
-
+  
+  
   .wpcf7-submit,
   button,
   input[type="submit"] {
     width: auto;
-    border: solid 1px $grey;
+    // border: solid 1px $grey;
     line-height: 1.5;
   } 
-
- 
-
- 
+  
+  
+  
+  
   select,
   .wpcf7-select,
   input[type="select"],
@@ -84,9 +89,9 @@
     // border-radius: 30px;
     
   }  
-
-  .wpcf7-form-control:focus,
-  input:focus,
+  
+  .wpcf7-form-control:not(.wpcf7-submit):focus,
+  input:not(.wpcf7-submit):focus,
   .form-control:focus,
   textarea:focus {
     background-color: $light;
@@ -96,7 +101,7 @@
     box-shadow:none;
     // box-shadow: 0 0 0 0.1rem $black-20-rgb !important;
   } 
-
+  
   .wpcf7-acceptance {
     margin: 0;
     padding: 0;
@@ -109,13 +114,13 @@
       line-height: 14px;
     }
   } 
-
+  
   ::placeholder,
   :-ms-input-placeholder,
   ::-ms-input-placeholder { 
     opacity: 0.8;
   } 
-
+  
   .wpcf7 .ajax-loader {
     background: url('../img/loading.gif') no-repeat center center;
     background-size: contain;
@@ -126,7 +131,54 @@
     display: inline-block;
     position: relative;
   } 
+  
+}
 
+
+/* :::::::::::::: 01 * GRIT_SET form-style-2 */
+.form-style-2 {
+  form {
+    input:not(.wpcf7-submit),
+    button,
+    textarea, 
+    .wpcf7-form-control:not(.wpcf7-submit),
+    .form-control { 
+      border-radius: 0px; 
+    }
+    
+    .wpcf7-text,
+    input[type="text"], 
+    textarea,
+    .wpcf7-textarea,
+    input[type="email"],
+    .wpcf7-email,
+    input[type="tel"],
+    .wpcf7-date,
+    input[type="date"],
+    .wpcf7-tel,
+    .wpcf7-select,
+    input[type="select"],
+    input[type="password"],
+    input[type="url"],
+    input[type="search"]  { 
+      background-color: transparent;
+      border: none;
+      border-bottom: solid 1px $dark; 
+    }
+    
+    .wpcf7-form-control:focus,
+    input:focus,
+    .form-control:focus,
+    textarea:focus {
+      background-color: $light;
+      color: $dark;
+      border: none;
+      border-bottom: solid 1px $dark; 
+      outline: 0;
+      box-shadow:none;
+      // box-shadow: 0 0 0 0.1rem $black-20-rgb !important;
+    } 
+  }
 }
 
 
@@ -135,4 +187,5 @@
 
 
 
- 
+
+

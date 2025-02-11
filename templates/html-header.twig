@@ -3,7 +3,7 @@
 <head>
     <meta charset="{{ site.charset }}" />
     
-    {# ::::::::::::::  * A_SETTINGS SEO Yoast Setting #}
+    {# :::::::::::::: 01 * GRIT_SET SEO Yoast Setting #}  
     <title>
         {% if metatitle %}
             {{ metatitle }}
@@ -13,23 +13,22 @@
             {{ site.name }}
         {% endif %}
     </title>
-    
     <meta name="description" content="{% if metadesc %}{{ metadesc }}{% elseif content %}{{ content|striptags|slice(0, 300) }}{% else %}{{ site.description }}{% endif %}">
-    {# :::::::::::::: end * A_SETTINGS SEO Yoast Setting #}
+ 
 
-    <!-- Meta Tags Essenziali -->
+    {# :::::::::::::: 02 * GRIT_SET SEO Meta Tag #}  
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
     
-    <!-- Favicon e Informazioni Autore -->
+    {# :::::::::::::: 03 * GRIT_SET SEO Author #}  
     <link rel="author" href="{{ site.theme.uri }}/humans.txt">
     <link rel="pingback" href="{{ site.pingback_url }}">
-    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="profile" href="http://gmpg.org/xfn/11"> 
 
-    <!-- CSS Principale -->
-    <link rel="stylesheet" href="{{ site.theme.uri }}/style.css" type="text/css" media="screen">
+    {# :::::::::::::: 04 * GRIT_SET SEO style.css #} 
+    <link rel="stylesheet" href="{{ site.theme.uri }}/style.css" type="text/css" media="screen"> 
  
-    {# :::::::::::::: * A_SETTINGS Google Fonts #}
+    {# :::::::::::::: 05 * GRIT_SET SEO Google Fonts #}  
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     {% for font in setting_google_fonts %}
@@ -40,11 +39,10 @@
             --grit-font-primary:  {{setting_google_font_names[0]}};
             --grit-font-secondary:  {{setting_google_font_names[1]}};
         } 
-    </style>
-    {# :::::::::::::: end * A_SETTINGS Google Fonts #}
+    </style> 
  
-    {# ::::::::::::::  * A_SETTINGS Favicon
-    :::::::::::::::::  https://www.favicon-generator.org #}
+    {# :::::::::::::: 06 * GRIT_SET SEO Google Fonts #}  
+    {# :::::::::::::::::   https://www.favicon-generator.org #}
     <link rel="apple-touch-icon" sizes="57x57" href="{{ site.theme.uri }}/img/favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="{{ site.theme.uri }}/img/favicon/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="{{ site.theme.uri }}/img/favicon/apple-icon-72x72.png">
@@ -61,8 +59,7 @@
     <link rel="manifest" href="{{ site.theme.uri }}/img/favicon/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="{{ site.theme.uri }}/img/favicon/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
-    {# ::::::::::::::  * A_SETTINGS Favicon #}
+    <meta name="theme-color" content="#ffffff"> 
 
-
+    {# :::::::::::::: 06 * GRIT_SET SEO wp_head #} 
     {{function('wp_head')}}

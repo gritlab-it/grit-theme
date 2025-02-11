@@ -1,13 +1,19 @@
+{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#}
+{# :::::::::::::: 01 * GRIT_SET Index #} 
+{# :::::::::::::: 02 * GRIT_SET Archive Loop #}  
+{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#} 
+
 {% extends "base.twig" %}
 
-{% block content %}
-	{# <h2>{{ foo }}</h2>
-	<p>{{ qux }}</p> #}
- 
-	{% for post in posts %} 
-		{% include ['partials/tease-'~ post.post_type ~'.twig', 'partials/tease.twig'] %}
-	{% endfor %}
-	<div class="col-12 d-flex justify-content-center">
-		{% include 'partials/pagination.twig' with { pagination: posts.pagination({show_all: false, mid_size: 3, end_size: 2}) } %}
-	</div>
+{% block content %} 
+	
+	{# :::::::::::::: 04 * GRIT_SET Archive Loop #}  
+		{% for post in posts %}
+			{% include ['partials/tease-'~ post.post_type ~'.twig', 'partials/tease.twig'] %}
+		{% endfor %}   
+		<div class="col-12 d-flex justify-content-center">
+			{% include 'partials/pagination.twig' with { pagination: posts.pagination({show_all: false, mid_size: 3, end_size: 2}) } %}
+		</div>
+	{# :::::::::::::: 04 * GRIT_SET Archive Loop END #} 
+
  {% endblock %}

@@ -1,21 +1,31 @@
+{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#}
+{# :::::::::::::: 01 * GRIT_SET html-header #} 
+{# :::::::::::::: 02 * GRIT_SET loader #} 
+{# :::::::::::::: 03 * GRIT_SET header #} 
+{# :::::::::::::: 04 * GRIT_SET content #} 
+{# :::::::::::::: 05 * GRIT_SET footer #} 
+{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#}
+
 {% block html_head_container %}
 
+
+{# :::::::::::::: 01 * GRIT_SET html-header #} 
 {% include 'html-header.twig' %}
 	{% block head %}
 	{% endblock %}
 	</head>
 {% endblock %}
+{# :::::::::::::: 01 * GRIT_SET html-header END #} 
 
-	<body class="{{body_class}} " data-template="base.twig">
-	{# :::::::::::::: 11 * A_SETTINGS loader #}
+<body class="{{body_class}} " data-template="base.twig">
+
+	{# :::::::::::::: 02 * GRIT_SET loader #} 
     <div id="loader-wrapper">
         <div id="loader">
-            {# :::::::::::::: 11 * A_SETTINGS grit-spinners-balls #}
             <div class="grit-loader-spinners-balls">
                 <div class="grit-spinners-balls-1"></div>
                 <div class="grit-spinners-balls-2"></div>
             </div>
-            {# :::::::::::::: end * A_SETTINGS grit-spinners-balls #}
         </div>
         <div class="loader-section section-left"></div>
         <div class="loader-section section-right"></div>
@@ -23,59 +33,50 @@
              src="{% if custom_logo_url %}{{ custom_logo_url[0] }}{% else %}{{ stylesheet_directory_uri }}/img/icona-grit-w.png{% endif %}"
              height="80">
     </div>
-    {# :::::::::::::: 11 * A_SETTINGS loader #}
-		<a class="skip-link screen-reader-text" href="#content">{{ _e( 'Skip to content') }}</a>
+    {# :::::::::::::: 02 * GRIT_SET loader END #} 
+ 	
+	<a class="skip-link screen-reader-text" href="#content">{{ _e( 'Skip to content') }}</a>
 
-		
-		{# <header class="header" >
-			{% block header %}
-				<div class="wrapper">
-					<h1 class="hdr-logo" role="banner">
-						<a class="hdr-logo-link" href="{{site.url}}" rel="home">{{site.name}}</a>
-					</h1>
-					<nav id="nav-main" class="nav-main" role="navigation">
-						{% include "menu.twig" with {'items': menu.get_items} %}
-					</nav><!-- #nav -->
-				</div>
+	{# :::::::::::::: 03 * GRIT_SET header #} 
+	<header id="{{ grit_setting_header }}"> 
+    	{% if grit_setting_header %}
+			{% include ['headers/'~ grit_setting_header ~'.twig'] %}
+		{% else %}
+			{% include "headers/header_1.twig" %}
+		{% endif %} 
+    </header>
+	{# :::::::::::::: 03 * GRIT_SET header END#} 
+ 		 
+	{# :::::::::::::: 04 * GRIT_SET content #} 
+	<section id="content" role="main" class="content-wrapper  ">
+	 
+		<div class="wrapper {{sidebar_class}}">
+			{% block content %}
+				Sorry, no content
 			{% endblock %}
-		</header> #}
- 
-		
-		{# ::::::::::::::  * A_SETTINGS header #}
-    	<header id="{{ grit_setting_header }}">
- 
-    	    {% block header %}
-    	        {% include "headers/header.twig" %}
-    	    {% endblock %}
- 
-    	</header>
-    	{# :::::::::::::: end * A_SETTINGS header #}
- 		 
-		<section id="content" role="main" class="content-wrapper  ">
-		 
-			<div class="wrapper {{sidebar_class}}">
-				{% block content %}
-					Sorry, no content
-				{% endblock %}
-			</div>
-			{% if sidebar %}
-				<aside class="layout-sidebar">
-					{{sidebar}}
-				</aside>
-			{% endif %}
-		</section>
-        {# ::::::::::::::  * A_SETTINGS footer #}
-        {% block footer %}
-            <footer id="footer" class="{{ grit_setting_footer }}">
-				{% if grit_setting_footer %}
-						{% include ['/footers/'~ grit_setting_footer ~'.twig'] %}
-					{% else %}
-						{% include ['/footers/footer_1.twig'] %}
-				{% endif %} 
-            </footer>
-			{{ function('wp_footer') }}
-        {% endblock %}
-        {# :::::::::::::: end * A_SETTINGS footer #}
- 		 
-	</body>
+		</div>
+
+		{% if sidebar %}
+			<aside class="layout-sidebar">
+				{{sidebar}}
+			</aside>
+		{% endif %}
+
+	</section>
+	{# :::::::::::::: 04 * GRIT_SET content END #} 
+
+	{# :::::::::::::: 05 * GRIT_SET footer #}  
+    {% block footer %}
+        <footer id="footer" class="{{ grit_setting_footer }}">
+			{% if grit_setting_footer %}
+					{% include ['/footers/'~ grit_setting_footer ~'.twig'] %}
+				{% else %}
+					{% include ['/footers/footer_1.twig'] %}
+			{% endif %} 
+        </footer>
+		{{ function('wp_footer') }}
+    {% endblock %}
+	{# :::::::::::::: 05 * GRIT_SET footer END #}  
+
+</body>
 </html>
