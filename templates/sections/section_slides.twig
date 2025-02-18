@@ -57,7 +57,7 @@
     <div class="inner-text">
         <div class="container-fluid contained in__animate " data-animation="animate__fadeIn animate__slow ">
             <div class="row">
-                <div class="col-12 col-md-12 col-lg-12 pb-5 mb-5 {{ slide.align ? 'text-' ~ slide.align : ''  }}"> 
+                <div class="col-12 col-md-12 col-lg-12 pb-5 mb-5 {{ section.slides[0].align ? 'text-' ~ section.slides[0].align : ''  }}"> 
 
                     {% if section.slides[0].title %}
                     <h1 class="color-{{section.slides[0].text_color}} ">
