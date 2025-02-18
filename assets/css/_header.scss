@@ -12,7 +12,7 @@
 .nav {
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-end;
 
     li {
         list-style: none;
@@ -20,7 +20,7 @@
         a {
             text-decoration: none;
             position: relative;
-            color: $secondary;
+            color: $dark;
             font-size: 16px;
             font-weight: 400;
             font-family: $font-primary;
@@ -117,9 +117,12 @@
         border-left: $grey solid 1px; 
     } 
     li {
+        color: $dark;
         font-size: 20px;
         padding: 10px 10px;
-        
+        a {
+            color: $dark;
+        }
     }
      
 }

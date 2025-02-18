@@ -1,7 +1,7 @@
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /* :::::::::::::: 01 * GRIT_SET form */
-/* :::::::::::::: 02 * GRIT_SET section_carousel */ 
+/* :::::::::::::: 02 * GRIT_SET form-style-2 */ 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
 
@@ -112,6 +112,7 @@ form {
       padding: 0;
       font-size: 12px;
       line-height: 14px;
+      width: auto!important;
     }
   } 
   
@@ -121,16 +122,16 @@ form {
     opacity: 0.8;
   } 
   
-  .wpcf7 .ajax-loader {
-    background: url('../img/loading.gif') no-repeat center center;
-    background-size: contain;
-    width: 124px;
-    height: 36px;
-    bottom: -15px;
-    border-radius: 0;
-    display: inline-block;
-    position: relative;
-  } 
+  // .wpcf7 .ajax-loader {
+  //   background: url('../img/loading.gif') no-repeat center center;
+  //   background-size: contain;
+  //   width: 124px;
+  //   height: 36px;
+  //   bottom: -15px;
+  //   border-radius: 0;
+  //   display: inline-block;
+  //   position: relative;
+  // } 
   
 }
 
@@ -166,8 +167,8 @@ form {
       border-bottom: solid 1px $dark; 
     }
     
-    .wpcf7-form-control:focus,
-    input:focus,
+    .wpcf7-form-control:not(.wpcf7-submit):focus,
+    input:not(.wpcf7-submit):not([type="submit"]):focus,
     .form-control:focus,
     textarea:focus {
       background-color: $light;
