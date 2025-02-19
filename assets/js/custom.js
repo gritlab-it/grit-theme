@@ -135,17 +135,20 @@ $(document).ready(function () {
 $(document).ready(function () {
     // Evento per aprire il menu
     $(".menu-toggle").on("click", function () {
-        openNav("header-2-sidenav"); // Apri il menu usando la funzione openNav
+        openNav("header-sidenav"); // Apri il menu usando la funzione openNav
+        // alert('menu-toggle');
     });
     
     // Evento per chiudere il menu
     $(".menu-close").on("click", function () {
-        closeNav("header-2-sidenav"); // Chiudi il menu usando la funzione closeNav
+        closeNav("header-sidenav"); // Chiudi il menu usando la funzione closeNav
+        // alert('menu-close');
     });
     
     // Evento per chiudere il menu quando si clicca su una voce del menu
     $(".overlay-content li").on("click", function () {
-        closeNav("header-2-sidenav");
+        closeNav("header-sidenav");
+        // alert('overlay-content li');
     });
 });
 
@@ -168,7 +171,7 @@ function closeNav(elementId) {
         setTimeout(function () {
             element.style.width = "0";
         }, 500);
-    }
+    }  
 }
 
 /* :::::::::::::: 03 * GRIT_SET sticky */

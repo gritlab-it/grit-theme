@@ -238,19 +238,34 @@
 .section_slides {
     .owl-carousel {
         .owl-item.active .item-slide {
-            background-size: 103% !important;
+            @media (min-width: $md-res) { 
+                background-size: 103vw; 
+            }
         }
         .item-slide {
             width: 100%;
             min-height: 100vh;
             background-position: center;
             background-repeat: no-repeat;
-            background-size: 100%;
+            background-size: cover;
             position: relative;
             display: flex;
             align-items: flex-end;
             justify-content: center;
             transition: background-size 6s ease-in-out; // Aggiungi la transizione
+
+            @media (min-width: $md-res) { 
+                background-size: 100vw;
+                &:hover {
+                    background-size: 103vw !important;
+                } 
+            }
+
+
+            img {
+                display: initial;
+                width: revert-layer;
+            }
 
         }
         .owl-nav { 
@@ -269,17 +284,23 @@
         min-height: 100vh;
         background-position: center;
         background-repeat: no-repeat;
-        background-size: 100%;
+        background-size: cover;
         position: relative;
         display: flex;
         align-items: flex-end;
         justify-content: center;
         transition: background-size 6s ease-in-out; // Aggiungi la transizione
-        &:hover {
-            background-size: 103% !important;
+ 
+        @media (min-width: $md-res) { 
+            background-size: 100vw;
+            &:hover {
+                background-size: 103vw !important;
+            } 
         }
 
     } 
+
+
     .inner-text {
         width: 100%;
     }   

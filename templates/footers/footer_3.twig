@@ -10,8 +10,11 @@
 			</div> 
         </div>
         <div class="row  justify-content-center">
+			
+
+
             {% if footer_col_1 %} 
-			    <div class="col-12 col-sm-10 col-md-8 col-lg-6 text-center py-5 ">
+			    <div class="col-12 col-sm-10 col-md-8 col-lg-6 text-center ">
 			    	{{footer_col_1}}
 			    </div>
             {% endif %}
@@ -19,7 +22,8 @@
 		    <div class="col-12 py-5 ">
 		    	<hr>
 		    	{% if primary_menu.get_items %}
-		    		<ul class="d-flex flex-column flex-md-row justify-content-around footer-main-menu list-unstyled">
+		     
+                        <ul class="nav d-flex flex-column flex-md-row justify-content-around footer-main-menu list-unstyled">
 		    			{% for item in primary_menu.get_items %}
 		    				<li class="{{ item.classes | join(' ') }} text-uppercase my-1 my-md-4">
 		    					<a href="{{ item.get_link }}" {% if item.custom._menu_item_target %} target="{{item.custom._menu_item_target}}" {% endif %}>
@@ -28,12 +32,14 @@
 		    				</li>
 		    			{% endfor %}
 		    		</ul>
+         
 		    	{% endif %}
 		    	<hr>
 		    </div> 
-			<div class="col-12 col-md-12 text-center py-5">
+
+<div class="col-12 col-md-12 text-center py-2">
 	 
-					<p class="font-secondary">{{ setting_intestazione }}</p>
+					{# <p class="font-secondary">{{ setting_intestazione }}</p> #}
                      {% if setting_indirizzo_1 %}
                     <a href="https://www.google.com/maps/dir/?api=1&destination={{ setting_indirizzo_1 | url_encode }}" target="_blank">
 						{{ setting_indirizzo_1 }}
@@ -44,19 +50,19 @@
                 {% if setting_mail_1 %}
                 
 				<p>
-					<span class=" ">{{__('E-Mail:', 'grit_theme')}}</span>
+					{# <span class=" ">{{__('E-Mail:', 'grit_theme')}}</span> #}
 					<a href="mailto:{{ setting_mail_1 }}" class="link-footer">{{ setting_mail_1 }}</a>
 				</p>
                 {% endif %}
                  {% if setting_tel_1 %}
                 <p>
-					<span class=" ">{{__('Tel:', 'grit_theme')}}</span>
+					{# <span class=" ">{{__('Tel:', 'grit_theme')}}</span> #}
 					<a href="tel:{{ setting_tel_1 }}" class="link-footer">{{ setting_tel_1 }}</a>
 				</p>
                  {% endif %}
 
                 <div class="inner-social d-inline-block my-2">
-					<p class="lead">
+					<p class="h1">
                         {% if setting_facebook %}
                         <a href="{{setting_facebook}}" target="_blank" class="mr-2 ">
                             <i class="fab fa-facebook"></i>
@@ -76,7 +82,6 @@
 				</div>
 			</div>
 
-
              
 			 
 		</div>
@@ -95,7 +100,7 @@
 				</span>
 				P.IVA
 				{{ setting_piva }}
-				{% if setting_indirizzo_1 %}
+				{# {% if setting_indirizzo_1 %}
 					<i class="fas fa-map-marker-alt"></i>
 					{{ setting_indirizzo_1 }}
 				{% endif %}
@@ -112,7 +117,7 @@
 					<a href="tel:{{ setting_tel_1 }}">
 						{{ setting_tel_1 }}
 					</a>
-				{% endif %}
+				{% endif %} #}
 
 
 				<a href="{{ home }}/privacy-policy/" class="link-footer">

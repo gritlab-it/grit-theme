@@ -17,6 +17,7 @@ h2,
 h3,
 .h3 {
   font-family: $font-secondary;
+  font-weight: 900;
 }
 
 h4,
@@ -28,6 +29,9 @@ h6,
   font-family: $font-primary;
 }
 
+.lead {
+  font-weight: normal;
+}
  
 
 .text-muted {
@@ -56,8 +60,8 @@ a:hover {
 
 /* :::::::::::::: 02 * GRIT_SET btn */
 .btn {
-  border-radius: 3px;
-  padding: 0.545em 1em;
+  border-radius: 25px;
+  padding: 0.545em 1.4em;
   text-align: center;
   display: inline-block;
   letter-spacing: .02em;
@@ -66,7 +70,7 @@ a:hover {
   border: 2px solid;
   line-height: 1;
   position: relative;
-  font-weight: 600;
+  font-weight: 900;
   text-transform: uppercase;
   @include transition(all 0.5s ease-in-out);
   /* Standard */

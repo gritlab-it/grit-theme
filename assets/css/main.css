@@ -406,7 +406,7 @@ Note:No media query since this is the default in Bootstrap because it is "mobile
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /* :::::::::::::: 01 * GRIT_SET body */
 body {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Mulish", "Open Sans", sans-serif;
   color: #000000;
   background-color: #ffffff;
   font-weight: normal;
@@ -2182,7 +2182,7 @@ body {
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /* :::::::::::::: 01 * GRIT_SET typography */
 p {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Mulish", "Open Sans", sans-serif;
 }
 
 h1,
@@ -2191,7 +2191,8 @@ h2,
 .h2,
 h3,
 .h3 {
-  font-family: "Roboto", sans-serif;
+  font-family: "Mulish", "Roboto", sans-serif;
+  font-weight: 900;
 }
 
 h4,
@@ -2200,7 +2201,11 @@ h5,
 .h5,
 h6,
 .h6 {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Mulish", "Open Sans", sans-serif;
+}
+
+.lead {
+  font-weight: normal;
 }
 
 .text-muted {
@@ -2228,8 +2233,8 @@ a:hover {
 
 /* :::::::::::::: 02 * GRIT_SET btn */
 .btn {
-  border-radius: 3px;
-  padding: 0.545em 1em;
+  border-radius: 25px;
+  padding: 0.545em 1.4em;
   text-align: center;
   display: inline-block;
   letter-spacing: 0.02em;
@@ -2238,7 +2243,7 @@ a:hover {
   border: 2px solid;
   line-height: 1;
   position: relative;
-  font-weight: 600;
+  font-weight: 900;
   text-transform: uppercase;
   -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
@@ -3250,7 +3255,7 @@ a:hover {
 .nav {
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-end;
 }
 .nav li {
   list-style: none;
@@ -3258,20 +3263,21 @@ a:hover {
 .nav li a {
   text-decoration: none;
   position: relative;
-  color: #a1c181;
+  color: #1D1D1B;
   font-size: 16px;
-  font-weight: 400;
-  font-family: "Open Sans", sans-serif;
+  font-weight: 700;
+  font-family: "Mulish", "Open Sans", sans-serif;
   display: block;
   overflow: hidden;
+  text-transform: uppercase;
   transition: 0.7s all ease-in-out;
-  padding: 10px 10px;
+  padding: 10px 15px;
 }
 .nav li:hover a {
   color: #fcca46;
 }
 .nav li.current_page_item > a {
-  font-weight: bold;
+  font-weight: 900;
 }
 .nav .dropdown:hover > .dropdown-menu {
   display: block;
@@ -3306,8 +3312,12 @@ a:hover {
   }
 }
 .nav-social li {
+  color: #1D1D1B;
   font-size: 20px;
   padding: 10px 10px;
+}
+.nav-social li a {
+  color: #1D1D1B;
 }
 
 /* :::::::::::::: 03 * GRIT_SET header_* */
@@ -3325,7 +3335,7 @@ a:hover {
 #header_2 .sticky-fix .navbar-toggler,
 #header_4 .header-menu .navbar-toggler,
 #header_4 .sticky-fix .navbar-toggler {
-  color: #a1c181;
+  color: #1D1D1B;
   display: block;
   margin-left: auto;
 }
@@ -3490,12 +3500,18 @@ a:hover {
 #header_3 .header-menu,
 #header_3 .sticky-fix {
   background-color: #F8F9FA;
-  width: 90vw;
+  width: 93vw;
   margin-top: 20px;
   padding: 5px 5px;
   border-radius: 40px;
 }
 @media (min-width: 768px) {
+  #header_3 .header-menu,
+  #header_3 .sticky-fix {
+    width: 75vw;
+  }
+}
+@media (min-width: 992px) {
   #header_3 .header-menu,
   #header_3 .sticky-fix {
     width: 70vw;
@@ -3523,11 +3539,15 @@ a:hover {
 }
 #header_3 .header-menu .navbar-toggler,
 #header_3 .sticky-fix .navbar-toggler {
-  color: #a1c181;
+  color: #1D1D1B;
   display: block;
   margin-left: auto;
 }
-@media (min-width: 768px) {
+#header_3 .header-menu .navbar-toggler:hover,
+#header_3 .sticky-fix .navbar-toggler:hover {
+  color: #fe7f2d;
+}
+@media (min-width: 992px) {
   #header_3 .header-menu .navbar-toggler,
   #header_3 .sticky-fix .navbar-toggler {
     display: none;
@@ -3575,7 +3595,7 @@ a:hover {
 }
 #header_3 .header-menu .sidenav .inner-sidenav .navbar {
   position: absolute;
-  width: 90vw;
+  width: 93vw;
   margin-top: 25px;
   padding: 8px 21px;
   border-radius: 40px;
@@ -4028,20 +4048,34 @@ a:hover {
 }
 
 /* :::::::::::::: 04 * GRIT_SET section_slides */
-.section_slides .owl-carousel .owl-item.active .item-slide {
-  background-size: 103% !important;
+@media (min-width: 768px) {
+  .section_slides .owl-carousel .owl-item.active .item-slide {
+    background-size: 103vw;
+  }
 }
 .section_slides .owl-carousel .item-slide {
   width: 100%;
   min-height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: cover;
   position: relative;
   display: flex;
   align-items: flex-end;
   justify-content: center;
   transition: background-size 6s ease-in-out;
+}
+@media (min-width: 768px) {
+  .section_slides .owl-carousel .item-slide {
+    background-size: 100vw;
+  }
+  .section_slides .owl-carousel .item-slide:hover {
+    background-size: 103vw !important;
+  }
+}
+.section_slides .owl-carousel .item-slide img {
+  display: initial;
+  width: revert-layer;
 }
 .section_slides .owl-carousel .owl-nav button.owl-prev button.owl-next {
   color: #F8F9FA;
@@ -4054,15 +4088,20 @@ a:hover {
   min-height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: cover;
   position: relative;
   display: flex;
   align-items: flex-end;
   justify-content: center;
   transition: background-size 6s ease-in-out;
 }
-.section_slides .item-slide.item-slide-single:hover {
-  background-size: 103% !important;
+@media (min-width: 768px) {
+  .section_slides .item-slide.item-slide-single {
+    background-size: 100vw;
+  }
+  .section_slides .item-slide.item-slide-single:hover {
+    background-size: 103vw !important;
+  }
 }
 .section_slides .inner-text {
   width: 100%;
@@ -4238,7 +4277,7 @@ a:hover {
 /* :::::::::::::: 08 * GRIT_SET forms */
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /* :::::::::::::: 01 * GRIT_SET form */
-/* :::::::::::::: 02 * GRIT_SET section_carousel */
+/* :::::::::::::: 02 * GRIT_SET form-style-2 */
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /* :::::::::::::: 01 * GRIT_SET form */
 form label {
@@ -4320,7 +4359,7 @@ form textarea:focus {
 }
 form .wpcf7-acceptance {
   margin: 0;
-  padding: 0;
+  padding: 0 !important;
   font-size: 12px;
   line-height: 14px;
 }
@@ -4329,21 +4368,12 @@ form .wpcf7-acceptance input, form .wpcf7-acceptance label {
   padding: 0;
   font-size: 12px;
   line-height: 14px;
+  width: auto !important;
 }
 form ::placeholder,
 form :-ms-input-placeholder,
 form ::-ms-input-placeholder {
   opacity: 0.8;
-}
-form .wpcf7 .ajax-loader {
-  background: url("../img/loading.gif") no-repeat center center;
-  background-size: contain;
-  width: 124px;
-  height: 36px;
-  bottom: -15px;
-  border-radius: 0;
-  display: inline-block;
-  position: relative;
 }
 
 /* :::::::::::::: 01 * GRIT_SET form-style-2 */
@@ -4373,8 +4403,8 @@ form .wpcf7 .ajax-loader {
   border: none;
   border-bottom: solid 1px #1D1D1B;
 }
-.form-style-2 form .wpcf7-form-control:focus,
-.form-style-2 form input:focus,
+.form-style-2 form .wpcf7-form-control:not(.wpcf7-submit):focus,
+.form-style-2 form input:not(.wpcf7-submit):not([type=submit]):focus,
 .form-style-2 form .form-control:focus,
 .form-style-2 form textarea:focus {
   background-color: #F8F9FA;
@@ -4751,7 +4781,7 @@ Note: L'evento che fa avviare è la classe 'loaded' posizionato nel body
   top: 0;
   width: 50%;
   height: 100%;
-  background: #1D1D1B;
+  background: #ffffff;
   z-index: 80;
   transform: translateX(0);
   transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
