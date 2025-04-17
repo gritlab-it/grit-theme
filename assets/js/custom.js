@@ -33,15 +33,19 @@ $(document).ready(function () {
         /* verifica se il link contiene lo stesso dominio */
         if ($(this).prop("hostname") === window.location.hostname) {
             /* verifica se il link è un ancoraggio */
-            if ($(this).attr("href").indexOf("#") === 0) {
-                return; // non fare nulla e interrompi l'esecuzione
+            if ($(this).attr("href").indexOf("#") !== -1) {
+                // Verifica se il link punta alla stessa pagina corrente
+                if (this.href.split('#')[0] === window.location.href.split('#')[0]) {
+                    console.log("Il link punta alla stessa pagina. Non fare nulla e interrompi l'esecuzione.");
+                    return; // non fare nulla e interrompi l'esecuzione
+                }
             }
             /* verifica se il link ha come target "_blank" */
             if ($(this).attr("target") === "_blank") {
                 return; // non fare nulla e interrompi l'esecuzione
             }
             if ($(this).hasClass("no-load")) {
-                console.log("Il link ha la classe 'no-load'. L'azione è stata interrotta.");
+                // console.log("Il link ha la classe 'no-load'. L'azione è stata interrotta.");
                 return; // non fare nulla e interrompi l'esecuzione
             }
             
@@ -50,9 +54,7 @@ $(document).ready(function () {
                 $(this).closest(".gallery-icon").length > 0 ||
                 $(this).attr("data-lightbox-gallery")
             ) {
-                console.log(
-                    "Il link fa parte di una galleria o ha l'attributo 'data-lightbox-gallery'. L'azione è stata interrotta."
-                );
+                // console.log(  "Il link fa parte di una galleria o ha l'attributo 'data-lightbox-gallery'. L'azione è stata interrotta." );
                 return; // non fare nulla e interrompi l'esecuzione
             }
             
@@ -195,11 +197,11 @@ $(function () {
 owl_carousel_active = document.getElementById("owl_carousel-js");
 if (owl_carousel_active) {
     $(document).ready(function () {
-
-    // Definisci il contenuto HTML delle frecce direttamente nel JavaScript
-    var navLeftArrow = typeof window.navLeftArrow !== 'undefined' ? window.navLeftArrow : `<i class='fa fa-chevron-left'></i>`;
-    var navRightArrow = typeof window.navRightArrow !== 'undefined' ? window.navRightArrow : `<i class='fa fa-chevron-right'></i>`;
-
+        
+        // Definisci il contenuto HTML delle frecce direttamente nel JavaScript
+        var navLeftArrow = typeof window.navLeftArrow !== 'undefined' ? window.navLeftArrow : `<i class='fa fa-chevron-left'></i>`;
+        var navRightArrow = typeof window.navRightArrow !== 'undefined' ? window.navRightArrow : `<i class='fa fa-chevron-right'></i>`;
+        
         function initCarouselStandard($carousel) {
             $carousel.owlCarousel({
                 loop: true,
@@ -220,7 +222,7 @@ if (owl_carousel_active) {
                 },
             });
         }
-    
+        
         function initCarouselCenter($carousel) {
             $carousel.owlCarousel({
                 loop: true,
@@ -241,7 +243,7 @@ if (owl_carousel_active) {
                 },
             });
         }
-
+        
         function initCarouselLeft($carousel) {
             $carousel.owlCarousel({
                 loop: true,
@@ -252,7 +254,7 @@ if (owl_carousel_active) {
                 nav: true,
                 dots: true,
                 navText: [navLeftArrow, navRightArrow], 
-
+                
                 responsive: {
                     0: { items: 1.5 },
                     576: { items: 2.5 },
@@ -263,7 +265,7 @@ if (owl_carousel_active) {
                 },
             });
         }
-
+        
         function initCarouselCube($carousel) {
             $carousel.owlCarousel({
                 loop: true,
@@ -275,7 +277,7 @@ if (owl_carousel_active) {
                 items: 1, 
             });
         }
-
+        
         function initCarouselText($carousel) {
             $carousel.owlCarousel({
                 loop: true,
@@ -305,8 +307,8 @@ if (owl_carousel_active) {
                 }
             });
         }
-
-
+        
+        
         function initCarouselSlide($carousel) {
             $carousel.owlCarousel({
                 loop: true,
@@ -316,13 +318,13 @@ if (owl_carousel_active) {
                 dots: true,
                 items: 1,
                 navText: [navLeftArrow, navRightArrow],  
-
+                
                 autoplay: true, // Abilita l'autoplay
                 autoplayTimeout: 5000, // Imposta il timeout dell'autoplay (in millisecondi)
                 autoplayHoverPause: true // Pausa l'autoplay al passaggio del mouse
             });
         }
-
+        
         function initCarouselArchive($carousel) {
             $carousel.owlCarousel({
                 loop: false,
@@ -337,28 +339,28 @@ if (owl_carousel_active) {
                 responsive: {
                     0: {
                         items: 1, // Impostazioni per schermi molto piccoli
-     
+                        
                     },
                     576: {
                         items: 2, // Impostazioni per schermi piccoli
-                  
+                        
                     },
                     768: {
                         items: 3, // Impostazioni per schermi medi
-            
+                        
                     },
                     992: {
                         items: 3, // Impostazioni per schermi grandi
-                    
+                        
                     },
                     1200: {
                         items: 3, // Impostazioni per schermi molto grandi
-                    
+                        
                     }
                 }
             });
         }
- 
+        
         $(".owl-carousel").each(function () {
             var $carousel = $(this);
             var $section = $carousel.closest('section');
@@ -474,7 +476,7 @@ if (owl_carousel_active) {
         });
     });
 }
- 
+
 /* :::::::::::::: 07 * GRIT_SET NProgress-js */
 nprogress_active = document.getElementById("nprogress-js");
 if (nprogress_active) {
@@ -505,14 +507,14 @@ if (nprogress_active) {
 $(document).ready(function () {
     // Controlla se esiste una sezione con la classe 'section_collapse'
     if (document.querySelector('.section_collapse')) {
- 
+        
         var headers = document.querySelectorAll('.accordion_heading');
-    
+        
         headers.forEach(function (header) {
             header.addEventListener('click', function () {
                 var symbol = this.querySelector('.collapse-symbol');
                 var target = document.querySelector(this.getAttribute('data-target'));
-
+                
                 if (target.classList.contains('show')) {
                     symbol.innerHTML = `<i class="fas fa-plus"></i>`;
                     // symbol.innerHTML = `{% include '/img/plus.svg' %}`;
@@ -527,7 +529,7 @@ $(document).ready(function () {
                 }
             });
         });
-
+        
         // Gestione clic sull'icona
         var symbols = document.querySelectorAll('.collapse-symbol');
         symbols.forEach(function (symbol) {
@@ -536,21 +538,21 @@ $(document).ready(function () {
                 this.closest('.accordion_heading').click(); // Simula il clic sull'intestazione
             });
         });
-
+        
         var firstHeader = document.querySelector('.accordion_heading:not(.collapsed)');
         if (firstHeader) {
             var firstSymbol = firstHeader.querySelector('.collapse-symbol');
             firstSymbol.innerHTML = `<i class="fas fa-minus"></i>`;
             // firstSymbol.innerHTML = `{% include '/img/minus.svg' %}`;
         }
-
+        
         var searchHeaders = document.querySelectorAll('.accordion_search_heading');
-
+        
         searchHeaders.forEach(function (header) {
             header.addEventListener('click', function () {
                 var symbol = this.querySelector('.collapse-symbol');
                 var target = document.querySelector(this.getAttribute('data-target'));
-
+                
                 if (target.classList.contains('show')) {
                     symbol.innerHTML = `<i class="fas fa-plus"></i>`;
                     // symbol.innerHTML = `{% include '/img/plus.svg' %}`;
@@ -566,7 +568,7 @@ $(document).ready(function () {
                 }
             });
         });
-
+        
         // Gestione clic sull'icona
         var searchSymbols = document.querySelectorAll('.collapse-symbol');
         searchSymbols.forEach(function (symbol) {
@@ -575,7 +577,7 @@ $(document).ready(function () {
                 this.closest('.accordion_search_heading').click(); // Simula il clic sull'intestazione
             });
         });
-
+        
         var firstSearchHeader = document.querySelector('.accordion_search_heading:not(.collapsed)');
         if (firstSearchHeader) {
             var firstSearchSymbol = firstSearchHeader.querySelector('.collapse-symbol');
@@ -592,16 +594,16 @@ $(document).ready(function () {
 
 function initializeVideoSections() {
     const videoSections = document.querySelectorAll('.section-video');
-
+    
     videoSections.forEach((section) => {
         const thumbnail = section.querySelector('.video-thumbnail');
         const videoEmbed = section.querySelector('.video-embed');
         const videoIframeContainer = section.querySelector('.video-iframe');
         const videoFile = section.querySelector('.video-file video');
-
+        
         thumbnail.addEventListener('click', function () {
             thumbnail.style.display = 'none';
-
+            
             if (videoEmbed) {
                 videoEmbed.style.display = 'block';
             } else if (videoIframeContainer) {
@@ -625,15 +627,15 @@ document.addEventListener('DOMContentLoaded', initializeVideoSections);
 
 
 /* :::::::::::::: 09 * GRIT_SET Lenis js */
-  
 
 
-  // Aspetta che il DOM sia pronto
+
+// Aspetta che il DOM sia pronto
 document.addEventListener("DOMContentLoaded", function () {
     // Verifica se Lenis è disponibile
     if (typeof Lenis !== "undefined") {
         // console.log("Lenis caricato correttamente");
-
+        
         const lenis = new Lenis({
             duration: 1.1,
             easing: (t) => 1 - Math.pow(1 - t, 3),
@@ -643,14 +645,14 @@ document.addEventListener("DOMContentLoaded", function () {
             smoothTouch: true,
             touchMultiplier: 1, // Ridotto
         });
-
+        
         function raf(time) {
             lenis.raf(time);
             ScrollTrigger.update();
             requestAnimationFrame(raf);
         }
         requestAnimationFrame(raf);
-
+        
         // Verifica che ci sia un elemento scroller valido prima di configurare ScrollTrigger
         const lenisScroller = document.querySelector("[data-lenis]");
         if (lenisScroller) {
@@ -660,7 +662,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             // console.warn("Attenzione: Nessun elemento [data-lenis] trovato per ScrollTrigger.");
         }
-
+        
         // Debug degli eventi di scroll
         window.addEventListener("scroll", () => {
             // console.log('Scroll position:', window.scrollY);
@@ -680,34 +682,34 @@ if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
     // Inizializzazione di ScrollTrigger con GSAP
     gsap.registerPlugin(ScrollTrigger);
     
-// Esempio di animazione parallax con ScrollTrigger usando una timeline
-const parallaxImage = document.querySelector(".gsap-parallaxImage");
-const parallaxContainer = document.querySelector(".gsap-parallax-container");
-
-// Controlla se entrambi gli elementi sono presenti prima di applicare l'animazione
-if (parallaxImage && parallaxContainer) {
-  // Crea una timeline GSAP
-  const timeline = gsap.timeline({
-    scrollTrigger: {
-      trigger: parallaxContainer, // Associa la timeline al contenitore specificato
-      start: "top bottom",
-      end: "bottom top",
-      scrub: true,
-      markers: true, // Usa markers per debug, rimuovi quando non più necessari
+    // Esempio di animazione parallax con ScrollTrigger usando una timeline
+    const parallaxImage = document.querySelector(".gsap-parallaxImage");
+    const parallaxContainer = document.querySelector(".gsap-parallax-container");
+    
+    // Controlla se entrambi gli elementi sono presenti prima di applicare l'animazione
+    if (parallaxImage && parallaxContainer) {
+        // Crea una timeline GSAP
+        const timeline = gsap.timeline({
+            scrollTrigger: {
+                trigger: parallaxContainer, // Associa la timeline al contenitore specificato
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true,
+                markers: true, // Usa markers per debug, rimuovi quando non più necessari
+            }
+        });
+        
+        // Aggiungi animazioni alla timeline
+        timeline.to(parallaxImage, {
+            scale: 1.2,
+            y: "-30%",
+            ease: "none",
+        });
+        
+        // Aggiungi ulteriori animazioni alla timeline se necessario
+        // timeline.to(...);
     }
-  });
-
-  // Aggiungi animazioni alla timeline
-  timeline.to(parallaxImage, {
-    scale: 1.2,
-    y: "-30%",
-    ease: "none",
-  });
-
-  // Aggiungi ulteriori animazioni alla timeline se necessario
-  // timeline.to(...);
-}
-
+    
     
     // Refresh di ScrollTrigger su `resize` e `load`
     window.addEventListener("resize", () => ScrollTrigger.refresh());
@@ -715,18 +717,24 @@ if (parallaxImage && parallaxContainer) {
     
     
     // Smooth scroll per ancoraggi gestito con GSAP
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    document.querySelectorAll('a[href*="#"]').forEach(anchor => {
         anchor.addEventListener("click", function(e) {
-            e.preventDefault();
-            const targetID = this.getAttribute("href").substring(1);
-            const targetElement = document.getElementById(targetID);
+            // Verifica se il link punta alla stessa pagina corrente
+            const currentUrlWithoutHash = window.location.href.split('#')[0];
+            const linkUrlWithoutHash = this.href.split('#')[0];
+        
+            if (currentUrlWithoutHash === linkUrlWithoutHash) {
+                e.preventDefault();
+                const targetID = this.getAttribute("href").split('#')[1];
+                const targetElement = document.getElementById(targetID);
             
-            if (targetElement) {
-                gsap.to(window, {
-                    duration: 1.1,
-                    scrollTo: { y: targetElement, autoKill: false },
-                    ease: "power2.out"
-                });
+                if (targetElement) {
+                    gsap.to(window, {
+                        duration: 1.1,
+                        scrollTo: { y: targetElement, autoKill: false },
+                        ease: "power2.out"
+                    });
+                }
             }
         });
     });
