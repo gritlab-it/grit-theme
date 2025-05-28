@@ -16,7 +16,7 @@
             </nav>
         </div>
         <div class="overlay-content">
-            {% include "/templates/headers/menu.twig" with {'primary_menu': primary_menu.get_items} %} 
+            {% include "/templates/headers/menu.twig" with {'menu_items': mobile_menu.get_items, 'class_menu': 'mobile_menu'} %}
         </div>
 
         <ul class="nav-social ">
@@ -44,10 +44,14 @@
         </ul> 
     </div>
     <nav class=" navbar navbar-expand-lg static-top">
-        <a class="navbar-brand" href="{{ home }}" title="{{ site.name }} - {{ site.description }}">
-            <img class="logo img-fluid"
-                src="{% if custom_logo_url %}{{ custom_logo_url[0] }}{% else %}{{ template_directory_uri }}/img/logo-grit-b.png{% endif %}">
-        </a>
+        <div class="navbar-collapse collapse  " id="navbarResponsive">
+            {% include "/templates/headers/menu.twig" with {'menu_items': primary_menu.get_items, 'class_menu': 'primary_menu'} %} 
+        </div>
+        <div class="col-4 text-center">
+            <a class="navbar-brand" href="{{ home }}" title="{{ site.name }} - {{ site.description }}">
+                <img class="logo img-fluid" src="{% if custom_logo_url %}{{ custom_logo_url[0] }}{% else %}{{ template_directory_uri }}/img/logo-grit-b.png{% endif %}">
+            </a>
+        </div>
         <button class="navbar-toggler  " type="button"
             data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarNav" aria-expanded="false"
             aria-label="Toggle navigation">
@@ -56,7 +60,8 @@
             </span>
         </button>
         <div class="navbar-collapse collapse  " id="navbarResponsive">
-            {% include "/templates/headers/menu.twig" with {'primary_menu': primary_menu.get_items} %}
+            {% include "/templates/headers/menu.twig" with {'menu_items': secondary_menu.get_items, 'class_menu': 'secondary_menu'} %} 
+
             <ul class="nav-social ">
                 {% if setting_facebook %}
                     <li class="social-link">
@@ -85,10 +90,16 @@
 </div>
 <div class="sticky sticky-fix">
     <nav class=" navbar navbar-expand-lg static-top">
-        <a class="navbar-brand" href="{{ home }}" title="{{ site.name }} - {{ site.description }}">
-            <img class="logo img-fluid"
-                src="{% if custom_logo_url %}{{ custom_logo_url[0] }}{% else %}{{ template_directory_uri }}/img/logo-grit-b.png{% endif %}">
-        </a>
+        <div class="navbar-collapse collapse  " id="navbarResponsive">
+            {% include "/templates/headers/menu.twig" with {'menu_items': primary_menu.get_items, 'class_menu': 'primary_menu'} %} 
+        </div>
+        <div class="col-4 text-center">
+            <a class="navbar-brand" href="{{ home }}" title="{{ site.name }} - {{ site.description }}">
+                <img class="logo img-fluid"
+                    src="{% if custom_logo_url %}{{ custom_logo_url[0] }}{% else %}{{ template_directory_uri }}/img/logo-grit-b.png{% endif %}">
+            </a>
+        </div>
+        
         <button class="navbar-toggler  " type="button"
             data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarNav" aria-expanded="false"
             aria-label="Toggle navigation">
@@ -97,7 +108,7 @@
             </span>
         </button>
         <div class="navbar-collapse collapse  " id="navbarResponsive">
-            {% include "/templates/headers/menu.twig" with {'primary_menu': primary_menu.get_items} %}
+            {% include "/templates/headers/menu.twig" with {'menu_items': secondary_menu.get_items, 'class_menu': 'secondary_menu'} %} 
             <ul class="nav-social ">
                 {% if setting_facebook %}
                     <li class="social-link">

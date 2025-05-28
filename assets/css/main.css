@@ -3250,6 +3250,7 @@ a:hover {
 /* :::::::::::::: 05 * GRIT_SET header_2 */
 /* :::::::::::::: 06 * GRIT_SET header_3 */
 /* :::::::::::::: 07 * GRIT_SET header_4 */
+/* :::::::::::::: 08 * GRIT_SET header_5 */
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /* :::::::::::::: 01 * GRIT_SET nav */
 .nav {
@@ -3326,7 +3327,9 @@ a:hover {
 #header_2 .header-menu,
 #header_2 .sticky-fix,
 #header_4 .header-menu,
-#header_4 .sticky-fix {
+#header_4 .sticky-fix,
+#header_5 .header-menu,
+#header_5 .sticky-fix {
   background-color: #F8F9FA;
 }
 #header_1 .header-menu .navbar-toggler,
@@ -3334,7 +3337,9 @@ a:hover {
 #header_2 .header-menu .navbar-toggler,
 #header_2 .sticky-fix .navbar-toggler,
 #header_4 .header-menu .navbar-toggler,
-#header_4 .sticky-fix .navbar-toggler {
+#header_4 .sticky-fix .navbar-toggler,
+#header_5 .header-menu .navbar-toggler,
+#header_5 .sticky-fix .navbar-toggler {
   color: #1D1D1B;
   display: block;
   margin-left: auto;
@@ -3345,7 +3350,9 @@ a:hover {
   #header_2 .header-menu .navbar-toggler,
   #header_2 .sticky-fix .navbar-toggler,
   #header_4 .header-menu .navbar-toggler,
-  #header_4 .sticky-fix .navbar-toggler {
+  #header_4 .sticky-fix .navbar-toggler,
+  #header_5 .header-menu .navbar-toggler,
+  #header_5 .sticky-fix .navbar-toggler {
     display: none;
   }
 }
@@ -3359,7 +3366,11 @@ a:hover {
 #header_4 .header-menu .navbar-toggler:focus,
 #header_4 .header-menu .navbar-toggler:focus-visible,
 #header_4 .sticky-fix .navbar-toggler:focus,
-#header_4 .sticky-fix .navbar-toggler:focus-visible {
+#header_4 .sticky-fix .navbar-toggler:focus-visible,
+#header_5 .header-menu .navbar-toggler:focus,
+#header_5 .header-menu .navbar-toggler:focus-visible,
+#header_5 .sticky-fix .navbar-toggler:focus,
+#header_5 .sticky-fix .navbar-toggler:focus-visible {
   outline: none;
 }
 #header_1 .header-menu .logo,
@@ -3367,7 +3378,9 @@ a:hover {
 #header_2 .header-menu .logo,
 #header_2 .sticky-fix .logo,
 #header_4 .header-menu .logo,
-#header_4 .sticky-fix .logo {
+#header_4 .sticky-fix .logo,
+#header_5 .header-menu .logo,
+#header_5 .sticky-fix .logo {
   height: 40px;
 }
 #header_1 .header-menu .nav .dropdown:hover > .dropdown-menu,
@@ -3375,7 +3388,9 @@ a:hover {
 #header_2 .header-menu .nav .dropdown:hover > .dropdown-menu,
 #header_2 .sticky-fix .nav .dropdown:hover > .dropdown-menu,
 #header_4 .header-menu .nav .dropdown:hover > .dropdown-menu,
-#header_4 .sticky-fix .nav .dropdown:hover > .dropdown-menu {
+#header_4 .sticky-fix .nav .dropdown:hover > .dropdown-menu,
+#header_5 .header-menu .nav .dropdown:hover > .dropdown-menu,
+#header_5 .sticky-fix .nav .dropdown:hover > .dropdown-menu {
   text-align: center;
 }
 @media (min-width: 768px) {
@@ -3384,19 +3399,23 @@ a:hover {
   #header_2 .header-menu .nav .dropdown:hover > .dropdown-menu,
   #header_2 .sticky-fix .nav .dropdown:hover > .dropdown-menu,
   #header_4 .header-menu .nav .dropdown:hover > .dropdown-menu,
-  #header_4 .sticky-fix .nav .dropdown:hover > .dropdown-menu {
+  #header_4 .sticky-fix .nav .dropdown:hover > .dropdown-menu,
+  #header_5 .header-menu .nav .dropdown:hover > .dropdown-menu,
+  #header_5 .sticky-fix .nav .dropdown:hover > .dropdown-menu {
     text-align: left;
   }
 }
 #header_1 .header-menu,
 #header_2 .header-menu,
-#header_4 .header-menu {
+#header_4 .header-menu,
+#header_5 .header-menu {
   z-index: 3;
   position: relative;
 }
 #header_1 .header-menu .sidenav,
 #header_2 .header-menu .sidenav,
-#header_4 .header-menu .sidenav {
+#header_4 .header-menu .sidenav,
+#header_5 .header-menu .sidenav {
   opacity: 0.8;
   height: 100%;
   width: 0;
@@ -3412,7 +3431,8 @@ a:hover {
 }
 #header_1 .header-menu .sidenav .overlay-content,
 #header_2 .header-menu .sidenav .overlay-content,
-#header_4 .header-menu .sidenav .overlay-content {
+#header_4 .header-menu .sidenav .overlay-content,
+#header_5 .header-menu .sidenav .overlay-content {
   position: relative;
   height: auto;
   text-align: center;
@@ -3422,7 +3442,9 @@ a:hover {
 #header_2 .header-menu .sidenav.sidenav-open .inner-sidenav,
 #header_2 .header-menu .sidenav.sidenav-open .overlay-content,
 #header_4 .header-menu .sidenav.sidenav-open .inner-sidenav,
-#header_4 .header-menu .sidenav.sidenav-open .overlay-content {
+#header_4 .header-menu .sidenav.sidenav-open .overlay-content,
+#header_5 .header-menu .sidenav.sidenav-open .inner-sidenav,
+#header_5 .header-menu .sidenav.sidenav-open .overlay-content {
   opacity: 1;
   transition-delay: 0s;
   -webkit-transition: all 0.7s ease-in-out;
@@ -3432,7 +3454,9 @@ a:hover {
 #header_2 .header-menu .sidenav.sidenav-close .inner-sidenav,
 #header_2 .header-menu .sidenav.sidenav-close .overlay-content,
 #header_4 .header-menu .sidenav.sidenav-close .inner-sidenav,
-#header_4 .header-menu .sidenav.sidenav-close .overlay-content {
+#header_4 .header-menu .sidenav.sidenav-close .overlay-content,
+#header_5 .header-menu .sidenav.sidenav-close .inner-sidenav,
+#header_5 .header-menu .sidenav.sidenav-close .overlay-content {
   opacity: 0;
   transition-delay: 0.5s;
   -webkit-transition: all 0.7s ease-in-out;
@@ -3440,7 +3464,8 @@ a:hover {
 }
 #header_1 .sticky-fix,
 #header_2 .sticky-fix,
-#header_4 .sticky-fix {
+#header_4 .sticky-fix,
+#header_5 .sticky-fix {
   position: fixed;
   width: 100%;
   top: -126px;
@@ -3450,14 +3475,16 @@ a:hover {
 }
 #header_1 .sticky-fix.sticky-in,
 #header_2 .sticky-fix.sticky-in,
-#header_4 .sticky-fix.sticky-in {
+#header_4 .sticky-fix.sticky-in,
+#header_5 .sticky-fix.sticky-in {
   opacity: 1;
   top: 0;
   transition: all 0.5s ease-in;
 }
 #header_1 .sticky-fix:not(.sticky-in),
 #header_2 .sticky-fix:not(.sticky-in),
-#header_4 .sticky-fix:not(.sticky-in) {
+#header_4 .sticky-fix:not(.sticky-in),
+#header_5 .sticky-fix:not(.sticky-in) {
   transition: all 0.2s ease-out;
 }
 
@@ -3705,6 +3732,35 @@ a:hover {
   display: none;
 }
 #header_4 .sidenav {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* :::::::::::::: 08 * GRIT_SET header_5 */
+#header_5 .header-menu {
+  position: absolute;
+  background-color: transparent;
+  width: 100%;
+}
+#header_5 .nav {
+  justify-content: space-between;
+}
+#header_5 .nav .dropdown:hover > .dropdown-menu {
+  text-align: center;
+}
+@media (min-width: 768px) {
+  #header_5 .nav .dropdown:hover > .dropdown-menu {
+    text-align: left;
+  }
+}
+#header_5 .navbar-brand {
+  margin: 0px !important;
+}
+#header_5 .navbar-collapse {
+  display: none;
+}
+#header_5 .sidenav {
   display: flex;
   flex-direction: column;
   justify-content: space-between;

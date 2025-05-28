@@ -16,7 +16,7 @@
             </nav>
         </div>
         <div class="overlay-content">
-            {% include "/templates/headers/menu.twig" with {'primary_menu': primary_menu.get_items} %} 
+            {% include "/templates/headers/menu.twig" with {'menu_items': mobile_menu.get_items, 'class_menu': 'mobile_menu'} %}
         </div>
 
         <ul class="nav-social ">
@@ -56,7 +56,7 @@
             </span>
         </button>
         <div class="navbar-collapse collapse  " id="navbarResponsive">
-            {% include "/templates/headers/menu.twig" with {'primary_menu': primary_menu.get_items} %}
+            {% include "/templates/headers/menu.twig" with {'menu_items': primary_menu.get_items, 'class_menu': 'primary_menu'} %} 
             <ul class="nav-social ">
                 {% if setting_facebook %}
                     <li class="social-link">
@@ -97,7 +97,7 @@
             </span>
         </button>
         <div class="navbar-collapse collapse  " id="navbarResponsive">
-            {% include "/templates/headers/menu.twig" with {'primary_menu': primary_menu.get_items} %}
+            {% include "/templates/headers/menu.twig" with {'menu_items': primary_menu.get_items, 'class_menu': 'primary_menu'} %} 
             <ul class="nav-social ">
                 {% if setting_facebook %}
                     <li class="social-link">

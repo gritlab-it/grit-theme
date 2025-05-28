@@ -6,6 +6,7 @@
 /* :::::::::::::: 05 * GRIT_SET header_2 */
 /* :::::::::::::: 06 * GRIT_SET header_3 */
 /* :::::::::::::: 07 * GRIT_SET header_4 */
+/* :::::::::::::: 08 * GRIT_SET header_5 */
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
 /* :::::::::::::: 01 * GRIT_SET nav */
@@ -131,7 +132,8 @@
 /* :::::::::::::: 03 * GRIT_SET header_* */
 #header_1,
 #header_2,
-#header_4 {
+#header_4,
+#header_5 {
 
     .header-menu,
     .sticky-fix {
@@ -489,4 +491,37 @@
 }
 
 
+/* :::::::::::::: 08 * GRIT_SET header_5 */
+
+#header_5 {
+    .header-menu {
+        position: absolute;
+        background-color: transparent;
+        width: 100%;
+    }
+    .nav {
+        justify-content: space-between;
+        .dropdown:hover>.dropdown-menu {
+            text-align: center;
+            @media (min-width: $md-res) {
+                text-align: left;
+            } 
+        }
+        
+    } 
+    .navbar-brand {
+            margin: 0px!important ; 
+    }
+
+    .navbar-collapse {
+        display: none;
+
+    } 
+    .sidenav {
+        display: flex;
+
+        flex-direction: column;
+        justify-content: space-between;
+    }
+}
 

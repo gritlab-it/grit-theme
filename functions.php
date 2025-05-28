@@ -131,7 +131,9 @@ class StarterSite extends Timber\Site {
 		$context['custom_logo_url'] = $custom_logo_url;
 		
 		// * GRIT_SET Menu
-		$context['primary_menu'] = new Timber\Menu('Primary Navigation');
+		$context['primary_menu'] 	= new Timber\Menu('Primary Navigation');
+		$context['secondary_menu'] 	= new Timber\Menu('Secondary Navigation');
+		$context['mobile_menu'] 	= new Timber\Menu('Mobile Navigation');
 		// $context['footer_menu'] = new Timber\Menu('Footer Navigation 1');
 		
 		// * GRIT_SET Theme Dir

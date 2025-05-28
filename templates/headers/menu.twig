@@ -1,6 +1,6 @@
-{% if primary_menu %}
-    <ul class="nav navbar-nav" id="primary-menu">
-        {% for item in primary_menu %}
+{% if menu_items %}
+    <ul class="nav navbar-nav" id="{{ class_menu }}">
+        {% for item in menu_items %}
             <li class="nav-item dropdown {{ item.classes | join(' ') }}">
                 <a href="{{ item.get_children ? 'javascript:void(0)' : item.get_link }}"
                    class="{{ item.get_children ? 'dropdown-toggle' : '' }}"
@@ -43,12 +43,12 @@
             </li>
         {% endfor %}
 
-        {% if function('is_user_logged_in') %}
+        {# {% if function('is_user_logged_in') %}
             <li>
                 <a href="{{ function('wp_logout_url', home) }}">
                     <span>Esci</span>
                 </a>
             </li>
-        {% endif %}
+        {% endif %} #}
     </ul>
 {% endif %}
