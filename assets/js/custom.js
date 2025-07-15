@@ -22,54 +22,66 @@
 /* :::::::::::::: 00 * GRIT_SET loader */
 $(function () {
     setTimeout(function () {
-        /* init loader effect */
         $("body").addClass("loaded");
     }, 1500);
 });
 
+ 
 $(document).ready(function () {
-    /* imposta il link a disabilitato e imposta il timeout sulla transizione dell'indicatore di caricamento */
-    $("a").click(function () {
-        /* verifica se il link contiene lo stesso dominio */
-        if ($(this).prop("hostname") === window.location.hostname) {
-            /* verifica se il link è un ancoraggio */
-            if ($(this).attr("href").indexOf("#") !== -1) {
-                // Verifica se il link punta alla stessa pagina corrente
-                if (this.href.split('#')[0] === window.location.href.split('#')[0]) {
-                    console.log("Il link punta alla stessa pagina. Non fare nulla e interrompi l'esecuzione.");
-                    return; // non fare nulla e interrompi l'esecuzione
-                }
+    $("a").on("click", function (e) {
+        const link = $(this);
+        const href = link.attr("href");
+
+        if (link.prop("hostname") !== window.location.hostname) return;
+
+        if (href && href.indexOf("#") !== -1 && this.href.split("#")[0] === window.location.href.split("#")[0]) {
+            return;
+        }
+
+        if (
+            link.attr("target") === "_blank" ||
+            link.hasClass("no-load") ||
+            link.closest(".gallery-icon").length > 0 ||
+            link.attr("data-lightbox-gallery")
+        ) {
+            return;
+        }
+
+        e.preventDefault();
+
+        $("body").removeClass("loaded");
+
+        const delay = 1000;
+        let start;
+
+        const goToPage = (timestamp) => {
+            if (!start) start = timestamp;
+            const progress = timestamp - start;
+            if (progress < delay) {
+                window.requestAnimationFrame(goToPage);
+            } else {
+                window.location.assign(href);
             }
-            /* verifica se il link ha come target "_blank" */
-            if ($(this).attr("target") === "_blank") {
-                return; // non fare nulla e interrompi l'esecuzione
-            }
-            if ($(this).hasClass("no-load")) {
-                // console.log("Il link ha la classe 'no-load'. L'azione è stata interrotta.");
-                return; // non fare nulla e interrompi l'esecuzione
-            }
-            
-            /* Nuova regola: verifica se il link appartiene alla galleria o ha l'attributo 'data-lightbox-gallery' */
-            if (
-                $(this).closest(".gallery-icon").length > 0 ||
-                $(this).attr("data-lightbox-gallery")
-            ) {
-                // console.log(  "Il link fa parte di una galleria o ha l'attributo 'data-lightbox-gallery'. L'azione è stata interrotta." );
-                return; // non fare nulla e interrompi l'esecuzione
-            }
-            
-            $("body").removeClass("loaded");
-            
-            setTimeout(
-                function (url) {
-                    window.location = url;
-                },
-                1000,
-                this.href
-            );
+        };
+
+        if (window.requestAnimationFrame) {
+            window.requestAnimationFrame(goToPage);
+        } else {
+            setTimeout(() => {
+                window.location.assign(href);
+            }, delay);
         }
     });
 });
+
+ 
+window.addEventListener("pageshow", function (event) {
+    if (event.persisted) {
+        $("body").addClass("loaded");
+    }
+});
+
+
 
 /* :::::::::::::: 01 * GRIT_SET animate.css  */
 // example          <div class="in__animate" data-animation="animate__fadeInUp animate__slow animate__delay-2s"  >
