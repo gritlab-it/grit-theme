@@ -239,6 +239,7 @@ if (owl_carousel_active) {
             $carousel.owlCarousel({
                 loop: true,
                 margin: 20,
+                // stagePadding: 0,   // assicurati sia 0 se vuoi che sia a margine
                 autoHeight: true,
                 autoWidth: true,
                 center: true,
@@ -641,132 +642,118 @@ document.addEventListener('DOMContentLoaded', initializeVideoSections);
 /* :::::::::::::: 09 * GRIT_SET Lenis js */
 
 
+ // :::::::::::::: 10 * GRIT_SET - GSAP + ScrollTrigger + Lenis ::::::::::::::
 
-// Aspetta che il DOM sia pronto
-document.addEventListener("DOMContentLoaded", function () {
-    // Verifica se Lenis è disponibile
-    if (typeof Lenis !== "undefined") {
-        // console.log("Lenis caricato correttamente");
-        
-        const lenis = new Lenis({
-            duration: 1.1,
-            easing: (t) => 1 - Math.pow(1 - t, 3),
-            smooth: true,
-            direction: "vertical",
-            gestureDirection: "vertical",
-            smoothTouch: true,
-            touchMultiplier: 1, // Ridotto
-        });
-        
-        function raf(time) {
-            lenis.raf(time);
-            ScrollTrigger.update();
-            requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-        
-        // Verifica che ci sia un elemento scroller valido prima di configurare ScrollTrigger
-        const lenisScroller = document.querySelector("[data-lenis]");
-        if (lenisScroller) {
-            ScrollTrigger.defaults({
-                scroller: lenisScroller,
-            });
-        } else {
-            // console.warn("Attenzione: Nessun elemento [data-lenis] trovato per ScrollTrigger.");
-        }
-        
-        // Debug degli eventi di scroll
-        window.addEventListener("scroll", () => {
-            // console.log('Scroll position:', window.scrollY);
-        });
-    } else {
-        // console.error("Errore: Lenis non è definito. Assicurati che il file lenis.min.js sia caricato correttamente.");
-    }
-});
-
-
-
-
-/* :::::::::::::: 10 * GRIT_SET GSAP js */ 
-// Assicurati che GSAP e ScrollTrigger siano caricati
+// Make sure GSAP and ScrollTrigger are available
 if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
-    
-    // Inizializzazione di ScrollTrigger con GSAP
-    gsap.registerPlugin(ScrollTrigger);
-    
-    // Esempio di animazione parallax con ScrollTrigger usando una timeline
-    const parallaxImage = document.querySelector(".gsap-parallaxImage");
-    const parallaxContainer = document.querySelector(".gsap-parallax-container");
-    
-    // Controlla se entrambi gli elementi sono presenti prima di applicare l'animazione
-    if (parallaxImage && parallaxContainer) {
-        // Crea una timeline GSAP
-        const timeline = gsap.timeline({
-            scrollTrigger: {
-                trigger: parallaxContainer, // Associa la timeline al contenitore specificato
-                start: "top bottom",
-                end: "bottom top",
-                scrub: true,
-                markers: true, // Usa markers per debug, rimuovi quando non più necessari
-            }
-        });
-        
-        // Aggiungi animazioni alla timeline
-        timeline.to(parallaxImage, {
-            scale: 1.2,
-            y: "-30%",
-            ease: "none",
-        });
-        
-        // Aggiungi ulteriori animazioni alla timeline se necessario
-        // timeline.to(...);
+  gsap.registerPlugin(ScrollTrigger);
+
+  // -------------------------
+  // 1. Initialize Lenis (Smooth scroll)
+  // -------------------------
+  const lenis = new Lenis({
+    duration: 1.2, // Adjust scroll softness
+    easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smooth: true,
+    smoothTouch: true,
+  });
+
+  // Update ScrollTrigger on every Lenis scroll
+  lenis.on('scroll', () => {
+    ScrollTrigger.update();
+  });
+
+  // Let GSAP handle Lenis timing
+  gsap.ticker.add((time) => {
+    lenis.raf(time * 1000); // Convert seconds to ms
+  });
+
+  // Optional (usually not needed with <body> scroll)
+  // If you use a custom wrapper for scroll, uncomment and adjust this:
+  /*
+  ScrollTrigger.scrollerProxy(document.body, {
+    scrollTop(value) {
+      return arguments.length ? lenis.scrollTo(value, { duration: 0 }) : lenis.scroll;
+    },
+    getBoundingClientRect() {
+      return {
+        top: 0,
+        left: 0,
+        width: window.innerWidth,
+        height: window.innerHeight
+      };
     }
-    
-    
-    // Refresh di ScrollTrigger su `resize` e `load`
-    window.addEventListener("resize", () => ScrollTrigger.refresh());
-    window.addEventListener("load", () => ScrollTrigger.refresh());
-    
-    
-    // Smooth scroll per ancoraggi gestito con GSAP
-    document.querySelectorAll('a[href*="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function(e) {
-            // Verifica se il link punta alla stessa pagina corrente
-            const currentUrlWithoutHash = window.location.href.split('#')[0];
-            const linkUrlWithoutHash = this.href.split('#')[0];
-        
-            if (currentUrlWithoutHash === linkUrlWithoutHash) {
-                e.preventDefault();
-                const targetID = this.getAttribute("href").split('#')[1];
-                const targetElement = document.getElementById(targetID);
-            
-                if (targetElement) {
-                    gsap.to(window, {
-                        duration: 1.1,
-                        scrollTo: { y: targetElement, autoKill: false },
-                        ease: "power2.out"
-                    });
-                }
-            }
-        });
+  });
+
+  ScrollTrigger.defaults({ scroller: document.body });
+  */
+
+  // -------------------------
+  // 2. GSAP Parallax Animation
+  // -------------------------
+  const parallaxImage = document.querySelector(".gsap-parallaxImage");
+  const parallaxContainer = document.querySelector(".gsap-parallax-container");
+
+  if (parallaxImage && parallaxContainer) {
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: parallaxContainer,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+        markers: true, // Enable for debugging
+      }
+    }).to(parallaxImage, {
+      scale: 1.2,
+      y: "-30%",
+      ease: "none"
     });
-    
-    // Attiva il smooth scroll al caricamento se c'è un hash nell'URL
-    window.addEventListener("load", () => {
-        const hash = window.location.hash.substring(1);
-        if (hash) {
-            const targetElement = document.getElementById(hash);
-            if (targetElement) {
-                gsap.to(window, {
-                    duration: 1.1,
-                    scrollTo: { y: targetElement, autoKill: false },
-                    ease: "power2.out"
-                });
-            }
+  }
+
+  // -------------------------
+  // 3. Smooth anchor scroll using Lenis
+  // -------------------------
+  document.querySelectorAll('a[href*="#"]').forEach(anchor => {
+    anchor.addEventListener("click", function(e) {
+      const currentUrlWithoutHash = window.location.href.split('#')[0];
+      const linkUrlWithoutHash = this.href.split('#')[0];
+
+      if (currentUrlWithoutHash === linkUrlWithoutHash) {
+        e.preventDefault();
+        const targetID = this.getAttribute("href").split('#')[1];
+        const targetElement = document.getElementById(targetID);
+
+        if (targetElement) {
+          lenis.scrollTo(targetElement);
         }
+      }
     });
-    
+  });
+
+  // -------------------------
+  // 4. Scroll to hash on load
+  // -------------------------
+  window.addEventListener("load", () => {
+    const hash = window.location.hash.substring(1);
+    const targetElement = document.getElementById(hash);
+
+    if (targetElement) {
+      lenis.scrollTo(targetElement, { duration: 1.1, easing: 'easeOutQuad' });
+    }
+
+    // Refresh ScrollTrigger after images or fonts load
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 250);
+  });
+
+  // -------------------------
+  // 5. Refresh ScrollTrigger on resize
+  // -------------------------
+  window.addEventListener("resize", () => ScrollTrigger.refresh());
+
 }
+
 
 
 
@@ -834,3 +821,220 @@ function startCounterAnimation() {
 // Call the function when the document is ready
 document.addEventListener("DOMContentLoaded", startCounterAnimation);
 
+
+
+
+
+ 
+
+
+
+
+
+
+  // ========== INIZIALIZZAZIONE ==========================================================================================
+  // ================================================================================
+document.addEventListener("DOMContentLoaded", function () {
+  gsap.registerPlugin(ScrollTrigger, SplitText);
+
+  // ========== 1. Scroll orizzontale container ==========
+  function horizontalScrollContainer() {
+    const horizontalSection = document.querySelector(".section-gsap-horizontal");
+    const horizontalRow = horizontalSection?.querySelector(".row");
+
+    if (horizontalSection && horizontalRow) {
+      const scrollDistance = horizontalRow.scrollWidth - window.innerWidth;
+
+      if (scrollDistance > 0) {
+        gsap.to(horizontalRow, {
+          x: -scrollDistance,
+          ease: "none",
+          scrollTrigger: {
+            trigger: horizontalSection,
+            pin: true,
+            scrub: 1,
+            start: "top top",
+            end: () => `+=${scrollDistance}`,
+            markers: false
+          }
+        });
+      }
+    }
+  }
+
+  // ========== 2. Scroll verticale a pannelli ==========
+  function verticalPanelsScroll() {
+    const section = document.querySelector(".section-gsap-vertical");
+    if (!section) return;
+
+    const panels = section.querySelectorAll(".item-chapters");
+
+    panels.forEach((panel, i) => {
+      panel.style.zIndex = panels.length - i;
+    });
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: "top top",
+        end: `+=${panels.length * 100}%`,
+        scrub: 1,
+        pin: true,
+        anticipatePin: 1,
+        markers: false
+      }
+    });
+
+    panels.forEach((panel, i) => {
+      if (i < panels.length - 1) {
+        tl.to(panel, { yPercent: -100, ease: "none", duration: 1 }, i);
+      }
+    });
+  }
+
+  // ========== 3. Reveal parole singole ==========
+  function splitWordReveal() {
+    document.querySelectorAll(".section-gsap-reveal .inner-text").forEach(block => {
+      const textElements = block.querySelectorAll("h1, h2, h3, h4, h5, h6, p");
+
+      textElements.forEach(el => {
+        if (el.dataset.split === "true") return;
+
+        const split = new SplitText(el, {
+          type: "words",
+          wordsClass: "word"
+        });
+
+        el.dataset.split = "true";
+
+        split.words.forEach((word, i) => {
+          gsap.fromTo(
+            word,
+            { opacity: 0.1 },
+            {
+              opacity: 1,
+              duration: 0.2,
+              ease: "power2.out",
+              delay: i * 0.05,
+              scrollTrigger: {
+                trigger: word,
+                start: "top 85%",
+                end: "top 15%",
+                toggleActions: "play reverse play reverse",
+                markers: false
+              }
+            }
+          );
+        });
+      });
+    });
+  }
+
+  // ========== 4. Scroll reveal parole in sequenza ==========
+  function scrollRevealStaggered() {
+    document.querySelectorAll(".section-gsap-reveal-scroll").forEach(section => {
+      const innerText = section.querySelector(".inner-text");
+      if (!innerText) return;
+
+      const split = new SplitText(innerText, {
+        type: "words",
+        wordsClass: "word"
+      });
+
+      gsap.from(split.words, {
+        opacity: 0.1,
+        y: 0,
+        stagger: {
+          amount: 1.5
+        },
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: section,
+          start: "top 80%",
+          end: "bottom 20%",
+          scrub: true,
+          markers: false
+        }
+      });
+    });
+  }
+
+  // ========== 5. Scroll orizzontale di frasi lunghe ==========
+function horizontalTextScroll() {
+  document.querySelectorAll(".section-gsap-lateral-word").forEach(section => {
+    const h1 = section.querySelector(".inner-text h1");
+    if (!h1) return;
+
+    // Imposta proprietà necessarie per corretto dimensionamento
+    h1.style.whiteSpace = "nowrap";
+    h1.style.display = "inline-block";
+
+    // Reset posizione iniziale
+    gsap.set(h1, { x: 0 });
+
+    // Calcola distanza da scrollare
+    const scrollDistance = h1.scrollWidth - window.innerWidth;
+    if (scrollDistance <= 0) return;
+
+    gsap.to(h1, {
+      x: -scrollDistance,
+      ease: "none",
+      scrollTrigger: {
+        trigger: section,
+        start: "top top", // quando la section arriva al centro
+        end: () => `+=${scrollDistance}`,
+        scrub: true,
+        pin: true, // pinna tutta la section
+        pinSpacing: true,
+        invalidateOnRefresh: true,
+        markers: true // disattiva in produzione
+      }
+    });
+  });
+
+  ScrollTrigger.refresh();
+}
+
+
+
+ 
+
+
+
+// ========== INIZIALIZZAZIONE ==========
+function initGSAPAnimations() {
+  horizontalScrollContainer();
+  verticalPanelsScroll();
+  splitWordReveal();
+  scrollRevealStaggered();
+  horizontalTextScroll(); // ok
+}
+
+// ========== RESIZE SOLO PER SCROLL DINAMICI ==========
+function refreshResponsiveScrolls() {
+  ScrollTrigger.getAll().forEach(trigger => {
+    const triggerEl = trigger.trigger;
+    if (
+      triggerEl?.classList.contains("section-gsap-horizontal") ||
+      triggerEl?.classList.contains("section-gsap-lateral-word")
+    ) {
+      trigger.kill();
+    }
+  });
+
+  horizontalScrollContainer();
+  horizontalTextScroll();
+
+  ScrollTrigger.refresh();
+}
+
+// ========== AVVIO ==========
+window.addEventListener("load", () => {
+  initGSAPAnimations();
+  window.addEventListener("resize", refreshResponsiveScrolls);
+});
+
+
+
+
+});

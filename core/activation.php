@@ -435,7 +435,7 @@ $cf7_id = wp_generate_uuid4();
                                         <div class='prefooter'>
                                             <p>
                                                 <a href='mailto:info@$domain' style='color: #000;'>
-                                                    info@$domain'
+                                                    info@$domain
                                                 </a>
                                             </p>
                                             <p>Copyright &copy; 2024 Tutti i diritti riservati</p>

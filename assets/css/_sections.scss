@@ -447,6 +447,17 @@
     .gallery-columns-4 .gallery-item:nth-child(4n+1) {
         clear: none !important;
     }
+    
+    // no padding per carousel fullwidth
+    &.no-horizontal-padding,
+    &.no-horizontal-padding .container-fluid,
+    &.no-horizontal-padding .row,
+    &.no-horizontal-padding .col {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
 }
 
 /* :::::::::::::: 08 * GRIT_SET section_archive */
@@ -499,5 +510,106 @@
 }
 
   
+
+ 
+
+
+
+
+.section-gsap-horizontal {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+
+  .row {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    height: 100%;
+    width: auto; // Let it grow based on columns
+  }
+
+  .item-chapters {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .inner-item {
+      width: 100%;
+      padding: 2rem;
+      .inner-text {
+
+      }
+    }
+  }
+}
+
+
+.section-gsap-vertical {
+  position: relative;
+  height: 100vh;
+
+  .item-chapters {
+    position: absolute;
+    inset: 0;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .inner-item {
+      width: 100%;
+      text-align: center;
+      padding: 2rem;
+    }
+  }
+}
+
+
+
+.section-gsap-reveal {
+  .word {
+    display: inline-block;
+    opacity: 0.1; // fallback
+    transition: opacity 0.3s ease-out;
+  }
+}
+
+
+
+
+.section-gsap-lateral-word {
+  min-height: 100vh;
+  overflow: hidden;
+
+  .container-fluid {
+    padding: 0;
+  }
+
+  .item-chapters {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; // ← importante: parte da sinistra
+    height: 100vh;
+  }
+
+  .inner-text {
+    overflow: visible;
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  .inner-text h1 {
+    white-space: nowrap;
+    display: inline-block;
+    font-size: 2rem;
+    padding: 0 2rem;
+    color: red;
+    margin: 0;
+    min-width: max-content; // ← CRUCIALE: forza larghezza completa del testo
+  }
+}
 
  

@@ -1,6 +1,6 @@
 # Grit Theme
 
-## V.25.01
+## V.25.03
 
 Welcome to the Grit Theme repository!
 

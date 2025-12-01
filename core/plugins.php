@@ -131,6 +131,12 @@ function grit_framework_register_required_plugins()
         ),
 
         array(
+            'name' => 'CopyPaste FlexContent Blocks for ACF',
+            'slug' => 'cp-blocks-for-acf',
+            'required' => true,
+        ), 
+        
+        array(
             'name' => 'Jetpack',
             'slug' => 'jetpack',
             'required' => false,

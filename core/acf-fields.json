@@ -1,5 +1,276 @@
 [
     {
+        "key": "group_690a10173b1d9",
+        "title": "Fields",
+        "fields": [
+            {
+                "key": "field_690b26b11cee6",
+                "label": "Background Color",
+                "name": "background_color",
+                "aria-label": "",
+                "type": "select",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "dark": "dark",
+                    "light": "light",
+                    "accent": "accent",
+                    "primary": "primary",
+                    "secondary": "secondary",
+                    "tertiary": "tertiary",
+                    "quaternary": "quaternary",
+                    "quinary": "quinary",
+                    "senary": "senary",
+                    "septenary": "septenary",
+                    "octonary": "octonary",
+                    "nonary": "nonary",
+                    "denary": "denary",
+                    "grey": "grey",
+                    "white": "white",
+                    "black": "black"
+                },
+                "default_value": "accent",
+                "return_format": "value",
+                "multiple": 0,
+                "allow_null": 0,
+                "allow_in_bindings": 1,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": "",
+                "create_options": 0,
+                "save_options": 0
+            },
+            {
+                "key": "field_690a10173ff41",
+                "label": "Text Color",
+                "name": "text_color",
+                "aria-label": "",
+                "type": "select",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "dark": "dark",
+                    "light": "light",
+                    "accent": "accent",
+                    "primary": "primary",
+                    "secondary": "secondary",
+                    "tertiary": "tertiary",
+                    "quaternary": "quaternary",
+                    "quinary": "quinary",
+                    "senary": "senary",
+                    "septenary": "septenary",
+                    "octonary": "octonary",
+                    "nonary": "nonary",
+                    "denary": "denary",
+                    "grey": "grey",
+                    "white": "white",
+                    "black": "black"
+                },
+                "default_value": "accent",
+                "return_format": "value",
+                "multiple": 0,
+                "allow_null": 0,
+                "allow_in_bindings": 1,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": "",
+                "create_options": 0,
+                "save_options": 0
+            },
+            {
+                "key": "field_690b26df1cee9",
+                "label": "Inner Background Color",
+                "name": "inner_background_color",
+                "aria-label": "",
+                "type": "select",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "dark": "dark",
+                    "light": "light",
+                    "accent": "accent",
+                    "primary": "primary",
+                    "secondary": "secondary",
+                    "tertiary": "tertiary",
+                    "quaternary": "quaternary",
+                    "quinary": "quinary",
+                    "senary": "senary",
+                    "septenary": "septenary",
+                    "octonary": "octonary",
+                    "nonary": "nonary",
+                    "denary": "denary",
+                    "grey": "grey",
+                    "white": "white",
+                    "black": "black"
+                },
+                "default_value": "accent",
+                "return_format": "value",
+                "multiple": 0,
+                "allow_null": 0,
+                "allow_in_bindings": 1,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": "",
+                "create_options": 0,
+                "save_options": 0
+            },
+            {
+                "key": "field_690b26c31cee7",
+                "label": "Color Link 1",
+                "name": "color_link_1",
+                "aria-label": "",
+                "type": "select",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "dark": "dark",
+                    "light": "light",
+                    "accent": "accent",
+                    "primary": "primary",
+                    "secondary": "secondary",
+                    "tertiary": "tertiary",
+                    "quaternary": "quaternary",
+                    "quinary": "quinary",
+                    "senary": "senary",
+                    "septenary": "septenary",
+                    "octonary": "octonary",
+                    "nonary": "nonary",
+                    "denary": "denary",
+                    "grey": "grey",
+                    "white": "white",
+                    "black": "black"
+                },
+                "default_value": "accent",
+                "return_format": "value",
+                "multiple": 0,
+                "allow_null": 0,
+                "allow_in_bindings": 1,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": "",
+                "create_options": 0,
+                "save_options": 0
+            },
+            {
+                "key": "field_690b26dc1cee8",
+                "label": "Color Link 2",
+                "name": "color_link_2",
+                "aria-label": "",
+                "type": "select",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "dark": "dark",
+                    "light": "light",
+                    "accent": "accent",
+                    "primary": "primary",
+                    "secondary": "secondary",
+                    "tertiary": "tertiary",
+                    "quaternary": "quaternary",
+                    "quinary": "quinary",
+                    "senary": "senary",
+                    "septenary": "septenary",
+                    "octonary": "octonary",
+                    "nonary": "nonary",
+                    "denary": "denary",
+                    "grey": "grey",
+                    "white": "white",
+                    "black": "black"
+                },
+                "default_value": "accent",
+                "return_format": "value",
+                "multiple": 0,
+                "allow_null": 0,
+                "allow_in_bindings": 1,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": "",
+                "create_options": 0,
+                "save_options": 0
+            },
+            {
+                "key": "field_690a10173ff27",
+                "label": "Align",
+                "name": "align",
+                "aria-label": "",
+                "type": "select",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "left": "left",
+                    "center": "center",
+                    "right": "right",
+                    "justify": "justify"
+                },
+                "default_value": false,
+                "return_format": "value",
+                "multiple": 0,
+                "allow_null": 0,
+                "allow_in_bindings": 1,
+                "ui": 0,
+                "ajax": 0,
+                "placeholder": "",
+                "create_options": 0,
+                "save_options": 0
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": ""
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": 0,
+        "display_title": ""
+    },
+    {
         "key": "group_665f281cbf470",
         "title": "Sections",
         "fields": [
@@ -105,7 +376,7 @@
                                 "label": "Text Color",
                                 "name": "text_color",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -114,78 +385,18 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "dark": "dark",
-                                    "light": "light",
-                                    "accent": "accent",
-                                    "primary": "primary",
-                                    "secondary": "secondary",
-                                    "tertiary": "tertiary",
-                                    "quaternary": "quaternary",
-                                    "quinary": "quinary",
-                                    "senary": "senary",
-                                    "septenary": "septenary",
-                                    "octonary": "octonary",
-                                    "nonary": "nonary",
-                                    "denary": "denary",
-                                    "grey": "grey",
-                                    "white": "white",
-                                    "black": "black"
-                                },
-                                "default_value": false,
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 1,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690a10173ff41"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
                                 "key": "field_6687a8e134f3a",
                                 "label": "Background Color",
                                 "name": "background_color",
-                                "aria-label": "",
-                                "type": "select",
-                                "instructions": "",
-                                "required": 0,
-                                "conditional_logic": 0,
-                                "wrapper": {
-                                    "width": "",
-                                    "class": "",
-                                    "id": ""
-                                },
-                                "choices": {
-                                    "dark": "dark",
-                                    "light": "light",
-                                    "accent": "accent",
-                                    "primary": "primary",
-                                    "secondary": "secondary",
-                                    "tertiary": "tertiary",
-                                    "quaternary": "quaternary",
-                                    "quinary": "quinary",
-                                    "senary": "senary",
-                                    "septenary": "septenary",
-                                    "octonary": "octonary",
-                                    "nonary": "nonary",
-                                    "denary": "denary",
-                                    "grey": "grey",
-                                    "white": "white",
-                                    "black": "black"
-                                },
-                                "default_value": false,
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 1,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
-                            },
-                            {
-                                "key": "field_6793b5a4145f4",
-                                "label": "Background Color (copia)",
-                                "name": "background_color_copia",
                                 "aria-label": "",
                                 "type": "clone",
                                 "instructions": "",
@@ -197,7 +408,7 @@
                                     "id": ""
                                 },
                                 "clone": [
-                                    "field_6687a8e134f3a"
+                                    "field_690b26b11cee6"
                                 ],
                                 "display": "seamless",
                                 "layout": "block",
@@ -534,7 +745,7 @@
                                 "label": "Align",
                                 "name": "align",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -543,25 +754,20 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "left": "left",
-                                    "center": "center",
-                                    "right": "right"
-                                },
-                                "default_value": false,
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 0,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690a10173ff27"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
                                 "key": "field_66d974f8942f1",
                                 "label": "Text Color",
                                 "name": "text_color",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -570,39 +776,20 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "dark": "dark",
-                                    "light": "light",
-                                    "accent": "accent",
-                                    "primary": "primary",
-                                    "secondary": "secondary",
-                                    "tertiary": "tertiary",
-                                    "quaternary": "quaternary",
-                                    "quinary": "quinary",
-                                    "senary": "senary",
-                                    "septenary": "septenary",
-                                    "octonary": "octonary",
-                                    "nonary": "nonary",
-                                    "denary": "denary",
-                                    "grey": "grey",
-                                    "white": "white",
-                                    "black": "black"
-                                },
-                                "default_value": false,
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 1,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690a10173ff41"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
                                 "key": "field_6687b1a026b56",
                                 "label": "Background Color",
                                 "name": "background_color",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -611,32 +798,13 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "dark": "dark",
-                                    "light": "light",
-                                    "accent": "accent",
-                                    "primary": "primary",
-                                    "secondary": "secondary",
-                                    "tertiary": "tertiary",
-                                    "quaternary": "quaternary",
-                                    "quinary": "quinary",
-                                    "senary": "senary",
-                                    "septenary": "septenary",
-                                    "octonary": "octonary",
-                                    "nonary": "nonary",
-                                    "denary": "denary",
-                                    "grey": "grey",
-                                    "white": "white",
-                                    "black": "black"
-                                },
-                                "default_value": false,
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 1,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690b26b11cee6"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
                                 "key": "field_67377d66a0c93",
@@ -664,7 +832,7 @@
                                 "label": "Color Link 1",
                                 "name": "color_link_1",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -673,39 +841,20 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "dark": "dark",
-                                    "light": "light",
-                                    "accent": "accent",
-                                    "primary": "primary",
-                                    "secondary": "secondary",
-                                    "tertiary": "tertiary",
-                                    "quaternary": "quaternary",
-                                    "quinary": "quinary",
-                                    "senary": "senary",
-                                    "septenary": "septenary",
-                                    "octonary": "octonary",
-                                    "nonary": "nonary",
-                                    "denary": "denary",
-                                    "grey": "grey",
-                                    "white": "white",
-                                    "black": "black"
-                                },
-                                "default_value": "accent",
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 0,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690b26c31cee7"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
                                 "key": "field_66d976dcc817f",
                                 "label": "Color Link 2",
                                 "name": "color_link_2",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -714,32 +863,13 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "dark": "dark",
-                                    "light": "light",
-                                    "accent": "accent",
-                                    "primary": "primary",
-                                    "secondary": "secondary",
-                                    "tertiary": "tertiary",
-                                    "quaternary": "quaternary",
-                                    "quinary": "quinary",
-                                    "senary": "senary",
-                                    "septenary": "septenary",
-                                    "octonary": "octonary",
-                                    "nonary": "nonary",
-                                    "denary": "denary",
-                                    "grey": "grey",
-                                    "white": "white",
-                                    "black": "black"
-                                },
-                                "default_value": "primary",
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 0,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690b26dc1cee8"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
                                 "key": "field_66fbd2aa9f58d",
@@ -897,7 +1027,7 @@
                                         "label": "Argoment Color",
                                         "name": "args_color",
                                         "aria-label": "",
-                                        "type": "select",
+                                        "type": "clone",
                                         "instructions": "",
                                         "required": 0,
                                         "conditional_logic": 0,
@@ -906,31 +1036,13 @@
                                             "class": "",
                                             "id": ""
                                         },
-                                        "choices": {
-                                            "accent": "accent",
-                                            "primary": "primary",
-                                            "secondary": "secondary",
-                                            "tertiary": "tertiary",
-                                            "quaternary": "quaternary",
-                                            "quinary": "quinary",
-                                            "senary": "senary",
-                                            "septenary": "septenary",
-                                            "octonary": "octonary",
-                                            "nonary": "nonary",
-                                            "denary": "denary",
-                                            "light": "light",
-                                            "dark": "dark",
-                                            "white": "white",
-                                            "black": "black"
-                                        },
-                                        "default_value": false,
-                                        "return_format": "value",
-                                        "multiple": 0,
-                                        "allow_null": 0,
-                                        "allow_in_bindings": 1,
-                                        "ui": 0,
-                                        "ajax": 0,
-                                        "placeholder": "",
+                                        "clone": [
+                                            "field_690b26b11cee6"
+                                        ],
+                                        "display": "seamless",
+                                        "layout": "block",
+                                        "prefix_label": 0,
+                                        "prefix_name": 0,
                                         "parent_repeater": "field_61603ea431fad"
                                     },
                                     {
@@ -953,6 +1065,7 @@
                                         "collapsed": "",
                                         "button_label": "Add Question",
                                         "rows_per_page": 20,
+                                        "parent_repeater": "field_61603ea431fad",
                                         "sub_fields": [
                                             {
                                                 "key": "field_61603f0c31fb1",
@@ -1034,8 +1147,7 @@
                                                 "allow_in_bindings": 0,
                                                 "parent_repeater": "field_61603ee131fb0"
                                             }
-                                        ],
-                                        "parent_repeater": "field_61603ea431fad"
+                                        ]
                                     }
                                 ]
                             },
@@ -1062,7 +1174,7 @@
                                 "label": "Text Color",
                                 "name": "text_color",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -1071,39 +1183,20 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "dark": "dark",
-                                    "light": "light",
-                                    "accent": "accent",
-                                    "primary": "primary",
-                                    "secondary": "secondary",
-                                    "tertiary": "tertiary",
-                                    "quaternary": "quaternary",
-                                    "quinary": "quinary",
-                                    "senary": "senary",
-                                    "septenary": "septenary",
-                                    "octonary": "octonary",
-                                    "nonary": "nonary",
-                                    "denary": "denary",
-                                    "grey": "grey",
-                                    "white": "white",
-                                    "black": "black"
-                                },
-                                "default_value": false,
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 1,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690a10173ff41"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
                                 "key": "field_66ec20c75fa1d",
                                 "label": "Background Color",
                                 "name": "background_color",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -1112,39 +1205,20 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "dark": "dark",
-                                    "light": "light",
-                                    "accent": "accent",
-                                    "primary": "primary",
-                                    "secondary": "secondary",
-                                    "tertiary": "tertiary",
-                                    "quaternary": "quaternary",
-                                    "quinary": "quinary",
-                                    "senary": "senary",
-                                    "septenary": "septenary",
-                                    "octonary": "octonary",
-                                    "nonary": "nonary",
-                                    "denary": "denary",
-                                    "grey": "grey",
-                                    "white": "white",
-                                    "black": "black"
-                                },
-                                "default_value": false,
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 1,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690b26b11cee6"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
                                 "key": "field_679a3114f8319",
                                 "label": "Color Link 1",
                                 "name": "color_link_1",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -1153,39 +1227,20 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "dark": "dark",
-                                    "light": "light",
-                                    "accent": "accent",
-                                    "primary": "primary",
-                                    "secondary": "secondary",
-                                    "tertiary": "tertiary",
-                                    "quaternary": "quaternary",
-                                    "quinary": "quinary",
-                                    "senary": "senary",
-                                    "septenary": "septenary",
-                                    "octonary": "octonary",
-                                    "nonary": "nonary",
-                                    "denary": "denary",
-                                    "grey": "grey",
-                                    "white": "white",
-                                    "black": "black"
-                                },
-                                "default_value": "accent",
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 0,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690b26c31cee7"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
                                 "key": "field_679a30fcf8318",
                                 "label": "Color Link 2",
                                 "name": "color_link_2",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -1194,32 +1249,13 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "dark": "dark",
-                                    "light": "light",
-                                    "accent": "accent",
-                                    "primary": "primary",
-                                    "secondary": "secondary",
-                                    "tertiary": "tertiary",
-                                    "quaternary": "quaternary",
-                                    "quinary": "quinary",
-                                    "senary": "senary",
-                                    "septenary": "septenary",
-                                    "octonary": "octonary",
-                                    "nonary": "nonary",
-                                    "denary": "denary",
-                                    "grey": "grey",
-                                    "white": "white",
-                                    "black": "black"
-                                },
-                                "default_value": "primary",
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 0,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690b26dc1cee8"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
                                 "key": "field_66fbff9bf8705",
@@ -1487,7 +1523,7 @@
                                 "label": "Align",
                                 "name": "align",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -1496,25 +1532,20 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "left": "left",
-                                    "center": "center",
-                                    "right": "right"
-                                },
-                                "default_value": false,
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 0,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690a10173ff27"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
                                 "key": "field_66fbf93ca1d5a",
                                 "label": "Text Color",
                                 "name": "text_color",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -1523,39 +1554,20 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "dark": "dark",
-                                    "light": "light",
-                                    "accent": "accent",
-                                    "primary": "primary",
-                                    "secondary": "secondary",
-                                    "tertiary": "tertiary",
-                                    "quaternary": "quaternary",
-                                    "quinary": "quinary",
-                                    "senary": "senary",
-                                    "septenary": "septenary",
-                                    "octonary": "octonary",
-                                    "nonary": "nonary",
-                                    "denary": "denary",
-                                    "grey": "grey",
-                                    "white": "white",
-                                    "black": "black"
-                                },
-                                "default_value": false,
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 1,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690a10173ff41"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
                                 "key": "field_66e60bbee7778",
                                 "label": "Background Color",
                                 "name": "background_color",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -1564,32 +1576,13 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "dark": "dark",
-                                    "light": "light",
-                                    "accent": "accent",
-                                    "primary": "primary",
-                                    "secondary": "secondary",
-                                    "tertiary": "tertiary",
-                                    "quaternary": "quaternary",
-                                    "quinary": "quinary",
-                                    "senary": "senary",
-                                    "septenary": "septenary",
-                                    "octonary": "octonary",
-                                    "nonary": "nonary",
-                                    "denary": "denary",
-                                    "grey": "grey",
-                                    "white": "white",
-                                    "black": "black"
-                                },
-                                "default_value": false,
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 1,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690b26b11cee6"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
                                 "key": "field_66fbf904a1d59",
@@ -1893,7 +1886,7 @@
                                 "label": "Text Color",
                                 "name": "text_color",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -1902,39 +1895,20 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "dark": "dark",
-                                    "light": "light",
-                                    "accent": "accent",
-                                    "primary": "primary",
-                                    "secondary": "secondary",
-                                    "tertiary": "tertiary",
-                                    "quaternary": "quaternary",
-                                    "quinary": "quinary",
-                                    "senary": "senary",
-                                    "septenary": "septenary",
-                                    "octonary": "octonary",
-                                    "nonary": "nonary",
-                                    "denary": "denary",
-                                    "grey": "grey",
-                                    "white": "white",
-                                    "black": "black"
-                                },
-                                "default_value": false,
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 1,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690a10173ff41"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
                                 "key": "field_66d9a52d77902",
                                 "label": "Color Link 1",
                                 "name": "color_link_1",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -1943,39 +1917,20 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "dark": "dark",
-                                    "light": "light",
-                                    "accent": "accent",
-                                    "primary": "primary",
-                                    "secondary": "secondary",
-                                    "tertiary": "tertiary",
-                                    "quaternary": "quaternary",
-                                    "quinary": "quinary",
-                                    "senary": "senary",
-                                    "septenary": "septenary",
-                                    "octonary": "octonary",
-                                    "nonary": "nonary",
-                                    "denary": "denary",
-                                    "grey": "grey",
-                                    "white": "white",
-                                    "black": "black"
-                                },
-                                "default_value": "accent",
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 0,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690b26c31cee7"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
                                 "key": "field_66d9a53c77903",
                                 "label": "Color Link 2",
                                 "name": "color_link_2",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -1984,39 +1939,20 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "dark": "dark",
-                                    "light": "light",
-                                    "accent": "accent",
-                                    "primary": "primary",
-                                    "secondary": "secondary",
-                                    "tertiary": "tertiary",
-                                    "quaternary": "quaternary",
-                                    "quinary": "quinary",
-                                    "senary": "senary",
-                                    "septenary": "septenary",
-                                    "octonary": "octonary",
-                                    "nonary": "nonary",
-                                    "denary": "denary",
-                                    "grey": "grey",
-                                    "white": "white",
-                                    "black": "black"
-                                },
-                                "default_value": "primary",
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 0,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690b26dc1cee8"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
                                 "key": "field_66704bf4fe690",
                                 "label": "Background Color",
                                 "name": "background_color",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -2025,31 +1961,13 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "dark": "dark",
-                                    "light": "light",
-                                    "accent": "accent",
-                                    "primary": "primary",
-                                    "secondary": "secondary",
-                                    "tertiary": "tertiary",
-                                    "quaternary": "quaternary",
-                                    "quinary": "quinary",
-                                    "senary": "senary",
-                                    "septenary": "septenary",
-                                    "octonary": "octonary",
-                                    "nonary": "nonary",
-                                    "denary": "denary",
-                                    "grey": "grey",
-                                    "white": "white",
-                                    "black": "black"
-                                },
-                                "default_value": false,
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690b26b11cee6"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
                                 "key": "field_66fbfe34f86fa",
@@ -2367,7 +2285,7 @@
                                 "label": "Align",
                                 "name": "align",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -2376,26 +2294,20 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "left": "left",
-                                    "center": "center",
-                                    "right": "right"
-                                },
-                                "default_value": "right",
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 0,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690a10173ff27"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
                                 "key": "field_66d99cccd0b52",
                                 "label": "Text Color",
                                 "name": "text_color",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -2404,39 +2316,20 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "dark": "dark",
-                                    "light": "light",
-                                    "accent": "accent",
-                                    "primary": "primary",
-                                    "secondary": "secondary",
-                                    "tertiary": "tertiary",
-                                    "quaternary": "quaternary",
-                                    "quinary": "quinary",
-                                    "senary": "senary",
-                                    "septenary": "septenary",
-                                    "octonary": "octonary",
-                                    "nonary": "nonary",
-                                    "denary": "denary",
-                                    "grey": "grey",
-                                    "white": "white",
-                                    "black": "black"
-                                },
-                                "default_value": false,
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 1,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690a10173ff41"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
                                 "key": "field_66d99cc6d0b50",
                                 "label": "Color Link 1",
                                 "name": "color_link_1",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -2445,39 +2338,20 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "dark": "dark",
-                                    "light": "light",
-                                    "accent": "accent",
-                                    "primary": "primary",
-                                    "secondary": "secondary",
-                                    "tertiary": "tertiary",
-                                    "quaternary": "quaternary",
-                                    "quinary": "quinary",
-                                    "senary": "senary",
-                                    "septenary": "septenary",
-                                    "octonary": "octonary",
-                                    "nonary": "nonary",
-                                    "denary": "denary",
-                                    "grey": "grey",
-                                    "white": "white",
-                                    "black": "black"
-                                },
-                                "default_value": "accent",
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 0,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690b26c31cee7"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
-                                "key": "field_66d99cc9d0b51",
+                                "key": "field_690b2187e7b06",
                                 "label": "Color Link 2",
                                 "name": "color_link_2",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -2486,39 +2360,20 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "dark": "dark",
-                                    "light": "light",
-                                    "accent": "accent",
-                                    "primary": "primary",
-                                    "secondary": "secondary",
-                                    "tertiary": "tertiary",
-                                    "quaternary": "quaternary",
-                                    "quinary": "quinary",
-                                    "senary": "senary",
-                                    "septenary": "septenary",
-                                    "octonary": "octonary",
-                                    "nonary": "nonary",
-                                    "denary": "denary",
-                                    "grey": "grey",
-                                    "white": "white",
-                                    "black": "black"
-                                },
-                                "default_value": "primary",
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 0,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690b26dc1cee8"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
                                 "key": "field_66d99ccfd0b53",
                                 "label": "Background Color",
                                 "name": "background_color",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -2527,39 +2382,20 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "dark": "dark",
-                                    "light": "light",
-                                    "accent": "accent",
-                                    "primary": "primary",
-                                    "secondary": "secondary",
-                                    "tertiary": "tertiary",
-                                    "quaternary": "quaternary",
-                                    "quinary": "quinary",
-                                    "senary": "senary",
-                                    "septenary": "septenary",
-                                    "octonary": "octonary",
-                                    "nonary": "nonary",
-                                    "denary": "denary",
-                                    "grey": "grey",
-                                    "white": "white",
-                                    "black": "black"
-                                },
-                                "default_value": false,
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 1,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690b26b11cee6"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
                                 "key": "field_66fbfc77a1d6c",
                                 "label": "Inner Background Color",
                                 "name": "inner_background_color",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -2568,32 +2404,13 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "dark": "dark",
-                                    "light": "light",
-                                    "accent": "accent",
-                                    "primary": "primary",
-                                    "secondary": "secondary",
-                                    "tertiary": "tertiary",
-                                    "quaternary": "quaternary",
-                                    "quinary": "quinary",
-                                    "senary": "senary",
-                                    "septenary": "septenary",
-                                    "octonary": "octonary",
-                                    "nonary": "nonary",
-                                    "denary": "denary",
-                                    "grey": "grey",
-                                    "white": "white",
-                                    "black": "black"
-                                },
-                                "default_value": "secondary",
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 0,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690b26df1cee9"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
                                 "key": "field_6668631a8aa89",
@@ -2798,7 +2615,7 @@
                                         "label": "Text Color",
                                         "name": "text_color",
                                         "aria-label": "",
-                                        "type": "select",
+                                        "type": "clone",
                                         "instructions": "",
                                         "required": 0,
                                         "conditional_logic": 0,
@@ -2807,31 +2624,13 @@
                                             "class": "",
                                             "id": ""
                                         },
-                                        "choices": {
-                                            "accent": "accent",
-                                            "primary": "primary",
-                                            "secondary": "secondary",
-                                            "tertiary": "tertiary",
-                                            "quaternary": "quaternary",
-                                            "quinary": "quinary",
-                                            "senary": "senary",
-                                            "septenary": "septenary",
-                                            "octonary": "octonary",
-                                            "nonary": "nonary",
-                                            "denary": "denary",
-                                            "light": "light",
-                                            "dark": "dark",
-                                            "white": "white",
-                                            "black": "black"
-                                        },
-                                        "default_value": false,
-                                        "return_format": "value",
-                                        "multiple": 0,
-                                        "allow_null": 0,
-                                        "allow_in_bindings": 1,
-                                        "ui": 0,
-                                        "ajax": 0,
-                                        "placeholder": "",
+                                        "clone": [
+                                            "field_690a10173ff41"
+                                        ],
+                                        "display": "seamless",
+                                        "layout": "block",
+                                        "prefix_label": 0,
+                                        "prefix_name": 0,
                                         "parent_repeater": "field_665f3c304b536"
                                     },
                                     {
@@ -2856,7 +2655,7 @@
                                         "label": "Color Link 1",
                                         "name": "color_link_1",
                                         "aria-label": "",
-                                        "type": "select",
+                                        "type": "clone",
                                         "instructions": "",
                                         "required": 0,
                                         "conditional_logic": 0,
@@ -2865,31 +2664,13 @@
                                             "class": "",
                                             "id": ""
                                         },
-                                        "choices": {
-                                            "accent": "accent",
-                                            "primary": "primary",
-                                            "secondary": "secondary",
-                                            "tertiary": "tertiary",
-                                            "quaternary": "quaternary",
-                                            "quinary": "quinary",
-                                            "senary": "senary",
-                                            "septenary": "septenary",
-                                            "octonary": "octonary",
-                                            "nonary": "nonary",
-                                            "denary": "denary",
-                                            "light": "light",
-                                            "dark": "dark",
-                                            "white": "white",
-                                            "black": "black"
-                                        },
-                                        "default_value": "accent",
-                                        "return_format": "value",
-                                        "multiple": 0,
-                                        "allow_null": 0,
-                                        "allow_in_bindings": 1,
-                                        "ui": 0,
-                                        "ajax": 0,
-                                        "placeholder": "",
+                                        "clone": [
+                                            "field_690b26c31cee7"
+                                        ],
+                                        "display": "seamless",
+                                        "layout": "block",
+                                        "prefix_label": 0,
+                                        "prefix_name": 0,
                                         "parent_repeater": "field_665f3c304b536"
                                     },
                                     {
@@ -2910,11 +2691,11 @@
                                         "parent_repeater": "field_665f3c304b536"
                                     },
                                     {
-                                        "key": "field_66d9786d16de2",
+                                        "key": "field_690b21f1e7b07",
                                         "label": "Color Link 2",
                                         "name": "color_link_2",
                                         "aria-label": "",
-                                        "type": "select",
+                                        "type": "clone",
                                         "instructions": "",
                                         "required": 0,
                                         "conditional_logic": 0,
@@ -2923,31 +2704,13 @@
                                             "class": "",
                                             "id": ""
                                         },
-                                        "choices": {
-                                            "accent": "accent",
-                                            "primary": "primary",
-                                            "secondary": "secondary",
-                                            "tertiary": "tertiary",
-                                            "quaternary": "quaternary",
-                                            "quinary": "quinary",
-                                            "senary": "senary",
-                                            "septenary": "septenary",
-                                            "octonary": "octonary",
-                                            "nonary": "nonary",
-                                            "denary": "denary",
-                                            "light": "light",
-                                            "dark": "dark",
-                                            "white": "white",
-                                            "black": "black"
-                                        },
-                                        "default_value": "primary",
-                                        "return_format": "value",
-                                        "multiple": 0,
-                                        "allow_null": 0,
-                                        "allow_in_bindings": 1,
-                                        "ui": 0,
-                                        "ajax": 0,
-                                        "placeholder": "",
+                                        "clone": [
+                                            "field_690b26dc1cee8"
+                                        ],
+                                        "display": "seamless",
+                                        "layout": "block",
+                                        "prefix_label": 0,
+                                        "prefix_name": 0,
                                         "parent_repeater": "field_665f3c304b536"
                                     },
                                     {
@@ -2982,7 +2745,7 @@
                                         "label": "Background Color",
                                         "name": "background_color",
                                         "aria-label": "",
-                                        "type": "select",
+                                        "type": "clone",
                                         "instructions": "",
                                         "required": 0,
                                         "conditional_logic": 0,
@@ -2991,31 +2754,13 @@
                                             "class": "",
                                             "id": ""
                                         },
-                                        "choices": {
-                                            "accent": "accent",
-                                            "primary": "primary",
-                                            "secondary": "secondary",
-                                            "tertiary": "tertiary",
-                                            "quaternary": "quaternary",
-                                            "quinary": "quinary",
-                                            "senary": "senary",
-                                            "septenary": "septenary",
-                                            "octonary": "octonary",
-                                            "nonary": "nonary",
-                                            "denary": "denary",
-                                            "light": "light",
-                                            "dark": "dark",
-                                            "white": "white",
-                                            "black": "black"
-                                        },
-                                        "default_value": "primary",
-                                        "return_format": "value",
-                                        "multiple": 0,
-                                        "allow_null": 0,
-                                        "allow_in_bindings": 1,
-                                        "ui": 0,
-                                        "ajax": 0,
-                                        "placeholder": "",
+                                        "clone": [
+                                            "field_690b26b11cee6"
+                                        ],
+                                        "display": "seamless",
+                                        "layout": "block",
+                                        "prefix_label": 0,
+                                        "prefix_name": 0,
                                         "parent_repeater": "field_665f3c304b536"
                                     },
                                     {
@@ -3023,7 +2768,7 @@
                                         "label": "Align",
                                         "name": "align",
                                         "aria-label": "",
-                                        "type": "select",
+                                        "type": "clone",
                                         "instructions": "",
                                         "required": 0,
                                         "conditional_logic": 0,
@@ -3032,19 +2777,13 @@
                                             "class": "",
                                             "id": ""
                                         },
-                                        "choices": {
-                                            "center": "center",
-                                            "left": "left",
-                                            "right": "right"
-                                        },
-                                        "default_value": "left",
-                                        "return_format": "value",
-                                        "multiple": 0,
-                                        "allow_null": 0,
-                                        "allow_in_bindings": 1,
-                                        "ui": 0,
-                                        "ajax": 0,
-                                        "placeholder": "",
+                                        "clone": [
+                                            "field_690a10173ff27"
+                                        ],
+                                        "display": "seamless",
+                                        "layout": "block",
+                                        "prefix_label": 0,
+                                        "prefix_name": 0,
                                         "parent_repeater": "field_665f3c304b536"
                                     }
                                 ]
@@ -3222,7 +2961,7 @@
                                 "label": "Text Color",
                                 "name": "text_color",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -3231,39 +2970,20 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "dark": "dark",
-                                    "light": "light",
-                                    "accent": "accent",
-                                    "primary": "primary",
-                                    "secondary": "secondary",
-                                    "tertiary": "tertiary",
-                                    "quaternary": "quaternary",
-                                    "quinary": "quinary",
-                                    "senary": "senary",
-                                    "septenary": "septenary",
-                                    "octonary": "octonary",
-                                    "nonary": "nonary",
-                                    "denary": "denary",
-                                    "grey": "grey",
-                                    "white": "white",
-                                    "black": "black"
-                                },
-                                "default_value": false,
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 1,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690a10173ff41"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
                                 "key": "field_671f811a34bd0",
                                 "label": "Background Color",
                                 "name": "background_color",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -3272,39 +2992,20 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "dark": "dark",
-                                    "light": "light",
-                                    "accent": "accent",
-                                    "primary": "primary",
-                                    "secondary": "secondary",
-                                    "tertiary": "tertiary",
-                                    "quaternary": "quaternary",
-                                    "quinary": "quinary",
-                                    "senary": "senary",
-                                    "septenary": "septenary",
-                                    "octonary": "octonary",
-                                    "nonary": "nonary",
-                                    "denary": "denary",
-                                    "grey": "grey",
-                                    "white": "white",
-                                    "black": "black"
-                                },
-                                "default_value": false,
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 1,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690b26b11cee6"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
                                 "key": "field_671f811a34bd2",
                                 "label": "Align",
                                 "name": "align",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -3313,19 +3014,13 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "left": "left",
-                                    "center": "center",
-                                    "right": "right"
-                                },
-                                "default_value": false,
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 0,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690a10173ff27"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
                                 "key": "field_671f811a34bd3",
@@ -3491,7 +3186,9 @@
                                 "allow_in_bindings": 1,
                                 "ui": 0,
                                 "ajax": 0,
-                                "placeholder": ""
+                                "placeholder": "",
+                                "create_options": 0,
+                                "save_options": 0
                             },
                             {
                                 "key": "field_66e00f68250ab",
@@ -3539,7 +3236,7 @@
                                 "label": "Background Color",
                                 "name": "background_color",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -3548,32 +3245,13 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "dark": "dark",
-                                    "light": "light",
-                                    "accent": "accent",
-                                    "primary": "primary",
-                                    "secondary": "secondary",
-                                    "tertiary": "tertiary",
-                                    "quaternary": "quaternary",
-                                    "quinary": "quinary",
-                                    "senary": "senary",
-                                    "septenary": "septenary",
-                                    "octonary": "octonary",
-                                    "nonary": "nonary",
-                                    "denary": "denary",
-                                    "grey": "grey",
-                                    "white": "white",
-                                    "black": "black"
-                                },
-                                "default_value": false,
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 1,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690b26b11cee6"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
                                 "key": "field_66e00e5a30384",
@@ -3814,7 +3492,7 @@
                                 "label": "Background Color",
                                 "name": "background_color",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -3823,32 +3501,13 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "dark": "dark",
-                                    "light": "light",
-                                    "accent": "accent",
-                                    "primary": "primary",
-                                    "secondary": "secondary",
-                                    "tertiary": "tertiary",
-                                    "quaternary": "quaternary",
-                                    "quinary": "quinary",
-                                    "senary": "senary",
-                                    "septenary": "septenary",
-                                    "octonary": "octonary",
-                                    "nonary": "nonary",
-                                    "denary": "denary",
-                                    "grey": "grey",
-                                    "white": "white",
-                                    "black": "black"
-                                },
-                                "default_value": false,
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 1,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690b26b11cee6"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
                                 "key": "field_66e83008e2745",
@@ -4096,7 +3755,7 @@
                                 "label": "Text Color",
                                 "name": "text_color",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -4105,39 +3764,20 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "dark": "dark",
-                                    "light": "light",
-                                    "accent": "accent",
-                                    "primary": "primary",
-                                    "secondary": "secondary",
-                                    "tertiary": "tertiary",
-                                    "quaternary": "quaternary",
-                                    "quinary": "quinary",
-                                    "senary": "senary",
-                                    "septenary": "septenary",
-                                    "octonary": "octonary",
-                                    "nonary": "nonary",
-                                    "denary": "denary",
-                                    "grey": "grey",
-                                    "white": "white",
-                                    "black": "black"
-                                },
-                                "default_value": false,
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 1,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690a10173ff41"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
                                 "key": "field_66e8162ffcd1c",
                                 "label": "Color Link 1",
                                 "name": "color_link_1",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -4146,39 +3786,20 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "dark": "dark",
-                                    "light": "light",
-                                    "accent": "accent",
-                                    "primary": "primary",
-                                    "secondary": "secondary",
-                                    "tertiary": "tertiary",
-                                    "quaternary": "quaternary",
-                                    "quinary": "quinary",
-                                    "senary": "senary",
-                                    "septenary": "septenary",
-                                    "octonary": "octonary",
-                                    "nonary": "nonary",
-                                    "denary": "denary",
-                                    "grey": "grey",
-                                    "white": "white",
-                                    "black": "black"
-                                },
-                                "default_value": "accent",
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 0,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690b26c31cee7"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
-                                "key": "field_66e8162ffcd1e",
+                                "key": "field_690b22d8e7b08",
                                 "label": "Color Link 2",
                                 "name": "color_link_2",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -4187,39 +3808,20 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "dark": "dark",
-                                    "light": "light",
-                                    "accent": "accent",
-                                    "primary": "primary",
-                                    "secondary": "secondary",
-                                    "tertiary": "tertiary",
-                                    "quaternary": "quaternary",
-                                    "quinary": "quinary",
-                                    "senary": "senary",
-                                    "septenary": "septenary",
-                                    "octonary": "octonary",
-                                    "nonary": "nonary",
-                                    "denary": "denary",
-                                    "grey": "grey",
-                                    "white": "white",
-                                    "black": "black"
-                                },
-                                "default_value": "primary",
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 0,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690b26dc1cee8"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
                                 "key": "field_66e8162ffcd21",
                                 "label": "Background Color",
                                 "name": "background_color",
                                 "aria-label": "",
-                                "type": "select",
+                                "type": "clone",
                                 "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
@@ -4228,32 +3830,13 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "choices": {
-                                    "dark": "dark",
-                                    "light": "light",
-                                    "accent": "accent",
-                                    "primary": "primary",
-                                    "secondary": "secondary",
-                                    "tertiary": "tertiary",
-                                    "quaternary": "quaternary",
-                                    "quinary": "quinary",
-                                    "senary": "senary",
-                                    "septenary": "septenary",
-                                    "octonary": "octonary",
-                                    "nonary": "nonary",
-                                    "denary": "denary",
-                                    "grey": "grey",
-                                    "white": "white",
-                                    "black": "black"
-                                },
-                                "default_value": false,
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 1,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": ""
+                                "clone": [
+                                    "field_690b26b11cee6"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
                             },
                             {
                                 "key": "field_66fbff48f8702",
@@ -4483,7 +4066,7 @@
                 {
                     "param": "post_type",
                     "operator": "==",
-                    "value": "grit-theme"
+                    "value": "post"
                 }
             ]
         ],
@@ -4495,6 +4078,7 @@
         "hide_on_screen": "",
         "active": true,
         "description": "",
-        "show_in_rest": 0
+        "show_in_rest": 0,
+        "display_title": ""
     }
 ]

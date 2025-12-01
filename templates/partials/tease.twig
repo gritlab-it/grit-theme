@@ -16,6 +16,7 @@
             </div> 
             <div class="card-body">
               <h5 class="card-title"><a href="{{post.link}}">{{post.title}}</a></h5>
+              <p>{{ post.post_date }} {{ post.date }}</p>
               <h6 class="card-subtitle mb-2">{{ post.terms('') | join(', ') }}</h6>
               <p class="card-text">{{ post.get_preview( split_content_post|length + 50, false, '<span>...</span>', false )|apply_filters('the_content') }}</p> 
             </div>
@@ -36,7 +37,7 @@
                          data-parent="#accordion">
                         <p>post.title: {{ post.title }}</p>
                         <p>post.link: {{ post.link }}</p>
-                        <p>post.date: {{ post.date }} {{ post.published_at|date("d/M/Y g:ia") }}</p>
+                        <p>post.date: {{ post.post_date }} {{ post.published_at|date("d/M/Y g:ia") }}</p>
                         <hr>
                         <p>Categorie:</p>
                         <ul>

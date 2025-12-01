@@ -17,7 +17,7 @@
 		<h5 class="card-title"><a href="{{post.link}}">{{post.title}}</a></h5>
 		<h6 class="card-subtitle mb-2">{{ post.terms('') | join(', ') }}</h6>
 		<p class="card-text">{{ post.get_preview( split_content_post|length + 50, false, '<span>...</span>', false )|apply_filters('the_content') }}</p> 
-		<a href="{{post.link}}" class="btn btn-accent">Leggi</a> 
+		<a href="{{post.link}}" class="btn btn-accent">{{__('Leggi:', 'grit_theme')}}</a> 
 	</div>
 </div>
 

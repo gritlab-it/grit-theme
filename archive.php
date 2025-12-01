@@ -148,8 +148,8 @@ $args = array(
     'post_type' => $post_type,
     'posts_per_page' => $paginazione,
     'paged' => $paged,
-    'orderby' => 'date',
-    'order' => 'ASC',
+    'orderby' => 'post_date',
+    'order' => 'DESC',
 );
 
 if (is_category()) {

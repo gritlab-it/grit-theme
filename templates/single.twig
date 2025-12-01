@@ -27,8 +27,8 @@
             
                 <div class="row">
                     <!-- Immagine Principale -->
-                    <div class="col-12 ">
-                        <img src="{% if post.thumbnail %}{{ post.thumbnail.src|resize(1400, 600) }}{% else %}{{ placeholder }}house{% endif %}"
+                    <div class="col-12 text-center">
+                        <img src="{% if post.thumbnail %}{{ post.thumbnail.src|resize(1800, 600) }}{% else %}{{ placeholder }}house{% endif %}"
                              alt="Immagine di {{ title }}" class="img-fluid rounded shadow-sm">
                     </div>
                 </div>
@@ -45,16 +45,16 @@
                         <!-- Header della Sezione -->
                         <section class="single-{{ post.post_type }}-header py-4 ">
                             <p class="single-{{ post.post_type }}-author  ">
-                                <strong class="text-uppercase">{{ post.post_type }}</strong> scritta da 
+                                <strong class="text-uppercase">{{ post.post_type }}</strong> {{__(' scritto da', 'grit_theme')}} 
                                 <a href="{{ post.author.path }}" class="text-decoration-none"> {{ post.author.name }} </a>
                             </p>
                             <p class="single-{{ post.post_type }}-date ">
-                                <small>Data: {{ post.date|date("d/M/Y g:ia") }}</small>
+                                <small>{{__('Data: ', 'grit_theme')}} : {{ post.post_date|date("d/M/Y") }}</small>
                             </p>
             
                             <!-- Categorie -->
                             <h5 class="single-{{ post.post_type }}-category mt-3">
-                                <strong>Category:</strong>
+                                <strong>{{__('Category:', 'grit_theme')}}</strong>
                                 {% for category in post.terms('category') %}
                                     <a href="{{ category.link }}" title="{{ post.title }} - {{ category.name }}" class="badge bg-primary me-1">{{ category.name }}</a>
                                 {% endfor %}
@@ -62,7 +62,7 @@
             
                             <!-- Tag -->
                             <h5 class="single-{{ post.post_type }}-tag mt-3">
-                                <strong>Tag:</strong>
+                                <strong>{{__('Tag:', 'grit_theme')}}</strong>
                                 {% for tag in post.terms('post_tag') %}
                                     <a href="{{ tag.link }}" title="{{ post.title }} - {{ tag.name }}" class="badge bg-secondary me-1">{{ tag.name }}</a>
                                 {% endfor %}
@@ -70,7 +70,7 @@
             
                             <!-- Tassonomia Personalizzata -->
                             <h5 class="single-{{ post.post_type }}-tax mt-3">
-                                <strong>Tax:</strong>
+                                <strong>{{__('Tax:', 'grit_theme')}}</strong>
                                 {% for tax in post.terms('custom_taxonomy') %}
                                     <a href="{{ tax.link }}" title="{{ post.title }} - {{ tax.name }}" class="badge bg-info me-1">{{ tax.name }}</a>
                                 {% endfor %}
@@ -114,13 +114,13 @@
                 <div class="row">
                     <div class="col-12 py-5">
                         <hr>
-                        <h1>Area Commenti</h1>
-                        <p>Area commenti utilizzando function('comment_form')</p>
+                        <h1>{{__('Area Commenti', 'grit_theme')}}</h1>
+                        <p> {{__('Area commenti utilizzando function( comment_form)', 'grit_theme')}}</p>
                         <section class="comment-box contact-form-style-1">
                             <div class="comments">
                                 {% for comment in post.comments %}
                                     <article class="comment" id="comment-{{ comment.id }}">
-                                        <h5 class="comment-author">{{ comment.author.name }} says</h5>
+                                        <h5 class="comment-author">{{ comment.author.name }}  {{__('says', 'grit_theme')}}</h5>
                                         {{ comment.content }}
                                     </article>
                                 {% endfor %}
@@ -128,8 +128,8 @@
                             </div>
                         </section>
                         <hr>
-                        <h1>Area Commenti</h1>
-                        <p>Area commenti utilizzando Twig</p>
+                        <h1>{{__('Area Commenti', 'grit_theme')}}</h1>
+                        <p> {{__('Area commenti utilizzando Twig', 'grit_theme')}}</p>
                         <!-- comment box -->
                         <section class="comment-box">
                             <!-- comments -->

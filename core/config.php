@@ -84,6 +84,8 @@ $GLOBALS['GRIT_SETTING_CSS'] = array(
 // Attivo lista percorsi JS di terze parti in core/scripts.php
 $GLOBALS['GRIT_SETTING_JS'] = array(
 
+    // 'smoth' => 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollSmoother.min.js', 
+    // 'split' => 'https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js', 
     // 'data_table' => 'https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js',
     // 'data_table_ita' => 'https://cdn.datatables.net/plug-ins/1.10.25/i18n/Italian.json',
 

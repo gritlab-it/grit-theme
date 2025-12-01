@@ -201,7 +201,7 @@ class StarterSite extends Timber\Site {
 			'post_type' => 'post', 
 			'posts_per_page' => get_option('posts_per_page'), 
 			'orderby' => 'date',
-			'order' => 'ASC',
+			'order' => 'DESC',
 		);
 		$context['archive_posts'] = $archive_posts = new Timber\PostQuery($post_args); 
 
@@ -521,9 +521,19 @@ function skip_empty_acf_fields($value, $post_id, $field) {
     return $value;
 }
 
-
-
-
-
-
+ 
 add_filter('doing_it_wrong_trigger_error', '__return_false', 0);
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
