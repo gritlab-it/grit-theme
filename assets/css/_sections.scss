@@ -9,6 +9,11 @@
 /* :::::::::::::: 08 * GRIT_SET section_archive */
 /* :::::::::::::: 09 * GRIT_SET section_collapse */
 /* :::::::::::::: 10 * GRIT_SET section_bio */
+/* :::::::::::::: 11 * GRIT_SET gsap-horizontal */
+/* :::::::::::::: 12 * GRIT_SET section-gsap-vertical */
+/* :::::::::::::: 13 * GRIT_SET section-gsap-reveal */
+/* :::::::::::::: 14 * GRIT_SET section-gsap-lateral-word */
+/* :::::::::::::: 15 * GRIT_SET section-masonry  */
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
 /* :::::::::::::: 01 * GRIT_SET section_page_header */
@@ -513,6 +518,11 @@
 
  
 
+/* :::::::::::::: 11 * GRIT_SET gsap-horizontal */
+
+
+
+
 
 
 
@@ -520,53 +530,173 @@
   height: 100vh;
   overflow: hidden;
   position: relative;
+ 
+
+  .container,
+  .container-fluid {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: auto;
+  }
 
   .row {
     display: flex !important;
     flex-wrap: nowrap !important;
+    width: auto;
     height: 100%;
-    width: auto; // Let it grow based on columns
+    margin: 0 -4px;
   }
 
   .item-chapters {
+    flex: 0 0 auto;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
 
     .inner-item {
       width: 100%;
-      padding: 2rem;
-      .inner-text {
+    }
+  }
+}
 
+
+
+
+
+.section-gsap-vertical {
+  position: relative;
+  height: 100vh;
+  padding-top: 1px; // 👈 sufficiente per evitare il salto iniziale
+
+  #timeline {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .item-chapters {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+
+    &:nth-child(1) { z-index: 4; }
+    &:nth-child(2) { z-index: 3; }
+    &:nth-child(3) { z-index: 2; }
+
+    .inner-item {
+      text-align: center;
+    }
+  }
+
+  .timeline-nav {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10;
+
+    a {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: black;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
       }
     }
   }
 }
 
 
-.section-gsap-vertical {
+
+// =======================
+// Sezioni scroll orizzontale sequenziale
+// =======================
+// ============================
+// Scroll orizzontale 70/30vh
+// ============================
+// Scroll orizzontale sezioni 70/30
+.horizontal-wrapper {
+  overflow-x: hidden;
   position: relative;
-  height: 100vh;
+ 
+}
+.section-gsap-70horizontal,
+.section-gsap-30horizontal {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+ 
+ 
+
+  .row {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    height: 100%;
+    width: auto; // Let it grow based on columns
+ 
+ 
+ 
+  }
 
   .item-chapters {
-    position: absolute;
-    inset: 0;
-    height: 100vh;
-    width: 100%;
+   flex: 0 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
+    margin: 0px -1px;
 
-    .inner-item {
-      width: 100%;
-      text-align: center;
-      padding: 2rem;
-    }
+    
+
+ 
   }
 }
 
 
+
+.h-60vh {
+    height: 60vh; 
+}
+
+// Applichiamo height sia alla sezione che alla .row
+.section-gsap-70horizontal {
+  height: 70vh;
+
+  .row {
+    height: 70vh;
+  }
+
+  .item-chapters {
+    height: 70vh;
+  }
+}
+
+.section-gsap-30horizontal {
+  height: 30vh;
+
+  .row {
+    height: 30vh;
+    
+  }
+
+  .item-chapters {
+    height: 30vh;
+  }
+}
+
+
+
+/* :::::::::::::: 13 * GRIT_SET section-gsap-reveal */
 
 .section-gsap-reveal {
   .word {
@@ -578,6 +708,7 @@
 
 
 
+/* :::::::::::::: 14 * GRIT_SET section-gsap-lateral-word */
 
 .section-gsap-lateral-word {
   min-height: 100vh;
@@ -613,3 +744,30 @@
 }
 
  
+
+
+/* :::::::::::::: 15 * GRIT_SET section-masonry  */
+
+
+.section_masonry {
+ 
+  overflow: visible;
+
+  .masonry-grid {
+    position: relative;
+
+    // Fallback clearfix per sicurezza
+    &::after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+  }
+
+ 
+  .masonry-item {
+    margin-bottom: 30px;
+    display: block;
+    float: none;
+  }
+}

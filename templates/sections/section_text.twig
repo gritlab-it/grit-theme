@@ -104,6 +104,175 @@
 </script> 
 {# :::::::::::::: 01 * GRIT_SET section_carousel_text END #}
 
+
+
+{# :::::::::::::: 02 * GRIT_SET section_masonry #}
+{% elseif 'section_masonry' in class %}
+<div class="container-fluid img-hover-inner">
+    <div class="masonry-grid js-masonry">   
+        {% for item in section.chapters %} 
+
+            {% set classes = item.inner_class ? item.inner_class|split(' ') : [] %}
+            {% set col_classes = classes|filter(class => class matches '/^col-.*$/') %}
+            {% set other_classes = classes|filter(class => not (class matches '/^col-.*$/')) %}
+
+            {% if not col_classes %}
+                {% set col_classes = '' %}
+                {% set total_items = section.chapters | length %}
+                {% if total_items == 1 %} 
+                    {% if 'center' in section.align %}
+                            {% set col_classes = 'col-md-10  col-xl-8 ' %}
+                        {% else %}
+                            {% set col_classes = 'col-12 col-md-12' %}
+                    {% endif %} 
+                {% elseif total_items == 2 %}
+                    {% set col_classes = 'col-12 col-md-6 ' %}
+                {% elseif total_items == 3 %}
+                    {% set col_classes = 'col-12 col-sm-6 col-md-4' %}  
+                {% else %}
+                    {% set col_classes = 'col-12 col-sm-6 col-md-3 ' %}
+                {% endif %}
+            {% endif %} 
+
+            <div class="item-chapters {{ col_classes|join(' ') }} {{ other_classes|join(' ') }} " id="section_id_{{ section.section_index }}_{{ loop.index }}"> 
+        
+                <div class="inner-item   ">   
+                    {% if item.image %}
+                    <div class="inner-img in__animate " data-animation="animate__fadeIn animate__slow ">  
+                        {% if 'parallax-gsap' in classes %} 
+                                <div class="gsap-parallax-container" style="aspect-ratio: {{ item.image.width }}/{{ item.image.height }};"> 
+                                {% set image = {
+                                    'alt': item.image.alt,
+                                    'src': Image(item.image.id).src ,
+                                    'class': 'img-fluid gsap-parallaxImage',
+                                    'style': 'aspect-ratio: ' ~ item.image.width ~ '/' ~ item.image.height
+                                    }
+                                %}
+                                {% include ['/partials/img.twig'] with image %}  
+                                </div> 
+                        {% elseif 'parallax' in classes %}  
+                            <div class="jarallax-keep-img overlay-in" data-speed="0.8"> 
+                                {% set image = {
+                                    'alt': item.image.alt,
+                                    'src': Image(item.image.id).src ,
+                                    'class': 'img-fluid jarallax-img'
+                                    }
+                                %}
+                                {% include ['/partials/img.twig'] with image %}  
+                            </div> 
+                        {% else %}
+                                {% set image = {
+                                    'alt': item.image.alt,
+                                    'src': Image(item.image.id).src ,
+                                    'class': 'img-fluid'
+                                    }
+                                %}
+                                {% include ['/partials/img.twig'] with image %}  
+                        {% endif %} 
+                    </div>
+                    {% endif %}
+
+                    <div class="inner-text in__animate " data-animation="animate__fadeIn animate__slow "> 
+                        {% if item.title %}
+                            <h1> {{ item.title }}</h1>
+                        {% endif %} 
+                        {% if item.subtitle %}
+                            <h3>{{ item.subtitle }}</h3>
+                        {% endif %}  
+                        {% if item.text %}
+                            {{ item.text }}
+                        {% endif %}  
+                    </div> 
+                    {% if item.link_1 is not empty or item.link_2 is not empty %} 
+                    <div class="box-buttons   in__animate " data-animation="animate__fadeIn animate__slow ">
+                        {% if item.link_1 %}
+                                {% set btn = {
+                                'title': item.link_1.title,
+                                'url': item.link_1.url,
+                                'target': item.link_1.target,
+                                'style': 'btn btn-' ~ section.color_link_1 ~ ' btn-md',
+                                }
+                                %}
+                                {% include ['/partials/btn.twig'] with btn %}
+                        {% endif %}
+
+                        {% if item.link_2 %}
+                                {% set btn = {
+                                'title': item.link_2.title,
+                                'url': item.link_2.url,
+                                'target': item.link_2.target,
+                                'style': 'btn btn-' ~ section.color_link_2 ~ ' btn-md',
+                                }
+                                %}
+                                {% include ['/partials/btn.twig'] with btn %}
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div> 
+            </div>
+        {% endfor %} 
+    </div>
+</div> 
+
+
+<script>
+
+
+{# document.addEventListener("DOMContentLoaded", function () {
+  const grid = document.querySelector('.js-masonry');
+  if (grid) {
+    imagesLoaded(grid, function () {
+      const msnry = new Masonry(grid, {
+        itemSelector: '.masonry-item',
+        columnWidth: '.item-chapters',
+        percentPosition: true
+      });
+
+      // Debug: mostra altezza dopo init
+      // setTimeout(() => {
+      //   console.log('GRID HEIGHT:', grid.offsetHeight);
+      // }, 1000);
+    });
+  }
+}); #}
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const grid = document.querySelector('.js-masonry');
+
+  if (grid) {
+    // Aspetta che tutte le immagini siano caricate
+    imagesLoaded(grid, function () {
+      // Avvia Jarallax PRIMA di Masonry
+      const parallaxEls = document.querySelectorAll('.jarallax');
+      if (parallaxEls.length > 0) {
+        jarallax(parallaxEls, {
+          speed: 0.5
+        });
+
+        // Timeout breve per assicurare che Jarallax abbia applicato i suoi height
+        setTimeout(() => {
+          new Masonry(grid, {
+            itemSelector: '.masonry-item',
+            columnWidth: '.item-chapters',
+            percentPosition: true
+          });
+        }, 200); // ⏱️ Puoi aumentare se serve
+      } else {
+        // Se non c'è Jarallax, vai diretto
+        new Masonry(grid, {
+          itemSelector: '.masonry-item',
+          columnWidth: '.item-chapters',
+          percentPosition: true
+        });
+      }
+    });
+  }
+});
+</script>
+
+{# :::::::::::::: 02 * GRIT_SET section_masonry END #}
 {% else %}
 
 {# :::::::::::::: 02 * GRIT_SET section_text #} 
@@ -138,16 +307,40 @@
         
                 <div class="inner-item   ">   
                     {% if item.image %}
-                    <div class="inner-img in__animate " data-animation="animate__fadeIn animate__slow "> 
-                        {% set image = {
-                            'alt': item.image.alt,
-                            'src': Image(item.image.id).src ,
-                            'class': 'img-fluid'
-                            }
-                        %}
-                        {% include ['/partials/img.twig'] with image %} 
+                    <div class="inner-img in__animate " data-animation="animate__fadeIn animate__slow ">  
+                        {% if 'parallax-gsap' in classes %} 
+                                <div class="gsap-parallax-container" style="aspect-ratio: {{ item.image.width }}/{{ item.image.height }};"> 
+                                {% set image = {
+                                    'alt': item.image.alt,
+                                    'src': Image(item.image.id).src ,
+                                    'class': 'img-fluid gsap-parallaxImage',
+                                    'style': 'aspect-ratio: ' ~ item.image.width ~ '/' ~ item.image.height
+                                    }
+                                %}
+                                {% include ['/partials/img.twig'] with image %}  
+                                </div> 
+                        {% elseif 'parallax' in classes %}  
+                            <div class="jarallax-keep-img overlay-in" data-speed="0.8"> 
+                                {% set image = {
+                                    'alt': item.image.alt,
+                                    'src': Image(item.image.id).src ,
+                                    'class': 'img-fluid jarallax-img'
+                                    }
+                                %}
+                                {% include ['/partials/img.twig'] with image %}  
+                            </div> 
+                        {% else %}
+                                {% set image = {
+                                    'alt': item.image.alt,
+                                    'src': Image(item.image.id).src ,
+                                    'class': 'img-fluid'
+                                    }
+                                %}
+                                {% include ['/partials/img.twig'] with image %}  
+                        {% endif %} 
                     </div>
                     {% endif %}
+
 
                     <div class="inner-text in__animate " data-animation="animate__fadeIn animate__slow "> 
                         {% if item.title %}
