@@ -177,6 +177,8 @@ function openNav(elementId) {
     }
 }
 
+ 
+
 function closeNav(elementId) {
     var element = document.getElementById(elementId);
     if (element) {
@@ -187,6 +189,10 @@ function closeNav(elementId) {
         }, 500);
     }  
 }
+
+
+
+
 
 /* :::::::::::::: 03 * GRIT_SET sticky */
 $(function () {
@@ -947,42 +953,49 @@ function setupSection(section) {
 
     
     // ========== 3. Reveal parole singole ==========
-    function splitWordReveal() {
-        document.querySelectorAll(".section-gsap-reveal .inner-text").forEach(block => {
-            const textElements = block.querySelectorAll("h1, h2, h3, h4, h5, h6, p");
-            
-            textElements.forEach(el => {
-                if (el.dataset.split === "true") return;
-                
-                const split = new SplitText(el, {
-                    type: "words",
-                    wordsClass: "word"
-                });
-                
-                el.dataset.split = "true";
-                
-                split.words.forEach((word, i) => {
-                    gsap.fromTo(
-                        word,
-                        { opacity: 0.1 },
-                        {
-                            opacity: 1,
-                            duration: 0.2,
-                            ease: "power2.out",
-                            delay: i * 0.05,
-                            scrollTrigger: {
-                                trigger: word,
-                                start: "top 85%",
-                                end: "top 15%",
-                                toggleActions: "play reverse play reverse",
-                                markers: false
-                            }
-                        }
-                    );
-                });
-            });
+function splitWordReveal() {
+  // Per ogni sezione con classe .section-gsap-reveal
+  document.querySelectorAll(".section-gsap-reveal").forEach(section => {
+    const textBlocks = section.querySelectorAll(".inner-text");
+
+    textBlocks.forEach(block => {
+      const textElements = block.querySelectorAll("h1, h2, h3, h4, h5, h6, p");
+
+      textElements.forEach(el => {
+        if (el.dataset.split === "true") return;
+
+        const split = new SplitText(el, {
+          type: "words",
+          wordsClass: "word"
         });
-    }
+
+        el.dataset.split = "true";
+
+        // Anima ogni parola individualmente
+        split.words.forEach((word, i) => {
+          gsap.fromTo(
+            word,
+            { opacity: 0.1 },
+            {
+              opacity: 1,
+              duration: 0.2,
+              ease: "power2.out",
+              delay: i * 0.05,
+              scrollTrigger: {
+                trigger: word,
+                start: "top 85%",
+                end: "top 15%",
+                toggleActions: "play reverse play reverse",
+                markers: false
+              }
+            }
+          );
+        });
+      });
+    });
+  });
+}
+
     
     // ========== 4. Scroll reveal parole in sequenza ==========
     function scrollRevealStaggered() {
