@@ -947,15 +947,22 @@ function setupSection(section) {
 
   }, 50);
 }
-
-
-
-
+    
+    
+    
+    
     
     // ========== 3. Reveal parole singole ==========
 function splitWordReveal() {
   // Per ogni sezione con classe .section-gsap-reveal
   document.querySelectorAll(".section-gsap-reveal").forEach(section => {
+    // rimuovi eventuali trigger preesistenti creati in precedenza per evitare duplicati
+    ScrollTrigger.getAll().forEach(trigger => {
+      if (trigger.trigger && section.contains(trigger.trigger)) {
+        trigger.kill();
+      }
+    });
+
     const textBlocks = section.querySelectorAll(".inner-text");
 
     textBlocks.forEach(block => {
@@ -1000,6 +1007,13 @@ function splitWordReveal() {
     // ========== 4. Scroll reveal parole in sequenza ==========
     function scrollRevealStaggered() {
         document.querySelectorAll(".section-gsap-reveal-scroll").forEach(section => {
+            // evita la creazione di scrollTrigger duplicati in caso di reinizializzazione
+            ScrollTrigger.getAll().forEach(trigger => {
+                if (trigger.trigger === section) {
+                    trigger.kill();
+                }
+            });
+
             const innerText = section.querySelector(".inner-text");
             if (!innerText) return;
             
@@ -1029,6 +1043,13 @@ function splitWordReveal() {
     // ========== 5. Scroll orizzontale di frasi lunghe ==========
     function horizontalTextScroll() {
         document.querySelectorAll(".section-gsap-lateral-word").forEach(section => {
+            // elimina eventuali trigger già esistenti per la stessa sezione
+            ScrollTrigger.getAll().forEach(trigger => {
+                if (trigger.trigger === section) {
+                    trigger.kill();
+                }
+            });
+
             const h1 = section.querySelector(".inner-text h1");
             if (!h1) return;
             
@@ -1066,54 +1087,86 @@ function splitWordReveal() {
 function horizontalScrollSequenziale() {
   requestAnimationFrame(() => {
     setTimeout(() => {
-      const section70 = document.querySelector(".section-gsap-70horizontal");
-      const section30 = document.querySelector(".section-gsap-30horizontal");
-      if (!section70 || !section30) return;
+      const sections = Array.from(document.querySelectorAll(".section-gsap-70horizontal, .section-gsap-30horizontal"));
+      if (!sections.length) return;
 
-      const wrapper = document.createElement("div");
-      wrapper.classList.add("horizontal-wrapper");
+      // costruisci coppie 70/30 consecutive per gestire più gruppi
+      const pairs = [];
+      for (let i = 0; i < sections.length - 1; i++) {
+        const current = sections[i];
+        const next = sections[i + 1];
+        if (current.classList.contains("section-gsap-70horizontal") && next.classList.contains("section-gsap-30horizontal")) {
+          pairs.push({ section70: current, section30: next });
+          i++; // salta l'elemento successivo già accoppiato
+        }
+      }
 
-      section70.parentNode.insertBefore(wrapper, section70);
-      wrapper.appendChild(section70);
-      wrapper.appendChild(section30);
+      pairs.forEach(({ section70, section30 }) => {
+        // verifica se esiste già un wrapper valido
+        let wrapper = section70.parentElement?.classList.contains("horizontal-wrapper") &&
+                      section70.parentElement === section30.parentElement
+                      ? section70.parentElement
+                      : null;
 
-      const row70 = section70.querySelector(".row");
-      const row30 = section30.querySelector(".row");
+        if (!wrapper) {
+          wrapper = document.createElement("div");
+          wrapper.classList.add("horizontal-wrapper");
+          section70.parentNode.insertBefore(wrapper, section70);
+          wrapper.appendChild(section70);
+          wrapper.appendChild(section30);
+        } else {
+          // assicura l'ordine 70 -> 30 nel wrapper
+          wrapper.appendChild(section70);
+          wrapper.appendChild(section30);
+        }
 
-      const scroll70 = [...row70.children].reduce((acc, el) => acc + el.offsetWidth, 0) - window.innerWidth + 2;
-      const scroll30 = [...row30.children].reduce((acc, el) => acc + el.offsetWidth, 0) - window.innerWidth + 2;
-      const totalScroll = scroll70 + scroll30;
+        // rimuovi vecchi trigger associati a questo wrapper
+        ScrollTrigger.getAll().forEach(trigger => {
+          if (trigger.trigger === wrapper) {
+            trigger.kill();
+          }
+        });
 
-      const timeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: wrapper,
-          start: "top top",
-          end: `+=${totalScroll}`,
-          scrub: true,
-          pin: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-          markers: true
+        const row70 = section70.querySelector(".row");
+        const row30 = section30.querySelector(".row");
+        if (!row70 || !row30) return;
+
+        const scroll70 = Math.max(0, [...row70.children].reduce((acc, el) => acc + el.offsetWidth, 0) - window.innerWidth + 2);
+        const scroll30 = Math.max(0, [...row30.children].reduce((acc, el) => acc + el.offsetWidth, 0) - window.innerWidth + 2);
+        const totalScroll = scroll70 + scroll30;
+        if (totalScroll <= 0) return;
+
+        const timeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: wrapper,
+            start: "top top",
+            end: `+=${totalScroll}`,
+            scrub: true,
+            pin: true,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+            markers: true
+          }
+        });
+
+        if (scroll70 > 0) {
+          timeline.to(row70, {
+            x: -scroll70,
+            ease: "none",
+            duration: scroll70 / totalScroll
+          });
+        }
+
+        if (scroll30 > 0) {
+          timeline.to(row30, {
+            x: -scroll30,
+            ease: "none",
+            duration: scroll30 / totalScroll
+          });
         }
       });
 
-      if (scroll70 > 0) {
-        timeline.to(row70, {
-          x: -scroll70,
-          ease: "none",
-          duration: scroll70 / totalScroll
-        });
-      }
-
-      if (scroll30 > 0) {
-        timeline.to(row30, {
-          x: -scroll30,
-          ease: "none",
-          duration: scroll30 / totalScroll
-        });
-      }
-
-      ScrollTrigger.refresh(); // forzato
+      ScrollTrigger.refresh(); // forzato per riallineare i nuovi trigger
     }, 50); // attesa per layout completato
   });
 }
