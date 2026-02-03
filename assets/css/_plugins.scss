@@ -233,6 +233,20 @@ section {
         &:active .btn svg path {
           stroke: $dark;
         } 
+
+
+        &:hover ,
+        &:active  { 
+          color: $accent;
+        } 
+
+
+        &.disabled {
+          opacity: 0.3;       // opacizza il bottone disabilitato
+          cursor: default;    // disabilita l'effetto "click"
+          pointer-events: none; // impedisce interazioni
+        }
+        
       }
       
       button.owl-prev .btn {

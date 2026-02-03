@@ -10,6 +10,28 @@ p {
   font-family: $font-primary;
 }
 
+
+.font-primary,
+.font-primary * {
+  font-family: $font-primary !important;
+  font-weight: normal !important; 
+}
+
+.font-secondary,
+.font-secondary * {
+  font-family: $font-secondary !important;
+  font-weight: normal !important; 
+}
+
+
+// .font-tertiary,
+// .font-tertiary * {
+//   font-family: $font-tertiary !important;
+//   font-weight: normal !important;
+//   letter-spacing: 0.03em!important;
+// }
+
+
 h1,
 .h1,
 h2,

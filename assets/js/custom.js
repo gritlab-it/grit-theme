@@ -10,22 +10,30 @@
 /* :::::::::::::: 07 * GRIT_SET NProgress-js */
 /* :::::::::::::: 07 * GRIT_SET section_collpase */
 /* :::::::::::::: 08 * GRIT_SET section_video */
-/* :::::::::::::: 09 * GRIT_SET Lenis js */ 
-/* :::::::::::::: 10 * GRIT_SET GSAP js */ 
-/* :::::::::::::: 11 * GRIT_SET Counters js */
+/* :::::::::::::: 09 * GRIT_SET Counters js */
+/* :::::::::::::: 10 * GRIT_SET GSAP + ScrollTrigger + Lenis */ 
+/* :::::::::::::: 10.0 * Init Plugin */ 
+/* :::::::::::::: 10.1 * Lenis Setup (Smooth Scroll) */ 
+/* :::::::::::::: 10.2 * Init GSAP Animations */ 
+/* :::::::::::::: 10.2.1 * Parallax Image Scroll */ 
+/* :::::::::::::: 10.2.2 * Horizontal Scroll Container */ 
+/* :::::::::::::: 10.2.3 * Vertical Panels Scroll */ 
+/* :::::::::::::: 10.2.4 * Word Reveal (SplitText) */ 
+/* :::::::::::::: 10.2.5 * Sequential Word Reveal */ 
+/* :::::::::::::: 10.2.6 * Horizontal Scroll of Long Sentences */ 
+/* :::::::::::::: 10.2.7 * Dual Horizontal Scroll */ 
+/* :::::::::::::: 10.3 * Initialization of Animated Functions */ 
+/* :::::::::::::: 10.4 * Responsive Refresh on Resize (Debounced) */ 
+
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-
-
-
-
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /* :::::::::::::: 00 * GRIT_SET loader */
 $(function () {
     setTimeout(function () {
         $("body").addClass("loaded");
     }, 1500);
 });
-
 
 $(document).ready(function () {
     $("a").on("click", function (e) {
@@ -74,7 +82,6 @@ $(document).ready(function () {
     });
 });
 
-
 window.addEventListener("pageshow", function (event) {
     if (event.persisted) {
         $("body").addClass("loaded");
@@ -83,8 +90,12 @@ window.addEventListener("pageshow", function (event) {
 
 
 
+
+
+
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /* :::::::::::::: 01 * GRIT_SET animate.css  */
-// example          <div class="in__animate" data-animation="animate__fadeInUp animate__slow animate__delay-2s"  >
+// example <div class="in__animate" data-animation="animate__fadeInUp animate__slow animate__delay-2s"  >
 document.addEventListener("DOMContentLoaded", function () {
     var viewportchecker_active = document.getElementById("content");
     if (viewportchecker_active) {
@@ -138,6 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /* :::::::::::::: 02 * GRIT_SET menu showing */
 $(document).ready(function () {
     $(".menu-icon").on("click", function () {
@@ -177,8 +189,6 @@ function openNav(elementId) {
     }
 }
 
- 
-
 function closeNav(elementId) {
     var element = document.getElementById(elementId);
     if (element) {
@@ -190,10 +200,7 @@ function closeNav(elementId) {
     }  
 }
 
-
-
-
-
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /* :::::::::::::: 03 * GRIT_SET sticky */
 $(function () {
     // Caches a jQuery object containing the header element
@@ -211,6 +218,7 @@ $(function () {
     });
 });
 
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /* :::::::::::::: 03 * GRIT_SET owl-carousel */
 owl_carousel_active = document.getElementById("owl_carousel-js");
 if (owl_carousel_active) {
@@ -340,7 +348,15 @@ if (owl_carousel_active) {
                 
                 autoplay: true, // Abilita l'autoplay
                 autoplayTimeout: 5000, // Imposta il timeout dell'autoplay (in millisecondi)
-                autoplayHoverPause: true // Pausa l'autoplay al passaggio del mouse
+                autoplayHoverPause: true, // Pausa l'autoplay al passaggio del mouse
+
+                animateOut: 'fadeOut',   // animazione in uscita
+                animateIn: 'fadeIn',     // animazione in entrata
+
+
+
+                smartSpeed: 1000, // Velocità dello slide (aumenta per più morbidezza)
+                fluidSpeed: true,
             });
         }
         
@@ -402,6 +418,7 @@ if (owl_carousel_active) {
     });
 }
 
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /* :::::::::::::: 03 * GRIT_SET nivoLightbox */
 lightbox_nivo_active = document.getElementById(
     "responsive-lightbox-nivo_lightbox-js"
@@ -453,6 +470,7 @@ if (lightbox_nivo_active) {
     });
 }
 
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /* :::::::::::::: 04 * GRIT_SET magicMouse */
 var magicmouse_active = document.getElementById("magic-mouse-js");
 $(document).ready(function () {
@@ -477,6 +495,7 @@ $(document).ready(function () {
     }
 });
 
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /* :::::::::::::: 06 * GRIT_SET jarallax-js  */
 owl_carousel_active = document.getElementById("owl_carousel-js");
 
@@ -496,6 +515,7 @@ if (owl_carousel_active) {
     });
 }
 
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /* :::::::::::::: 07 * GRIT_SET NProgress-js */
 nprogress_active = document.getElementById("nprogress-js");
 if (nprogress_active) {
@@ -520,8 +540,7 @@ if (nprogress_active) {
     });
 }
 
-
-
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /* :::::::::::::: 07 * GRIT_SET section_collpase */
 $(document).ready(function () {
     // Controlla se esiste una sezione con la classe 'section_collapse'
@@ -606,11 +625,8 @@ $(document).ready(function () {
     }
 });
 
-
-
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /* :::::::::::::: 08 * GRIT_SET section_video */
-
-
 function initializeVideoSections() {
     const videoSections = document.querySelectorAll('.section-video');
     
@@ -643,137 +659,8 @@ function initializeVideoSections() {
 
 document.addEventListener('DOMContentLoaded', initializeVideoSections);
 
-
-
-/* :::::::::::::: 09 * GRIT_SET Lenis js */
-
-
-// :::::::::::::: 10 * GRIT_SET - GSAP + ScrollTrigger + Lenis ::::::::::::::
-
-// Make sure GSAP and ScrollTrigger are available
-if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
-    gsap.registerPlugin(ScrollTrigger);
-    
-    // -------------------------
-    // 1. Initialize Lenis (Smooth scroll)
-    // -------------------------
-    const lenis = new Lenis({
-        duration: 1.2, // Adjust scroll softness
-        easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        smooth: true,
-        smoothTouch: true,
-    });
-    
-    // Update ScrollTrigger on every Lenis scroll
-    lenis.on('scroll', () => {
-        ScrollTrigger.update();
-    });
-    
-    // Let GSAP handle Lenis timing
-    gsap.ticker.add((time) => {
-        lenis.raf(time * 1000); // Convert seconds to ms
-    });
-    
-    // Optional (usually not needed with <body> scroll)
-    // If you use a custom wrapper for scroll, uncomment and adjust this:
-    /*
-    ScrollTrigger.scrollerProxy(document.body, {
-    scrollTop(value) {
-    return arguments.length ? lenis.scrollTo(value, { duration: 0 }) : lenis.scroll;
-    },
-    getBoundingClientRect() {
-    return {
-    top: 0,
-    left: 0,
-    width: window.innerWidth,
-    height: window.innerHeight
-    };
-    }
-    });
-    
-    ScrollTrigger.defaults({ scroller: document.body });
-    */
-    
-    // -------------------------
-    // 2. GSAP Parallax Animation
-    // -------------------------
-    document.addEventListener("DOMContentLoaded", function () {
-        const parallaxContainers = document.querySelectorAll(".gsap-parallax-container");
-        
-        parallaxContainers.forEach(container => {
-            const image = container.querySelector(".gsap-parallaxImage");
-            
-            if (image) {
-                imagesLoaded(image, function () {
-                    gsap.timeline({
-                        scrollTrigger: {
-                            trigger: container,
-                            start: "top bottom",
-                            end: "bottom top",
-                            scrub: true,
-                            markers: false
-                        },
-                        immediateRender: false
-                    }).to(image, {
-                        scale: 1.1,
-                        y: "-10%",
-                        ease: "power1.inOut"
-                    });
-                });
-            }
-        });
-    });
-    
-    // -------------------------
-    // 3. Smooth anchor scroll using Lenis
-    // -------------------------
-    document.querySelectorAll('a[href*="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function(e) {
-            const currentUrlWithoutHash = window.location.href.split('#')[0];
-            const linkUrlWithoutHash = this.href.split('#')[0];
-            
-            if (currentUrlWithoutHash === linkUrlWithoutHash) {
-                e.preventDefault();
-                const targetID = this.getAttribute("href").split('#')[1];
-                const targetElement = document.getElementById(targetID);
-                
-                if (targetElement) {
-                    lenis.scrollTo(targetElement);
-                }
-            }
-        });
-    });
-    
-    // -------------------------
-    // 4. Scroll to hash on load
-    // -------------------------
-    window.addEventListener("load", () => {
-        const hash = window.location.hash.substring(1);
-        const targetElement = document.getElementById(hash);
-        
-        if (targetElement) {
-            lenis.scrollTo(targetElement, { duration: 1.1, easing: 'easeOutQuad' });
-        }
-        
-        // Refresh ScrollTrigger after images or fonts load
-        setTimeout(() => {
-            ScrollTrigger.refresh();
-        }, 250);
-    });
-    
-    // -------------------------
-    // 5. Refresh ScrollTrigger on resize
-    // -------------------------
-    window.addEventListener("resize", () => ScrollTrigger.refresh());
-    
-}
-
-
-
-
-
-/* :::::::::::::: 11 * GRIT_SET Counters js */
-
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/* :::::::::::::: 09 * GRIT_SET Counters js */
 function startCounterAnimation() {
     const counters = document.getElementsByClassName("number-animate");
     for (let i = 0; i < counters.length; i++) {
@@ -840,231 +727,234 @@ document.addEventListener("DOMContentLoaded", startCounterAnimation);
 
 
 
+/* :::::::::::::: 10 * GRIT_SET GSAP + ScrollTrigger + Lenis */ 
 
+// :::::::::::::: 10.0 * Init Plugin
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
+// :::::::::::::: 10.1 * Lenis Setup (Smooth Scroll)
+const lenis = new Lenis({
+  duration: 1.2,
+  easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  smooth: true,
+  smoothTouch: true,
+});
 
+lenis.on("scroll", ScrollTrigger.update);
+gsap.ticker.add((time) => lenis.raf(time * 1000));
 
+// Scroll to anchor on click
+document.querySelectorAll('a[href*="#"]').forEach(anchor => {
+  anchor.addEventListener("click", function (e) {
+    const currentUrl = window.location.href.split('#')[0];
+    const targetUrl = this.href.split('#')[0];
 
-
-// ========== INIZIALIZZAZIONE ==========================================================================================
-// ================================================================================
-document.addEventListener("DOMContentLoaded", function () {
-    gsap.registerPlugin(ScrollTrigger, SplitText);
-    
-    // ========== 1. Scroll orizzontale container ==========
-    function horizontalScrollContainer() {
-        // prendi tutte le section con quella classe
-        const horizontalSections = document.querySelectorAll(".section-gsap-horizontal");
-        
-        horizontalSections.forEach(horizontalSection => {
-            const horizontalRow = horizontalSection.querySelector(".row");
-            if (!horizontalSection || !horizontalRow) return;
-            
-            // uccidi eventuali trigger già presenti per questa section (evita duplicati)
-            ScrollTrigger.getAll().forEach(t => {
-                if (t.trigger === horizontalSection) {
-                    t.kill();
-                }
-            });
-            
-            const scrollDistance = Math.max(0, horizontalRow.scrollWidth - window.innerWidth);
-            
-            if (scrollDistance > 0) {
-                gsap.to(horizontalRow, {
-                    x: -scrollDistance,
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: horizontalSection,
-                        pin: true,
-                        scrub: 1,
-                        start: "top top",
-                        end: () => `+=${scrollDistance}`,
-                        markers: false,
-                        invalidateOnRefresh: true
-                    }
-                });
-            }
-        });
+    if (currentUrl === targetUrl) {
+      e.preventDefault();
+      const targetId = this.getAttribute("href").split('#')[1];
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        lenis.scrollTo(targetElement);
+      }
     }
-    
-    
-    // ========== 2. Scroll verticale a pannelli ==========
-function verticalPanelsScroll() {
-  const sections = document.querySelectorAll(".section-gsap-vertical");
-  sections.forEach(setupSection);
+  });
+});
 
-  ScrollTrigger.refresh(); // assicura il ricalcolo corretto
-}
+// Scroll to hash on load
+window.addEventListener("load", () => {
+  const hash = window.location.hash.substring(1);
+  const target = document.getElementById(hash);
+  if (target) lenis.scrollTo(target, { duration: 1.1, easing: 'easeOutQuad' });
+  setTimeout(() => ScrollTrigger.refresh(), 250);
+});
 
-function setupSection(section) {
-  const panels = section.querySelectorAll(".item-chapters");
-  if (panels.length < 2) return;
+window.addEventListener("resize", () => ScrollTrigger.refresh());
 
-  // Imposta z-index decrescente
-  panels.forEach((panel, i) => {
-    panel.style.zIndex = panels.length - i;
-    panel.style.boxSizing = "border-box";
+// :::::::::::::: 10.2 * Init GSAP Animations
+document.addEventListener("DOMContentLoaded", function () {
+
+  // :::::::::::::: 10.2.1 * Parallax Image Scroll
+  document.querySelectorAll(".gsap-parallax-container").forEach(container => {
+    const image = container.querySelector(".gsap-parallaxImage");
+    if (image) {
+      imagesLoaded(image, () => {
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: container,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+          immediateRender: false
+        }).to(image, {
+          scale: 1.1,
+          y: "-10%",
+          ease: "power1.inOut"
+        });
+      });
+    }
   });
 
-  // Calcola altezza totale scrollabile
-  const totalHeight = panels.length * window.innerHeight;
+  // :::::::::::::: 10.2.2 * Horizontal Scroll Container
+  function horizontalScrollContainer() {
+    document.querySelectorAll(".section-gsap-horizontal").forEach(section => {
+      const row = section.querySelector(".row");
+      if (!section || !row) return;
 
-  // ❗ Sposta spacer FUORI dalla section
-  const spacer = document.createElement("div");
-  spacer.classList.add("vertical-scroll-spacer");
-  spacer.style.height = `${totalHeight}px`;
-  spacer.style.pointerEvents = "none";
-  spacer.style.margin = "0";
-  spacer.style.padding = "0";
+      ScrollTrigger.getAll().forEach(t => t.trigger === section && t.kill());
 
-  // Inseriscilo DOPO la section (non dentro)
-  section.after(spacer);
-
-  // Delay per far stabilizzare layout (se caricato dinamicamente)
-  setTimeout(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: section,
-        start: "top top",
-        end: `+=${totalHeight}`,
-        scrub: true,
-        pin: true,
-        pinSpacing: false,
-        invalidateOnRefresh: true,
-        markers: true // solo per debug
-      }
-    });
-
-    panels.forEach((panel, i) => {
-      if (i < panels.length - 1) {
-        tl.to(panel, {
-          yPercent: -100,
+      const scrollWidth = row.scrollWidth - window.innerWidth;
+      if (scrollWidth > 0) {
+        gsap.to(row, {
+          x: -scrollWidth,
           ease: "none",
-          duration: 1
-        }, i);
+          scrollTrigger: {
+            trigger: section,
+            pin: true,
+            scrub: 1,
+            start: "top top",
+            end: `+=${scrollWidth}`,
+            invalidateOnRefresh: true
+          }
+        });
       }
     });
+  }
 
-  }, 50);
-}
+  // :::::::::::::: 10.2.3 * Vertical Panels Scroll
+  function verticalPanelsScroll() {
+    document.querySelectorAll(".section-gsap-vertical").forEach(section => {
+      const panels = section.querySelectorAll(".item-chapters");
+      if (panels.length < 2) return;
 
+      panels.forEach((p, i) => {
+        p.style.zIndex = panels.length - i;
+        p.style.boxSizing = "border-box";
+      });
 
+      const totalHeight = panels.length * window.innerHeight;
+      const spacer = document.createElement("div");
+      spacer.className = "vertical-scroll-spacer";
+      spacer.style.height = `${totalHeight}px`;
+      section.after(spacer);
 
-
-    
-    // ========== 3. Reveal parole singole ==========
-function splitWordReveal() {
-  // Per ogni sezione con classe .section-gsap-reveal
-  document.querySelectorAll(".section-gsap-reveal").forEach(section => {
-    const textBlocks = section.querySelectorAll(".inner-text");
-
-    textBlocks.forEach(block => {
-      const textElements = block.querySelectorAll("h1, h2, h3, h4, h5, h6, p");
-
-      textElements.forEach(el => {
-        if (el.dataset.split === "true") return;
-
-        const split = new SplitText(el, {
-          type: "words",
-          wordsClass: "word"
+      setTimeout(() => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: `+=${totalHeight}`,
+            scrub: true,
+            pin: true,
+            pinSpacing: false,
+            invalidateOnRefresh: true
+          }
         });
 
-        el.dataset.split = "true";
+        panels.forEach((panel, i) => {
+          if (i < panels.length - 1) {
+            tl.to(panel, { yPercent: -100, ease: "none", duration: 1 }, i);
+          }
+        });
+      }, 50);
+    });
+  }
 
-        // Anima ogni parola individualmente
-        split.words.forEach((word, i) => {
-          gsap.fromTo(
-            word,
-            { opacity: 0.1 },
-            {
-              opacity: 1,
-              duration: 0.2,
-              ease: "power2.out",
-              delay: i * 0.05,
-              scrollTrigger: {
-                trigger: word,
-                start: "top 85%",
-                end: "top 15%",
-                toggleActions: "play reverse play reverse",
-                markers: false
+  // :::::::::::::: 10.2.4 * Word Reveal (SplitText)
+  function splitWordReveal() {
+    document.querySelectorAll(".section-gsap-reveal").forEach(section => {
+      const blocks = section.querySelectorAll(".inner-text");
+
+      blocks.forEach(block => {
+        block.querySelectorAll("h1,h2,h3,h4,h5,h6,p").forEach(el => {
+          if (el.dataset.split === "true") return;
+
+          const split = new SplitText(el, { type: "words", wordsClass: "word" });
+          el.dataset.split = "true";
+
+          split.words.forEach((word, i) => {
+            gsap.fromTo(word,
+              { opacity: 0.1 },
+              {
+                opacity: 1,
+                duration: 0.2,
+                ease: "power2.out",
+                delay: i * 0.05,
+                scrollTrigger: {
+                  trigger: word,
+                  start: "top 85%",
+                  end: "top 15%",
+                  toggleActions: "play reverse play reverse",
+                }
               }
-            }
-          );
+            );
+          });
         });
       });
     });
-  });
-}
+  }
 
-    
-    // ========== 4. Scroll reveal parole in sequenza ==========
-    function scrollRevealStaggered() {
-        document.querySelectorAll(".section-gsap-reveal-scroll").forEach(section => {
-            const innerText = section.querySelector(".inner-text");
-            if (!innerText) return;
-            
-            const split = new SplitText(innerText, {
-                type: "words",
-                wordsClass: "word"
-            });
-            
-            gsap.from(split.words, {
-                opacity: 0.1,
-                y: 0,
-                stagger: {
-                    amount: 1.5
-                },
-                ease: "power2.out",
-                scrollTrigger: {
-                    trigger: section,
-                    start: "top 80%",
-                    end: "bottom 20%",
-                    scrub: true,
-                    markers: false
-                }
-            });
-        });
-    }
-    
-    // ========== 5. Scroll orizzontale di frasi lunghe ==========
-    function horizontalTextScroll() {
-        document.querySelectorAll(".section-gsap-lateral-word").forEach(section => {
-            const h1 = section.querySelector(".inner-text h1");
-            if (!h1) return;
-            
-            // Imposta proprietà necessarie per corretto dimensionamento
-            h1.style.whiteSpace = "nowrap";
-            h1.style.display = "inline-block";
-            
-            // Reset posizione iniziale
-            gsap.set(h1, { x: 0 });
-            
-            // Calcola distanza da scrollare
-            const scrollDistance = h1.scrollWidth - window.innerWidth;
-            if (scrollDistance <= 0) return;
-            
-            gsap.to(h1, {
-                x: -scrollDistance,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: section,
-                    start: "top top", // quando la section arriva al centro
-                    end: () => `+=${scrollDistance}`,
-                    scrub: true,
-                    pin: true, // pinna tutta la section
-                    pinSpacing: true,
-                    invalidateOnRefresh: true,
-                    markers: true // disattiva in produzione
-                }
-            });
-        });
-        
-        ScrollTrigger.refresh();
-    }
-    
-    // ========== 6. Scroll orizzontale doppio ==========
-function horizontalScrollSequenziale() {
-  requestAnimationFrame(() => {
+  // :::::::::::::: 10.2.5 * Sequential Word Reveal
+  function scrollRevealStaggered() {
+    document.querySelectorAll(".section-gsap-reveal-scroll").forEach(section => {
+      const innerText = section.querySelector(".inner-text");
+      if (!innerText) return;
+
+      const split = new SplitText(innerText, {
+        type: "words",
+        wordsClass: "word"
+      });
+
+      gsap.from(split.words, {
+        opacity: 0.1,
+        y: 0,
+        stagger: { amount: 1.5 },
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: section,
+          start: "top 80%",
+          end: "bottom 20%",
+          scrub: true
+        }
+      });
+    });
+  }
+
+  // :::::::::::::: 10.2.6 - Horizontal Scroll of Long Sentences
+  function horizontalTextScroll() {
+    document.querySelectorAll(".section-gsap-lateral-word").forEach(section => {
+      const h1 = section.querySelector(".inner-text h1");
+      if (!h1) return;
+
+      h1.style.whiteSpace = "nowrap";
+      h1.style.display = "inline-block";
+      gsap.set(h1, { x: 0 });
+
+      const scrollDistance = h1.scrollWidth - window.innerWidth;
+      if (scrollDistance <= 0) return;
+
+      gsap.to(h1, {
+        x: -scrollDistance,
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: `+=${scrollDistance}`,
+          scrub: true,
+          pin: true,
+          pinSpacing: true,
+          invalidateOnRefresh: true
+        }
+      });
+    });
+
+    ScrollTrigger.refresh();
+  }
+
+  // :::::::::::::: 10.2.7 * Dual Horizontal Scroll
+  function horizontalScrollSequenziale() {
+    if (window.innerWidth < 768) return;
+
     setTimeout(() => {
       const section70 = document.querySelector(".section-gsap-70horizontal");
       const section30 = document.querySelector(".section-gsap-30horizontal");
@@ -1072,7 +962,6 @@ function horizontalScrollSequenziale() {
 
       const wrapper = document.createElement("div");
       wrapper.classList.add("horizontal-wrapper");
-
       section70.parentNode.insertBefore(wrapper, section70);
       wrapper.appendChild(section70);
       wrapper.appendChild(section30);
@@ -1084,7 +973,7 @@ function horizontalScrollSequenziale() {
       const scroll30 = [...row30.children].reduce((acc, el) => acc + el.offsetWidth, 0) - window.innerWidth + 2;
       const totalScroll = scroll70 + scroll30;
 
-      const timeline = gsap.timeline({
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: wrapper,
           start: "top top",
@@ -1092,88 +981,56 @@ function horizontalScrollSequenziale() {
           scrub: true,
           pin: true,
           anticipatePin: 1,
-          invalidateOnRefresh: true,
-          markers: true
+          invalidateOnRefresh: true
         }
       });
 
-      if (scroll70 > 0) {
-        timeline.to(row70, {
-          x: -scroll70,
-          ease: "none",
-          duration: scroll70 / totalScroll
-        });
+      if (scroll70 > 0) tl.to(row70, { x: -scroll70, ease: "none", duration: scroll70 / totalScroll });
+      if (scroll30 > 0) tl.to(row30, { x: -scroll30, ease: "none", duration: scroll30 / totalScroll });
+
+      ScrollTrigger.refresh();
+    }, 50);
+  }
+
+  // :::::::::::::: 10.3 * Initialization of Animated Functions
+  function initGSAPAnimations() {
+    horizontalScrollContainer();
+    verticalPanelsScroll();
+    splitWordReveal();
+    scrollRevealStaggered();
+    horizontalTextScroll();
+    horizontalScrollSequenziale();
+  }
+
+  // :::::::::::::: 10.4 * Responsive Refresh on Resize (Debounced)
+  function refreshResponsiveScrolls() {
+    ScrollTrigger.getAll().forEach(trigger => {
+      const el = trigger.trigger;
+      if (el?.classList.contains("section-gsap-horizontal") ||
+          el?.classList.contains("section-gsap-lateral-word") ||
+          el?.classList.contains("section-gsap-70horizontal") ||
+          el?.classList.contains("section-gsap-30horizontal") ||
+          el?.classList.contains("section-gsap-vertical")) {
+        trigger.kill();
       }
+    });
 
-      if (scroll30 > 0) {
-        timeline.to(row30, {
-          x: -scroll30,
-          ease: "none",
-          duration: scroll30 / totalScroll
-        });
-      }
+    horizontalScrollContainer();
+    horizontalTextScroll();
+    horizontalScrollSequenziale();
+    ScrollTrigger.refresh();
+  }
 
-      ScrollTrigger.refresh(); // forzato
-    }, 50); // attesa per layout completato
-  });
-}
-
-    
-    
-    
-    
-    
-    
-    // ========== INIZIALIZZAZIONE ==========
-    function initGSAPAnimations() {
-        horizontalScrollContainer();
-        verticalPanelsScroll();
-        splitWordReveal();
-        scrollRevealStaggered();
-        horizontalTextScroll(); 
-        horizontalScrollSequenziale();
-    }
-
-
-    
-    
-    // ========== RESIZE SOLO PER SCROLL DINAMICI ==========
-    function refreshResponsiveScrolls() {
-        ScrollTrigger.getAll().forEach(trigger => {
-            const triggerEl = trigger.trigger;
-            if (
-                triggerEl?.classList.contains("section-gsap-horizontal") ||
-                triggerEl?.classList.contains("section-gsap-lateral-word") ||
-                triggerEl?.classList.contains("section-gsap-70horizontal") || 
-                triggerEl?.classList.contains("section-gsap-30horizontal")   || 
-                triggerEl?.classList.contains("section-gsap-vertical")    
-            ) {
-                trigger.kill();
-            }
-        });
-        
-        horizontalScrollContainer();
-        horizontalTextScroll();
-        horizontalScrollSequenziale(); 
-        
-        ScrollTrigger.refresh();
-    }
-    
-    // ========== AVVIO ==========
-window.addEventListener("load", () => {
+  // Inizializza su load
   initGSAPAnimations();
 
-  // 👇 Nuovo resize handler con debounce
+  // Debounced resize
   let resizeTimeout;
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
       refreshResponsiveScrolls();
-    }, 200); // aspetta che il layout si sistemi prima di rilanciare le animazioni
+    }, 200);
   });
-});
-    
-    
-    
-    
+
 });

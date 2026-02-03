@@ -35,7 +35,7 @@
                     "white": "white",
                     "black": "black"
                 },
-                "default_value": "accent",
+                "default_value": "",
                 "return_format": "value",
                 "multiple": 0,
                 "allow_null": 0,
@@ -78,7 +78,7 @@
                     "white": "white",
                     "black": "black"
                 },
-                "default_value": "accent",
+                "default_value": "",
                 "return_format": "value",
                 "multiple": 0,
                 "allow_null": 0,
@@ -121,7 +121,7 @@
                     "white": "white",
                     "black": "black"
                 },
-                "default_value": "accent",
+                "default_value": "",
                 "return_format": "value",
                 "multiple": 0,
                 "allow_null": 0,
@@ -164,7 +164,7 @@
                     "white": "white",
                     "black": "black"
                 },
-                "default_value": "accent",
+                "default_value": "primary",
                 "return_format": "value",
                 "multiple": 0,
                 "allow_null": 0,
@@ -207,7 +207,7 @@
                     "white": "white",
                     "black": "black"
                 },
-                "default_value": "accent",
+                "default_value": "secondary",
                 "return_format": "value",
                 "multiple": 0,
                 "allow_null": 0,

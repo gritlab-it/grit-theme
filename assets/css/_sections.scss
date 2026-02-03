@@ -625,72 +625,72 @@
 // Scroll orizzontale 70/30vh
 // ============================
 // Scroll orizzontale sezioni 70/30
-.horizontal-wrapper {
-  overflow-x: hidden;
-  position: relative;
- 
-}
-.section-gsap-70horizontal,
-.section-gsap-30horizontal {
-  width: 100%;
-  overflow: hidden;
-  position: relative;
- 
- 
 
-  .row {
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    height: 100%;
-    width: auto; // Let it grow based on columns
- 
- 
- 
+@media (min-width: $md-res) {
+  
+  .horizontal-wrapper {
+    overflow-x: hidden;
+    position: relative;
   }
 
-  .item-chapters {
-   flex: 0 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    margin: 0px -1px;
-
+  .section-gsap-70horizontal,
+  .section-gsap-30horizontal {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
     
+    .container-fluid {
+      padding: 0 !important;
+      margin: 0 !important;
 
- 
+      > .row:first-of-type {
+        padding: 0 !important;
+        margin: 0 !important;
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        height: 100%;
+        width: auto;
+      }
+    }
+
+    .item-chapters {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      margin: 0px -1px;
+    }
   }
-}
 
+  .h-70vh {
+    min-height: 55vh;
+    height: 55vh;
+  }
 
+  .h-30vh {
+    min-height: 25vh;
+    height: 25vh;
+  }
 
-.h-60vh {
-    height: 60vh; 
-}
-
-// Applichiamo height sia alla sezione che alla .row
-.section-gsap-70horizontal {
-  height: 70vh;
-
-  .row {
+  .section-gsap-70horizontal {
     height: 70vh;
+
+    .item-chapters {
+      height: 70vh;
+    }
   }
 
-  .item-chapters {
-    height: 70vh;
-  }
-}
-
-.section-gsap-30horizontal {
-  height: 30vh;
-
-  .row {
+  .section-gsap-30horizontal {
     height: 30vh;
-    
-  }
 
-  .item-chapters {
-    height: 30vh;
+    .row {
+      height: 30vh;
+    }
+
+    .item-chapters {
+      height: 30vh;
+    }
   }
 }
 
