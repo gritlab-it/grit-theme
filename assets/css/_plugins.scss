@@ -9,6 +9,8 @@
 /* :::::::::::::: 08 * GRIT_SET progress-js */ 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
+@use './variables' as *;
+
 /* :::::::::::::: 01 * GRIT_SET owl-carousel */ 
 section {
   
@@ -26,10 +28,16 @@ section {
       }
     }  
   } 
+  &.carousel-center {
+    .col  {
+      padding: 0
+    }
+  }
   &.carousel-left {
     @media (min-width: $sm-res) { 
       padding-left:  calc(($c-gap) / $xxl * 100vw); 
     }
+
   }
   &.owl-dots-inner {
     .owl-carousel {
@@ -187,6 +195,7 @@ section {
 
         border: solid 1px $dark;
         background-color: $light;
+        @include transition(all 0.3s ease-in-out); 
         
         &.active {
           border: solid 1px $light;
@@ -272,6 +281,49 @@ section {
       }
     } 
   }
+
+
+
+
+    /* Forza il cursor su TUTTO il carousel (anche sui link clonati) */
+.owl-carousel {
+  // Disattiva eventuali cursor ereditati (Magic Cursor / theme)
+  cursor: url('../../img/owl-cursor.svg') 30 30, auto !important;
+
+  /* Tutti gli elementi interni (cloni inclusi) */
+  * {
+    cursor: url('../../img/owl-cursor.svg') 30 30, auto !important;
+  }
+
+  /* Layer reali usati da Owl per drag */
+  .owl-stage-outer,
+  .owl-stage,
+  .owl-item {
+    cursor: url('../../img/owl-cursor.svg') 30 30, auto !important;
+  }
+
+  /* Stato dragging (importantissimo per lo swipe) */
+  &.owl-drag .owl-item,
+  .owl-item.dragging {
+    cursor: url('../../img/owl-cursor.svg') 30 30, auto !important;
+  }
+
+  /* Navigazione */
+  .owl-prev,
+  .owl-next {
+    cursor: url('../../img/owl-cursor.svg') 30 30, auto !important;
+  }
+
+  /* Link e bottoni dentro le slide (quelli che Magic Cursor blocca) */
+  a,
+  button,
+  .owl-item a,
+  .owl-item button {
+    cursor: url('../../img/owl-cursor.svg') 30 30, auto !important;
+  }
+}
+
+
 }
 
 /* :::::::::::::: 02 * GRIT_SET animate */ 
@@ -335,6 +387,10 @@ section {
 html.lenis {
   height: auto;
 }
+
+html.lenis body {
+  height: auto;
+}
 .lenis.lenis-smooth {
   scroll-behavior: auto;
 }
@@ -345,41 +401,19 @@ html.lenis {
   overflow: hidden;
 }
 
+.lenis.lenis-smooth body {
+  overflow: hidden;  
+}
+
 
 /* :::::::::::::: 05 * GRIT_SET loader */ 
 /* GRIT_SET loader
 Note: impostazioni per modificare il loader Note: effetto al caricamento della pagina composto da logo sezioni e loader
 Note: L'evento che fa avviare è la classe 'loaded' posizionato nel body
 */
-#main-content {
-  // filter: blur(13px);
-  // -webkit-filter: blur(13px);
-  // transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
 
-.loaded #main-content {
-  // filter: unset;
-  // -webkit-filter: unset;
-}
 
-header {
-  // filter: blur(13px);
-  // -webkit-filter: blur(13px);
-  // transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
 
-.loaded header {
-  // filter: unset;
-  // -webkit-filter: unset;
-}
-
-.preload {
-  width: 100px;
-  height: 100px;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-}
 
 #loader-wrapper {
   position: fixed;
@@ -387,160 +421,301 @@ header {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 80;
+  z-index: 9999;
+  pointer-events: none;
+  overflow: hidden;
 }
 
-/* loader mediu*/
-#loader {
-  display: block;
-  position: relative;
-  left: 50%;
-  top: 50%;
-  width: 150px;
-  height: 150px;
-  margin: -75px 0 0 -75px;
-  border-radius: 50%;
-  border: 3px solid transparent;
-  border-top-color: $light;
-  z-index: 83;
-  animation: spin 2s linear infinite;
-}
-
-/* loader smal*/
-#loader:before {
-  content: "";
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  right: 5px;
-  bottom: 5px;
-  border-radius: 50%;
-  border: 3px solid transparent;
-  border-top-color: $light;
-  animation: spin 3s linear infinite;
-}
-
-/* loader bi*/
-#loader:after {
-  content: "";
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  left: 15px;
-  bottom: 15px;
-  border-radius: 50%;
-  border: 3px solid transparent;
-  border-top-color: $light;
-  animation: spin 1.5s linear infinite;
-}
-
-/* loader log*/
-.logo-loader {
-  transition: all 0.3s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-  z-index: 82;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  opacity: 1;
-  width: 100px;
-  height: 100px;
-}
-
-/* loader section*/
+/* ================= BASE PANELS (FULLSCREEN STACK) ================= */
 #loader-wrapper .loader-section {
   position: fixed;
   top: 0;
-  width: 50%;
-  height: 100%;
-  background: $white;
-  z-index: 80;
-  transform: translateX(0);
-  transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-
-/* loader sections direction*/
-#loader-wrapper .loader-section.section-left {
   left: 0;
-  opacity: 1;
-}
-
-#loader-wrapper .loader-section.section-right {
-  right: 0;
-  opacity: 1;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(-0deg);
-    -webkit-transform: rotate(-0deg);
-    -moz-transform: rotate(-0deg);
-    -ms-transform: rotate(-0deg);
-    -o-transform: rotate(-0deg);
-  }
-  
-  100% {
-    transform: rotate(360deg);
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-  }
-}
-
-/* loader loaded effect exit */
-.loaded #loader-wrapper .loader-section.section-left {
-  transform: translateX(-100%);
-  opacity: 0;
-  transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-
-.loaded #loader-wrapper .loader-section.section-right {
-  transform: translateX(100%);
-  opacity: 0;
-  transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-
-.loaded #loader {
-  opacity: 0;
-  transition: all 0.3s ease-in-out;
-}
-
-.loaded #loader-wrapper {
-  visibility: hidden;
-  transform: translateY(-100%);
-  transition: all 0.3s 1s ease-in-out;
-}
-
-.loaded .logo-loader {
-  opacity: 0;
-  width: 0px;
-  height: 0px;
-}
-
-.loaded .loader-background {
-  opacity: 0;
-  transition: all 0.3s ease-in-out;
-  width: 0px;
-}
-
-.loader-background {
-  opacity: 1;
-  transition: all 0.3s ease-in-out;
   width: 100%;
-  max-width: 1140px;
-  height: 100vh;
-  background: $dark;
-  position: absolute;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  margin: auto;
-  z-index: 82;
+  height: 100%;
+  transform: translateY(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+
+  /* Durata ottimizzata (veloce ma smooth) */
+  transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1);
 }
+
+/* STACK ORDER (fondamentale per la sovrapposizione corretta) */
+.section-1 { background: $light; z-index: 10004; } /* top */
+.section-2 { background: $secondary; z-index: 10003; }
+.section-3 { background: $light; z-index: 10002; }
+.section-4 { background: $secondary; z-index: 10001; } /* bottom */
+
+/* ================= USCITA (SCOMPARSA A CASCATA →) ================= */
+/* Ordine visivo: 1 → 2 → 3 → 4 */
+.loaded #loader-wrapper .section-1 {
+  transform: translateY(100%);
+  transition-delay: 0s;
+}
+
+.loaded #loader-wrapper .section-2 {
+  transform: translateY(100%);
+  transition-delay: 0.05s;
+}
+
+.loaded #loader-wrapper .section-3 {
+  transform: translateY(100%);
+  transition-delay: 0.1s;
+}
+
+.loaded #loader-wrapper .section-4 {
+  transform: translateY(100%);
+  transition-delay: 0.15s;
+}
+
+/* ================= RITORNO (ENTRATA INVERSA ←) ================= */
+/* Ordine visivo corretto: 4 → 3 → 2 → 1 */
+#loader-wrapper .section-4 { transition-delay: 0s; }
+#loader-wrapper .section-3 { transition-delay: 0.05s; }
+#loader-wrapper .section-2 { transition-delay: 0.1s; }
+#loader-wrapper .section-1 { transition-delay: 0.15s; }
+
+/* ================= LOGO CENTRATO (SINCRONIZZATO AI PANNELLI) ================= */
+.loader-logo {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 10010;
+  pointer-events: none;
+
+  transform: translate(-50%, -50%) translate3d(0, 0, 0);
+  opacity: 1;
+
+  /* IMPORTANTE:
+     Delay lungo SOLO per il ritorno (quando togli .loaded) */
+  transition: 
+    opacity 0.3s ease 0.75s,
+    transform 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.loader-logo img {
+  width: 80px;
+  height: auto;
+  display: block;
+}
+
+/* ================= USCITA (PAGE LOAD / REVEAL SITO) ================= */
+/* Qui il logo deve sparire SUBITO con il primo pannello */
+.loaded .loader-logo {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.96);
+
+  /* Sovrascriviamo il delay lungo */
+  transition: 
+    opacity 0.2s ease 0s,
+    transform 0.35s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+// #main-content {
+//   // filter: blur(13px);
+//   // -webkit-filter: blur(13px);
+//   // transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+// }
+
+// .loaded #main-content {
+//   // filter: unset;
+//   // -webkit-filter: unset;
+// }
+
+// header {
+//   // filter: blur(13px);
+//   // -webkit-filter: blur(13px);
+//   // transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+// }
+
+// .loaded header {
+//   // filter: unset;
+//   // -webkit-filter: unset;
+// }
+
+// .preload {
+//   width: 100px;
+//   height: 100px;
+//   position: fixed;
+//   top: 50%;
+//   left: 50%;
+// }
+
+// #loader-wrapper {
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   z-index: 80;
+// }
+
+// /* loader mediu*/
+// #loader {
+//   display: block;
+//   position: relative;
+//   left: 50%;
+//   top: 50%;
+//   width: 150px;
+//   height: 150px;
+//   margin: -75px 0 0 -75px;
+//   border-radius: 50%;
+//   border: 3px solid transparent;
+//   border-top-color: $light;
+//   z-index: 83;
+//   animation: spin 2s linear infinite;
+// }
+
+// /* loader smal*/
+// #loader:before {
+//   content: "";
+//   position: absolute;
+//   top: 5px;
+//   left: 5px;
+//   right: 5px;
+//   bottom: 5px;
+//   border-radius: 50%;
+//   border: 3px solid transparent;
+//   border-top-color: $light;
+//   animation: spin 3s linear infinite;
+// }
+
+// /* loader bi*/
+// #loader:after {
+//   content: "";
+//   position: absolute;
+//   top: 15px;
+//   right: 15px;
+//   left: 15px;
+//   bottom: 15px;
+//   border-radius: 50%;
+//   border: 3px solid transparent;
+//   border-top-color: $light;
+//   animation: spin 1.5s linear infinite;
+// }
+
+// /* loader log*/
+// .logo-loader {
+//   transition: all 0.3s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+//   z-index: 82;
+//   position: absolute;
+//   left: 0;
+//   right: 0;
+//   top: 0;
+//   bottom: 0;
+//   margin: auto;
+//   opacity: 1;
+//   width: 100px;
+//   height: 100px;
+// }
+
+// /* loader section*/
+// #loader-wrapper .loader-section {
+//   position: fixed;
+//   top: 0;
+//   width: 50%;
+//   height: 100%;
+//   background: $white;
+//   z-index: 80;
+//   transform: translateX(0);
+//   transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+// }
+
+// /* loader sections direction*/
+// #loader-wrapper .loader-section.section-left {
+//   left: 0;
+//   opacity: 1;
+// }
+
+// #loader-wrapper .loader-section.section-right {
+//   right: 0;
+//   opacity: 1;
+// }
+
+// @keyframes spin {
+//   0% {
+//     transform: rotate(-0deg);
+//     -webkit-transform: rotate(-0deg);
+//     -moz-transform: rotate(-0deg);
+//     -ms-transform: rotate(-0deg);
+//     -o-transform: rotate(-0deg);
+//   }
+  
+//   100% {
+//     transform: rotate(360deg);
+//     -webkit-transform: rotate(360deg);
+//     -moz-transform: rotate(360deg);
+//     -ms-transform: rotate(360deg);
+//     -o-transform: rotate(360deg);
+//   }
+// }
+
+// /* loader loaded effect exit */
+// .loaded #loader-wrapper .loader-section.section-left {
+//   transform: translateX(-100%);
+//   opacity: 0;
+//   transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+// }
+
+// .loaded #loader-wrapper .loader-section.section-right {
+//   transform: translateX(100%);
+//   opacity: 0;
+//   transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+// }
+
+// .loaded #loader {
+//   opacity: 0;
+//   transition: all 0.3s ease-in-out;
+// }
+
+// .loaded #loader-wrapper {
+//   visibility: hidden;
+//   transform: translateY(-100%);
+//   transition: all 0.3s 1s ease-in-out;
+// }
+
+// .loaded .logo-loader {
+//   opacity: 0;
+//   width: 0px;
+//   height: 0px;
+// }
+
+// .loaded .loader-background {
+//   opacity: 0;
+//   transition: all 0.3s ease-in-out;
+//   width: 0px;
+// }
+
+// .loader-background {
+//   opacity: 1;
+//   transition: all 0.3s ease-in-out;
+//   width: 100%;
+//   max-width: 1140px;
+//   height: 100vh;
+//   background: $dark;
+//   position: absolute;
+//   top: 0px;
+//   bottom: 0px;
+//   left: 0px;
+//   right: 0px;
+//   margin: auto;
+//   z-index: 82;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .inner-loader-background {}
 
@@ -556,32 +731,37 @@ header {
 
 
 
+.gsap-parallax-container {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16 / 9; // fallback, poi sovrascritto inline 
+      .gsap-parallaxImage {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        object-fit: cover;
+
+
+        top: -10%; // spostata già all’inizio
+        height: 120%; // abbastanza grande da coprire anche il basso
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+
+
+
+
 .img-hover-inner {
   position: relative;
-  
+
   .inner-img {
     position: relative;
     overflow: hidden;
 
-  .gsap-parallax-container {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 16 / 9; // fallback, poi sovrascritto inline
+    
 
-  .gsap-parallaxImage {
-    position: absolute;
-    top: 0;
-    left: 0;
- 
-    object-fit: cover;
-
-
-     top: -10%; // spostata già all’inizio
-      height: 120%; // abbastanza grande da coprire anche il basso
-      width: 100%;
-      object-fit: cover;
-  }
-}
     // Overlay visibile di default sopra l’immagine
     &::before {
       content: '';
@@ -634,8 +814,6 @@ header {
     }
   }
 }
-
-
 
 
 

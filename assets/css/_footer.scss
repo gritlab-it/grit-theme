@@ -3,8 +3,10 @@
 /* :::::::::::::: 02 * GRIT_SET footer_2 */ 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
+@use './variables' as *;
+
 /* :::::::::::::: 01 * GRIT_SET footer_1 */
-.footer_1 {  
+#footer_1 {  
     position: relative;
     width: 100%;
     background-color: $dark;
@@ -65,7 +67,7 @@
 }
 
 /* :::::::::::::: 02 * GRIT_SET footer_2 */ 
-.footer_2 {  
+#footer_2 {  
     position: relative;
     width: 100%;
     background-color: $light;

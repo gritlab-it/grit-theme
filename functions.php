@@ -134,7 +134,7 @@ class StarterSite extends Timber\Site {
 		$context['primary_menu'] 	= new Timber\Menu('Primary Navigation');
 		$context['secondary_menu'] 	= new Timber\Menu('Secondary Navigation');
 		$context['mobile_menu'] 	= new Timber\Menu('Mobile Navigation');
-		// $context['footer_menu'] = new Timber\Menu('Footer Navigation 1');
+		$context['footer_menu'] = new Timber\Menu('Footer Navigation');
 		
 		// * GRIT_SET Theme Dir
 		$context['tema_url'] = get_template_directory_uri();
@@ -188,9 +188,9 @@ class StarterSite extends Timber\Site {
 		// * GRIT_SET Sidebar
 		$context['sidebar_primary'] = Timber::get_widgets('sidebar_primary');
 		
-		// * GRIT_SET Slide 
-		$context['grit_setting_header'] = get_theme_mod("grit_setting_header");
-		$context['grit_setting_footer'] = get_theme_mod("grit_setting_footer");
+		// * GRIT_SET Header & Footer
+		$context['grit_setting_header'] = get_theme_mod('grit_setting_header', 'header_1');
+		$context['grit_setting_footer'] = get_theme_mod('grit_setting_footer', 'footer_1');
 		
 		$context['grit_setting_gototop'] = get_theme_mod("grit_setting_gototop");
 		$context['grit_setting_gsap'] = get_theme_mod("grit_setting_gsap");
@@ -200,8 +200,8 @@ class StarterSite extends Timber\Site {
 		$post_args = array(
 			'post_type' => 'post', 
 			'posts_per_page' => get_option('posts_per_page'), 
-			'orderby' => 'date',
-			'order' => 'DESC',
+			'orderby' => 'post_date',
+			'order' => 'ASC',
 		);
 		$context['archive_posts'] = $archive_posts = new Timber\PostQuery($post_args); 
 
@@ -209,7 +209,7 @@ class StarterSite extends Timber\Site {
 		$section_args = array(
 			'post_type' => 'section',
 			'posts_per_page' => get_option('posts_per_page'), 
-			'orderby' => 'date',
+			'orderby' => 'post_date',
 			'order' => 'ASC',
 		);
 		$context['archive_section'] = $archive_section = new Timber\PostQuery($section_args); 

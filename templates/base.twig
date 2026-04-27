@@ -20,31 +20,21 @@
 <body class="{{body_class}} " data-template="base.twig">
 
 	{# :::::::::::::: 02 * GRIT_SET loader #} 
-    <div id="loader-wrapper">
-        <div id="loader">
-            <div class="grit-loader-spinners-balls">
-                <div class="grit-spinners-balls-1"></div>
-                <div class="grit-spinners-balls-2"></div>
-            </div>
-        </div>
-        <div class="loader-section section-left"></div>
-        <div class="loader-section section-right"></div>
-        <img class="logo-loader"
-             src="{% if custom_logo_url %}{{ custom_logo_url[0] }}{% else %}{{ stylesheet_directory_uri }}/img/icona-grit-w.png{% endif %}"
-             height="80">
-    </div>
+    {% include ['/partials/loader.twig'] %}
     {# :::::::::::::: 02 * GRIT_SET loader END #} 
  	
 	<a class="skip-link screen-reader-text" href="#content">{{ _e( 'Skip to content') }}</a>
 
-	{# :::::::::::::: 03 * GRIT_SET header #} 
-	<header id="{{ grit_setting_header }}"> 
+	{# :::::::::::::: 03 * GRIT_SET header #}  
     	{% if grit_setting_header %}
-			{% include ['headers/'~ grit_setting_header ~'.twig'] %}
+			 <header id="{{ grit_setting_header }}">  
+				{% include ['headers/'~ grit_setting_header ~'.twig'] %}
+			</header> 
 		{% else %}
-			{% include "headers/header_1.twig" %}
-		{% endif %} 
-    </header>
+			<header id="header_1"> 
+			 	{% include "headers/header_1.twig" %}
+			 </header>
+		{% endif %}  
 	{# :::::::::::::: 03 * GRIT_SET header END#} 
  		 
 	{# :::::::::::::: 04 * GRIT_SET content #} 
@@ -66,17 +56,26 @@
 	{# :::::::::::::: 04 * GRIT_SET content END #} 
 
 	{# :::::::::::::: 05 * GRIT_SET footer #}  
-    {% block footer %}
-        <footer id="footer" class="{{ grit_setting_footer }}">
-			{% if grit_setting_footer %}
+    {% block footer %} 
+		{% if grit_setting_footer %}
+				<footer id="{{ grit_setting_footer }}" class="footer">
 					{% include ['/footers/'~ grit_setting_footer ~'.twig'] %}
-				{% else %}
+				</footer>
+			{% else %}
+				<footer id="footer_1" class="footer">
 					{% include ['/footers/footer_1.twig'] %}
-			{% endif %} 
-        </footer>
+				</footer>
+		{% endif %}
 		{{ function('wp_footer') }}
+		
     {% endblock %}
 	{# :::::::::::::: 05 * GRIT_SET footer END #}  
-
+	
+	{# 
+	<script> 
+        window.navLeftArrow = `{% include '/partials/arrow.twig' %}`;
+        window.navRightArrow = `{% include '/partials/arrow.twig' %}`; 
+    </script>  
+	#}
 </body>
 </html>

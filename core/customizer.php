@@ -43,20 +43,22 @@ function grit_customize_register($wp_customize)
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
     $wp_customize->add_setting('grit_setting_header', array(
-        'capability' => 'edit_theme_options',
-        'default' => 'header_1',
+        'capability'        => 'edit_theme_options',
+        'default'           => 'header_1',
+        'sanitize_callback' => 'sanitize_text_field',
     ));
+
     $wp_customize->add_control('grit_setting_header', array(
-        'type' => 'select',
-        'section' => 'grit_framework_general_settings',
-        'label' => __('Header Style'),
-        'description' => __('Scegli la tipologia di header'),
-        'choices' => array(
-            'header_1' => __('header_1'),
-            'header_2' => __('header_2'),
-            'header_3' => __('header_3'),
-            'header_4' => __('header_4'),
-            'header_5' => __('header_5'),
+        'type'        => 'select',
+        'section'     => 'grit_framework_general_settings',
+        'label'       => __('Header Style', 'grit'),
+        'description' => __('Scegli la tipologia di header', 'grit'),
+        'choices'     => array(
+            'header_1' => __('header_1', 'grit'),
+            'header_2' => __('header_2', 'grit'),
+            'header_3' => __('header_3', 'grit'),
+            'header_4' => __('header_4', 'grit'),
+            'header_5' => __('header_5', 'grit'),
         ),
     ));
 
@@ -68,12 +70,13 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_setting('grit_setting_footer', array(
         'capability' => 'edit_theme_options',
         'default' => 'footer_1',
+        'sanitize_callback' => 'sanitize_text_field',
     ));
     $wp_customize->add_control('grit_setting_footer', array(
         'type' => 'select',
         'section' => 'grit_framework_general_settings',
-        'label' => __('Footer Style'),
-        'description' => __('Scegli la tipologia di footer'),
+        'label' => __('Footer Style', 'grit'),
+        'description' => __('Scegli la tipologia di footer', 'grit'),
         'choices' => array(
             'footer_1' => __('footer_1'),
             'footer_2' => __('footer_2'),
@@ -102,6 +105,7 @@ function grit_customize_register($wp_customize)
 
     $wp_customize->add_setting('grit_setting_bootstrap', array(
         'capability' => 'edit_theme_options',
+        'default'    => true,
     ));
     $wp_customize->add_control('grit_setting_bootstrap', array(
         'type' => 'checkbox',
@@ -118,6 +122,7 @@ function grit_customize_register($wp_customize)
 
     $wp_customize->add_setting('grit_setting_fa', array(
         'capability' => 'edit_theme_options',
+        'default'    => true,
     ));
     $wp_customize->add_control('grit_setting_fa', array(
         'type' => 'checkbox',
@@ -133,6 +138,7 @@ function grit_customize_register($wp_customize)
 
     $wp_customize->add_setting('grit_setting_animate', array(
         'capability' => 'edit_theme_options',
+        'default'    => true,
     ));
     $wp_customize->add_control('grit_setting_animate', array(
         'type' => 'checkbox',
@@ -148,6 +154,7 @@ function grit_customize_register($wp_customize)
 
     $wp_customize->add_setting('grit_setting_hover', array(
         'capability' => 'edit_theme_options',
+        'default'    => true,
     ));
     $wp_customize->add_control('grit_setting_hover', array(
         'type' => 'checkbox',
@@ -163,6 +170,7 @@ function grit_customize_register($wp_customize)
 
     $wp_customize->add_setting('grit_setting_gsap', array(
         'capability' => 'edit_theme_options',
+        'default'    => true,
     ));
     $wp_customize->add_control('grit_setting_gsap', array(
         'type' => 'checkbox',
@@ -178,6 +186,7 @@ function grit_customize_register($wp_customize)
 
     $wp_customize->add_setting('grit_setting_three', array(
         'capability' => 'edit_theme_options',
+        'default'    => true,
     ));
     $wp_customize->add_control('grit_setting_three', array(
         'type' => 'checkbox',
@@ -194,6 +203,7 @@ function grit_customize_register($wp_customize)
 
     $wp_customize->add_setting('grit_setting_lenis', array(
         'capability' => 'edit_theme_options',
+        'default'    => true,
     ));
     $wp_customize->add_control('grit_setting_lenis', array(
         'type' => 'checkbox',
@@ -259,6 +269,7 @@ function grit_customize_register($wp_customize)
 
     $wp_customize->add_setting('grit_setting_masonry', array(
         'capability' => 'edit_theme_options',
+        'default'    => true,
     ));
     $wp_customize->add_control('grit_setting_masonry', array(
         'type' => 'checkbox',
@@ -275,6 +286,7 @@ function grit_customize_register($wp_customize)
 
     $wp_customize->add_setting('grit_setting_imagesloaded', array(
         'capability' => 'edit_theme_options',
+        'default'    => true,
     ));
     $wp_customize->add_control('grit_setting_imagesloaded', array(
         'type' => 'checkbox',
@@ -306,6 +318,7 @@ function grit_customize_register($wp_customize)
 
     $wp_customize->add_setting('grit_setting_owl_carousel', array(
         'capability' => 'edit_theme_options',
+        'default'    => true,
     ));
     $wp_customize->add_control('grit_setting_owl_carousel', array(
         'type' => 'checkbox',
@@ -322,6 +335,7 @@ function grit_customize_register($wp_customize)
 
     $wp_customize->add_setting('grit_setting_jarallax', array(
         'capability' => 'edit_theme_options',
+        'default'    => true,
     ));
     $wp_customize->add_control('grit_setting_jarallax', array(
         'type' => 'checkbox',
@@ -338,6 +352,7 @@ function grit_customize_register($wp_customize)
 
     $wp_customize->add_setting('grit_setting_nprogress', array(
         'capability' => 'edit_theme_options',
+        'default'    => true,
     ));
     $wp_customize->add_control('grit_setting_nprogress', array(
         'type' => 'checkbox',
@@ -353,6 +368,7 @@ function grit_customize_register($wp_customize)
 
     $wp_customize->add_setting('grit_setting_magic_mouse', array(
         'capability' => 'edit_theme_options',
+        'default'    => true,
     ));
     $wp_customize->add_control('grit_setting_magic_mouse', array(
         'type' => 'checkbox',
@@ -384,6 +400,7 @@ function grit_customize_register($wp_customize)
 
     $wp_customize->add_setting('grit_setting_gototop', array(
         'capability' => 'edit_theme_options',
+        'default'    => true,
     ));
     $wp_customize->add_control('grit_setting_gototop', array(
         'type' => 'checkbox',

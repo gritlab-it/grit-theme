@@ -5,9 +5,12 @@
 /* :::::::::::::: 04 * GRIT_SET padding */  
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
+@use './variables' as *;
+
 /* :::::::::::::: 01 * GRIT_SET body */
 body {
     font-family: $font-primary;
+    font-size: $font-base;
     color: $text-color;
     background-color: $bg-color;
     font-weight: normal;
@@ -16,6 +19,11 @@ body {
     padding: 0; 
     cursor: default!important;
     // scroll-behavior: smooth !important;
+     .content-wrapper {
+        position: relative;
+        z-index: 2; 
+        min-height: 50svh; 
+    }
 }
 
 .absolute_center {

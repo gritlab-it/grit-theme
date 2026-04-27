@@ -8,7 +8,7 @@
 /* :::::::::::::: 04 * GRIT_SET magicMouse */
 /* :::::::::::::: 06 * GRIT_SET jarallax-js  */
 /* :::::::::::::: 07 * GRIT_SET NProgress-js */
-/* :::::::::::::: 07 * GRIT_SET section_collpase */
+/* :::::::::::::: 07 * GRIT_SET section_collapse */
 /* :::::::::::::: 08 * GRIT_SET section_video */
 /* :::::::::::::: 09 * GRIT_SET Counters js */
 /* :::::::::::::: 10 * GRIT_SET GSAP + ScrollTrigger + Lenis */ 
@@ -24,6 +24,7 @@
 /* :::::::::::::: 10.2.7 * Dual Horizontal Scroll */ 
 /* :::::::::::::: 10.3 * Initialization of Animated Functions */ 
 /* :::::::::::::: 10.4 * Responsive Refresh on Resize (Debounced) */ 
+/* :::::::::::::: 11 * Section Bars */ 
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
@@ -541,7 +542,7 @@ if (nprogress_active) {
 }
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 07 * GRIT_SET section_collpase */
+/* :::::::::::::: 07 * GRIT_SET section_collapse */
 $(document).ready(function () {
     // Controlla se esiste una sezione con la classe 'section_collapse'
     if (document.querySelector('.section_collapse')) {
@@ -1034,3 +1035,156 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 });
+
+
+
+/* :::::::::::::: 11 * Section Bars */  
+
+const NUM_BARS = 15;
+const MIN_BARS = 5;
+
+function random(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+// 🔹 Responsive sizing
+function getResponsiveSizes() {
+  const w = window.innerWidth;
+
+  if (w <= 640) {
+    return { widthMin: 180, widthMax: 240, height: 25 };
+  } else if (w <= 1024) {
+    return { widthMin: 220, widthMax: 300, height: 30 };
+  } else {
+    return { widthMin: 280, widthMax: 380, height: 35 };
+  }
+}
+
+// 🔹 Bounding box per posizionamento
+function getPositionBounds(positionClass) {
+  switch (positionClass) {
+    case 'bar-top':           return { topMin: 0, topMax: 40, leftMin: 0, leftMax: 100 };
+    case 'bar-bottom':        return { topMin: 60, topMax: 100, leftMin: 0, leftMax: 100 };
+    case 'bar-left':          return { topMin: 0, topMax: 100, leftMin: 0, leftMax: 40 };
+    case 'bar-right':         return { topMin: 0, topMax: 100, leftMin: 60, leftMax: 100 };
+    case 'bar-top-left':      return { topMin: 0, topMax: 55, leftMin: 0, leftMax: 55 };
+    case 'bar-top-right':     return { topMin: 0, topMax: 55, leftMin: 45, leftMax: 100 };
+    case 'bar-bottom-left':   return { topMin: 45, topMax: 100, leftMin: 0, leftMax: 55 };
+    case 'bar-bottom-right':  return { topMin: 45, topMax: 100, leftMin: 45, leftMax: 100 };
+    case 'bar-center':        return { topMin: 20, topMax: 80, leftMin: 20, leftMax: 80 };
+    case 'bar-all':
+    default:                  return { topMin: 0, topMax: 100, leftMin: 0, leftMax: 100 };
+  }
+}
+
+// 🔹 Generazione barre non sovrapposte
+function generateNonOverlappingBars(container) {
+  const sizes = getResponsiveSizes();
+  const existingBars = [];
+
+  const classList = container.classList;
+  const validPositions = [
+    'bar-top','bar-bottom','bar-left','bar-right',
+    'bar-top-left','bar-top-right','bar-bottom-left','bar-bottom-right',
+    'bar-center','bar-all'
+  ];
+  const positionClass = [...classList].find(c => validPositions.includes(c)) || 'bar-all';
+  const { topMin, topMax, leftMin, leftMax } = getPositionBounds(positionClass);
+
+  let placedBars = 0;
+  let attempts = 0;
+
+  while (placedBars < NUM_BARS && attempts < NUM_BARS * 25) {
+    attempts++;
+
+    const width  = random(sizes.widthMin, sizes.widthMax);
+    const height = sizes.height;
+    const top    = random(topMin, topMax);
+    const left   = random(leftMin, leftMax);
+    const angle  = random(-45, 45);
+
+    const cx = (left / 100) * window.innerWidth;
+    const cy = (top  / 100) * window.innerHeight;
+    const radius = Math.sqrt((width / 2) ** 2 + (height / 2) ** 2);
+
+    const overlap = existingBars.some(b => {
+      const dx = b.cx - cx;
+      const dy = b.cy - cy;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      return dist < (b.radius + radius + 5);
+    });
+
+    if (!overlap) {
+      const bar = document.createElement('div');
+      bar.classList.add('bar');
+      bar.style.width = `${width}px`;
+      bar.style.height = `${height}px`;
+      bar.style.top = `${top}%`;
+      bar.style.left = `${left}%`;
+      bar.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+      container.appendChild(bar);
+
+      existingBars.push({ cx, cy, radius });
+      placedBars++;
+    }
+  }
+}
+
+// 🔁 Osserva ogni sezione e genera barre in anticipo
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const section = entry.target;
+
+      // Solo una volta
+      if (!section.dataset.barsGenerated) {
+        generateNonOverlappingBars(section);
+        section.dataset.barsGenerated = "true";
+      }
+    }
+  });
+}, {
+  threshold: 0, // inizia appena entra
+  rootMargin: '-50% 0px' // 🔸 anticipa la generazione del 50% prima
+});
+
+document.querySelectorAll('.section-bars').forEach(section => {
+  observer.observe(section);
+});
+
+// 🔁 Parallax Mouse + Scroll relativo alla sezione
+let mouseX = 0, mouseY = 0;
+
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  animateBars();
+});
+
+window.addEventListener('scroll', () => {
+  animateBars();
+});
+
+function animateBars() {
+  document.querySelectorAll('.bar').forEach((el, i) => {
+    const section = el.closest('.section-bars');
+    if (!section || !section.dataset.barsGenerated) return;
+
+    const sectionTop = section.offsetTop;
+    const relScroll = window.scrollY - sectionTop;
+    const maxOffset = 100;
+    const scrollOffset = Math.max(-maxOffset, Math.min(relScroll * 0.05 * ((i % 5) + 1), maxOffset));
+
+    const offsetX = (mouseX - window.innerWidth / 2) * 0.01 * ((i % 10) + 1);
+    const offsetY = (mouseY - window.innerHeight / 2) * 0.01 * ((i % 10) + 1);
+
+    gsap.to(el, {
+      x: offsetX,
+      y: offsetY + scrollOffset,
+      duration: 1.1,
+      ease: 'power2.out'
+    });
+  });
+}
+ 
+ 

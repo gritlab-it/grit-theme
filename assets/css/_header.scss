@@ -9,6 +9,8 @@
 /* :::::::::::::: 08 * GRIT_SET header_5 */
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
+@use './variables' as *;
+
 /* :::::::::::::: 01 * GRIT_SET nav */
 .nav {
     width: 100%;
@@ -221,7 +223,7 @@
         position: fixed;
         width: 100%;
         top: -126px; // posizione iniziale fuori schermo
-        z-index: 2;
+        z-index: 3;
         opacity: 0; 
         transition: all 0.5s ease-in-out; // transizione di default lenta
     

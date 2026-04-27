@@ -6,27 +6,29 @@
 /* :::::::::::::: 05 * GRIT_SET Trasitions */ 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
+@use 'sass:string'; 
+
 /* :::::::::::::: 01 * GRIT_SET Color */ 
 
-$accent: #fe7f2d;
+$accent: #FA542D;
 
-$light: #F8F9FA;
-$dark: #1D1D1B;
-$grey:#CED4DA;
+$light: #FCFCF8;
+$dark: #052D28;
+$grey:#EBF0E6;
 
-$primary: #fcca46; 
-$secondary:  #a1c181;
-$tertiary: #619b8a;
-$quaternary: #212529;
-$quinary: #343A40;
-$senary: #495057;
-$septenary: #6C757D;
-$octonary: #ADB5BD;
-$nonary: #DEE2E6;
-$denary: #E9ECEF;
+$primary: #0F5550; 
+$secondary:  #CDDCD7;
+$tertiary: #E6FF41;
+$quaternary: #CDF002;
+$quinary: #0F5550;
+$senary: #0F5550;
+$septenary: #0F5550;
+$octonary: #0F5550;
+$nonary: #0F5550;
+$denary: #0F5550;
 
 $white: #ffffff; 
-$black: #000000; 
+$black: #1D1D1B; 
 
 $transparent: transparent;
 
@@ -44,16 +46,16 @@ $black-5-rgb: rgb(242, 242, 242);
 $black-5-rgba: rgba(0, 0, 0, 0.05); 
 
 :root {
-  --primary: #eb5e28;
-  --secondary: #403d39;
-  --tertiary: #f3efe4;
-  --quaternary: #fffcf2;
-  --quinary: #e6e1d6;
-  --senary: #ccc5b9;
-  --septenary: #868179;
-  --octonary: #252422;
-  --nonary: #884125;
-  --denary: #ed6d3c;
+  --primary: $primary;
+  --secondary: $secondary;
+  --tertiary: $tertiary;
+  --quaternary: $quaternary;
+  --quinary: $quinary;
+  --senary: $senary;
+  --septenary: $septenary;
+  --octonary: $octonary;
+  --nonary: $nonary;
+  --denary: $denary;
 }
 
 $colors: (
@@ -127,17 +129,17 @@ $gradient-colors-1: (
   @each $color, $percent in $colors {
     $gradient: #{$gradient} + ', ' + #{$color} + ' ' + #{$percent};
   } 
-  $gradient: unquote($gradient);  
-  $gradient: str-slice($gradient, 3);  
+  $gradient: string.unquote($gradient);  
+  $gradient: string.slice($gradient, 3);  
   background: linear-gradient($direction, $gradient);
 }
 
 /* :::::::::::::: 03 * GRIT_SET Fonts */
  
-// @import url("../font/metropolis/stylesheet.css");
+@import url("../font/HostGrotesk/stylesheet.css");
 
-$font-primary: 'Mulish', 'Open Sans', sans-serif;   
-$font-secondary: 'Mulish', 'Roboto', sans-serif;   
+$font-primary: 'Host Grotesk', sans-serif;   
+$font-secondary: 'Host Grotesk', sans-serif;   
 
 /* :::::::::::::: 04 * GRIT_SET Varriables */
 
@@ -171,6 +173,11 @@ $xxxl: 1920;
 $c-gap: 140;
 
 $general-radius: 10px;
+
+
+$border-radius-base: calc(40 / $xxl * 100vw); 
+
+$font-base: clamp(0.8rem, calc(17 / $xxl * 100vw), 1.2rem); 
 
 /* :::::::::::::: 05 * GRIT_SET Trasitions */ 
 

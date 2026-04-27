@@ -23,9 +23,10 @@ $templates = array('archive.twig', 'index.twig');
 $context = Timber::context(); 
 $post_type_obj = get_post_type_object(get_post_type()); 
 
+$page_id = null; 
 $context['post_type'] = $post_type = $post_type_obj->name ?? 'post';
 
-$context['term'] = $term = new Timber\Term(get_queried_object_id()); 
+$context['term'] = $term_obj = new Timber\Term(get_queried_object_id()); 
 // * GRIT_SET Assignment of the pagination number of posts per page
 $paginazione = get_option('posts_per_page');
 $num_pagina = $paginazione - 1;
@@ -50,42 +51,42 @@ if (is_day()) {
     $context['title'] = 'Archive: ' . get_the_date('M Y');
 } elseif (is_year()) {
     $context['title'] = 'Archive: ' . get_the_date('Y');
-} elseif (is_tag()) {
-    $context['title'] = single_tag_title('', false);
-    $context['content']  = term_description(); 
-    array_unshift(
-        $templates,
-        'tag-' . $term->slug . '.twig',
-        'tag.twig'
-    );
-} elseif (is_category() || is_tax()) {
  
-    $page_id = get_the_ID();
+} elseif (is_category() || is_tag() || is_tax()) {
+ 
+ 
+    if ($term_obj && isset($term_obj->term_id)) {
+        $page_id = $term_obj->taxonomy . '_' . $term_obj->term_id;
+    }
 
-    $context['title'] = single_cat_title('', false);
-    $context['content']  = term_description(); 
+    $context['title'] = single_term_title('', false);
+    $context['content'] = term_description(); 
+
     // * GRIT_SET Get Child of current cat 
     $context['childs'] = $childs = get_terms(
-        $term->taxonomy,
+        $term_obj->taxonomy,
         array(
-            'parent'    => $term->term_id,
+            'parent'    => $term_obj->term_id,
             'hide_empty' => false
         )
     ); 
+
     // * GRIT_SET Get Parent of current cat
-    $parent_id = $term->parent;
+    $parent_id = $term_obj->parent;
     $context['parents'] = $parents = get_terms(
-        $term->taxonomy,
+        $term_obj->taxonomy,
         array(
             'term_taxonomy_id'  => $parent_id,
             'hide_empty' => false,
         )
     );
+
+
     array_unshift(
         $templates, 
-        'taxonomy-' . $term->taxonomy . '.twig', 
+        'taxonomy-' . $term_obj->taxonomy . '.twig', 
         'taxonomy.twig',
-        'category-' . $term->slug . '.twig', 
+        'category-' . $term_obj->slug . '.twig', 
         'category.twig',
         'archive-' . get_query_var('cat') . '.twig',
     );
@@ -132,10 +133,10 @@ if (is_day()) {
 } 
 
 
-
  
 //  * GRIT_SET Assign all ACF variables to Twig
-$fields = get_field_objects($page_id);
+$fields = $page_id ? get_field_objects($page_id) : null;
+
 if ($fields) :
     foreach ($fields as $field) :
         $name_id = $field['name'];
@@ -148,23 +149,22 @@ $args = array(
     'post_type' => $post_type,
     'posts_per_page' => $paginazione,
     'paged' => $paged,
-    'orderby' => 'post_date',
-    'order' => 'DESC',
+    'orderby' => 'post_date', 
+	'order' => 'DESC',
 );
 
 if (is_category()) {
-    // Filtra per categoria usando `cat`
-    $args['cat'] = $term->term_id;
+    $args['cat'] = $term_obj->term_id;
+
 } elseif (is_tag()) {
-    // Filtra per tag usando `tag_id`
-    $args['tag_id'] = $term->term_id;
+    $args['tag_id'] = $term_obj->term_id;
+
 } elseif (is_tax()) {
-    // Filtra per tassonomia personalizzata
     $args['tax_query'] = [
         [
-            'taxonomy' => $term->taxonomy, // La tassonomia corrente
+            'taxonomy' => $term_obj->taxonomy,
             'field'    => 'term_id',
-            'terms'    => $term->term_id,  // L'ID del termine corrente
+            'terms'    => $term_obj->term_id,
         ]
     ];
 }

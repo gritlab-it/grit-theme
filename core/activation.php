@@ -169,97 +169,161 @@ function grit_theme_activation_action() {
         return;
     }
     
-    /* Create front page  */
-    $default_pages = array();
-    if ($grit_theme_activation_options['create_additional_page'] === 'true') {
-        $grit_theme_activation_options['create_additional_page'] = false;
-        $default_pages[] = __('Home', 'grit');
-        $default_pages[] = __('About', 'grit');
-        $default_pages[] = __('Blog', 'grit');
-        $default_pages[] = __('Contatti', 'grit');
-        $default_pages[] = __('Privacy Policy GDPR', 'grit');
-        $default_pages[] = __('Cookie Policy GDPR', 'grit');
-        $default_pages[] = __('Search', 'grit');
-        $default_pages[] = __('Bio', 'grit');
-        $default_pages[] = __('Style', 'grit');
-    }
-    /* End - Create front page */  
-    
-    if ($grit_theme_activation_options['create_front_page'] === 'true') {
-        $grit_theme_activation_options['create_front_page'] = false;
-        
-        $existing_pages = get_pages();
-        $temp = array();
+ 
+    /* Default pages configuration */
+$default_pages = array();
 
-        foreach ($existing_pages as $page) {
-            $temp[] = strtolower($page->post_title); // Converti in minuscolo per una corretta verifica
-        }
+if ($grit_theme_activation_options['create_additional_page'] === 'true') {
+    $grit_theme_activation_options['create_additional_page'] = false;
 
-        $pages_to_create = array_diff(array_map('strtolower', $default_pages), $temp);
+    $default_pages = array(
+        array(
+            'title'      => __('Home', 'grit'),
+            'slug'       => 'home',
+            'template'   => 'home.php',
+            'menus'      => array('primary_navigation', 'mobile_navigation'),
+            'menu_order' => 1,
+            'menu_label' => __('Home', 'grit'),
+        ),
+        array(
+            'title'      => __('About', 'grit'),
+            'slug'       => 'about',
+            'template'   => 'page.php',
+            'menus'      => array('primary_navigation', 'mobile_navigation'),
+            'menu_order' => 2,
+            'menu_label' => __('About', 'grit'),
+        ),
+        array(
+            'title'      => __('Blog', 'grit'),
+            'slug'       => 'blog',
+            'template'   => '',
+            'menus'      => array('primary_navigation', 'mobile_navigation'),
+            'menu_order' => 3,
+            'menu_label' => __('Blog', 'grit'),
+        ),
+        array(
+            'title'      => __('Contatti', 'grit'),
+            'slug'       => 'contatti',
+            'template'   => 'page.php',
+            'menus'      => array('primary_navigation', 'mobile_navigation'),
+            'menu_order' => 4,
+            'menu_label' => __('Contatti', 'grit'),
+        ),
+        array(
+            'title'      => __('Privacy Policy GDPR', 'grit'),
+            'slug'       => 'privacy-policy-gdpr',
+            'template'   => 'page.php',
+            'menus'      => array('footer_navigation'),
+            'menu_order' => 10,
+            'menu_label' => __('Privacy Policy GDPR', 'grit'),
+        ),
+        array(
+            'title'      => __('Cookie Policy GDPR', 'grit'),
+            'slug'       => 'cookie-policy-gdpr',
+            'template'   => 'page.php',
+            'menus'      => array('footer_navigation'),
+            'menu_order' => 11,
+            'menu_label' => __('Cookie Policy GDPR', 'grit'),
+        ), 
+        array(
+            'title'      => __('Bio', 'grit'),
+            'slug'       => 'bio',
+            'template'   => 'page.php',
+            'menus'      => array('secondary_navigation'),
+            'menu_order' => 20,
+            'menu_label' => __('Bio', 'grit'),
+        ),
+        array(
+            'title'      => __('Style', 'grit'),
+            'slug'       => 'style',
+            'template'   => 'page.php',
+            'menus'      => array('secondary_navigation'),
+            'menu_order' => 21,
+            'menu_label' => __('Style', 'grit'),
+        ),
+        array(
+            'title'      => __('Search', 'grit'),
+            'slug'       => 'search',
+            'template'   => 'search.php',
+            'menus'      => array('secondary_navigation'),
+            'menu_order' => 22,
+            'menu_label' => __('Search', 'grit'),
+        ),
 
-        foreach ($pages_to_create as $new_page_title_lower) {
-            // Rimuovi la conversione in minuscolo per recuperare il titolo corretto
-            $new_page_title = ucwords($new_page_title_lower);
 
-            $add_default_pages = array(
-                'post_title' => $new_page_title,
+    );
+}
+/* End default pages configuration */
+
+
+/* Create front page */
+if ($grit_theme_activation_options['create_front_page'] === 'true') {
+    $grit_theme_activation_options['create_front_page'] = false;
+
+    $created_pages = array();
+
+    foreach ($default_pages as $page_data) {
+        $existing_page = get_page_by_path($page_data['slug'], OBJECT, 'page');
+
+        if (!$existing_page) {
+            $new_page = array(
+                'post_title'   => $page_data['title'],
+                'post_name'    => $page_data['slug'],
                 'post_content' => '',
-                'post_status' => 'publish',
-                'post_type' => 'page',
+                'post_status'  => 'publish',
+                'post_type'    => 'page',
             );
 
-            switch ($new_page_title) {
-                case 'Home':
-                    $add_default_pages['page_template'] = 'home.php';
-                    break;
-                case 'About':
-                    $add_default_pages['page_template'] = 'page.php';
-                    break;
-                case 'Blog':
-                    $add_default_pages['page_template'] = 'archive.php';
-                    break;
-                case 'Contatti':
-                    $add_default_pages['page_template'] = 'page.php';
-                    break;
-                case 'Privacy Policy GDPR':
-                    $add_default_pages['page_template'] = 'page.php';
-                    break;
-                case 'Cookie Policy GDPR':
-                    $add_default_pages['page_template'] = 'page.php';
-                    break;
-                case 'Search':
-                    $add_default_pages['page_template'] = 'search.php';
-                    break;
-                case 'Bio':
-                    $add_default_pages['page_template'] = 'page.php';
-                    break;    
-                case 'Style':
-                    $add_default_pages['page_template'] = 'page.php';
-                    break;
+            if (!empty($page_data['template'])) {
+                $new_page['page_template'] = $page_data['template'];
             }
 
-            $result = wp_insert_post($add_default_pages);
-        }
+            $page_id = wp_insert_post($new_page);
 
-        $home = get_page_by_path('home');
-
-        // Verifica se la pagina è stata trovata.
-        if ($home) {
-            // Imposta la pagina "Home" come pagina statica.
-            update_option('show_on_front', 'page');
-            update_option('page_on_front', $home->ID);
+            if (!is_wp_error($page_id)) {
+                $created_pages[$page_data['slug']] = $page_id;
+            }
         } else {
-            // Gestisci il caso in cui la pagina "Home" non sia stata trovata.
-            // Puoi visualizzare un messaggio di errore o impostare un fallback.
-            echo "La pagina 'Home' non è stata trovata.";
+            $created_pages[$page_data['slug']] = $existing_page->ID;
+        }
+    }
+
+    $home = get_page_by_path('home', OBJECT, 'page');
+
+    if ($home) {
+        update_option('show_on_front', 'page');
+        update_option('page_on_front', $home->ID);
+
+        wp_update_post(array(
+            'ID'         => $home->ID,
+            'menu_order' => -1,
+        ));
+ 
+        // Set blog page as posts page
+        $blog = get_page_by_path('blog', OBJECT, 'page');
+
+        if ($blog) {
+            update_option('page_for_posts', $blog->ID);
+        } else {
+            error_log("Page with slug 'blog' not found.");
         }
 
-        $home_menu_order = array(
-            'ID' => $home->ID,
-            'menu_order' => -1
-        );
-        wp_update_post($home_menu_order);
+    } else {
+        error_log("Page with slug 'home' not found.");
     }
+}
+
+// Set default theme mods on first activation
+if (get_theme_mod('grit_setting_header', false) === false) {
+    set_theme_mod('grit_setting_header', 'header_1');
+}
+
+if (get_theme_mod('grit_setting_footer', false) === false) {
+    set_theme_mod('grit_setting_footer', 'footer_1');
+}
+
+
+
 
     /* change_permalink_structure */
     if ($grit_theme_activation_options['change_permalink_structure'] === 'true') {
@@ -281,6 +345,7 @@ function grit_theme_activation_action() {
             'primary_navigation'   => __('Primary Navigation', 'grit'),
             'secondary_navigation' => __('Secondary Navigation', 'grit'),
             'mobile_navigation'    => __('Mobile Navigation', 'grit'),
+            'footer_navigation'    => __('Footer Navigation', 'grit'),
         );
     
         $nav_theme_mod = array();
@@ -302,36 +367,66 @@ function grit_theme_activation_action() {
     /* end - create_navigation_menus */
     
     /* add_pages_to_all_navigation_menus */
-    if ($grit_theme_activation_options['add_pages_to_primary_navigation'] === 'true') {
-        $grit_theme_activation_options['add_pages_to_primary_navigation'] = false;
-    
-        $menu_locations = array(
-            'primary_navigation'   => __('Primary Navigation', 'grit'),
-            'secondary_navigation' => __('Secondary Navigation', 'grit'),
-            'mobile_navigation'    => __('Mobile Navigation', 'grit'),
-        );
-    
-        foreach ($menu_locations as $location => $menu_name) {
-            $menu_obj = wp_get_nav_menu_object($menu_name);
-            if ($menu_obj) {
-                $menu_id = (int) $menu_obj->term_id;
-                $menu_items = wp_get_nav_menu_items($menu_id);
-            
-                if (!$menu_items || empty($menu_items)) {
-                    $pages = get_pages();
-                    foreach ($pages as $page) {
-                        $item = array(
-                            'menu-item-object-id' => $page->ID,
-                            'menu-item-object'    => 'page',
-                            'menu-item-type'      => 'post_type',
-                            'menu-item-status'    => 'publish'
-                        );
-                        wp_update_nav_menu_item($menu_id, 0, $item);
+if ($grit_theme_activation_options['add_pages_to_primary_navigation'] === 'true') {
+    $grit_theme_activation_options['add_pages_to_primary_navigation'] = false;
+
+    $menu_locations = array(
+        'primary_navigation'   => __('Primary Navigation', 'grit'),
+        'secondary_navigation' => __('Secondary Navigation', 'grit'),
+        'mobile_navigation'    => __('Mobile Navigation', 'grit'),
+        'footer_navigation'    => __('Footer Navigation', 'grit'),
+    );
+
+    foreach ($menu_locations as $location => $menu_name) {
+        $menu_obj = wp_get_nav_menu_object($menu_name);
+
+        if (!$menu_obj) {
+            continue;
+        }
+
+        $menu_id = (int) $menu_obj->term_id;
+
+        foreach ($default_pages as $page_data) {
+            if (empty($page_data['menus']) || !in_array($location, $page_data['menus'], true)) {
+                continue;
+            }
+
+            $page = get_page_by_path($page_data['slug'], OBJECT, 'page');
+
+            if (!$page) {
+                continue;
+            }
+
+            // Check if page is already in menu
+            $already_exists = false;
+            $menu_items = wp_get_nav_menu_items($menu_id);
+
+            if ($menu_items) {
+                foreach ($menu_items as $item) {
+                    if ((int) $item->object_id === (int) $page->ID && $item->object === 'page') {
+                        $already_exists = true;
+                        break;
                     }
                 }
             }
+
+            if ($already_exists) {
+                continue;
+            }
+
+            $item_data = array(
+                'menu-item-object-id' => $page->ID,
+                'menu-item-object'    => 'page',
+                'menu-item-type'      => 'post_type',
+                'menu-item-status'    => 'publish',
+                'menu-item-title'     => !empty($page_data['menu_label']) ? $page_data['menu_label'] : $page_data['title'],
+                'menu-item-position'  => !empty($page_data['menu_order']) ? (int) $page_data['menu_order'] : 0,
+            );
+
+            wp_update_nav_menu_item($menu_id, 0, $item_data);
         }
     }
+}
     /* end - add_pages_to_all_navigation_menus */
     
     /* create_cf7_template */  

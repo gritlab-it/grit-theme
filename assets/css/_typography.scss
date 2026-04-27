@@ -3,7 +3,8 @@
 /* :::::::::::::: 02 * GRIT_SET btn */
 /* :::::::::::::: 03 * GRIT_SET btn-color */
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-
+@use 'sass:color';
+@use './variables' as *;
 
 /* :::::::::::::: 01 * GRIT_SET typography */
 p {
@@ -39,7 +40,7 @@ h2,
 h3,
 .h3 {
   font-family: $font-secondary;
-  font-weight: 900;
+  font-weight: bold;
 }
 
 h4,
@@ -51,8 +52,49 @@ h6,
   font-family: $font-primary;
 }
 
+
+/* Fluid Display Fonts based on Bootstrap sizes, scaled with viewport */
+.display-1 {
+  font-size: clamp(2.6rem, calc(80 / $xxl * 100vw), 5rem); // 5rem = 80px
+  line-height: 1.2;
+   font-weight: bold;
+}
+
+.display-2 {
+  font-size: clamp(2.4rem, calc(70 / $xxl * 100vw), 5rem); // Come fornito, ~4.375rem = 70px
+  line-height: 1.2;
+  font-weight: bold;
+}
+
+.display-3 {
+  font-size: clamp(2rem, calc(64 / $xxl * 100vw), 4rem); // 4rem = 64px
+  line-height: 1.2;
+  font-weight: bold;
+}
+
+.display-4 {
+  font-size: clamp(1.8rem, calc(56 / $xxl * 100vw), 3.5rem); // 3.5rem = 56px
+  line-height: 1.2;
+  font-weight: bold;
+}
+
+.display-5 {
+  font-size: clamp(1.6rem, calc(48 / $xxl * 100vw), 3rem); // 3rem = 48px
+  line-height: 1.2;
+  font-weight: bold;
+}
+
+.display-6 {
+  font-size: clamp(1.4rem, calc(40 / $xxl * 100vw), 2.5rem); // 2.5rem = 40px
+  line-height: 1.2;
+  font-weight: bold;
+}
+
+
+
+
 .lead {
-  font-weight: normal;
+  font-weight: inherit;
 }
  
 
@@ -64,8 +106,8 @@ h6,
 a {
   // font-variation-settings: 'wght' 900;
   font-variation-settings: 'slnt' 0;
-  // font-weight: bold;
-  color: $accent;
+  // font-weight: bold; 
+  color: currentColor;
   text-decoration: none;
   background-color: transparent;
   @include transition(all 0.5s ease-in-out);
@@ -73,7 +115,7 @@ a {
 
 a:hover {
   // color: darken($tertiary, 20%);
-  color: $secondary;
+  color: $accent;
   // border-radius: 3px;
   // font-variation-settings: 'wght' 300;
   font-variation-settings: 'slnt' 12;
@@ -82,6 +124,9 @@ a:hover {
 
 /* :::::::::::::: 02 * GRIT_SET btn */
 .btn {
+  
+  font-size: $font-base;
+
   border-radius: 25px;
   padding: 0.545em 1.4em;
   text-align: center;
@@ -135,30 +180,30 @@ a:hover {
   }
 
   &:active {
-    background: darken($h-color, 30%);
-    border-color: darken($h-border, 30%);
+    background: color.adjust($h-color, $lightness: -30%);
+    border-color: color.adjust($h-border, $lightness: -30%);
   }
 
   &:not(:disabled):not(.disabled).active,
   &:not(:disabled):not(.disabled):active,
   .show>&.dropdown-toggle {
-    background: darken($bg, 30%);
-    border-color: darken($border, 30%);
-    box-shadow: 0 0 0 0.1rem lighten($bg, 10%)!important;
+    background: color.adjust($bg, $lightness: -30%);
+    border-color: color.adjust($border, $lightness: -30%);
+    box-shadow: 0 0 0 0.1rem color.adjust($bg, $lightness: 10%) !important;
   }
 
   &.disabled,
   &:disabled {
     opacity: 0.10;
-    background: darken($bg, 30%);
-    border-color: darken($border, 30%);
+    background: color.adjust($bg, $lightness: -30%);
+    border-color: color.adjust($border, $lightness: -30%);
   }
  
   &.focus,
   &:focus {
     background: $h-bg;
     border-color: $h-border;
-    box-shadow: 0 0 0 0.1rem lighten($bg, 10%);
+    box-shadow: 0 0 0 0.1rem color.adjust($bg, $lightness: 10%);
   }
 }
 
@@ -292,6 +337,23 @@ a:hover {
 
 .btn-outline-black {
   @include btn-color($black, $light, $black, $black, $light, $light);
+}
+
+// Light
+.btn-light {
+  @include btn-color($dark, $light, $light, $light, $dark, $dark);
+} 
+.btn-outline-light {
+  @include btn-color($light, $dark, $light, $light, $dark, $dark);
+}
+
+// Dark
+.btn-dark {
+  @include btn-color($light, $dark, $dark, $dark, $light, $light);
+}     
+
+.btn-outline-dark {
+  @include btn-color($dark, $light, $dark, $dark, $light, $light);
 }
 
 

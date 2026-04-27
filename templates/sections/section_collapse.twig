@@ -1,16 +1,17 @@
 {#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#}
-{# :::::::::::::: 01 * GRIT_SET section_collpase_search #}
-{# :::::::::::::: 02 * GRIT_SET section_collpase #}
+{# :::::::::::::: 01 * GRIT_SET section_collapse_search #}
+{# :::::::::::::: 02 * GRIT_SET section_collapse_dynamic #}
+{# :::::::::::::: 03 * GRIT_SET section_collapse #}
 {#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#} 
 
-{% if 'section_collpase_search' in class %} 
-{# :::::::::::::: 01 * GRIT_SET section_collpase_search #}
+{% if 'section_collapse_search' in class %} 
+{# :::::::::::::: 01 * GRIT_SET section_collapse_search #}
      <div class="container-fluid">
         <div class="row">
             <div class=" col-12 my-5 in__animate " data-animation="animate__fadeIn animate__slow " id="search_list">
                 <div class="py-3">
                     <form action="" class="form">
-                        <input type="search" class="search" placeholder="{{__('Come possiamo aiutarti?', 'grit_theme')}}"/>
+                        <input type="search" class="search" placeholder="{{__('Search...', 'grit_theme')}}"/>
                     </form> 
                 </div> 
                 <ul class="list p-0 w-100 list-unstyled">
@@ -23,14 +24,14 @@
                                     {% if counter == 0 %}
                                     <div class="col-12 pt-5 in__animate " data-animation="animate__fadeIn animate__slow ">
                                         <h2 class="color-{{ list.args_color }}">
-                                            <i class="fas fa-info-circle mr-2 "></i> {{ list.args }}
+                                            <i class="fas fa-dot-circle mr-2 "></i> {{ list.args }}
                                         </h2>
                                     </div>
                                     {% endif %} 
                                 {% endif %} 
                                 <div class="accordion w-100 in__animate " data-animation="animate__fadeIn animate__slow " id="accordion_search_{{ section.section_index }}_{{list_id}}">
                                     <div class="inner-collapse bg-light">
-                                        <div id="heading_{{ section.section_index }}_{{list_id}}_{{loop.index}} " class="py-2 px-3 text-white py-md-4 px-md-5 bg-{{ list.args_color }} accordion_search_heading  collapsed" type="button" data-toggle="collapse" data-target="#collapse_search_{{ section.section_index }}_{{list_id}}_{{loop.index}}" aria-expanded="false" collapsed aria-controls="collapse_search_{{ section.section_index }}_{{list_id}}_{{loop.index}}">
+                                        <div id="heading_{{ section.section_index }}_{{list_id}}_{{loop.index}} " class="py-2 px-3 color-{{ list.args_color }} py-md-4 px-md-5 bg-{{ list.background_color }} accordion_search_heading  collapsed" type="button" data-toggle="collapse" data-target="#collapse_search_{{ section.section_index }}_{{list_id}}_{{loop.index}}" aria-expanded="false" collapsed aria-controls="collapse_search_{{ section.section_index }}_{{list_id}}_{{loop.index}}">
                                             <div class="row align-items-center">
                                                 <div class="col-10">
                                                     <p class="m-0 search_title">
@@ -38,7 +39,7 @@
                                                     </p>
                                                     {% if list.args %}
                                                     <p class="text-uppercase m-0  ">
-                                                        <small><i class="fas fa-info-circle mr-1 "></i>{{ list.args }}</small>
+                                                        <small><i class="fas fa-dot-circle mr-1 "></i>{{ list.args }}</small>
                                                     </p> 
                                                     {% endif %}
                                                 </div>
@@ -52,7 +53,7 @@
                                         </div>
                                         <div id="collapse_search_{{ section.section_index }}_{{list_id}}_{{loop.index}}" class="accordion_search_body collapse  " aria-labelledby="heading_{{ section.section_index }}_{{list_id}}_{{loop.index}}" data-parent="#accordion_search_{{ section.section_index }}_{{list_id}}">
                                             {% if item.text %}
-                                                <div class="col-12 col-md-12 py-2 px-3 py-md-4 px-md-5 search_tex in__animate " data-animation="animate__fadeIn animate__slow ">
+                                                <div class="col-12 col-md-12 py-2 px-3 py-md-4 px-md-5 search_text in__animate " data-animation="animate__fadeIn animate__slow ">
                                                     {{item.text}}
 
                                                     {% if item.link_1 is not empty or item.link_2 is not empty %} 
@@ -109,23 +110,178 @@
         var userList = new List('search_list', options);
     });
 </script>
- {# :::::::::::::: 01 * GRIT_SET section_collpase_search END #}
+ {# :::::::::::::: 01 * GRIT_SET section_collapse_search END #}
+
+ {# :::::::::::::: 02 * GRIT_SET section_collapse_dynamic #}
+  {% elseif 'section_collapse_dynamic' in class %} 
+ 
+  <div class="container-fluid  ">
+    <div class="row">
+      <div class="col-12 pb-sm-5 ">
+        {# NAVIGATION (Tabs) #}
+        <ul class="nav arg-tabs d-flex justify-content-start" id="argTabs" role="tablist">
+          {% for list in section.lists %}
+            {% set list_id = 'tab_' ~ loop.index %} {# Usa loop.index per ID univoci sicuri #}
+            <li class="in__animate " data-animation="animate__fadeIn animate__slow " role="presentation">
+              <a class="{{ loop.first ? 'active' : '' }}"
+                 id="{{ list_id }}"
+                 data-toggle="tab"
+                 href="#content_{{ loop.index }}"
+                 role="tab"
+                 aria-controls="content_{{ loop.index }}"
+                 aria-selected="{{ loop.first ? 'true' : 'false' }}">
+                {{ list.args }} 
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+ 
+
+      <div class="col-12">
+        {# CONTENT #}
+        <div class="tab-content pt-5 " id="argTabsContent">
+          {% for list in section.lists %}
+            <div class="tab-pane fade {{ loop.first ? 'show active' : '' }}"
+                 id="content_{{ loop.index }}"
+                 role="tabpanel"
+                 aria-labelledby="tab_{{ loop.index }}">
+              
+              {# Layout: Carousel #}
+              {% if list.inner_class == 'carousel' %}
+                <div class="owl-carousel owl-theme pb-5">
+                  {% for item in list.item %} 
+                    <div class="item">
+                        <div class="card" > 
+                        	<div class="card-body d-flex flex-column justify-content-between  inner-text ">
+                        	  	<h4 class="card-title text-uppercase"><a href="{{item.link_1.url}}" target="{{item.link_1.target}}">{{item.link_1.title}}</a></h4>  
+                        		<div class="card-text ">
+                        			<div class="inner-text">
+                                        <h3>{{ item.title }}</h3>
+                        				{{ item.text }} 
+                                    </div> 
+                                    {% if item.link_1 is not empty or item.link_2 is not empty %} 
+                                    <div class="box-buttons ">
+                                        {% if item.link_1 %}
+                                            {% set btn = {
+                                            'title': item.link_1.title,
+                                            'url': item.link_1.url,
+                                            'target': item.link_1.target,
+                                            'style': 'btn btn-' ~ section.color_link_1 ~ ' btn-md',
+                                            }
+                                            %}
+                                            {% include ['/partials/btn.twig'] with btn %}
+                                        {% endif %} 
+                                        {% if item.link_2 %}
+                                            {% set btn = {
+                                            'title': item.link_2.title,
+                                            'url': item.link_2.url,
+                                            'target': item.link_2.target,
+                                            'style': 'btn btn-' ~ section.color_link_2 ~ ' btn-md',
+                                            }
+                                            %}
+                                            {% include ['/partials/btn.twig'] with btn %}
+                                        {% endif %}
+                                    </div> 
+                                    {% endif %}
+                        		</div>
+                        	</div> 
+                        </div>   
+                    </div>
+
+
+ 
+                  {% endfor %}
+                </div>
+
+              {# Layout: Standard (singolo testo) #}
+              {% elseif list.inner_class == '' %}
+                <div class="collapse-standard in__animate " data-animation="animate__fadeIn animate__slow ">
+                  {% for item in list.item %} 
+                        <div class="collapse-standard pb-5">
+                            <div class="inner-text">
+                                <h3>{{ item.title }}</h3>
+                        		{{ item.text }} 
+                            </div> 
+                            {% if item.link_1 is not empty or item.link_2 is not empty %} 
+                            <div class="box-buttons   in__animate " data-animation="animate__fadeIn animate__slow ">
+                                {% if item.link_1 %}
+                                    {% set btn = {
+                                    'title': item.link_1.title,
+                                    'url': item.link_1.url,
+                                    'target': item.link_1.target,
+                                    'style': 'btn btn-' ~ section.color_link_1 ~ ' btn-md',
+                                    }
+                                    %}
+                                    {% include ['/partials/btn.twig'] with btn %}
+                                {% endif %} 
+                                {% if item.link_2 %}
+                                    {% set btn = {
+                                    'title': item.link_2.title,
+                                    'url': item.link_2.url,
+                                    'target': item.link_2.target,
+                                    'style': 'btn btn-' ~ section.color_link_2 ~ ' btn-md',
+                                    }
+                                    %}
+                                    {% include ['/partials/btn.twig'] with btn %}
+                                {% endif %}
+                            </div> 
+                            {% endif %}
+                        </div>
+ 
+                  {% endfor %}
+                </div>
+
+              {# Layout: Grid (3 colonne) #}
+              {% elseif list.inner_class == 'grid' %}
+                  <div class="collapse-grid position-relative px-3 ">
+                    <div class="row">
+                      {% for item in list.item %}
+                        <div class="col-12 col-md-4 position-relative   mb-5 "> 
+                          <div class="grid-marker text-center">
+                            <span class="dot "></span>
+                            <div class="line "></div>
+                          </div>
+                
+                          <div class="pr-md-3 pr-lg-4 inner-text">
+                            <h2 class=" ">
+                              {{ item.title }}
+                            </h2>
+                            <div class="  ">{{ item.text }}</div>
+                          </div>
+                        </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+              {% endif %}
+
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+ 
+ {# :::::::::::::: 02 * GRIT_SET section_collapse_dynamic END #}
+
+
  {% else %}
- {# :::::::::::::: 02 * GRIT_SET section_collpase #}
+ {# :::::::::::::: 03 * GRIT_SET section_collapse #}
       <div class="container-fluid">
         <div class="row"> 
              {% for list in section.lists %}
                 {% set list_id = list.args|replace({' ': ''}) %}
                 <div class="col-12 pt-5 in__animate " data-animation="animate__fadeIn animate__slow ">
                     <h2 class="color-{{ list.args_color }}">
-                        <i class="fas fa-info-circle mr-2 "></i> {{ list.args }}
+                        <i class="fas fa-dot-circle mr-2 "></i> {{ list.args }}
                     </h2>
                 </div>
                 <div class="col-12"> 
                     <div class="accordion w-100 in__animate " data-animation="animate__fadeIn animate__slow " id="accordion_{{ section.section_index }}_{{list_id}}">
                         {% for item in list.item %}
                             <div class="inner-collapse bg-light  mb-1">
-                                <div id="heading_{{ section.section_index }}_{{list_id}}_{{loop.index}} " class="py-2 px-3 text-white py-md-4 px-md-5 bg-{{ list.args_color }} accordion_heading  {{ (loop.first) ? '' : 'collapsed' }}" type="button" data-toggle="collapse" data-target="#collapse_{{ section.section_index }}_{{list_id}}_{{loop.index}}" aria-expanded="{{ (loop.first) ? 'true' : 'false' }}" collapsed aria-controls="collapse_{{ section.section_index }}_{{list_id}}_{{loop.index}}">
+                                <div id="heading_{{ section.section_index }}_{{list_id}}_{{loop.index}} " class="py-2 px-3 color-{{ list.args_color }} py-md-4 px-md-5 bg-{{ list.background_color }} accordion_heading  {{ (loop.first) ? '' : 'collapsed' }}" type="button" data-toggle="collapse" data-target="#collapse_{{ section.section_index }}_{{list_id}}_{{loop.index}}" aria-expanded="{{ (loop.first) ? 'true' : 'false' }}" collapsed aria-controls="collapse_{{ section.section_index }}_{{list_id}}_{{loop.index}}">
                                     <div class="row">
                                         <div class="col-10">
                                             <p class="m-0 search_title">
@@ -179,7 +335,7 @@
             {% endfor %}
         </div> 
     </div> 
- {# :::::::::::::: 02 * GRIT_SET section_collpase END #}
+ {# :::::::::::::: 03 * GRIT_SET section_collapse END #}
 {% endif %}
 
  

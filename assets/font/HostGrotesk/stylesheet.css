@@ -1,0 +1,156 @@
+@font-face {
+    font-family: 'Host Grotesk';
+    src: url('HostGrotesk-Bold.eot');
+    src: local('Host Grotesk Bold'), local('HostGrotesk-Bold'),
+        url('HostGrotesk-Bold.eot?#iefix') format('embedded-opentype'),
+        url('HostGrotesk-Bold.woff2') format('woff2'),
+        url('HostGrotesk-Bold.woff') format('woff'),
+        url('HostGrotesk-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Host Grotesk';
+    src: url('HostGrotesk-BoldItalic.eot');
+    src: local('Host Grotesk Bold Italic'), local('HostGrotesk-BoldItalic'),
+        url('HostGrotesk-BoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('HostGrotesk-BoldItalic.woff2') format('woff2'),
+        url('HostGrotesk-BoldItalic.woff') format('woff'),
+        url('HostGrotesk-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Host Grotesk';
+    src: url('HostGrotesk-ExtraBold.eot');
+    src: local('Host Grotesk ExtraBold'), local('HostGrotesk-ExtraBold'),
+        url('HostGrotesk-ExtraBold.eot?#iefix') format('embedded-opentype'),
+        url('HostGrotesk-ExtraBold.woff2') format('woff2'),
+        url('HostGrotesk-ExtraBold.woff') format('woff'),
+        url('HostGrotesk-ExtraBold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Host Grotesk';
+    src: url('HostGrotesk-ExtraBoldItalic.eot');
+    src: local('Host Grotesk ExtraBold Italic'), local('HostGrotesk-ExtraBoldItalic'),
+        url('HostGrotesk-ExtraBoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('HostGrotesk-ExtraBoldItalic.woff2') format('woff2'),
+        url('HostGrotesk-ExtraBoldItalic.woff') format('woff'),
+        url('HostGrotesk-ExtraBoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Host Grotesk';
+    src: url('HostGrotesk-Italic.eot');
+    src: local('Host Grotesk Italic'), local('HostGrotesk-Italic'),
+        url('HostGrotesk-Italic.eot?#iefix') format('embedded-opentype'),
+        url('HostGrotesk-Italic.woff2') format('woff2'),
+        url('HostGrotesk-Italic.woff') format('woff'),
+        url('HostGrotesk-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Host Grotesk';
+    src: url('HostGrotesk-Light.eot');
+    src: local('Host Grotesk Light'), local('HostGrotesk-Light'),
+        url('HostGrotesk-Light.eot?#iefix') format('embedded-opentype'),
+        url('HostGrotesk-Light.woff2') format('woff2'),
+        url('HostGrotesk-Light.woff') format('woff'),
+        url('HostGrotesk-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Host Grotesk';
+    src: url('HostGrotesk-LightItalic.eot');
+    src: local('Host Grotesk Light Italic'), local('HostGrotesk-LightItalic'),
+        url('HostGrotesk-LightItalic.eot?#iefix') format('embedded-opentype'),
+        url('HostGrotesk-LightItalic.woff2') format('woff2'),
+        url('HostGrotesk-LightItalic.woff') format('woff'),
+        url('HostGrotesk-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Host Grotesk';
+    src: url('HostGrotesk-Medium.eot');
+    src: local('Host Grotesk Medium'), local('HostGrotesk-Medium'),
+        url('HostGrotesk-Medium.eot?#iefix') format('embedded-opentype'),
+        url('HostGrotesk-Medium.woff2') format('woff2'),
+        url('HostGrotesk-Medium.woff') format('woff'),
+        url('HostGrotesk-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Host Grotesk';
+    src: url('HostGrotesk-MediumItalic.eot');
+    src: local('Host Grotesk Medium Italic'), local('HostGrotesk-MediumItalic'),
+        url('HostGrotesk-MediumItalic.eot?#iefix') format('embedded-opentype'),
+        url('HostGrotesk-MediumItalic.woff2') format('woff2'),
+        url('HostGrotesk-MediumItalic.woff') format('woff'),
+        url('HostGrotesk-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Host Grotesk';
+    src: url('HostGrotesk-Regular.eot');
+    src: local('Host Grotesk Regular'), local('HostGrotesk-Regular'),
+        url('HostGrotesk-Regular.eot?#iefix') format('embedded-opentype'),
+        url('HostGrotesk-Regular.woff2') format('woff2'),
+        url('HostGrotesk-Regular.woff') format('woff'),
+        url('HostGrotesk-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Host Grotesk';
+    src: url('HostGrotesk-SemiBold.eot');
+    src: local('Host Grotesk SemiBold'), local('HostGrotesk-SemiBold'),
+        url('HostGrotesk-SemiBold.eot?#iefix') format('embedded-opentype'),
+        url('HostGrotesk-SemiBold.woff2') format('woff2'),
+        url('HostGrotesk-SemiBold.woff') format('woff'),
+        url('HostGrotesk-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Host Grotesk';
+    src: url('HostGrotesk-SemiBoldItalic.eot');
+    src: local('Host Grotesk SemiBold Italic'), local('HostGrotesk-SemiBoldItalic'),
+        url('HostGrotesk-SemiBoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('HostGrotesk-SemiBoldItalic.woff2') format('woff2'),
+        url('HostGrotesk-SemiBoldItalic.woff') format('woff'),
+        url('HostGrotesk-SemiBoldItalic.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+

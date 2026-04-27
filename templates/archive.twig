@@ -16,12 +16,22 @@
 <article class="post-type-{{post.post_type}}" id="post-{{post.ID}}"> 
 
 {# :::::::::::::: 02 * GRIT_SET Section Pre Content #} 
-	{% for section in sections %} 
-	    {% if section.pre_content %}
-			{% set section = section|merge({'section_index': loop.index}) %} 
-			{% include ['/sections/section.twig'] with section %}
-	    {% endif %}
-	{% endfor %}
+{% for section in sections %}
+    {% if section.acf_fc_layout == 'section_page' and section.page %}
+        {% set ref_sections = fn('get_field', 'sections', section.page.ID) %}
+        {% for ref_section in ref_sections %}
+            {% if ref_section.pre_content %}
+                {% set ref_section = ref_section|merge({
+                    'section_index': loop.index ~ '-' ~ loop.index0
+                }) %}
+                {% include ['/sections/section.twig'] with { section: ref_section } %}
+            {% endif %}
+        {% endfor %}
+    {% elseif section.pre_content %}
+        {% set section = section|merge({'section_index': loop.index}) %}
+        {% include ['/sections/section.twig'] with section %}
+    {% endif %}
+{% endfor %}
 {# :::::::::::::: 02 * GRIT_SET Section Pre Content END  #} 
 
 {# :::::::::::::: 03 * GRIT_SET Content #} 
@@ -42,10 +52,10 @@
 	<div class="page_archive contained py-3">
 		<div class="container-fluid">
 			<div class="row pb-3">
-				<div class="col-12 col-md-6 ">
+				<div class="col-12 col-md-6 py-3">
 					{% include 'partials/searchform.twig' %}
 				</div>
-				<div class="col-12 col-md-6 text-md-right">
+				<div class="col-12 col-md-6 py-3 text-md-right">
 					<p class="m-0">{{__('Vista dei risultati da', 'grit_theme')}}
 						<b>{{ startpost }}</b>
 						{{__('a', 'grit_theme')}}
@@ -58,8 +68,10 @@
 			<div class="row">  
 				{{ parent() }}   
 				{# 
+					// Standard parent is in index.twig
+					{% set grid = 'col col-12 col-sm-6 col-md-6 mb-3' %}   
 					{% for post in posts %}
-						{% include ['partials/tease-'~ post.post_type ~'.twig', 'partials/tease.twig'] %}
+						{% include ['partials/tease-'~ post.post_type ~'.twig', 'partials/tease.twig'] with {'post': post, 'grid': grid}%}
 					{% endfor %}   
 					<div class="col-12 d-flex justify-content-center">
 						{% include 'partials/pagination.twig' with { pagination: posts.pagination({show_all: false, mid_size: 3, end_size: 2}) } %}
@@ -71,12 +83,22 @@
 {# :::::::::::::: 04 * GRIT_SET Archive Loop END #} 
 	
 {# :::::::::::::: 05 * GRIT_SET Section #} 
-	{% for section in sections %}
-	    {% if not section.pre_content %}
-			{% set section = section|merge({'section_index': loop.index}) %} 
-			{% include ['/sections/section.twig'] with section %}
-	    {% endif %}
-	{% endfor %} 
+{% for section in sections %}
+    {% if section.acf_fc_layout == 'section_page' and section.page %}
+        {% set ref_sections = fn('get_field', 'sections', section.page.ID) %}
+        {% for ref_section in ref_sections %}
+            {% if not ref_section.pre_content %}
+                {% set ref_section = ref_section|merge({
+                    'section_index': loop.index ~ '-' ~ loop.index0
+                }) %}
+                {% include ['/sections/section.twig'] with { section: ref_section } %}
+            {% endif %}
+        {% endfor %}
+    {% elseif not section.pre_content %}
+        {% set section = section|merge({'section_index': loop.index}) %}
+        {% include ['/sections/section.twig'] with section %}
+    {% endif %}
+{% endfor %}
 {# :::::::::::::: 05 * GRIT_SET Section #} 
 
 </article>  

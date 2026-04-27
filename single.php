@@ -40,9 +40,9 @@ if ($terms) {
 /* GRIT_SET Elaboro una query per i related con escluso i post corrente per categoria corrente */
 $args = array(
     'post_type' => get_post_type(''), // Nome del custom post
-    'orderby' => 'date',
+    'orderby' => 'post_date', 
 	'posts_per_page' => get_option('posts_per_page'), 
-    'order' => 'ASC',
+    'order' => 'DESC',
 	'post__not_in' => array( get_the_ID() ) // Escludi il post corrente
 );
 $context['archive_posts'] = $archive_posts = new Timber\PostQuery($args);

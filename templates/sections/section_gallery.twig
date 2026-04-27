@@ -54,10 +54,7 @@
                 </div>
             </div> 
         </div>
-        <script> 
-            window.navLeftArrow = `{% include '/partials/arrow.twig' %}`;
-            window.navRightArrow = `{% include '/partials/arrow.twig' %}`; 
-        </script> 
+
         {# :::::::::::::: 01 * GRIT_SET gallery_carousel END #}
     {% else %}
     {# :::::::::::::: 02 * GRIT_SET section_gallery #} 
@@ -91,13 +88,7 @@
                         } %}
                             {% include ['/partials/img.twig'] with image %}
                         </div>
-                        <style> 
-                            .gsap-parallax-container {
-                                height: 500px; /* o un'altra altezza significativa */
-                                position: relative;
-                                overflow: hidden;
-                            }
-                        </style>   
+                         
                 {% elseif 'parallax' in classes %} 
                 
                     <div class="jarallax-keep-img overlay-in" data-speed="0.2">

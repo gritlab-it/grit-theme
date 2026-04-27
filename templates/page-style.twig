@@ -21,16 +21,22 @@
 {# :::::::::::::: 02 * GRIT_SET Section Pre Content END  #} 
 
 {# :::::::::::::: 03 * GRIT_SET Content #} 
-	{% if content is not empty %}
-	    <section class="section_page contained py-3">
-	        <div class="container-fluid">
-	            <div class="row">
-	                <div class="col-12">  
-	                    {{ content }}
-	                </div>
-	            </div>
-	        </div>
-	    </section>
+{% for section in sections %}
+    {% if section.acf_fc_layout == 'section_page' and section.page %}
+        {% set ref_sections = fn('get_field', 'sections', section.page.ID) %}
+        {% for ref_section in ref_sections %}
+            {% if ref_section.pre_content %}
+                {% set ref_section = ref_section|merge({
+                    'section_index': loop.index ~ '-' ~ loop.index0
+                }) %}
+                {% include ['/sections/section.twig'] with { section: ref_section } %}
+            {% endif %}
+        {% endfor %}
+    {% elseif section.pre_content %}
+        {% set section = section|merge({'section_index': loop.index}) %}
+        {% include ['/sections/section.twig'] with section %}
+    {% endif %}
+{% endfor %}>
 	{% endif %}
 {# :::::::::::::: 03 * GRIT_SET Content END #} 
 
@@ -182,12 +188,22 @@
 {# :::::::::::::: 04 * GRIT_SET Style Boostrap END #} 
 
 {# :::::::::::::: 05 * GRIT_SET Section #} 
-	{% for section in sections %}
-	    {% if not section.pre_content %}
-			{% set section = section|merge({'section_index': loop.index}) %} 
-			{% include ['/sections/section.twig'] with section %}
-	    {% endif %}
-	{% endfor %} 
+{% for section in sections %}
+    {% if section.acf_fc_layout == 'section_page' and section.page %}
+        {% set ref_sections = fn('get_field', 'sections', section.page.ID) %}
+        {% for ref_section in ref_sections %}
+            {% if not ref_section.pre_content %}
+                {% set ref_section = ref_section|merge({
+                    'section_index': loop.index ~ '-' ~ loop.index0
+                }) %}
+                {% include ['/sections/section.twig'] with { section: ref_section } %}
+            {% endif %}
+        {% endfor %}
+    {% elseif not section.pre_content %}
+        {% set section = section|merge({'section_index': loop.index}) %}
+        {% include ['/sections/section.twig'] with section %}
+    {% endif %}
+{% endfor %}
 {# :::::::::::::: 05 * GRIT_SET Section #} 
 
 </article> 
