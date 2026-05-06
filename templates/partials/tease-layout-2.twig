@@ -1,23 +1,27 @@
 {% extends "partials/tease.twig" %}
 
-{% block content %}
-	<div class="card in__animate " data-animation="animate__fadeIn animate__slow ">
-		<div class="card-img">
-			<a href="{{post.link}}">
-				<div class="gsap-parallax-container">
-					{% if post.thumbnail %}
+{% block content %} 
+<div class="card overflow-hidden border-1 rounded-5 in__animate " data-animation="animate__fadeIn animate__slow ">
+  <div class="row g-0 h-100">
+
+    <div class="col-md-5 p-0">
+      <div class="card-img w-100 h-100">
+			<a href="{{post.link}}" class="w-100 h-100">
+				{% if post.thumbnail %}
 						{% set image = {
 					'alt': post.thumbnail,
 					'src': Image(post.thumbnail.id).src ,
-					'class': 'gsap-parallaxImage '
+					'class': 'img-fluid w-100 h-100 object-fit-cover'
 					}
 					%}
 						{% include ['/partials/img.twig'] with image %}
 					{% endif %}
-				</div>
 			</a>
 		</div>
-		<div class="card-body">
+    </div>
+
+    <div class="col-md-7 p-5 d-flex flex-column bg-grey">
+       <div class="card-body">
 			<h6 class="card-subtitle mb-2">
 				<span class="color-accent">■</span>
 				{{ post.terms('') | join(', ') }}
@@ -30,5 +34,8 @@
 			<div class="card-text">{{ post.get_preview( split_content_post|length + 10, false, '', false )|apply_filters('the_content') }}
 			</div>
 		</div>
-	</div>
+    </div>
+
+  </div>
+</div>
 {% endblock %}

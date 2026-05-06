@@ -5,6 +5,7 @@
 
 {% set tease = section.tease | default('post') %}       
 {% set post_type = section.post_type | default('post') %}       
+{% set inner_class = section.inner_class | default('col col-12 col-sm-6 col-md-4 col-lg-3 mb-3') %}
 {% set posts = attribute(_context, 'archive_' ~ post_type) %}
 
 {% if 'section_archive_carousel' in class %}
@@ -25,7 +26,7 @@
 {# :::::::::::::: 01 * GRIT_SET section_archive_carosuel END #}
 {% else %}
 {# :::::::::::::: 02 * GRIT_SET section_archive #}
-{% set grid = 'col col-12 col-sm-6 col-md-4 col-lg-3 mb-3' %}
+{% set grid = inner_class %}
 <div class="container-fluid">
     <div class="row justify-content-center">  
         <div class="{{ col_classes|join(' ')  | default('col col-12') }} ">

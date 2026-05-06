@@ -418,6 +418,10 @@ body .content-wrapper {
   transform: translate(-50%, -50%);
 }
 
+.object-fit-cover {
+  object-fit: cover;
+}
+
 /* Stile per scrollbar in browser WebKit (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
   width: 1px; /* Larghezza della scrollbar */
@@ -3610,25 +3614,31 @@ a:hover {
   text-align: center;
   margin-top: 30px;
 }
-#header_1 .header-menu .sidenav.sidenav-open .inner-sidenav, #header_1 .header-menu .sidenav.sidenav-open .overlay-content,
+#header_1 .header-menu .sidenav.sidenav-open .inner-sidenav, #header_1 .header-menu .sidenav.sidenav-open .overlay-content, #header_1 .header-menu .sidenav.sidenav-open .nav-social,
 #header_2 .header-menu .sidenav.sidenav-open .inner-sidenav,
 #header_2 .header-menu .sidenav.sidenav-open .overlay-content,
+#header_2 .header-menu .sidenav.sidenav-open .nav-social,
 #header_4 .header-menu .sidenav.sidenav-open .inner-sidenav,
 #header_4 .header-menu .sidenav.sidenav-open .overlay-content,
+#header_4 .header-menu .sidenav.sidenav-open .nav-social,
 #header_5 .header-menu .sidenav.sidenav-open .inner-sidenav,
-#header_5 .header-menu .sidenav.sidenav-open .overlay-content {
+#header_5 .header-menu .sidenav.sidenav-open .overlay-content,
+#header_5 .header-menu .sidenav.sidenav-open .nav-social {
   opacity: 1;
   transition-delay: 0s;
   -webkit-transition: all 0.7s ease-in-out;
   transition: all 0.7s ease-in-out;
 }
-#header_1 .header-menu .sidenav.sidenav-close .inner-sidenav, #header_1 .header-menu .sidenav.sidenav-close .overlay-content,
+#header_1 .header-menu .sidenav.sidenav-close .inner-sidenav, #header_1 .header-menu .sidenav.sidenav-close .overlay-content, #header_1 .header-menu .sidenav.sidenav-close .nav-social,
 #header_2 .header-menu .sidenav.sidenav-close .inner-sidenav,
 #header_2 .header-menu .sidenav.sidenav-close .overlay-content,
+#header_2 .header-menu .sidenav.sidenav-close .nav-social,
 #header_4 .header-menu .sidenav.sidenav-close .inner-sidenav,
 #header_4 .header-menu .sidenav.sidenav-close .overlay-content,
+#header_4 .header-menu .sidenav.sidenav-close .nav-social,
 #header_5 .header-menu .sidenav.sidenav-close .inner-sidenav,
-#header_5 .header-menu .sidenav.sidenav-close .overlay-content {
+#header_5 .header-menu .sidenav.sidenav-close .overlay-content,
+#header_5 .header-menu .sidenav.sidenav-close .nav-social {
   opacity: 0;
   transition-delay: 0.5s;
   -webkit-transition: all 0.7s ease-in-out;
@@ -3699,10 +3709,10 @@ a:hover {
 #header_3 .header-menu,
 #header_3 .sticky-fix {
   background-color: #FCFCF8;
-  width: 93vw;
   margin-top: 20px;
   padding: 5px 5px;
   border-radius: 40px;
+  width: 93vw;
 }
 @media (min-width: 768px) {
   #header_3 .header-menu,
@@ -3769,7 +3779,7 @@ a:hover {
   }
 }
 #header_3 .header-menu {
-  z-index: 3;
+  z-index: 4;
   position: absolute;
 }
 #header_3 .header-menu .sidenav {
@@ -3794,10 +3804,20 @@ a:hover {
 }
 #header_3 .header-menu .sidenav .inner-sidenav .navbar {
   position: absolute;
-  width: 93vw;
   margin-top: 25px;
   padding: 8px 21px;
   border-radius: 40px;
+  width: 93vw;
+}
+@media (min-width: 768px) {
+  #header_3 .header-menu .sidenav .inner-sidenav .navbar {
+    width: 75vw;
+  }
+}
+@media (min-width: 992px) {
+  #header_3 .header-menu .sidenav .inner-sidenav .navbar {
+    width: 70vw;
+  }
 }
 #header_3 .header-menu .sidenav .overlay-content {
   position: relative;
@@ -3805,20 +3825,20 @@ a:hover {
   text-align: center;
   margin-top: 30px;
 }
-#header_3 .header-menu .sidenav.sidenav-open .inner-sidenav, #header_3 .header-menu .sidenav.sidenav-open .overlay-content {
+#header_3 .header-menu .sidenav.sidenav-open .inner-sidenav, #header_3 .header-menu .sidenav.sidenav-open .overlay-content, #header_3 .header-menu .sidenav.sidenav-open .nav-social {
   opacity: 1;
   transition-delay: 0s;
   -webkit-transition: all 0.7s ease-in-out;
   transition: all 0.7s ease-in-out;
 }
-#header_3 .header-menu .sidenav.sidenav-close .inner-sidenav, #header_3 .header-menu .sidenav.sidenav-close .overlay-content {
+#header_3 .header-menu .sidenav.sidenav-close .inner-sidenav, #header_3 .header-menu .sidenav.sidenav-close .overlay-content, #header_3 .header-menu .sidenav.sidenav-close .nav-social {
   opacity: 0;
   transition-delay: 0.5s;
   -webkit-transition: all 0.7s ease-in-out;
   transition: all 0.7s ease-in-out;
 }
 #header_3 .sticky-fix {
-  z-index: 2;
+  z-index: 3;
   position: fixed;
   top: -126px;
   transition: 0.4s all ease-out 0.5s;

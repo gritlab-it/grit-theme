@@ -2963,6 +2963,27 @@
                                 "append": ""
                             },
                             {
+                                "key": "field_69ef6de0d336a",
+                                "label": "Inner Class",
+                                "name": "inner_class",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "maxlength": "",
+                                "allow_in_bindings": 0,
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": ""
+                            },
+                            {
                                 "key": "field_671f811a34bcf",
                                 "label": "Style",
                                 "name": "",
@@ -4175,5 +4196,5 @@
         "display_title": "",
         "allow_ai_access": false,
         "ai_description": ""
-    }
+    } 
 ]
