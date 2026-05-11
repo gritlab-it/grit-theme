@@ -429,6 +429,7 @@ function grit_customize_register($wp_customize)
 
     $wp_customize->add_setting('grit_adv_adminbar', array(
         'capability' => 'edit_theme_options',
+        'default'    => true,
     ));
     $wp_customize->add_control('grit_adv_adminbar', array(
         'type' => 'checkbox',

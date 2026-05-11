@@ -1,6 +1,6 @@
 <?php
 
-if (get_theme_mod('grit_adv_adminbar')) {
+if (get_theme_mod('grit_adv_adminbar', true)) {
   show_admin_bar( false );
 }
 
@@ -29,19 +29,21 @@ if (get_theme_mod('grit_adv_adminbar')) {
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
 function new_contactmethods( $contactmethods ) {
-  $contactmethods['twitter'] = 'Twitter'; // Aggiungi Twitter
-  $contactmethods['facebook'] = 'Facebook'; // Aggiungi Facebook
-  $contactmethods['googleplus'] = 'Google+'; // Aggiungi Google+
-  $contactmethods['pinterest'] = 'Pinterest'; // Aggiungi Pinterest
-  $contactmethods['instagram'] = 'Instagram'; // Aggiungi Instagram
-  $contactmethods['github'] = 'GitHub'; // Aggiungi GitHub
-  $contactmethods['bitbucket'] = 'Bitbucket'; // Aggiungi Bitbucket
-  $contactmethods['telegram'] = 'Telegram'; // Aggiungi Bitbucket
-  unset($contactmethods['yim']); // Rimuovi Yahoo IM
-  unset($contactmethods['aim']); // Rimuovi AIM
-  unset($contactmethods['jabber']); // Rimuovi Jabber
+    // Add socials
+    $contactmethods['instagram'] = 'Instagram';
+    $contactmethods['facebook']  = 'Facebook';
+    $contactmethods['linkedin']  = 'LinkedIn';
+    $contactmethods['github']    = 'GitHub';
+    $contactmethods['youtube']   = 'YouTube';
+    $contactmethods['telegram']  = 'Telegram';
+    $contactmethods['tiktok']    = 'TikTok';
 
-return $contactmethods;
+    // Remove deprecated fields
+    unset( $contactmethods['aim'] );
+    unset( $contactmethods['yim'] );
+    unset( $contactmethods['jabber'] );
+
+    return $contactmethods;
 }
 add_filter('user_contactmethods','new_contactmethods',10,1);
 
