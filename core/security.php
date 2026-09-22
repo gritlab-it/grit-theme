@@ -20,7 +20,7 @@ function remove_header_info() {
 add_action('init', 'remove_header_info');
 
 //Remove error mesage in login
-add_filter('login_errors',invalid_input());
+add_filter('login_errors', 'invalid_input');
 
 function invalid_input() {
     return 'Invalid Input';
