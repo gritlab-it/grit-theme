@@ -347,6 +347,14 @@ add_action('wp_head', 'grit_jquery_local_fallback');
 ::::::::::::::    * GRIT_SET Google Recaptcha
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
+function add_recaptcha_lib() {
+    $recaptcha_api_key = get_theme_mod('grit_setting_recaptcha');
+    if (!empty($recaptcha_api_key)) {
+        echo '<script src="https://www.google.com/recaptcha/api.js?render=' . $recaptcha_api_key . '" async defer></script>';
+    }
+}
+add_action('wp_head', 'add_recaptcha_lib');
+
  
     function add_recaptcha_init() {
         $recaptcha_api_key = get_theme_mod('grit_setting_recaptcha');

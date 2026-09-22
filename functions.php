@@ -270,14 +270,6 @@ class StarterSite extends Timber\Site {
 		$gmaps_api_key = get_theme_mod('grit_setting_maps');
 		$context['google_maps_api'] = 'https://maps.googleapis.com/maps/api/js?key=' . $gmaps_api_key . '&loading=async&callback=initMap';
 
-		// * GRIT_SET Google Recaptcha v3		
-		function add_recaptcha_lib() {
-			$recaptcha_api_key = get_theme_mod('grit_setting_recaptcha');
-			if (!empty($recaptcha_api_key)) {
-				echo '<script src="https://www.google.com/recaptcha/api.js?render=' . $recaptcha_api_key . '" async defer></script>';
-			}
-		}
-		add_action('wp_head', 'add_recaptcha_lib');
 		
 		
 		
@@ -536,4 +528,3 @@ add_filter('doing_it_wrong_trigger_error', '__return_false', 0);
 
 
  
-
