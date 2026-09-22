@@ -1,21 +1,6 @@
 <?php
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * GRIT_SET Remove query string from static resources
-::::::::::::::      https://kinsta.com/it/knowledgebase/rimuovere-le-query-string-dalle-risorse-statiche/
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-
-function _remove_script_version($src)
-{
-    $parts = explode('?', $src);
-    return $parts[0];
-}
-
-add_filter('script_loader_src', '_remove_script_version', 15, 1);
-add_filter('style_loader_src', '_remove_script_version', 15, 1);
-
-
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ::::::::::::::    * GRIT_SET Add prefetching rules
 ::::::::::::::      https://authoritywebsiteincome.com/speed-up-wordpress-with-dns-prefetching/
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
