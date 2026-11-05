@@ -1,178 +1,146 @@
 <?php
-/*
-Template Name: Template Archive
-*/
-?>
-<?php
 /**
- * The template for displaying Archive pages.
+ * Template Name: Template Archive
  *
- * Used to display archive-type pages if nothing more specific matches a query.
- * For example, puts together date-based pages if no date.php file exists.
- *
- * Learn more: http://codex.wordpress.org/Template_Hierarchy
- *
- * Methods for TimberHelper can be found in the /lib sub-directory
- *
- * @package  WordPress
- * @subpackage  Timber
- * @since   Timber 0.2
+ * Native archives preserve the main query. Pages resolve their archive type
+ * from their path, matching the archive slug, rewrite slug or post type name.
  */
 
+// * GRIT_SET Initialize the shared context and preserve the native WordPress query
+global $wp_query;
+
 $templates = array('archive.twig', 'index.twig');
-$context = Timber::context(); 
-$post_type_obj = get_post_type_object(get_post_type()); 
+$context = Timber::context();
+$object = get_queried_object();
+$page_id = null;
+$post_type_obj = null;
+$archive_query = $wp_query;
+$paged = max(1, absint(get_query_var('paged')), is_page() ? absint(get_query_var('page')) : 0);
 
-$page_id = null; 
-$context['post_type'] = $post_type = $post_type_obj->name ?? 'post';
-
-$context['term'] = $term_obj = new Timber\Term(get_queried_object_id()); 
-// * GRIT_SET Assignment of the pagination number of posts per page
-$paginazione = get_option('posts_per_page');
-$num_pagina = $paginazione - 1;
-$exp_reg_pag = '%/page/(' . $num_pagina . ')%'; 
-// * GRIT_SET Pagination processing: set the next number here '%/page/([0-3]+)%' based on the assigned value in pagination
-preg_match($exp_reg_pag, $_SERVER['REQUEST_URI'], $matches);
-if (get_query_var('paged')) {
-    $paged = get_query_var('paged');
-} elseif (get_query_var('page')) {
-    $paged = get_query_var('page');
-} elseif (isset($matches[1])) {
-    $paged = $matches[1];
-} elseif (!isset($paged) || !$paged) {
-    $paged = 1;
-} else {
-    $paged = 1;
-}
-// * GRIT_SET Check type of post 
-if (is_day()) {
-    $context['title'] = 'Archive: ' . get_the_date('D M Y');
-} elseif (is_month()) {
-    $context['title'] = 'Archive: ' . get_the_date('M Y');
-} elseif (is_year()) {
-    $context['title'] = 'Archive: ' . get_the_date('Y');
- 
-} elseif (is_category() || is_tag() || is_tax()) {
- 
- 
-    if ($term_obj && isset($term_obj->term_id)) {
-        $page_id = $term_obj->taxonomy . '_' . $term_obj->term_id;
+// * GRIT_SET Collect archive slugs, rewrite paths and post type names for page associations
+$archive_slugs = static function ($type) {
+    $slugs = array($type->name);
+    if (is_string($type->has_archive) && $type->has_archive !== '') {
+        array_unshift($slugs, trim($type->has_archive, '/'));
     }
-
-    $context['title'] = single_term_title('', false);
-    $context['content'] = term_description(); 
-
-    // * GRIT_SET Get Child of current cat 
-    $context['childs'] = $childs = get_terms(
-        $term_obj->taxonomy,
-        array(
-            'parent'    => $term_obj->term_id,
-            'hide_empty' => false
-        )
-    ); 
-
-    // * GRIT_SET Get Parent of current cat
-    $parent_id = $term_obj->parent;
-    $context['parents'] = $parents = get_terms(
-        $term_obj->taxonomy,
-        array(
-            'term_taxonomy_id'  => $parent_id,
-            'hide_empty' => false,
-        )
-    );
-
-
-    array_unshift(
-        $templates, 
-        'taxonomy-' . $term_obj->taxonomy . '.twig', 
-        'taxonomy.twig',
-        'category-' . $term_obj->slug . '.twig', 
-        'category.twig',
-        'archive-' . get_query_var('cat') . '.twig',
-    );
-}  elseif (is_post_type_archive()) {
-
-    // * GRIT_SET Page set with the same slug of cpt  
-    $page_args = array(
-        'post_type' => 'page',
-        'name' => $post_type_obj->rewrite['slug'],
-        'posts_per_page' => 1
-    );
-    $query = new WP_Query($page_args);
-    // * GRIT_SET Check of posts page with same slug of current cpt slug
-    if ($query->have_posts()) {
-        $query->the_post();
-        $context['post'] = $post = get_post(get_the_ID()); 
-        $page_id = get_the_ID();
-        $context['page_id'] = $page_id;
-        $context['page_title'] = get_the_title($page_id);
-        $context['content'] = get_the_content($page_id);  
- 
-        wp_reset_postdata();
-    } else {
-        $context['title'] = $post_type_obj->labels->singular_name;
-        $context['content'] = get_the_post_type_description();
- 
+    if (is_array($type->rewrite) && !empty($type->rewrite['slug'])) {
+        $slugs[] = trim($type->rewrite['slug'], '/');
     }
-    
-    array_unshift($templates, 'archive-' . $post_type_obj->name . '.twig');
-} elseif (is_page()) {
-    // * GRIT_SET Page with setting tempalte archive   
+    return array_unique($slugs);
+};
+
+// * GRIT_SET Set default archive title and description
+$context['title'] = get_the_archive_title();
+$context['content'] = get_the_archive_description();
+
+// * GRIT_SET Resolve the CPT associated with a page using Template Archive
+if (is_page()) {
+    $page_id = get_queried_object_id();
+    $path = get_page_uri($page_id);
+    $matches = array();
+    foreach (get_post_types(array('public' => true), 'objects') as $type) {
+        if (in_array($type->name, array('page', 'attachment'), true)) {
+            continue;
+        }
+        if (in_array($path, $archive_slugs($type), true)) {
+            $matches[$type->name] = $type;
+        }
+    }
+    if (count($matches) === 1) {
+        $post_type_obj = reset($matches);
+    }
+    // A page named blog can also represent the standard posts archive.
+    if (!$post_type_obj && !$matches && $path === 'blog') {
+        $post_type_obj = get_post_type_object('post');
+    }
+    // * GRIT_SET Build a separate paginated query for the page archive
+    $args = array(
+        'post_type' => $post_type_obj ? $post_type_obj->name : 'post',
+        'post_status' => 'publish',
+        'posts_per_page' => get_option('posts_per_page'),
+        'paged' => $paged,
+        'orderby' => array('date' => 'DESC', 'ID' => 'DESC'),
+        'ignore_sticky_posts' => true,
+    );
+    // Do not silently display unrelated posts when no association exists.
+    if (!$post_type_obj) {
+        $args['post__in'] = array(0);
+    }
+    $archive_query = new WP_Query($args);
+} elseif (is_post_type_archive() && $object instanceof WP_Post_Type) {
+    // * GRIT_SET Find a published page associated with the native CPT archive
+    $post_type_obj = $object;
+    foreach ($archive_slugs($post_type_obj) as $slug) {
+        $page = get_page_by_path($slug, OBJECT, 'page');
+        if ($page && $page->post_status === 'publish') {
+            $page_id = $page->ID;
+            break;
+        }
+    }
 } elseif (is_home()) {
-    // * GRIT_SET Page articles of post set in theme option of wp 
-    $page_id = get_option('page_for_posts'); 
-    $context['post'] = $post = get_post($page_id);
-    $context['title'] = get_the_title($page_id);
-    $context['content'] = apply_filters('the_content', get_post_field('post_content', $page_id)); 
-    $context['the_excerpt'] = get_the_excerpt($page_id); 
-
- 
-
-} else {
-    echo 'not set type of archive';
-} 
-
-
- 
-//  * GRIT_SET Assign all ACF variables to Twig
-$fields = $page_id ? get_field_objects($page_id) : null;
-
-if ($fields) :
-    foreach ($fields as $field) :
-        $name_id = $field['name'];
-        $value_id = $field['value'];
-        $context[$name_id] = $value_id;
-    endforeach;
-endif;
- //  * GRIT_SET Main query
-$args = array(
-    'post_type' => $post_type,
-    'posts_per_page' => $paginazione,
-    'paged' => $paged,
-    'orderby' => 'post_date', 
-	'order' => 'DESC',
-);
-
-if (is_category()) {
-    $args['cat'] = $term_obj->term_id;
-
-} elseif (is_tag()) {
-    $args['tag_id'] = $term_obj->term_id;
-
-} elseif (is_tax()) {
-    $args['tax_query'] = [
-        [
-            'taxonomy' => $term_obj->taxonomy,
-            'field'    => 'term_id',
-            'terms'    => $term_obj->term_id,
-        ]
-    ];
+    // * GRIT_SET Load the posts page configured in WordPress reading settings
+    $page_id = (int) get_option('page_for_posts');
+    $post_type_obj = get_post_type_object('post');
+    $context['title'] = $post_type_obj->labels->name;
+    $context['content'] = '';
+} elseif ((is_category() || is_tag() || is_tax()) && $object instanceof WP_Term) {
+    // * GRIT_SET Load taxonomy content, ACF reference and related terms
+    $context['term'] = new Timber\Term($object->term_id);
+    $page_id = $object->taxonomy . '_' . $object->term_id;
+    $context['title'] = single_term_title('', false);
+    $context['content'] = term_description();
+    $children = get_terms(array(
+        'taxonomy' => $object->taxonomy,
+        'parent' => $object->term_id,
+        'hide_empty' => false,
+    ));
+    $context['childs'] = is_wp_error($children) ? array() : $children;
+    $parent = $object->parent ? get_term($object->parent, $object->taxonomy) : null;
+    $context['parents'] = $parent && !is_wp_error($parent) ? array($parent) : array();
+    // * GRIT_SET Select taxonomy templates from specific to generic
+    if (is_category()) {
+        array_unshift($templates, 'category-' . $object->slug . '.twig', 'category-' . $object->term_id . '.twig', 'category.twig');
+    } elseif (is_tag()) {
+        array_unshift($templates, 'tag-' . $object->slug . '.twig', 'tag-' . $object->term_id . '.twig', 'tag.twig');
+    } else {
+        array_unshift($templates, 'taxonomy-' . $object->taxonomy . '-' . $object->slug . '.twig', 'taxonomy-' . $object->taxonomy . '.twig', 'taxonomy.twig');
+    }
 }
 
-$context['posts'] = $posts = new Timber\PostQuery($args); 
-//  * GRIT_SET Managing page numbering and their corresponding values
-$context['found_posts'] = $posts->found_posts;
-$context['startpost'] = $startpost = 1;
-$context['startpost'] = $startpost = $paginazione * ($paged - 1) + 1;
-$context['endpost'] = $endpost = ($paginazione * $paged < $posts->found_posts ? $paginazione * $paged : $posts->found_posts);  
+// * GRIT_SET Prefer the CPT-specific Twig template when available
+if ($post_type_obj) {
+    array_unshift($templates, 'archive-' . $post_type_obj->name . '.twig');
+}
+$context['post_type'] = $post_type_obj ? $post_type_obj->name : $wp_query->get('post_type');
+
+// * GRIT_SET Load the associated page content without replacing the archive query
+if (is_int($page_id) && $page_id > 0) {
+    $context['post'] = new Timber\Post($page_id);
+    $context['page_id'] = $page_id;
+    $context['title'] = $context['page_title'] = get_the_title($page_id);
+    $context['content'] = apply_filters('the_content', get_post_field('post_content', $page_id));
+    $context['the_excerpt'] = get_the_excerpt($page_id);
+}
+
+// * GRIT_SET Expose page or taxonomy ACF fields to Twig when ACF is available
+$fields = $page_id && function_exists('get_field_objects') ? get_field_objects($page_id) : null;
+if ($fields) {
+    foreach ($fields as $field) {
+        $context[$field['name']] = $field['value'];
+    }
+}
+
+// * GRIT_SET Wrap archive results in Timber and calculate the displayed result range
+$context['posts'] = new Timber\PostQuery($archive_query);
+$context['found_posts'] = (int) $archive_query->found_posts;
+$count = (int) $archive_query->post_count;
+$per_page = (int) $archive_query->get('posts_per_page');
+$offset = $archive_query->get('offset');
+$start = $per_page > 0 ? ($paged - 1) * $per_page : 0;
+if (is_numeric($offset)) {
+    $start = (int) $offset;
+}
+$context['startpost'] = $count ? $start + 1 : 0;
+$context['endpost'] = $count ? $start + $count : 0;
+// * GRIT_SET Render the first available archive template
 Timber::render($templates, $context);
