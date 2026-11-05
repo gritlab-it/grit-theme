@@ -40,15 +40,28 @@ $search_query = isset($_GET['s']) ? sanitize_text_field($_GET['s']) : '';
 $context['search_query'] = get_search_query();
 $context['s'] = $search_query;
 
-/* assegno tutte le variabili di ACF */
-$fields = get_field_objects($post);
-if ($fields):
-    foreach ($fields as $field):
-        $name_id = $field['name'];
-        $value_id = $field['value'];
-        $context[$name_id] = $value_id;
-    endforeach;
-endif;
+// * GRIT_SET Resolve the page supplying search sections without using a search result
+$search_page_id = 0;
+if (is_page() && get_page_template_slug(get_queried_object_id()) === 'search.php') {
+    $search_page_id = get_queried_object_id();
+} else {
+    $search_page = get_page_by_path('search', OBJECT, 'page');
+    if ($search_page && $search_page->post_status === 'publish') {
+        $search_page_id = $search_page->ID;
+    }
+}
+
+// * GRIT_SET Load ACF sections only from the associated search page
+$context['sections'] = array();
+if ($search_page_id) {
+    $context['page_id'] = $search_page_id;
+    $fields = function_exists('get_field_objects') ? get_field_objects($search_page_id) : null;
+    if ($fields) {
+        foreach ($fields as $field) {
+            $context[$field['name']] = $field['value'];
+        }
+    }
+}
 
 
 
