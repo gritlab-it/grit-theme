@@ -1,0 +1,19 @@
+{# * GRIT_SET Render local and referenced sections in the requested content position #}
+{% for section in sections|default([]) %}
+    {% set section_index = loop.index %}
+    {% if section.acf_fc_layout == 'section_page' and section.page %}
+        {# * GRIT_SET Expand referenced page sections at one level only #}
+        {% set ref_sections = fn('get_field', 'sections', section.page.ID) %}
+        {% for ref_section in ref_sections|default([]) %}
+            {% if ref_section.acf_fc_layout != 'section_page' and (ref_section.pre_content|default(false) ? true : false) == pre_content %}
+                {% set rendered_section = ref_section|merge({
+                    'section_index': section_index ~ '-' ~ loop.index
+                }) %}
+                {% include 'sections/section.twig' with { section: rendered_section } %}
+            {% endif %}
+        {% endfor %}
+    {% elseif section.acf_fc_layout != 'section_page' and (section.pre_content|default(false) ? true : false) == pre_content %}
+        {% set rendered_section = section|merge({'section_index': section_index}) %}
+        {% include 'sections/section.twig' with { section: rendered_section } %}
+    {% endif %}
+{% endfor %}

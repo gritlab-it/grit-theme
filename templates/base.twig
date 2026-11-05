@@ -1,31 +1,39 @@
-{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#}
-{# :::::::::::::: 01 * GRIT_SET html-header #} 
-{# :::::::::::::: 02 * GRIT_SET loader #} 
-{# :::::::::::::: 03 * GRIT_SET header #} 
-{# :::::::::::::: 04 * GRIT_SET content #} 
-{# :::::::::::::: 05 * GRIT_SET footer #} 
-{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#}
+{#
+ * GRIT_SET html-header
+ * Legend
+ * 01 | HTML Head
+ * 02 | Loader
+ * 03 | Header
+ * 04 | Content
+ * 05 | Footer
+ #}
+ 
+ 
+ 
+ 
+ 
+
 
 {% block html_head_container %}
 
 
-{# :::::::::::::: 01 * GRIT_SET html-header #} 
+{# * GRIT_SET 01 | HTML Head #} 
 {% include 'html-header.twig' %}
 	{% block head %}
 	{% endblock %}
 	</head>
 {% endblock %}
-{# :::::::::::::: 01 * GRIT_SET html-header END #} 
+ 
 
 <body class="{{body_class}} " data-template="base.twig">
 
-	{# :::::::::::::: 02 * GRIT_SET loader #} 
+	{# * GRIT_SET 02 | Loader #} 
     {% include ['/partials/loader.twig'] %}
-    {# :::::::::::::: 02 * GRIT_SET loader END #} 
+     
  	
 	<a class="skip-link screen-reader-text" href="#content">{{ _e( 'Skip to content') }}</a>
 
-	{# :::::::::::::: 03 * GRIT_SET header #}  
+	{# * GRIT_SET 03 | Header #}  
     	{% if grit_setting_header %}
 			 <header id="{{ grit_setting_header }}">  
 				{% include ['headers/'~ grit_setting_header ~'.twig'] %}
@@ -35,9 +43,9 @@
 			 	{% include "headers/header_1.twig" %}
 			 </header>
 		{% endif %}  
-	{# :::::::::::::: 03 * GRIT_SET header END#} 
+	 
  		 
-	{# :::::::::::::: 04 * GRIT_SET content #} 
+	{# * GRIT_SET 04 | Content #} 
 	<section id="content" role="main" class="content-wrapper  ">
 	 
 		<div class="wrapper {{sidebar_class}}">
@@ -53,9 +61,9 @@
 		{% endif %}
 
 	</section>
-	{# :::::::::::::: 04 * GRIT_SET content END #} 
+	 
 
-	{# :::::::::::::: 05 * GRIT_SET footer #}  
+	{# * GRIT_SET 05 | Footer #}  
     {% block footer %} 
 		{% if grit_setting_footer %}
 				<footer id="{{ grit_setting_footer }}" class="footer">
@@ -69,7 +77,7 @@
 		{{ function('wp_footer') }}
 		
     {% endblock %}
-	{# :::::::::::::: 05 * GRIT_SET footer END #}  
+	  
 	
 	{# 
 	<script> 

@@ -1,10 +1,16 @@
-{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#}
-{# :::::::::::::: 01 * GRIT_SET Style #} 
-{# :::::::::::::: 02 * GRIT_SET Section Pre Content #} 
-{# :::::::::::::: 03 * GRIT_SET Content #} 
-{# :::::::::::::: 04 * GRIT_SET Style Boostrap #} 
-{# :::::::::::::: 05 * GRIT_SET Section #} 
-{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#} 
+{#
+ * GRIT_SET Style
+ * Legend
+ * 01 | Content
+ * 02 | Bootstrap Style Examples
+ * 03 | Sections After Content
+ #}
+ 
+ 
+ 
+ 
+ 
+ 
 
 {% extends "base.twig" %}
 
@@ -13,26 +19,11 @@
 
  
 
-{# :::::::::::::: 03 * GRIT_SET Content #} 
-{% for section in sections %}
-    {% if section.acf_fc_layout == 'section_page' and section.page %}
-        {% set ref_sections = fn('get_field', 'sections', section.page.ID) %}
-        {% for ref_section in ref_sections %}
-            {% if ref_section.pre_content %}
-                {% set ref_section = ref_section|merge({
-                    'section_index': loop.index ~ '-' ~ loop.index0
-                }) %}
-                {% include ['/sections/section.twig'] with { section: ref_section } %}
-            {% endif %}
-        {% endfor %}
-    {% elseif section.pre_content %}
-        {% set section = section|merge({'section_index': loop.index}) %}
-        {% include ['/sections/section.twig'] with section %}
-    {% endif %}
-{% endfor %} 
-{# :::::::::::::: 03 * GRIT_SET Content END #} 
+{# * GRIT_SET 01 | Content #} 
+{% include 'partials/sections.twig' with { sections: sections|default([]), pre_content: true } %} 
+ 
 
-{# :::::::::::::: 04 * GRIT_SET Style Boostrap #} 
+{# * GRIT_SET 02 | Bootstrap Style Examples #} 
 	<section class="section_page contained section-style-boostrap py-3">
 	    <div class="container-fluid">
 	        <div class="row">
@@ -177,26 +168,11 @@
 			</div>
 	    </div>
 	</section>
-{# :::::::::::::: 04 * GRIT_SET Style Boostrap END #} 
+ 
 
-{# :::::::::::::: 05 * GRIT_SET Section #} 
-{% for section in sections %}
-    {% if section.acf_fc_layout == 'section_page' and section.page %}
-        {% set ref_sections = fn('get_field', 'sections', section.page.ID) %}
-        {% for ref_section in ref_sections %}
-            {% if not ref_section.pre_content %}
-                {% set ref_section = ref_section|merge({
-                    'section_index': loop.index ~ '-' ~ loop.index0
-                }) %}
-                {% include ['/sections/section.twig'] with { section: ref_section } %}
-            {% endif %}
-        {% endfor %}
-    {% elseif not section.pre_content %}
-        {% set section = section|merge({'section_index': loop.index}) %}
-        {% include ['/sections/section.twig'] with section %}
-    {% endif %}
-{% endfor %}
-{# :::::::::::::: 05 * GRIT_SET Section #} 
+{# * GRIT_SET 03 | Sections After Content #} 
+{% include 'partials/sections.twig' with { sections: sections|default([]), pre_content: false } %}
+ 
 
 </article> 
 

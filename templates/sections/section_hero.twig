@@ -1,10 +1,15 @@
-{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#}
-{# :::::::::::::: 01 * GRIT_SET section_details #}
-{# :::::::::::::: 02 * GRIT_SET section_hero #} 
-{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#} 
+{#
+ * GRIT_SET section_details
+ * Legend
+ * 01 | section_details
+ * 02 | section_hero
+ #}
+
+ 
+ 
 
 {% if 'section_details' in class %} 
-{# :::::::::::::: 01 * GRIT_SET section_details #}  
+{# * GRIT_SET 01 | section_details #}  
 
 <div class="container-fluid ">
  
@@ -106,9 +111,9 @@
     </div>
  
 </div> 
-{# :::::::::::::: 01 * GRIT_SET section_details END #}  
+  
 {% else %} 
-{# :::::::::::::: 02 * GRIT_SET section_hero #}  
+{# * GRIT_SET 02 | section_hero #}  
     <div class="container-fluid {% if not section.contained %} px-0{% endif %}"> 
         <div class="inner-hero {% if 'parallax' in section.class %} jarallax-keep-img {% endif %} p-2 p-sm-4 p-md-5 {{ section.inner_background_color ? 'bg-' ~ section.inner_background_color : ''  }}  " {% if section.background %} style="background-image:url('{{Image(section.background.id).src}}');" {% endif %}>
             <div class="row ">
@@ -150,7 +155,7 @@
             </div>
         </div>
     </div> 
-{# :::::::::::::: 02 * GRIT_SET section_hero END #} 
+ 
 {% endif %}
 
 

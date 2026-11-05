@@ -1,11 +1,17 @@
-{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#}
-{# :::::::::::::: 01 * GRIT_SET section_collapse_search #}
-{# :::::::::::::: 02 * GRIT_SET section_collapse_dynamic #}
-{# :::::::::::::: 03 * GRIT_SET section_collapse #}
-{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#} 
+{#
+ * GRIT_SET section_collapse_search
+ * Legend
+ * 01 | section_collapse_search
+ * 02 | section_collapse_dynamic
+ * 03 | section_collapse
+ #}
+
+
+
+ 
 
 {% if 'section_collapse_search' in class %} 
-{# :::::::::::::: 01 * GRIT_SET section_collapse_search #}
+{# * GRIT_SET 01 | section_collapse_search #}
      <div class="container-fluid">
         <div class="row">
             <div class=" col-12 my-5 in__animate " data-animation="animate__fadeIn animate__slow " id="search_list">
@@ -110,9 +116,9 @@
         var userList = new List('search_list', options);
     });
 </script>
- {# :::::::::::::: 01 * GRIT_SET section_collapse_search END #}
+ 
 
- {# :::::::::::::: 02 * GRIT_SET section_collapse_dynamic #}
+ {# * GRIT_SET 02 | section_collapse_dynamic #}
   {% elseif 'section_collapse_dynamic' in class %} 
  
   <div class="container-fluid  ">
@@ -263,11 +269,11 @@
   </div>
  
  
- {# :::::::::::::: 02 * GRIT_SET section_collapse_dynamic END #}
+ 
 
 
  {% else %}
- {# :::::::::::::: 03 * GRIT_SET section_collapse #}
+ {# * GRIT_SET 03 | section_collapse #}
       <div class="container-fluid">
         <div class="row"> 
              {% for list in section.lists %}
@@ -335,7 +341,7 @@
             {% endfor %}
         </div> 
     </div> 
- {# :::::::::::::: 03 * GRIT_SET section_collapse END #}
+ 
 {% endif %}
 
  

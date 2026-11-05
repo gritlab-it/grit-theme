@@ -1,9 +1,15 @@
-{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#}
-{# :::::::::::::: 01 * GRIT_SET Page Privacy Policy #} 
-{# :::::::::::::: 02 * GRIT_SET Section Pre Content #} 
-{# :::::::::::::: 03 * GRIT_SET Privacy Policy Content #} 
-{# :::::::::::::: 04 * GRIT_SET Section #} 
-{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#} 
+{#
+ * GRIT_SET Page Privacy Policy
+ * Legend
+ * 01 | Sections Before Content
+ * 02 | Privacy Policy Content
+ * 03 | Sections After Content
+ #}
+ 
+ 
+ 
+ 
+ 
 
 {% extends "base.twig" %}
 
@@ -11,26 +17,11 @@
 
 <article class="post-type-{{post.post_type}}" id="post-{{post.ID}}">
 
-{# :::::::::::::: 02 * GRIT_SET Section Pre Content #} 
-{% for section in sections %}
-    {% if section.acf_fc_layout == 'section_page' and section.page %}
-        {% set ref_sections = fn('get_field', 'sections', section.page.ID) %}
-        {% for ref_section in ref_sections %}
-            {% if ref_section.pre_content %}
-                {% set ref_section = ref_section|merge({
-                    'section_index': loop.index ~ '-' ~ loop.index0
-                }) %}
-                {% include ['/sections/section.twig'] with { section: ref_section } %}
-            {% endif %}
-        {% endfor %}
-    {% elseif section.pre_content %}
-        {% set section = section|merge({'section_index': loop.index}) %}
-        {% include ['/sections/section.twig'] with section %}
-    {% endif %}
-{% endfor %}
-{# :::::::::::::: 02 * GRIT_SET Section Pre Content END  #} 
+{# * GRIT_SET 01 | Sections Before Content #} 
+{% include 'partials/sections.twig' with { sections: sections|default([]), pre_content: true } %}
+ 
 
-{# :::::::::::::: 03 * GRIT_SET Privacy Policy Content #} 
+{# * GRIT_SET 02 | Privacy Policy Content #} 
 	{% if content is not empty %}
 	    <section class="section_page contained py-3">
 	        <div class="container-fluid">
@@ -298,26 +289,11 @@
 	        </div>
 	    </section>  
 	{% endif %}
-{# :::::::::::::: 03 * GRIT_SET Privacy Policy Content END #} 
+ 
 
-{# :::::::::::::: 04 * GRIT_SET Section #} 
-{% for section in sections %}
-    {% if section.acf_fc_layout == 'section_page' and section.page %}
-        {% set ref_sections = fn('get_field', 'sections', section.page.ID) %}
-        {% for ref_section in ref_sections %}
-            {% if not ref_section.pre_content %}
-                {% set ref_section = ref_section|merge({
-                    'section_index': loop.index ~ '-' ~ loop.index0
-                }) %}
-                {% include ['/sections/section.twig'] with { section: ref_section } %}
-            {% endif %}
-        {% endfor %}
-    {% elseif not section.pre_content %}
-        {% set section = section|merge({'section_index': loop.index}) %}
-        {% include ['/sections/section.twig'] with section %}
-    {% endif %}
-{% endfor %}
-{# :::::::::::::: 04 * GRIT_SET Section #} 
+{# * GRIT_SET 03 | Sections After Content #} 
+{% include 'partials/sections.twig' with { sections: sections|default([]), pre_content: false } %}
+ 
 
 </article>
 

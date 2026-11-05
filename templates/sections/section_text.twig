@@ -1,12 +1,18 @@
+{#
+ * GRIT_SET section_carousel_text
+ * Legend
+ * 01 | section_carousel_text
+ * 02 | section_masonry
+ * 03 | section_text
+ #}
 
-{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#}
-{# :::::::::::::: 01 * GRIT_SET section_carousel_text #}
-{# :::::::::::::: 02 * GRIT_SET section_text #} 
-{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#} 
+
+ 
+ 
 
 {% if 'section_carousel_text' in class %} 
 
-{# :::::::::::::: 01 * GRIT_SET section_carousel_text #}
+{# * GRIT_SET 01 | section_carousel_text #}
 <div class="container-fluid">
     <div class="row ">
         <div class="col p-0"> 
@@ -102,11 +108,11 @@
         });
     }); 
 </script> 
-{# :::::::::::::: 01 * GRIT_SET section_carousel_text END #}
 
 
 
-{# :::::::::::::: 02 * GRIT_SET section_masonry #}
+
+{# * GRIT_SET 02 | section_masonry #}
 {% elseif 'section_masonry' in class %}
 <div class="container-fluid img-hover-inner">
     <div class="masonry-grid js-masonry">   
@@ -272,10 +278,10 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
-{# :::::::::::::: 02 * GRIT_SET section_masonry END #}
+
 {% else %}
 
-{# :::::::::::::: 02 * GRIT_SET section_text #} 
+{# * GRIT_SET 03 | section_text #} 
 <div class="container-fluid img-hover-inner">
     <div class="row {% if section.align == 'center' %}justify-content-center{% endif %}">  
 
@@ -383,7 +389,7 @@ document.addEventListener("DOMContentLoaded", function () {
         {% endfor %} 
     </div>
 </div> 
-{# :::::::::::::: 02 * GRIT_SET section_text END #} 
+ 
 
 {% endif %}
 

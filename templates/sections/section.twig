@@ -1,11 +1,15 @@
-{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#}
-{# :::::::::::::: 01 * GRIT_SET section_main #} 
-{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#} 
+{#
+ * GRIT_SET section_main
+ * Legend
+ * 01 | section_main
+ #}
+ 
+ 
 
 
 
 
-{# :::::::::::::: 01 * GRIT_SET section_main #} 
+{# * GRIT_SET 01 | section_main #} 
 {% set acf_fc_layout = section.acf_fc_layout %}
 
 {% if section.background_color %}
@@ -43,4 +47,4 @@ other_classes: {{ other_classes|join(' ') }}<br>  #}
 <section class="{{acf_fc_layout}} {{background_color}}{{background_half}} {{align}} {{text_color}} {{contained}} {{ other_classes|join(' ') }} " id="section_id_{{ section.section_index }}"> 
         {% include ['/sections/'~ section.acf_fc_layout ~'.twig'] with section %} 
 </section>
-{# :::::::::::::: 01 * GRIT_SET section_main END #} 
+ 

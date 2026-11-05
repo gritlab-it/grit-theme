@@ -1,7 +1,12 @@
-{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#}
-{# :::::::::::::: 01 * GRIT_SET section_archive_carosuel #}
-{# :::::::::::::: 02 * GRIT_SET section_archive #}
-{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#} 
+{#
+ * GRIT_SET section_archive_carosuel
+ * Legend
+ * 01 | section_archive_carousel
+ * 02 | section_archive
+ #}
+
+
+ 
 
 {% set tease = section.tease | default('post') %}       
 {% set post_type = section.post_type | default('post') %}       
@@ -9,7 +14,7 @@
 {% set posts = attribute(_context, 'archive_' ~ post_type) %}
 
 {% if 'section_archive_carousel' in class %}
-{# :::::::::::::: 01 * GRIT_SET section_archive_carosuel #}
+{# * GRIT_SET 01 | section_archive_carousel #}
 {% set grid = ' ' %} 
 <div class="container-fluid">
     <div class="row ">  
@@ -23,9 +28,9 @@
     </div> 
 </div> 
 
-{# :::::::::::::: 01 * GRIT_SET section_archive_carosuel END #}
+
 {% else %}
-{# :::::::::::::: 02 * GRIT_SET section_archive #}
+{# * GRIT_SET 02 | section_archive #}
 {% set grid = inner_class %}
 <div class="container-fluid">
     <div class="row justify-content-center">  
@@ -38,7 +43,7 @@
         </div>
     </div> 
 </div> 
-{# :::::::::::::: 02 * GRIT_SET section_archive END #}
+
 {% endif %} 
 
 

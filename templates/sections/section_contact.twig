@@ -1,11 +1,16 @@
+{#
+ * GRIT_SET section_contact_2col
+ * Legend
+ * 01 | section_contact_2col
+ * 02 | section_contact
+ #}
+ 
 
- {#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#}
-{# :::::::::::::: 01 * GRIT_SET section_contact_2col #}
-{# :::::::::::::: 02 * GRIT_SET section_contact #} 
-{#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#} 
+ 
+ 
 
 
-{# :::::::::::::: 01 * GRIT_SET section_contact_2col #}
+{# * GRIT_SET 01 | section_contact_2col #}
 {% if 'section_contact_2col' in class %}
     {% set columns_1 = "col-12 col-md-5" %} 
     {% set columns_2 = "col-12 col-md-7" %} 
@@ -14,7 +19,7 @@
     {% set columns_2 = col_classes|join(' ')  | default('col col-12 ') %}
 {% endif %}
 
-{# :::::::::::::: 02 * GRIT_SET section_contact #} 
+{# * GRIT_SET 02 | section_contact #} 
 <div class="container-fluid ">
     <div class="row ">
         <div class="{{ columns_1 }} mx-auto in__animate " data-animation="animate__fadeIn animate__slow ">
@@ -101,7 +106,7 @@
         </div> 
     </div>
 </div>
-{# :::::::::::::: 02 * GRIT_SET section_contact END #} 
+ 
 
  
  
