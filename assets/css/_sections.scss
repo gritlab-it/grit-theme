@@ -1,5 +1,5 @@
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 01 * GRIT_SET section_page_header */
+/* :::::::::::::: 01 * GRIT_SET Header layouts use Section Text / Slides */
 /* :::::::::::::: 02 * GRIT_SET section_carousel */
 /* :::::::::::::: 03 * GRIT_SET section_video */
 /* :::::::::::::: 04 * GRIT_SET section_slides */ 
@@ -25,156 +25,6 @@
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
 @use './variables' as *;
-
-/* :::::::::::::: 01 * GRIT_SET section_page_header */
-.section_page_header { 
-    padding: 0px !important;   
-    .breadcrumb {
-        /*
-        display: -ms-flexbox;
-        display: flex;
-        -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-        padding: 0.75rem 1rem;
-        margin-bottom: 1rem;
-        list-style: none;
-        background-color: #e9ecef;
-        border-radius: 0.25rem;
-        */
-        background: transparent;
-        padding: 0.25rem 0rem;
-        margin-bottom: 0rem;
-        color: $light; 
-        a {
-            color: $light;
-        } 
-        a:hover {
-            color: $accent;
-        } 
-        .breadcrumb_last {
-            color: $accent;
-        }
-    }
-    &.section_page_header_1 {
-        background-color: $transparent!important ;
-        padding: 0px !important; 
-        .sub-header {
-            background-position: center;
-            background-size: cover;
-            background-repeat: no-repeat;
-        } 
-        .polygon {
-            float: left;
-            width: 100%;
-            min-height: 30px;
-            @include gradient-1(90deg, $gradient-colors-1);
-            shape-outside: polygon(20px 0,
-            100% 0,
-            100% 100%,
-            0 100%);
-            clip-path: polygon(20px 0,
-            100% 0,
-            100% 100%,
-            0 100%); 
-            .breadcrumb {
-                margin: 0px 30px;
-                font-weight: normal;
-                color: $light; 
-                a {
-                    color: $light;
-                    @include transition(all 0.2s ease-in-out);
-                    
-                    &:hover {
-                        color: $accent;
-                    }
-                }
-            }
-        }
-    }
-    &.section_page_header_2 {
-        
-        padding: 0px !important; 
-        .sub-header {
-            background-position: center;
-            background-size: cover;
-            background-repeat: no-repeat;
-        } 
-    }
-    &.section_page_header_3 { 
-        padding: 0px !important; 
-        .sub-header { 
-            background-position: center;
-            background-size: cover;
-            background-repeat: no-repeat;
-            .container-fluid .row {
-                min-height: 300px;
-                @media (min-width: $md-res) { 
-                    min-height: 500px; 
-                }
-            }
-        } 
-    }
-    &.section_page_header_4 { 
-        padding: 0px !important;  
-        .sub-header {
-            background-position: center;
-            background-size: cover;
-            background-repeat: no-repeat;
-        } 
-    }
-    &.section_page_header_5 { 
-        
-        padding: 0px !important; 
-        .sub-header {
-            position: absolute;
-            width: 100%;
-            
-            z-index: 2;
-            .container-fluid .row {
-                min-height: 500px;
-                @media (min-width: $md-res) { 
-                    min-height: 700px; 
-                }
-            }
-        }
-        .carousel-header {
-            z-index: unset;
-            .item-header { 
-                z-index: 0;
-                background-position: center;
-                background-size: cover;
-                background-repeat: no-repeat; 
-                min-height: 500px;
-                @media (min-width: $md-res) { 
-                    min-height: 700px; 
-                }
-            } 
-
-        }
-        
-    }
-    &.section_page_header_6 { 
-        padding: 0px !important; 
-        background-color: transparent;
-        margin-bottom: 180px;
-        .sub-header { 
-            position: relative;
-            background-position: center;
-            background-size: cover;
-            background-repeat: no-repeat; 
-            min-height: 300px;
-            @media (min-width: $md-res) { 
-                min-height: 500px; 
-            }
-            .inner-header {
-                bottom: -150px;
-                overflow: hidden;
-                
-            }
-            
-        } 
-    }
-} 
 
 /* :::::::::::::: 02 * GRIT_SET section_carousel */
 .section_carousel { }
@@ -996,6 +846,31 @@
 
 // * GRIT_SET Text chapter image proportions for grid, Masonry and carousel
 .section_text {
+    // * GRIT_SET Section background | Decorative cover below content, including without Jarallax.
+    position: relative;
+    isolation: isolate;
+    > .text-section-background {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+        > .text-background-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+        &::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+    }
+    > .container-fluid { position: relative; z-index: 1; }
+    &.text-background-overlay > .text-section-background::after { background: rgba(0, 0, 0, .4); }
+    &.text-background-overlay-light > .text-section-background::after { background: rgba(255, 255, 255, .4); }
+    // * GRIT_SET Optional header composition | A normal-flow panel overlaps a fixed-height photo.
+    // Panel height remains content-driven, avoiding absolute text positioning and negative bottom offsets.
+    &.text-header-overlap {
+        > .text-section-background { bottom: auto; height: clamp(18rem, 45vw, 32rem); }
+        > .container-fluid { padding-top: clamp(12rem, 30vw, 22rem); padding-bottom: 2rem; }
+        .item-chapters .inner-text {
+            background: var(--header-panel-background, #fff);
+            color: var(--header-panel-color, #111);
+            padding: clamp(1.5rem, 4vw, 3rem);
+        }
+    }
     &.text-image-ratio-square { --text-image-ratio: 1; }
     &.text-image-ratio-landscape { --text-image-ratio: 4 / 3; }
     &.text-image-ratio-portrait { --text-image-ratio: 3 / 4; }

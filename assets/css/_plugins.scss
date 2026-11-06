@@ -157,14 +157,6 @@ section {
   }
 }
 
-// * GRIT_SET Header defaults; explicit position modifiers below take precedence
-.section_page_header .carousel-header .owl-nav {
-  top: auto;
-  bottom: 35px;
-  right: calc(($c-gap / 2) / ($xxl / 2) * 100vw);
-  width: 150px;
-}
-
 // * GRIT_SET Shared navigation positions, with backwards-compatible aliases
 @each $vertical in top, bottom {
   @each $horizontal in left, right {

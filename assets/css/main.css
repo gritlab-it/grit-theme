@@ -4144,7 +4144,7 @@ a:hover {
 
 /* :::::::::::::: 06 * GRIT_SET sections */
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 01 * GRIT_SET section_page_header */
+/* :::::::::::::: 01 * GRIT_SET Header layouts use Section Text / Slides */
 /* :::::::::::::: 02 * GRIT_SET section_carousel */
 /* :::::::::::::: 03 * GRIT_SET section_video */
 /* :::::::::::::: 04 * GRIT_SET section_slides */
@@ -4168,154 +4168,6 @@ a:hover {
  * Owl controls: _plugins.scss. Section images and layouts: this file.
  */
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 01 * GRIT_SET section_page_header */
-.section_page_header {
-  padding: 0px !important;
-}
-.section_page_header .breadcrumb {
-  /*
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  padding: 0.75rem 1rem;
-  margin-bottom: 1rem;
-  list-style: none;
-  background-color: #e9ecef;
-  border-radius: 0.25rem;
-  */
-  background: transparent;
-  padding: 0.25rem 0rem;
-  margin-bottom: 0rem;
-  color: #FCFCF8;
-}
-.section_page_header .breadcrumb a {
-  color: #FCFCF8;
-}
-.section_page_header .breadcrumb a:hover {
-  color: #FA542D;
-}
-.section_page_header .breadcrumb .breadcrumb_last {
-  color: #FA542D;
-}
-.section_page_header.section_page_header_1 {
-  background-color: transparent !important;
-  padding: 0px !important;
-}
-.section_page_header.section_page_header_1 .sub-header {
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-.section_page_header.section_page_header_1 .polygon {
-  float: left;
-  width: 100%;
-  min-height: 30px;
-  background: linear-gradient(90deg, #052D28 0%, #0F5550 100%);
-  shape-outside: polygon(20px 0, 100% 0, 100% 100%, 0 100%);
-  clip-path: polygon(20px 0, 100% 0, 100% 100%, 0 100%);
-}
-.section_page_header.section_page_header_1 .polygon .breadcrumb {
-  margin: 0px 30px;
-  font-weight: normal;
-  color: #FCFCF8;
-}
-.section_page_header.section_page_header_1 .polygon .breadcrumb a {
-  color: #FCFCF8;
-  -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  -ms-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-}
-.section_page_header.section_page_header_1 .polygon .breadcrumb a:hover {
-  color: #FA542D;
-}
-.section_page_header.section_page_header_2 {
-  padding: 0px !important;
-}
-.section_page_header.section_page_header_2 .sub-header {
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-.section_page_header.section_page_header_3 {
-  padding: 0px !important;
-}
-.section_page_header.section_page_header_3 .sub-header {
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-.section_page_header.section_page_header_3 .sub-header .container-fluid .row {
-  min-height: 300px;
-}
-@media (min-width: 768px) {
-  .section_page_header.section_page_header_3 .sub-header .container-fluid .row {
-    min-height: 500px;
-  }
-}
-.section_page_header.section_page_header_4 {
-  padding: 0px !important;
-}
-.section_page_header.section_page_header_4 .sub-header {
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-.section_page_header.section_page_header_5 {
-  padding: 0px !important;
-}
-.section_page_header.section_page_header_5 .sub-header {
-  position: absolute;
-  width: 100%;
-  z-index: 2;
-}
-.section_page_header.section_page_header_5 .sub-header .container-fluid .row {
-  min-height: 500px;
-}
-@media (min-width: 768px) {
-  .section_page_header.section_page_header_5 .sub-header .container-fluid .row {
-    min-height: 700px;
-  }
-}
-.section_page_header.section_page_header_5 .carousel-header {
-  z-index: unset;
-}
-.section_page_header.section_page_header_5 .carousel-header .item-header {
-  z-index: 0;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  min-height: 500px;
-}
-@media (min-width: 768px) {
-  .section_page_header.section_page_header_5 .carousel-header .item-header {
-    min-height: 700px;
-  }
-}
-.section_page_header.section_page_header_6 {
-  padding: 0px !important;
-  background-color: transparent;
-  margin-bottom: 180px;
-}
-.section_page_header.section_page_header_6 .sub-header {
-  position: relative;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  min-height: 300px;
-}
-@media (min-width: 768px) {
-  .section_page_header.section_page_header_6 .sub-header {
-    min-height: 500px;
-  }
-}
-.section_page_header.section_page_header_6 .sub-header .inner-header {
-  bottom: -150px;
-  overflow: hidden;
-}
-
 /* :::::::::::::: 02 * GRIT_SET section_carousel */
 /* :::::::::::::: 03 * GRIT_SET section_video */
 .section_video .video-container {
@@ -5110,6 +4962,53 @@ a:hover {
   }
 }
 
+.section_text {
+  position: relative;
+  isolation: isolate;
+}
+.section_text > .text-section-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.section_text > .text-section-background > .text-background-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.section_text > .text-section-background::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.section_text > .container-fluid {
+  position: relative;
+  z-index: 1;
+}
+.section_text.text-background-overlay > .text-section-background::after {
+  background: rgba(0, 0, 0, 0.4);
+}
+.section_text.text-background-overlay-light > .text-section-background::after {
+  background: rgba(255, 255, 255, 0.4);
+}
+.section_text.text-header-overlap > .text-section-background {
+  bottom: auto;
+  height: clamp(18rem, 45vw, 32rem);
+}
+.section_text.text-header-overlap > .container-fluid {
+  padding-top: clamp(12rem, 30vw, 22rem);
+  padding-bottom: 2rem;
+}
+.section_text.text-header-overlap .item-chapters .inner-text {
+  background: var(--header-panel-background, #fff);
+  color: var(--header-panel-color, #111);
+  padding: clamp(1.5rem, 4vw, 3rem);
+}
 .section_text.text-image-ratio-square {
   --text-image-ratio: 1;
 }
@@ -5485,13 +5384,6 @@ section .owl-carousel .owl-item button {
   --carousel-dot-background: transparent;
   --carousel-dot-active-color: #111;
   --carousel-dot-active-background: #111;
-}
-
-.section_page_header .carousel-header .owl-nav {
-  top: auto;
-  bottom: 35px;
-  right: 8.75vw;
-  width: 150px;
 }
 
 section.carousel-nav-top-left .owl-carousel .owl-nav,

@@ -279,11 +279,10 @@ $(function () {
             counts = [1, 2, 3, 3, 3, 3];
             options.loop = false;
         }
-        if ($section.hasClass('section_cube') || $section.hasClass('section_slides') || $carousel.hasClass('carousel-header')) {
+        if ($section.hasClass('section_cube') || $section.hasClass('section_slides')) {
             counts = [1, 1, 1, 1, 1, 1];
             options.margin = 0;
         }
-        if ($carousel.hasClass('carousel-header')) options.dots = false;
         if ($section.hasClass('section_slides')) {
             options.autoplay = true;
             options.animateOut = 'fadeOut';
@@ -416,10 +415,10 @@ jQuery(function ($) {
     if (typeof $.fn.jarallax !== 'function') return;
     $('.jarallax, .jarallax-keep-img, .jarallax-overlay').each(function () {
         if (this.jarallax) return;
-        if ($(this).closest('.section_slides, .section_cube').length && window.matchMedia &&
+        if (($(this).closest('.section_slides, .section_cube').length || $(this).hasClass('text-section-background')) && window.matchMedia &&
             window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         var speed = $(this).data('speed');
-        var isCover = $(this).closest('.section_slides, .section_cube').length > 0;
+        var isCover = $(this).closest('.section_slides, .section_cube').length > 0 || $(this).hasClass('text-section-background');
         // * GRIT_SET Slides/Cube | Move the image into Jarallax: a retained cover image would hide its motion.
         // Keep the animated layer above the slide background and below overlay/text.
         $(this).jarallax({

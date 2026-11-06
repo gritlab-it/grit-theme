@@ -12,6 +12,16 @@
 {% set is_carousel = 'section_carousel_text' in section_classes %}
 {% set is_masonry = not is_carousel and 'section_masonry' in section_classes %}
 {% set chapters = section.chapters|default([]) %}
+{# * GRIT_SET Section background | Independent from chapter images; parallax is opt-in #}
+{% if section.background_image %}
+    {% set background_parallax = 'parallax' in section_classes %}
+    <div class="text-section-background{% if background_parallax %} jarallax-keep-img{% endif %}" aria-hidden="true"{% if background_parallax %} data-speed="0.5"{% endif %}>
+        {{ function('wp_get_attachment_image', section.background_image.id|default(section.background_image.ID)|default(section.background_image), 'full', false, {
+            class: background_parallax ? 'text-background-image jarallax-img' : 'text-background-image',
+            alt: '', sizes: '100vw', loading: 'lazy'
+        }) }}
+    </div>
+{% endif %}
 <div class="container-fluid{% if not is_carousel %} img-hover-inner{% endif %}">
     {% if is_carousel %}
         <div class="row"><div class="col p-0"><div class="owl-carousel owl-theme">

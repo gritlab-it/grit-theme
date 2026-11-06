@@ -291,244 +291,6 @@
                     "id": ""
                 },
                 "layouts": {
-                    "layout_66793a4bf7f55": {
-                        "key": "layout_66793a4bf7f55",
-                        "name": "section_page_header",
-                        "label": "Section Page Header",
-                        "display": "block",
-                        "sub_fields": [
-                            {
-                                "key": "field_66fbd1e1aa8fa",
-                                "label": "Content",
-                                "name": "",
-                                "aria-label": "",
-                                "type": "tab",
-                                "instructions": "",
-                                "required": 0,
-                                "conditional_logic": 0,
-                                "wrapper": {
-                                    "width": "",
-                                    "class": "",
-                                    "id": ""
-                                },
-                                "placement": "top",
-                                "endpoint": 0,
-                                "selected": 0
-                            },
-                            {
-                                "key": "field_66793a69f7f57",
-                                "label": "Title",
-                                "name": "title",
-                                "aria-label": "",
-                                "type": "text",
-                                "instructions": "",
-                                "required": 0,
-                                "conditional_logic": 0,
-                                "wrapper": {
-                                    "width": "",
-                                    "class": "",
-                                    "id": ""
-                                },
-                                "default_value": "",
-                                "maxlength": "",
-                                "placeholder": "",
-                                "prepend": "",
-                                "append": ""
-                            },
-                            {
-                                "key": "field_66793a6ff7f58",
-                                "label": "SubTitle",
-                                "name": "subtitle",
-                                "aria-label": "",
-                                "type": "text",
-                                "instructions": "",
-                                "required": 0,
-                                "conditional_logic": 0,
-                                "wrapper": {
-                                    "width": "",
-                                    "class": "",
-                                    "id": ""
-                                },
-                                "default_value": "",
-                                "maxlength": "",
-                                "placeholder": "",
-                                "prepend": "",
-                                "append": ""
-                            },
-                            {
-                                "key": "field_66fbe870aa7d9",
-                                "label": "Style",
-                                "name": "",
-                                "aria-label": "",
-                                "type": "tab",
-                                "instructions": "",
-                                "required": 0,
-                                "conditional_logic": 0,
-                                "wrapper": {
-                                    "width": "",
-                                    "class": "",
-                                    "id": ""
-                                },
-                                "placement": "top",
-                                "endpoint": 0,
-                                "selected": 0
-                            },
-                            {
-                                "key": "field_6687a8e634f3b",
-                                "label": "Text Color",
-                                "name": "text_color",
-                                "aria-label": "",
-                                "type": "clone",
-                                "instructions": "",
-                                "required": 0,
-                                "conditional_logic": 0,
-                                "wrapper": {
-                                    "width": "",
-                                    "class": "",
-                                    "id": ""
-                                },
-                                "clone": [
-                                    "field_690a10173ff41"
-                                ],
-                                "display": "seamless",
-                                "layout": "block",
-                                "prefix_label": 0,
-                                "prefix_name": 0
-                            },
-                            {
-                                "key": "field_6687a8e134f3a",
-                                "label": "Background Color",
-                                "name": "background_color",
-                                "aria-label": "",
-                                "type": "clone",
-                                "instructions": "",
-                                "required": 0,
-                                "conditional_logic": 0,
-                                "wrapper": {
-                                    "width": "",
-                                    "class": "",
-                                    "id": ""
-                                },
-                                "clone": [
-                                    "field_690b26b11cee6"
-                                ],
-                                "display": "seamless",
-                                "layout": "block",
-                                "prefix_label": 0,
-                                "prefix_name": 0
-                            },
-                            {
-                                "key": "field_671180b1aa18d",
-                                "label": "Gallery",
-                                "name": "gallery",
-                                "aria-label": "",
-                                "type": "gallery",
-                                "instructions": "",
-                                "required": 0,
-                                "conditional_logic": 0,
-                                "wrapper": {
-                                    "width": "",
-                                    "class": "",
-                                    "id": ""
-                                },
-                                "return_format": "array",
-                                "library": "all",
-                                "min": "",
-                                "max": "",
-                                "min_width": "",
-                                "min_height": "",
-                                "min_size": "",
-                                "max_width": "",
-                                "max_height": "",
-                                "max_size": "",
-                                "mime_types": "",
-                                "insert": "append",
-                                "preview_size": "medium"
-                            },
-                            {
-                                "key": "field_66fbe891aa7da",
-                                "label": "Layout",
-                                "name": "",
-                                "aria-label": "",
-                                "type": "tab",
-                                "instructions": "",
-                                "required": 0,
-                                "conditional_logic": 0,
-                                "wrapper": {
-                                    "width": "",
-                                    "class": "",
-                                    "id": ""
-                                },
-                                "placement": "top",
-                                "endpoint": 0,
-                                "selected": 0
-                            },
-                            {
-                                "key": "field_66e60d63b8bfc",
-                                "label": "Contained",
-                                "name": "contained",
-                                "aria-label": "",
-                                "type": "true_false",
-                                "instructions": "",
-                                "required": 0,
-                                "conditional_logic": 0,
-                                "wrapper": {
-                                    "width": "",
-                                    "class": "",
-                                    "id": ""
-                                },
-                                "message": "",
-                                "default_value": 0,
-                                "allow_in_bindings": 1,
-                                "ui": 0,
-                                "ui_on_text": "",
-                                "ui_off_text": ""
-                            },
-                            {
-                                "key": "field_6687a234ecafd",
-                                "label": "Pre Content",
-                                "name": "pre_content",
-                                "aria-label": "",
-                                "type": "true_false",
-                                "instructions": "Serve in alcuni casi per mettere la section prima del content",
-                                "required": 0,
-                                "conditional_logic": 0,
-                                "wrapper": {
-                                    "width": "",
-                                    "class": "",
-                                    "id": ""
-                                },
-                                "message": "",
-                                "default_value": 0,
-                                "ui": 0,
-                                "ui_on_text": "",
-                                "ui_off_text": ""
-                            },
-                            {
-                                "key": "field_66fbe8ccaa7db",
-                                "label": "Class",
-                                "name": "class",
-                                "aria-label": "",
-                                "type": "text",
-                                "instructions": "",
-                                "required": 0,
-                                "conditional_logic": 0,
-                                "wrapper": {
-                                    "width": "",
-                                    "class": "",
-                                    "id": ""
-                                },
-                                "default_value": "",
-                                "maxlength": "",
-                                "allow_in_bindings": 0,
-                                "placeholder": "",
-                                "prepend": "",
-                                "append": ""
-                            }
-                        ],
-                        "min": "",
-                        "max": ""
-                    },
                     "layout_665f282634ede": {
                         "key": "layout_665f282634ede",
                         "name": "section_text",
@@ -741,6 +503,31 @@
                                 "placement": "top",
                                 "endpoint": 0,
                                 "selected": 0
+                            },
+                            {
+                                "key": "field_grit_text_background_image",
+                                "label": "Background Image",
+                                "name": "background_image",
+                                "aria-label": "",
+                                "type": "image",
+                                "instructions": "Sfondo dell’intera sezione, indipendente dalle immagini dei capitoli. Aggiungi parallax in Class per animarlo con Jarallax; senza libreria o con movimento ridotto resta statico. Classi overlay opzionali: text-background-overlay oppure text-background-overlay-light.",
+                                "required": 0,
+                                "conditional_logic": false,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "return_format": "array",
+                                "preview_size": "medium",
+                                "library": "all",
+                                "min_width": 0,
+                                "min_height": 0,
+                                "min_size": 0,
+                                "max_width": 0,
+                                "max_height": 0,
+                                "max_size": 0,
+                                "mime_types": ""
                             },
                             {
                                 "key": "field_666878c7e3d7f",
