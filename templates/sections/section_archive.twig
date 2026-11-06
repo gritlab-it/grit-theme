@@ -1,49 +1,29 @@
 {#
- * GRIT_SET section_archive_carosuel
- * Legend
- * 01 | section_archive_carousel
- * 02 | section_archive
+ * GRIT_SET Section Archive legend
+ * 01 | Independent PHP query, validated card template and exact carousel token
+ * 02 | Shared item columns; one card loop for grid and carousel
+ * Class | section_archive_carousel; shared carousel-* settings and light/dark controls
  #}
-
-
- 
-
-{% set tease = section.tease | default('post') %}       
-{% set post_type = section.post_type | default('post') %}       
-{% set inner_class = section.inner_class | default('col col-12 col-sm-6 col-md-4 col-lg-3 mb-3') %}
-{% set posts = attribute(_context, 'archive_' ~ post_type) %}
-
-{% if 'section_archive_carousel' in class %}
-{# * GRIT_SET 01 | section_archive_carousel #}
-{% set grid = ' ' %} 
-<div class="container-fluid">
-    <div class="row ">  
-        <div class="col">
-            <div class="owl-carousel owl-theme">
-            {% for single_post in posts %}
-                {% include ['./partials/tease-'~ section.tease ~'.twig', './partials/tease.twig'] with {'post': single_post, 'grid': grid} %}
-            {% endfor %} 
+{% import 'partials/grid-classes.twig' as archive_grid %}
+{% if archive_data is not defined %}{% set archive_data = function('grit_archive_section_data', section) %}{% endif %}
+{% set archive_items = archive_data.posts %}
+{% set carousel = 'section_archive_carousel' in section.class|default('')|split(' ') and archive_items|length > 1 %}
+{% set grid = function('html_entity_decode', archive_grid.classes(section.inner_class|default(''), archive_items|length, section.align|default(''), carousel)|trim, 3, 'UTF-8') %}
+{% if archive_items|length %}
+    {# * GRIT_SET 02 | Outer column classes control section width; Inner Class controls individual cards #}
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="{{ col_classes|default([])|join(' ')|default('col-12')|e('html_attr') }}">
+                <div class="{% if carousel %}owl-carousel owl-theme{% else %}row{% endif %}">
+                    {% for archive_post in archive_items %}
+                        {% include ['partials/tease-' ~ archive_data.tease ~ '.twig', 'partials/tease.twig'] with {
+                            post: archive_post,
+                            grid: carousel and not grid ? ' ' : grid,
+                            tease_style: archive_data.tease
+                        } %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
-    </div> 
-</div> 
-
-
-{% else %}
-{# * GRIT_SET 02 | section_archive #}
-{% set grid = inner_class %}
-<div class="container-fluid">
-    <div class="row justify-content-center">  
-        <div class="{{ col_classes|join(' ')  | default('col col-12') }} ">
-            <div class="row">
-                {% for single_post in posts %}
-                    {% include ['./partials/tease-'~ tease ~'.twig', './partials/tease.twig'] with {'post': single_post, 'grid': grid} %}
-                {% endfor %} 
-            </div>
-        </div>
-    </div> 
-</div> 
-
-{% endif %} 
-
-
+    </div>
+{% endif %}

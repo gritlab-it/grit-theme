@@ -28,18 +28,13 @@
                         </div>
                         {% endif %} 
                         {% if section.link_1 is not empty %} 
-                            <div class="box-buttons   in__animate " data-animation="animate__fadeIn animate__slow ">
-                            {% if section.link_1 %}
-                                    {% set btn = {
-                                    'title': section.link_1.title,
-                                    'url': section.link_1.url,
-                                    'target': section.link_1.target,
-                                    'style': 'btn btn-' ~ section.color_link_1 ~ ' btn-md',
-                                    }
-                                    %}
-                                    {% include ['/partials/btn.twig'] with btn %}
-                            {% endif %} 
-                            </div>
+                            {% include 'partials/buttons.twig' with {
+    buttons: [
+        { title: section.link_1.title, url: section.link_1.url, target: section.link_1.target, style: 'btn btn-' ~ section.color_link_1|default('primary') ~ ' btn-md' }
+    ],
+    buttons_class: 'in__animate',
+    buttons_animation: 'animate__fadeIn animate__slow'
+} only %}
                         {% endif %}  
                 </div> 
                 <div class="inner-img in__animate " data-animation="animate__fadeIn animate__slow ">
@@ -93,18 +88,13 @@
                     </div>
                     {% endif %}   
                     {% if section.link_2 is not empty %} 
-                        <div class="box-buttons   in__animate " data-animation="animate__fadeIn animate__slow "> 
-                            {% if section.link_2 %}
-                                    {% set btn = {
-                                    'title': section.link_2.title,
-                                    'url': section.link_2.url,
-                                    'target': section.link_2.target,
-                                    'style': 'btn btn-' ~ section.color_link_2 ~ ' btn-md',
-                                    }
-                                    %}
-                                    {% include ['/partials/btn.twig'] with btn %}
-                            {% endif %}
-                        </div> 
+                        {% include 'partials/buttons.twig' with {
+    buttons: [
+        { title: section.link_2.title, url: section.link_2.url, target: section.link_2.target, style: 'btn btn-' ~ section.color_link_2|default('primary') ~ ' btn-md' }
+    ],
+    buttons_class: 'in__animate',
+    buttons_animation: 'animate__fadeIn animate__slow'
+} only %} 
                     {% endif %}
                 </div> 
             </div>
@@ -123,29 +113,14 @@
                             <h1 class="pb-4">{{section.title}}</h1>
                         {% endif %} 
                         {% if section.link_1 is not empty or section.link_2 is not empty %} 
-                        <div class="box-buttons   in__animate " data-animation="animate__fadeIn animate__slow ">
-                            {% if section.link_1 %}
-                                    {% set btn = {
-                                    'title': section.link_1.title,
-                                    'url': section.link_1.url,
-                                    'target': section.link_1.target,
-                                    'style': 'btn btn-' ~ section.color_link_1 ~ ' btn-md',
-                                    }
-                                    %}
-                                    {% include ['/partials/btn.twig'] with btn %}
-                            {% endif %}
-
-                            {% if section.link_2 %}
-                                    {% set btn = {
-                                    'title': section.link_2.title,
-                                    'url': section.link_2.url,
-                                    'target': section.link_2.target,
-                                    'style': 'btn btn-' ~ section.color_link_2 ~ ' btn-md',
-                                    }
-                                    %}
-                                    {% include ['/partials/btn.twig'] with btn %}
-                            {% endif %}
-                        </div>
+                        {% include 'partials/buttons.twig' with {
+    buttons: [
+        { title: section.link_1.title, url: section.link_1.url, target: section.link_1.target, style: 'btn btn-' ~ section.color_link_1|default('primary') ~ ' btn-md' },
+        { title: section.link_2.title, url: section.link_2.url, target: section.link_2.target, style: 'btn btn-' ~ section.color_link_2|default('primary') ~ ' btn-md' }
+    ],
+    buttons_class: 'in__animate',
+    buttons_animation: 'animate__fadeIn animate__slow'
+} only %}
                         {% endif %} 
                     </div>
                     <div class="inner-text in__animate " data-animation="animate__fadeIn animate__slow ">

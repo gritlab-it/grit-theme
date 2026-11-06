@@ -103,65 +103,14 @@ function grit_customize_register($wp_customize)
                         // Attiva libreria Bootstrap 4.6.2 CSS JS
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    $wp_customize->add_setting('grit_setting_bootstrap', array(
-        'capability' => 'edit_theme_options',
-        'default'    => true,
-    ));
-    $wp_customize->add_control('grit_setting_bootstrap', array(
-        'type' => 'checkbox',
-        'section' => 'grit_framework_general_settings',
-        'label' => __('Activate Bootstrap 4.6.2'),
-        'description' => __('Attiva libreria Bootstrap 4.6.2 css/js'),
 
-    ));
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Fontawesome
-                        // Attiva libreria Fontawesome 5.15.1 fontawesome.com/icons
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    $wp_customize->add_setting('grit_setting_fa', array(
-        'capability' => 'edit_theme_options',
-        'default'    => true,
-    ));
-    $wp_customize->add_control('grit_setting_fa', array(
-        'type' => 'checkbox',
-        'section' => 'grit_framework_general_settings',
-        'label' => __('Fontawesome '),
-        'description' => __('Attiva libreria Fontawesome 5.15.1 fontawesome.com/icons'),
-    ));
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Animate CSS
-                        // Attiva libreria Animate CSS animate.style
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    $wp_customize->add_setting('grit_setting_animate', array(
-        'capability' => 'edit_theme_options',
-        'default'    => true,
-    ));
-    $wp_customize->add_control('grit_setting_animate', array(
-        'type' => 'checkbox',
-        'section' => 'grit_framework_general_settings',
-        'label' => __('Animate CSS'),
-        'description' => __('Attiva libreria Animate CSS animate.style'),
-    ));
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Hover CSS
-                        // Attiva libreria Hover CSS ianlunn.github.io/Hover
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    $wp_customize->add_setting('grit_setting_hover', array(
-        'capability' => 'edit_theme_options',
-        'default'    => true,
-    ));
-    $wp_customize->add_control('grit_setting_hover', array(
-        'type' => 'checkbox',
-        'section' => 'grit_framework_general_settings',
-        'label' => __('Hover CSS'),
-        'description' => __('Attiva libreria Hover CSS ianlunn.github.io/Hover'),
-    ));
+
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     ::::::::::::::    * GRIT_SET Attiva in base alla scalta GSAP
@@ -170,7 +119,7 @@ function grit_customize_register($wp_customize)
 
     $wp_customize->add_setting('grit_setting_gsap', array(
         'capability' => 'edit_theme_options',
-        'default'    => true,
+        'default'    => false,
     ));
     $wp_customize->add_control('grit_setting_gsap', array(
         'type' => 'checkbox',
@@ -186,7 +135,7 @@ function grit_customize_register($wp_customize)
 
     $wp_customize->add_setting('grit_setting_three', array(
         'capability' => 'edit_theme_options',
-        'default'    => true,
+        'default'    => false,
     ));
     $wp_customize->add_control('grit_setting_three', array(
         'type' => 'checkbox',
@@ -203,7 +152,7 @@ function grit_customize_register($wp_customize)
 
     $wp_customize->add_setting('grit_setting_lenis', array(
         'capability' => 'edit_theme_options',
-        'default'    => true,
+        'default'    => false,
     ));
     $wp_customize->add_control('grit_setting_lenis', array(
         'type' => 'checkbox',
@@ -328,27 +277,32 @@ function grit_customize_register($wp_customize)
 
     ));
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET jarallax
-                        // Attiva libreria Jarallax https://github.com/nk-o/jarallax
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    $wp_customize->add_setting('grit_setting_jarallax', array(
-        'capability' => 'edit_theme_options',
-        'default'    => true,
-    ));
-    $wp_customize->add_control('grit_setting_jarallax', array(
-        'type' => 'checkbox',
-        'section' => 'grit_framework_general_settings',
-        'label' => __('Jarallax'),
-        'description' => __('Attiva libreria Jarallax https://github.com/nk-o/jarallax'),
-
-    ));
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     ::::::::::::::    * GRIT_SET Attiva in base alla scalta NProgress CSS JS
                         // Attiva libreria NProgress CSS JS https://ricostacruz.com/nprogress/
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+
+    // * GRIT_SET Default-on libraries with independent Customizer switches
+    $grit_optional_libraries = array(
+        'list' => array('List.js', 'Ricerca e paginazione nelle sezioni Collapse. Se disattivato viene mostrato l’elenco completo.'),
+        'jarallax' => array('Jarallax + Video + Element', 'Attiva o disattiva insieme il parallax standard e le estensioni Video ed Element.'),
+    );
+    foreach ($grit_optional_libraries as $grit_library => $grit_library_info) {
+        $grit_library_setting = 'grit_setting_' . $grit_library;
+        $wp_customize->add_setting($grit_library_setting, array(
+            'capability' => 'edit_theme_options',
+            'default' => true,
+            'sanitize_callback' => 'rest_sanitize_boolean',
+        ));
+        $wp_customize->add_control($grit_library_setting, array(
+            'type' => 'checkbox',
+            'section' => 'grit_framework_general_settings',
+            'label' => $grit_library_info[0],
+            'description' => $grit_library_info[1],
+        ));
+    }
 
     $wp_customize->add_setting('grit_setting_nprogress', array(
         'capability' => 'edit_theme_options',
@@ -368,7 +322,7 @@ function grit_customize_register($wp_customize)
 
     $wp_customize->add_setting('grit_setting_magic_mouse', array(
         'capability' => 'edit_theme_options',
-        'default'    => true,
+        'default'    => false,
     ));
     $wp_customize->add_control('grit_setting_magic_mouse', array(
         'type' => 'checkbox',
@@ -777,6 +731,17 @@ function grit_customize_register($wp_customize)
         'type' => 'text',
         'section' => 'grit_framework_theme_fileds',
         'label' => __('Instagram'),
+    ]);
+
+    // * GRIT_SET TikTok | Shared with the reusable contact shortcodes.
+    $wp_customize->add_setting('grit_setting_tiktok', [
+        'capability' => 'edit_theme_options',
+        'sanitize_callback' => 'esc_url_raw',
+    ]);
+    $wp_customize->add_control('grit_setting_tiktok', [
+        'type' => 'url',
+        'section' => 'grit_framework_theme_fileds',
+        'label' => __('TikTok', 'grit_framework'),
     ]);
 
 

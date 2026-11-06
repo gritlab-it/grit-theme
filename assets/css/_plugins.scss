@@ -1,5 +1,9 @@
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 01 * GRIT_SET owl-carousel */ 
+/* :::::::::::::: 01 * GRIT_SET owl-carousel */
+/* Owl legend: shared controls, contained offsets, cursor, header defaults, positions and aliases.
+ * Section-specific images and Gallery ratios are centralized in _sections.scss.
+ * Complete class reference: CAROUSELS.md; use one nav position and one dots alignment.
+ */
 /* :::::::::::::: 02 * GRIT_SET animate */ 
 /* :::::::::::::: 03 * GRIT_SET jarallax */ 
 /* :::::::::::::: 04 * GRIT_SET lenis.js */ 
@@ -12,279 +16,89 @@
 @use './variables' as *;
 
 /* :::::::::::::: 01 * GRIT_SET owl-carousel */ 
-section {
-  
-  &.contained {
-    .owl-carousel { 
-      @media (min-width: $sm-res) {
-        .owl-nav {
-          button.owl-prev {
-            left: -40px;
-          } 
-          button.owl-next {
-            right: -40px;
-          }
-        }
-      }
-    }  
-  } 
-  &.carousel-center {
-    .col  {
-      padding: 0
-    }
-  }
-  &.carousel-left {
-    @media (min-width: $sm-res) { 
-      padding-left:  calc(($c-gap) / $xxl * 100vw); 
-    }
+// * GRIT_SET Carousel class reference: see CAROUSELS.md in the theme root.
+// Numeric: carousel-{items|gap|padding|speed|timeout}[-{sm|md|lg|xl|xxl}]-N.
+// Flags: carousel-[no-]{loop|nav|dots|center|autoplay|auto-height|auto-width|rewind|drag|touch}[-breakpoint].
+// Positions: carousel-nav-{sides|top-left|top-right|bottom-left|bottom-right}.
+// Dots: carousel-dots-{inside|outside|left|center|right}.
+// Colors: carousel-nav-{light|dark}, carousel-dots-{light|dark}; opt-in, no size/background changes.
+// Legacy owl-nav-* and owl-dots-inner remain supported.
 
-  }
-  &.owl-dots-inner {
-    .owl-carousel {
-      .owl-dots {
-        bottom: 20px;
-      }
-    } 
-  }
+// * GRIT_SET Shared appearance and editable spacing variables
+// * GRIT_SET Preserve content when Owl is disabled, blocked or unavailable (Text/Collapse included).
+section .owl-carousel:not(.owl-loaded) { display: block; }
 
-  
-  &.owl-nav-top-left {
-    .owl-carousel {
-      .owl-nav {  
-        position: absolute;
-        top: -50px;
-        left: 0;
-        margin-left: 0px;
-        padding-left: calc(($c-gap) / $xxl * 100vw); 
-        width: auto;
-        transform: translateY(-50%);
-        display: flex;
-        pointer-events: none;
-        z-index: 1;
-        justify-content: center;
-        button.owl-prev,
-        button.owl-next { 
-          left: 0;
-          right: 0; 
-        }
-      }
-    }
-    &.carousel-left {
-      .owl-carousel {
-          .owl-nav {
-            padding-left: 0px;
-          }
-      }
+section .owl-carousel {
+  --carousel-nav-offset: 10px;
+  --carousel-controls-gap: 50px;
+  --carousel-dots-offset: 30px;
+  --carousel-dot-size: 15px;
+  --carousel-nav-size: 22px;
+  .owl-dots {
+    position: absolute;
+    bottom: calc(-1 * var(--carousel-dots-offset));
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    text-align: center;
+    button.owl-dot {
+      width: var(--carousel-dot-size);
+      height: var(--carousel-dot-size);
+      margin: 0.3rem;
+      border-radius: 50%;
+      border: 1px solid var(--carousel-dot-color, #{$dark});
+      background: var(--carousel-dot-background, #{$light});
+      @include transition(all 0.3s ease-in-out);
+      span { display: none; }
+      &.active { border-color: var(--carousel-dot-active-color, #{$light}); background: var(--carousel-dot-active-background, #{$dark}); }
     }
   }
-  &.contained.gallery_carousel.owl-nav-top-left {
-    .owl-nav {
-      padding-left: 0px;
-    }
-  }
-  
-  &.owl-nav-bottom-left {
-    .owl-carousel {
-      .owl-nav {  
-        position: absolute;
-        bottom: -50px;
-        left: 0;
-        margin-left: 0px;
-        padding-left: calc(($c-gap) / $xxl * 100vw); 
-        width: auto;
-        transform: translateY(50%);
-        display: flex;
-        pointer-events: none;
-        z-index: 1;
-        justify-content: center;
-        button.owl-prev,
-        button.owl-next { 
-          left: 0;
-          right: 0; 
-        }
-      }
-    }
-    &.carousel-left {
-      .owl-carousel {
-          .owl-nav {
-            padding-left: 0px;
-          }
-      }
-    }
-  }
-  &.contained.gallery_carousel.owl-nav-bottom-left {
-    .owl-nav {
-      padding-left: 0px;
-    }
-  }
-
-  &.owl-nav-top-right {
-    .owl-carousel {
-      .owl-nav {  
-        position: absolute;
-        top: -50px;
-        right: 0;
-        margin-right: 0px;
-        padding-right: calc(($c-gap) / $xxl * 100vw); 
-        width: auto;
-        transform: translateY(-50%);
-        display: flex;
-        pointer-events: none;
-        z-index: 1;
-        justify-content: center;
-        button.owl-prev,
-        button.owl-next { 
-          left: 0;
-          right: 0; 
-        }
-      }
-    }
-  }
-  &.contained.gallery_carousel.owl-nav-top-right {
-    .owl-nav {
-      padding-right: 0px;
-    }
-  }
-  
-  &.owl-nav-bottom-right {
-    .owl-carousel {
-      .owl-nav {  
-        position: absolute;
-        bottom: -50px;
-        right: 0;
-        margin-right: 0px;
-        padding-right: calc(($c-gap) / $xxl * 100vw); 
-        width: auto;
-        transform: translateY(50%);
-        display: flex;
-        pointer-events: none;
-        z-index: 1;
-        justify-content: center;
-        button.owl-prev,
-        button.owl-next { 
-          left: 0;
-          right: 0; 
-        }
-      }
-    }
-  } 
-  &.contained.gallery_carousel.owl-nav-bottom-right {
-    .owl-nav {
-      padding-right: 0px;
-    }
-  }
-  
-  .owl-carousel {  
-    .owl-dots {
-      width: auto;
-      position: absolute; 
-      text-align: center;
-      
-      margin: 0 auto; 
-      
-      bottom: -30px;
-      left: 0;
-      right: 0;
-      
-      button.owl-dot {
-        width: 15px;
-        height: 15px;
-        
-        margin: 0.3rem;
-        border-radius: 50%;
-
-        border: solid 1px $dark;
-        background-color: $light;
-        @include transition(all 0.3s ease-in-out); 
-        
-        &.active {
-          border: solid 1px $light;
-          background-color: $dark;
-          
-        }
-      }
-    } 
-    
-    .owl-nav {
-      position: absolute;
-      top: 50%;
-      width: 100%;
-      transform: translateY(-50%);
+  .owl-nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 2;
+    button.owl-prev, button.owl-next {
+      position: relative;
       display: flex;
-      justify-content: space-between;
-      pointer-events: none;
-      z-index: 1;
-      
-      button.owl-prev,
-      button.owl-next {
-        text-align: center;
-        z-index: 3;
-        pointer-events: all;
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        z-index: 1; 
-        @include transition(all 0.3s ease-in-out); 
-        
-        padding: 3px;
-        margin: 0px 10px;
-        border-radius: 25px;
-        font-size: 22px; 
-        
-        .btn svg path {
-          @include transition(all 0.3s ease-in-out);
-          stroke: $light;
-        }
-        
-        &:hover .btn svg path,
-        &:active .btn svg path {
-          stroke: $dark;
-        } 
-
-
-        &:hover ,
-        &:active  { 
-          color: $accent;
-        } 
-
-
-        &.disabled {
-          opacity: 0.3;       // opacizza il bottone disabilitato
-          cursor: default;    // disabilita l'effetto "click"
-          pointer-events: none; // impedisce interazioni
-        }
-        
-      }
-      
-      button.owl-prev .btn {
-        rotate: 180deg;
-      }
-      
-      button.owl-prev {
-        left: 10px;
-      }
-      
-      button.owl-next {
-        right: 10px;
-      }
-      
-      @media (max-width: $md-res) {
-        button.owl-prev {
-          left: 10px;
-        }
-        
-        button.owl-next {
-          right: 10px;
-        }
-      }
-    } 
+      align-items: center;
+      justify-content: center;
+      pointer-events: auto;
+      padding: 3px;
+      margin: 0 10px;
+      border-radius: 25px;
+      font-size: var(--carousel-nav-size);
+      color: var(--carousel-nav-color, inherit);
+      @include transition(all 0.3s ease-in-out);
+      .btn svg path { stroke: var(--carousel-nav-color, #{$light}); }
+      &:hover, &:active { color: var(--carousel-nav-color, #{$accent}); }
+      &:hover .btn svg path, &:active .btn svg path { stroke: var(--carousel-nav-color, #{$dark}); }
+      &.disabled { opacity: 0.3; pointer-events: none; }
+    }
+    button.owl-prev { left: var(--carousel-nav-offset); }
+    button.owl-next { right: var(--carousel-nav-offset); }
+    button.owl-prev .btn { rotate: 180deg; }
   }
+  // Owl toggles disabled on each responsive refresh; never override it with flex.
+  .owl-nav.disabled, .owl-dots.disabled { display: none; }
+  .owl-nav button:focus-visible, .owl-dots button:focus-visible {
+    outline: 2px solid $accent;
+    outline-offset: 3px;
+  }
+}
+section.contained .owl-carousel {
+  @media (min-width: $sm-res) { --carousel-nav-offset: -40px; }
+}
+section.carousel-center .col { padding: 0; }
+section.carousel-left {
+  @media (min-width: $sm-res) { padding-left: calc(($c-gap) / $xxl * 100vw); }
+}
 
-
-
-
+section {
     /* Forza il cursor su TUTTO il carousel (anche sui link clonati) */
 .owl-carousel {
   // Disattiva eventuali cursor ereditati (Magic Cursor / theme)
@@ -324,6 +138,66 @@ section {
 }
 
 
+
+}
+
+// * GRIT_SET Shared color modes | Apply to a section or directly to an Owl carousel.
+// Light/dark changes only arrow glyphs and dot colors; existing shapes/positions remain intact.
+@each $mode, $color in (light: #fff, dark: #111) {
+  :where(section.carousel-nav-#{$mode}) .owl-carousel,
+  .owl-carousel.carousel-nav-#{$mode} {
+    --carousel-nav-color: #{$color};
+  }
+  :where(section.carousel-dots-#{$mode}) .owl-carousel,
+  .owl-carousel.carousel-dots-#{$mode} {
+    --carousel-dot-color: #{$color};
+    --carousel-dot-background: transparent;
+    --carousel-dot-active-color: #{$color};
+    --carousel-dot-active-background: #{$color};
+  }
+}
+
+// * GRIT_SET Header defaults; explicit position modifiers below take precedence
+.section_page_header .carousel-header .owl-nav {
+  top: auto;
+  bottom: 35px;
+  right: calc(($c-gap / 2) / ($xxl / 2) * 100vw);
+  width: 150px;
+}
+
+// * GRIT_SET Shared navigation positions, with backwards-compatible aliases
+@each $vertical in top, bottom {
+  @each $horizontal in left, right {
+    section.carousel-nav-#{$vertical}-#{$horizontal},
+    section.owl-nav-#{$vertical}-#{$horizontal} {
+      .owl-carousel .owl-nav {
+        top: auto;
+        bottom: auto;
+        left: auto;
+        right: auto;
+        #{$vertical}: calc(-1 * var(--carousel-controls-gap));
+        #{$horizontal}: 0;
+        width: auto;
+        transform: none;
+        justify-content: center;
+        padding: 0;
+        button.owl-prev, button.owl-next { left: auto; right: auto; }
+      }
+    }
+  }
+}
+section.carousel-nav-sides .owl-carousel .owl-nav {
+  top: 50%; bottom: auto; left: 0; right: 0;
+  width: 100%; transform: translateY(-50%);
+  justify-content: space-between;
+}
+section.carousel-dots-inside .owl-carousel .owl-dots,
+section.owl-dots-inner .owl-carousel .owl-dots { bottom: 20px; }
+section.carousel-dots-outside .owl-carousel .owl-dots {
+  bottom: calc(-1 * var(--carousel-dots-offset));
+}
+@each $align in left, center, right {
+  section.carousel-dots-#{$align} .owl-carousel .owl-dots { text-align: $align; }
 }
 
 /* :::::::::::::: 02 * GRIT_SET animate */ 

@@ -1,107 +1,25 @@
- 
- {% if section.slides|length > 1 %}
- <div class="owl-carousel owl-theme carousel-slider ">
-    {% for slide in section.slides %}
-    <div class="item-slide bg-{{slide.background_color}} {% if 'parallax' in section.class %} jarallax-keep-img {% endif %}"  {% if slide.background %} style="background-image:url('{{Image(slide.background.id).src}}');" {% endif %}> 
-        <div class="inner-text">
-            <div class="container-fluid contained in__animate " data-animation="animate__fadeIn animate__slow ">
-                <div class="row">
-                    <div class="col-12 col-md-12 col-lg-12 pb-5 mb-5 {{ slide.align ? 'text-' ~ slide.align : ''  }}">
-
-                        {% if slide.title %}
-                            <h1 class="color-{{slide.text_color}}"> 
-                                {{slide.title}}  
-                            </h1> 
-                        {% endif %}
-                    
-                    
-                        {% if slide.text %}
-                            <div class="lead font-weight-normal pb-3 color-{{slide.text_color}}">
-                                {{slide.text}}
-                            </div>
-                        {% endif %}
-
-                        <div class="box-buttons">
-                            {% if slide.link_1 %}
-                            {% set btn = {
-                                'title': slide.link_1.title,
-                                'url': slide.link_1.url,
-                                'target': slide.link_1.target,
-                                'style': 'btn btn-' ~ slide.color_link_1 ~ ' btn-md',
-                            }
-                            %}
-                            {% include ['/partials/btn.twig'] with btn %} 
-                            {% endif %}
-                            {% if slide.link_2 %}
-                            {% set btn = {
-                                'title': slide.link_2.title,
-                                'url': slide.link_2.url,
-                                'target': slide.link_2.target,
-                                'style': 'btn btn-' ~ slide.color_link_2 ~ ' btn-md',
-                            }
-                            %}
-                            {% include ['/partials/btn.twig'] with btn %} 
-                            {% endif %}
-                        </div> 
-                    </div>
-                </div>
-            </div>
-        </div>
+{#
+ * GRIT_SET Slides legend
+ * 01 | Empty, single and multiple slides share one renderer
+ * 02 | Owl uses the shared carousel settings; static content remains readable without Owl
+ * Classes | slides-height-auto / slides-height-small / slides-height-medium (default: full screen)
+ * Classes | slides-content-top / slides-content-center (default: bottom)
+ * Classes | slides-overlay / slides-overlay-light / slides-no-overlay; slides-zoom
+ * Parallax | Exact `parallax` token, single slide only; reduced motion disables it
+ #}
+{% set slides = section.slides|default([]) %}
+{% set slide_classes = section.class|default('')|split(' ') %}
+{% if slides|length %}
+    {# * GRIT_SET 01 | Keep a single slide static; Owl is only needed for multiple slides #}
+    <div class="slides-track{% if slides|length > 1 %} owl-carousel owl-theme carousel-slider{% endif %}">
+        {% for slide in slides %}
+            {% include 'partials/slide.twig' with {
+                slide: slide,
+                single: slides|length == 1,
+                contained: section.contained|default(false),
+                parallax: slides|length == 1 and 'parallax' in slide_classes,
+                first: loop.first
+            } only %}
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
- 
-
-{% else %}      
-<div class="item-slide item-slide-single bg-{{section.slides[0].background_color}} {% if 'parallax' in section.class %} jarallax-keep-img {% endif %}" {% if section.slides[0].background %} style="background-image:url('{{Image(section.slides[0].background.id).src}}');" {% endif %}>
-    <div class="inner-text">
-        <div class="container-fluid contained in__animate " data-animation="animate__fadeIn animate__slow ">
-            <div class="row">
-                <div class="col-12 col-md-12 col-lg-12 pb-5 mb-5 {{ section.slides[0].align ? 'text-' ~ section.slides[0].align : ''  }}"> 
-
-                    {% if section.slides[0].title %}
-                    <h1 class="color-{{section.slides[0].text_color}} ">
-                        {{section.slides[0].title}}
-                    </h1>
-                    {% endif %}
-
-                    {% if section.slides[0].text %}
-                    <div class="lead font-weight-normal pb-3 color-{{section.slides[0].text_color}}">
-                        {{section.slides[0].text}}
-                    </div>
-                    {% endif %} 
-                    <div class="box-buttons">
-                        {% if section.slides[0].link_1 %}
-                        {% set btn = {
-                            'title' : section.slides[0].link_1.title,
-                            'url'   : section.slides[0].link_1.url,
-                            'target': section.slides[0].link_1.target,
-                            'style' : 'btn btn-' ~ section.slides[0].color_link_1 ~ ' btn-md',
-                        }
-                        %}
-                        {% include ['/partials/btn.twig'] with btn %} 
-                        {% endif %}
-
-                        {% if section.slides[0].link_2 %}
-                        {% set btn = {
-                            'title' : section.slides[0].link_2.title,
-                            'url'   : section.slides[0].link_2.url,
-                            'target': section.slides[0].link_2.target,
-                            'style' : 'btn btn-' ~ section.slides[0].color_link_2 ~ ' btn-md',
-                        }
-                        %}
-                        {% include ['/partials/btn.twig'] with btn %} 
-                        {% endif %}
-
-                    </div>
-                    
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 {% endif %}
-
-
-

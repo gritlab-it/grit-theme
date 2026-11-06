@@ -203,16 +203,7 @@ class StarterSite extends Timber\Site {
 			'orderby' => 'post_date',
 			'order' => 'ASC',
 		);
-		$context['archive_posts'] = $archive_posts = new Timber\PostQuery($post_args); 
-
-
-		$section_args = array(
-			'post_type' => 'section',
-			'posts_per_page' => get_option('posts_per_page'), 
-			'orderby' => 'post_date',
-			'order' => 'ASC',
-		);
-		$context['archive_section'] = $archive_section = new Timber\PostQuery($section_args); 
+		$context['archive_posts'] = $archive_posts = new Timber\PostQuery($post_args);  
 		
 		/*
 		// * GRIT_SET Google Fonts
@@ -256,6 +247,7 @@ class StarterSite extends Timber\Site {
 		$context['setting_facebook'] = get_theme_mod('grit_setting_facebook');
 		$context['setting_linkedin'] = get_theme_mod('grit_setting_linkedin');
 		$context['setting_instagram'] = get_theme_mod('grit_setting_instagram');
+		$context['setting_tiktok'] = get_theme_mod('grit_setting_tiktok');
 		
 		// * GRIT_SET WooCommerce 
 		if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
@@ -516,15 +508,145 @@ function skip_empty_acf_fields($value, $post_id, $field) {
  
 add_filter('doing_it_wrong_trigger_error', '__return_false', 0);
 
+// * GRIT_SET Contacts legend: 01 allowed Theme Fields; 02 single value.
+
+// * GRIT_SET 01 | Only public business/contact fields can be requested by shortcodes.
+function grit_contact_fields() {
+    return [
+        'intestazione' => 'company', 'piva' => 'company', 'rea' => 'company', 'cap_soc' => 'company',
+        'indirizzo_1' => 'address', 'indirizzo_2' => 'address', 'indirizzo_3' => 'address',
+        'tel_1' => 'phone', 'tel_2' => 'phone', 'tel_3' => 'phone', 'fax' => 'fax',
+        'mail_1' => 'email', 'mail_2' => 'email', 'mail_3' => 'email',
+        'facebook' => 'social', 'instagram' => 'social', 'linkedin' => 'social', 'tiktok' => 'social',
+    ];
+}
+
+// * GRIT_SET 02 | Missing fields render nothing; labels/classes never replace the stored value.
+function grit_contact_shortcode($attributes) {
+    $a = shortcode_atts(['field' => '', 'label' => '', 'class' => '', 'tag' => 'span',
+        'link' => 'true'], $attributes, 'grit_contact');
+    $fields = grit_contact_fields();
+    $field = sanitize_key($a['field']);
+    if (!isset($fields[$field])) return '';
+    $value = trim((string) get_theme_mod('grit_setting_' . $field, ''));
+    if ($value === '') return '';
+    $type = $fields[$field];
+    $href = '';
+    if ($type === 'phone') {
+        $phone = preg_replace('/[^0-9+]/', '', $value);
+        if (preg_match('/^\+?[0-9]+$/', $phone)) $href = 'tel:' . $phone;
+    } elseif ($type === 'address') {
+        // * GRIT_SET Address directions | Encode the saved address as a query value.
+        $href = 'https://www.google.com/maps/dir/?api=1&destination=' . rawurlencode($value);
+    } elseif ($type === 'email') {
+        if (is_email($value)) $href = 'mailto:' . $value;
+    } elseif ($type === 'social') {
+        $href = esc_url($value, ['http', 'https']);
+        if (!$href) return '';
+    }
+    $text = $a['label'] !== '' ? $a['label'] : $value;
+    // * GRIT_SET Custom labels | Allow inline icons without scripts, events or nested links.
+    $content = $a['label'] !== '' ? wp_kses($text, [
+        'i' => ['class' => true, 'aria-hidden' => true],
+        'span' => ['class' => true, 'aria-hidden' => true],
+        'strong' => [],
+        'em' => [],
+    ]) : esc_html($value);
+    if ($href && filter_var($a['link'], FILTER_VALIDATE_BOOLEAN)) {
+        $target = ' target="_blank" rel="noopener noreferrer"';
+        $content = '<a href="' . esc_url($href, ['http', 'https', 'tel', 'mailto']) . '"' . $target . '>' . $content . '</a>';
+    }
+    $tag = in_array($a['tag'], ['span', 'p', 'div', 'h2', 'h3', 'h4'], true) ? $a['tag'] : 'span';
+    return '<' . $tag . ' class="' . esc_attr(trim('grit-contact grit-contact-' . $field . ' ' . $a['class'])) . '">' . $content . '</' . $tag . '>';
+}
+add_shortcode('grit_contact', 'grit_contact_shortcode');
 
 
+// * GRIT_SET Section Archive legend | 01 public choices; 02 independent query; 03 safe excerpts.
+// * GRIT_SET 01 | Populate ACF choices from the current site's registered content types/templates.
+function grit_archive_public_types() {
+    $choices = [];
+    foreach (get_post_types(['public' => true], 'objects') as $type) {
+        if ($type->name !== 'attachment') $choices[$type->name] = $type->labels->name;
+    }
+    return $choices;
+}
+function grit_archive_tease_choices() {
+    $choices = [];
+    foreach (array_unique([get_template_directory(), get_stylesheet_directory()]) as $directory) {
+        foreach (glob($directory . '/templates/partials/tease-*.twig') ?: [] as $path) {
+            $name = substr(basename($path), 6, -5);
+            if ($name === 'product' && (!class_exists('WooCommerce') || !function_exists('timber_set_product'))) continue;
+            $choices[$name] = $name;
+        }
+    }
+    return $choices;
+}
+// * GRIT_SET Use field names and resolve the owning layout instead of hard-coded ACF keys.
+function grit_archive_admin_field($field) {
+    $parent = acf_get_raw_field($field['parent'] ?? 0);
+    $is_archive = false;
+    foreach ($parent['layouts'] ?? [] as $layout) {
+        if (($layout['key'] ?? '') === ($field['parent_layout'] ?? '') && $layout['name'] === 'section_archive') {
+            $is_archive = true;
+            break;
+        }
+    }
+    if (!$is_archive) return $field;
+    if ($field['name'] === 'post_type') {
+        $field['choices'] = grit_archive_public_types();
+    } elseif ($field['name'] === 'tease') {
+        $field['instructions'] = 'Scrivi il nome senza tease- e senza .twig. Disponibili: ' .
+            implode(', ', array_keys(grit_archive_tease_choices())) .
+            '. Consigliati: card, vertical, horizontal, compact, text, title, editorial, overlay. Vuoto: template del post type, se disponibile, altrimenti card standard.';
+    } elseif ($field['name'] === 'taxonomy') {
+        $field['choices'] = [];
+        foreach (get_taxonomies(['public' => true], 'objects') as $taxonomy) {
+            $field['choices'][$taxonomy->name] = $taxonomy->labels->name . ' (' . $taxonomy->name . ')';
+        }
+    }
+    return $field;
+}
+foreach (['post_type', 'tease', 'taxonomy'] as $grit_archive_field_name) {
+    add_filter('acf/load_field/name=' . $grit_archive_field_name, 'grit_archive_admin_field');
+}
+unset($grit_archive_field_name);
 
+// * GRIT_SET 02 | Query each section without replacing the native archive or related-post query.
+function grit_archive_section_data($section) {
+    $empty = ['posts' => [], 'tease' => ''];
+    $type = sanitize_key($section['post_type'] ?? 'post') ?: 'post';
+    if (!isset(grit_archive_public_types()[$type])) return $empty;
+    $limit = $section['posts_per_page'] ?? '';
+    $limit = $limit === '' || $limit === null || $limit === false ? (int) get_option('posts_per_page', 10) : (int) $limit;
+    $orderby = $section['orderby'] ?? 'date';
+    if (!in_array($orderby, ['date', 'title', 'menu_order'], true)) $orderby = 'date';
+    $order = strtoupper($section['order'] ?? 'DESC') === 'ASC' ? 'ASC' : 'DESC';
+    $args = [
+        'post_type' => $type, 'post_status' => 'publish', 'has_password' => false,
+        'posts_per_page' => max(1, min(100, $limit)), 'no_found_rows' => true,
+        'orderby' => [$orderby => $order, 'ID' => $order], 'ignore_sticky_posts' => true,
+    ];
+    if (!empty($section['exclude_current']) && is_singular()) {
+        $args['post__not_in'] = [(int) get_queried_object_id()];
+    }
+    $taxonomy = sanitize_key($section['taxonomy'] ?? '');
+    $terms = trim((string) ($section['term_slugs'] ?? ''));
+    if ($terms !== '') {
+        if (!$taxonomy || !is_object_in_taxonomy($type, $taxonomy)) return $empty;
+        $slugs = array_filter(array_map('sanitize_title', explode(',', $terms)));
+        if (!$slugs) return $empty;
+        $args['tax_query'] = [['taxonomy' => $taxonomy, 'field' => 'slug', 'terms' => $slugs, 'operator' => 'IN']];
+    }
+    $tease = sanitize_key($section['tease'] ?? '') ?: $type;
+    if (!isset(grit_archive_tease_choices()[$tease])) $tease = '';
+    return ['posts' => new Timber\PostQuery($args), 'tease' => $tease];
+}
 
-
-
-
-
-
-
-
- 
+// * GRIT_SET 03 | Card previews never execute full-content filters or embedded shortcodes.
+function grit_archive_excerpt($post, $length = 35) {
+    $id = is_object($post) ? (int) $post->ID : (int) $post;
+    $excerpt = get_post_field('post_excerpt', $id);
+    $text = $excerpt !== '' ? $excerpt : get_post_field('post_content', $id);
+    return wp_trim_words(wp_strip_all_tags(strip_shortcodes(strip_tags((string) $text))), max(1, (int) $length), '…');
+}

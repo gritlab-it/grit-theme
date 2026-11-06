@@ -1,0 +1,25 @@
+{#
+ * GRIT_SET Shared item classes
+ * Legend
+ * 01 | Explicit Bootstrap columns replace automatic columns
+ * 02 | Carousel sizing belongs to Owl; keep only non-column modifiers
+ #}
+{% macro classes(inner_class, total, align, carousel) -%}
+    {%- set tokens = inner_class|default('')|split(' ') -%}
+    {%- set columns = tokens|filter(value => value == 'col' or value matches '/^col-.*$/') -%}
+    {%- set modifiers = tokens|filter(value => value != 'col' and not (value matches '/^col-.*$/')) -%}
+    {%- if carousel -%}
+        {%- set columns = [] -%}
+    {%- elseif not columns -%}
+        {%- if total == 1 -%}
+            {%- set columns = align == 'center' ? ['col-12', 'col-md-10', 'col-xl-8'] : ['col-12'] -%}
+        {%- elseif total == 2 -%}
+            {%- set columns = ['col-12', 'col-md-6'] -%}
+        {%- elseif total == 3 -%}
+            {%- set columns = ['col-12', 'col-sm-6', 'col-md-4'] -%}
+        {%- else -%}
+            {%- set columns = ['col-12', 'col-sm-6', 'col-md-3'] -%}
+        {%- endif -%}
+    {%- endif -%}
+    {{- columns|merge(modifiers)|join(' ')|trim|e('html_attr') -}}
+{%- endmacro %}

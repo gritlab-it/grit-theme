@@ -1,0 +1,5 @@
+{# * GRIT_SET horizontal | Standard reusable card; missing images never reserve empty columns #}
+{% extends "partials/tease.twig" %}
+{% block content %}
+<div class="card grit-tease-card tease-horizontal"><div class="row no-gutters h-100">{% if post.thumbnail %}<div class="col-12 col-md-5">{% if post.thumbnail %}<a class="tease-media" href="{{ post.link|e('html_attr') }}">{% include 'partials/card-image.twig' with { post: post, image_class: 'img-fluid' } only %}</a>{% endif %}</div>{% endif %}<div class="{% if post.thumbnail %}col-12 col-md-7{% else %}col-12{% endif %}"><div class="card-body">{% set categories = post.terms('category') %}{% if categories|length %}<p class="small text-muted mb-2">{{ categories|join(', ')|e }}</p>{% endif %}<h3 class="card-title"><a href="{{ post.link|e('html_attr') }}">{{ post.title|e }}</a></h3>{% set excerpt = function('grit_archive_excerpt', post, 25) %}{% if excerpt %}<p class="card-text">{{ excerpt|e }}</p>{% endif %}</div></div></div></div>
+{% endblock %}

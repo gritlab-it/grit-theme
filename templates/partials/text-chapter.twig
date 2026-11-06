@@ -1,0 +1,25 @@
+{# * GRIT_SET Shared chapter content; parallax stays limited to static layouts #}
+{% if item.image %}
+    {% set gsap_image = not is_carousel and 'parallax-gsap' in item_classes %}
+    {% set jarallax_image = not is_carousel and not gsap_image and 'parallax' in item_classes %}
+    <div class="inner-img in__animate{% if is_carousel %} pb-3{% endif %}" data-animation="animate__fadeIn animate__slow">
+        {% if gsap_image %}<div class="gsap-parallax-container"{% if item.image.width and item.image.height %} style="aspect-ratio: {{ item.image.width }}/{{ item.image.height }}"{% endif %}>
+        {% elseif jarallax_image %}<div class="jarallax-keep-img overlay-in" data-speed="0.8">{% endif %}
+        {{ function('grit_text_chapter_image', item.image.id|default(item.image.ID), gsap_image ? 'img-fluid gsap-parallaxImage' : (jarallax_image ? 'img-fluid jarallax-img' : 'img-fluid'), is_carousel, section.class|default('')) }}
+        {% if gsap_image or jarallax_image %}</div>{% endif %}
+    </div>
+{% endif %}
+{% if item.title or item.subtitle or item.text %}
+    <div class="inner-text in__animate" data-animation="animate__fadeIn animate__slow">
+        {% if item.title %}<h2>{{ item.title|e }}</h2>{% endif %}
+        {% if item.subtitle %}<h3>{{ item.subtitle|e }}</h3>{% endif %}
+        {{ item.text }}
+    </div>
+{% endif %}
+{% include 'partials/buttons.twig' with {
+    buttons: [
+        { title: item.link_1.title, url: item.link_1.url, target: item.link_1.target, style: 'btn btn-' ~ section.color_link_1|default('primary') ~ ' btn-md' },
+        { title: item.link_2.title, url: item.link_2.url, target: item.link_2.target, style: 'btn btn-' ~ section.color_link_2|default('primary') ~ ' btn-md' }
+    ],
+    buttons_class: 'in__animate', buttons_animation: 'animate__fadeIn animate__slow' 
+} only %}

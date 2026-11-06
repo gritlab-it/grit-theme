@@ -38,27 +38,8 @@ add_filter('script_loader_tag', 'make_script_async', 10, 3);
 function grit_scripts()
 {
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Autoload
-    ::::::::::::::      jQuery is loaded using the same method from HTML5 Boilerplate:
-    ::::::::::::::      It's kept in the header instead of footer to avoid conflicts with plugins.
-    ::::::::::::::      Grab Google CDN's latest jQuery with a protocol relative URL; fallback to CDNJS if offline
-    ::::::::::::::      Support added in init.php
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-
-    if (!is_admin() && current_theme_supports('jquery-cdn')) {
-        wp_deregister_script('jquery');
-        wp_register_script('jquery', 'https://code.jquery.com/jquery-1.11.3.min.js', array(), null, false);
-        add_filter('script_loader_src', 'grit_jquery_local_fallback', 10, 2);
-    }
+    // * GRIT_SET Use WordPress jQuery and its dependencies without CDN replacements
     wp_enqueue_script('jquery');
-
-    wp_enqueue_script('jquery', '//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js');
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Popper
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-    wp_enqueue_script('popper', get_template_directory_uri() . '/assets/popper/popper.min.js', array(), '2.9.2', true);
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     ::::::::::::::    * GRIT_SET Javascript for comments
@@ -73,41 +54,34 @@ function grit_scripts()
                         // Attiva libreria Bootstrap 4.6.2 CSS JS
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    if ($GLOBALS['assets_options']['GRIT_SETTING_BOOTSTRAP']) {
-        wp_enqueue_style('bootstrap', get_template_directory_uri() . '/assets/bootstrap-4.6.2-dist/css/bootstrap.min.css');
-        wp_enqueue_script('bootstrap', get_template_directory_uri() . '/assets/bootstrap-4.6.2-dist/js/bootstrap.min.js', array(), '4.6.2', true);
-    }
+    // * GRIT_SET Bootstrap is a structural dependency and is always loaded
+    wp_enqueue_style('bootstrap', get_template_directory_uri() . '/assets/bootstrap-4.6.2-dist/css/bootstrap.min.css');
+    wp_enqueue_script('bootstrap', get_template_directory_uri() . '/assets/bootstrap-4.6.2-dist/js/bootstrap.bundle.min.js', array('jquery'), '4.6.2', true);
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Fontawesome
+    ::::::::::::::    * GRIT_SET Always load Fontawesome
                         // Attiva libreria Fontawesome fontawesome.com/icons
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    if ($GLOBALS['assets_options']['GRIT_SETTING_FA']) {
-        wp_enqueue_script('fa', 'https://use.fontawesome.com/releases/v5.15.1/js/all.js', array(), '5.15.1', true);
-        wp_enqueue_style('fa', 'https://use.fontawesome.com/releases/v5.15.1/css/fontawesome.css');
-        /*wp_enqueue_script('fab', 'https://use.fontawesome.com/releases/v5.15.1/js/brands.js', array(), '5.15.1', true);*/
-        /*wp_enqueue_style('fab',  'https://use.fontawesome.com/releases/v5.15.1/css/brands.css');*/
-    }
+    wp_enqueue_script('fa', 'https://use.fontawesome.com/releases/v5.15.1/js/all.js', array(), '5.15.1', true);
+    wp_enqueue_style('fa', 'https://use.fontawesome.com/releases/v5.15.1/css/fontawesome.css');
+    /*wp_enqueue_script('fab', 'https://use.fontawesome.com/releases/v5.15.1/js/brands.js', array(), '5.15.1', true);*/
+    /*wp_enqueue_style('fab',  'https://use.fontawesome.com/releases/v5.15.1/css/brands.css');*/
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Animate CSS
+    ::::::::::::::    * GRIT_SET Always load Animate CSS
                         // Attiva libreria Animate CSS animate.style
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    if ($GLOBALS['assets_options']['GRIT_SETTING_ANIMATE']) {
-        wp_enqueue_style('animate', get_template_directory_uri() . '/assets/animate-css/animate.css');
-        wp_enqueue_script('viewportchecker', get_template_directory_uri() . '/assets/animate-css/viewportchecker.js');
-    }
+    wp_enqueue_style('animate', get_template_directory_uri() . '/assets/animate-css/animate.css');
+    wp_enqueue_script('viewportchecker', get_template_directory_uri() . '/assets/animate-css/viewportchecker.js');
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Hover CSS
+    ::::::::::::::    * GRIT_SET Always load Hover CSS
                         // Attiva libreria Hover CSS ianlunn.github.io/Hover
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    if ($GLOBALS['assets_options']['GRIT_SETTING_HOVER']) {
-        wp_enqueue_style('hover', get_template_directory_uri() . '/assets/hover-css/css/hover.css');
-    }
+    wp_enqueue_style('hover', get_template_directory_uri() . '/assets/hover-css/css/hover.css');
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     ::::::::::::::    * GRIT_SET Attiva in base alla scalta GSAP
@@ -184,7 +158,7 @@ function grit_scripts()
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
     if ($GLOBALS['assets_options']['GRIT_SETTING_IMAGESLOADED']) {
-        wp_enqueue_script('imagesloaded', get_template_directory_uri() . '/assets/imagesloaded/imagesloaded.pkgd.min', array(), '1.0.0', true);
+        wp_enqueue_script('imagesloaded', get_template_directory_uri() . '/assets/imagesloaded/imagesloaded.pkgd.min.js', array(), '1.0.0', true);
     }
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -212,19 +186,20 @@ function grit_scripts()
 
     if ($GLOBALS['assets_options']['GRIT_SETTING_OWL_CAROUSEL']) {
         wp_enqueue_style('owl_carousel', get_template_directory_uri() . '/assets/owl-carousel/owl.carousel.min.css');
-        wp_enqueue_script('owl_carousel', get_template_directory_uri() . '/assets/owl-carousel/owl.carousel.min.js');
+        wp_enqueue_script('owl_carousel', get_template_directory_uri() . '/assets/owl-carousel/owl.carousel.min.js', array('jquery'), '2.3.4', true);
     }
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Jarallax
+    ::::::::::::::    * GRIT_SET Configurable Jarallax core and extensions
                     // Attiva libreria Jarallax https://github.com/nk-o/jarallax
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
+    // * GRIT_SET One Jarallax switch controls core, Video and Element together
     if ($GLOBALS['assets_options']['GRIT_SETTING_JARALLAX']) {
         wp_enqueue_style('jarallax', get_template_directory_uri() . '/assets/jarallax-master/dist/jarallax.css');
-        wp_enqueue_script('jarallax', get_template_directory_uri() . '/assets/jarallax-master/dist/jarallax.js', array(), '', true);
-        wp_enqueue_script('jarallax_video', get_template_directory_uri() . '/assets/jarallax-master/dist/jarallax-video.js', array(), '', true);
-        wp_enqueue_script('jarallax_elements', get_template_directory_uri() . '/assets/jarallax-master/dist/jarallax-element.js', array(), '', true);
+        wp_enqueue_script('jarallax', get_template_directory_uri() . '/assets/jarallax-master/dist/jarallax.js', array('jquery'), '', true);
+        wp_enqueue_script('jarallax_video', get_template_directory_uri() . '/assets/jarallax-master/dist/jarallax-video.js', array('jarallax'), '', true);
+        wp_enqueue_script('jarallax_elements', get_template_directory_uri() . '/assets/jarallax-master/dist/jarallax-element.js', array('jarallax'), '', true);
     }
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -295,7 +270,7 @@ function grit_scripts_custom()
     ::::::::::::::    * GRIT_SET Carico style.css
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    wp_enqueue_style('main', get_template_directory_uri() . '/assets/css/main.css');
+    wp_enqueue_style('main', get_template_directory_uri() . '/assets/css/main.css', array(), filemtime(get_template_directory() . '/assets/css/main.css'));
 
     /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     ::::::::::::::    * GRIT_SET Carico il CSS custom
@@ -307,40 +282,31 @@ function grit_scripts_custom()
     ::::::::::::::    * GRIT_SET Carico il JS custom
     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-    wp_enqueue_script('scripts', get_template_directory_uri() . '/assets/js/custom.js', array(), '1.0.0', true);
+    // * GRIT_SET Load one local List.js copy before the shared frontend initializer
+    $grit_script_dependencies = array('jquery');
+    if ($GLOBALS['assets_options']['GRIT_SETTING_LIST']) {
+        wp_register_script('grit-list', get_template_directory_uri() . '/assets/list-js/list.min.js', array(), '2.3.1', true);
+        $grit_script_dependencies[] = 'grit-list';
+    }
+    if (wp_script_is('jarallax', 'enqueued')) {
+        $grit_script_dependencies[] = 'jarallax';
+    }
+    if (wp_script_is('bootstrap', 'enqueued')) {
+        $grit_script_dependencies[] = 'bootstrap';
+    }
+    // * GRIT_SET Optional motion/layout libraries must precede their initializer
+    foreach (array('owl_carousel', 'gsap-core', 'gsap-scrolltrigger', 'gsap-splitext', 'lenis', 'imagesloaded', 'masonry') as $grit_dependency) {
+        if (wp_script_is($grit_dependency, 'enqueued')) {
+            $grit_script_dependencies[] = $grit_dependency;
+        }
+    }
+    wp_enqueue_script('scripts', get_template_directory_uri() . '/assets/js/custom.js', $grit_script_dependencies, filemtime(get_template_directory() . '/assets/js/custom.js'), true);
 
  
 
 }
 
 add_action('wp_enqueue_scripts', 'grit_scripts_custom', 110);
-
-
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * GRIT_SET Gestisco un sostituto per JQuery nel caso in cui il primo sia offline
-::::::::::::::      http://wordpress.stackexchange.com/a/12450
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-
-function grit_jquery_local_fallback($src, $handle = null)
-{
-    static $add_jquery_fallback = false;
-
-    if ($add_jquery_fallback) {
-        echo '<script>window.jQuery || document.write(\'<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"><\/script>\')</script>' . "\n";
-        $add_jquery_fallback = false;
-    }
-
-    if ($handle === 'jquery') {
-        $add_jquery_fallback = true;
-    }
-
-    return $src;
-}
-
-add_action('wp_head', 'grit_jquery_local_fallback');
-
-
- 
 
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

@@ -2,6 +2,7 @@
 /* :::::::::::::: 01 * GRIT_SET typography */
 /* :::::::::::::: 02 * GRIT_SET btn */
 /* :::::::::::::: 03 * GRIT_SET btn-color */
+/* :::::::::::::: 04 * GRIT_SET shared button groups — wrapping and gap */
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 @use 'sass:color';
 @use './variables' as *;
@@ -470,10 +471,21 @@ a:hover {
 }
  
 
+// * GRIT_SET Shared button groups: horizontal/vertical gap stays correct after wrapping
 .box-buttons {
-  .btn:nth-of-type(2) {
-    margin-left: 1rem;
-}
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  max-width: 100%;
+  gap: 0.75rem 1rem;
+  > .btn {
+    flex: 0 1 auto;
+    min-width: 0;
+    max-width: 100%;
+    margin: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
 }
  
 

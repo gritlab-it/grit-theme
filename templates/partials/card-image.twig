@@ -1,0 +1,6 @@
+{# * GRIT_SET Responsive card image | Attachment metadata supplies alt/srcset; no image means no empty tag #}
+{% if post.thumbnail %}
+    {{ function('wp_get_attachment_image', post.thumbnail.id, 'large', false, {
+        class: image_class|default('img-fluid'), loading: 'lazy'
+    }) }}
+{% endif %}

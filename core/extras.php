@@ -362,4 +362,97 @@ function generateRandomString($length = 10) {
     return $randomString;
 }
 
+/*
+ * GRIT_SET Responsive section images — legend
+ * 01 | Shared Owl sizes calculation and responsive overrides
+ * 02 | Gallery thumbnail attributes
+ * 03 | Text chapter thumbnail attributes
+ */
+
+// * GRIT_SET 01 | Share item counts and autoWidth handling across image helpers
+function grit_carousel_image_sizes($section_classes, $defaults) {
+    $breakpoints = array('base' => 0, 'sm' => 576, 'md' => 768, 'lg' => 992, 'xl' => 1200, 'xxl' => 1400);
+    $overrides = array();
+    $width_overrides = array();
+    $tokens = preg_split('/\s+/', trim($section_classes));
+    sort($tokens);
+    foreach ($tokens as $token) {
+        if (preg_match('/^carousel-items-(?:(sm|md|lg|xl|xxl)-)?(\d+(?:p\d+)?)$/', $token, $match)) {
+            $count = (float) str_replace('p', '.', $match[2]);
+            if ($count >= 1) {
+                $overrides[$breakpoints[!empty($match[1]) ? $match[1] : 'base']] = $count;
+            }
+        } elseif (preg_match('/^carousel-(no-)?auto-width(?:-(sm|md|lg|xl|xxl))?$/', $token, $match)) {
+            $width_overrides[$breakpoints[!empty($match[2]) ? $match[2] : 'base']] = empty($match[1]);
+        }
+    }
+    $rules = array();
+    $count = null;
+    $auto_width = false;
+    foreach ($defaults as $bp => $default) {
+        if (isset($overrides[$bp])) $count = $overrides[$bp];
+        if (isset($width_overrides[$bp])) $auto_width = $width_overrides[$bp];
+        // Viewport estimates are conservative for contained sections, margins and stage padding.
+        $width = $auto_width ? 100 : round(100 / ($count !== null ? $count : $default), 3);
+        $rules[$bp] = ($bp ? '(min-width: ' . $bp . 'px) ' : '') . $width . 'vw';
+    }
+    krsort($rules);
+    return implode(', ', $rules);
+}
+
+// * GRIT_SET 02 | Preserve Gallery animation attributes and WordPress srcset generation
+function grit_gallery_carousel_image($attachment_id, $section_classes = '') {
+    return wp_get_attachment_image(absint($attachment_id), 'large', false, array(
+        'class' => 'img-fluid in__animate',
+        'data-animation' => 'animate__fadeIn animate__faster',
+        'sizes' => grit_carousel_image_sizes($section_classes, array(0 => 1, 576 => 2, 768 => 3, 992 => 4, 1200 => 5, 1400 => 5)),
+    ));
+}
+
+// * GRIT_SET 03 | Use text carousel defaults; static layouts keep a conservative sizes estimate
+function grit_text_chapter_image($attachment_id, $image_class, $is_carousel = false, $section_classes = '') {
+    $sizes = $is_carousel
+        ? grit_carousel_image_sizes($section_classes, array(0 => 1, 576 => 2, 768 => 3, 992 => 3, 1200 => 4, 1400 => 4))
+        : '100vw';
+    return wp_get_attachment_image(absint($attachment_id), 'large', false, array('class' => $image_class, 'sizes' => $sizes));
+}
+
+// * GRIT_SET Counter values accept plain decimals, never ambiguous thousands separators
+function grit_counter_value($raw) {
+    $text = trim((string) $raw);
+    $result = array('valid' => false, 'formatted' => $text);
+    if (!preg_match('/^[+-]?\d+(?:[.,]\d+)?$/D', $text)) return $result;
+    $canonical = str_replace(',', '.', $text);
+    $value = (float) $canonical;
+    $dot = strpos($canonical, '.');
+    $decimals = $dot === false ? 0 : strlen($canonical) - $dot - 1;
+    // Keep animation within reliable JavaScript number precision and formatting limits.
+    if (!is_finite($value) || abs($value) > 9007199254740991 || $decimals > 6) return $result;
+    return array('valid' => true, 'value' => $canonical, 'decimals' => $decimals, 'formatted' => number_format_i18n($value, $decimals));
+}
+
+// * GRIT_SET Standalone Counter shortcode: reusable in content and formatted ACF WYSIWYG
+function grit_counter_shortcode($attributes) {
+    $attributes = shortcode_atts(array(
+        'number' => '0', 'prefix' => '', 'suffix' => '', 'duration' => '3000',
+        'repeat' => 'false', 'animate' => 'true', 'tag' => 'span', 'class' => '',
+    ), $attributes, 'grit_counter');
+    $number = grit_counter_value($attributes['number']);
+    $tag = in_array($attributes['tag'], array('span', 'p', 'div', 'h2', 'h3', 'h4'), true) ? $attributes['tag'] : 'span';
+    $duration = is_numeric($attributes['duration']) ? max(0, min(60000, (int) $attributes['duration'])) : 3000;
+    $repeat = in_array(strtolower((string) $attributes['repeat']), array('1', 'true', 'yes', 'on'), true);
+    $animate = !in_array(strtolower((string) $attributes['animate']), array('0', 'false', 'no', 'off'), true);
+    $html = '<' . $tag . ' class="grit-counter ' . esc_attr($attributes['class']) . '">';
+    if ($attributes['prefix'] !== '') $html .= esc_html($attributes['prefix']) . ' ';
+    if ($number['valid']) {
+        $html .= '<span class="sr-only">' . esc_html($number['formatted']) . '</span>';
+        $html .= '<span class="number-animate" aria-hidden="true" data-counter-end="' . esc_attr($number['value']) . '" data-counter-decimals="' . $number['decimals'] . '" data-counter-duration="' . $duration . '" data-counter-repeat="' . ($repeat ? 'true' : 'false') . '" data-counter-animate="' . ($animate ? 'true' : 'false') . '">' . esc_html($number['formatted']) . '</span>';
+    } else {
+        $html .= esc_html($number['formatted']);
+    }
+    if ($attributes['suffix'] !== '') $html .= ' ' . esc_html($attributes['suffix']);
+    return $html . '</' . $tag . '>';
+}
+add_shortcode('grit_counter', 'grit_counter_shortcode');
+
 ?>

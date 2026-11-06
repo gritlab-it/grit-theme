@@ -1,117 +1,108 @@
- 
- 
-    <article class="tease tease-{{ post.post_type }} {% if section.tease %}tease-style-{{section.tease}}{% endif %} {{ grid | default('col col-12 col-sm-6 col-md-6') }}" id="tease-{{ post.ID }}">
-        {% block content %} 
-        <div class="card" >
-            <div class="card-img">
-                {% if post.thumbnail %} 
-                    {% set image = {
-                    'alt': post.thumbnail,
-                    'src': Image(post.thumbnail.id).src ,
-                    'class': 'img-fluid card-img-top'
-                    }
-                    %}
-                    {% include ['/partials/img.twig'] with image %} 
-                {% endif %}
-            </div> 
+{#
+ * GRIT_SET Post reference — Timber 1.x / Twig
+ * These examples are documentation only: copy the required snippet into a card block.
+ * Here `post` is the card's post, not necessarily the page currently being viewed.
+ * Escape plain text with |e and attribute values with |e('html_attr').
+
+ * 01 | Identity, title and destination
+    {{ post.ID }}                         Numeric post ID
+    {{ post.post_type|e }}                 Registered type: post, section, etc.
+    {{ post.slug|e }}                      URL slug
+    {{ post.title|e }}                     Title
+    <a href="{{ post.link|e('html_attr') }}">{{ post.title|e }}</a>
+    {{ post.post_status|e }}               Publication status
+    {{ post.menu_order }}                 Manual ordering value
+
+ * 02 | Dates
+    {{ post.date('d/m/Y')|e }}             Localized publication date
+    {{ post.post_date|e }}                Raw WordPress publication date
+    {{ post.post_modified|e }}            Raw WordPress modification date
+
+ * 03 | Excerpt and full content
+    {{ function('grit_archive_excerpt', post, 35)|e }}
+        Theme helper: excerpt first, otherwise shortened content; no shortcode execution.
+    {{ post.post_excerpt|e }}             Manually entered excerpt, possibly empty
+    {{ post.content }}                    Formatted full content; may execute shortcodes
+        Prefer the excerpt helper in cards. Full content can contain headings/forms
+        and is not escaped like plain text because it is intended to contain HTML.
+
+ * 04 | Featured image — always check whether it exists
+    {% if post.thumbnail %}
+        {{ post.thumbnail.id }}
+        {{ post.thumbnail.src|e('html_attr') }}
+        {{ post.thumbnail.alt|e }}
+        {{ post.thumbnail.width }}
+        {{ post.thumbnail.height }}
+        {% include 'partials/card-image.twig' with {
+            post: post, image_class: 'img-fluid card-img-top'
+        } only %}
+    {% endif %}
+        The shared image partial outputs WordPress srcset and Media Library alt text.
+        A URL by itself does not produce a responsive image.
+
+ * 05 | Categories, tags and custom taxonomies
+    {% for term in post.terms('category') %}
+        <a href="{{ term.link|e('html_attr') }}">{{ term.name|e }}</a>
+        {{ term.id }}
+        {{ term.slug|e }}
+        {{ term.taxonomy|e }}
+        {{ term.description|e }}
+        {{ term.parent }}                 Parent term ID (0 for a root term)
+        {% for child in term.children %}
+            <a href="{{ child.link|e('html_attr') }}">{{ child.name|e }}</a>
+        {% endfor %}
+    {% endfor %}
+    {{ post.terms('category')|join(', ')|e }}
+    {% for tag in post.terms('post_tag') %}
+        <a href="{{ tag.link|e('html_attr') }}">{{ tag.name|e }}</a>
+    {% endfor %}
+        Replace category/post_tag with the registered custom taxonomy name.
+        Only taxonomies assigned to the post type can provide terms.
+        Child-term links must use child.link, not the parent term's link.
+
+ * 06 | ACF and post metadata
+    {{ post.meta('field_name')|e }}
+    {{ function('get_field', 'field_name', post.ID)|e }}
+        Use the ACF field NAME, not its label. Choose output according to its return
+        format: plain text, formatted HTML, image array/ID, relationship or repeater.
+    {% set rows = function('get_field', 'repeater_name', post.ID) %}
+    {% for row in rows|default([]) %}
+        {{ row.subfield_name|e }}
+    {% endfor %}
+        Explicit post.ID prevents reading fields from the containing page by mistake.
+        Do not print an entire array or object as though it were plain text.
+
+ * 07 | Author and hierarchy
+    {{ post.author.name|e }}
+    <a href="{{ post.author.link|e('html_attr') }}">{{ post.author.name|e }}</a>
+    {% if post.parent %}
+        <a href="{{ post.parent.link|e('html_attr') }}">{{ post.parent.title|e }}</a>
+    {% endif %}
+    {% for child_post in post.children %}
+        <a href="{{ child_post.link|e('html_attr') }}">{{ child_post.title|e }}</a>
+    {% endfor %}
+        Author, parent and child lookups may require extra database queries.
+
+ * 08 | Card context and repetition
+    grid                                  Classes assigned by the calling template
+    tease_style                           Validated variant from Section Archive
+    section                               Containing ACF section, when provided
+        The same post may appear in multiple sections and Owl clones.
+        Use data-post-id for identification; avoid id="tease-POST_ID" duplicates.
+ #}
+
+{# * GRIT_SET Shared card shell | data-post-id remains valid when a post appears in several sections or Owl clones #}
+{% set card_style = tease_style is defined ? tease_style : section.tease|default('') %}
+<article class="tease tease-{{ post.post_type|e('html_attr') }}{% if card_style %} tease-style-{{ card_style|e('html_attr') }}{% endif %} {{ grid|default('col-12 col-sm-6 col-md-6')|e('html_attr') }}" data-post-id="{{ post.ID|e('html_attr') }}">
+    {% block content %}
+        {# * GRIT_SET Clean fallback for unknown card variants #}
+        <div class="card h-100">
+            {% if post.thumbnail %}<a href="{{ post.link|e('html_attr') }}">{% include 'partials/card-image.twig' with { post: post, image_class: 'img-fluid card-img-top' } only %}</a>{% endif %}
             <div class="card-body">
-              <h5 class="card-title"><a href="{{post.link}}">{{post.title}}</a></h5>
-              <p>{{ post.post_date }} {{ post.date }}</p>
-              <h6 class="card-subtitle mb-2">{{ post.terms('') | join(', ') }}</h6>
-              <p class="card-text">{{ post.get_preview( split_content_post|length + 50, false, '<span>...</span>', false )|apply_filters('the_content') }}</p> 
-            </div>
-            <div class="card-body">
-                <div class=" " id="accordion">
-                    <div class="card-header">
-                        <p class="collapsed"
-                           data-toggle="collapse"
-                           data-target="#collapse-{{ loop.index }}"
-                           aria-expanded="true"
-                           aria-controls="collapse-{{ loop.index }}">
-                            Dettagli<i class="fa fa-angle-down"></i>
-                        </p>
-                    </div>
-                    <div id="collapse-{{ loop.index }}"
-                         class="collapse card-body"
-                         aria-labelledby="heading-{{ loop.index }}"
-                         data-parent="#accordion">
-                        <p>post.title: {{ post.title }}</p>
-                        <p>post.link: {{ post.link }}</p>
-                        <p>post.date: {{ post.post_date }} {{ post.published_at|date("d/M/Y g:ia") }}</p>
-                        <hr>
-                        <p>Categorie:</p>
-                        <ul>
-                            {% for categorie in post.terms('') %}
-                                {% if categorie.get_children %}
-                                    <li>
-                                        <a href="{{ categorie.link }}"
-                                           title="{{ post.title }} - {{ categorie.name }}">Cat {{ categorie.name }}</a>
-                                    </li>
-                                    <ul>
-                                        {% for subcategorie in categorie.get_children %}
-                                            {% if subcategorie %}
-                                                <li>
-                                                    <a href="{{ categorie.link }}"
-                                                       title="{{ post.title }} - {{ subcategorie.name }}">Cat
-                                                        Child {{ subcategorie.name }}</a>
-                                                </li>
-                                            {% endif %}
-                                        {% endfor %}
-            
-                                    </ul>
-                                {% elseif categorie.parent %}
-                                    <li>
-                                        <a href="{{ categorie.link }}" title="{{ post.title }} - {{ categorie.name }}">Cat
-                                            Parent {{ categorie.name }}</a>
-                                    </li>
-                                {% else %}
-                                    <li>
-                                        <a href="{{ categorie.link }}"
-                                           title="{{ post.title }} - {{ categorie.name }}">Cat {{ categorie.name }}</a>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
-                        <hr>
-                        <p>Categorie Lista: <br>
-                            {{ post.terms('') | join(', ') }}
-                        </p>
-                        <hr>
-                        <p>Tags<br>
-                            {% for tags in post.terms('post_tag') %}
-                                <a href="{{ tags.link }}" title="{{ post.title }} - {{ tags.name }}">{{ tags.name }}</a>
-                            {% endfor %}
-                        </p>
-                        <hr>
-                        <p>Tags Lista: <br>
-                            {{ post.terms('post_tag') | join(', ') }}
-                        </p>
-                        <hr>
-                        <p>post.preview: {{ post.preview }}</p>
-                        <p>post.intro: {{ post.intro }}</p>
-                        {% set split_content_post = post.content|split('<!--more-->') %}
-                        {{ post.get_preview( split_content_post|length + 50, false, '<span>Leggi</span>', false )|apply_filters('the_content') }}
-                        <br>
-                        {% if post.get_thumbnail %}
-                            <img src="{{ post.thumbnail.src|resize(150, 150) }}"/>
-                            <br>
-                            <p>{{ Image(post.get_thumbnail).src|resize(150, 150) }}</p>
-                            {% set height = post.thumbnail.height %}
-                            {% set width = post.thumbnail.width %} 
-                            {% set sizewh = height / (width ?: 1) %}
-                            <p>{{ height }} x {{ width }} = {{ sizewh }}</p>
-                            {% if sizewh == 1 %}
-                                <img src="{{ post.thumbnail.src|resize(200,200) }}" class="img-fluid" alt="{{ title }}"/>
-                            {% elseif sizewh < 1 %}
-                                <img src="{{ post.thumbnail.src|resize(400,300) }}" class="img-fluid" alt="{{ title }}"/>
-                            {% else %}
-                                <img src="{{ post.thumbnail.src|resize(300,400) }}" class="img-fluid" alt="{{ title }}"/>
-                            {% endif %}
-                        {% endif %}
-                    </div>
-                </div>
+                <h3 class="card-title"><a href="{{ post.link|e('html_attr') }}">{{ post.title|e }}</a></h3>
+                {% set excerpt = function('grit_archive_excerpt', post) %}
+                {% if excerpt %}<p class="card-text">{{ excerpt|e }}</p>{% endif %}
             </div>
         </div>
-        {% endblock %}
-    </article>
- 
+    {% endblock %}
+</article>

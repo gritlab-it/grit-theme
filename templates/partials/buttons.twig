@@ -1,0 +1,16 @@
+{#
+ * GRIT_SET Button group
+ * Legend
+ * 01 | Optional wrapper classes and animation
+ * 02 | Shared single-link rendering
+ #}
+{% set visible_buttons = buttons|default([])|filter(button => button.url) %}
+{% if visible_buttons %}
+    {# * GRIT_SET 01 | Flex gap keeps wrapped rows aligned without side margins #}
+    <div class="box-buttons{% if buttons_class|default('') %} {{ buttons_class|e('html_attr') }}{% endif %}"{% if buttons_animation|default('') %} data-animation="{{ buttons_animation|e('html_attr') }}"{% endif %}>
+        {# * GRIT_SET 02 | The single-link partial handles URL, label and target #}
+        {% for button in visible_buttons %}
+            {% include 'partials/btn.twig' with { btn: button } only %}
+        {% endfor %}
+    </div>
+{% endif %}

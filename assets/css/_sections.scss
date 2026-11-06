@@ -7,14 +7,21 @@
 /* :::::::::::::: 06 * GRIT_SET section_cube */
 /* :::::::::::::: 07 * GRIT_SET section_gallery */
 /* :::::::::::::: 08 * GRIT_SET section_archive */
-/* :::::::::::::: 09 * GRIT_SET section_collapse */
+/* :::::::::::::: 09 * GRIT_SET section_collapse — accordion, search and tabs */
 /* :::::::::::::: 10 * GRIT_SET section_bio */
 /* :::::::::::::: 11 * GRIT_SET gsap-horizontal */
 /* :::::::::::::: 12 * GRIT_SET section-gsap-vertical */
 /* :::::::::::::: 13 * GRIT_SET section-gsap-reveal */
 /* :::::::::::::: 14 * GRIT_SET section-gsap-lateral-word */
 /* :::::::::::::: 15 * GRIT_SET section-masonry  */
-/*::::::::::::::: 16 * GRIT_SET section-bars  */
+/* :::::::::::::: 16 * GRIT_SET section-bars */
+/* :::::::::::::: 17 * GRIT_SET section_text image ratios */
+/* :::::::::::::: 18 * GRIT_SET standalone counter numeric alignment */
+/* Gallery detail: 07.1 defaults, 07.2 responsive columns/gaps, 07.3 ratios, 07.4 spacing.
+ * Collapse detail: 09.1 accordion buttons, 09.2 search/pagination, 09.3 tabs/grid.
+ * Text detail: image ratios and fit apply to standard thumbnails; parallax keeps its own sizing.
+ * Owl controls: _plugins.scss. Section images and layouts: this file.
+ */
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
 @use './variables' as *;
@@ -142,15 +149,7 @@
                     min-height: 700px; 
                 }
             } 
-            .owl-nav { 
-                position: absolute;
-                z-index: 2;
-                top: auto;
-                bottom: 35px;
-                right: calc(($c-gap / 2 ) / ( $xxl / 2 ) * 100vw);
-                width: 150px;
-                
-            }
+
         }
         
     }
@@ -243,75 +242,57 @@
 }
 
 /* :::::::::::::: 04 * GRIT_SET section_slides */ 
+// * GRIT_SET Slides legend | Shared static/carousel layout; full viewport by default.
+// Height: slides-height-auto, slides-height-small (50vh), slides-height-medium (75vh).
+// Content: slides-content-top, slides-content-center; default bottom.
+// Overlay: slides-overlay, slides-overlay-light, slides-no-overlay. Motion: slides-zoom.
 .section_slides {
-    .owl-carousel {
-        .owl-item.active .item-slide {
-            @media (min-width: $md-res) { 
-                background-size: 103vw; 
-            }
-        }
-        .item-slide {
-            width: 100%;
-            min-height: 100vh;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            position: relative;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            transition: background-size 6s ease-in-out; // Aggiungi la transizione
-            
-            @media (min-width: $md-res) { 
-                background-size: 100vw;
-                &:hover {
-                    background-size: 103vw !important;
-                } 
-            }
-            
-            
-            img {
-                display: initial;
-                width: revert-layer;
-            }
-            
-        }
-        .owl-nav { 
-            button.owl-prev
-            button.owl-next { 
-                color: $light; 
-            }
-            &:hover button.owl-prev,
-            &:hover button.owl-next  {
-                color: $accent; 
-            }
-        }
-    } 
-    .item-slide.item-slide-single {
-        width: 100%;
-        min-height: 100vh;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
+    // * GRIT_SET Keep multiple slides visible when Owl is disabled or unavailable.
+    .slides-track:not(.owl-loaded) { display: block; }
+    .item-slide {
         position: relative;
+        isolation: isolate;
+        overflow: hidden;
         display: flex;
         align-items: flex-end;
-        justify-content: center;
-        transition: background-size 6s ease-in-out; // Aggiungi la transizione
-        
-        @media (min-width: $md-res) { 
-            background-size: 100vw;
-            &:hover {
-                background-size: 103vw !important;
-            } 
-        }
-        
-    } 
-    
-    
-    .inner-text {
         width: 100%;
-    }   
+        min-height: 100vh;
+        min-height: 100svh;
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background: transparent;
+        }
+    }
+    // * GRIT_SET Cover works for both portrait and landscape images without uncovered edges.
+    .item-slide > .slide-background {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        z-index: 0;
+        transition: transform 6s ease-in-out;
+    }
+    .inner-text { position: relative; z-index: 2; width: 100%; padding: 6rem 0; }
+    &.slides-height-small .item-slide { min-height: 50vh; min-height: 50svh; }
+    &.slides-height-medium .item-slide { min-height: 75vh; min-height: 75svh; }
+    &.slides-height-auto .item-slide { min-height: 0; }
+    &.slides-content-top .item-slide { align-items: flex-start; }
+    &.slides-content-center .item-slide { align-items: center; }
+    &.slides-overlay .item-slide::after { background: rgba(0, 0, 0, .4); }
+    &.slides-overlay-light .item-slide::after { background: rgba(255, 255, 255, .4); }
+    &.slides-no-overlay .item-slide::after { background: transparent; }
+    // * GRIT_SET Zoom is opt-in and stays disabled on a Jarallax-managed image.
+    &.slides-zoom .owl-item.active .item-slide:not(.jarallax-keep-img) > .slide-background,
+    &.slides-zoom .item-slide-single:not(.jarallax-keep-img):hover > .slide-background { transform: scale(1.03); }
+    @media (prefers-reduced-motion: reduce) {
+        .item-slide > .slide-background { transition: none; transform: none !important; }
+    }
 }
 
 /* :::::::::::::: 05 * GRIT_SET section_hero */ 
@@ -379,84 +360,73 @@
         justify-content: center;
         align-items: center;
         height: 100%; /* Assicurati che il contenitore abbia un'altezza */
-        .owl-dots {
-            bottom: 20px;
-        }
+
     }
     
-    &.contained {
-        .owl-carousel { 
-            @media (min-width: $sm-res) {
-                .owl-nav {
-                    button.owl-prev {
-                        left: 10px;
-                    } 
-                    button.owl-next {
-                        right: 10px;
-                    }
-                }
-            }
-        }  
-    } 
+ 
     
 }
 
 /* :::::::::::::: 07 * GRIT_SET section_gallery */
+// * GRIT_SET Static gallery: ACF columns fallback and responsive class overrides
+// Class reference and examples: GALLERY.md in the theme root.
 .section_gallery {
     .gallery {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
+        display: grid;
+        grid-template-columns: repeat(var(--gallery-cols, 1), minmax(0, 1fr));
+        gap: var(--gallery-gap, 8px);
+        margin: 0;
+        // * GRIT_SET 07.1 | Mobile defaults and ACF column fallback
+        --gallery-cols: var(--gallery-cols-base, 1);
+        --gallery-gap: var(--gallery-gap-base, 8px);
+
+        // * GRIT_SET 07.2 | Build mobile-first fallback chains without repeating selectors
+        $columns: "var(--gallery-cols-base, var(--gallery-acf-cols, 2))";
+        $gap: "var(--gallery-gap-base, 8px)";
+        @each $name, $width in (sm: 576px, md: 768px, lg: 992px, xl: 1200px, xxl: 1400px) {
+            $columns: "var(--gallery-cols-#{$name}, #{$columns})";
+            $gap: "var(--gallery-gap-#{$name}, #{$gap})";
+            @media (min-width: $width) {
+                --gallery-cols: #{$columns};
+                --gallery-gap: #{$gap};
+            }
+        }
+        @for $count from 1 through 12 {
+            &.gallery-columns-#{$count} { --gallery-acf-cols: #{$count}; }
+        }
+        > br { display: none; }
     }
     .gallery-item {
+        width: auto !important;
+        max-width: none;
+        min-width: 0;
+        float: none !important;
         margin: 0 !important;
-        padding: .25rem;
-        float: left;
+        padding: 0;
         img {
+            display: block;
             width: 100% !important;
             height: auto !important;
             border: none !important;
         }
     }
-    .gallery-columns-3 .gallery-item {
-        width: 33.33% !important;
+
+    // * GRIT_SET 07.3 | Shared ratio and fit for static and carousel thumbnails
+    &[class*="gallery-ratio-"] .gallery-item img,
+    &[class*="gallery-ratio-"] .owl-carousel .item-img-gallery img {
+        aspect-ratio: var(--gallery-ratio, auto);
+        object-fit: var(--gallery-fit, cover);
     }
-    .gallery-columns-4 .gallery-item {
-        width: 25% !important;
-    }
-    .gallery-columns-2 .gallery-item {
-        width: 50% !important;
-    }
-    @media (min-width: $md-res) {
-        .gallery-columns-2 .gallery-item {
-            width: 50% !important;
-        }
-    }
-    @media (min-width: $md-res) {
-        .gallery-columns-3 .gallery-item {
-            width: 33.33% !important;
-        }
-        
-        .gallery-columns-4 .gallery-item {
-            width: 25% !important;
-        }
-    }
-    @media (max-width: $sm-res) {
-        .gallery-columns-2 .gallery-item,
-        .gallery-columns-3 .gallery-item,
-        .gallery-columns-4 .gallery-item {
-            width: 100% !important; 
-        }
-    }
-    .gallery-columns-3 .gallery-item:nth-child(3n+1) {
-        clear: none !important;
-    }
-    .gallery-columns-4 .gallery-item:nth-child(4n+1) {
-        clear: none !important;
-    }
-    
-    // no padding per carousel fullwidth
+    &.gallery-ratio-square { --gallery-ratio: 1; }
+    &.gallery-ratio-landscape { --gallery-ratio: 4 / 3; }
+    &.gallery-ratio-portrait { --gallery-ratio: 3 / 4; }
+    &.gallery-ratio-auto { --gallery-ratio: auto; }
+    &.gallery-fit-cover { --gallery-fit: cover; }
+    &.gallery-fit-contain { --gallery-fit: contain; }
+    // * GRIT_SET Carousel markup shares Gallery ratio/fit; Owl controls stay in plugins.scss
+    .owl-carousel .item-img-gallery { display: block; }
+    .owl-carousel .item-img-gallery img { display: block; width: 100%; height: auto; }
+    // * GRIT_SET 07.4 | Optional full-width spacing reset
     &.no-horizontal-padding,
     &.no-horizontal-padding .container-fluid,
     &.no-horizontal-padding .row,
@@ -469,9 +439,12 @@
 }
 
 /* :::::::::::::: 08 * GRIT_SET section_archive */
+// * GRIT_SET Archive legend | Shared grid columns, Owl fallback and overlay card image ratio.
 .section_archive {
-    .card { 
-    }
+    // * GRIT_SET Owl is optional: keep cards readable before initialization or without the library.
+    .owl-carousel:not(.owl-loaded) { display: block; }
+    .tease { min-width: 0; }
+    .tease-style-overlay .card > img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
 } 
 
 /* :::::::::::::: 09 * GRIT_SET section_collapse */
@@ -503,6 +476,118 @@
         }
         
     }
+
+    // * GRIT_SET 09.1 | Real accordion buttons retain the previous heading spacing
+    .collapse-trigger {
+        display: block;
+        width: 100%;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        text-align: left;
+        font: inherit;
+        cursor: pointer;
+        &:focus-visible { outline: 2px solid $accent; outline-offset: 2px; }
+    }
+    // * GRIT_SET Icons follow Bootstrap aria-expanded, including Font Awesome SVG replacement
+    .collapse-trigger {
+        .collapse-icon-closed { display: inline-block; }
+        .collapse-icon-open { display: none; }
+        &[aria-expanded="true"] {
+            .collapse-icon-closed { display: none; }
+            .collapse-icon-open { display: inline-block; }
+        }
+    }
+    // * GRIT_SET 09.2 | Search visibility and native pagination controls
+    .item-search[hidden], .collapse-empty[hidden] { display: none !important; }
+    .pagination-list-js {
+        li { padding: 0; }
+        button.page-link {
+            width: 35px;
+            height: 35px;
+            padding: 0;
+            border: 0;
+            border-radius: 50%;
+            background: transparent;
+            color: inherit;
+            &:focus-visible { outline: 2px solid $accent; outline-offset: 2px; }
+        }
+        li.active { background: $accent; }
+        li:hover { color: $dark; }
+    }
+    // * GRIT_SET 09.3 | Tab navigation and grid markers
+    &.section_collapse_dynamic { 
+    
+    
+    
+    .arg-tabs {
+        justify-content: flex-start;
+        
+        li {
+            padding: 15px 50px 10px 0px;
+            a {
+                position: relative;
+                display: inline-block;
+                padding: 10px 25px;
+                transition: all 0.3s ease-in-out; 
+                &:hover { 
+                    color: $accent;
+                }
+                &.active { 
+                    color: $primary;
+                }
+            }  
+        } 
+        
+        li a:before {
+            content: '';
+            position: absolute;
+            left: 0px;
+            top: 50%;
+            transform: translateY(-50%) scale(0.5); // centrato verticalmente + animazione
+            height: 15px;
+            width: 15px;
+            background-color: $accent;  
+            transition: all 0.3s ease-in-out;
+        }
+        li a.active:before,
+        li a:hover:before { 
+            transform: translateY(-50%) scale(1); // centrato verticalmente + animazione 
+        }
+        
+    }
+    
+    .collapse-grid {
+        .grid-marker {
+            position: relative;
+            margin-bottom: 40px;
+            height: 24px; 
+            .dot {
+                width: 10px;
+                height: 10px;
+                background-color: $accent; // colore arancione
+                border-radius: 50%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 2;
+            } 
+            .line {
+                position: absolute;
+                top: 5px;
+                left: 0;
+                width: 100%;
+                height: 1px;
+                background-color: $dark; // colore linea
+                z-index: 1;
+            }
+        }
+        
+    }
+    
+    
+    
+}
 }
 
 /* :::::::::::::: 10 * GRIT_SET section_bio */
@@ -846,76 +931,7 @@
 
 
 
-.section_collapse_dynamic { 
-    
-    
-    
-    .arg-tabs {
-        justify-content: flex-start;
-        
-        li {
-            padding: 15px 50px 10px 0px;
-            a {
-                padding: 10px 25px;
-                transition: all 0.3s ease-in-out; 
-                &:hover { 
-                    color: $accent;
-                }
-                &.active { 
-                    color: $primary;
-                }
-            }  
-        } 
-        
-        li a:before {
-            content: '';
-            position: absolute;
-            left: 0px;
-            top: 50%;
-            transform: translateY(-50%) scale(0.5); // centrato verticalmente + animazione
-            height: 15px;
-            width: 15px;
-            background-color: $accent;  
-            transition: all 0.3s ease-in-out;
-        }
-        li a.active:before,
-        li a:hover:before { 
-            transform: translateY(-50%) scale(1); // centrato verticalmente + animazione 
-        }
-        
-    }
-    
-    .collapse-grid {
-        .grid-marker {
-            position: relative;
-            margin-bottom: 40px;
-            height: 24px; 
-            .dot {
-                width: 10px;
-                height: 10px;
-                background-color: $accent; // colore arancione
-                border-radius: 50%;
-                position: absolute;
-                top: 0;
-                left: 0;
-                z-index: 2;
-            } 
-            .line {
-                position: absolute;
-                top: 5px;
-                left: 0;
-                width: 100%;
-                height: 1px;
-                background-color: $dark; // colore linea
-                z-index: 1;
-            }
-        }
-        
-    }
-    
-    
-    
-}
+
 
 
 
@@ -1003,3 +1019,29 @@
 
 
 
+
+// * GRIT_SET Text chapter image proportions for grid, Masonry and carousel
+.section_text {
+    &.text-image-ratio-square { --text-image-ratio: 1; }
+    &.text-image-ratio-landscape { --text-image-ratio: 4 / 3; }
+    &.text-image-ratio-portrait { --text-image-ratio: 3 / 4; }
+    &.text-image-ratio-auto { --text-image-ratio: auto; }
+    &.text-image-fit-cover { --text-image-fit: cover; }
+    &.text-image-fit-contain { --text-image-fit: contain; }
+    &[class*="text-image-ratio-"] .inner-img {
+        aspect-ratio: var(--text-image-ratio, auto);
+        padding-bottom: 0 !important;
+        > img {
+            width: 100%;
+            height: 100%;
+            object-fit: var(--text-image-fit, cover);
+        }
+        > .gsap-parallax-container { width: 100%; height: 100%; aspect-ratio: inherit !important; }
+        > .jarallax-keep-img { height: 100%; }
+    }
+}
+
+// * GRIT_SET 18 | Stable digit widths without imposing fixed card/image dimensions
+.number-animate {
+    font-variant-numeric: tabular-nums;
+}

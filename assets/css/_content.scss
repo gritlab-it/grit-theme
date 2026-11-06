@@ -219,3 +219,28 @@ $scale-factor: 3.2; // Moltiplicatore per la scalabilità dello spacing
         }
     }
 }
+// * GRIT_SET Tease legend | Standard card media shared by archives, sections and related posts.
+// card/vertical/editorial: 3:2 cover; horizontal: responsive split; compact: small square.
+.grit-tease-card {
+    height: 100%;
+    overflow: hidden;
+    .tease-media { display: block; }
+    .tease-media img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+    &.tease-horizontal .tease-media { height: 100%; }
+    &.tease-horizontal .tease-media img { height: 100%; min-height: 180px; }
+    .tease-compact-media { display: block; flex: 0 0 88px; width: 88px; }
+    .tease-compact-media img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+    .tease-compact-text { min-width: 0; overflow-wrap: anywhere; }
+    &.tease-overlay-card {
+        position: relative;
+        min-height: 320px;
+        background: #222;
+        color: #fff;
+        .tease-overlay-image { position: absolute; inset: 0; }
+        .tease-overlay-image img { width: 100%; height: 100%; object-fit: cover; }
+        &::before { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(transparent, rgba(0, 0, 0, .85)); }
+        .card-body { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: flex-end; }
+        .card-title a { color: inherit; }
+        .btn { align-self: flex-start; }
+    }
+}

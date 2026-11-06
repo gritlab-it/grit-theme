@@ -10,32 +10,14 @@
 
 
 {# * GRIT_SET 01 | section_main #} 
+{# * GRIT_SET Derive every modifier from the current section only #}
 {% set acf_fc_layout = section.acf_fc_layout %}
-
-{% if section.background_color %}
-    {% set background_color = 'bg-'~ section.background_color %} 
-{% endif %}
-
-{% if section.text_color %}
-    {% set text_color = 'color-'~ section.text_color %} 
-{% endif %}
-
-{% if section.align %}
-    {% set align = 'text-'~ section.align %} 
-{% endif %}
-
-{% if section.contained %}
-    {% set contained = 'contained' %} 
-{% endif %}
-
-{% if section.class %}
-    {% set class = section.class %} 
-{% endif %} 
-
-{% if section.background_half %}
-    {% set background_half = '-half' %} 
-{% endif %} 
- 
+{% set background_color = section.background_color ? 'bg-' ~ section.background_color : '' %}
+{% set text_color = section.text_color ? 'color-' ~ section.text_color : '' %}
+{% set align = section.align ? 'text-' ~ section.align : '' %}
+{% set contained = section.contained ? 'contained' : '' %}
+{% set class = section.class|default('') %}
+{% set background_half = section.background_half ? '-half' : '' %}
 
 {% set classes = class ? class|split(' ') : [] %}
 {% set col_classes = classes|filter(class =>  class == 'col' or class matches '/^col-.*$/' ) %}
@@ -44,7 +26,13 @@
 col_classes: {{ col_classes|join(' ') | default('col col-12') }}<br>
 other_classes: {{ other_classes|join(' ') }}<br>  #}
  
+{# * GRIT_SET Archive sections with no matching public posts do not create empty wrappers #}
+{% if acf_fc_layout == 'section_archive' %}
+    {% set archive_data = function('grit_archive_section_data', section) %}
+{% endif %}
+{% if acf_fc_layout != 'section_archive' or archive_data.posts|length %}
 <section class="{{acf_fc_layout}} {{background_color}}{{background_half}} {{align}} {{text_color}} {{contained}} {{ other_classes|join(' ') }} " id="section_id_{{ section.section_index }}"> 
         {% include ['/sections/'~ section.acf_fc_layout ~'.twig'] with section %} 
 </section>
  
+{% endif %}

@@ -14,19 +14,19 @@
 $GLOBALS['assets_options'] = array(
 
     // Attiva libreria Bootstrap 4.6.2 CSS JS
-    'GRIT_SETTING_BOOTSTRAP' => get_theme_mod('grit_setting_bootstrap', true),
+    'GRIT_SETTING_BOOTSTRAP' => true,
 
     // Attiva libreria Fontawesome 5.15.1 fontawesome.com/icons
-    'GRIT_SETTING_FA' => get_theme_mod('grit_setting_fa', true),
+    'GRIT_SETTING_FA' => true,
 
     // Attiva libreria Animate CSS animate.style
-    'GRIT_SETTING_ANIMATE' => get_theme_mod('grit_setting_animate', true),
+    'GRIT_SETTING_ANIMATE' => true,
 
     // Attiva libreria Hover CSS ianlunn.github.io/Hover
-    'GRIT_SETTING_HOVER' => get_theme_mod('grit_setting_hover', true),
+    'GRIT_SETTING_HOVER' => true,
 
     // Attiva libreria Three js threejs.org
-    'GRIT_SETTING_THREE' => get_theme_mod('grit_setting_three', true),
+    'GRIT_SETTING_THREE' => get_theme_mod('grit_setting_three', false),
 
     // Attiva libreria Masonry js https://masonry.desandro.com
     'GRIT_SETTING_MASONRY' => get_theme_mod('grit_setting_masonry', true),
@@ -35,7 +35,7 @@ $GLOBALS['assets_options'] = array(
     'GRIT_SETTING_IMAGESLOADED' => get_theme_mod('grit_setting_imagesloaded', true),
 
     // Attiva libreria Lenis https://github.com/darkroomengineering/lenis
-    'GRIT_SETTING_LENIS' => get_theme_mod('grit_setting_lenis', true),
+    'GRIT_SETTING_LENIS' => get_theme_mod('grit_setting_lenis', false),
 
     // Attiva libreria Locomotive https://github.com/locomotivemtl/locomotive-scroll
     'GRIT_SETTING_LOCOMOTIVE' => get_theme_mod('grit_setting_locomotive'),
@@ -47,7 +47,7 @@ $GLOBALS['assets_options'] = array(
     'GRIT_SETTING_FITTY' => get_theme_mod('grit_setting_fitty'),
 
     // Attiva libreria GSAP https://github.com/greensock/GSAP
-    'GRIT_SETTING_GSAP' => get_theme_mod('grit_setting_gsap', true),
+    'GRIT_SETTING_GSAP' => get_theme_mod('grit_setting_gsap', false),
 
     // Attiva libreria Swiper 10.2 https://swiperjs.com/get-started
     'GRIT_SETTING_SWIPER' => get_theme_mod('grit_setting_swiper'),
@@ -58,11 +58,15 @@ $GLOBALS['assets_options'] = array(
     // Attiva libreria Jarallax https://github.com/nk-o/jarallax
     'GRIT_SETTING_JARALLAX' => get_theme_mod('grit_setting_jarallax', true),
 
+
+    // * GRIT_SET Search and pagination library, enabled by default
+    'GRIT_SETTING_LIST' => get_theme_mod('grit_setting_list', true),
+
     // Attiva libreria NProgress CSS JS https://ricostacruz.com/nprogress/
     'GRIT_SETTING_NPROGRESS' => get_theme_mod('grit_setting_nprogress', true),
 
     // Attiva libreria Magic Mouse CSS JS magicmousejs.web.app
-    'GRIT_SETTING_MAGIC_MOUSE' => get_theme_mod('grit_setting_magic_mouse', true),
+    'GRIT_SETTING_MAGIC_MOUSE' => get_theme_mod('grit_setting_magic_mouse', false),
  
     // Attiva libreria Cocoen CSS JS github.com/jotform/before-after.js
     'GRIT_SETTING_COCOEN' => get_theme_mod('grit_setting_cocoen'),

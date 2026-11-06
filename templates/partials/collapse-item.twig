@@ -1,0 +1,21 @@
+{# * GRIT_SET Accessible Bootstrap 4 accordion item with section/group/item IDs #}
+<div class="inner-collapse bg-light mb-1">
+    <button id="{{ item_id }}-heading" class="collapse-trigger py-2 px-3 py-md-4 px-md-5 color-{{ list.args_color|e('html_attr') }}{% if not opened %} collapsed{% endif %}" type="button" data-toggle="collapse" data-target="#{{ item_id }}-body" aria-expanded="{{ opened ? 'true' : 'false' }}" aria-controls="{{ item_id }}-body">
+        <span class="row align-items-center">
+            <span class="col-10"><span class="search_title">{{ item.title|e }}</span>{% if searchable and list.args %}<small class="d-block text-uppercase search_group">{{ list.args|e }}</small>{% endif %}</span>
+            <span class="col-2 text-right collapse-symbol" aria-hidden="true"><span class="collapse-icon-closed"><i class="fas fa-plus"></i></span><span class="collapse-icon-open"><i class="fas fa-minus"></i></span></span>
+        </span>
+    </button>
+    <div id="{{ item_id }}-body" class="collapse accordion_body{% if opened %} show{% endif %}" aria-labelledby="{{ item_id }}-heading" data-parent="#{{ accordion_id }}">
+        <div class="py-2 px-3 py-md-4 px-md-5 search_text">
+            {{ item.text }}
+{% include 'partials/buttons.twig' with {
+    buttons: [
+        { title: item.link_1.title, url: item.link_1.url, target: item.link_1.target, style: 'btn btn-' ~ section.color_link_1|default('primary') ~ ' btn-md' },
+        { title: item.link_2.title, url: item.link_2.url, target: item.link_2.target, style: 'btn btn-' ~ section.color_link_2|default('primary') ~ ' btn-md' }
+    ],
+    buttons_class: '', buttons_animation: '' 
+} only %}
+        </div>
+    </div>
+</div>

@@ -1,3 +1,5 @@
+// * GRIT_SET Scope the dollar alias to WordPress jQuery (noConflict compatible)
+(function ($) {
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /* :::::::::::::: 00 * GRIT_SET loader */
 /* :::::::::::::: 01 * GRIT_SET animate.css  */
@@ -221,211 +223,131 @@ $(function () {
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /* :::::::::::::: 03 * GRIT_SET owl-carousel */
-owl_carousel_active = document.getElementById("owl_carousel-js");
-if (owl_carousel_active) {
-    $(document).ready(function () {
-        
-        // Definisci il contenuto HTML delle frecce direttamente nel JavaScript
-        var navLeftArrow = typeof window.navLeftArrow !== 'undefined' ? window.navLeftArrow : `<i class='fa fa-chevron-left'></i>`;
-        var navRightArrow = typeof window.navRightArrow !== 'undefined' ? window.navRightArrow : `<i class='fa fa-chevron-right'></i>`;
-        
-        function initCarouselStandard($carousel) {
-            $carousel.owlCarousel({
-                loop: true,
-                margin: 20,
-                autoHeight: false,
-                autoWidth: false,
-                center: false,
-                nav: true,
-                dots: true,
-                navText: [navLeftArrow, navRightArrow],
-                responsive: {
-                    0: { items: 1 },
-                    576: { items: 2 },
-                    768: { items: 3 },
-                    992: { items: 4 },
-                    1200: { items: 5 },
-                    1400: { items: 5 },
-                },
-            });
-        }
-        
-        function initCarouselCenter($carousel) {
-            $carousel.owlCarousel({
-                loop: true,
-                margin: 20,
-                // stagePadding: 0,   // assicurati sia 0 se vuoi che sia a margine
-                autoHeight: true,
-                autoWidth: true,
-                center: true,
-                nav: true,
-                dots: true,
-                navText: [navLeftArrow, navRightArrow],
-                responsive: {
-                    0: { items: 1.2 },
-                    576: { items: 2.2 },
-                    768: { items: 3.2 },
-                    992: { items: 3.2 },
-                    1200: { items: 3.2 },
-                    1400: { items: 3.2 },
-                },
-            });
-        }
-        
-        function initCarouselLeft($carousel) {
-            $carousel.owlCarousel({
-                loop: true,
-                margin: 20,
-                autoHeight: true,
-                autoWidth: true,
-                center: false,
-                nav: true,
-                dots: true,
-                navText: [navLeftArrow, navRightArrow], 
-                
-                responsive: {
-                    0: { items: 1.5 },
-                    576: { items: 2.5 },
-                    768: { items: 3.5 },
-                    992: { items: 3.5 },
-                    1200: { items: 3.5 },
-                    1400: { items: 3.5 },
-                },
-            });
-        }
-        
-        function initCarouselCube($carousel) {
-            $carousel.owlCarousel({
-                loop: true,
-                margin: 0,
-                responsiveClass: true, 
-                nav: true,
-                dots: true,
-                navText: [navLeftArrow, navRightArrow], 
-                items: 1, 
-            });
-        }
-        
-        function initCarouselText($carousel) {
-            $carousel.owlCarousel({
-                loop: true,
-                margin: 20, 
-                autoHeight: false,
-                autoWidth: false, 
-                center: false,
-                nav: true,
-                dots: true,  
-                navText: [navLeftArrow, navRightArrow], 
-                responsive: {
-                    0: {
-                        items: 1, // Impostazioni per schermi molto piccoli 
-                    },
-                    576: {
-                        items: 2, // Impostazioni per schermi piccoli 
-                    },
-                    768: {
-                        items: 3, // Impostazioni per schermi medi 
-                    },
-                    992: {
-                        items: 3, // Impostazioni per schermi grandi 
-                    },
-                    1200: {
-                        items: 4, // Impostazioni per schermi molto grandi 
-                    }
-                }
-            });
-        }
-        
-        
-        function initCarouselSlide($carousel) {
-            $carousel.owlCarousel({
-                loop: true,
-                margin: 0,
-                responsiveClass: true,
-                nav: true,
-                dots: true,
-                items: 1,
-                navText: [navLeftArrow, navRightArrow],  
-                
-                autoplay: true, // Abilita l'autoplay
-                autoplayTimeout: 5000, // Imposta il timeout dell'autoplay (in millisecondi)
-                autoplayHoverPause: true, // Pausa l'autoplay al passaggio del mouse
+// * GRIT_SET Shared Owl presets and responsive class overrides
+(function ($) {
+    var breakpoints = { base: 0, sm: 576, md: 768, lg: 992, xl: 1200, xxl: 1400 };
+    var numeric = {
+        items: 'items', gap: 'margin', padding: 'stagePadding',
+        speed: 'smartSpeed', timeout: 'autoplayTimeout'
+    };
+    var flags = {
+        loop: 'loop', nav: 'nav', dots: 'dots', center: 'center',
+        autoplay: 'autoplay', 'auto-height': 'autoHeight', 'auto-width': 'autoWidth',
+        rewind: 'rewind', drag: 'mouseDrag', touch: 'touchDrag'
+    };
 
-                animateOut: 'fadeOut',   // animazione in uscita
-                animateIn: 'fadeIn',     // animazione in entrata
-
-
-
-                smartSpeed: 1000, // Velocità dello slide (aumenta per più morbidezza)
-                fluidSpeed: true,
-            });
-        }
-        
-        function initCarouselArchive($carousel) {
-            $carousel.owlCarousel({
-                loop: false,
-                margin: 20,
-                responsiveClass: true,
-                autoHeight: false,
-                autoWidth: false,
-                center: false,
-                nav: true,
-                dots: true,
-                navText: [navLeftArrow, navRightArrow],  
-                responsive: {
-                    0: {
-                        items: 1, // Impostazioni per schermi molto piccoli
-                        
-                    },
-                    576: {
-                        items: 2, // Impostazioni per schermi piccoli
-                        
-                    },
-                    768: {
-                        items: 3, // Impostazioni per schermi medi
-                        
-                    },
-                    992: {
-                        items: 3, // Impostazioni per schermi grandi
-                        
-                    },
-                    1200: {
-                        items: 3, // Impostazioni per schermi molto grandi
-                        
-                    }
-                }
-            });
-        }
-        
-        $(".owl-carousel").each(function () {
-            var $carousel = $(this);
-            var $section = $carousel.closest('section');
-            if ($section.hasClass("carousel-center")) {
-                initCarouselCenter($carousel);
-            } else if ($section.hasClass("carousel-left")) {
-                initCarouselLeft($carousel);
-            } else if ($section.hasClass("section_cube")) {
-                initCarouselCube($carousel);
-            } else if ($section.hasClass("section_slides")) {
-                initCarouselSlide($carousel);
-            } else if ($section.hasClass("section_archive_carousel")) {
-                initCarouselArchive($carousel);
-            } else if ($section.hasClass("section_carousel_text")) {
-                initCarouselText($carousel);
-            } else {
-                initCarouselStandard($carousel);
+    // * GRIT_SET Read exact class tokens; local carousel overrides its section
+    function readClasses(element, overrides) {
+        if (!element) return;
+        Array.from(element.classList).sort().forEach(function (token) {
+            var match = token.match(/^carousel-(items|gap|padding|speed|timeout)-(?:((?:sm|md|lg|xl|xxl))-)?(\d+(?:p\d+)?)$/);
+            if (match) {
+                var option = numeric[match[1]];
+                var value = Number(match[3].replace('p', '.'));
+                if ((option === 'items' && value < 1) || (option !== 'items' && !Number.isInteger(value))) return;
+                var bp = breakpoints[match[2] || 'base'];
+                overrides[bp] = overrides[bp] || {};
+                overrides[bp][option] = value;
+                return;
+            }
+            match = token.match(/^carousel-(no-)?(loop|nav|dots|center|autoplay|auto-height|auto-width|rewind|drag|touch)(?:-(sm|md|lg|xl|xxl))?$/);
+            if (match) {
+                var bp = breakpoints[match[3] || 'base'];
+                overrides[bp] = overrides[bp] || {};
+                overrides[bp][flags[match[2]]] = !match[1];
+            } else if (token === 'carousel-left') {
+                overrides[0] = overrides[0] || {};
+                overrides[0].center = false;
             }
         });
+    }
+
+    // * GRIT_SET Resolve content defaults independently from visual modifiers
+    function optionsFor($carousel, $section) {
+        var options = {
+            loop: true, margin: 20, autoHeight: false, autoWidth: false,
+            center: false, nav: true, dots: true, autoplay: false,
+            autoplayHoverPause: true, autoplayTimeout: 5000, smartSpeed: 250,
+            navText: [
+                window.navLeftArrow || "<i class='fa fa-chevron-left' aria-hidden='true'></i><span class='screen-reader-text'>Previous</span>",
+                window.navRightArrow || "<i class='fa fa-chevron-right' aria-hidden='true'></i><span class='screen-reader-text'>Next</span>"
+            ]
+        };
+        var counts = [1, 2, 3, 4, 5, 5];
+        if ($section.hasClass('section_carousel_text')) counts = [1, 2, 3, 3, 4, 4];
+        if ($section.hasClass('section_archive_carousel')) {
+            counts = [1, 2, 3, 3, 3, 3];
+            options.loop = false;
+        }
+        if ($section.hasClass('section_cube') || $section.hasClass('section_slides') || $carousel.hasClass('carousel-header')) {
+            counts = [1, 1, 1, 1, 1, 1];
+            options.margin = 0;
+        }
+        if ($carousel.hasClass('carousel-header')) options.dots = false;
+        if ($section.hasClass('section_slides')) {
+            options.autoplay = true;
+            options.animateOut = 'fadeOut';
+            options.animateIn = 'fadeIn';
+            options.smartSpeed = 1000;
+        }
+        var overrides = {};
+        readClasses($section[0], overrides);
+        readClasses($carousel[0], overrides);
+        var accumulated = {};
+        options.responsive = {};
+        Object.keys(breakpoints).forEach(function (name, index) {
+            var bp = breakpoints[name];
+            Object.assign(accumulated, overrides[bp] || {});
+            options.responsive[bp] = Object.assign({ items: counts[index] }, accumulated);
+            // * GRIT_SET Full-width Slides use a single item: Owl fade does not support multi-item layouts.
+            if ($section.hasClass('section_slides')) {
+                Object.assign(options.responsive[bp], { items: 1, autoWidth: false, center: false, margin: 0 });
+            }
+        });
+        // Respect reduced motion even when autoplay is enabled in a preset/class.
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            options.autoplay = false;
+            Object.keys(options.responsive).forEach(function (bp) {
+                options.responsive[bp].autoplay = false;
+            });
+        }
+        return options;
+    }
+
+    // * GRIT_SET Initialize each carousel once; keep controls scoped to its instance
+    $(function () {
+        if (typeof $.fn.owlCarousel !== 'function') return;
+        $('.owl-carousel').each(function () {
+            var $carousel = $(this);
+            if ($carousel.data('owl.carousel')) return;
+            var $section = $carousel.closest('section');
+            $carousel.owlCarousel(optionsFor($carousel, $section));
+        });
     });
-}
+})(jQuery);
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /* :::::::::::::: 03 * GRIT_SET nivoLightbox */
+// * GRIT_SET Static gallery columns and gaps from section class tokens
+jQuery(function ($) {
+    $('section.section_gallery').each(function () {
+        var section = this;
+        Array.from(section.classList).forEach(function (token) {
+            var match = token.match(/^gallery-(cols|gap)-(?:((?:sm|md|lg|xl|xxl))-)?(\d+)$/);
+            if (!match) return;
+            var value = Number(match[3]);
+            if (match[1] === 'cols' && (value < 1 || value > 12)) return;
+            if (match[1] === 'gap' && value > 500) return;
+            section.style.setProperty('--gallery-' + match[1] + '-' + (match[2] || 'base'), value + (match[1] === 'gap' ? 'px' : ''));
+        });
+    });
+});
+
 lightbox_nivo_active = document.getElementById(
     "responsive-lightbox-nivo_lightbox-js"
 );
 
-if (lightbox_nivo_active) {
+if (typeof jQuery.fn.nivoLightbox === "function") {
     $(document).ready(function () {
         $(".item-img-gallery").nivoLightbox({
             // The effect to use when showing the lightbox
@@ -459,15 +381,6 @@ if (lightbox_nivo_active) {
             errorMessage:
             "The requested content cannot be loaded. Please try again later.",
         });
-        // Prevenzione dell'apertura del link in una nuova scheda
-        $('.item-img-gallery').on('click', function (event) {
-            event.preventDefault(); // Previene il comportamento predefinito del link
-        });
-    });
-    
-    // Prevenzione dell'apertura del link in una nuova scheda
-    $(".item-img-gallery").on("click", function (event) {
-        event.preventDefault(); // Previene il comportamento predefinito del link
     });
 }
 
@@ -498,23 +411,50 @@ $(document).ready(function () {
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /* :::::::::::::: 06 * GRIT_SET jarallax-js  */
-owl_carousel_active = document.getElementById("owl_carousel-js");
-
-if (owl_carousel_active) {
-    $(document).ready(function () {
-        /* Inizializza jarallax-js con classi dinamiche */
-        $(".jarallax, .jarallax-keep-img, .jarallax-overlay").each(function () {
-            var $this = $(this);
-            var speed = $this.data("speed") || 0.9; // Valore di default se data-speed non è definito
-            
-            $this.jarallax({
-                speed: speed,
-                keepImg: true,
-                imgPosition: '50% 50%', 
-            });
+// * GRIT_SET Initialize available Jarallax instances independently of Owl
+jQuery(function ($) {
+    if (typeof $.fn.jarallax !== 'function') return;
+    $('.jarallax, .jarallax-keep-img, .jarallax-overlay').each(function () {
+        if (this.jarallax) return;
+        if ($(this).closest('.section_slides').length && window.matchMedia &&
+            window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        var speed = $(this).data('speed');
+        var isSlides = $(this).closest('.section_slides').length > 0;
+        // * GRIT_SET Slides | Move the image into Jarallax: a retained cover image would hide its motion.
+        // Keep the animated layer above the slide background and below overlay/text.
+        $(this).jarallax({
+            speed: speed === undefined ? (isSlides ? 0.5 : 0.9) : speed,
+            keepImg: !isSlides,
+            zIndex: isSlides ? 0 : -100,
+            imgPosition: '50% 50%'
         });
     });
-}
+});
+
+// * GRIT_SET Initialize every text Masonry grid once with a Bootstrap fallback
+jQuery(function () {
+    if (typeof window.Masonry !== 'function') return;
+    document.querySelectorAll('.section_text .js-grit-masonry').forEach(function (grid) {
+        if (window.Masonry.data(grid)) return;
+        var masonry = new window.Masonry(grid, {
+            itemSelector: '.masonry-item',
+            columnWidth: '.masonry-item',
+            percentPosition: true,
+            initLayout: false
+        });
+        var layout = function () { masonry.layout(); };
+        if (typeof window.imagesLoaded === 'function') {
+            window.imagesLoaded(grid).on('progress', layout).on('always', layout);
+        } else {
+            grid.querySelectorAll('img').forEach(function (img) {
+                img.addEventListener('load', layout);
+                img.addEventListener('error', layout);
+            });
+        }
+        layout();
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+    });
+});
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /* :::::::::::::: 07 * GRIT_SET NProgress-js */
@@ -543,87 +483,62 @@ if (nprogress_active) {
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /* :::::::::::::: 07 * GRIT_SET section_collapse */
-$(document).ready(function () {
-    // Controlla se esiste una sezione con la classe 'section_collapse'
-    if (document.querySelector('.section_collapse')) {
-        
-        var headers = document.querySelectorAll('.accordion_heading');
-        
-        headers.forEach(function (header) {
-            header.addEventListener('click', function () {
-                var symbol = this.querySelector('.collapse-symbol');
-                var target = document.querySelector(this.getAttribute('data-target'));
-                
-                if (target.classList.contains('show')) {
-                    symbol.innerHTML = `<i class="fas fa-plus"></i>`;
-                    // symbol.innerHTML = `{% include '/img/plus.svg' %}`;
-                } else {
-                    headers.forEach(function (h) {
-                        var s = h.querySelector('.collapse-symbol');
-                        s.innerHTML = `<i class="fas fa-plus"></i>`;
-                        // s.innerHTML = `{% include '/img/plus.svg' %}`;
-                    });
-                    symbol.innerHTML = `<i class="fas fa-minus"></i>`;
-                    // symbol.innerHTML = `{% include '/img/minus.svg' %}`;
-                }
-            });
+// * GRIT_SET Collapse legend: List.js search, Bootstrap state sync, visible-tab Owl refresh
+jQuery(function ($) {
+    // * GRIT_SET One independent List.js instance per search section
+    document.querySelectorAll('.js-collapse-search').forEach(function (root) {
+        if (typeof window.List !== 'function' || root.gritCollapseList) return;
+        var empty = root.querySelector('.collapse-empty');
+        // Empty lists need no List.js template; preserve the accessible empty state.
+        if (!root.querySelector('.item-search')) { empty.hidden = false; return; }
+        var list = new window.List(root.id, {
+            valueNames: ['search_title', 'search_text', 'search_group'],
+            page: 7,
+            pagination: [{
+                paginationClass: 'pagination-list-js',
+                innerWindow: 2,
+                outerWindow: 1,
+                item: '<li class="page-item"><button type="button" class="page page-link"></button></li>'
+            }]
         });
-        
-        // Gestione clic sull'icona
-        var symbols = document.querySelectorAll('.collapse-symbol');
-        symbols.forEach(function (symbol) {
-            symbol.addEventListener('click', function (e) {
-                e.stopPropagation(); // Evita che l'evento venga gestito solo dall'icona
-                this.closest('.accordion_heading').click(); // Simula il clic sull'intestazione
+        root.gritCollapseList = list;
+        function updateState() {
+            empty.hidden = list.matchingItems.length !== 0;
+            root.querySelectorAll('.pagination-list-js button').forEach(function (button) {
+                var active = button.parentElement.classList.contains('active');
+                var dotted = button.parentElement.classList.contains('disabled');
+                button.disabled = dotted;
+                button.setAttribute('aria-label', dotted ? 'Altre pagine' : 'Pagina ' + button.textContent);
+                if (active) button.setAttribute('aria-current', 'page');
+                else button.removeAttribute('aria-current');
             });
-        });
-        
-        var firstHeader = document.querySelector('.accordion_heading:not(.collapsed)');
-        if (firstHeader) {
-            var firstSymbol = firstHeader.querySelector('.collapse-symbol');
-            firstSymbol.innerHTML = `<i class="fas fa-minus"></i>`;
-            // firstSymbol.innerHTML = `{% include '/img/minus.svg' %}`;
+            root.querySelector('.pagination-list-js').hidden = list.matchingItems.length <= list.page;
         }
-        
-        var searchHeaders = document.querySelectorAll('.accordion_search_heading');
-        
-        searchHeaders.forEach(function (header) {
-            header.addEventListener('click', function () {
-                var symbol = this.querySelector('.collapse-symbol');
-                var target = document.querySelector(this.getAttribute('data-target'));
-                
-                if (target.classList.contains('show')) {
-                    symbol.innerHTML = `<i class="fas fa-plus"></i>`;
-                    // symbol.innerHTML = `{% include '/img/plus.svg' %}`;
-                } else {
-                    searchHeaders.forEach(function (h) {
-                        var s = h.querySelector('.collapse-symbol');
-                        s.innerHTML = `<i class="fas fa-plus"></i>`;
-                        // s.innerHTML = `{% include '/img/plus.svg' %}`;
-                    });
-                    symbol.innerHTML = `<i class="fas fa-minus"></i>`;
-                    // symbol.innerHTML = `{% include '/img/minus.svg' %}`;
-                    
-                }
-            });
+        list.on('updated', updateState);
+        updateState();
+        // Native search clear/input events must also update lists in all browsers.
+        root.querySelector('input.search').addEventListener('input', function () { list.search(this.value); });
+    });
+
+    // * GRIT_SET Follow actual Bootstrap transitions instead of predicting state on click
+    $('.section_collapse').on('shown.bs.collapse hidden.bs.collapse', '.accordion_body', function (event) {
+        if (event.target !== this) return;
+        var trigger = document.getElementById(this.getAttribute('aria-labelledby'));
+        if (!trigger) return;
+        var expanded = $(this).hasClass('show');
+        trigger.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+        // Icon visibility is driven by aria-expanded in SCSS, even when Font Awesome replaces i with svg.
+    });
+
+    // * GRIT_SET Recalculate Owl after a previously hidden tab becomes measurable
+    $('.section_collapse [data-toggle="tab"]').on('shown.bs.tab', function () {
+        var id = this.getAttribute('aria-controls');
+        var panel = id ? document.getElementById(id) : null;
+        if (!panel) return;
+        $(panel).find('.owl-carousel').each(function () {
+            if ($(this).data('owl.carousel')) $(this).trigger('refresh.owl.carousel');
         });
-        
-        // Gestione clic sull'icona
-        var searchSymbols = document.querySelectorAll('.collapse-symbol');
-        searchSymbols.forEach(function (symbol) {
-            symbol.addEventListener('click', function (e) {
-                e.stopPropagation(); // Evita che l'evento venga gestito solo dall'icona
-                this.closest('.accordion_search_heading').click(); // Simula il clic sull'intestazione
-            });
-        });
-        
-        var firstSearchHeader = document.querySelector('.accordion_search_heading:not(.collapsed)');
-        if (firstSearchHeader) {
-            var firstSearchSymbol = firstSearchHeader.querySelector('.collapse-symbol');
-            firstSearchSymbol.innerHTML = `<i class="fas fa-minus"></i>`;
-            // firstSearchSymbol.innerHTML = `{% include '/img/minus.svg' %}`;
-        }
-    }
+    });
 });
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
@@ -662,99 +577,128 @@ document.addEventListener('DOMContentLoaded', initializeVideoSections);
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /* :::::::::::::: 09 * GRIT_SET Counters js */
+// * GRIT_SET Counter legend: final fallback, locale formatting, shared observer, timed animation
 function startCounterAnimation() {
-    const counters = document.getElementsByClassName("number-animate");
-    for (let i = 0; i < counters.length; i++) {
-        const counter = counters[i];
-        const startNumber = +counter.getAttribute("number-animate-start");
-        const target = +counter.getAttribute("number-animate-end");
-        const delay = +counter.getAttribute("number-animate-delay");
-        const add = +counter.getAttribute("number-animate-increment");
-        let current = startNumber;
-        let animationId;
-        let isInView = false;
-        
-        function updateCounter() {
-            if (current >= target) {
-                clearInterval(animationId);
-            } else if (add) {
-                current += add;
-                counter.textContent = current;
-            } else {
-                current++;
-                counter.textContent = current;
+    const counters = Array.from(document.querySelectorAll('.number-animate'));
+    if (!counters.length) return;
+    const motion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+    const locale = document.documentElement.lang || undefined;
+    const states = new Map();
+    const observer = typeof window.IntersectionObserver === 'function'
+        ? new IntersectionObserver(entries => entries.forEach(entry => {
+            const state = states.get(entry.target);
+            if (!state) return;
+            if (entry.isIntersecting) start(state);
+            else if (state.repeat) {
+                cancelAnimationFrame(state.frame);
+                state.running = false;
+                state.element.textContent = state.finalText;
             }
-        }
-        
-        function checkInView() {
-            const rect = counter.getBoundingClientRect();
-            const windowHeight =
-            window.innerHeight || document.documentElement.clientHeight;
-            const windowWidth =
-            window.innerWidth || document.documentElement.clientWidth;
-            
-            const inView =
-            rect.top >= 0 &&
-            rect.left >= 0 &&
-            rect.bottom <= windowHeight &&
-            rect.right <= windowWidth;
-            
-            if (inView && !isInView) {
-                isInView = true;
-                current = startNumber;
-                counter.textContent = current;
-                animationId = setInterval(updateCounter, delay);
-                counter.style.opacity = 1;
-            } else if (!inView && isInView) {
-                isInView = false;
-                clearInterval(animationId);
-                current = startNumber;
-                counter.textContent = current;
-                counter.style.opacity = 0;
-            }
-        }
-        
-        window.addEventListener("scroll", checkInView);
-        window.addEventListener("resize", checkInView);
-        checkInView(); // Check if already in view on page load
+        }), { threshold: 0.15 }) : null;
+
+    // * GRIT_SET Interpolate by elapsed time; clamp the last frame to the exact target
+    function start(state) {
+        if (state.running || (state.started && !state.repeat) || (motion && motion.matches)) return;
+        state.started = true;
+        state.running = true;
+        if (!state.repeat && observer) observer.unobserve(state.element);
+        let startTime = null;
+        const tick = time => {
+            if (startTime === null) startTime = time;
+            const progress = Math.min(1, (time - startTime) / state.duration);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const value = state.target * eased;
+            state.element.textContent = progress === 1 ? state.finalText : state.format(value);
+            if (progress < 1) state.frame = requestAnimationFrame(tick);
+            else state.running = false;
+        };
+        state.element.textContent = state.format(0);
+        state.frame = requestAnimationFrame(tick);
     }
+
+    // * GRIT_SET Section settings apply to all counters; item duration may override them
+    counters.forEach(element => {
+        const section = element.closest('section');
+        const item = element.closest('.item-chapters, .item-counter');
+        const component = element.closest('.grit-counter');
+        const tokens = [...(section ? section.classList : []), ...(item ? item.classList : []), ...(component ? component.classList : []), ...element.classList];
+        const target = Number(element.dataset.counterEnd);
+        const decimals = Number(element.dataset.counterDecimals || 0);
+        let duration = 3000;
+        tokens.forEach(token => {
+            const match = token.match(/^counter-duration-(\d+)$/);
+            if (match) duration = Math.min(60000, Number(match[1]));
+        });
+        if (element.hasAttribute('data-counter-duration') && Number.isFinite(Number(element.dataset.counterDuration))) {
+            duration = Math.max(0, Math.min(60000, Number(element.dataset.counterDuration)));
+        }
+        const repeat = element.hasAttribute('data-counter-repeat') ? ['true', '1'].includes(element.dataset.counterRepeat) : tokens.includes('counter-repeat');
+        const disabled = ['false', '0'].includes(element.dataset.counterAnimate) || tokens.includes('counter-no-animation');
+        // Unsupported browsers and disabled/reduced animations retain server-rendered final values.
+        if (!Number.isFinite(target) || Math.abs(target) > Number.MAX_SAFE_INTEGER ||
+            !Number.isInteger(decimals) || decimals < 0 || decimals > 6 ||
+            !observer || disabled || (motion && motion.matches) || duration === 0 || target === 0) return;
+        let format = value => value.toFixed(decimals);
+        try {
+            const formatter = new Intl.NumberFormat(locale, { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+            format = value => formatter.format(value);
+        } catch (error) { /* Keep the plain decimal fallback when locale/Intl is unavailable. */ }
+        const state = { element, target, duration, format, finalText: element.textContent, repeat, running: false, started: false, frame: 0 };
+        states.set(element, state);
+        observer.observe(element);
+    });
+
+    // * GRIT_SET Respect reduced motion if the preference changes during playback
+    if (motion && typeof motion.addEventListener === 'function') motion.addEventListener('change', event => {
+        if (!event.matches) return;
+        states.forEach(state => {
+            cancelAnimationFrame(state.frame);
+            state.running = false;
+            state.element.textContent = state.finalText;
+        });
+        if (observer) observer.disconnect();
+    });
 }
-
-// Call the function when the document is ready
-document.addEventListener("DOMContentLoaded", startCounterAnimation);
-
-
-
-
+document.addEventListener('DOMContentLoaded', startCounterAnimation);
 
 
 /* :::::::::::::: 10 * GRIT_SET GSAP + ScrollTrigger + Lenis */ 
 
-// :::::::::::::: 10.0 * Init Plugin
-gsap.registerPlugin(ScrollTrigger, SplitText);
-
-// :::::::::::::: 10.1 * Lenis Setup (Smooth Scroll)
-const lenis = new Lenis({
+// * GRIT_SET GSAP and Lenis are independently optional
+(function () {
+const hasGSAP = typeof window.gsap !== 'undefined' && typeof window.ScrollTrigger !== 'undefined';
+if (hasGSAP) {
+  gsap.registerPlugin(ScrollTrigger);
+  if (typeof window.SplitText !== 'undefined') gsap.registerPlugin(SplitText);
+}
+const lenis = typeof window.Lenis === 'function' ? new Lenis({
   duration: 1.2,
   easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
   smooth: true,
   smoothTouch: true,
-});
-
-lenis.on("scroll", ScrollTrigger.update);
-gsap.ticker.add((time) => lenis.raf(time * 1000));
+}) : null;
+if (lenis) {
+  if (hasGSAP) {
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(time => lenis.raf(time * 1000));
+  } else {
+    const raf = time => { lenis.raf(time); requestAnimationFrame(raf); };
+    requestAnimationFrame(raf);
+  }
+}
 
 // Scroll to anchor on click
-document.querySelectorAll('a[href*="#"]').forEach(anchor => {
+if (lenis) document.querySelectorAll('a[href*="#"]').forEach(anchor => {
   anchor.addEventListener("click", function (e) {
     const currentUrl = window.location.href.split('#')[0];
     const targetUrl = this.href.split('#')[0];
 
+    if (this.matches('[data-toggle], [role="tab"], [role="button"]')) return;
     if (currentUrl === targetUrl) {
-      e.preventDefault();
       const targetId = this.getAttribute("href").split('#')[1];
       const targetElement = document.getElementById(targetId);
       if (targetElement) {
+        e.preventDefault();
         lenis.scrollTo(targetElement);
       }
     }
@@ -765,20 +709,35 @@ document.querySelectorAll('a[href*="#"]').forEach(anchor => {
 window.addEventListener("load", () => {
   const hash = window.location.hash.substring(1);
   const target = document.getElementById(hash);
-  if (target) lenis.scrollTo(target, { duration: 1.1, easing: 'easeOutQuad' });
-  setTimeout(() => ScrollTrigger.refresh(), 250);
+  if (target && lenis) lenis.scrollTo(target, { duration: 1.1 });
+  if (hasGSAP) setTimeout(() => ScrollTrigger.refresh(), 250);
 });
 
-window.addEventListener("resize", () => ScrollTrigger.refresh());
+if (hasGSAP) window.addEventListener("resize", () => ScrollTrigger.refresh());
+
+// * GRIT_SET Image-dependent animation still works when ImagesLoaded is disabled
+function whenImageReady(image, callback) {
+  if (typeof window.imagesLoaded === 'function') {
+    window.imagesLoaded(image, callback);
+  } else if (image.complete) {
+    callback();
+  } else {
+    let handled = false;
+    const complete = () => { if (!handled) { handled = true; callback(); } };
+    image.addEventListener('load', complete, { once: true });
+    image.addEventListener('error', complete, { once: true });
+  }
+}
 
 // :::::::::::::: 10.2 * Init GSAP Animations
 document.addEventListener("DOMContentLoaded", function () {
+  if (!hasGSAP) return;
 
   // :::::::::::::: 10.2.1 * Parallax Image Scroll
   document.querySelectorAll(".gsap-parallax-container").forEach(container => {
     const image = container.querySelector(".gsap-parallaxImage");
     if (image) {
-      imagesLoaded(image, () => {
+      whenImageReady(image, () => {
         gsap.timeline({
           scrollTrigger: {
             trigger: container,
@@ -863,6 +822,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // :::::::::::::: 10.2.4 * Word Reveal (SplitText)
   function splitWordReveal() {
+    if (typeof window.SplitText === "undefined") return;
     document.querySelectorAll(".section-gsap-reveal").forEach(section => {
       const blocks = section.querySelectorAll(".inner-text");
 
@@ -897,6 +857,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // :::::::::::::: 10.2.5 * Sequential Word Reveal
   function scrollRevealStaggered() {
+    if (typeof window.SplitText === "undefined") return;
     document.querySelectorAll(".section-gsap-reveal-scroll").forEach(section => {
       const innerText = section.querySelector(".inner-text");
       if (!innerText) return;
@@ -1038,6 +999,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+})();
+
 /* :::::::::::::: 11 * Section Bars */  
 
 const NUM_BARS = 15;
@@ -1166,6 +1129,7 @@ window.addEventListener('scroll', () => {
 });
 
 function animateBars() {
+  if (typeof window.gsap === "undefined") return;
   document.querySelectorAll('.bar').forEach((el, i) => {
     const section = el.closest('.section-bars');
     if (!section || !section.dataset.barsGenerated) return;
@@ -1188,3 +1152,4 @@ function animateBars() {
 }
  
  
+})(jQuery);
