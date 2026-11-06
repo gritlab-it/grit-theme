@@ -416,16 +416,16 @@ jQuery(function ($) {
     if (typeof $.fn.jarallax !== 'function') return;
     $('.jarallax, .jarallax-keep-img, .jarallax-overlay').each(function () {
         if (this.jarallax) return;
-        if ($(this).closest('.section_slides').length && window.matchMedia &&
+        if ($(this).closest('.section_slides, .section_cube').length && window.matchMedia &&
             window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         var speed = $(this).data('speed');
-        var isSlides = $(this).closest('.section_slides').length > 0;
-        // * GRIT_SET Slides | Move the image into Jarallax: a retained cover image would hide its motion.
+        var isCover = $(this).closest('.section_slides, .section_cube').length > 0;
+        // * GRIT_SET Slides/Cube | Move the image into Jarallax: a retained cover image would hide its motion.
         // Keep the animated layer above the slide background and below overlay/text.
         $(this).jarallax({
-            speed: speed === undefined ? (isSlides ? 0.5 : 0.9) : speed,
-            keepImg: !isSlides,
-            zIndex: isSlides ? 0 : -100,
+            speed: speed === undefined ? (isCover ? 0.5 : 0.9) : speed,
+            keepImg: !isCover,
+            zIndex: isCover ? 0 : -100,
             imgPosition: '50% 50%'
         });
     });

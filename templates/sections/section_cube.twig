@@ -1,103 +1,57 @@
 {#
- * GRIT_SET section_cube
- * Legend
- * 01 | section_cube
+ * GRIT_SET Section Cube legend
+ * 01 | No gallery: full-width text; one image: static; multiple images: shared Owl
+ * 02 | Invert changes desktop order; mobile keeps text before media
+ * 03 | Exact parallax token, static image only; shared buttons and responsive media
  #}
- 
-
-
-{# * GRIT_SET 01 | section_cube #}  
-<div class="container-fluid ">
-    <div class="row align-items-stretch {{ section.contained ? 'bg-'~ section.background_color : '' }} ">
-        <div class="col-12 col-md-8 col-lg-6 p-0 m-0 col-text d-flex flex-column justify-content-center {{ section.contained ? '' : 'bg-'~ section.background_color }} order-first {% if section.invert %} order-md-last {% else %}  {% endif %}">
-            <div class="inner-text color-{{section.color}}  in__animate " data-animation="animate__fadeIn animate__slow ">
-                {% if section.title %}
-                    <h1 class=" color-{{section.text_color}}">
-                        {{section.title}}
-                    </h1>
-                {% endif %}
-                
-                {% if section.text %}
-                    <div class="py-3 color-{{section.text_color}}">
-                        {{section.text}} 
-                    </div>
-                {% endif %}
-                {% if section.lists %}
-                <div class="row pb-4">
+{% set gallery = section.gallery|default([]) %}
+{% set has_media = gallery|length > 0 %}
+{% set carousel = gallery|length > 1 %}
+{% set modifiers = section.class|default('')|split(' ') %}
+{% set parallax = not carousel and has_media and 'parallax' in modifiers %}
+{% set has_text = section.title or section.text or section.lists or section.link_1.url or section.link_2.url %}
+{% if has_media or has_text %}
+<div class="container-fluid">
+    <div class="row align-items-stretch{% if section.contained and section.background_color %} bg-{{ section.background_color|e('html_attr') }}{% endif %}">
+        {% if has_text %}
+        <div class="col-12{% if has_media %} col-md-8 col-lg-6{% endif %} p-0 col-text d-flex flex-column justify-content-center{% if not section.contained and section.background_color %} bg-{{ section.background_color|e('html_attr') }}{% endif %} order-first{% if section.invert %} order-md-last{% endif %}">
+            <div class="inner-text{% if section.text_color %} color-{{ section.text_color|e('html_attr') }}{% endif %}">
+                {% if section.title %}<h2>{{ section.title|e }}</h2>{% endif %}
+                {% if section.text %}<div class="py-3">{{ section.text }}</div>{% endif %}
+                {% if section.lists %}<div class="row pb-4">
                     {% for item in section.lists %}
-                        <div class="col-12 item-list  in__animate " data-animation="animate__fadeIn animate__slow " >
-                            <div class="inner-item-list border-{{section.text_color}}  d-flex align-items-center mb-3 pb-2">
-                            {% if item.icon %}
-                                <img src="{{ Image(item.icon.id).src|resize(60,60)}}" alt="" class="img-fluid pr-2">
-                            {% endif %} 
-                            <div class="p-0 m-0 color-{{section.text_color}}">
-                                {{item.text}}
+                        {% if item.icon or item.text %}<div class="col-12 item-list">
+                            <div class="inner-item-list{% if section.text_color %} border-{{ section.text_color|e('html_attr') }}{% endif %} d-flex align-items-center mb-3 pb-2">
+                                {% if item.icon %}{{ function('wp_get_attachment_image', item.icon.id|default(item.icon.ID)|default(item.icon), 'thumbnail', false, { class: 'cube-list-icon mr-2', alt: '', loading: 'lazy' }) }}{% endif %}
+                                <div>{{ item.text }}</div>
                             </div>
-                            </div>
-                        </div>
-                    {% endfor %} 
-                </div> 
-                {% endif %}
-                
-                {% if section.link_1 is not empty or section.link_2 is not empty %} 
-                    {% include 'partials/buttons.twig' with {
-    buttons: [
-        { title: section.link_1.title, url: section.link_1.url, target: section.link_1.target, style: 'btn btn-' ~ section.color_link_1|default('primary') ~ ' btn-md' },
-        { title: section.link_2.title, url: section.link_2.url, target: section.link_2.target, style: 'btn btn-' ~ section.color_link_2|default('primary') ~ ' btn-md' }
-    ],
-    buttons_class: 'in__animate',
-    buttons_animation: 'animate__fadeIn animate__slow'
-} only %} 
-                {% endif %}
+                        </div>{% endif %}
+                    {% endfor %}
+                </div>{% endif %}
+                {% include 'partials/buttons.twig' with {
+                    buttons: [
+                        { title: section.link_1.title, url: section.link_1.url, target: section.link_1.target, style: 'btn btn-' ~ section.color_link_1|default('primary') ~ ' btn-md' },
+                        { title: section.link_2.title, url: section.link_2.url, target: section.link_2.target, style: 'btn btn-' ~ section.color_link_2|default('primary') ~ ' btn-md' }
+                    ], buttons_class: '', buttons_animation: ''
+                } only %}
             </div>
         </div>
-
-        <div class="col-12 col-md-4 col-lg-6 p-0 m-0 col-img order-last 
-            {% if 'parallax' in section.class %}  {% if section.gallery|length == 1 %} jarallax-keep-img {% endif %} {% endif %} 
-            {% if section.gallery|length == 1 %} single-image {% endif %}
-            {% if section.invert %} order-md-first {% else %}  {% endif %}"  
-            {% if section.gallery|length == 1 %} style="background-image: url('{{ Image(section.gallery[0].id).src|resize(1400,1400)}}');" {% endif %} data-speed="0.90">
-            
-            {% if section.gallery|length > 1 %}
-                <div class="owl-carousel owl-theme carousel-cube" > 
-                    {% for gallery_img in section.gallery %}
-
-                        <div class="item-gallery">
-                        {% if 'parallax' in section.class %}
-
-                            <div class="jarallax-keep-img "  data-speed="0.90" > 
-                                {% set image = {
-                                    'alt': gallery_img.alt,
-                                    'src': Image(gallery_img.id).src|resize(1400,1400) ,
-                                    'class': 'img-fluid jarallax-img ddd'
-                                } %}
-                                {% include ['/partials/img.twig'] with image %}   
-                            </div>
-
-                        {% else %}
-
-                            {% set image = {
-                                'alt': gallery_img.alt,
-                                'src': Image(gallery_img.id).src|resize(1400,1400) ,
-                                'class': 'img-fluid '
-                            } %}
-                            {% include ['/partials/img.twig'] with image %} 
-
-                        {% endif %}
-                        </div>
-                        
-                    {% endfor %}
+        {% endif %}
+        {% if has_media %}
+        <div class="col-12{% if has_text %} col-md-4 col-lg-6{% endif %} p-0 col-img order-last{% if section.invert %} order-md-first{% endif %}">
+            {% if carousel %}<div class="owl-carousel owl-theme carousel-cube">{% endif %}
+            {% for image in gallery %}
+                <div class="item-gallery cube-frame{% if parallax %} jarallax-keep-img{% endif %}"{% if parallax %} data-speed="0.5"{% endif %}>
+                    {{ function('wp_get_attachment_image', image.id|default(image.ID)|default(image), 'full', false, {
+                        class: parallax ? 'cube-image jarallax-img' : 'cube-image',
+                        sizes: has_text ? '(min-width: 992px) 50vw, (min-width: 768px) 34vw, 100vw' : '100vw',
+                        loading: 'lazy'
+                    }) }}
                 </div>
-            {% else %} 
-                {# {% set image = {
-                    'alt': section.gallery[0].alt,
-                    'src': Image(section.gallery[0].id).src|resize(1400,1400) ,
-                    'class': 'img-fluid '
-                } %}
-                {% include ['/partials/img.twig'] with image %}   #}
-            {% endif %}
-             
+            {% endfor %}
+            {% if carousel %}</div>{% endif %}
         </div>
+        {% endif %}
     </div>
-</div> 
-  
+</div>
+{% endif %}

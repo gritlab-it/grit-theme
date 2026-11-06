@@ -4473,46 +4473,47 @@ a:hover {
 .section_cube {
   background-color: transparent !important;
 }
-.section_cube .col-text {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
 .section_cube .col-text .inner-text {
-  padding: 8.75vw;
+  padding: max(1.5rem, 8.75vw);
 }
 .section_cube.contained {
   padding: 0 4.375vw;
 }
+.section_cube .col-img {
+  min-width: 0;
+}
 .section_cube .inner-item-list {
   border-bottom: 1px solid;
 }
-.section_cube .inner-item-list img {
+.section_cube .inner-item-list .cube-list-icon {
   width: 40px;
+  height: 40px;
+  object-fit: contain;
+  flex: 0 0 40px;
 }
 .section_cube .inner-item-list p {
   margin: 0;
 }
-.section_cube .col-img {
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
+.section_cube .cube-frame {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  height: 100%;
 }
-.section_cube .col-img.carousle .section_cube .col-img::before {
+.section_cube .cube-frame::before {
   content: "";
   display: block;
   padding-top: 100%;
 }
-.section_cube .col-img.single-image::before {
-  content: "";
-  display: block;
-  padding-top: 100%;
+.section_cube .cube-frame > .cube-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
-.section_cube .owl-carousel {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%; /* Assicurati che il contenitore abbia un'altezza */
+.section_cube .owl-carousel, .section_cube .owl-stage-outer, .section_cube .owl-stage, .section_cube .owl-item {
+  height: 100%;
 }
 
 /* :::::::::::::: 07 * GRIT_SET section_gallery */

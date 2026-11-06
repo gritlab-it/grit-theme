@@ -317,54 +317,28 @@
 }
 
 /* :::::::::::::: 06 * GRIT_SET section_cube */
+// * GRIT_SET Cube legend | Square media minimum, cover cropping and shared static/Owl layout.
+// Text keeps natural height; empty media columns are omitted by Twig.
 .section_cube {
-    background-color: transparent!important;
-    .col-text {
-        display: flex;
-        flex-direction: column;
-        justify-content: center; 
-        .inner-text {
-            padding: calc($c-gap / $xxl * 100vw);
-        }
-    }
-    &.contained {
-        padding: 0 calc(($c-gap / 2) / $xxl * 100vw); 
-        
-    }
+    background-color: transparent !important;
+    .col-text .inner-text { padding: max(1.5rem, calc($c-gap / $xxl * 100vw)); }
+    &.contained { padding: 0 calc(($c-gap / 2) / $xxl * 100vw); }
+    .col-img { min-width: 0; }
     .inner-item-list {
-        border-bottom: 1px solid; 
-        img {
-            width: 40px;
-        }
-        p {
-            margin: 0;
-        }
+        border-bottom: 1px solid;
+        .cube-list-icon { width: 40px; height: 40px; object-fit: contain; flex: 0 0 40px; }
+        p { margin: 0; }
     }
-    .col-img {
-        background-position: center center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        &.carousle &::before {
-            content: '';
-            display: block;
-            padding-top: 100%; // Mantiene il rapporto 1:1 tra larghezza e altezza
-        }
-        &.single-image::before {
-            content: '';
-            display: block;
-            padding-top: 100%; // Mantiene il rapporto 1:1
-        }
+    // * GRIT_SET One frame supplies dimensions before image load and without JavaScript.
+    .cube-frame {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        height: 100%;
+        &::before { content: ''; display: block; padding-top: 100%; }
     }
-    .owl-carousel {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%; /* Assicurati che il contenitore abbia un'altezza */
-
-    }
-    
- 
-    
+    .cube-frame > .cube-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .owl-carousel, .owl-stage-outer, .owl-stage, .owl-item { height: 100%; }
 }
 
 /* :::::::::::::: 07 * GRIT_SET section_gallery */
