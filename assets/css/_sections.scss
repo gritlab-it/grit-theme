@@ -854,9 +854,13 @@
     // * GRIT_SET Optional header composition | A normal-flow panel overlaps a fixed-height photo.
     // Panel height remains content-driven, avoiding absolute text positioning and negative bottom offsets.
     &.text-header-overlap {
+        // Keep short panels from letting the decorative image spill into the next section.
+        --header-image-height: clamp(18rem, 45vw, 32rem);
+        min-height: var(--header-image-height);
+
         > .text-section-background {
             bottom: auto;
-            height: clamp(18rem, 45vw, 32rem);
+            height: var(--header-image-height);
         }
         > .container-fluid {
             padding-top: clamp(12rem, 30vw, 22rem);
@@ -946,7 +950,6 @@
         }
     }
 }
-
 
 // * GRIT_SET Tease legend | Standard card media shared by archives, sections and related posts.
 // card/vertical/editorial: 3:2 cover; horizontal: responsive split; compact: small square.

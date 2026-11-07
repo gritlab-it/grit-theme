@@ -537,12 +537,24 @@ function grit_video_source($section) {
         $url = '';
         if (in_array($host, ['youtube.com', 'www.youtube.com', 'youtu.be', 'www.youtu.be', 'www.youtube-nocookie.com'], true)) {
             $video_id = strpos($host, 'youtu.be') !== false ? $path : ($query['v'] ?? preg_replace('~^(embed|shorts)/~', '', $path));
-            if (preg_match('/^[A-Za-z0-9_-]{11}$/D', $video_id)) $url = 'https://www.youtube.com/embed/' . $video_id;
+            if (is_scalar($video_id) && preg_match('/^[A-Za-z0-9_-]{11}$/D', (string) $video_id)) {
+                $url = 'https://www.youtube.com/embed/' . $video_id;
+                // Preserve explicit start positions when normalizing a shared YouTube URL.
+                $start = $query['start'] ?? $query['t'] ?? '';
+                if (is_scalar($start) && preg_match('/^\d+$/D', (string) $start)) {
+                    $url = add_query_arg('start', (int) $start, $url);
+                } elseif (is_scalar($start) && preg_match('/^(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?$/D', (string) $start, $time) && $start !== '') {
+                    $seconds = (int) ($time[1] ?? 0) * 3600 + (int) ($time[2] ?? 0) * 60 + (int) ($time[3] ?? 0);
+                    $url = add_query_arg('start', $seconds, $url);
+                }
+            }
         } elseif (in_array($host, ['vimeo.com', 'www.vimeo.com', 'player.vimeo.com'], true)) {
-            $video_id = preg_replace('~^video/~', '', $path);
-            if (ctype_digit($video_id)) {
-                $url = 'https://player.vimeo.com/video/' . $video_id;
-                if (!empty($query['h']) && preg_match('/^[A-Za-z0-9]+$/D', $query['h'])) $url = add_query_arg('h', $query['h'], $url);
+            $video_path = preg_replace('~^video/~', '', $path);
+            if (preg_match('~^(\d+)(?:/([A-Za-z0-9]+))?$~D', $video_path, $vimeo)) {
+                $url = 'https://player.vimeo.com/video/' . $vimeo[1];
+                // Vimeo unlisted links carry their access hash in either the path or query.
+                $hash = $query['h'] ?? ($vimeo[2] ?? '');
+                if (is_scalar($hash) && $hash !== '' && preg_match('/^[A-Za-z0-9]+$/D', (string) $hash)) $url = add_query_arg('h', $hash, $url);
             }
         }
         $embed = $url ? '<iframe src="' . esc_url($url) . '" title="Video" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>' : '';
@@ -555,7 +567,7 @@ function grit_video_source($section) {
     ];
     $html = wp_kses($embed, $allowed);
     if (strpos($html, '<iframe') === false) return [];
-    if (preg_match('/\bsrc=["\']([^"\']+)["\']/i', $html, $match)) $url = esc_url(html_entity_decode($match[1], ENT_QUOTES, 'UTF-8'));
+    if (preg_match('/(?:^|\s)src\s*=\s*["\']([^"\']+)["\']/i', $html, $match)) $url = esc_url(html_entity_decode($match[1], ENT_QUOTES, 'UTF-8'));
     else $url = '';
     return ['type'=>'embed', 'html'=>$html, 'url'=>$url];
 }
