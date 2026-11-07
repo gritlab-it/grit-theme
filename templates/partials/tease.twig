@@ -90,18 +90,29 @@
         The same post may appear in multiple sections and Owl clones.
         Use data-post-id for identification; avoid id="tease-POST_ID" duplicates.
  #}
-
 {# * GRIT_SET Shared card shell | data-post-id remains valid when a post appears in several sections or Owl clones #}
 {% set card_style = tease_style is defined ? tease_style : section.tease|default('') %}
 <article class="tease tease-{{ post.post_type|e('html_attr') }}{% if card_style %} tease-style-{{ card_style|e('html_attr') }}{% endif %} {{ grid|default('col-12 col-sm-6 col-md-6')|e('html_attr') }}" data-post-id="{{ post.ID|e('html_attr') }}">
     {% block content %}
         {# * GRIT_SET Clean fallback for unknown card variants #}
         <div class="card h-100">
-            {% if post.thumbnail %}<a href="{{ post.link|e('html_attr') }}">{% include 'partials/card-image.twig' with { post: post, image_class: 'img-fluid card-img-top' } only %}</a>{% endif %}
+            {% if post.thumbnail %}
+                <a href="{{ post.link|e('html_attr') }}">
+                    {% include 'partials/card-image.twig' with { post: post, image_class: 'img-fluid card-img-top' } only %}
+                </a>
+            {% endif %}
             <div class="card-body">
-                <h3 class="card-title"><a href="{{ post.link|e('html_attr') }}">{{ post.title|e }}</a></h3>
+                <h3 class="card-title">
+                    <a href="{{ post.link|e('html_attr') }}">
+                        {{ post.title|e }}
+                    </a>
+                </h3>
                 {% set excerpt = function('grit_archive_excerpt', post) %}
-                {% if excerpt %}<p class="card-text">{{ excerpt|e }}</p>{% endif %}
+                {% if excerpt %}
+                    <p class="card-text">
+                        {{ excerpt|e }}
+                    </p>
+                {% endif %}
             </div>
         </div>
     {% endblock %}

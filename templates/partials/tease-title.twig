@@ -1,5 +1,15 @@
 {# * GRIT_SET title | Standard reusable card; missing images never reserve empty columns #}
 {% extends "partials/tease.twig" %}
 {% block content %}
-<div class="card bg-transparent border-0 h-100"><div class="card-body p-0"><h3 class="card-title"><a href="{{ post.link|e('html_attr') }}">{{ post.title|e }} <i class="fas fa-arrow-right" aria-hidden="true"></i></a></h3></div></div>
+    <div class="card bg-transparent border-0 h-100">
+        <div class="card-body p-0">
+            <h3 class="card-title">
+                <a href="{{ post.link|e('html_attr') }}">
+                    {{ post.title|e }}
+                    <i class="fas fa-arrow-right" aria-hidden="true">
+                    </i>
+                </a>
+            </h3>
+        </div>
+    </div>
 {% endblock %}

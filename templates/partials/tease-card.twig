@@ -1,5 +1,24 @@
 {# * GRIT_SET card | Standard reusable card; missing images never reserve empty columns #}
 {% extends "partials/tease.twig" %}
 {% block content %}
-<div class="card grit-tease-card">{% if post.thumbnail %}<a class="tease-media" href="{{ post.link|e('html_attr') }}">{% include 'partials/card-image.twig' with { post: post, image_class: 'img-fluid' } only %}</a>{% endif %}<div class="card-body"><h3 class="card-title"><a href="{{ post.link|e('html_attr') }}">{{ post.title|e }}</a></h3>{% set excerpt = function('grit_archive_excerpt', post, 25) %}{% if excerpt %}<p class="card-text">{{ excerpt|e }}</p>{% endif %}</div></div>
+    <div class="card grit-tease-card">
+        {% if post.thumbnail %}
+            <a class="tease-media" href="{{ post.link|e('html_attr') }}">
+                {% include 'partials/card-image.twig' with { post: post, image_class: 'img-fluid' } only %}
+            </a>
+        {% endif %}
+        <div class="card-body">
+            <h3 class="card-title">
+                <a href="{{ post.link|e('html_attr') }}">
+                    {{ post.title|e }}
+                </a>
+            </h3>
+            {% set excerpt = function('grit_archive_excerpt', post, 25) %}
+            {% if excerpt %}
+                <p class="card-text">
+                    {{ excerpt|e }}
+                </p>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}

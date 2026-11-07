@@ -1,5 +1,27 @@
 {# * GRIT_SET overlay | Standard reusable card; missing images never reserve empty columns #}
 {% extends "partials/tease.twig" %}
 {% block content %}
-<div class="card grit-tease-card tease-overlay-card">{% if post.thumbnail %}<div class="tease-overlay-image">{% include 'partials/card-image.twig' with { post: post, image_class: 'img-fluid' } only %}</div>{% endif %}<div class="card-body"><h3 class="card-title"><a href="{{ post.link|e('html_attr') }}">{{ post.title|e }}</a></h3>{% set excerpt = function('grit_archive_excerpt', post, 25) %}{% if excerpt %}<p class="card-text">{{ excerpt|e }}</p>{% endif %}<a href="{{ post.link|e('html_attr') }}" class="btn btn-accent">{{ __('Leggi', 'grit_theme') }}</a></div></div>
+    <div class="card grit-tease-card tease-overlay-card">
+        {% if post.thumbnail %}
+            <div class="tease-overlay-image">
+                {% include 'partials/card-image.twig' with { post: post, image_class: 'img-fluid' } only %}
+            </div>
+        {% endif %}
+        <div class="card-body">
+            <h3 class="card-title">
+                <a href="{{ post.link|e('html_attr') }}">
+                    {{ post.title|e }}
+                </a>
+            </h3>
+            {% set excerpt = function('grit_archive_excerpt', post, 25) %}
+            {% if excerpt %}
+                <p class="card-text">
+                    {{ excerpt|e }}
+                </p>
+            {% endif %}
+            <a href="{{ post.link|e('html_attr') }}" class="btn btn-accent">
+                {{ __('Leggi', 'grit_theme') }}
+            </a>
+        </div>
+    </div>
 {% endblock %}
