@@ -1,9 +1,9 @@
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /* :::::::::::::: 01 * GRIT_SET Header layouts use Section Text / Slides */
 /* :::::::::::::: 02 * GRIT_SET section_carousel */
-/* :::::::::::::: 03 * GRIT_SET section_video */
-/* :::::::::::::: 04 * GRIT_SET section_slides */ 
-/* :::::::::::::: 05 * GRIT_SET section_hero */ 
+/* :::::::::::::: 03 * GRIT_SET Video player styles are shared in _content.scss */
+/* :::::::::::::: 04 * GRIT_SET section_slides */
+/* :::::::::::::: 05 * GRIT_SET Hero layouts use Section Text */
 /* :::::::::::::: 06 * GRIT_SET section_cube */
 /* :::::::::::::: 07 * GRIT_SET section_gallery */
 /* :::::::::::::: 08 * GRIT_SET section_archive */
@@ -24,81 +24,23 @@
  */
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-@use './variables' as *;
+@use "./variables" as *;
 
 /* :::::::::::::: 02 * GRIT_SET section_carousel */
-.section_carousel { }
-
-/* :::::::::::::: 03 * GRIT_SET section_video */
-.section_video {
-    .video-container {
-        position: relative;
-        width: 100%;
-        padding-top: 56.25%; // Mantiene proporzioni 16:9 basato sulla larghezza
-        overflow: hidden;
-        
-        // Assicura che il contenuto interno si adatti alla grandezza del contenitore
-        .video-thumbnail,
-        .video-file,
-        .video-embed,
-        .video-iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: $black;
-        }
-        
-        .thumbnail-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-        
-        .play-button {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 2.5rem;
-            color: $grey;
-            background: $dark;
-            width: 5.5rem;
-            opacity: 0.6;
-            height: 5.5rem;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.3s;
-            @include transition(all 0.2s ease-in-out);
-            
-            &:hover {
-                opacity: 0.95;
-            }
-        }
-        
-        // Video all'interno del contenitore, adattati a mantenere il rapporto
-        .video-file video,
-        .video-iframe iframe,
-        .video-embed iframe {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; // Riempi il contenitore mantenendo il rapporto
-        }
-    }
+.section_carousel {
 }
 
-/* :::::::::::::: 04 * GRIT_SET section_slides */ 
+/* :::::::::::::: 03 * GRIT_SET Video player styles are shared in _content.scss */
+/* :::::::::::::: 04 * GRIT_SET section_slides */
 // * GRIT_SET Slides legend | Shared static/carousel layout; full viewport by default.
 // Height: slides-height-auto, slides-height-small (50vh), slides-height-medium (75vh).
 // Content: slides-content-top, slides-content-center; default bottom.
 // Overlay: slides-overlay, slides-overlay-light, slides-no-overlay. Motion: slides-zoom.
 .section_slides {
     // * GRIT_SET Keep multiple slides visible when Owl is disabled or unavailable.
-    .slides-track:not(.owl-loaded) { display: block; }
+    .slides-track:not(.owl-loaded) {
+        display: block;
+    }
     .item-slide {
         position: relative;
         isolation: isolate;
@@ -128,42 +70,49 @@
         z-index: 0;
         transition: transform 6s ease-in-out;
     }
-    .inner-text { position: relative; z-index: 2; width: 100%; padding: 6rem 0; }
-    &.slides-height-small .item-slide { min-height: 50vh; min-height: 50svh; }
-    &.slides-height-medium .item-slide { min-height: 75vh; min-height: 75svh; }
-    &.slides-height-auto .item-slide { min-height: 0; }
-    &.slides-content-top .item-slide { align-items: flex-start; }
-    &.slides-content-center .item-slide { align-items: center; }
-    &.slides-overlay .item-slide::after { background: rgba(0, 0, 0, .4); }
-    &.slides-overlay-light .item-slide::after { background: rgba(255, 255, 255, .4); }
-    &.slides-no-overlay .item-slide::after { background: transparent; }
+    .inner-text {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        padding: 6rem 0;
+    }
+    &.slides-height-small .item-slide {
+        min-height: 50vh;
+        min-height: 50svh;
+    }
+    &.slides-height-medium .item-slide {
+        min-height: 75vh;
+        min-height: 75svh;
+    }
+    &.slides-height-auto .item-slide {
+        min-height: 0;
+    }
+    &.slides-content-top .item-slide {
+        align-items: flex-start;
+    }
+    &.slides-content-center .item-slide {
+        align-items: center;
+    }
+    &.slides-overlay .item-slide::after {
+        background: rgba(0, 0, 0, 0.4);
+    }
+    &.slides-overlay-light .item-slide::after {
+        background: rgba(255, 255, 255, 0.4);
+    }
+    &.slides-no-overlay .item-slide::after {
+        background: transparent;
+    }
     // * GRIT_SET Zoom is opt-in and stays disabled on a Jarallax-managed image.
     &.slides-zoom .owl-item.active .item-slide:not(.jarallax-keep-img) > .slide-background,
-    &.slides-zoom .item-slide-single:not(.jarallax-keep-img):hover > .slide-background { transform: scale(1.03); }
-    @media (prefers-reduced-motion: reduce) {
-        .item-slide > .slide-background { transition: none; transform: none !important; }
+    &.slides-zoom .item-slide-single:not(.jarallax-keep-img):hover > .slide-background {
+        transform: scale(1.03);
     }
-}
-
-/* :::::::::::::: 05 * GRIT_SET section_hero */ 
-.section_hero .inner-hero {
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover; 
-    .col {
-        min-height: 500px;
-        height: 70vh;
-        width: 100%;
-    } 
-    @media (min-width: $sm-res) {
-        .col {
-            padding-right: 1rem;
-            padding-top: 1rem;
-        } 
-        .inner-text { 
-            text-wrap: balance; 
+    @media (prefers-reduced-motion: reduce) {
+        .item-slide > .slide-background {
+            transition: none;
+            transform: none !important;
         }
-    } 
+    }
 }
 
 /* :::::::::::::: 06 * GRIT_SET section_cube */
@@ -171,13 +120,26 @@
 // Text keeps natural height; empty media columns are omitted by Twig.
 .section_cube {
     background-color: transparent !important;
-    .col-text .inner-text { padding: max(1.5rem, calc($c-gap / $xxl * 100vw)); }
-    &.contained { padding: 0 calc(($c-gap / 2) / $xxl * 100vw); }
-    .col-img { min-width: 0; }
+    .col-text .inner-text {
+        padding: max(1.5rem, calc($c-gap / $xxl * 100vw));
+    }
+    &.contained {
+        padding: 0 calc(($c-gap / 2) / $xxl * 100vw);
+    }
+    .col-img {
+        min-width: 0;
+    }
     .inner-item-list {
         border-bottom: 1px solid;
-        .cube-list-icon { width: 40px; height: 40px; object-fit: contain; flex: 0 0 40px; }
-        p { margin: 0; }
+        .cube-list-icon {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            flex: 0 0 40px;
+        }
+        p {
+            margin: 0;
+        }
     }
     // * GRIT_SET One frame supplies dimensions before image load and without JavaScript.
     .cube-frame {
@@ -185,10 +147,25 @@
         isolation: isolate;
         overflow: hidden;
         height: 100%;
-        &::before { content: ''; display: block; padding-top: 100%; }
+        &::before {
+            content: "";
+            display: block;
+            padding-top: 100%;
+        }
     }
-    .cube-frame > .cube-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-    .owl-carousel, .owl-stage-outer, .owl-stage, .owl-item { height: 100%; }
+    .cube-frame > .cube-image {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .owl-carousel,
+    .owl-stage-outer,
+    .owl-stage,
+    .owl-item {
+        height: 100%;
+    }
 }
 
 /* :::::::::::::: 07 * GRIT_SET section_gallery */
@@ -216,9 +193,13 @@
             }
         }
         @for $count from 1 through 12 {
-            &.gallery-columns-#{$count} { --gallery-acf-cols: #{$count}; }
+            &.gallery-columns-#{$count} {
+                --gallery-acf-cols: #{$count};
+            }
         }
-        > br { display: none; }
+        > br {
+            display: none;
+        }
     }
     .gallery-item {
         width: auto !important;
@@ -241,15 +222,33 @@
         aspect-ratio: var(--gallery-ratio, auto);
         object-fit: var(--gallery-fit, cover);
     }
-    &.gallery-ratio-square { --gallery-ratio: 1; }
-    &.gallery-ratio-landscape { --gallery-ratio: 4 / 3; }
-    &.gallery-ratio-portrait { --gallery-ratio: 3 / 4; }
-    &.gallery-ratio-auto { --gallery-ratio: auto; }
-    &.gallery-fit-cover { --gallery-fit: cover; }
-    &.gallery-fit-contain { --gallery-fit: contain; }
+    &.gallery-ratio-square {
+        --gallery-ratio: 1;
+    }
+    &.gallery-ratio-landscape {
+        --gallery-ratio: 4 / 3;
+    }
+    &.gallery-ratio-portrait {
+        --gallery-ratio: 3 / 4;
+    }
+    &.gallery-ratio-auto {
+        --gallery-ratio: auto;
+    }
+    &.gallery-fit-cover {
+        --gallery-fit: cover;
+    }
+    &.gallery-fit-contain {
+        --gallery-fit: contain;
+    }
     // * GRIT_SET Carousel markup shares Gallery ratio/fit; Owl controls stay in plugins.scss
-    .owl-carousel .item-img-gallery { display: block; }
-    .owl-carousel .item-img-gallery img { display: block; width: 100%; height: auto; }
+    .owl-carousel .item-img-gallery {
+        display: block;
+    }
+    .owl-carousel .item-img-gallery img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
     // * GRIT_SET 07.4 | Optional full-width spacing reset
     &.no-horizontal-padding,
     &.no-horizontal-padding .container-fluid,
@@ -266,10 +265,18 @@
 // * GRIT_SET Archive legend | Shared grid columns, Owl fallback and overlay card image ratio.
 .section_archive {
     // * GRIT_SET Owl is optional: keep cards readable before initialization or without the library.
-    .owl-carousel:not(.owl-loaded) { display: block; }
-    .tease { min-width: 0; }
-    .tease-style-overlay .card > img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
-} 
+    .owl-carousel:not(.owl-loaded) {
+        display: block;
+    }
+    .tease {
+        min-width: 0;
+    }
+    .tease-style-overlay .card > img {
+        width: 100%;
+        aspect-ratio: 4 / 5;
+        object-fit: cover;
+    }
+}
 
 /* :::::::::::::: 09 * GRIT_SET section_collapse */
 .section_collapse {
@@ -293,12 +300,11 @@
                     color: $accent;
                 }
             }
-            
+
             a {
-                color: $light; 
+                color: $light;
             }
         }
-        
     }
 
     // * GRIT_SET 09.1 | Real accordion buttons retain the previous heading spacing
@@ -311,21 +317,37 @@
         text-align: left;
         font: inherit;
         cursor: pointer;
-        &:focus-visible { outline: 2px solid $accent; outline-offset: 2px; }
+        &:focus-visible {
+            outline: 2px solid $accent;
+            outline-offset: 2px;
+        }
     }
     // * GRIT_SET Icons follow Bootstrap aria-expanded, including Font Awesome SVG replacement
     .collapse-trigger {
-        .collapse-icon-closed { display: inline-block; }
-        .collapse-icon-open { display: none; }
+        .collapse-icon-closed {
+            display: inline-block;
+        }
+        .collapse-icon-open {
+            display: none;
+        }
         &[aria-expanded="true"] {
-            .collapse-icon-closed { display: none; }
-            .collapse-icon-open { display: inline-block; }
+            .collapse-icon-closed {
+                display: none;
+            }
+            .collapse-icon-open {
+                display: inline-block;
+            }
         }
     }
     // * GRIT_SET 09.2 | Search visibility and native pagination controls
-    .item-search[hidden], .collapse-empty[hidden] { display: none !important; }
+    .item-search[hidden],
+    .collapse-empty[hidden] {
+        display: none !important;
+    }
     .pagination-list-js {
-        li { padding: 0; }
+        li {
+            padding: 0;
+        }
         button.page-link {
             width: 35px;
             height: 35px;
@@ -334,84 +356,83 @@
             border-radius: 50%;
             background: transparent;
             color: inherit;
-            &:focus-visible { outline: 2px solid $accent; outline-offset: 2px; }
-        }
-        li.active { background: $accent; }
-        li:hover { color: $dark; }
-    }
-    // * GRIT_SET 09.3 | Tab navigation and grid markers
-    &.section_collapse_dynamic { 
-    
-    
-    
-    .arg-tabs {
-        justify-content: flex-start;
-        
-        li {
-            padding: 15px 50px 10px 0px;
-            a {
-                position: relative;
-                display: inline-block;
-                padding: 10px 25px;
-                transition: all 0.3s ease-in-out; 
-                &:hover { 
-                    color: $accent;
-                }
-                &.active { 
-                    color: $primary;
-                }
-            }  
-        } 
-        
-        li a:before {
-            content: '';
-            position: absolute;
-            left: 0px;
-            top: 50%;
-            transform: translateY(-50%) scale(0.5); // centrato verticalmente + animazione
-            height: 15px;
-            width: 15px;
-            background-color: $accent;  
-            transition: all 0.3s ease-in-out;
-        }
-        li a.active:before,
-        li a:hover:before { 
-            transform: translateY(-50%) scale(1); // centrato verticalmente + animazione 
-        }
-        
-    }
-    
-    .collapse-grid {
-        .grid-marker {
-            position: relative;
-            margin-bottom: 40px;
-            height: 24px; 
-            .dot {
-                width: 10px;
-                height: 10px;
-                background-color: $accent; // colore arancione
-                border-radius: 50%;
-                position: absolute;
-                top: 0;
-                left: 0;
-                z-index: 2;
-            } 
-            .line {
-                position: absolute;
-                top: 5px;
-                left: 0;
-                width: 100%;
-                height: 1px;
-                background-color: $dark; // colore linea
-                z-index: 1;
+            &:focus-visible {
+                outline: 2px solid $accent;
+                outline-offset: 2px;
             }
         }
-        
+        li.active {
+            background: $accent;
+        }
+        li:hover {
+            color: $dark;
+        }
     }
-    
-    
-    
-}
+    // * GRIT_SET 09.3 | Tab navigation and grid markers
+    &.section_collapse_dynamic {
+        .arg-tabs {
+            justify-content: flex-start;
+
+            li {
+                padding: 15px 50px 10px 0px;
+                a {
+                    position: relative;
+                    display: inline-block;
+                    padding: 10px 25px;
+                    transition: all 0.3s ease-in-out;
+                    &:hover {
+                        color: $accent;
+                    }
+                    &.active {
+                        color: $primary;
+                    }
+                }
+            }
+
+            li a:before {
+                content: "";
+                position: absolute;
+                left: 0px;
+                top: 50%;
+                transform: translateY(-50%) scale(0.5); // centrato verticalmente + animazione
+                height: 15px;
+                width: 15px;
+                background-color: $accent;
+                transition: all 0.3s ease-in-out;
+            }
+            li a.active:before,
+            li a:hover:before {
+                transform: translateY(-50%) scale(1); // centrato verticalmente + animazione
+            }
+        }
+
+        .collapse-grid {
+            .grid-marker {
+                position: relative;
+                margin-bottom: 40px;
+                height: 24px;
+                .dot {
+                    width: 10px;
+                    height: 10px;
+                    background-color: $accent; // colore arancione
+                    border-radius: 50%;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    z-index: 2;
+                }
+                .line {
+                    position: absolute;
+                    top: 5px;
+                    left: 0;
+                    width: 100%;
+                    height: 1px;
+                    background-color: $dark; // colore linea
+                    z-index: 1;
+                }
+            }
+        }
+    }
 }
 
 /* :::::::::::::: 10 * GRIT_SET section_bio */
@@ -423,34 +444,23 @@
                 left: 10px;
             }
         }
-    } 
+    }
 }
 
-
-
-
-
 /* :::::::::::::: 11 * GRIT_SET gsap-horizontal */
-
-
-
-
-
-
 
 .section-gsap-horizontal {
     height: 100vh;
     overflow: hidden;
     position: relative;
-    
-    
+
     .container,
     .container-fluid {
         padding: 0 !important;
         margin: 0 !important;
         width: auto;
     }
-    
+
     .row {
         display: flex !important;
         flex-wrap: nowrap !important;
@@ -458,7 +468,7 @@
         height: 100%;
         margin: 0 -4px;
     }
-    
+
     .item-chapters {
         flex: 0 0 auto;
         height: 100vh;
@@ -466,29 +476,25 @@
         align-items: center;
         justify-content: center;
         box-sizing: border-box;
-        
+
         .inner-item {
             width: 100%;
         }
     }
 }
 
-
-
-
-
 .section-gsap-vertical {
     position: relative;
     height: 100vh;
     padding-top: 1px; // 👈 sufficiente per evitare il salto iniziale
-    
+
     #timeline {
         position: relative;
         height: 100vh;
         width: 100%;
         overflow: hidden;
     }
-    
+
     .item-chapters {
         position: absolute;
         top: 0;
@@ -499,36 +505,40 @@
         align-items: center;
         justify-content: center;
         z-index: 1;
-        
-        &:nth-child(1) { z-index: 4; }
-        &:nth-child(2) { z-index: 3; }
-        &:nth-child(3) { z-index: 2; }
-        
+
+        &:nth-child(1) {
+            z-index: 4;
+        }
+        &:nth-child(2) {
+            z-index: 3;
+        }
+        &:nth-child(3) {
+            z-index: 2;
+        }
+
         .inner-item {
             text-align: center;
         }
     }
-    
+
     .timeline-nav {
         position: fixed;
         top: 1rem;
         right: 1rem;
         z-index: 10;
-        
+
         a {
             display: block;
             margin-bottom: 0.5rem;
             color: black;
             text-decoration: none;
-            
+
             &:hover {
                 text-decoration: underline;
             }
         }
     }
 }
-
-
 
 // =======================
 // Sezioni scroll orizzontale sequenziale
@@ -539,22 +549,21 @@
 // Scroll orizzontale sezioni 70/30
 
 @media (min-width: $md-res) {
-    
     .horizontal-wrapper {
         overflow-x: hidden;
         position: relative;
     }
-    
+
     .section-gsap-70horizontal,
     .section-gsap-30horizontal {
         width: 100%;
         overflow: hidden;
         position: relative;
-        
+
         .container-fluid {
             padding: 0 !important;
             margin: 0 !important;
-            
+
             > .row:first-of-type {
                 padding: 0 !important;
                 margin: 0 !important;
@@ -564,7 +573,7 @@
                 width: auto;
             }
         }
-        
+
         .item-chapters {
             flex: 0 0 auto;
             display: flex;
@@ -574,39 +583,37 @@
             margin: 0px -1px;
         }
     }
-    
+
     .h-70vh {
         min-height: 55vh;
         height: 55vh;
     }
-    
+
     .h-30vh {
         min-height: 25vh;
         height: 25vh;
     }
-    
+
     .section-gsap-70horizontal {
         height: 70vh;
-        
+
         .item-chapters {
             height: 70vh;
         }
     }
-    
+
     .section-gsap-30horizontal {
         height: 30vh;
-        
+
         .row {
             height: 30vh;
         }
-        
+
         .item-chapters {
             height: 30vh;
         }
     }
 }
-
-
 
 /* :::::::::::::: 13 * GRIT_SET section-gsap-reveal */
 
@@ -618,63 +625,55 @@
     }
 }
 
-
-
 /* :::::::::::::: 14 * GRIT_SET section-gsap-lateral-word */
 
 .section-gsap-lateral-word {
     min-height: 100vh;
     overflow: hidden;
-    
+
     .container-fluid {
         padding: 0;
     }
-    
+
     .item-chapters {
         display: flex;
         align-items: center;
         justify-content: flex-start; // ← importante: parte da sinistra
         height: 100vh;
     }
-    
+
     .inner-text {
         overflow: visible;
         display: flex;
         align-items: center;
         height: 100%;
     }
-    
+
     .inner-text h1 {
         white-space: nowrap;
-        display: inline-block; 
-        padding: 0 2rem; 
+        display: inline-block;
+        padding: 0 2rem;
         margin: 0;
         min-width: max-content; // ← CRUCIALE: forza larghezza completa del testo
     }
 }
 
-
-
-
 /* :::::::::::::: 15 * GRIT_SET section-masonry  */
 
-
 .section_masonry {
-    
     overflow: visible;
-    
+
     .masonry-grid {
         position: relative;
-        
+
         // Fallback clearfix per sicurezza
         &::after {
-            content: '';
+            content: "";
             display: block;
             clear: both;
         }
     }
-    
-    
+
     .masonry-item {
         margin-bottom: 30px;
         display: block;
@@ -682,18 +681,16 @@
     }
 }
 
-
-
 /* :::::::::::::: 16 * GRIT_SET section-bars  */
 
 .section-bars {
     position: relative; // permette alle barre (position: absolute) di posizionarsi rispetto alla sezione
     overflow: hidden; // contiene le barre all'interno della sezione
-    
+
     .container-fluid {
         z-index: 3;
     }
-    
+
     .bar {
         position: absolute;
         transform: translate(-50%, -50%);
@@ -702,8 +699,8 @@
         transform-origin: center;
         z-index: 2;
         opacity: 0.9;
-    } 
-    
+    }
+
     &.bg-accent .bar {
         background-color: $light;
     }
@@ -719,16 +716,12 @@
     &.bg-primary .bar {
         background-color: $grey;
     }
-    
 }
-
-
-
 
 /* :::::::::::::: 16 * GRIT_SET dot-cube  */
 
 .bg-accent .dot-cube {
-    background-color: $primary!important;
+    background-color: $primary !important;
 }
 
 .item-chapters {
@@ -738,28 +731,15 @@
         width: 15px;
         height: 15px;
         background-color: $accent;
-        margin-right: 15px; 
+        margin-right: 15px;
         transform: scale(0.5);
         @include transition(transform 0.4s ease-in-out);
     }
-    
 }
 
 .item-chapters:hover .dot-cube:before {
     transform: scale(1);
 }
-
-
-
-
-
-
-
-
-
-
-
- 
 
 .box-highlight-top .item-chapters {
     margin-top: -1px;
@@ -775,7 +755,6 @@
     width: 64px;
     height: 64px;
     pointer-events: none;
-    
 }
 
 /* angolo alto sinistra */
@@ -801,48 +780,41 @@
     border: 1px solid $grey;
 }
 
-
-
 .box-lines-vertical {
     margin-top: -1px;
     border-top: 1px solid $grey;
     border-bottom: 1px solid $grey;
-  .container-fluid {
-    position: relative;
-    
+    .container-fluid {
+        position: relative;
 
-    &::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
 
-      background:
-        linear-gradient($grey, $grey) left / 1px 100% no-repeat,
-        repeating-linear-gradient(
-          to right,
-          transparent 0,
-          transparent calc(100% / 3 - 1px),
-          $grey calc(100% / 3 - 1px),
-          $grey calc(100% / 3)
-        ),
-        linear-gradient($grey, $grey) right / 1px 100% no-repeat;
+            background:
+                linear-gradient($grey, $grey) left / 1px 100% no-repeat,
+                repeating-linear-gradient(
+                    to right,
+                    transparent 0,
+                    transparent calc(100% / 3 - 1px),
+                    $grey calc(100% / 3 - 1px),
+                    $grey calc(100% / 3)
+                ),
+                linear-gradient($grey, $grey) right / 1px 100% no-repeat;
+        }
+
+        @media (max-width: $lg-res) {
+            &::before {
+                background:
+                    linear-gradient($grey, $grey) left / 1px 100% no-repeat,
+                    linear-gradient($grey, $grey) 50% 0 / 1px 100% no-repeat,
+                    linear-gradient($grey, $grey) right / 1px 100% no-repeat;
+            }
+        }
     }
-
-    @media (max-width: $lg-res) {
-      &::before {
-        background:
-          linear-gradient($grey, $grey) left / 1px 100% no-repeat,
-          linear-gradient($grey, $grey) 50% 0 / 1px 100% no-repeat,
-          linear-gradient($grey, $grey) right / 1px 100% no-repeat;
-      }
-    }
-  }
 }
-
-
-
-
 
 // * GRIT_SET Text chapter image proportions for grid, Masonry and carousel
 .section_text {
@@ -854,29 +826,108 @@
         inset: 0;
         z-index: 0;
         overflow: hidden;
-        > .text-background-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-        &::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+        > .text-background-image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
     }
-    > .container-fluid { position: relative; z-index: 1; }
-    &.text-background-overlay > .text-section-background::after { background: rgba(0, 0, 0, .4); }
-    &.text-background-overlay-light > .text-section-background::after { background: rgba(255, 255, 255, .4); }
+    > .container-fluid {
+        position: relative;
+        z-index: 1;
+    }
+    &.text-background-overlay > .text-section-background::after {
+        background: rgba(0, 0, 0, 0.4);
+    }
+    &.text-background-overlay-light > .text-section-background::after {
+        background: rgba(255, 255, 255, 0.4);
+    }
     // * GRIT_SET Optional header composition | A normal-flow panel overlaps a fixed-height photo.
     // Panel height remains content-driven, avoiding absolute text positioning and negative bottom offsets.
     &.text-header-overlap {
-        > .text-section-background { bottom: auto; height: clamp(18rem, 45vw, 32rem); }
-        > .container-fluid { padding-top: clamp(12rem, 30vw, 22rem); padding-bottom: 2rem; }
+        > .text-section-background {
+            bottom: auto;
+            height: clamp(18rem, 45vw, 32rem);
+        }
+        > .container-fluid {
+            padding-top: clamp(12rem, 30vw, 22rem);
+            padding-bottom: 2rem;
+        }
         .item-chapters .inner-text {
             background: var(--header-panel-background, #fff);
             color: var(--header-panel-color, #111);
             padding: clamp(1.5rem, 4vw, 3rem);
         }
     }
-    &.text-image-ratio-square { --text-image-ratio: 1; }
-    &.text-image-ratio-landscape { --text-image-ratio: 4 / 3; }
-    &.text-image-ratio-portrait { --text-image-ratio: 3 / 4; }
-    &.text-image-ratio-auto { --text-image-ratio: auto; }
-    &.text-image-fit-cover { --text-image-fit: cover; }
-    &.text-image-fit-contain { --text-image-fit: contain; }
+    // * GRIT_SET Static composition legend | Column alignment differs from content distribution.
+    // Section: text-columns-{top|center|bottom|stretch}. Chapter or section: text-content-{top|center|bottom|between}.
+    // Chapter or section: text-image-after. Section: text-height-medium (minimum 70svh per chapter).
+    &:not(.section_carousel_text):not(.section_masonry) {
+        @each $name, $value in (top: flex-start, center: center, bottom: flex-end, stretch: stretch)
+        {
+            &.text-columns-#{$name} > .container-fluid > .row {
+                align-items: $value;
+            }
+        }
+        @each $name,
+            $value in (top: flex-start, center: center, bottom: flex-end, between: space-between)
+        {
+            &.text-content-#{$name} .item-chapters,
+            .item-chapters.text-content-#{$name} {
+                display: flex;
+                flex-direction: column;
+            }
+            &.text-content-#{$name} .item-chapters > .inner-item,
+            .item-chapters.text-content-#{$name} > .inner-item {
+                display: flex;
+                flex-direction: column;
+                justify-content: $value;
+                flex: 1;
+                width: 100%;
+                gap: 1.5rem;
+            }
+        }
+        &.text-image-after .item-chapters > .inner-item,
+        .item-chapters.text-image-after > .inner-item {
+            display: flex;
+            flex-direction: column;
+        }
+        &.text-image-after .item-chapters > .inner-item > .inner-img,
+        .item-chapters.text-image-after > .inner-item > .inner-img {
+            order: 3;
+        }
+        &.text-height-medium .item-chapters > .inner-item {
+            min-height: 70vh;
+            min-height: 70svh;
+        }
+    }
+    &.text-image-ratio-square {
+        --text-image-ratio: 1;
+    }
+    &.text-image-ratio-landscape {
+        --text-image-ratio: 4 / 3;
+    }
+    &.text-image-ratio-portrait {
+        --text-image-ratio: 3 / 4;
+    }
+    &.text-image-ratio-auto {
+        --text-image-ratio: auto;
+    }
+    &.text-image-fit-cover {
+        --text-image-fit: cover;
+    }
+    &.text-image-fit-contain {
+        --text-image-fit: contain;
+    }
     &[class*="text-image-ratio-"] .inner-img {
         aspect-ratio: var(--text-image-ratio, auto);
         padding-bottom: 0 !important;
@@ -885,12 +936,86 @@
             height: 100%;
             object-fit: var(--text-image-fit, cover);
         }
-        > .gsap-parallax-container { width: 100%; height: 100%; aspect-ratio: inherit !important; }
-        > .jarallax-keep-img { height: 100%; }
+        > .gsap-parallax-container {
+            width: 100%;
+            height: 100%;
+            aspect-ratio: inherit !important;
+        }
+        > .jarallax-keep-img {
+            height: 100%;
+        }
     }
 }
 
-// * GRIT_SET 18 | Stable digit widths without imposing fixed card/image dimensions
-.number-animate {
-    font-variant-numeric: tabular-nums;
+
+// * GRIT_SET Tease legend | Standard card media shared by archives, sections and related posts.
+// card/vertical/editorial: 3:2 cover; horizontal: responsive split; compact: small square.
+.grit-tease-card {
+    height: 100%;
+    overflow: hidden;
+    .tease-media {
+        display: block;
+    }
+    .tease-media img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 3 / 2;
+        object-fit: cover;
+    }
+    &.tease-horizontal .tease-media {
+        height: 100%;
+    }
+    &.tease-horizontal .tease-media img {
+        height: 100%;
+        min-height: 180px;
+    }
+    .tease-compact-media {
+        display: block;
+        flex: 0 0 88px;
+        width: 88px;
+    }
+    .tease-compact-media img {
+        width: 100%;
+        aspect-ratio: 1;
+        object-fit: cover;
+    }
+    .tease-compact-text {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+    &.tease-overlay-card {
+        position: relative;
+        min-height: 320px;
+        background: #222;
+        color: #fff;
+        .tease-overlay-image {
+            position: absolute;
+            inset: 0;
+        }
+        .tease-overlay-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+        }
+        .card-body {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+        .card-title a {
+            color: inherit;
+        }
+        .btn {
+            align-self: flex-start;
+        }
+    }
 }

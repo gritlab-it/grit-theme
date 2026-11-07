@@ -11,7 +11,7 @@
 /* :::::::::::::: 06 * GRIT_SET jarallax-js  */
 /* :::::::::::::: 07 * GRIT_SET NProgress-js */
 /* :::::::::::::: 07 * GRIT_SET section_collapse */
-/* :::::::::::::: 08 * GRIT_SET section_video */
+/* :::::::::::::: 08 * GRIT_SET Video shortcode player */
 /* :::::::::::::: 09 * GRIT_SET Counters js */
 /* :::::::::::::: 10 * GRIT_SET GSAP + ScrollTrigger + Lenis */ 
 /* :::::::::::::: 10.0 * Init Plugin */ 
@@ -541,38 +541,66 @@ jQuery(function ($) {
 });
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 08 * GRIT_SET section_video */
-function initializeVideoSections() {
-    const videoSections = document.querySelectorAll('.section-video');
-    
-    videoSections.forEach((section) => {
-        const thumbnail = section.querySelector('.video-thumbnail');
-        const videoEmbed = section.querySelector('.video-embed');
-        const videoIframeContainer = section.querySelector('.video-iframe');
-        const videoFile = section.querySelector('.video-file video');
-        
-        thumbnail.addEventListener('click', function () {
-            thumbnail.style.display = 'none';
-            
-            if (videoEmbed) {
-                videoEmbed.style.display = 'block';
-            } else if (videoIframeContainer) {
-                const iframe = videoIframeContainer.querySelector('iframe');
-                const originalSrc = iframe.getAttribute('data-src') || iframe.getAttribute('src');
-                iframe.src = originalSrc.includes('autoplay=1') ? originalSrc : `${originalSrc}?autoplay=1`;
-                videoIframeContainer.style.display = 'block';
-            } else if (videoFile) {
-                const videoContainer = section.querySelector('.video-file');
-                videoContainer.style.display = 'block';
-                videoFile.play().catch(function(error) {
-                    console.log('Autoplay non riuscito:', error);
-                });
+/* :::::::::::::: 08 * GRIT_SET Video shortcode player */
+// * GRIT_SET Video controller | Independent sections; no inline handlers or forced looping.
+function initializeGritVideos() {
+    document.querySelectorAll('[data-grit-video]').forEach(root => {
+        if (root.dataset.videoReady) return;
+        root.dataset.videoReady = 'true';
+        const cover = root.querySelector('.video-cover');
+        const button = cover && cover.querySelector('button');
+        const local = root.querySelector('video');
+        const template = root.querySelector('template.video-template');
+        // * GRIT_SET No poster: request the first decodable frame without autoplay.
+        // A tiny seek also lets browsers that show black after metadata fetch a frame.
+        if (local && !local.getAttribute('poster')) {
+            const showFirstFrame = () => {
+                if (!local.paused || local.currentTime > 0 || !Number.isFinite(local.duration) || local.duration <= 0) return;
+                try { local.currentTime = Math.min(0.01, local.duration / 2); }
+                catch (error) { /* Native controls remain usable if seeking is unsupported. */ }
+            };
+            local.addEventListener('loadedmetadata', showFirstFrame, { once: true });
+            if (local.readyState >= 1) showFirstFrame();
+        }
+        if (!button) return;
+        cover.hidden = false;
+        button.addEventListener('click', () => {
+            if (template) {
+                const container = root.querySelector('.video-embed');
+                if (!container.children.length) {
+                    const fragment = template.content.cloneNode(true);
+                    fragment.querySelectorAll('iframe').forEach(iframe => {
+                        // Respect consent placeholders: never promote data-src to src.
+                        const src = iframe.getAttribute('src');
+                        if (src) {
+                            try {
+                                const url = new URL(src, document.baseURI);
+                                if (['www.youtube.com', 'youtube.com', 'www.youtube-nocookie.com', 'player.vimeo.com'].includes(url.hostname)) {
+                                    url.searchParams.set('autoplay', '1');
+                                    iframe.setAttribute('src', url.href);
+                                    const allow = iframe.getAttribute('allow') || '';
+                                    if (!allow.split(';').some(value => value.trim() === 'autoplay')) iframe.setAttribute('allow', allow ? allow + '; autoplay' : 'autoplay');
+                                }
+                            } catch (error) { /* Preserve the original source when it cannot be parsed. */ }
+                        }
+                        if (!iframe.getAttribute('title')) iframe.setAttribute('title', 'Video');
+                    });
+                    container.appendChild(fragment);
+                }
+                container.hidden = false;
+                const frame = container.querySelector('iframe');
+                if (frame) frame.focus();
+            }
+            cover.hidden = true;
+            if (local) {
+                local.focus();
+                const playing = local.play();
+                if (playing && typeof playing.catch === 'function') playing.catch(() => { /* Native controls remain available if playback is blocked. */ });
             }
         });
     });
 }
-
-document.addEventListener('DOMContentLoaded', initializeVideoSections);
+document.addEventListener('DOMContentLoaded', initializeGritVideos);
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /* :::::::::::::: 09 * GRIT_SET Counters js */

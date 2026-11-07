@@ -4,27 +4,25 @@
 /* :::::::::::::: 03 * GRIT_SET btn-color */
 /* :::::::::::::: 04 * GRIT_SET shared button groups — wrapping and gap */
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-@use 'sass:color';
-@use './variables' as *;
+@use "sass:color";
+@use "./variables" as *;
 
 /* :::::::::::::: 01 * GRIT_SET typography */
 p {
-  font-family: $font-primary;
+    font-family: $font-primary;
 }
-
 
 .font-primary,
 .font-primary * {
-  font-family: $font-primary !important;
-  font-weight: normal !important; 
+    font-family: $font-primary !important;
+    font-weight: normal !important;
 }
 
 .font-secondary,
 .font-secondary * {
-  font-family: $font-secondary !important;
-  font-weight: normal !important; 
+    font-family: $font-secondary !important;
+    font-weight: normal !important;
 }
-
 
 // .font-tertiary,
 // .font-tertiary * {
@@ -33,15 +31,14 @@ p {
 //   letter-spacing: 0.03em!important;
 // }
 
-
 h1,
 .h1,
 h2,
 .h2,
 h3,
 .h3 {
-  font-family: $font-secondary;
-  font-weight: bold;
+    font-family: $font-secondary;
+    font-weight: bold;
 }
 
 h4,
@@ -50,450 +47,424 @@ h5,
 .h5,
 h6,
 .h6 {
-  font-family: $font-primary;
+    font-family: $font-primary;
 }
-
 
 /* Fluid Display Fonts based on Bootstrap sizes, scaled with viewport */
 .display-1 {
-  font-size: clamp(2.6rem, calc(80 / $xxl * 100vw), 5rem); // 5rem = 80px
-  line-height: 1.2;
-   font-weight: bold;
+    font-size: clamp(2.6rem, calc(80 / $xxl * 100vw), 5rem); // 5rem = 80px
+    line-height: 1.2;
+    font-weight: bold;
 }
 
 .display-2 {
-  font-size: clamp(2.4rem, calc(70 / $xxl * 100vw), 5rem); // Come fornito, ~4.375rem = 70px
-  line-height: 1.2;
-  font-weight: bold;
+    font-size: clamp(2.4rem, calc(70 / $xxl * 100vw), 5rem); // Come fornito, ~4.375rem = 70px
+    line-height: 1.2;
+    font-weight: bold;
 }
 
 .display-3 {
-  font-size: clamp(2rem, calc(64 / $xxl * 100vw), 4rem); // 4rem = 64px
-  line-height: 1.2;
-  font-weight: bold;
+    font-size: clamp(2rem, calc(64 / $xxl * 100vw), 4rem); // 4rem = 64px
+    line-height: 1.2;
+    font-weight: bold;
 }
 
 .display-4 {
-  font-size: clamp(1.8rem, calc(56 / $xxl * 100vw), 3.5rem); // 3.5rem = 56px
-  line-height: 1.2;
-  font-weight: bold;
+    font-size: clamp(1.8rem, calc(56 / $xxl * 100vw), 3.5rem); // 3.5rem = 56px
+    line-height: 1.2;
+    font-weight: bold;
 }
 
 .display-5 {
-  font-size: clamp(1.6rem, calc(48 / $xxl * 100vw), 3rem); // 3rem = 48px
-  line-height: 1.2;
-  font-weight: bold;
+    font-size: clamp(1.6rem, calc(48 / $xxl * 100vw), 3rem); // 3rem = 48px
+    line-height: 1.2;
+    font-weight: bold;
 }
 
 .display-6 {
-  font-size: clamp(1.4rem, calc(40 / $xxl * 100vw), 2.5rem); // 2.5rem = 40px
-  line-height: 1.2;
-  font-weight: bold;
+    font-size: clamp(1.4rem, calc(40 / $xxl * 100vw), 2.5rem); // 2.5rem = 40px
+    line-height: 1.2;
+    font-weight: bold;
 }
-
-
-
 
 .lead {
-  font-weight: inherit;
+    font-weight: inherit;
 }
- 
 
 .text-muted {
-  color: $text-color;
-  opacity: 0.8;
+    color: $text-color;
+    opacity: 0.8;
 }
 
 a {
-  // font-variation-settings: 'wght' 900;
-  font-variation-settings: 'slnt' 0;
-  // font-weight: bold; 
-  color: currentColor;
-  text-decoration: none;
-  background-color: transparent;
-  @include transition(all 0.5s ease-in-out);
+    // font-variation-settings: 'wght' 900;
+    font-variation-settings: "slnt" 0;
+    // font-weight: bold;
+    color: currentColor;
+    text-decoration: none;
+    background-color: transparent;
+    @include transition(all 0.5s ease-in-out);
 }
 
 a:hover {
-  // color: darken($tertiary, 20%);
-  color: $accent;
-  // border-radius: 3px;
-  // font-variation-settings: 'wght' 300;
-  font-variation-settings: 'slnt' 12;
-  text-decoration: none;
+    // color: darken($tertiary, 20%);
+    color: $accent;
+    // border-radius: 3px;
+    // font-variation-settings: 'wght' 300;
+    font-variation-settings: "slnt" 12;
+    text-decoration: none;
 }
 
 /* :::::::::::::: 02 * GRIT_SET btn */
 .btn {
-  
-  font-size: $font-base;
+    font-size: $font-base;
 
-  border-radius: 25px;
-  padding: 0.545em 1.4em;
-  text-align: center;
-  display: inline-block;
-  letter-spacing: .02em;
-  cursor: pointer;
-  text-decoration: none;
-  border: 2px solid;
-  line-height: 1;
-  position: relative;
-  font-weight: 900;
-  text-transform: uppercase;
-  @include transition(all 0.5s ease-in-out);
-  /* Standard */
-  // border-radius: 10px;
-  // font-family: Inter;
-  // font-style: normal;
-  // font-weight: normal;
-  // font-size: 18px;
-  // line-height: 20px;
-  // text-align: center;
-  // text-transform: uppercase;
-  // padding: 0.375rem 1.75rem;
-  // @include transition(all 0.5s ease-in-out);
-  
-  &.btn-circle {
-    width: 40px;
-    height: 40px;
-    padding: 3px;
-    margin: 0px 3px;
     border-radius: 25px;
-    font-size: 22px;
+    padding: 0.545em 1.4em;
     text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+    display: inline-block;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    text-decoration: none;
+    border: 2px solid;
+    line-height: 1;
+    position: relative;
+    font-weight: 900;
+    text-transform: uppercase;
+    @include transition(all 0.5s ease-in-out);
+    /* Standard */
+    // border-radius: 10px;
+    // font-family: Inter;
+    // font-style: normal;
+    // font-weight: normal;
+    // font-size: 18px;
+    // line-height: 20px;
+    // text-align: center;
+    // text-transform: uppercase;
+    // padding: 0.375rem 1.75rem;
+    // @include transition(all 0.5s ease-in-out);
+
+    &.btn-circle {
+        width: 40px;
+        height: 40px;
+        padding: 3px;
+        margin: 0px 3px;
+        border-radius: 25px;
+        font-size: 22px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
 
 // $color, $bg, $border, $h-color, $h-bg, $h-border
 @mixin btn-color($color, $bg, $border, $h-color, $h-bg, $h-border) {
-  color: $color;
-  background: $bg;
-  border-color: $border;
-  transition: all 0.3s ease;
+    color: $color;
+    background: $bg;
+    border-color: $border;
+    transition: all 0.3s ease;
 
-  &:hover {
-    color: $h-color;
-    background: $h-bg;
-    border-color: $h-border;
-  }
+    &:hover {
+        color: $h-color;
+        background: $h-bg;
+        border-color: $h-border;
+    }
 
-  &:active {
-    background: color.adjust($h-color, $lightness: -30%);
-    border-color: color.adjust($h-border, $lightness: -30%);
-  }
+    &:active {
+        background: color.adjust($h-color, $lightness: -30%);
+        border-color: color.adjust($h-border, $lightness: -30%);
+    }
 
-  &:not(:disabled):not(.disabled).active,
-  &:not(:disabled):not(.disabled):active,
-  .show>&.dropdown-toggle {
-    background: color.adjust($bg, $lightness: -30%);
-    border-color: color.adjust($border, $lightness: -30%);
-    box-shadow: 0 0 0 0.1rem color.adjust($bg, $lightness: 10%) !important;
-  }
+    &:not(:disabled):not(.disabled).active,
+    &:not(:disabled):not(.disabled):active,
+    .show > &.dropdown-toggle {
+        background: color.adjust($bg, $lightness: -30%);
+        border-color: color.adjust($border, $lightness: -30%);
+        box-shadow: 0 0 0 0.1rem color.adjust($bg, $lightness: 10%) !important;
+    }
 
-  &.disabled,
-  &:disabled {
-    opacity: 0.10;
-    background: color.adjust($bg, $lightness: -30%);
-    border-color: color.adjust($border, $lightness: -30%);
-  }
- 
-  &.focus,
-  &:focus {
-    background: $h-bg;
-    border-color: $h-border;
-    box-shadow: 0 0 0 0.1rem color.adjust($bg, $lightness: 10%);
-  }
+    &.disabled,
+    &:disabled {
+        opacity: 0.1;
+        background: color.adjust($bg, $lightness: -30%);
+        border-color: color.adjust($border, $lightness: -30%);
+    }
+
+    &.focus,
+    &:focus {
+        background: $h-bg;
+        border-color: $h-border;
+        box-shadow: 0 0 0 0.1rem color.adjust($bg, $lightness: 10%);
+    }
 }
-
-
- 
 
 /* :::::::::::::: 03 * GRIT_SET btn-color */
 
 // Accent
 .btn-accent {
-  @include btn-color($light, $accent, $accent, $accent, $light, $light);
+    @include btn-color($light, $accent, $accent, $accent, $light, $light);
 }
 
 .btn-outline-accent {
-  @include btn-color($accent, $light, $accent, $accent, $light, $light);
+    @include btn-color($accent, $light, $accent, $accent, $light, $light);
 }
 // Primary
 .btn-primary {
-  @include btn-color($light, $primary, $primary, $primary, $light, $light);
+    @include btn-color($light, $primary, $primary, $primary, $light, $light);
 }
 
 .btn-outline-primary {
-  @include btn-color($primary, $light, $primary, $primary, $light, $light);
+    @include btn-color($primary, $light, $primary, $primary, $light, $light);
 }
 
 // Secondary
 .btn-secondary {
-  @include btn-color($light, $secondary, $secondary, $secondary, $light, $light);
+    @include btn-color($light, $secondary, $secondary, $secondary, $light, $light);
 }
 
 .btn-outline-secondary {
-  @include btn-color($secondary, $light, $secondary, $secondary, $light, $light);
+    @include btn-color($secondary, $light, $secondary, $secondary, $light, $light);
 }
 
 // Tertiary
 .btn-tertiary {
-  @include btn-color($light, $tertiary, $tertiary, $tertiary, $light, $light);
+    @include btn-color($light, $tertiary, $tertiary, $tertiary, $light, $light);
 }
 
 .btn-outline-tertiary {
-  @include btn-color($tertiary, $light, $tertiary, $tertiary, $light, $light);
+    @include btn-color($tertiary, $light, $tertiary, $tertiary, $light, $light);
 }
 
 // Quaternary
 .btn-quaternary {
-  @include btn-color($light, $quaternary, $quaternary, $quaternary, $light, $light);
+    @include btn-color($light, $quaternary, $quaternary, $quaternary, $light, $light);
 }
 
 .btn-outline-quaternary {
-  @include btn-color($quaternary, $light, $quaternary, $quaternary, $light, $light);
+    @include btn-color($quaternary, $light, $quaternary, $quaternary, $light, $light);
 }
 
 // Quinary
 .btn-quinary {
-  @include btn-color($light, $quinary, $quinary, $quinary, $light, $light);
+    @include btn-color($light, $quinary, $quinary, $quinary, $light, $light);
 }
 
 .btn-outline-quinary {
-  @include btn-color($quinary, $light, $quinary, $quinary, $light, $light);
+    @include btn-color($quinary, $light, $quinary, $quinary, $light, $light);
 }
 
 // Senary
 .btn-senary {
-  @include btn-color($light, $senary, $senary, $senary, $light, $light);
+    @include btn-color($light, $senary, $senary, $senary, $light, $light);
 }
 
 .btn-outline-senary {
-  @include btn-color($senary, $light, $senary, $senary, $light, $light);
+    @include btn-color($senary, $light, $senary, $senary, $light, $light);
 }
 
 // Septenary
 .btn-septenary {
-  @include btn-color($light, $septenary, $septenary, $septenary, $light, $light);
+    @include btn-color($light, $septenary, $septenary, $septenary, $light, $light);
 }
 
 .btn-outline-septenary {
-  @include btn-color($septenary, $light, $septenary, $septenary, $light, $light);
+    @include btn-color($septenary, $light, $septenary, $septenary, $light, $light);
 }
 
 // Octonary
 .btn-octonary {
-  @include btn-color($light, $octonary, $octonary, $octonary, $light, $light);
+    @include btn-color($light, $octonary, $octonary, $octonary, $light, $light);
 }
 
 .btn-outline-octonary {
-  @include btn-color($octonary, $light, $octonary, $octonary, $light, $light);
+    @include btn-color($octonary, $light, $octonary, $octonary, $light, $light);
 }
 
 // Nonary
 .btn-nonary {
-  @include btn-color($light, $nonary, $nonary, $nonary, $light, $light);
+    @include btn-color($light, $nonary, $nonary, $nonary, $light, $light);
 }
 
 .btn-outline-nonary {
-  @include btn-color($nonary, $light, $nonary, $nonary, $light, $light);
+    @include btn-color($nonary, $light, $nonary, $nonary, $light, $light);
 }
 
 // Denary
 .btn-denary {
-  @include btn-color($light, $denary, $denary, $denary, $light, $light);
+    @include btn-color($light, $denary, $denary, $denary, $light, $light);
 }
 
 .btn-outline-denary {
-  @include btn-color($denary, $light, $denary, $denary, $light, $light);
+    @include btn-color($denary, $light, $denary, $denary, $light, $light);
 }
-
-
 
 // Grey
 .btn-grey {
-  @include btn-color($light, $grey, $grey, $grey, $light, $light);
+    @include btn-color($light, $grey, $grey, $grey, $light, $light);
 }
 
 .btn-outline-grey {
-  @include btn-color($grey, $light, $grey, $grey, $light, $light);
+    @include btn-color($grey, $light, $grey, $grey, $light, $light);
 }
 
 // White
 .btn-white {
-  @include btn-color($dark, $white, $white, $white, $dark, $dark);
+    @include btn-color($dark, $white, $white, $white, $dark, $dark);
 }
 
 .btn-outline-white {
-  @include btn-color($white, $dark, $white, $white, $dark, $dark);
+    @include btn-color($white, $dark, $white, $white, $dark, $dark);
 }
 
 // Black
 .btn-black {
-  @include btn-color($light, $black, $black, $black, $light, $light);
+    @include btn-color($light, $black, $black, $black, $light, $light);
 }
 
 .btn-outline-black {
-  @include btn-color($black, $light, $black, $black, $light, $light);
+    @include btn-color($black, $light, $black, $black, $light, $light);
 }
 
 // Light
 .btn-light {
-  @include btn-color($dark, $light, $light, $light, $dark, $dark);
-} 
+    @include btn-color($dark, $light, $light, $light, $dark, $dark);
+}
 .btn-outline-light {
-  @include btn-color($light, $dark, $light, $light, $dark, $dark);
+    @include btn-color($light, $dark, $light, $light, $dark, $dark);
 }
 
 // Dark
 .btn-dark {
-  @include btn-color($light, $dark, $dark, $dark, $light, $light);
-}     
+    @include btn-color($light, $dark, $dark, $dark, $light, $light);
+}
 
 .btn-outline-dark {
-  @include btn-color($dark, $light, $dark, $dark, $light, $light);
+    @include btn-color($dark, $light, $dark, $dark, $light, $light);
 }
-
-
- 
-
-
-
 
 /* Custom button styles */
-.btn-outline-transparent { 
-  border-color: $light;
-  background: none;
-  outline: none;
-  color: $light;; /* Testo bianco di default */
-  mix-blend-mode: screen;
-  @include transition(all 0.5s ease-in-out);
-
-  // Pseudo-elemento per lo sfondo bianco
-  &::before {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: transparent; /* Sfondo trasparente di default */
-    border-radius: 0;
-    content: '';
-    mix-blend-mode: color-burn; /* Modalità di fusione per ottenere l'effetto desiderato */
-    z-index: -1; /* Posiziona lo sfondo sotto il testo */
+.btn-outline-transparent {
+    border-color: $light;
+    background: none;
+    outline: none;
+    color: $light; /* Testo bianco di default */
+    mix-blend-mode: screen;
     @include transition(all 0.5s ease-in-out);
-  }
 
-  // Effetti in hover
-  &:hover {
-    color: $dark; /* Cambia il colore del testo in nero in hover */
-
+    // Pseudo-elemento per lo sfondo bianco
     &::before {
-      background: $light;; /* Rende lo sfondo bianco in hover */
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: transparent; /* Sfondo trasparente di default */
+        border-radius: 0;
+        content: "";
+        mix-blend-mode: color-burn; /* Modalità di fusione per ottenere l'effetto desiderato */
+        z-index: -1; /* Posiziona lo sfondo sotto il testo */
+        @include transition(all 0.5s ease-in-out);
     }
-  }
 
-  &:focus {
-    outline: none; /* Rimuove il contorno predefinito */
-    box-shadow: 0 0 0 0.2rem $light;; /* Ombra personalizzata per il focus */
-  }
+    // Effetti in hover
+    &:hover {
+        color: $dark; /* Cambia il colore del testo in nero in hover */
 
-  &:active {
-    color: $dark; /* Mantiene il testo nero quando il pulsante è attivo */
-
-    &::before {
-      background: $light;; /* Rende lo sfondo bianco quando il pulsante è attivo */
+        &::before {
+            background: $light; /* Rende lo sfondo bianco in hover */
+        }
     }
-  }
 
-  &:disabled,
-  &.disabled {
-    opacity: 0.5; /* Opacità ridotta quando il pulsante è disabilitato */
-    cursor: not-allowed; /* Cambia il cursore quando il pulsante è disabilitato */
-  }
+    &:focus {
+        outline: none; /* Rimuove il contorno predefinito */
+        box-shadow: 0 0 0 0.2rem $light; /* Ombra personalizzata per il focus */
+    }
+
+    &:active {
+        color: $dark; /* Mantiene il testo nero quando il pulsante è attivo */
+
+        &::before {
+            background: $light; /* Rende lo sfondo bianco quando il pulsante è attivo */
+        }
+    }
+
+    &:disabled,
+    &.disabled {
+        opacity: 0.5; /* Opacità ridotta quando il pulsante è disabilitato */
+        cursor: not-allowed; /* Cambia il cursore quando il pulsante è disabilitato */
+    }
 }
- 
 
- /* Custom button styles */
- .btn-transparent {
-  border-color: $light;
-  background: none;
-  outline: none;
-  color: $dark;
-  mix-blend-mode: screen;
-  text-transform: uppercase; /* Aggiungo la trasformazione del testo in maiuscolo */ 
-  @include transition(all 0.5s ease-in-out); 
-  // Pseudo-elemento per lo sfondo bianco
-  &::before {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: $light;
-    border-radius: 0;
-    content: '';
-    mix-blend-mode: color-burn; /* Modalità di fusione per ottenere l'effetto desiderato */
-    z-index: -1; /* Posiziona lo sfondo sotto il testo */
+/* Custom button styles */
+.btn-transparent {
+    border-color: $light;
+    background: none;
+    outline: none;
+    color: $dark;
+    mix-blend-mode: screen;
+    text-transform: uppercase; /* Aggiungo la trasformazione del testo in maiuscolo */
     @include transition(all 0.5s ease-in-out);
-  }
-
-  // Effetti in hover
-  &:hover {
-    color: $light;/* Cambia il colore del testo in bianco in hover */
-    
+    // Pseudo-elemento per lo sfondo bianco
     &::before {
-      background: transparent; /* Rende lo sfondo trasparente in hover */
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: $light;
+        border-radius: 0;
+        content: "";
+        mix-blend-mode: color-burn; /* Modalità di fusione per ottenere l'effetto desiderato */
+        z-index: -1; /* Posiziona lo sfondo sotto il testo */
+        @include transition(all 0.5s ease-in-out);
     }
-  }
 
-  &:focus {
-    outline: none; /* Rimuove il contorno predefinito */
-    box-shadow: 0 0 0 0.2rem $light; /* Ombra personalizzata per il focus */
-  }
+    // Effetti in hover
+    &:hover {
+        color: $light; /* Cambia il colore del testo in bianco in hover */
 
-  &:active {
-    color: $light; /* Mantiene il testo bianco quando il pulsante è attivo */
-    
-    &::before {
-      background: transparent; /* Rende lo sfondo trasparente quando il pulsante è attivo */
+        &::before {
+            background: transparent; /* Rende lo sfondo trasparente in hover */
+        }
     }
-  }
 
-  &:disabled,
-  &.disabled {
-    opacity: 0.5; /* Opacità ridotta quando il pulsante è disabilitato */
-    cursor: not-allowed; /* Cambia il cursore quando il pulsante è disabilitato */
-  }
+    &:focus {
+        outline: none; /* Rimuove il contorno predefinito */
+        box-shadow: 0 0 0 0.2rem $light; /* Ombra personalizzata per il focus */
+    }
+
+    &:active {
+        color: $light; /* Mantiene il testo bianco quando il pulsante è attivo */
+
+        &::before {
+            background: transparent; /* Rende lo sfondo trasparente quando il pulsante è attivo */
+        }
+    }
+
+    &:disabled,
+    &.disabled {
+        opacity: 0.5; /* Opacità ridotta quando il pulsante è disabilitato */
+        cursor: not-allowed; /* Cambia il cursore quando il pulsante è disabilitato */
+    }
 }
- 
 
 // * GRIT_SET Shared button groups: horizontal/vertical gap stays correct after wrapping
 .box-buttons {
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: center;
-  max-width: 100%;
-  gap: 0.75rem 1rem;
-  > .btn {
-    flex: 0 1 auto;
-    min-width: 0;
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
     max-width: 100%;
-    margin: 0;
-    white-space: normal;
-    overflow-wrap: anywhere;
-  }
+    gap: 0.75rem 1rem;
+    > .btn {
+        flex: 0 1 auto;
+        min-width: 0;
+        max-width: 100%;
+        margin: 0;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
 }
- 
-
-
-
-
-
-
 
 // @mixin set_size($property, $variable1, $variable2: 1920) {
 //   #{$property}: calc(#{$variable1}/#{$variable2}*100vw);
@@ -503,5 +474,5 @@ a:hover {
 //   @include set_size ('font-size', 54 );
 //   @media (max-width: 950px) {
 //     @include set_size ('font-size', 30, 950 );
-//   } 
+//   }
 // }

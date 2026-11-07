@@ -1,0 +1,87 @@
+// * GRIT_SET Shortcode styles legend
+// 01 | Counter: stable digit widths.
+// 02 | Contacts: inherit typography/link styles; no forced presentation.
+// 03 | Video: ratios, optional cover and accessible play button.
+
+// * GRIT_SET 01 | Counter
+// Stable digit widths without fixed card/image dimensions.
+.number-animate {
+    font-variant-numeric: tabular-nums;
+}
+
+// * GRIT_SET 02 | Contacts intentionally need no dedicated selectors.
+
+// * GRIT_SET 03 | Video
+// * GRIT_SET Video legend | Configurable aspect ratio, accessible cover, no default crop.
+.grit-video {
+    --video-ratio: 16 / 9;
+    --video-fit: contain;
+    &.video-ratio-landscape {
+        --video-ratio: 16 / 9;
+    }
+    &.video-ratio-portrait {
+        --video-ratio: 9 / 16;
+    }
+    &.video-ratio-square {
+        --video-ratio: 1;
+    }
+    &.video-fit-cover {
+        --video-fit: cover;
+    }
+    .video-container {
+        position: relative;
+        width: 100%;
+        aspect-ratio: var(--video-ratio);
+        background: #000;
+        overflow: hidden;
+    }
+    video,
+    .video-embed,
+    .video-embed > div,
+    iframe {
+        width: 100%;
+        height: 100%;
+    }
+    video {
+        display: block;
+        object-fit: var(--video-fit);
+    }
+    iframe {
+        border: 0;
+        display: block;
+    }
+    .video-cover {
+        position: absolute;
+        inset: 0;
+    }
+    [hidden] {
+        display: none !important;
+    }
+    .thumbnail-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .play-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 5rem;
+        height: 5rem;
+        border: 2px solid #fff;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.7);
+        color: #fff;
+        font-size: 2rem;
+        &:hover,
+        &:focus-visible {
+            background: #111;
+            outline: 3px solid #fff;
+            outline-offset: 4px;
+        }
+    }
+}

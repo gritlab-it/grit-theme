@@ -1,11 +1,11 @@
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /* :::::::::::::: 01 * GRIT_SET body */
-/* :::::::::::::: 02 * GRIT_SET contained */ 
-/* :::::::::::::: 03 * GRIT_SET equal-cols */ 
-/* :::::::::::::: 04 * GRIT_SET padding */  
+/* :::::::::::::: 02 * GRIT_SET contained */
+/* :::::::::::::: 03 * GRIT_SET equal-cols */
+/* :::::::::::::: 04 * GRIT_SET padding */
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-@use './variables' as *;
+@use "./variables" as *;
 
 /* :::::::::::::: 01 * GRIT_SET body */
 body {
@@ -16,13 +16,13 @@ body {
     font-weight: normal;
     font-style: normal;
     margin: 0;
-    padding: 0; 
-    cursor: default!important;
+    padding: 0;
+    cursor: default !important;
     // scroll-behavior: smooth !important;
-     .content-wrapper {
+    .content-wrapper {
         position: relative;
-        z-index: 2; 
-        min-height: 50svh; 
+        z-index: 2;
+        min-height: 50svh;
     }
 }
 
@@ -33,7 +33,6 @@ body {
     @include translate(-50%, -50%);
 }
 
-
 .object-fit-cover {
     object-fit: cover;
 }
@@ -42,20 +41,20 @@ body {
 ::-webkit-scrollbar {
     width: 1px; /* Larghezza della scrollbar */
 }
- 
+
 /* Stile per Firefox */
 * {
-    scrollbar-width: thin; /* Imposta la scrollbar sottile in Firefox */ 
+    scrollbar-width: thin; /* Imposta la scrollbar sottile in Firefox */
 }
 
-/* :::::::::::::: 02 * GRIT_SET contained */ 
+/* :::::::::::::: 02 * GRIT_SET contained */
 @media (min-width: $sm-res) {
     .contained {
         padding: 0 calc($c-gap / $xxl * 100vw);
     }
 }
 
-/* :::::::::::::: 03 * GRIT_SET equal-cols */ 
+/* :::::::::::::: 03 * GRIT_SET equal-cols */
 .row.equal-cols {
     display: -webkit-flex !important;
     display: -ms-flexbox !important;
@@ -70,7 +69,7 @@ body {
     display: block;
 }
 
-.row.equal-cols>[class*='col-'] {
+.row.equal-cols > [class*="col-"] {
     display: -webkit-flex !important;
     display: -ms-flexbox !important;
     display: flex !important;
@@ -79,7 +78,7 @@ body {
     flex-direction: column;
 }
 
-.row.equal-cols>[class*='col-']>* {
+.row.equal-cols > [class*="col-"] > * {
     -webkit-flex: 1 1 auto;
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
@@ -94,9 +93,15 @@ body {
     flex-direction: column;
 }
 
-/* :::::::::::::: 04 * GRIT_SET padding */ 
+/* :::::::::::::: 04 * GRIT_SET padding */
 // Definisci i valori extra per padding e margin con incrementi progressivi
-$extra-spacing-values: (6: 24px, 7: 28px, 8: 34px, 9: 40px, 10: 50px);
+$extra-spacing-values: (
+    6: 24px,
+    7: 28px,
+    8: 34px,
+    9: 40px,
+    10: 50px,
+);
 $viewport-width: 1920; // Larghezza massima del viewport di riferimento
 $scale-factor: 3.2; // Moltiplicatore per la scalabilità dello spacing
 
@@ -104,7 +109,7 @@ $scale-factor: 3.2; // Moltiplicatore per la scalabilità dello spacing
 @mixin responsive-spacing($property, $base-size, $viewport-width, $scale-factor) {
     $scaled-base: $base-size * $scale-factor;
     $vw-value: calc($scaled-base / $viewport-width * 100);
-    #{$property}: calc(#{$scaled-base} + #{$vw-value})!important;
+    #{$property}: calc(#{$scaled-base} + #{$vw-value}) !important;
 }
 
 // Generazione delle classi standard (senza media query)
@@ -168,27 +173,72 @@ $scale-factor: 3.2; // Moltiplicatore per la scalabilità dello spacing
             @each $size, $base-size in $extra-spacing-values {
                 // Padding
                 .p-#{$breakpoint}-#{$size} {
-                    @include responsive-spacing(padding, $base-size, $viewport-width, $scale-factor);
+                    @include responsive-spacing(
+                        padding,
+                        $base-size,
+                        $viewport-width,
+                        $scale-factor
+                    );
                 }
                 .pt-#{$breakpoint}-#{$size} {
-                    @include responsive-spacing(padding-top, $base-size, $viewport-width, $scale-factor);
+                    @include responsive-spacing(
+                        padding-top,
+                        $base-size,
+                        $viewport-width,
+                        $scale-factor
+                    );
                 }
                 .pr-#{$breakpoint}-#{$size} {
-                    @include responsive-spacing(padding-right, $base-size, $viewport-width, $scale-factor);
+                    @include responsive-spacing(
+                        padding-right,
+                        $base-size,
+                        $viewport-width,
+                        $scale-factor
+                    );
                 }
                 .pb-#{$breakpoint}-#{$size} {
-                    @include responsive-spacing(padding-bottom, $base-size, $viewport-width, $scale-factor);
+                    @include responsive-spacing(
+                        padding-bottom,
+                        $base-size,
+                        $viewport-width,
+                        $scale-factor
+                    );
                 }
                 .pl-#{$breakpoint}-#{$size} {
-                    @include responsive-spacing(padding-left, $base-size, $viewport-width, $scale-factor);
+                    @include responsive-spacing(
+                        padding-left,
+                        $base-size,
+                        $viewport-width,
+                        $scale-factor
+                    );
                 }
                 .px-#{$breakpoint}-#{$size} {
-                    @include responsive-spacing(padding-left, $base-size, $viewport-width, $scale-factor);
-                    @include responsive-spacing(padding-right, $base-size, $viewport-width, $scale-factor);
+                    @include responsive-spacing(
+                        padding-left,
+                        $base-size,
+                        $viewport-width,
+                        $scale-factor
+                    );
+                    @include responsive-spacing(
+                        padding-right,
+                        $base-size,
+                        $viewport-width,
+                        $scale-factor
+                    );
                 }
                 .py-#{$breakpoint}-#{$size} {
-                    @include responsive-spacing(padding-top, $base-size, $viewport-width, $scale-factor);
-                    @include responsive-spacing(padding-bottom, $base-size, $viewport-width, $scale-factor);
+                    @include responsive-spacing(
+                        padding-top,
+                        $base-size,
+                        $viewport-width,
+                        $scale-factor
+                    );
+                    @include responsive-spacing(
+                        padding-bottom,
+                        $base-size,
+                        $viewport-width,
+                        $scale-factor
+                    );
                 }
 
                 // Margin
@@ -196,51 +246,66 @@ $scale-factor: 3.2; // Moltiplicatore per la scalabilità dello spacing
                     @include responsive-spacing(margin, $base-size, $viewport-width, $scale-factor);
                 }
                 .mt-#{$breakpoint}-#{$size} {
-                    @include responsive-spacing(margin-top, $base-size, $viewport-width, $scale-factor);
+                    @include responsive-spacing(
+                        margin-top,
+                        $base-size,
+                        $viewport-width,
+                        $scale-factor
+                    );
                 }
                 .mr-#{$breakpoint}-#{$size} {
-                    @include responsive-spacing(margin-right, $base-size, $viewport-width, $scale-factor);
+                    @include responsive-spacing(
+                        margin-right,
+                        $base-size,
+                        $viewport-width,
+                        $scale-factor
+                    );
                 }
                 .mb-#{$breakpoint}-#{$size} {
-                    @include responsive-spacing(margin-bottom, $base-size, $viewport-width, $scale-factor);
+                    @include responsive-spacing(
+                        margin-bottom,
+                        $base-size,
+                        $viewport-width,
+                        $scale-factor
+                    );
                 }
                 .ml-#{$breakpoint}-#{$size} {
-                    @include responsive-spacing(margin-left, $base-size, $viewport-width, $scale-factor);
+                    @include responsive-spacing(
+                        margin-left,
+                        $base-size,
+                        $viewport-width,
+                        $scale-factor
+                    );
                 }
                 .mx-#{$breakpoint}-#{$size} {
-                    @include responsive-spacing(margin-left, $base-size, $viewport-width, $scale-factor);
-                    @include responsive-spacing(margin-right, $base-size, $viewport-width, $scale-factor);
+                    @include responsive-spacing(
+                        margin-left,
+                        $base-size,
+                        $viewport-width,
+                        $scale-factor
+                    );
+                    @include responsive-spacing(
+                        margin-right,
+                        $base-size,
+                        $viewport-width,
+                        $scale-factor
+                    );
                 }
                 .my-#{$breakpoint}-#{$size} {
-                    @include responsive-spacing(margin-top, $base-size, $viewport-width, $scale-factor);
-                    @include responsive-spacing(margin-bottom, $base-size, $viewport-width, $scale-factor);
+                    @include responsive-spacing(
+                        margin-top,
+                        $base-size,
+                        $viewport-width,
+                        $scale-factor
+                    );
+                    @include responsive-spacing(
+                        margin-bottom,
+                        $base-size,
+                        $viewport-width,
+                        $scale-factor
+                    );
                 }
             }
         }
-    }
-}
-// * GRIT_SET Tease legend | Standard card media shared by archives, sections and related posts.
-// card/vertical/editorial: 3:2 cover; horizontal: responsive split; compact: small square.
-.grit-tease-card {
-    height: 100%;
-    overflow: hidden;
-    .tease-media { display: block; }
-    .tease-media img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
-    &.tease-horizontal .tease-media { height: 100%; }
-    &.tease-horizontal .tease-media img { height: 100%; min-height: 180px; }
-    .tease-compact-media { display: block; flex: 0 0 88px; width: 88px; }
-    .tease-compact-media img { width: 100%; aspect-ratio: 1; object-fit: cover; }
-    .tease-compact-text { min-width: 0; overflow-wrap: anywhere; }
-    &.tease-overlay-card {
-        position: relative;
-        min-height: 320px;
-        background: #222;
-        color: #fff;
-        .tease-overlay-image { position: absolute; inset: 0; }
-        .tease-overlay-image img { width: 100%; height: 100%; object-fit: cover; }
-        &::before { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(transparent, rgba(0, 0, 0, .85)); }
-        .card-body { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: flex-end; }
-        .card-title a { color: inherit; }
-        .btn { align-self: flex-start; }
     }
 }

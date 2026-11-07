@@ -4,18 +4,18 @@
  * Section-specific images and Gallery ratios are centralized in _sections.scss.
  * Complete class reference: CAROUSELS.md; use one nav position and one dots alignment.
  */
-/* :::::::::::::: 02 * GRIT_SET animate */ 
-/* :::::::::::::: 03 * GRIT_SET jarallax */ 
-/* :::::::::::::: 04 * GRIT_SET lenis.js */ 
-/* :::::::::::::: 05 * GRIT_SET loader */ 
-/* :::::::::::::: 06 * GRIT_SET gototop */ 
-/* :::::::::::::: 07 * GRIT_SET magic-mouse-js */ 
-/* :::::::::::::: 08 * GRIT_SET progress-js */ 
+/* :::::::::::::: 02 * GRIT_SET animate */
+/* :::::::::::::: 03 * GRIT_SET jarallax */
+/* :::::::::::::: 04 * GRIT_SET lenis.js */
+/* :::::::::::::: 05 * GRIT_SET loader */
+/* :::::::::::::: 06 * GRIT_SET gototop */
+/* :::::::::::::: 07 * GRIT_SET magic-mouse-js */
+/* :::::::::::::: 08 * GRIT_SET progress-js */
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-@use './variables' as *;
+@use "./variables" as *;
 
-/* :::::::::::::: 01 * GRIT_SET owl-carousel */ 
+/* :::::::::::::: 01 * GRIT_SET owl-carousel */
 // * GRIT_SET Carousel class reference: see CAROUSELS.md in the theme root.
 // Numeric: carousel-{items|gap|padding|speed|timeout}[-{sm|md|lg|xl|xxl}]-N.
 // Flags: carousel-[no-]{loop|nav|dots|center|autoplay|auto-height|auto-width|rewind|drag|touch}[-breakpoint].
@@ -26,358 +26,427 @@
 
 // * GRIT_SET Shared appearance and editable spacing variables
 // * GRIT_SET Preserve content when Owl is disabled, blocked or unavailable (Text/Collapse included).
-section .owl-carousel:not(.owl-loaded) { display: block; }
+section .owl-carousel:not(.owl-loaded) {
+    display: block;
+}
 
 section .owl-carousel {
-  --carousel-nav-offset: 10px;
-  --carousel-controls-gap: 50px;
-  --carousel-dots-offset: 30px;
-  --carousel-dot-size: 15px;
-  --carousel-nav-size: 22px;
-  .owl-dots {
-    position: absolute;
-    bottom: calc(-1 * var(--carousel-dots-offset));
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    text-align: center;
-    button.owl-dot {
-      width: var(--carousel-dot-size);
-      height: var(--carousel-dot-size);
-      margin: 0.3rem;
-      border-radius: 50%;
-      border: 1px solid var(--carousel-dot-color, #{$dark});
-      background: var(--carousel-dot-background, #{$light});
-      @include transition(all 0.3s ease-in-out);
-      span { display: none; }
-      &.active { border-color: var(--carousel-dot-active-color, #{$light}); background: var(--carousel-dot-active-background, #{$dark}); }
+    --carousel-nav-offset: 10px;
+    --carousel-controls-gap: 50px;
+    --carousel-dots-offset: 30px;
+    --carousel-dot-size: 15px;
+    --carousel-nav-size: 22px;
+    .owl-dots {
+        position: absolute;
+        bottom: calc(-1 * var(--carousel-dots-offset));
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        text-align: center;
+        button.owl-dot {
+            width: var(--carousel-dot-size);
+            height: var(--carousel-dot-size);
+            margin: 0.3rem;
+            border-radius: 50%;
+            border: 1px solid var(--carousel-dot-color, #{$dark});
+            background: var(--carousel-dot-background, #{$light});
+            @include transition(all 0.3s ease-in-out);
+            span {
+                display: none;
+            }
+            &.active {
+                border-color: var(--carousel-dot-active-color, #{$light});
+                background: var(--carousel-dot-active-background, #{$dark});
+            }
+        }
     }
-  }
-  .owl-nav {
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    transform: translateY(-50%);
-    display: flex;
-    justify-content: space-between;
-    pointer-events: none;
-    z-index: 2;
-    button.owl-prev, button.owl-next {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      pointer-events: auto;
-      padding: 3px;
-      margin: 0 10px;
-      border-radius: 25px;
-      font-size: var(--carousel-nav-size);
-      color: var(--carousel-nav-color, inherit);
-      @include transition(all 0.3s ease-in-out);
-      .btn svg path { stroke: var(--carousel-nav-color, #{$light}); }
-      &:hover, &:active { color: var(--carousel-nav-color, #{$accent}); }
-      &:hover .btn svg path, &:active .btn svg path { stroke: var(--carousel-nav-color, #{$dark}); }
-      &.disabled { opacity: 0.3; pointer-events: none; }
+    .owl-nav {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        transform: translateY(-50%);
+        display: flex;
+        justify-content: space-between;
+        pointer-events: none;
+        z-index: 2;
+        button.owl-prev,
+        button.owl-next {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: auto;
+            padding: 3px;
+            margin: 0 10px;
+            border-radius: 25px;
+            font-size: var(--carousel-nav-size);
+            color: var(--carousel-nav-color, inherit);
+            @include transition(all 0.3s ease-in-out);
+            .btn svg path {
+                stroke: var(--carousel-nav-color, #{$light});
+            }
+            &:hover,
+            &:active {
+                color: var(--carousel-nav-color, #{$accent});
+            }
+            &:hover .btn svg path,
+            &:active .btn svg path {
+                stroke: var(--carousel-nav-color, #{$dark});
+            }
+            &.disabled {
+                opacity: 0.3;
+                pointer-events: none;
+            }
+        }
+        button.owl-prev {
+            left: var(--carousel-nav-offset);
+        }
+        button.owl-next {
+            right: var(--carousel-nav-offset);
+        }
+        button.owl-prev .btn {
+            rotate: 180deg;
+        }
     }
-    button.owl-prev { left: var(--carousel-nav-offset); }
-    button.owl-next { right: var(--carousel-nav-offset); }
-    button.owl-prev .btn { rotate: 180deg; }
-  }
-  // Owl toggles disabled on each responsive refresh; never override it with flex.
-  .owl-nav.disabled, .owl-dots.disabled { display: none; }
-  .owl-nav button:focus-visible, .owl-dots button:focus-visible {
-    outline: 2px solid $accent;
-    outline-offset: 3px;
-  }
+    // Owl toggles disabled on each responsive refresh; never override it with flex.
+    .owl-nav.disabled,
+    .owl-dots.disabled {
+        display: none;
+    }
+    .owl-nav button:focus-visible,
+    .owl-dots button:focus-visible {
+        outline: 2px solid $accent;
+        outline-offset: 3px;
+    }
 }
 section.contained .owl-carousel {
-  @media (min-width: $sm-res) { --carousel-nav-offset: -40px; }
+    @media (min-width: $sm-res) {
+        --carousel-nav-offset: -40px;
+    }
 }
-section.carousel-center .col { padding: 0; }
+section.carousel-center .col {
+    padding: 0;
+}
 section.carousel-left {
-  @media (min-width: $sm-res) { padding-left: calc(($c-gap) / $xxl * 100vw); }
+    @media (min-width: $sm-res) {
+        padding-left: calc(($c-gap) / $xxl * 100vw);
+    }
 }
 
 section {
     /* Forza il cursor su TUTTO il carousel (anche sui link clonati) */
-.owl-carousel {
-  // Disattiva eventuali cursor ereditati (Magic Cursor / theme)
-  cursor: url('../../img/owl-cursor.svg') 30 30, auto !important;
+    .owl-carousel {
+        // Disattiva eventuali cursor ereditati (Magic Cursor / theme)
+        cursor:
+            url("../../img/owl-cursor.svg") 30 30,
+            auto !important;
 
-  /* Tutti gli elementi interni (cloni inclusi) */
-  * {
-    cursor: url('../../img/owl-cursor.svg') 30 30, auto !important;
-  }
+        /* Tutti gli elementi interni (cloni inclusi) */
+        * {
+            cursor:
+                url("../../img/owl-cursor.svg") 30 30,
+                auto !important;
+        }
 
-  /* Layer reali usati da Owl per drag */
-  .owl-stage-outer,
-  .owl-stage,
-  .owl-item {
-    cursor: url('../../img/owl-cursor.svg') 30 30, auto !important;
-  }
+        /* Layer reali usati da Owl per drag */
+        .owl-stage-outer,
+        .owl-stage,
+        .owl-item {
+            cursor:
+                url("../../img/owl-cursor.svg") 30 30,
+                auto !important;
+        }
 
-  /* Stato dragging (importantissimo per lo swipe) */
-  &.owl-drag .owl-item,
-  .owl-item.dragging {
-    cursor: url('../../img/owl-cursor.svg') 30 30, auto !important;
-  }
+        /* Stato dragging (importantissimo per lo swipe) */
+        &.owl-drag .owl-item,
+        .owl-item.dragging {
+            cursor:
+                url("../../img/owl-cursor.svg") 30 30,
+                auto !important;
+        }
 
-  /* Navigazione */
-  .owl-prev,
-  .owl-next {
-    cursor: url('../../img/owl-cursor.svg') 30 30, auto !important;
-  }
+        /* Navigazione */
+        .owl-prev,
+        .owl-next {
+            cursor:
+                url("../../img/owl-cursor.svg") 30 30,
+                auto !important;
+        }
 
-  /* Link e bottoni dentro le slide (quelli che Magic Cursor blocca) */
-  a,
-  button,
-  .owl-item a,
-  .owl-item button {
-    cursor: url('../../img/owl-cursor.svg') 30 30, auto !important;
-  }
-}
-
-
-
+        /* Link e bottoni dentro le slide (quelli che Magic Cursor blocca) */
+        a,
+        button,
+        .owl-item a,
+        .owl-item button {
+            cursor:
+                url("../../img/owl-cursor.svg") 30 30,
+                auto !important;
+        }
+    }
 }
 
 // * GRIT_SET Shared color modes | Apply to a section or directly to an Owl carousel.
 // Light/dark changes only arrow glyphs and dot colors; existing shapes/positions remain intact.
-@each $mode, $color in (light: #fff, dark: #111) {
-  :where(section.carousel-nav-#{$mode}) .owl-carousel,
-  .owl-carousel.carousel-nav-#{$mode} {
-    --carousel-nav-color: #{$color};
-  }
-  :where(section.carousel-dots-#{$mode}) .owl-carousel,
-  .owl-carousel.carousel-dots-#{$mode} {
-    --carousel-dot-color: #{$color};
-    --carousel-dot-background: transparent;
-    --carousel-dot-active-color: #{$color};
-    --carousel-dot-active-background: #{$color};
-  }
+@each $mode, $color in (light: $light, dark: $dark) {
+    :where(section.carousel-nav-#{$mode}) .owl-carousel,
+    .owl-carousel.carousel-nav-#{$mode} {
+        --carousel-nav-color: #{$color};
+    }
+    :where(section.carousel-dots-#{$mode}) .owl-carousel,
+    .owl-carousel.carousel-dots-#{$mode} {
+        --carousel-dot-color: #{$color};
+        --carousel-dot-background: transparent;
+        --carousel-dot-active-color: #{$color};
+        --carousel-dot-active-background: #{$color};
+    }
 }
 
 // * GRIT_SET Shared navigation positions, with backwards-compatible aliases
 @each $vertical in top, bottom {
-  @each $horizontal in left, right {
-    section.carousel-nav-#{$vertical}-#{$horizontal},
-    section.owl-nav-#{$vertical}-#{$horizontal} {
-      .owl-carousel .owl-nav {
-        top: auto;
-        bottom: auto;
-        left: auto;
-        right: auto;
-        #{$vertical}: calc(-1 * var(--carousel-controls-gap));
-        #{$horizontal}: 0;
-        width: auto;
-        transform: none;
-        justify-content: center;
-        padding: 0;
-        button.owl-prev, button.owl-next { left: auto; right: auto; }
-      }
+    @each $horizontal in left, right {
+        section.carousel-nav-#{$vertical}-#{$horizontal},
+        section.owl-nav-#{$vertical}-#{$horizontal} {
+            .owl-carousel .owl-nav {
+                top: auto;
+                bottom: auto;
+                left: auto;
+                right: auto;
+                #{$vertical}: calc(-1 * var(--carousel-controls-gap));
+                #{$horizontal}: 0;
+                width: auto;
+                transform: none;
+                justify-content: center;
+                padding: 0;
+                button.owl-prev,
+                button.owl-next {
+                    left: auto;
+                    right: auto;
+                }
+            }
+        }
     }
-  }
 }
 section.carousel-nav-sides .owl-carousel .owl-nav {
-  top: 50%; bottom: auto; left: 0; right: 0;
-  width: 100%; transform: translateY(-50%);
-  justify-content: space-between;
+    top: 50%;
+    bottom: auto;
+    left: 0;
+    right: 0;
+    width: 100%;
+    transform: translateY(-50%);
+    justify-content: space-between;
 }
 section.carousel-dots-inside .owl-carousel .owl-dots,
-section.owl-dots-inner .owl-carousel .owl-dots { bottom: 20px; }
+section.owl-dots-inner .owl-carousel .owl-dots {
+    bottom: 20px;
+}
 section.carousel-dots-outside .owl-carousel .owl-dots {
-  bottom: calc(-1 * var(--carousel-dots-offset));
+    bottom: calc(-1 * var(--carousel-dots-offset));
 }
 @each $align in left, center, right {
-  section.carousel-dots-#{$align} .owl-carousel .owl-dots { text-align: $align; }
+    section.carousel-dots-#{$align} .owl-carousel .owl-dots {
+        text-align: $align;
+    }
 }
 
-/* :::::::::::::: 02 * GRIT_SET animate */ 
+/* :::::::::::::: 02 * GRIT_SET animate */
 /* Note: This only changes this particular animation duration 
 */
 .animate__animated.animate__bounce {
-  --animate-duration: 2s;
+    --animate-duration: 2s;
 }
 /* This changes all the animations global */
 :root {
-  --animate-duration: 800ms;
-  --animate-delay: 0.9s;
-  scroll-behavior: smooth;
+    --animate-duration: 800ms;
+    --animate-delay: 0.9s;
+    scroll-behavior: smooth;
 }
 .hidden {
-  opacity: 0;  
-  visibility: hidden;   
+    opacity: 0;
+    visibility: hidden;
 }
 .visible {
-  opacity: 1;
-  visibility: visible;
+    opacity: 1;
+    visibility: visible;
 }
 
-
-/* :::::::::::::: 03 * GRIT_SET jarallax */ 
+/* :::::::::::::: 03 * GRIT_SET jarallax */
 .jarallax-keep-img {
-  position: relative;
-  z-index: 0; 
-  > .jarallax-img {
     position: relative;
-    display: block;
-    max-width: 100%;
-    height: auto;
-    z-index: -100; // Assicura che l'immagine sia sotto altri elementi
-  } 
+    z-index: 0;
+    > .jarallax-img {
+        position: relative;
+        display: block;
+        max-width: 100%;
+        height: auto;
+        z-index: -100; // Assicura che l'immagine sia sotto altri elementi
+    }
 }
 .jarallax-overlay div[id*="jarallax-container"] div {
-  background-blend-mode: overlay;
-} 
+    background-blend-mode: overlay;
+}
 .loaded .jarallax-keep-img.overlay-in:before {
-  content: '';
-  opacity: 0;
-  left: 0;
-  transition: 1s all ease-in-out;
-  transition-delay: 0.9s;
-  z-index: 10;
+    content: "";
+    opacity: 0;
+    left: 0;
+    transition: 1s all ease-in-out;
+    transition-delay: 0.9s;
+    z-index: 10;
 }
 .jarallax-keep-img.overlay-in:before {
-  content: '';
-  left: 0;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: $dark;
-  // background: linear-gradient(0deg, rgba(240,250,249,1) 0%, rgba(87,201,187,1) 100%);
-  opacity: 1;
+    content: "";
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: $dark;
+    // background: linear-gradient(0deg, rgba(240,250,249,1) 0%, rgba(87,201,187,1) 100%);
+    opacity: 1;
 }
 
-
-/* :::::::::::::: 04 * GRIT_SET lenis.js */ 
+/* :::::::::::::: 04 * GRIT_SET lenis.js */
 html.lenis {
-  height: auto;
+    height: auto;
 }
 
 html.lenis body {
-  height: auto;
+    height: auto;
 }
 .lenis.lenis-smooth {
-  scroll-behavior: auto;
+    scroll-behavior: auto;
 }
 .lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
+    overscroll-behavior: contain;
 }
 .lenis.lenis-stopped {
-  overflow: hidden;
+    overflow: hidden;
 }
 
-.lenis.lenis-smooth body {
-  overflow: hidden;  
-}
+// * GRIT_SET Keep native scrolling available over iframe/video controls.
+// Only lenis-stopped locks scrolling; smooth mode must not hide body overflow.
 
-
-/* :::::::::::::: 05 * GRIT_SET loader */ 
+/* :::::::::::::: 05 * GRIT_SET loader */
 /* GRIT_SET loader
 Note: impostazioni per modificare il loader Note: effetto al caricamento della pagina composto da logo sezioni e loader
 Note: L'evento che fa avviare è la classe 'loaded' posizionato nel body
 */
 
-
-
-
 #loader-wrapper {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 9999;
-  pointer-events: none;
-  overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    pointer-events: none;
+    overflow: hidden;
 }
 
 /* ================= BASE PANELS (FULLSCREEN STACK) ================= */
 #loader-wrapper .loader-section {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  transform: translateY(0);
-  will-change: transform;
-  backface-visibility: hidden;
-  transform: translate3d(0, 0, 0);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translateY(0);
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
 
-  /* Durata ottimizzata (veloce ma smooth) */
-  transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1);
+    /* Durata ottimizzata (veloce ma smooth) */
+    transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 /* STACK ORDER (fondamentale per la sovrapposizione corretta) */
-.section-1 { background: $light; z-index: 10004; } /* top */
-.section-2 { background: $secondary; z-index: 10003; }
-.section-3 { background: $light; z-index: 10002; }
-.section-4 { background: $secondary; z-index: 10001; } /* bottom */
+.section-1 {
+    background: $light;
+    z-index: 10004;
+} /* top */
+.section-2 {
+    background: $secondary;
+    z-index: 10003;
+}
+.section-3 {
+    background: $light;
+    z-index: 10002;
+}
+.section-4 {
+    background: $secondary;
+    z-index: 10001;
+} /* bottom */
 
 /* ================= USCITA (SCOMPARSA A CASCATA →) ================= */
 /* Ordine visivo: 1 → 2 → 3 → 4 */
 .loaded #loader-wrapper .section-1 {
-  transform: translateY(100%);
-  transition-delay: 0s;
+    transform: translateY(100%);
+    transition-delay: 0s;
 }
 
 .loaded #loader-wrapper .section-2 {
-  transform: translateY(100%);
-  transition-delay: 0.05s;
+    transform: translateY(100%);
+    transition-delay: 0.05s;
 }
 
 .loaded #loader-wrapper .section-3 {
-  transform: translateY(100%);
-  transition-delay: 0.1s;
+    transform: translateY(100%);
+    transition-delay: 0.1s;
 }
 
 .loaded #loader-wrapper .section-4 {
-  transform: translateY(100%);
-  transition-delay: 0.15s;
+    transform: translateY(100%);
+    transition-delay: 0.15s;
 }
 
 /* ================= RITORNO (ENTRATA INVERSA ←) ================= */
 /* Ordine visivo corretto: 4 → 3 → 2 → 1 */
-#loader-wrapper .section-4 { transition-delay: 0s; }
-#loader-wrapper .section-3 { transition-delay: 0.05s; }
-#loader-wrapper .section-2 { transition-delay: 0.1s; }
-#loader-wrapper .section-1 { transition-delay: 0.15s; }
+#loader-wrapper .section-4 {
+    transition-delay: 0s;
+}
+#loader-wrapper .section-3 {
+    transition-delay: 0.05s;
+}
+#loader-wrapper .section-2 {
+    transition-delay: 0.1s;
+}
+#loader-wrapper .section-1 {
+    transition-delay: 0.15s;
+}
 
 /* ================= LOGO CENTRATO (SINCRONIZZATO AI PANNELLI) ================= */
 .loader-logo {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  z-index: 10010;
-  pointer-events: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 10010;
+    pointer-events: none;
 
-  transform: translate(-50%, -50%) translate3d(0, 0, 0);
-  opacity: 1;
+    transform: translate(-50%, -50%) translate3d(0, 0, 0);
+    opacity: 1;
 
-  /* IMPORTANTE:
+    /* IMPORTANTE:
      Delay lungo SOLO per il ritorno (quando togli .loaded) */
-  transition: 
-    opacity 0.3s ease 0.75s,
-    transform 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+    transition:
+        opacity 0.3s ease 0.75s,
+        transform 0.4s cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 .loader-logo img {
-  width: 80px;
-  height: auto;
-  display: block;
+    width: 80px;
+    height: auto;
+    display: block;
 }
 
 /* ================= USCITA (PAGE LOAD / REVEAL SITO) ================= */
 /* Qui il logo deve sparire SUBITO con il primo pannello */
 .loaded .loader-logo {
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(0.96);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.96);
 
-  /* Sovrascriviamo il delay lungo */
-  transition: 
-    opacity 0.2s ease 0s,
-    transform 0.35s cubic-bezier(0.76, 0, 0.24, 1);
-  }
+    /* Sovrascriviamo il delay lungo */
+    transition:
+        opacity 0.2s ease 0s,
+        transform 0.35s cubic-bezier(0.76, 0, 0.24, 1);
+}
 
 // #main-content {
 //   // filter: blur(13px);
@@ -508,7 +577,7 @@ Note: L'evento che fa avviare è la classe 'loaded' posizionato nel body
 //     -ms-transform: rotate(-0deg);
 //     -o-transform: rotate(-0deg);
 //   }
-  
+
 //   100% {
 //     transform: rotate(360deg);
 //     -webkit-transform: rotate(360deg);
@@ -570,227 +639,209 @@ Note: L'evento che fa avviare è la classe 'loaded' posizionato nel body
 //   z-index: 82;
 // }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-.inner-loader-background {}
+.inner-loader-background {
+}
 
 .loaded .section-header {
-  opacity: 1;
-  transition: all 0.7s 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+    opacity: 1;
+    transition: all 0.7s 1s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 .section-header {
-  opacity: 0;
-  margin-top: unset;
+    opacity: 0;
+    margin-top: unset;
 }
 
-
-
 .gsap-parallax-container {
-      position: relative;
-      overflow: hidden;
-      aspect-ratio: 16 / 9; // fallback, poi sovrascritto inline 
-      .gsap-parallaxImage {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16 / 9; // fallback, poi sovrascritto inline
+    .gsap-parallaxImage {
         position: absolute;
         top: 0;
         left: 0;
 
         object-fit: cover;
 
-
         top: -10%; // spostata già all’inizio
         height: 120%; // abbastanza grande da coprire anche il basso
         width: 100%;
         object-fit: cover;
-      }
     }
-
-
-
+}
 
 .img-hover-inner {
-  position: relative;
-
-  .inner-img {
     position: relative;
-    overflow: hidden;
 
-    
+    .inner-img {
+        position: relative;
+        overflow: hidden;
 
-    // Overlay visibile di default sopra l’immagine
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: $grey;
-      opacity: 1;
-      z-index: 2;
-      transition: opacity 1s ease;
-      pointer-events: none;
+        // Overlay visibile di default sopra l’immagine
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: $grey;
+            opacity: 1;
+            z-index: 2;
+            transition: opacity 1s ease;
+            pointer-events: none;
+        }
+
+        // Dopo il caricamento (body.loaded) → l'overlay scompare
+        body.loaded &::before {
+            opacity: 0;
+            transition-delay: 0.9s;
+        }
+
+        img.parallax-gsap {
+            display: block;
+            width: 100%;
+            height: auto;
+            transform: none; // lasciare il controllo a GSAP
+            transition: none !important; // evitare interferenze con hover o CSS
+            will-change: transform;
+        }
+
+        img:not(.jarallax-img):not(.gsap-parallaxImage) {
+            display: block;
+            width: 100%;
+            height: auto;
+            transform: scale(1);
+            transition: transform 1.5s ease-in-out;
+            will-change: transform;
+        }
+
+        // Hover attivo solo se l'immagine NON è gestita da parallax
+        &:hover img:not(.jarallax-img):not(.parallax-gsap) {
+            transform: scale(1.02);
+        }
+
+        // Ulteriore sicurezza: disattiva l’effetto hover se il container ha classi parallax
+        &:hover.parallax img,
+        &:hover.parallax-gsap img {
+            transform: none !important;
+        }
     }
-
-    // Dopo il caricamento (body.loaded) → l'overlay scompare
-    body.loaded &::before {
-      opacity: 0;
-      transition-delay: 0.9s;
-    }
-
-
-    img.parallax-gsap {
-      display: block;
-      width: 100%;
-      height: auto;
-      transform: none; // lasciare il controllo a GSAP
-      transition: none !important; // evitare interferenze con hover o CSS
-      will-change: transform;
-    }
-
-    img:not(.jarallax-img):not(.gsap-parallaxImage) {
-      display: block;
-      width: 100%;
-      height: auto;
-      transform: scale(1);
-      transition: transform 1.5s ease-in-out;
-      will-change: transform;
-    }
-
-    // Hover attivo solo se l'immagine NON è gestita da parallax
-    &:hover img:not(.jarallax-img):not(.parallax-gsap) {
-      transform: scale(1.02);
-    }
-
-    // Ulteriore sicurezza: disattiva l’effetto hover se il container ha classi parallax
-    &:hover.parallax img,
-    &:hover.parallax-gsap img {
-      transform: none !important;
-    }
-  }
 }
-
-
-
-
-
-
 
 .loaded .img-hover-inner .inner-img:before {
-  opacity: 0;
-  transition-delay: 1s;
+    opacity: 0;
+    transition-delay: 1s;
 }
 
-
-/* :::::::::::::: 06 * GRIT_SET gototop */ 
+/* :::::::::::::: 06 * GRIT_SET gototop */
 #gototop-btn {
-  display: none;
-  position: fixed;
-  width: 60px;
-  bottom: 20px;
-  right: 30px;
-  z-index: 99;
-  font-size: 18px;
-  border: none;
-  outline: none;
-  background-color: $dark;
-  color: $light;
-  cursor: pointer;
-  padding: 5px;
-  border-radius: 50%;
+    display: none;
+    position: fixed;
+    width: 60px;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color: $dark;
+    color: $light;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
 }
 
-/* :::::::::::::: 07 * GRIT_SET magic-mouse-js */ 
+/* :::::::::::::: 07 * GRIT_SET magic-mouse-js */
 body #magicMouseCursor {
-  position: fixed;
-  width: 35px;
-  height: 35px;
-  border: 1px solid $dark;
-  border-radius: 50%;
-  z-index: 9999;
-  left: 0;
-  top: 0;
-  transition: transform 0.07s, width 0.3s, height 0.3s ease-in-out;
-  pointer-events: none;
+    position: fixed;
+    width: 35px;
+    height: 35px;
+    border: 1px solid $dark;
+    border-radius: 50%;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    transition:
+        transform 0.07s,
+        width 0.3s,
+        height 0.3s ease-in-out;
+    pointer-events: none;
 }
 
 body #magicMouseCursor.cursor-square {
-  border-radius: 0;
+    border-radius: 0;
 }
 
 body #magicPointer {
-  height: 8px;
-  width: 8px;
-  top: 0;
-  left: 0;
-  position: fixed;
-  z-index: 9999;
-  background: $dark;
-  border-radius: 50%;
-  pointer-events: none;
-  transition: background 0.2s, width 0.2s, height 0.2s, box-shadow 0.2s ease-in-out;
+    height: 8px;
+    width: 8px;
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 9999;
+    background: $dark;
+    border-radius: 50%;
+    pointer-events: none;
+    transition:
+        background 0.2s,
+        width 0.2s,
+        height 0.2s,
+        box-shadow 0.2s ease-in-out;
 }
 
 body #magicPointer.is-hover {
-  height: 5px;
-  width: 5px;
-  top: 0;
-  left: 0;
-  position: fixed;
-  background: $accent;
-  border-radius: 50%;
-  pointer-events: none;
-  transition: background 0.2s, width 0.2s, height 0.2s, box-shadow 0.2s ease-in-out;
+    height: 5px;
+    width: 5px;
+    top: 0;
+    left: 0;
+    position: fixed;
+    background: $accent;
+    border-radius: 50%;
+    pointer-events: none;
+    transition:
+        background 0.2s,
+        width 0.2s,
+        height 0.2s,
+        box-shadow 0.2s ease-in-out;
 }
 
 body #magicPointer.pointer-blur {
-  height: 50px;
-  width: 50px;
-  background: none;
-  border: 1px solid $accent;
-  box-shadow: 0px 0px 15px -5px $accent;
+    height: 50px;
+    width: 50px;
+    background: none;
+    border: 1px solid $accent;
+    box-shadow: 0px 0px 15px -5px $accent;
 }
 
 body #magicPointer.pointer-overlay {
-  height: 50px;
-  width: 50px;
-  mix-blend-mode: difference;
-  background: $accent;
-  box-shadow: 0px 0px 0px 0px $accent;
+    height: 50px;
+    width: 50px;
+    mix-blend-mode: difference;
+    background: $accent;
+    box-shadow: 0px 0px 0px 0px $accent;
 }
 
 body .magic-hover {
-  // @include transition(transform 1.3s ease-in-out);  
+    // @include transition(transform 1.3s ease-in-out);
 }
 
 body .magic-hover:hover {
-  cursor: auto;
+    cursor: auto;
 }
 
-
-
- 
-/* :::::::::::::: 08 * GRIT_SET progress-js */ 
+/* :::::::::::::: 08 * GRIT_SET progress-js */
 #nprogress .bar {
-  background: $accent;
+    background: $accent;
 }
 
 #nprogress .peg {
-  box-shadow: 0 0 10px $accent, 0 0 5px $accent;
+    box-shadow:
+        0 0 10px $accent,
+        0 0 5px $accent;
 }
 
 #nprogress .spinner-icon {
-  border-top-color: $accent;
-  border-left-color: $accent;
+    border-top-color: $accent;
+    border-left-color: $accent;
 }

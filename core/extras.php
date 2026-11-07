@@ -417,6 +417,12 @@ function grit_text_chapter_image($attachment_id, $image_class, $is_carousel = fa
     return wp_get_attachment_image(absint($attachment_id), 'large', false, array('class' => $image_class, 'sizes' => $sizes));
 }
 
+// * GRIT_SET Shortcodes legend
+// 01 | Counter: value normalization, accessible output and animation attributes.
+// 02 | Contacts: public Theme Fields, independent links and custom inline labels.
+// 03 | Video: source validation and reusable Timber player.
+
+// * GRIT_SET 01 | Counter
 // * GRIT_SET Counter values accept plain decimals, never ambiguous thousands separators
 function grit_counter_value($raw) {
     $text = trim((string) $raw);
@@ -455,4 +461,118 @@ function grit_counter_shortcode($attributes) {
 }
 add_shortcode('grit_counter', 'grit_counter_shortcode');
 
-?>
+// * GRIT_SET 02 | Contacts
+// * GRIT_SET Contacts legend: 01 allowed Theme Fields; 02 single value.
+
+// * GRIT_SET 01 | Only public business/contact fields can be requested by shortcodes.
+function grit_contact_fields() {
+    return [
+        'intestazione' => 'company', 'piva' => 'company', 'rea' => 'company', 'cap_soc' => 'company',
+        'indirizzo_1' => 'address', 'indirizzo_2' => 'address', 'indirizzo_3' => 'address',
+        'tel_1' => 'phone', 'tel_2' => 'phone', 'tel_3' => 'phone', 'fax' => 'fax',
+        'mail_1' => 'email', 'mail_2' => 'email', 'mail_3' => 'email',
+        'facebook' => 'social', 'instagram' => 'social', 'linkedin' => 'social', 'tiktok' => 'social',
+    ];
+}
+
+// * GRIT_SET 02 | Missing fields render nothing; labels/classes never replace the stored value.
+function grit_contact_shortcode($attributes) {
+    $a = shortcode_atts(['field' => '', 'label' => '', 'class' => '', 'tag' => 'span',
+        'link' => 'true'], $attributes, 'grit_contact');
+    $fields = grit_contact_fields();
+    $field = sanitize_key($a['field']);
+    if (!isset($fields[$field])) return '';
+    $value = trim((string) get_theme_mod('grit_setting_' . $field, ''));
+    if ($value === '') return '';
+    $type = $fields[$field];
+    $href = '';
+    if ($type === 'phone') {
+        $phone = preg_replace('/[^0-9+]/', '', $value);
+        if (preg_match('/^\+?[0-9]+$/', $phone)) $href = 'tel:' . $phone;
+    } elseif ($type === 'address') {
+        // * GRIT_SET Address directions | Encode the saved address as a query value.
+        $href = 'https://www.google.com/maps/dir/?api=1&destination=' . rawurlencode($value);
+    } elseif ($type === 'email') {
+        if (is_email($value)) $href = 'mailto:' . $value;
+    } elseif ($type === 'social') {
+        $href = esc_url($value, ['http', 'https']);
+        if (!$href) return '';
+    }
+    $text = $a['label'] !== '' ? $a['label'] : $value;
+    // * GRIT_SET Custom labels | Allow inline icons without scripts, events or nested links.
+    $content = $a['label'] !== '' ? wp_kses($text, [
+        'i' => ['class' => true, 'aria-hidden' => true],
+        'span' => ['class' => true, 'aria-hidden' => true],
+        'strong' => [],
+        'em' => [],
+    ]) : esc_html($value);
+    if ($href && filter_var($a['link'], FILTER_VALIDATE_BOOLEAN)) {
+        $target = ' target="_blank" rel="noopener noreferrer"';
+        $content = '<a href="' . esc_url($href, ['http', 'https', 'tel', 'mailto']) . '"' . $target . '>' . $content . '</a>';
+    }
+    $tag = in_array($a['tag'], ['span', 'p', 'div', 'h2', 'h3', 'h4'], true) ? $a['tag'] : 'span';
+    return '<' . $tag . ' class="' . esc_attr(trim('grit-contact grit-contact-' . $field . ' ' . $a['class'])) . '">' . $content . '</' . $tag . '>';
+}
+add_shortcode('grit_contact', 'grit_contact_shortcode');
+
+// * GRIT_SET 03 | Video
+// * GRIT_SET Video source | One active source, native MIME and sanitized iframe embeds.
+function grit_video_source($section) {
+    if (!empty($section['video_file'])) {
+        $file = $section['video_file'];
+        $attachment = is_array($file) ? (int) ($file['ID'] ?? $file['id'] ?? 0) : (int) $file;
+        $url = is_array($file) ? ($file['url'] ?? '') : wp_get_attachment_url($attachment);
+        $mime = $attachment ? get_post_mime_type($attachment) : ($file['mime_type'] ?? '');
+        if (!$mime && $url) $mime = wp_check_filetype($url)['type'];
+        if ($url && strpos((string) $mime, 'video/') === 0) return ['type' => 'file', 'url' => esc_url($url), 'mime' => $mime];
+    }
+    $embed = $section['embed'] ?? '';
+    if (!$embed) return [];
+    if (filter_var($embed, FILTER_VALIDATE_URL)) {
+        // * GRIT_SET Known providers require no remote oEmbed request on each shortcode render.
+        $parts = wp_parse_url($embed);
+        $host = strtolower($parts['host'] ?? '');
+        $path = trim($parts['path'] ?? '', '/');
+        parse_str($parts['query'] ?? '', $query);
+        $url = '';
+        if (in_array($host, ['youtube.com', 'www.youtube.com', 'youtu.be', 'www.youtu.be', 'www.youtube-nocookie.com'], true)) {
+            $video_id = strpos($host, 'youtu.be') !== false ? $path : ($query['v'] ?? preg_replace('~^(embed|shorts)/~', '', $path));
+            if (preg_match('/^[A-Za-z0-9_-]{11}$/D', $video_id)) $url = 'https://www.youtube.com/embed/' . $video_id;
+        } elseif (in_array($host, ['vimeo.com', 'www.vimeo.com', 'player.vimeo.com'], true)) {
+            $video_id = preg_replace('~^video/~', '', $path);
+            if (ctype_digit($video_id)) {
+                $url = 'https://player.vimeo.com/video/' . $video_id;
+                if (!empty($query['h']) && preg_match('/^[A-Za-z0-9]+$/D', $query['h'])) $url = add_query_arg('h', $query['h'], $url);
+            }
+        }
+        $embed = $url ? '<iframe src="' . esc_url($url) . '" title="Video" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>' : '';
+    }
+    if (!$embed) return [];
+    $allowed = [
+        'iframe' => ['src'=>true, 'title'=>true, 'width'=>true, 'height'=>true, 'allow'=>true, 'allowfullscreen'=>true, 'frameborder'=>true, 'loading'=>true, 'referrerpolicy'=>true, 'class'=>true, 'data-src'=>true, 'data-cmplz-src'=>true, 'data-category'=>true, 'data-service'=>true],
+        'div'=>['class'=>true], 'p'=>['class'=>true], 'span'=>['class'=>true],
+        'a'=>['href'=>true, 'target'=>true, 'rel'=>true],
+    ];
+    $html = wp_kses($embed, $allowed);
+    if (strpos($html, '<iframe') === false) return [];
+    if (preg_match('/\bsrc=["\']([^"\']+)["\']/i', $html, $match)) $url = esc_url(html_entity_decode($match[1], ENT_QUOTES, 'UTF-8'));
+    else $url = '';
+    return ['type'=>'embed', 'html'=>$html, 'url'=>$url];
+}
+
+// * GRIT_SET Video shortcode | Composition belongs to Text; player settings stay local to each shortcode.
+function grit_video_shortcode($attributes) {
+    $a = shortcode_atts(['file'=>'', 'url'=>'', 'preview'=>'', 'ratio'=>'landscape', 'fit'=>'contain', 'loop'=>'false', 'class'=>''], $attributes, 'grit_video');
+    $file = ctype_digit((string) $a['file']) ? (int) $a['file'] : 0;
+    $url = esc_url_raw($a['url'], ['http', 'https']);
+    $video = grit_video_source(['video_file'=>$file, 'embed'=>$url]);
+    if (!$video) return '';
+    $preview = ctype_digit((string) $a['preview']) ? (int) $a['preview'] : 0;
+    if ($preview && !wp_attachment_is_image($preview)) $preview = 0;
+    $ratio = in_array($a['ratio'], ['landscape', 'portrait', 'square'], true) ? $a['ratio'] : 'landscape';
+    $classes = 'video-ratio-' . $ratio . ($a['fit'] === 'cover' ? ' video-fit-cover' : '') . ' ' . $a['class'];
+    return Timber::compile('partials/video.twig', [
+        'video'=>$video, 'preview'=>$preview, 'loop'=>filter_var($a['loop'], FILTER_VALIDATE_BOOLEAN), 'video_classes'=>trim($classes),
+    ]);
+}
+add_shortcode('grit_video', 'grit_video_shortcode');

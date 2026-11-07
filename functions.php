@@ -508,60 +508,6 @@ function skip_empty_acf_fields($value, $post_id, $field) {
  
 add_filter('doing_it_wrong_trigger_error', '__return_false', 0);
 
-// * GRIT_SET Contacts legend: 01 allowed Theme Fields; 02 single value.
-
-// * GRIT_SET 01 | Only public business/contact fields can be requested by shortcodes.
-function grit_contact_fields() {
-    return [
-        'intestazione' => 'company', 'piva' => 'company', 'rea' => 'company', 'cap_soc' => 'company',
-        'indirizzo_1' => 'address', 'indirizzo_2' => 'address', 'indirizzo_3' => 'address',
-        'tel_1' => 'phone', 'tel_2' => 'phone', 'tel_3' => 'phone', 'fax' => 'fax',
-        'mail_1' => 'email', 'mail_2' => 'email', 'mail_3' => 'email',
-        'facebook' => 'social', 'instagram' => 'social', 'linkedin' => 'social', 'tiktok' => 'social',
-    ];
-}
-
-// * GRIT_SET 02 | Missing fields render nothing; labels/classes never replace the stored value.
-function grit_contact_shortcode($attributes) {
-    $a = shortcode_atts(['field' => '', 'label' => '', 'class' => '', 'tag' => 'span',
-        'link' => 'true'], $attributes, 'grit_contact');
-    $fields = grit_contact_fields();
-    $field = sanitize_key($a['field']);
-    if (!isset($fields[$field])) return '';
-    $value = trim((string) get_theme_mod('grit_setting_' . $field, ''));
-    if ($value === '') return '';
-    $type = $fields[$field];
-    $href = '';
-    if ($type === 'phone') {
-        $phone = preg_replace('/[^0-9+]/', '', $value);
-        if (preg_match('/^\+?[0-9]+$/', $phone)) $href = 'tel:' . $phone;
-    } elseif ($type === 'address') {
-        // * GRIT_SET Address directions | Encode the saved address as a query value.
-        $href = 'https://www.google.com/maps/dir/?api=1&destination=' . rawurlencode($value);
-    } elseif ($type === 'email') {
-        if (is_email($value)) $href = 'mailto:' . $value;
-    } elseif ($type === 'social') {
-        $href = esc_url($value, ['http', 'https']);
-        if (!$href) return '';
-    }
-    $text = $a['label'] !== '' ? $a['label'] : $value;
-    // * GRIT_SET Custom labels | Allow inline icons without scripts, events or nested links.
-    $content = $a['label'] !== '' ? wp_kses($text, [
-        'i' => ['class' => true, 'aria-hidden' => true],
-        'span' => ['class' => true, 'aria-hidden' => true],
-        'strong' => [],
-        'em' => [],
-    ]) : esc_html($value);
-    if ($href && filter_var($a['link'], FILTER_VALIDATE_BOOLEAN)) {
-        $target = ' target="_blank" rel="noopener noreferrer"';
-        $content = '<a href="' . esc_url($href, ['http', 'https', 'tel', 'mailto']) . '"' . $target . '>' . $content . '</a>';
-    }
-    $tag = in_array($a['tag'], ['span', 'p', 'div', 'h2', 'h3', 'h4'], true) ? $a['tag'] : 'span';
-    return '<' . $tag . ' class="' . esc_attr(trim('grit-contact grit-contact-' . $field . ' ' . $a['class'])) . '">' . $content . '</' . $tag . '>';
-}
-add_shortcode('grit_contact', 'grit_contact_shortcode');
-
-
 // * GRIT_SET Section Archive legend | 01 public choices; 02 independent query; 03 safe excerpts.
 // * GRIT_SET 01 | Populate ACF choices from the current site's registered content types/templates.
 function grit_archive_public_types() {
