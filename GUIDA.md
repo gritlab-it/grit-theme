@@ -968,7 +968,7 @@ Usare lo slug `bio` e il template predefinito: il tema carica automaticamente `p
 - Foto: immagine in evidenza della pagina; in alternativa logo del sito o iniziale del nome. Non vengono richieste immagini a servizi esterni.
 - Collegamenti: il setup crea il menu **bio-menu**, lo assegna alla posizione **Bio Links** e inserisce About e Contatti con una descrizione iniziale. Aggiungere le proprie voci a un solo livello da **Aspetto → Menu → bio-menu**. Titolo, descrizione, ordine e apertura in nuova scheda si gestiscono nel menu. Se il campo Descrizione non è visibile, abilitarlo in **Impostazioni schermata → Descrizione**; il testo compare sotto il titolo nella Bio. Il collegamento al sito resta sempre disponibile.
 - Contatti: Theme Fields di Personalizza. Email, telefono e indirizzo usano il secondo recapito, come nel template originale. Il terzo telefono è usato per WhatsApp e deve includere il prefisso internazionale.
-- Social: Instagram, LinkedIn, Facebook e TikTok vengono mostrati soltanto con URL HTTP(S) completi. Campi vuoti e segnaposto `#` non generano collegamenti.
+- Social: Instagram, LinkedIn, Facebook e TikTok vengono mostrati quando il relativo campo è compilato, anche con il segnaposto `#` per le prove. I campi vuoti non generano collegamenti.
 - Condivisione: il link WhatsApp condivide l’indirizzo della Bio. Il footer compatto richiama le policy pubblicate.
 
 Contatti e social si modificano direttamente in `templates/page-bio.twig`; il menu viene esposto nel contesto condiviso come gli altri menu.

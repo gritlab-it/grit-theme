@@ -89,7 +89,7 @@
                 ] %}
                 {% set social_links %}
                     {% for social in socials %}
-                        {% if social.url starts with 'https://' or social.url starts with 'http://' %}
+                        {% if social.url %}
                             <a class="no-load" href="{{ function('esc_url', social.url)|e('html_attr') }}" target="_blank" rel="noopener noreferrer" aria-label="{{ social.title|e('html_attr') }}"><i class="{{ social.icon|e('html_attr') }}" aria-hidden="true"></i></a>
                         {% endif %}
                     {% endfor %}
