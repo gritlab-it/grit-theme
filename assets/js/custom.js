@@ -1,37 +1,21 @@
 // * GRIT_SET Scope the dollar alias to WordPress jQuery (noConflict compatible)
 (function ($) {
+// * GRIT_SET Legend | Frontend components
+// 00 | Loader and native link behavior
+// 01 | Entrance animations
+// 02 | Header menus and sticky state
+// 03 | Owl carousels
+// 04 | Gallery sizing and Nivo Lightbox
+// 05 | Magic Mouse
+// 06 | Jarallax
+// 07 | Masonry
+// 08 | NProgress
+// 09 | Collapse and tabs
+// 10 | Video player
+// 11 | Counters
+// 12 | GSAP, ScrollTrigger, Lenis and decorative bars
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 00 * GRIT_SET loader */
-/* :::::::::::::: 01 * GRIT_SET animate.css  */
-/* :::::::::::::: 02 * GRIT_SET menu showing */
-/* :::::::::::::: 03 * GRIT_SET sticky */
-/* :::::::::::::: 03 * GRIT_SET owl-carousel */
-/* :::::::::::::: 03 * GRIT_SET nivoLightbox */
-/* :::::::::::::: 04 * GRIT_SET magicMouse */
-/* :::::::::::::: 06 * GRIT_SET jarallax-js  */
-/* :::::::::::::: 07 * GRIT_SET NProgress-js */
-/* :::::::::::::: 07 * GRIT_SET section_collapse */
-/* :::::::::::::: 08 * GRIT_SET Video shortcode player */
-/* :::::::::::::: 09 * GRIT_SET Counters js */
-/* :::::::::::::: 10 * GRIT_SET GSAP + ScrollTrigger + Lenis */ 
-/* :::::::::::::: 10.0 * Init Plugin */ 
-/* :::::::::::::: 10.1 * Lenis Setup (Smooth Scroll) */ 
-/* :::::::::::::: 10.2 * Init GSAP Animations */ 
-/* :::::::::::::: 10.2.1 * Parallax Image Scroll */ 
-/* :::::::::::::: 10.2.2 * Horizontal Scroll Container */ 
-/* :::::::::::::: 10.2.3 * Vertical Panels Scroll */ 
-/* :::::::::::::: 10.2.4 * Word Reveal */
-/* :::::::::::::: 10.2.5 * Sequential Word Reveal */ 
-/* :::::::::::::: 10.2.6 * Horizontal Scroll of Long Sentences */ 
-/* :::::::::::::: 10.2.7 * Dual Horizontal Scroll */ 
-/* :::::::::::::: 10.3 * Initialization of Animated Functions */ 
-/* :::::::::::::: 10.4 * Responsive Refresh on Resize (Debounced) */ 
-/* :::::::::::::: 11 * Section Bars */ 
-
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 00 * GRIT_SET loader */
+/* :::::::::::::: 00 * GRIT_SET Loader and native link behavior */
 $(function () {
     setTimeout(function () {
         $("body").addClass("loaded");
@@ -105,68 +89,44 @@ window.addEventListener("pageshow", function (event) {
 });
 
 
-
-
-
-
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 01 * GRIT_SET animate.css  */
-// example <div class="in__animate" data-animation="animate__fadeInUp animate__slow animate__delay-2s"  >
-document.addEventListener("DOMContentLoaded", function () {
-    var viewportchecker_active = document.getElementById("content");
-    if (viewportchecker_active) {
-        var elements = document.querySelectorAll(".in__animate");
-        
-        // Nasconde tutti gli elementi inizialmente
-        elements.forEach(function (element) {
-            element.classList.add("hidden"); // Nasconde gli elementi finché non sono nel viewport
-        });
-        
-        // Usa IntersectionObserver per rilevare quando gli elementi entrano nel viewport
-        var observer = new IntersectionObserver(
-            function (entries, observer) {
-                entries.forEach(function (entry) {
-                    if (entry.isIntersecting) {
-                        // Ottiene l'animazione specifica dall'attributo data-animation
-                        var animationClasses = entry.target.getAttribute("data-animation");
-                        
-                        // Controlla che data-animation non sia vuoto o undefined
-                        if (animationClasses && animationClasses.trim() !== "") {
-                            // Rimuove la classe 'hidden' e aggiunge le classi di animazione dal data attribute
-                            entry.target.classList.remove("hidden");
-                            
-                            // Forza il reflow per riapplicare le animazioni
-                            void entry.target.offsetWidth; // Questo forza il reflow
-                            
-                            // Aggiunge animate__animated e le classi specifiche di animazione
-                            entry.target.classList.add("animate__animated");
-                            entry.target.classList.add(
-                                ...animationClasses.trim().split(" ").filter(Boolean)
-                            ); // Rimuove eventuali spazi vuoti
-                        } else {
-                            console.warn(
-                                "data-animation è vuoto o non definito per l'elemento:",
-                                entry.target
-                            );
-                        }
-                    }
-                });
-            },
-            {
-                threshold: 0.1, // Inizia l'animazione quando il 10% dell'elemento è visibile
-                rootMargin: "0px 0px -100px 0px", // Simula un offset per far iniziare l'animazione in anticipo
-            }
-        );
-        
-        // Osserva ogni elemento .in__animate
-        elements.forEach(function (element) {
-            observer.observe(element);
-        });
+/* :::::::::::::: 01 * GRIT_SET Entrance animations  */
+// Example: <div class="in__animate" data-animation="animate__fadeInUp animate__slow">
+$(function () {
+    if (!document.getElementById("content")) return;
+    const elements = Array.from(document.querySelectorAll(".in__animate"));
+    const motion = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
+    // Keep content readable when animation settings or browser support are missing.
+    if (typeof window.IntersectionObserver !== "function" || (motion && motion.matches)) {
+        elements.forEach(element => element.classList.remove("hidden"));
+        return;
     }
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const classes = (entry.target.getAttribute("data-animation") || "").trim().split(/\s+/).filter(Boolean);
+            entry.target.classList.remove("hidden");
+            if (classes.length) entry.target.classList.add("animate__animated", ...classes);
+            observer.unobserve(entry.target);
+        });
+    }, { threshold: 0, rootMargin: "0px" });
+    elements.forEach(element => {
+        if (!(element.getAttribute("data-animation") || "").trim()) {
+            element.classList.remove("hidden");
+            return;
+        }
+        element.classList.add("hidden");
+        observer.observe(element);
+    });
+    if (motion && typeof motion.addEventListener === "function") motion.addEventListener("change", event => {
+        if (!event.matches) return;
+        observer.disconnect();
+        elements.forEach(element => element.classList.remove("hidden"));
+    });
 });
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 02 * GRIT_SET menu showing */
+/* :::::::::::::: 02 * GRIT_SET Header menus and sticky state */
 // * GRIT_SET Header navigation | Inline expansion (1), overlay dialogs (2–5), shared submenus and sticky state.
 $(function () {
     document.querySelectorAll(".grit-header").forEach(function (header) {
@@ -381,7 +341,7 @@ $(function () {
     });
 });
 
-/* :::::::::::::: 03 * GRIT_SET owl-carousel */
+/* :::::::::::::: 03 * GRIT_SET Owl carousels */
 // * GRIT_SET Shared Owl presets and responsive class overrides
 (function ($) {
     var breakpoints = { base: 0, sm: 576, md: 768, lg: 992, xl: 1200, xxl: 1400 };
@@ -485,7 +445,7 @@ $(function () {
 })(jQuery);
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 03 * GRIT_SET nivoLightbox */
+/* :::::::::::::: 04 * GRIT_SET Gallery sizing and Nivo Lightbox */
 // * GRIT_SET Static gallery columns and gaps from section class tokens
 jQuery(function ($) {
     $('section.section_gallery').each(function () {
@@ -500,10 +460,6 @@ jQuery(function ($) {
         });
     });
 });
-
-lightbox_nivo_active = document.getElementById(
-    "responsive-lightbox-nivo_lightbox-js"
-);
 
 if (typeof jQuery.fn.nivoLightbox === "function") {
     $(document).ready(function () {
@@ -543,19 +499,15 @@ if (typeof jQuery.fn.nivoLightbox === "function") {
 }
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 04 * GRIT_SET magicMouse */
-var magicmouse_active = document.getElementById("magic-mouse-js");
+/* :::::::::::::: 05 * GRIT_SET Magic Mouse */
 $(document).ready(function () {
-    if (magicmouse_active) {
+    if (typeof window.magicMouse === "function") {
         $(".main").addClass("magicmouse_active");
-        // Attivo su tutte le immagini
-        //$("img").addClass("magic-hover", "magic-hover__square");
-        $(".btn").addClass("magic-hover", "magic-hover__square");
+        $(".btn").addClass("magic-hover magic-hover__square");
         
-        document.body.style.cursor = "none!important";
         // cursorOuter	Default: "circle-basic", other options : "disable"
         // hoverEffect	default: "circle-move", other options : "pointer-blur", "pointer-overlay"
-        options = {
+        const options = {
             cursorOuter: "circle-basic",
             hoverEffect: "pointer-overlay",
             hoverItemMove: false,
@@ -568,7 +520,7 @@ $(document).ready(function () {
 });
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 06 * GRIT_SET jarallax-js  */
+/* :::::::::::::: 06 * GRIT_SET Jarallax  */
 // * GRIT_SET Initialize available Jarallax instances independently of Owl
 jQuery(function ($) {
     if (typeof $.fn.jarallax !== 'function') return;
@@ -589,6 +541,7 @@ jQuery(function ($) {
     });
 });
 
+/* :::::::::::::: 07 * GRIT_SET Masonry */
 // * GRIT_SET Initialize Text and Archive Masonry grids once; Bootstrap remains the fallback.
 jQuery(function () {
     if (typeof window.Masonry !== 'function') return;
@@ -615,32 +568,16 @@ jQuery(function () {
 });
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 07 * GRIT_SET NProgress-js */
-nprogress_active = document.getElementById("nprogress-js");
-if (nprogress_active) {
-    $("body").show();
-    $(".version").text(NProgress.version);
-    NProgress.start();
-    setTimeout(function () {
-        NProgress.done();
-        $(".fade").removeClass("out");
-    }, 1000);
-    $("#b-0").click(function () {
-        NProgress.start();
-    });
-    $("#b-40").click(function () {
-        NProgress.set(0.4);
-    });
-    $("#b-inc").click(function () {
-        NProgress.inc();
-    });
-    $("#b-100").click(function () {
-        NProgress.done();
-    });
-}
+/* :::::::::::::: 08 * GRIT_SET NProgress */
+// Check the API: a script tag can exist even if the request failed.
+$(function () {
+    if (!window.NProgress || typeof window.NProgress.start !== "function") return;
+    window.NProgress.start();
+    setTimeout(function () { window.NProgress.done(); }, 1000);
+});
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 07 * GRIT_SET section_collapse */
+/* :::::::::::::: 09 * GRIT_SET Collapse and tabs */
 // * GRIT_SET Collapse legend: List.js search, Bootstrap state sync, visible-tab Owl refresh
 jQuery(function ($) {
     // * GRIT_SET One independent List.js instance per search section
@@ -700,7 +637,7 @@ jQuery(function ($) {
 });
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 08 * GRIT_SET Video shortcode player */
+/* :::::::::::::: 10 * GRIT_SET Video player */
 // * GRIT_SET Video controller | Independent sections; no inline handlers or forced looping.
 function initializeGritVideos() {
     document.querySelectorAll('[data-grit-video]').forEach(root => {
@@ -759,10 +696,10 @@ function initializeGritVideos() {
         });
     });
 }
-document.addEventListener('DOMContentLoaded', initializeGritVideos);
+$(initializeGritVideos);
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 09 * GRIT_SET Counters js */
+/* :::::::::::::: 11 * GRIT_SET Counters */
 // * GRIT_SET Counter legend: final fallback, locale formatting, shared observer, timed animation
 function startCounterAnimation() {
     const counters = Array.from(document.querySelectorAll('.number-animate'));
@@ -845,10 +782,10 @@ function startCounterAnimation() {
         if (observer) observer.disconnect();
     });
 }
-document.addEventListener('DOMContentLoaded', startCounterAnimation);
+$(startCounterAnimation);
 
 
-/* :::::::::::::: 10 * GRIT_SET GSAP + ScrollTrigger + Lenis */ 
+/* :::::::::::::: 12 * GRIT_SET GSAP, ScrollTrigger, Lenis and decorative bars */
 
 // * GRIT_SET Motion legend | Shared by Section Text and image parallax.
 // 01 | Optional Lenis and anchor navigation, respecting reduced motion.

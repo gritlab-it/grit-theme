@@ -5685,6 +5685,16 @@ section.carousel-dots-right .owl-carousel .owl-dots {
   visibility: visible;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    scroll-behavior: auto;
+  }
+  .in__animate {
+    opacity: 1 !important;
+    visibility: visible !important;
+    animation: none !important;
+  }
+}
 .jarallax-keep-img {
   position: relative;
   z-index: 0;

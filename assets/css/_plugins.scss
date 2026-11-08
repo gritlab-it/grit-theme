@@ -11,7 +11,7 @@
 @use "./variables" as *;
 
 // * GRIT_SET 01 | owl-carousel
-// * GRIT_SET Carousel class reference: see CAROUSELS.md in the theme root.
+// * GRIT_SET Carousel class reference: see GUIDA.md, Caroselli Owl condivisi.
 // Numeric: carousel-{items|gap|padding|speed|timeout}[-{sm|md|lg|xl|xxl}]-N.
 // Flags: carousel-[no-]{loop|nav|dots|center|autoplay|auto-height|auto-width|rewind|drag|touch}[-breakpoint].
 // Positions: carousel-nav-{sides|top-left|top-right|bottom-left|bottom-right}.
@@ -216,6 +216,16 @@ section.carousel-dots-outside .owl-carousel .owl-dots {
 .visible {
     opacity: 1;
     visibility: visible;
+}
+
+// Reduced motion also applies to native scrolling and generic entrance effects.
+@media (prefers-reduced-motion: reduce) {
+    :root { scroll-behavior: auto; }
+    .in__animate {
+        opacity: 1 !important;
+        visibility: visible !important;
+        animation: none !important;
+    }
 }
 
 // * GRIT_SET 03 | jarallax
