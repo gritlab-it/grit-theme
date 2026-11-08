@@ -15,12 +15,11 @@
 // 11 | Preserve native ?s= searches and support the legacy search_query alias.
 // 12 | Contact Form 7 | Current and referring page tags.
 // 13 | Upload MIME types | JSON and SVG registration.
-// 14 | ACF values | Preserve the existing empty-value save policy.
-// 15 | Section Archive | Public content types and available card templates.
-// 16 | Customize named ACF fields only when they belong to section_archive.
-// 17 | Taxonomy archives | Include public CPTs registered to categories, tags or custom taxonomies.
-// 18 | Template helpers | Used by the root PHP controllers.
-// 19 | Section Maps: validated locations and independent instances
+// 14 | Section Archive | Public content types and available card templates.
+// 15 | Customize named ACF fields only when they belong to section_archive.
+// 16 | Taxonomy archives | Include public CPTs registered to categories, tags or custom taxonomies.
+// 17 | Template helpers | Used by the root PHP controllers.
+// 18 | Section Maps: validated locations and independent instances
 
 if (get_theme_mod('grit_adv_adminbar', true)) {
   show_admin_bar( false );
@@ -579,22 +578,10 @@ function allow_svg_mime_types( $data, $file, $filename, $mimes ) {
 }
 add_filter( 'wp_check_filetype_and_ext', 'allow_svg_mime_types', 10, 4 );
 
-// * GRIT_SET 14 | ACF values | Preserve the existing empty-value save policy.
-add_filter('acf/update_value', 'skip_empty_acf_fields', 10, 3);
-
-// Existing save policy: empty() also matches zero, "0" and false. This refactor deliberately preserves it.
-function skip_empty_acf_fields($value, $post_id, $field) {
-    // Preserve the existing null return for all values matched by empty().
-    if (empty($value)) {
-        return null;
-    }
-    return $value;
-}
-
 // Existing global policy for WordPress doing_it_wrong notifications.
 add_filter('doing_it_wrong_trigger_error', '__return_false', 0);
 
-// * GRIT_SET 15 | Section Archive | Public content types and available card templates.
+// * GRIT_SET 14 | Section Archive | Public content types and available card templates.
 // List registered public post types for the Section Archive selector; attachments are excluded.
 function grit_archive_public_types() {
     $choices = [];
@@ -622,7 +609,7 @@ function grit_archive_tease_choices() {
     }
     return $choices;
 }
-// * GRIT_SET 16 | Customize named ACF fields only when they belong to section_archive.
+// * GRIT_SET 15 | Customize named ACF fields only when they belong to section_archive.
 // Update only post_type, tease and taxonomy fields inside section_archive; identically named fields elsewhere are unchanged.
 function grit_archive_admin_field($field) {
     $parent = acf_get_raw_field($field['parent'] ?? 0);
@@ -774,7 +761,7 @@ function grit_archive_excerpt($post, $length = 35) {
     return wp_trim_words(wp_strip_all_tags(strip_shortcodes(strip_tags((string) $text))), max(1, (int) $length), '…');
 }
 
-// * GRIT_SET 17 | Taxonomy archives | Include public CPTs registered to categories, tags or custom taxonomies.
+// * GRIT_SET 16 | Taxonomy archives | Include public CPTs registered to categories, tags or custom taxonomies.
 // WordPress otherwise limits category/tag archives to standard posts. Run before pagination/404 checks.
 // Filter the native main taxonomy query before SQL/pagination. Edit $archive_post_types below to choose visible types.
 function grit_taxonomy_archive_post_types($query) {
@@ -829,7 +816,7 @@ function grit_taxonomy_archive_post_types($query) {
 }
 add_action('pre_get_posts', 'grit_taxonomy_archive_post_types');
 
-// * GRIT_SET 18 | Template helpers | Used by the root PHP controllers.
+// * GRIT_SET 17 | Template helpers | Used by the root PHP controllers.
 // Fields: expose ACF values by name. Content: preserve WordPress globals. Query: prepare counts.
 // Expose ACF values by field name for a page/post ID or a taxonomy_term ID; protected numeric sources stay private.
 function grit_template_fields($context, $object_id) {
@@ -919,7 +906,7 @@ function grit_template_query($context, $query) {
     return $context;
 }
 
-// * GRIT_SET 19 | Section Maps | Validate map data and load the local controller only when needed.
+// * GRIT_SET 18 | Section Maps | Validate map data and load the local controller only when needed.
 // Zero is a valid latitude/longitude. Empty, nonnumeric and out-of-range values are rejected.
 function grit_maps_coordinates($value) {
     if (!is_array($value) || !isset($value['lat'], $value['lng'])) {
