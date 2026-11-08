@@ -406,8 +406,13 @@
     background: radial-gradient(ellipse at top, $secondary 0, $light 65%);
     color: $text-color;
     font-size: 1rem;
-    .bio-shell { max-width: 30rem; margin-inline: auto; }
-    .bio-profile { margin-bottom: 2rem; }
+    .bio-shell {
+        max-width: 30rem;
+        margin-inline: auto;
+    }
+    .bio-profile {
+        margin-bottom: 2rem;
+    }
     .bio-avatar {
         display: block;
         width: 96px;
@@ -418,11 +423,29 @@
         background: $white;
         box-shadow: 0 8px 24px rgba($dark, .08);
     }
-    .bio-avatar-logo { object-fit: contain; padding: 1.25rem; }
-    .bio-avatar-initial { display: grid; place-items: center; font-size: 2.5rem; font-weight: bold; }
-    .bio-description { max-width: 25rem; margin-inline: auto; line-height: 1.6; overflow-wrap: anywhere; }
-    .bio-description > :last-child { margin-bottom: 0; }
-    .link-list-bio { display: grid; gap: .75rem; }
+    .bio-avatar-logo {
+        object-fit: contain;
+        padding: 1.25rem;
+    }
+    .bio-avatar-initial {
+        display: grid;
+        place-items: center;
+        font-size: 2.5rem;
+        font-weight: bold;
+    }
+    .bio-description {
+        max-width: 25rem;
+        margin-inline: auto;
+        line-height: 1.6;
+        overflow-wrap: anywhere;
+    }
+    .bio-description > :last-child {
+        margin-bottom: 0;
+    }
+    .link-list-bio {
+        display: grid;
+        gap: .75rem;
+    }
     .bio-link {
         display: flex;
         align-items: center;
@@ -435,15 +458,50 @@
         color: $text-color;
         text-decoration: none;
     }
-    .bio-link-icon { display: grid; place-items: center; flex: 0 0 2.75rem; height: 2.75rem; border-radius: 50%; background: $light; }
-    .bio-link-copy { flex: 1; min-width: 0; overflow-wrap: anywhere; }
-    .bio-link-copy strong, .bio-link-copy span { display: block; }
-    .bio-link-copy span { font-size: .875rem; margin-top: .25rem; }
-    .bio-link-arrow { font-size: 1.5rem; flex-shrink: 0; }
-    .bio-link-featured { background: $dark; color: $light; border-color: $dark; }
-    .bio-link-featured .bio-link-icon { background: $accent; color: $black; }
-    .bio-label { font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; margin: 2rem 0 1rem; }
-    .bio-contacts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+    .bio-link-icon {
+        display: grid;
+        place-items: center;
+        flex: 0 0 2.75rem;
+        height: 2.75rem;
+        border-radius: 50%;
+        background: $light;
+    }
+    .bio-link-copy {
+        flex: 1;
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+    .bio-link-copy strong, .bio-link-copy span {
+        display: block;
+    }
+    .bio-link-copy span {
+        font-size: .875rem;
+        margin-top: .25rem;
+    }
+    .bio-link-arrow {
+        font-size: 1.5rem;
+        flex-shrink: 0;
+    }
+    .bio-link-featured {
+        background: $dark;
+        color: $light;
+        border-color: $dark;
+    }
+    .bio-link-featured .bio-link-icon {
+        background: $accent;
+        color: $black;
+    }
+    .bio-label {
+        font-size: .75rem;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        margin: 2rem 0 1rem;
+    }
+    .bio-contacts {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: .75rem;
+    }
     .bio-contact {
         display: flex;
         flex-direction: column;
@@ -458,15 +516,49 @@
         text-decoration: none;
         overflow-wrap: anywhere;
     }
-    .bio-contact-icon { font-size: 1.25rem; margin-bottom: .35rem; }
-    .bio-contact > span:last-child { font-size: .8125rem; line-height: 1.45; }
-    .bio-socials { display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem; margin-top: 2rem; }
-    .bio-socials a { display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid rgba($dark, .15); border-radius: 50%; font-size: 1.25rem; color: $text-color; }
-    .bio-share { display: inline-block; padding: .75rem; font-size: .8125rem; color: $text-color; }
-    a:focus-visible { outline: 3px solid $primary; outline-offset: 4px; }
+    .bio-contact-icon {
+        font-size: 1.25rem;
+        margin-bottom: .35rem;
+    }
+    .bio-contact > span:last-child {
+        font-size: .8125rem;
+        line-height: 1.45;
+    }
+    .bio-socials {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: .75rem;
+        margin-top: 2rem;
+    }
+    .bio-socials a {
+        display: grid;
+        place-items: center;
+        width: 48px;
+        height: 48px;
+        border: 1px solid rgba($dark, .15);
+        border-radius: 50%;
+        font-size: 1.25rem;
+        color: $text-color;
+    }
+    .bio-share {
+        display: inline-block;
+        padding: .75rem;
+        font-size: .8125rem;
+        color: $text-color;
+    }
+    a:focus-visible {
+        outline: 3px solid $primary;
+        outline-offset: 4px;
+    }
     @media (hover: hover) {
-        .bio-link:hover, .bio-contact:hover, .bio-socials a:hover { border-color: $primary; box-shadow: 0 4px 16px rgba($dark, .12); }
-        .bio-link-featured:hover { color: $light; }
+        .bio-link:hover, .bio-contact:hover, .bio-socials a:hover {
+            border-color: $primary;
+            box-shadow: 0 4px 16px rgba($dark, .12);
+        }
+        .bio-link-featured:hover {
+            color: $light;
+        }
     }
 }
 

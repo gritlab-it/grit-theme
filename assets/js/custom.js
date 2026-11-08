@@ -14,8 +14,7 @@
 // 10 | Video player
 // 11 | Counters
 // 12 | GSAP, ScrollTrigger, Lenis and decorative bars
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 00 * GRIT_SET Loader and native link behavior */
+// * GRIT_SET 00 | Loader and native link behavior
 $(function () {
     setTimeout(function () {
         $("body").addClass("loaded");
@@ -89,8 +88,7 @@ window.addEventListener("pageshow", function (event) {
 });
 
 
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 01 * GRIT_SET Entrance animations  */
+// * GRIT_SET 01 | Entrance animations
 // Example: <div class="in__animate" data-animation="animate__fadeInUp animate__slow">
 $(function () {
     if (!document.getElementById("content")) return;
@@ -125,8 +123,7 @@ $(function () {
     });
 });
 
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 02 * GRIT_SET Header menus and sticky state */
+// * GRIT_SET 02 | Header menus and sticky state
 // * GRIT_SET Header navigation | Inline expansion (1), overlay dialogs (2–5), shared submenus and sticky state.
 $(function () {
     document.querySelectorAll(".grit-header").forEach(function (header) {
@@ -341,7 +338,7 @@ $(function () {
     });
 });
 
-/* :::::::::::::: 03 * GRIT_SET Owl carousels */
+// * GRIT_SET 03 | Owl carousels
 // * GRIT_SET Shared Owl presets and responsive class overrides
 (function ($) {
     var breakpoints = { base: 0, sm: 576, md: 768, lg: 992, xl: 1200, xxl: 1400 };
@@ -444,8 +441,7 @@ $(function () {
     });
 })(jQuery);
 
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 04 * GRIT_SET Gallery sizing and Nivo Lightbox */
+// * GRIT_SET 04 | Gallery sizing and Nivo Lightbox
 // * GRIT_SET Static gallery columns and gaps from section class tokens
 jQuery(function ($) {
     $('section.section_gallery').each(function () {
@@ -498,8 +494,7 @@ if (typeof jQuery.fn.nivoLightbox === "function") {
     });
 }
 
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 05 * GRIT_SET Magic Mouse */
+// * GRIT_SET 05 | Magic Mouse
 $(document).ready(function () {
     if (typeof window.magicMouse === "function") {
         $(".main").addClass("magicmouse_active");
@@ -519,8 +514,7 @@ $(document).ready(function () {
     }
 });
 
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 06 * GRIT_SET Jarallax  */
+// * GRIT_SET 06 | Jarallax
 // * GRIT_SET Initialize available Jarallax instances independently of Owl
 jQuery(function ($) {
     if (typeof $.fn.jarallax !== 'function') return;
@@ -541,7 +535,7 @@ jQuery(function ($) {
     });
 });
 
-/* :::::::::::::: 07 * GRIT_SET Masonry */
+// * GRIT_SET 07 | Masonry
 // * GRIT_SET Initialize Text and Archive Masonry grids once; Bootstrap remains the fallback.
 jQuery(function () {
     if (typeof window.Masonry !== 'function') return;
@@ -567,8 +561,7 @@ jQuery(function () {
     });
 });
 
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 08 * GRIT_SET NProgress */
+// * GRIT_SET 08 | NProgress
 // Check the API: a script tag can exist even if the request failed.
 $(function () {
     if (!window.NProgress || typeof window.NProgress.start !== "function") return;
@@ -576,8 +569,7 @@ $(function () {
     setTimeout(function () { window.NProgress.done(); }, 1000);
 });
 
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 09 * GRIT_SET Collapse and tabs */
+// * GRIT_SET 09 | Collapse and tabs
 // * GRIT_SET Collapse legend: List.js search, Bootstrap state sync, visible-tab Owl refresh
 jQuery(function ($) {
     // * GRIT_SET One independent List.js instance per search section
@@ -636,8 +628,7 @@ jQuery(function ($) {
     });
 });
 
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 10 * GRIT_SET Video player */
+// * GRIT_SET 10 | Video player
 // * GRIT_SET Video controller | Independent sections; no inline handlers or forced looping.
 function initializeGritVideos() {
     document.querySelectorAll('[data-grit-video]').forEach(root => {
@@ -698,8 +689,7 @@ function initializeGritVideos() {
 }
 $(initializeGritVideos);
 
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 11 * GRIT_SET Counters */
+// * GRIT_SET 11 | Counters
 // * GRIT_SET Counter legend: final fallback, locale formatting, shared observer, timed animation
 function startCounterAnimation() {
     const counters = Array.from(document.querySelectorAll('.number-animate'));
@@ -785,12 +775,12 @@ function startCounterAnimation() {
 $(startCounterAnimation);
 
 
-/* :::::::::::::: 12 * GRIT_SET GSAP, ScrollTrigger, Lenis and decorative bars */
+// * GRIT_SET 12 | GSAP, ScrollTrigger, Lenis and decorative bars
 
 // * GRIT_SET Motion legend | Shared by Section Text and image parallax.
 // 01 | Optional Lenis and anchor navigation, respecting reduced motion.
-// 02 | Per-section effects; matchMedia restores animations and pin spacing.
-// 03 | Native word wrapping: preserve HTML, links and original text on cleanup.
+// 02 | Native word wrapping: preserve HTML, links and original text on cleanup.
+// 03 | Per-section effects; matchMedia restores animations and pin spacing.
 // 04 | Rebuild safely after resize/fonts; images request a debounced refresh.
 (function () {
     const hasGSAP = !!(window.gsap && window.ScrollTrigger && window.gsap.matchMedia);
@@ -854,7 +844,7 @@ $(startCounterAnimation);
             }, 100);
         };
 
-        // * GRIT_SET 03 | Wrap text nodes without replacing the surrounding markup.
+        // * GRIT_SET 02 | Wrap text nodes without replacing the surrounding markup.
         function wrapWords(root, cleanup) {
             const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
             const nodes = [];
@@ -881,7 +871,7 @@ $(startCounterAnimation);
             return words;
         }
 
-        // * GRIT_SET 02 | Every rebuild first restores the previous DOM and GSAP context.
+        // * GRIT_SET 03 | Every rebuild first restores the previous DOM and GSAP context.
         function rebuild() {
             if (media) media.revert();
             media = gsap.matchMedia();

@@ -4,7 +4,7 @@
 // Frontend asset loading and external service integrations.
 // 01 | Add prefetching rules
 // 02 | Frontend CSS and JavaScript loading
-// 03 | Javascript for comments
+// 03 | Comment reply script
 // 04 | Library: Bootstrap 4.6.2 CSS JS
 // 05 | Always load Fontawesome
 // 06 | Always load Animate CSS
@@ -15,7 +15,7 @@
 // 11 | Library: Locomotive
 // 12 | Library: Lightbox2
 // 13 | Library: Fitty
-// 14 | Library: Images Loaded
+// 14 | Library: ImagesLoaded
 // 15 | Library: Masonry
 // 16 | Library: Swiper
 // 17 | Library: Owl Carousel CSS JS
@@ -25,10 +25,10 @@
 // 21 | Library: Cocoen CSS JS
 // 22 | CSS
 // 23 | JS
-// 24 | Carico style.css
-// 25 | Carico style.css
-// 26 | Carico il CSS custom
-// 27 | Carico il JS custom
+// 24 | Parent theme stylesheet
+// 25 | Compiled main stylesheet
+// 26 | Custom stylesheet
+// 27 | Frontend script and dependencies
 // 28 | Google Tag Manager
 // 29 | Hotjar Tracking Code
 
@@ -53,7 +53,7 @@ function grit_scripts()
     // * GRIT_SET Use WordPress jQuery and its dependencies without CDN replacements
     wp_enqueue_script('jquery');
 
-    // * GRIT_SET 03 | Javascript for comments
+    // * GRIT_SET 03 | Comment reply script
 
     if (is_single() && comments_open() && get_option('thread_comments')) {
         wp_enqueue_script('comment-reply');
@@ -92,7 +92,7 @@ function grit_scripts()
         //wp_enqueue_script('gsap-gsdevtools', get_template_directory_uri() . '/assets/gsap/gsdevtools.js', array(), '1.0.0', true);    
     }
 
-        // * GRIT_SET 09 | Library: Three.js
+    // * GRIT_SET 09 | Library: Three.js
 
     if ($GLOBALS['assets_options']['GRIT_SETTING_THREE']) {
         wp_enqueue_script('three', get_template_directory_uri() . '/assets/three/three.min.js', array(), '1.0.0', true);
@@ -130,7 +130,7 @@ function grit_scripts()
         wp_enqueue_script('fitty', get_template_directory_uri() . '/assets/fitty/fitty.min.js', array(), '1.0.0', true);
     }
 
-    // * GRIT_SET 14 | Library: Images Loaded
+    // * GRIT_SET 14 | Library: ImagesLoaded
     // Reference: https://imagesloaded.desandro.com/
 
     if ($GLOBALS['assets_options']['GRIT_SETTING_IMAGESLOADED']) {
@@ -209,19 +209,19 @@ add_action('wp_enqueue_scripts', 'grit_scripts', 100);
 
 function grit_scripts_custom()
 {
-    // * GRIT_SET 24 | Carico style.css
+    // * GRIT_SET 24 | Parent theme stylesheet
 
     wp_enqueue_style('style', get_template_directory_uri() . '/style.css');
 
-    // * GRIT_SET 25 | Carico style.css
+    // * GRIT_SET 25 | Compiled main stylesheet
 
     wp_enqueue_style('main', get_template_directory_uri() . '/assets/css/main.css', array(), filemtime(get_template_directory() . '/assets/css/main.css'));
 
-    // * GRIT_SET 26 | Carico il CSS custom
+    // * GRIT_SET 26 | Custom stylesheet
 
     wp_enqueue_style('custom', get_template_directory_uri() . '/assets/css/custom.css');
 
-    // * GRIT_SET 27 | Carico il JS custom
+    // * GRIT_SET 27 | Frontend script and dependencies
 
     // * GRIT_SET Load one local List.js copy before the shared frontend initializer
     $grit_script_dependencies = array('jquery');

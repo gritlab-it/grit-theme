@@ -17,21 +17,18 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
  * Theme activation
  */
 
-// Funzione per la disattivazione del tema
 // * GRIT_SET 01 | Reset activation options when switching themes
 function grit_deactivation() {
     delete_option('grit_theme_activation_options');
 }
 add_action('switch_theme', 'grit_deactivation');
 
-// Reindirizzamento dopo l'attivazione del tema
 // * GRIT_SET 02 | Redirect to the activation options screen
 if (is_admin() && isset($_GET['activated']) && 'themes.php' == $GLOBALS['pagenow']) {
     wp_redirect(admin_url('themes.php?page=theme_activation_options'));
     exit;
 }
 
-// Registrazione delle impostazioni di attivazione del tema
 // * GRIT_SET 03 | Register activation settings and admin screen
 function grit_theme_activation_options_init() {
     register_setting(
@@ -52,13 +49,13 @@ function grit_sanitize_activation_options($input) {
     return $options;
 }
 
-// Definizione delle capacità della pagina di attivazione
+// Use the same capability for the setup screen and its settings.
 function grit_activation_options_page_capability() {
     return 'edit_theme_options';
 }
 add_filter('option_page_capability_grit_activation_options', 'grit_activation_options_page_capability');
 
-// Aggiunta della pagina di attivazione nel menu admin
+// Register the setup screen under Appearance.
 function grit_theme_activation_options_add_page() {
     add_theme_page(
         __('Theme Activation', 'grit'),
@@ -70,7 +67,7 @@ function grit_theme_activation_options_add_page() {
 }
 add_action('admin_menu', 'grit_theme_activation_options_add_page', 50);
 
-// Recupero delle opzioni di attivazione del tema
+// Read the saved setup choices. del tema
 function grit_get_theme_activation_options() {
     return get_option('grit_theme_activation_options');
 }
@@ -431,69 +428,69 @@ function grit_theme_activation_action() {
         ),
 
     );
-// End default pages configuration
+    // End default pages configuration
 
-// Create only the pages requested; never assign an unpublished existing page.
-$create_home = $grit_theme_activation_options['create_front_page'] === 'true';
-$create_pages = $grit_theme_activation_options['create_additional_page'] === 'true';
-if ($create_home || $create_pages) {
-    $pages_ok = true;
-    foreach ($default_pages as $page_data) {
-        if (!$create_pages && $page_data['slug'] !== 'home') {
-            continue;
-        }
-        $page = !empty($page_data['policy'])
-            ? grit_policy_page($page_data['policy'])
-            : get_page_by_path($page_data['slug'], OBJECT, 'page');
-        if ($page) {
-            // Reuse the selected Privacy page without changing its content, status or template.
-            if (($page_data['policy'] ?? '') === 'privacy') {
-                update_option('wp_page_for_privacy_policy', $page->ID);
+    // Create only the pages requested; never assign an unpublished existing page.
+    $create_home = $grit_theme_activation_options['create_front_page'] === 'true';
+    $create_pages = $grit_theme_activation_options['create_additional_page'] === 'true';
+    if ($create_home || $create_pages) {
+        $pages_ok = true;
+        foreach ($default_pages as $page_data) {
+            if (!$create_pages && $page_data['slug'] !== 'home') {
+                continue;
             }
-            continue;
-        }
-        $new_page = [
-            'post_title' => $page_data['title'], 'post_name' => $page_data['slug'],
-            'post_content' => '', 'post_status' => 'publish', 'post_type' => 'page',
-        ];
-        if ($page_data['template'] !== '') {
-            $new_page['page_template'] = $page_data['template'];
-        }
-        $result = wp_insert_post($new_page, true);
-        if (is_wp_error($result) || !$result) {
-            $pages_ok = false;
-            add_settings_error('grit_theme_activation_options', 'grit_page_failed', 'Impossibile creare la pagina: ' . $page_data['title']);
-        } elseif (($page_data['policy'] ?? '') === 'privacy') {
-            update_option('wp_page_for_privacy_policy', $result);
-        }
-    }
-    if ($create_pages && $pages_ok) {
-        $grit_theme_activation_options['create_additional_page'] = false;
-    }
-    if ($create_home) {
-        $home = get_page_by_path('home', OBJECT, 'page');
-        if ($home && $home->post_status === 'publish') {
-            update_option('show_on_front', 'page');
-            update_option('page_on_front', $home->ID);
-            $grit_theme_activation_options['create_front_page'] = false;
-            $blog = get_page_by_path('blog', OBJECT, 'page');
-            if ($blog && $blog->post_status === 'publish') {
-                update_option('page_for_posts', $blog->ID);
+            $page = !empty($page_data['policy'])
+                ? grit_policy_page($page_data['policy'])
+                : get_page_by_path($page_data['slug'], OBJECT, 'page');
+            if ($page) {
+                // Reuse the selected Privacy page without changing its content, status or template.
+                if (($page_data['policy'] ?? '') === 'privacy') {
+                    update_option('wp_page_for_privacy_policy', $page->ID);
+                }
+                continue;
             }
-        } else {
-            add_settings_error('grit_theme_activation_options', 'grit_home_unavailable', 'La pagina Home non è disponibile o non è pubblicata.');
+            $new_page = [
+                'post_title' => $page_data['title'], 'post_name' => $page_data['slug'],
+                'post_content' => '', 'post_status' => 'publish', 'post_type' => 'page',
+            ];
+            if ($page_data['template'] !== '') {
+                $new_page['page_template'] = $page_data['template'];
+            }
+            $result = wp_insert_post($new_page, true);
+            if (is_wp_error($result) || !$result) {
+                $pages_ok = false;
+                add_settings_error('grit_theme_activation_options', 'grit_page_failed', 'Impossibile creare la pagina: ' . $page_data['title']);
+            } elseif (($page_data['policy'] ?? '') === 'privacy') {
+                update_option('wp_page_for_privacy_policy', $result);
+            }
+        }
+        if ($create_pages && $pages_ok) {
+            $grit_theme_activation_options['create_additional_page'] = false;
+        }
+        if ($create_home) {
+            $home = get_page_by_path('home', OBJECT, 'page');
+            if ($home && $home->post_status === 'publish') {
+                update_option('show_on_front', 'page');
+                update_option('page_on_front', $home->ID);
+                $grit_theme_activation_options['create_front_page'] = false;
+                $blog = get_page_by_path('blog', OBJECT, 'page');
+                if ($blog && $blog->post_status === 'publish') {
+                    update_option('page_for_posts', $blog->ID);
+                }
+            } else {
+                add_settings_error('grit_theme_activation_options', 'grit_home_unavailable', 'La pagina Home non è disponibile o non è pubblicata.');
+            }
         }
     }
-}
 
-// Set default theme mods on first activation
-if (get_theme_mod('grit_setting_header', false) === false) {
-    set_theme_mod('grit_setting_header', 'header_1');
-}
+    // Set default theme mods on first activation
+    if (get_theme_mod('grit_setting_header', false) === false) {
+        set_theme_mod('grit_setting_header', 'header_1');
+    }
 
-if (get_theme_mod('grit_setting_footer', false) === false) {
-    set_theme_mod('grit_setting_footer', 'footer_1');
-}
+    if (get_theme_mod('grit_setting_footer', false) === false) {
+        set_theme_mod('grit_setting_footer', 'footer_1');
+    }
 
     // change_permalink_structure
 
@@ -521,8 +518,7 @@ if (get_theme_mod('grit_setting_footer', false) === false) {
 
     if ($grit_theme_activation_options['create_navigation_menus'] === 'true') {
         $grit_theme_activation_options['create_navigation_menus'] = false;
-    
-    
+
         $nav_theme_mod = (array) get_theme_mod('nav_menu_locations', []);
     
         foreach ($menu_locations as $location => $menu_name) {
@@ -551,71 +547,70 @@ if (get_theme_mod('grit_setting_footer', false) === false) {
 
     // add_pages_to_all_navigation_menus
 
-if ($grit_theme_activation_options['add_pages_to_primary_navigation'] === 'true') {
-    $grit_theme_activation_options['add_pages_to_primary_navigation'] = false;
+    if ($grit_theme_activation_options['add_pages_to_primary_navigation'] === 'true') {
+        $grit_theme_activation_options['add_pages_to_primary_navigation'] = false;
 
+        foreach ($menu_locations as $location => $menu_name) {
+            $assigned = (array) get_theme_mod('nav_menu_locations', []);
+            $menu_obj = wp_get_nav_menu_object($assigned[$location] ?? $menu_name);
 
-    foreach ($menu_locations as $location => $menu_name) {
-        $assigned = (array) get_theme_mod('nav_menu_locations', []);
-        $menu_obj = wp_get_nav_menu_object($assigned[$location] ?? $menu_name);
-
-        if (!$menu_obj) {
-            continue;
-        }
-
-        $menu_id = (int) $menu_obj->term_id;
-
-        foreach ($default_pages as $page_data) {
-            if (empty($page_data['menus']) || !in_array($location, $page_data['menus'], true)) {
+            if (!$menu_obj) {
                 continue;
             }
 
-            $page = !empty($page_data['policy'])
-                ? grit_policy_page($page_data['policy'])
-                : get_page_by_path($page_data['slug'], OBJECT, 'page');
+            $menu_id = (int) $menu_obj->term_id;
 
-            if (!$page || $page->post_status !== 'publish') {
-                continue;
-            }
+            foreach ($default_pages as $page_data) {
+                if (empty($page_data['menus']) || !in_array($location, $page_data['menus'], true)) {
+                    continue;
+                }
 
-            // Check if page is already in menu
-            $already_exists = false;
-            $menu_items = wp_get_nav_menu_items($menu_id);
+                $page = !empty($page_data['policy'])
+                    ? grit_policy_page($page_data['policy'])
+                    : get_page_by_path($page_data['slug'], OBJECT, 'page');
 
-            if ($menu_items) {
-                foreach ($menu_items as $item) {
-                    if ((int) $item->object_id === (int) $page->ID && $item->object === 'page') {
-                        $already_exists = true;
-                        break;
+                if (!$page || $page->post_status !== 'publish') {
+                    continue;
+                }
+
+                // Check if page is already in menu
+                $already_exists = false;
+                $menu_items = wp_get_nav_menu_items($menu_id);
+
+                if ($menu_items) {
+                    foreach ($menu_items as $item) {
+                        if ((int) $item->object_id === (int) $page->ID && $item->object === 'page') {
+                            $already_exists = true;
+                            break;
+                        }
                     }
                 }
-            }
 
-            if ($already_exists) {
-                continue;
-            }
+                if ($already_exists) {
+                    continue;
+                }
 
-            $item_data = array(
-                'menu-item-object-id' => $page->ID,
-                'menu-item-object'    => 'page',
-                'menu-item-type'      => 'post_type',
-                'menu-item-status'    => 'publish',
-                'menu-item-title'     => !empty($page_data['menu_label']) ? $page_data['menu_label'] : $page_data['title'],
-                'menu-item-position'  => !empty($page_data['menu_order']) ? (int) $page_data['menu_order'] : 0,
-            );
+                $item_data = array(
+                    'menu-item-object-id' => $page->ID,
+                    'menu-item-object'    => 'page',
+                    'menu-item-type'      => 'post_type',
+                    'menu-item-status'    => 'publish',
+                    'menu-item-title'     => !empty($page_data['menu_label']) ? $page_data['menu_label'] : $page_data['title'],
+                    'menu-item-position'  => !empty($page_data['menu_order']) ? (int) $page_data['menu_order'] : 0,
+                );
 
-            if ($location === 'bio_navigation') {
-                $item_data['menu-item-description'] = $page_data['bio_description'] ?? '';
-            }
+                if ($location === 'bio_navigation') {
+                    $item_data['menu-item-description'] = $page_data['bio_description'] ?? '';
+                }
 
-            $menu_item = wp_update_nav_menu_item($menu_id, 0, $item_data);
-            if (is_wp_error($menu_item)) {
-                $grit_theme_activation_options['add_pages_to_primary_navigation'] = 'true';
-                add_settings_error('grit_theme_activation_options', 'grit_menu_item_failed', $menu_item->get_error_message());
+                $menu_item = wp_update_nav_menu_item($menu_id, 0, $item_data);
+                if (is_wp_error($menu_item)) {
+                    $grit_theme_activation_options['add_pages_to_primary_navigation'] = 'true';
+                    add_settings_error('grit_theme_activation_options', 'grit_menu_item_failed', $menu_item->get_error_message());
+                }
             }
         }
     }
-}
     // end - add_pages_to_all_navigation_menus
 
     // Create once through CF7; keep the option pending if the plugin is unavailable.
@@ -628,8 +623,7 @@ if ($grit_theme_activation_options['add_pages_to_primary_navigation'] === 'true'
         }
     }
 
-
-    // Controlla se l'opzione per importare i campi ACF è attiva
+    // Import ACF definitions only when requested.
     if (isset($grit_theme_activation_options['import_acf_fields']) && $grit_theme_activation_options['import_acf_fields'] === 'true') {
         $acf_result = import_acf_fields_from_json();
         if (is_wp_error($acf_result)) {
@@ -639,16 +633,14 @@ if ($grit_theme_activation_options['add_pages_to_primary_navigation'] === 'true'
         }
     }
 
-    // Aggiorna le opzioni di attivazione
+    // Save completed operations and leave failed operations available for retry.
     update_option('grit_theme_activation_options', $grit_theme_activation_options);
     $running = false;
 }
 // Run after settings have been saved, not during the preceding admin request.
 add_action('add_option_grit_theme_activation_options', 'grit_theme_activation_action');
 add_action('update_option_grit_theme_activation_options', 'grit_theme_activation_action');
-/* End - Create front page ----------------------------------------------------
----------------------------------------------------- --------------------------
----------------------------------------------------- End - Create front page */
+// End setup operations.
 
 // * GRIT_SET 06 | Import the local ACF field definitions
 function import_acf_fields_from_json() {

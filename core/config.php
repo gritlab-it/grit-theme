@@ -2,88 +2,85 @@
 
 // * GRIT_SET Legend | Config
 // Frontend library switches and additional asset lists.
-// 01 | Global asset configuration
-// 02 | Frontend library options
-// 03 | Additional stylesheet URLs
-// 04 | Additional JavaScript URLs
+// 01 | Frontend library options
+// 02 | Additional stylesheet URLs
+// 03 | Additional JavaScript URLs
 
-// * GRIT_SET 01 | Global asset configuration
-
-// * GRIT_SET 02 | Frontend library options
+// * GRIT_SET 01 | Frontend library options
 
 $GLOBALS['assets_options'] = array(
 
-    // Attiva libreria Bootstrap 4.6.2 CSS JS
+    // Library: Bootstrap 4.6.2 CSS JS
     'GRIT_SETTING_BOOTSTRAP' => true,
 
-    // Attiva libreria Fontawesome 5.15.1 fontawesome.com/icons
+    // Library: Fontawesome 5.15.1 fontawesome.com/icons
     'GRIT_SETTING_FA' => true,
 
-    // Attiva libreria Animate CSS animate.style
+    // Library: Animate CSS animate.style
     'GRIT_SETTING_ANIMATE' => true,
 
-    // Attiva libreria Hover CSS ianlunn.github.io/Hover
+    // Library: Hover CSS ianlunn.github.io/Hover
     'GRIT_SETTING_HOVER' => true,
 
-    // Attiva libreria Three js threejs.org
+    // Library: Three js threejs.org
     'GRIT_SETTING_THREE' => get_theme_mod('grit_setting_three', false),
 
-    // Attiva libreria Masonry js https://masonry.desandro.com
+    // Library: Masonry js https://masonry.desandro.com
     'GRIT_SETTING_MASONRY' => get_theme_mod('grit_setting_masonry', true),
 
-    // Attiva libreria Images Loaded js https://imagesloaded.desandro.com/
+    // Library: Images Loaded js https://imagesloaded.desandro.com/
     'GRIT_SETTING_IMAGESLOADED' => get_theme_mod('grit_setting_imagesloaded', true),
 
-    // Attiva libreria Lenis https://github.com/darkroomengineering/lenis
+    // Library: Lenis https://github.com/darkroomengineering/lenis
     'GRIT_SETTING_LENIS' => get_theme_mod('grit_setting_lenis', false),
 
-    // Attiva libreria Locomotive https://github.com/locomotivemtl/locomotive-scroll
+    // Library: Locomotive https://github.com/locomotivemtl/locomotive-scroll
     'GRIT_SETTING_LOCOMOTIVE' => get_theme_mod('grit_setting_locomotive'),
 
-    // Attiva libreria Lightbox2 https://lokeshdhakar.com/projects/lightbox2/
+    // Library: Lightbox2 https://lokeshdhakar.com/projects/lightbox2/
     'GRIT_SETTING_LIGHTBOX2' => get_theme_mod('grit_setting_lightbox2'),
 
-    // Attiva libreria Fitty js https://rikschennink.github.io/fitty/
+    // Library: Fitty js https://rikschennink.github.io/fitty/
     'GRIT_SETTING_FITTY' => get_theme_mod('grit_setting_fitty'),
 
-    // Attiva libreria GSAP https://github.com/greensock/GSAP
+    // Library: GSAP https://github.com/greensock/GSAP
     'GRIT_SETTING_GSAP' => get_theme_mod('grit_setting_gsap', false),
 
-    // Attiva libreria Swiper 10.2 https://swiperjs.com/get-started
+    // Library: Swiper 10.2 https://swiperjs.com/get-started
     'GRIT_SETTING_SWIPER' => get_theme_mod('grit_setting_swiper'),
 
-    // Attiva libreria Owl Carousel CSS JS owlcarousel2.github.io/OwlCarousel2
+    // Library: Owl Carousel CSS JS owlcarousel2.github.io/OwlCarousel2
     'GRIT_SETTING_OWL_CAROUSEL' => get_theme_mod('grit_setting_owl_carousel', true),
 
-    // Attiva libreria Jarallax https://github.com/nk-o/jarallax
+    // Library: Jarallax https://github.com/nk-o/jarallax
     'GRIT_SETTING_JARALLAX' => get_theme_mod('grit_setting_jarallax', true),
 
     // * GRIT_SET Search and pagination library, enabled by default
     'GRIT_SETTING_LIST' => get_theme_mod('grit_setting_list', true),
 
-    // Attiva libreria NProgress CSS JS https://ricostacruz.com/nprogress/
+    // Library: NProgress CSS JS https://ricostacruz.com/nprogress/
     'GRIT_SETTING_NPROGRESS' => get_theme_mod('grit_setting_nprogress', true),
 
-    // Attiva libreria Magic Mouse CSS JS magicmousejs.web.app
+    // Library: Magic Mouse CSS JS magicmousejs.web.app
     'GRIT_SETTING_MAGIC_MOUSE' => get_theme_mod('grit_setting_magic_mouse', false),
  
-    // Attiva libreria Cocoen CSS JS github.com/jotform/before-after.js
+    // Library: Cocoen CSS JS github.com/jotform/before-after.js
     'GRIT_SETTING_COCOEN' => get_theme_mod('grit_setting_cocoen'),
 
-    // Inserisci API key di Google Maps console.cloud.google.com
+    // Google Maps API key.
     'GRIT_SETTING_MAPS' => get_theme_mod('grit_setting_maps'),
 
 );
 
-// Attivo lista percorsi CSS di terze parti in core/scripts.php
-// * GRIT_SET 03 | Additional stylesheet URLs
+// Additional stylesheets are loaded by core/scripts.php.
+// * GRIT_SET 02 | Additional stylesheet URLs
 $GLOBALS['GRIT_SETTING_CSS'] = array(
 
     // 'data_table' => 'https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css',
 );
 
-// Attivo lista percorsi JS di terze parti in core/scripts.php
-// * GRIT_SET 04 | Additional JavaScript URLs
+// Additional scripts are loaded by core/scripts.php.
+// * GRIT_SET 03 | Additional JavaScript URLs
 $GLOBALS['GRIT_SETTING_JS'] = array(
 
     // 'smoth' => 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollSmoother.min.js', 

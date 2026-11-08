@@ -2,39 +2,39 @@
 <html class="no-js no-svg" {{ site.language_attributes }}>
 <head>
     <meta charset="{{ site.charset }}" />
-    
-    {# :::::::::::::: 01 * GRIT_SET SEO Yoast Setting #}  
-    {# * GRIT_SET WordPress title-tag and Yoast own title/SEO output through wp_head #}
+
+    {# * GRIT_SET 01 | Document title and SEO #}
+    {# WordPress and Yoast render title and SEO metadata through wp_head. #}
     {% if not function('defined', 'WPSEO_VERSION') %}
         <meta name="description" content="{{ site.description|e('html_attr') }}">
     {% endif %}
 
-    {# :::::::::::::: 02 * GRIT_SET SEO Meta Tag #}  
+    {# * GRIT_SET 02 | Browser metadata #}
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1"> 
-    
-    {# :::::::::::::: 03 * GRIT_SET SEO Author #}  
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {# * GRIT_SET 03 | Author and site links #}
     <link rel="author" href="{{ site.theme.uri }}/humans.txt">
     <link rel="pingback" href="{{ site.pingback_url }}">
-    <link rel="profile" href="http://gmpg.org/xfn/11"> 
+    <link rel="profile" href="http://gmpg.org/xfn/11">
 
-    {# * GRIT_SET Stylesheets are enqueued in core/scripts.php and printed by wp_head. #}
- 
-    {# :::::::::::::: 05 * GRIT_SET SEO Google Fonts #}  
+    {# * GRIT_SET 04 | Stylesheets are enqueued in core/scripts.php and printed by wp_head. #}
+
+    {# * GRIT_SET 05 | Google Fonts #}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     {% for font in setting_google_fonts %}
         <link href="{{font}}" rel="stylesheet">
-    {% endfor %} 
+    {% endfor %}
     <style>
         :root {
             --grit-font-primary:  {{setting_google_font_names[0]}};
             --grit-font-secondary:  {{setting_google_font_names[1]}};
-        } 
-    </style> 
- 
-    {# :::::::::::::: 06 * GRIT_SET SEO Google Fonts #}  
-    {# :::::::::::::::::   https://www.favicon-generator.org #}
+        }
+    </style>
+
+    {# * GRIT_SET 06 | Favicons #}
+    {# Reference: https://www.favicon-generator.org #}
     <link rel="apple-touch-icon" sizes="57x57" href="{{ site.theme.uri }}/img/favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="{{ site.theme.uri }}/img/favicon/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="{{ site.theme.uri }}/img/favicon/apple-icon-72x72.png">
@@ -51,7 +51,7 @@
     <link rel="manifest" href="{{ site.theme.uri }}/img/favicon/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="{{ site.theme.uri }}/img/favicon/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff"> 
+    <meta name="theme-color" content="#ffffff">
 
-    {# :::::::::::::: 06 * GRIT_SET SEO wp_head #} 
+    {# * GRIT_SET 07 | WordPress head hooks #}
     {{function('wp_head')}}
