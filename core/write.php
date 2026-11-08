@@ -78,7 +78,7 @@ ExpiresByType application/javascript "access plus 1 month"
 ExpiresByType application/x-javascript "access plus 1 month"
 ExpiresByType application/x-shockwave-flash "access plus 1 month"
 ExpiresByType image/x-icon "access plus 1 year"
-ExpiresDefault "access plus 2 days"
+ExpiresByType text/html "access plus 0 seconds"
 </IfModule>
 \n
 EOD;
