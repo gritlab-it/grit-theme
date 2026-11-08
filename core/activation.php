@@ -138,7 +138,7 @@ function grit_theme_activation_options_render_page() {
                                 <option value="true" <?php selected(($saved_options['create_navigation_menus'] ?? 'true') === 'true'); ?>><?php echo _e('Yes', 'grit'); ?></option>
                                 <option value="false" <?php selected(($saved_options['create_navigation_menus'] ?? 'true') !== 'true'); ?>><?php echo _e('No', 'grit'); ?></option>
                             </select>
-                            <p class="description"><?php printf(__('Create navigation menus, including Bio Links, and assign their locations', 'grit')); ?></p>
+                            <p class="description"><?php printf(__('Create navigation menus, including Bio Navigation, and assign their locations', 'grit')); ?></p>
                         </fieldset>
                     </td>
                 </tr>
@@ -518,7 +518,7 @@ if (get_theme_mod('grit_setting_footer', false) === false) {
             'secondary_navigation' => __('Secondary Navigation', 'grit'),
             'mobile_navigation'    => __('Mobile Navigation', 'grit'),
             'footer_navigation'    => __('Footer Navigation', 'grit'),
-            'bio_navigation'       => 'bio-menu',
+            'bio_navigation'       => 'bio_navigation',
         );
     
         $nav_theme_mod = (array) get_theme_mod('nav_menu_locations', []);
@@ -557,7 +557,7 @@ if ($grit_theme_activation_options['add_pages_to_primary_navigation'] === 'true'
         'secondary_navigation' => __('Secondary Navigation', 'grit'),
         'mobile_navigation'    => __('Mobile Navigation', 'grit'),
         'footer_navigation'    => __('Footer Navigation', 'grit'),
-        'bio_navigation'       => 'bio-menu',
+        'bio_navigation'       => 'bio_navigation',
     );
 
     foreach ($menu_locations as $location => $menu_name) {

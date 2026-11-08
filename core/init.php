@@ -17,7 +17,7 @@ function grit_setup() {
     'secondary_navigation' => __('Secondary Navigation', 'grit'),
     'mobile_navigation' => __('Mobile Navigation', 'grit'),
     'footer_navigation' => __('Footer Navigation', 'grit'),
-    'bio_navigation' => __('Bio Links', 'grit')
+    'bio_navigation' => __('Bio Navigation', 'grit')
   ));
 
   // WordPress manages document titles, feed links and featured images.

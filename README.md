@@ -69,6 +69,10 @@ Il flag TGMPA “obbligatorio” è una scelta di distribuzione del tema: non si
 
 Le operazioni di setup possono modificare pagine, menu, impostazioni e definizioni ACF. Prima di riapplicarle su un progetto già avviato fare un backup di file e database. Le operazioni vengono eseguite al salvataggio della schermata, solo per le opzioni selezionate. Homepage e pagine aggiuntive sono indipendenti; le pagine esistenti vengono riutilizzate e le assegnazioni menu conservate. Un’operazione completata viene disattivata; un errore lascia la relativa opzione disponibile per riprovare. Il setup non importa contenuti dimostrativi o media.
 
+### Menu Bio
+
+Il setup crea il menu `bio_navigation` con About e Contatti e lo assegna alla posizione **Bio Navigation** (`bio_navigation`). In Twig è disponibile come `bio_menu`, come avviene per `primary_navigation` e `primary_menu`. Titoli, descrizioni e nuovi collegamenti si gestiscono da **Aspetto → Menu**.
+
 ### Pagine Privacy e Cookie Policy
 
 Usare il template predefinito e gli slug `privacy-policy` e `cookie-policy`: `page.php` carica automaticamente `page-privacy-policy.twig` e `page-cookie-policy.twig`. Il titolo può essere modificato liberamente; cambiando slug occorre adeguare anche il nome del Twig. I template usano i contenuti della pagina e, quando vuoti, i rispettivi contenuti predefiniti già previsti dal tema. Per la Cookie Policy il documento automatico richiede lo shortcode di Complianz; in sua assenza viene mostrato un messaggio di documento non disponibile. È possibile compilare direttamente il contenuto della pagina.
@@ -135,3 +139,7 @@ Se compare l’avviso Timber mancante, controllare `vendor/autoload.php` e l’i
 Il manuale operativo è **[GUIDA.md](GUIDA.md)**, con campi, classi, esempi e indicazioni per personalizzare i componenti. I README, i changelog e le licenze conservati dentro `assets/` delle librerie di terze parti appartengono ai rispettivi pacchetti e non vanno eliminati insieme alla documentazione del tema.
 
 Il codice del tema è distribuito secondo [LICENSE](LICENSE). Le dipendenze mantengono le proprie licenze; la licenza del tema non sostituisce quelle dei plugin, delle librerie, dei font o dei media.
+
+### Origine e crediti
+
+Grit deriva dallo starter Timber di Upstatement. I metadati Composer identificano il progetto Grit mantenuto da Grit Lab; non sostituiscono i crediti e le licenze del progetto originale o delle dipendenze. Conservare le attribuzioni e i file di licenza distribuiti con ciascun componente.

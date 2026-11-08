@@ -892,7 +892,7 @@ Inner Class governa le colonne della griglia; in carosello il numero visibile è
 {% endfor %}
 ```
 
-Nel contesto condiviso `home` è l’URL pubblico restituito da `home_url()`, `agency` contiene il branding validato e i menu sono esposti con i nomi `primary_menu`, `secondary_menu`, `mobile_menu`, `footer_menu`. `post`, campi ACF, titolo e risultati vanno interpretati in base alla vista: un archivio nativo non è sempre una pagina. Non applicare escaping testuale al contenuto HTML formattato quando deve essere renderizzato come markup; effettuare invece escaping su titoli, attributi e valori puntuali.
+Nel contesto condiviso `home` è l’URL pubblico restituito da `home_url()`, `agency` contiene il branding validato e i menu sono esposti con i nomi `primary_menu`, `secondary_menu`, `mobile_menu`, `footer_menu`, `bio_menu`. `post`, campi ACF, titolo e risultati vanno interpretati in base alla vista: un archivio nativo non è sempre una pagina. Non applicare escaping testuale al contenuto HTML formattato quando deve essere renderizzato come markup; effettuare invece escaping su titoli, attributi e valori puntuali.
 
 ## Archivi WordPress e ricerca
 
@@ -966,7 +966,7 @@ Usare lo slug `bio` e il template predefinito: il tema carica automaticamente `p
 
 - Nome: titolo del sito. Presentazione: contenuto della pagina; se vuoto, motto del sito.
 - Foto: immagine in evidenza della pagina; in alternativa logo del sito o iniziale del nome. Non vengono richieste immagini a servizi esterni.
-- Collegamenti: il setup crea il menu **bio-menu**, lo assegna alla posizione **Bio Links** e inserisce About e Contatti con una descrizione iniziale. Aggiungere le proprie voci a un solo livello da **Aspetto → Menu → bio-menu**. Titolo, descrizione, ordine e apertura in nuova scheda si gestiscono nel menu. Se il campo Descrizione non è visibile, abilitarlo in **Impostazioni schermata → Descrizione**; il testo compare sotto il titolo nella Bio. Il collegamento al sito resta sempre disponibile.
+- Collegamenti: il setup crea il menu **bio_navigation**, lo assegna alla posizione **Bio Navigation** e inserisce About e Contatti con una descrizione iniziale. Aggiungere le proprie voci a un solo livello da **Aspetto → Menu → bio_navigation**. Titolo, descrizione, ordine e apertura in nuova scheda si gestiscono nel menu. Se il campo Descrizione non è visibile, abilitarlo in **Impostazioni schermata → Descrizione**; il testo compare sotto il titolo nella Bio. Il collegamento al sito resta sempre disponibile.
 - Contatti: Theme Fields di Personalizza. Email, telefono e indirizzo usano il secondo recapito, come nel template originale. Il terzo telefono è usato per WhatsApp e deve includere il prefisso internazionale.
 - Social: Instagram, LinkedIn, Facebook e TikTok vengono mostrati quando il relativo campo è compilato, anche con il segnaposto `#` per le prove. I campi vuoti non generano collegamenti.
 - Condivisione: il link WhatsApp condivide l’indirizzo della Bio. Il footer compatto richiama le policy pubblicate.
@@ -990,7 +990,9 @@ Selezione in Personalizza; struttura conservata in file separati per rendere le 
 
 Modificare `templates/headers/header_N.twig` e `_header.scss`. Menu condiviso in `templates/headers/menu.twig`; social centralizzati in `templates/headers/nav-social.twig`. Conservare gli ID distinti dei menu normale/sticky e i collegamenti dei pulsanti di apertura. Le animazioni overlay gestiscono la comparsa ritardata degli elementi e rispettano il movimento ridotto.
 
-Posizioni registrate: `primary_navigation`, `secondary_navigation`, `mobile_navigation`, `footer_navigation`. Assegnarle da Aspetto → Menu. Header con due gruppi di navigazione richiedono le assegnazioni appropriate; non duplicare gli ID per simulare più menu.
+Il menu della Bio usa la posizione `bio_navigation` ed è disponibile in Twig come `bio_menu`, seguendo la stessa convenzione di `primary_navigation` → `primary_menu`.
+
+Posizioni registrate: `primary_navigation`, `secondary_navigation`, `mobile_navigation`, `footer_navigation`, `bio_navigation`. Assegnarle da Aspetto → Menu. Header con due gruppi di navigazione richiedono le assegnazioni appropriate; non duplicare gli ID per simulare più menu.
 
 ### Footer
 

@@ -1,13 +1,13 @@
 {
-  "name": "upstatement/timber-starter-theme",
-  "description": "Starter theme to build a Timber theme",
-  "type":"wordpress-theme",
-  "minimum-stability" : "stable",
+  "name": "gritlab-it/grit-theme",
+  "description": "Grit WordPress starter theme with Timber, Twig and ACF.",
+  "type": "wordpress-theme",
+  "minimum-stability": "stable",
   "authors": [
     {
-      "email": "jared@upstatement.com",
-      "name": "jarednova"
-    }  
+      "name": "Grit Lab",
+      "homepage": "https://www.gritlab.it"
+    }
   ],
   "repositories": [
     {
@@ -16,11 +16,12 @@
     }
   ],
   "require": {
-	  "timber/timber": "^1.0"
+    "timber/timber": "^1.0"
   },
   "config": {
     "allow-plugins": {
       "composer/installers": true
     }
-  }
+  },
+  "license": "MIT"
 }
