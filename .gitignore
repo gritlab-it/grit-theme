@@ -56,4 +56,10 @@ vendor/
 composer.lock
 
 # ignore sass cache dependency directories
-assets/.sass-cache 
+assets/.sass-cache
+
+# Local development tools; not distributed with the starter theme.
+/bin/
+/tests/
+/phpunit.xml
+/.travis.yml

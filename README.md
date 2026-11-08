@@ -42,7 +42,7 @@ Dalla cartella del tema:
 composer install --no-dev --prefer-dist --optimize-autoloader
 ```
 
-Il comando installa le dipendenze dichiarate, compresi Timber e Twig, e genera `vendor/autoload.php`, caricato da `functions.php`. `--no-dev` esclude gli strumenti di test dal pacchetto destinato al sito.
+Il comando installa le dipendenze dichiarate, compresi Timber e Twig, e genera `vendor/autoload.php`, caricato da `functions.php`. `--no-dev` esclude eventuali dipendenze di sviluppo aggiunte dal progetto.
 
 Se esiste `composer.lock`, Composer usa le versioni bloccate. Attualmente `.gitignore` esclude sia `vendor/` sia `composer.lock`: un clone può quindi esserne privo. Senza lock l’installazione risolve le versioni consentite dal manifest; non garantisce le stesse versioni tra installazioni. Definire una politica di distribuzione del lock per i progetti che richiedono riproducibilità.
 
@@ -86,7 +86,6 @@ La definizione di riferimento è [`core/acf-fields.json`](core/acf-fields.json).
 - Su una nuova installazione usare l’opzione **Import ACF Fields** del setup, con ACF PRO già attivo. Il setup salta i gruppi che trova già con la stessa chiave: non è un aggiornamento automatico dei campi esistenti.
 - Per importare o aggiornare le definizioni usare **ACF → Strumenti → Importa gruppi di campi**, verificando il risultato sui gruppi esistenti e mantenendo le chiavi.
 - Le istruzioni accanto ai campi e la tab **Guida** di ogni layout aiutano a scegliere classi e opzioni.
-- Per verificare le identità dei campi prima di aggiornare un sito esistente: `wp eval-file bin/sync-acf.php`. Con `apply` viene salvato un backup delle definizioni prima dell’import; lo script interrompe l’operazione se trova chiavi rimosse o campi rinominati.
 - Verificare gruppi e regole di posizione. I CPT e le tassonomie si registrano separatamente nel progetto: il JSON dei campi non crea il CPT dimostrativo `section`.
 - Dopo modifiche ai campi aggiornare anche il JSON distribuito. Non rigenerare le chiavi o rinominare layout con dati già salvati senza una migrazione.
 
