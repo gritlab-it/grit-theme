@@ -389,7 +389,7 @@ function grit_theme_activation_action() {
             'title'      => __('Privacy Policy', 'grit'),
             'slug'       => 'privacy-policy',
             'policy'     => 'privacy',
-            'template'   => 'grit-privacy-policy.php',
+            'template'   => '',
             'menus'      => array('footer_navigation'),
             'menu_order' => 10,
             'menu_label' => __('Privacy Policy', 'grit'),
@@ -398,7 +398,7 @@ function grit_theme_activation_action() {
             'title'      => __('Cookie Policy', 'grit'),
             'slug'       => 'cookie-policy',
             'policy'     => 'cookie',
-            'template'   => 'grit-cookie-policy.php',
+            'template'   => '',
             'menus'      => array('footer_navigation'),
             'menu_order' => 11,
             'menu_label' => __('Cookie Policy', 'grit'),
@@ -406,7 +406,7 @@ function grit_theme_activation_action() {
         array(
             'title'      => __('Bio', 'grit'),
             'slug'       => 'bio',
-            'template'   => 'grit-bio.php',
+            'template'   => '',
             'menus'      => array('secondary_navigation'),
             'menu_order' => 20,
             'menu_label' => __('Bio', 'grit'),
@@ -444,15 +444,9 @@ if ($create_home || $create_pages) {
             ? grit_policy_page($page_data['policy'])
             : get_page_by_path($page_data['slug'], OBJECT, 'page');
         if ($page) {
-            // Keep content, status and any explicit custom template on existing pages.
-            if (!empty($page_data['policy'])) {
-                $assigned = get_page_template_slug($page->ID);
-                if (!$assigned || $assigned === 'default') {
-                    update_post_meta($page->ID, '_wp_page_template', $page_data['template']);
-                }
-                if ($page_data['policy'] === 'privacy') {
-                    update_option('wp_page_for_privacy_policy', $page->ID);
-                }
+            // Reuse the selected Privacy page without changing its content, status or template.
+            if (($page_data['policy'] ?? '') === 'privacy') {
+                update_option('wp_page_for_privacy_policy', $page->ID);
             }
             continue;
         }

@@ -962,7 +962,7 @@ Gli helper `grit_template_fields()`, `grit_template_content()` e `grit_template_
 
 ### Bio / Link in bio
 
-Assegnare alla pagina il template **Bio / Link in bio**; lo slug iniziale è `bio`, ma il template resta associato anche cambiandolo. La pagina usa un layout essenziale senza menu principale, loader o footer esteso. Le Sections ACF prima/dopo il contenuto restano disponibili.
+Usare lo slug `bio` e il template predefinito: il tema carica automaticamente `page-bio.twig`. Cambiando slug occorre rinominare anche il Twig corrispondente. La pagina usa un layout essenziale senza menu principale, loader o footer esteso. Le Sections ACF prima/dopo il contenuto restano disponibili.
 
 - Nome: titolo del sito. Presentazione: contenuto della pagina; se vuoto, motto del sito.
 - Foto: immagine in evidenza della pagina; in alternativa logo del sito o iniziale del nome. Non vengono richieste immagini a servizi esterni.
@@ -1128,7 +1128,7 @@ Attivare/configurare i breadcrumb in Yoast e verificare che lo shortcode venga i
 
 ### Privacy e tracciamento
 
-Privacy e Cookie Policy hanno template selezionabili nell’editor, indipendenti dallo slug. La pagina Privacy di riferimento si sceglie in Impostazioni → Privacy; per la Cookie Policy il footer cerca la pagina pubblicata con il template Cookie Policy. Le istruzioni di setup e riutilizzo delle pagine sono nel README.
+Privacy e Cookie Policy usano il template predefinito e gli slug `privacy-policy` e `cookie-policy`, che richiamano i rispettivi file `page-{slug}.twig`. La pagina Privacy di riferimento si sceglie in Impostazioni → Privacy; per la Cookie Policy il footer cerca lo slug `cookie-policy`. Le istruzioni di setup e riutilizzo delle pagine sono nel README.
 
 L’integrazione dedicata al vecchio Google Analytics è stata rimossa. La gestione del consenso e l’eventuale Analytics si configurano nel sistema adottato dal progetto. Complianz è un’integrazione opzionale. Il campo Google Tag Manager accetta l’ID completo `GTM-…`: vuoto disattiva il caricamento dal tema. Se Complianz è configurato per caricare GTM, il tema gli delega il caricamento; senza Complianz il campo funziona autonomamente. Il caricamento dal tema non configura il consenso. Rimane un’impostazione separata per Hotjar: evitare doppie integrazioni e verificare che gli script siano effettivamente bloccati prima del consenso quando richiesto.
 

@@ -1003,17 +1003,6 @@ function grit_policy_page($type) {
             return $page;
         }
     }
-    // Prefer a published assigned page; drafts remain reusable during setup.
-    foreach (['publish', ['draft', 'private', 'pending', 'future']] as $status) {
-        $pages = get_posts([
-            'post_type' => 'page', 'post_status' => $status, 'numberposts' => 1,
-            'meta_key' => '_wp_page_template', 'meta_value' => 'grit-' . $type . '-policy.php',
-            'orderby' => 'ID', 'order' => 'ASC',
-        ]);
-        if ($pages) {
-            return $pages[0];
-        }
-    }
     $page = get_page_by_path($type . '-policy', OBJECT, 'page');
     if ($page && !in_array($page->post_status, ['trash', 'auto-draft'], true)) {
         return $page;
