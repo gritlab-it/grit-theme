@@ -385,15 +385,17 @@ function grit_customize_register($wp_customize)
         'description' => __('Inserisci API key di Google Recaptcha V3 console.cloud.google.com/security/recaptcha'),
     ));
 
-    // * GRIT_SET 25 | Google Tag
+    // * GRIT_SET 25 | Google Tag Manager fallback
 
     $wp_customize->add_setting('grit_setting_gtag', array(
         'capability' => 'edit_theme_options',
+        'sanitize_callback' => 'grit_sanitize_gtm_id',
     ));
     $wp_customize->add_control('grit_setting_gtag', array(
         'type' => 'text',
         'section' => 'grit_framework_tracking_settings',
-        'label' => __('Google Tag ID'),
+        'label' => __('Google Tag Manager ID', 'grit'),
+        'description' => __('Inserisci un ID GTM-… per caricare GTM dal tema. Se il caricamento è affidato a Complianz, questo campo viene ignorato. Lascia vuoto per disabilitare il caricamento dal tema. La gestione del consenso va configurata separatamente.', 'grit'),
     ));
 
     // * GRIT_SET 26 | Hot Jar

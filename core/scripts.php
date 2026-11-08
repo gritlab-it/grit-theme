@@ -268,44 +268,57 @@ add_action('wp_head', 'add_recaptcha_lib');
 
 // * GRIT_SET 29 | Google Tag Manager
 
-if (get_theme_mod('grit_setting_gtag') != '') {
-
-    function grit_gtag_head_analytics()
-    { ?>
-        <!-- Google Tag Manager -->
-        <script>(function (w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({
-                    'gtm.start':
-                        new Date().getTime(), event: 'gtm.js'
-                });
-                var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
-                j.async = true;
-                j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, 'script', 'dataLayer', '<?php echo get_theme_mod('grit_setting_gtag'); ?>');
-        </script>
-        <!-- End Google Tag Manager -->
-        <?php
-    }
-
-    add_action('wp_head', 'grit_gtag_head_analytics', 20);
-
-    function grit_gtag_body_analytics()
-    { ?>
-        <!-- Google Tag Manager (noscript) -->
-        <noscript>
-            <iframe src="https://www.googletagmanager.com/ns.html?id=<?php echo get_theme_mod('grit_setting_gtag'); ?>"
-                    height="0" width="0" style="display:none;visibility:hidden"></iframe>
-        </noscript>
-        <!-- End Google Tag Manager (noscript) -->
-        <?php
-    }
-
-    add_action('after_body', 'grit_gtag_body_analytics', 20);
+// Accept container IDs only; Google Analytics measurement IDs use a different integration.
+function grit_sanitize_gtm_id($value) {
+    $value = is_string($value) ? strtoupper(trim($value)) : '';
+    return preg_match('/^GTM-[A-Z0-9]+$/D', $value) ? $value : '';
 }
+
+// Resolve at render time so plugin configuration and Customizer previews are available.
+function grit_theme_gtm_id() {
+    // Respect delegated loading even if Complianz is still awaiting consent/configuration.
+    if (function_exists('cmplz_get_option')
+        && cmplz_get_option('compile_statistics') === 'google-tag-manager'
+        && cmplz_get_option('configuration_by_complianz') === 'yes') {
+        return '';
+    }
+    return grit_sanitize_gtm_id(get_theme_mod('grit_setting_gtag', ''));
+}
+
+function grit_gtag_head_analytics() {
+    $container_id = grit_theme_gtm_id();
+    if ($container_id === '') {
+        return;
+    }
+    ?>
+    <!-- Google Tag Manager: theme fallback -->
+    <script>(function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', <?php echo wp_json_encode($container_id); ?>);</script>
+    <!-- End Google Tag Manager -->
+    <?php
+}
+add_action('wp_head', 'grit_gtag_head_analytics', 20);
+
+function grit_gtag_body_analytics() {
+    $container_id = grit_theme_gtm_id();
+    if ($container_id === '') {
+        return;
+    }
+    ?>
+    <!-- Google Tag Manager (noscript): theme fallback -->
+    <noscript><iframe src="<?php echo esc_url('https://www.googletagmanager.com/ns.html?id=' . $container_id); ?>"
+        height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <?php
+}
+add_action('wp_body_open', 'grit_gtag_body_analytics', 20);
 
 // * GRIT_SET 30 | Hotjar Tracking Code
 

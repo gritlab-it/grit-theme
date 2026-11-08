@@ -13,6 +13,7 @@
 {% endblock %}
 
 <body class="{{ body_class }}" data-template="base.twig">
+    {{ function('wp_body_open') }}
     {# * GRIT_SET 02 | Edit each header in its own headers/header_N.twig file. #}
     {% include 'partials/loader.twig' %}
     <a class="skip-link screen-reader-text" href="#content">{{ __('Vai al contenuto', 'grit_theme') }}</a>
