@@ -5,8 +5,8 @@
 Keep this layout independent; shared appearance is in _footer.scss.
 #}
 {% set footer_links = footer_menu.get_items ?: primary_menu.get_items %}
-{% set privacy_url = function('get_privacy_policy_url') ?: function('home_url', '/privacy-policy/') %}
-{% set cookie_url = function('home_url', '/cookie-policy/') %}
+{% set privacy_url = function('grit_policy_url', 'privacy') %}
+{% set cookie_url = function('grit_policy_url', 'cookie') %}
 
 {# * GRIT_SET 01 | Centered presentation. #}
 <div class="section-footer contained py-5 text-center">
@@ -80,8 +80,8 @@ Keep this layout independent; shared appearance is in _footer.scss.
             </div>
             <div class="col-12 col-md-6">
                 <ul class="footer-policy list-unstyled mb-0">
-                    <li><a href="{{ function('esc_url', privacy_url)|e('html_attr') }}">Privacy Policy</a></li>
-                    <li><a href="{{ function('esc_url', cookie_url)|e('html_attr') }}">Cookie Policy</a></li>
+                    {% if privacy_url %}<li><a href="{{ function('esc_url', privacy_url)|e('html_attr') }}">Privacy Policy</a></li>{% endif %}
+                    {% if cookie_url %}<li><a href="{{ function('esc_url', cookie_url)|e('html_attr') }}">Cookie Policy</a></li>{% endif %}
                 </ul>
             </div>
         </div>

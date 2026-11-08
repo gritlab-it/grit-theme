@@ -259,18 +259,15 @@ function grit_cf7_starter_form() {
     }
 
     $form = WPCF7_ContactForm::get_template(['title' => 'Modulo di Contatto Demo', 'locale' => 'it_IT']);
-    $privacy_url = get_privacy_policy_url();
-    if (!$privacy_url) {
-        $privacy_page = get_page_by_path('privacy-policy-gdpr');
-        $privacy_url = $privacy_page && $privacy_page->post_status === 'publish'
-            ? get_permalink($privacy_page) : home_url('/privacy-policy/');
-    }
+    $privacy_url = grit_policy_url('privacy');
+    $privacy_label = $privacy_url
+        ? '<a href="' . esc_url($privacy_url) . '">informativa privacy</a>' : 'informativa privacy';
     $form_content = '<label>Nome* [text* your-name autocomplete:given-name]</label>' . "\n"
         . '<label>Cognome* [text* your-surname autocomplete:family-name]</label>' . "\n"
         . '<label>Email* [email* your-email autocomplete:email]</label>' . "\n"
         . '<label>Telefono [tel your-phone autocomplete:tel]</label>' . "\n"
         . '<label>Messaggio [textarea your-message]</label>' . "\n"
-        . '[acceptance privacy]Ho letto l’<a href="' . esc_url($privacy_url) . '">informativa privacy</a>.[/acceptance]' . "\n"
+        . '[acceptance privacy]Ho letto l’' . $privacy_label . '.[/acceptance]' . "\n"
         . '[hidden referer-page]' . "\n"
         . '[hidden current-page]' . "\n"
         . '[submit class:btn class:btn-primary "Invia"]';
@@ -389,20 +386,22 @@ function grit_theme_activation_action() {
             'menu_label' => __('Contatti', 'grit'),
         ),
         array(
-            'title'      => __('Privacy Policy GDPR', 'grit'),
-            'slug'       => 'privacy-policy-gdpr',
-            'template'   => '',
+            'title'      => __('Privacy Policy', 'grit'),
+            'slug'       => 'privacy-policy',
+            'policy'     => 'privacy',
+            'template'   => 'grit-privacy-policy.php',
             'menus'      => array('footer_navigation'),
             'menu_order' => 10,
-            'menu_label' => __('Privacy Policy GDPR', 'grit'),
+            'menu_label' => __('Privacy Policy', 'grit'),
         ),
         array(
-            'title'      => __('Cookie Policy GDPR', 'grit'),
-            'slug'       => 'cookie-policy-gdpr',
-            'template'   => '',
+            'title'      => __('Cookie Policy', 'grit'),
+            'slug'       => 'cookie-policy',
+            'policy'     => 'cookie',
+            'template'   => 'grit-cookie-policy.php',
             'menus'      => array('footer_navigation'),
             'menu_order' => 11,
-            'menu_label' => __('Cookie Policy GDPR', 'grit'),
+            'menu_label' => __('Cookie Policy', 'grit'),
         ), 
         array(
             'title'      => __('Bio', 'grit'),
@@ -441,8 +440,20 @@ if ($create_home || $create_pages) {
         if (!$create_pages && $page_data['slug'] !== 'home') {
             continue;
         }
-        $page = get_page_by_path($page_data['slug'], OBJECT, 'page');
+        $page = !empty($page_data['policy'])
+            ? grit_policy_page($page_data['policy'])
+            : get_page_by_path($page_data['slug'], OBJECT, 'page');
         if ($page) {
+            // Keep content, status and any explicit custom template on existing pages.
+            if (!empty($page_data['policy'])) {
+                $assigned = get_page_template_slug($page->ID);
+                if (!$assigned || $assigned === 'default') {
+                    update_post_meta($page->ID, '_wp_page_template', $page_data['template']);
+                }
+                if ($page_data['policy'] === 'privacy') {
+                    update_option('wp_page_for_privacy_policy', $page->ID);
+                }
+            }
             continue;
         }
         $new_page = [
@@ -456,6 +467,8 @@ if ($create_home || $create_pages) {
         if (is_wp_error($result) || !$result) {
             $pages_ok = false;
             add_settings_error('grit_theme_activation_options', 'grit_page_failed', 'Impossibile creare la pagina: ' . $page_data['title']);
+        } elseif (($page_data['policy'] ?? '') === 'privacy') {
+            update_option('wp_page_for_privacy_policy', $result);
         }
     }
     if ($create_pages && $pages_ok) {
@@ -564,7 +577,9 @@ if ($grit_theme_activation_options['add_pages_to_primary_navigation'] === 'true'
                 continue;
             }
 
-            $page = get_page_by_path($page_data['slug'], OBJECT, 'page');
+            $page = !empty($page_data['policy'])
+            ? grit_policy_page($page_data['policy'])
+            : get_page_by_path($page_data['slug'], OBJECT, 'page');
 
             if (!$page || $page->post_status !== 'publish') {
                 continue;

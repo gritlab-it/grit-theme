@@ -20,6 +20,7 @@
 // 16 | Taxonomy archives | Include public CPTs registered to categories, tags or custom taxonomies.
 // 17 | Template helpers | Used by the root PHP controllers.
 // 18 | Section Maps: validated locations and independent instances
+// 19 | Policy page identities and public links
 
 if (get_theme_mod('grit_adv_adminbar', true)) {
   show_admin_bar( false );
@@ -988,4 +989,41 @@ function grit_maps_section_data($section) {
             'directions' => __('Apri indicazioni', 'grit'),
         ],
     ];
+}
+
+// * GRIT_SET 19 | Resolve policy pages by identity; slugs support older installations only.
+function grit_policy_page($type) {
+    if (!in_array($type, ['privacy', 'cookie'], true)) {
+        return null;
+    }
+    if ($type === 'privacy') {
+        $privacy_id = (int) get_option('wp_page_for_privacy_policy');
+        $page = $privacy_id ? get_post($privacy_id) : null;
+        if ($page && $page->post_type === 'page' && !in_array($page->post_status, ['trash', 'auto-draft'], true)) {
+            return $page;
+        }
+    }
+    // Prefer a published assigned page; drafts remain reusable during setup.
+    foreach (['publish', 'draft', 'private', 'pending', 'future'] as $status) {
+        $pages = get_posts([
+            'post_type' => 'page', 'post_status' => $status, 'numberposts' => 1,
+            'meta_key' => '_wp_page_template', 'meta_value' => 'grit-' . $type . '-policy.php',
+            'orderby' => 'ID', 'order' => 'ASC',
+        ]);
+        if ($pages) {
+            return $pages[0];
+        }
+    }
+    foreach ([$type . '-policy-gdpr', $type . '-policy'] as $slug) {
+        $page = get_page_by_path($slug, OBJECT, 'page');
+        if ($page && !in_array($page->post_status, ['trash', 'auto-draft'], true)) {
+            return $page;
+        }
+    }
+    return null;
+}
+
+function grit_policy_url($type) {
+    $page = grit_policy_page($type);
+    return $page && $page->post_status === 'publish' ? get_permalink($page->ID) : '';
 }

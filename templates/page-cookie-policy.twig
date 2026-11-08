@@ -32,7 +32,7 @@
 	            </div>
 	        </div>
 	    </section>
-        {% else %}
+        {% elseif function('shortcode_exists', 'cmplz-document') %}
         <section class="section_page contained py-3">
 	        <div class="container-fluid">
 	            <div class="row">
@@ -46,14 +46,21 @@
 	    </section> 
 
 		<style>
-        @import url("{{ home }}/wp-content/plugins/complianz-gdpr/assets/css/document.min.css");
+        @import url("{{ function('plugins_url', 'complianz-gdpr/assets/css/document.min.css')|e('html_attr') }}");
         #cmplz-document {
             max-width: 100%;
             text-justify: inter-word;
         }
     	</style>
 
-	{% endif %}
+    {% else %}
+        <section class="section_page contained py-3">
+            <div class="container-fluid">
+                <h1>{{ post.title|e }}</h1>
+                <p>{{ __('Il documento non è ancora disponibile.', 'grit') }}</p>
+            </div>
+        </section>
+    {% endif %}
  
 
 {# * GRIT_SET 03 | Sections After Content #} 

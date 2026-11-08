@@ -1112,6 +1112,8 @@ Attivare/configurare i breadcrumb in Yoast e verificare che lo shortcode venga i
 
 ### Privacy e tracciamento
 
+Privacy e Cookie Policy hanno template selezionabili nell’editor, indipendenti dallo slug. La pagina Privacy di riferimento si sceglie in Impostazioni → Privacy; per la Cookie Policy il footer cerca la pagina pubblicata con il template Cookie Policy. Le istruzioni di setup e riutilizzo delle pagine sono nel README.
+
 L’integrazione dedicata al vecchio Google Analytics è stata rimossa. La gestione del consenso e l’eventuale Analytics si configurano nel sistema adottato dal progetto. Complianz è un’integrazione opzionale. Il campo Google Tag Manager accetta l’ID completo `GTM-…`: vuoto disattiva il caricamento dal tema. Se Complianz è configurato per caricare GTM, il tema gli delega il caricamento; senza Complianz il campo funziona autonomamente. Il caricamento dal tema non configura il consenso. Rimane un’impostazione separata per Hotjar: evitare doppie integrazioni e verificare che gli script siano effettivamente bloccati prima del consenso quando richiesto.
 
 Maps, video YouTube/Vimeo, font e altri servizi esterni possono effettuare richieste verso terzi. Il semplice caricamento al clic o l’esistenza di un campo API non sostituiscono la configurazione del consenso. Testare accettazione e revoca, oltre al primo accesso.

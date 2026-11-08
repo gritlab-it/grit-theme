@@ -26,9 +26,16 @@ $context['post'] = $timber_post;
 $context['title'] = $timber_post ? $timber_post->title : '';
 $context['content'] = $timber_post ? grit_template_content($post_id) : '';
 
-// * GRIT_SET 03 | First available file wins: home or page slug, then generic fallbacks.
+// * GRIT_SET 03 | Assigned policy templates survive slug changes; other pages keep the usual hierarchy.
 $templates = [];
-if (is_front_page()) {
+$policy_templates = [
+    'grit-privacy-policy.php' => 'page-privacy-policy.twig',
+    'grit-cookie-policy.php' => 'page-cookie-policy.twig',
+];
+$assigned_template = get_page_template_slug($post_id);
+if (isset($policy_templates[$assigned_template])) {
+    $templates[] = $policy_templates[$assigned_template];
+} elseif (is_front_page()) {
     $templates[] = 'home.twig';
 } elseif ($timber_post) {
     $templates[] = 'page-' . $timber_post->post_name . '.twig';

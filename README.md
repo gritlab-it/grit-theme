@@ -69,6 +69,14 @@ Il flag TGMPA “obbligatorio” è una scelta di distribuzione del tema: non si
 
 Le operazioni di setup possono modificare pagine, menu, impostazioni e definizioni ACF. Prima di riapplicarle su un progetto già avviato fare un backup di file e database. Le operazioni vengono eseguite al salvataggio della schermata, solo per le opzioni selezionate. Homepage e pagine aggiuntive sono indipendenti; le pagine esistenti vengono riutilizzate e le assegnazioni menu conservate. Un’operazione completata viene disattivata; un errore lascia la relativa opzione disponibile per riprovare. Il setup non importa contenuti dimostrativi o media.
 
+### Pagine Privacy e Cookie Policy
+
+Nell’editor della pagina selezionare il template **Privacy Policy** o **Cookie Policy**. L’associazione resta salvata anche cambiando titolo o slug. I template usano i contenuti della pagina e, quando vuoti, i rispettivi contenuti predefiniti già previsti dal tema. Per la Cookie Policy il documento automatico richiede lo shortcode di Complianz; in sua assenza viene mostrato un messaggio di documento non disponibile. È possibile compilare direttamente il contenuto della pagina.
+
+Il setup riutilizza la pagina Privacy selezionata in **Impostazioni → Privacy**, anche quando è ancora una bozza; non la pubblica e non ne sostituisce i testi. Cerca inoltre pagine già associate ai template e riconosce i vecchi slug `privacy-policy-gdpr` e `cookie-policy-gdpr`. Crea una nuova pagina solo quando non ne trova una da riutilizzare. Un template personalizzato già assegnato viene conservato.
+
+Per la Privacy, la pagina di riferimento si sceglie in **Impostazioni → Privacy**. Per la Cookie Policy, assegnare il relativo template a una sola pagina di riferimento. I link automatici del footer seguono i permalink delle pagine pubblicate e si aggiornano al cambio di slug; le bozze non vengono collegate.
+
 ### Modulo contatti dello starter
 
 L'opzione CF7 della configurazione iniziale richiede Contact Form 7 attivo e crea il **Modulo di Contatto Demo** attraverso le API del plugin. Se esiste già, lo riutilizza senza sovrascrivere campi o email.
@@ -77,7 +85,7 @@ La mail principale usa `[_site_admin_email]`, cioè l'indirizzo amministrativo i
 
 **Mail (2)** contiene una conferma separata per il visitatore, inizialmente disattivata. Può essere abilitata in CF7 dopo aver verificato la configurazione e il recapito. Il modello non configura SMTP e la validazione dei campi non garantisce la consegna delle email.
 
-Il collegamento privacy usa la pagina selezionata in WordPress, oppure la pagina pubblicata `privacy-policy-gdpr` dello starter; in assenza di entrambe resta il percorso `/privacy-policy/`, da configurare prima dell'uso. Nome, cognome, email e accettazione sono obbligatori; telefono e messaggio sono facoltativi. Provenienza e pagina corrente sono campi nascosti.
+Il collegamento privacy usa la pagina pubblicata selezionata in WordPress; sulle copie precedenti viene riconosciuta anche la pagina dello starter. Se non esiste una pagina pubblicata, l’accettazione resta senza link: configurare la pagina prima di usare il modulo. Il link salvato nel modulo CF7 va aggiornato se si cambia successivamente l’indirizzo della pagina. Nome, cognome, email e accettazione sono obbligatori; telefono e messaggio sono facoltativi. Provenienza e pagina corrente sono campi nascosti.
 
 ## 5. Importare i campi ACF
 
