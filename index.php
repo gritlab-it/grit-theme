@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) {
 }
 
 if (is_home()) {
-    include get_template_directory() . '/archive.php';
+    locate_template('archive.php', true);
     return;
 }
 
