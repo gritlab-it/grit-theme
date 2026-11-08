@@ -71,7 +71,7 @@ Le operazioni di setup possono modificare pagine, menu, impostazioni e definizio
 
 ### Menu Bio
 
-Il setup crea il menu `bio_navigation` con About e Contatti e lo assegna alla posizione **Bio Navigation** (`bio_navigation`). In Twig è disponibile come `bio_menu`, come avviene per `primary_navigation` e `primary_menu`. Titoli, descrizioni e nuovi collegamenti si gestiscono da **Aspetto → Menu**.
+Il setup crea il menu **Bio Navigation** con About e Contatti e lo assegna alla posizione **Bio Navigation** (`bio_navigation`). In Twig è disponibile come `bio_menu`, come avviene per `primary_navigation` e `primary_menu`. Titoli, descrizioni e nuovi collegamenti si gestiscono da **Aspetto → Menu**.
 
 ### Pagine Privacy e Cookie Policy
 

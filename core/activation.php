@@ -518,7 +518,7 @@ if (get_theme_mod('grit_setting_footer', false) === false) {
             'secondary_navigation' => __('Secondary Navigation', 'grit'),
             'mobile_navigation'    => __('Mobile Navigation', 'grit'),
             'footer_navigation'    => __('Footer Navigation', 'grit'),
-            'bio_navigation'       => 'bio_navigation',
+            'bio_navigation'       => __('Bio Navigation', 'grit'),
         );
     
         $nav_theme_mod = (array) get_theme_mod('nav_menu_locations', []);
@@ -557,7 +557,7 @@ if ($grit_theme_activation_options['add_pages_to_primary_navigation'] === 'true'
         'secondary_navigation' => __('Secondary Navigation', 'grit'),
         'mobile_navigation'    => __('Mobile Navigation', 'grit'),
         'footer_navigation'    => __('Footer Navigation', 'grit'),
-        'bio_navigation'       => 'bio_navigation',
+        'bio_navigation'       => __('Bio Navigation', 'grit'),
     );
 
     foreach ($menu_locations as $location => $menu_name) {
