@@ -32,7 +32,7 @@ cd wp-content/themes/grit-theme
 
 In alternativa caricare la cartella del tema in `wp-content/themes/`. Se si utilizza uno ZIP, verificare che contenga direttamente la struttura del tema nella cartella corretta.
 
-La copia locale di sviluppo può contenere modifiche non ancora presenti nel repository pubblico: installare il repository non trasferisce automaticamente queste modifiche, i contenuti dimostrativi, le immagini o il database locale.
+Il repository contiene il codice dello starter. Contenuti, immagini, configurazioni dei plugin e database appartengono al singolo progetto e si trasferiscono separatamente.
 
 ## 2. Installare le dipendenze PHP
 
@@ -44,7 +44,7 @@ composer install --no-dev --prefer-dist --optimize-autoloader
 
 Il comando installa le dipendenze dichiarate, compresi Timber e Twig, e genera `vendor/autoload.php`, caricato da `functions.php`. `--no-dev` esclude gli strumenti di test dal pacchetto destinato al sito.
 
-Se esiste `composer.lock`, Composer usa le versioni bloccate. Attualmente `.gitignore` esclude sia `vendor/` sia `composer.lock`: un clone può quindi esserne privo. Senza lock l’installazione risolve le versioni consentite dal manifest; non equivale a riprodurre esattamente l’ambiente locale. Definire una politica di distribuzione del lock per i progetti che richiedono riproducibilità.
+Se esiste `composer.lock`, Composer usa le versioni bloccate. Attualmente `.gitignore` esclude sia `vendor/` sia `composer.lock`: un clone può quindi esserne privo. Senza lock l’installazione risolve le versioni consentite dal manifest; non garantisce le stesse versioni tra installazioni. Definire una politica di distribuzione del lock per i progetti che richiedono riproducibilità.
 
 Non occorre eseguire `composer require timber/timber` a ogni installazione: Timber è già nel manifest. Non usare `composer update` come passaggio ordinario per avviare il tema.
 
@@ -67,7 +67,7 @@ Il flag TGMPA “obbligatorio” è una scelta di distribuzione del tema: non si
 5. In **Impostazioni → Lettura** verificare Home e pagina articoli. In **Aspetto → Menu** controllare le assegnazioni.
 6. Salvare **Impostazioni → Permalink** dopo aver configurato CPT, tassonomie e relativi slug.
 
-Le operazioni di setup possono modificare pagine, menu, impostazioni e definizioni ACF. Prima di riapplicarle su un progetto già avviato fare un backup di file e database. La procedura non importa la homepage dimostrativa e tutte le guide del sito locale.
+Le operazioni di setup possono modificare pagine, menu, impostazioni e definizioni ACF. Prima di riapplicarle su un progetto già avviato fare un backup di file e database. Le operazioni vengono eseguite al salvataggio della schermata, solo per le opzioni selezionate. Homepage e pagine aggiuntive sono indipendenti; le pagine esistenti vengono riutilizzate e le assegnazioni menu conservate. Un’operazione completata viene disattivata; un errore lascia la relativa opzione disponibile per riprovare. Il setup non importa contenuti dimostrativi o media.
 
 ### Modulo contatti dello starter
 
@@ -83,9 +83,11 @@ Il collegamento privacy usa la pagina selezionata in WordPress, oppure la pagina
 
 La definizione di riferimento è [`core/acf-fields.json`](core/acf-fields.json).
 
-- Su una nuova installazione usare l’opzione **Import ACF Fields** del setup, con ACF PRO già attivo. Il setup salta i gruppi che trova già con lo stesso titolo: non è un aggiornamento automatico dei campi esistenti.
+- Su una nuova installazione usare l’opzione **Import ACF Fields** del setup, con ACF PRO già attivo. Il setup salta i gruppi che trova già con la stessa chiave: non è un aggiornamento automatico dei campi esistenti.
 - Per importare o aggiornare le definizioni usare **ACF → Strumenti → Importa gruppi di campi**, verificando il risultato sui gruppi esistenti e mantenendo le chiavi.
-- Verificare gruppi, regole di posizione e registrazioni CPT/tassonomie effettivamente disponibili nel progetto.
+- Le istruzioni accanto ai campi e la tab **Guida** di ogni layout aiutano a scegliere classi e opzioni.
+- Per verificare le identità dei campi prima di aggiornare un sito esistente: `wp eval-file bin/sync-acf.php`. Con `apply` viene salvato un backup delle definizioni prima dell’import; lo script interrompe l’operazione se trova chiavi rimosse o campi rinominati.
+- Verificare gruppi e regole di posizione. I CPT e le tassonomie si registrano separatamente nel progetto: il JSON dei campi non crea il CPT dimostrativo `section`.
 - Dopo modifiche ai campi aggiornare anche il JSON distribuito. Non rigenerare le chiavi o rinominare layout con dati già salvati senza una migrazione.
 
 L’import descrive la struttura dei campi; non trasferisce contenuti, media, opzioni Personalizza e tutte le configurazioni dei plugin.
@@ -119,10 +121,10 @@ Per scegliere il branding dell’agenzia usare `GRIT_AGENCY` in `functions.php`;
 - Le funzionalità richieste hanno la relativa libreria attiva.
 - Consenso, Maps, form e script esterni sono configurati per il dominio di destinazione.
 
-Se compare l’avviso Timber mancante, controllare `vendor/autoload.php` e l’installazione Composer. Se funzionano soltanto gli URL semplici, verificare permalink, regole del server e dominio locale; un errore DNS non si risolve modificando Twig.
+Se compare l’avviso Timber mancante, controllare `vendor/autoload.php` e l’installazione Composer. Se funzionano soltanto gli URL semplici, verificare permalink, regole del server e dominio configurato; un errore DNS non si risolve modificando Twig.
 
 ## Documentazione e licenze
 
-Il manuale unico è **[GUIDA.md](GUIDA.md)**. Sostituisce i precedenti file di istruzioni separati per section e componenti. I README, i changelog e le licenze conservati dentro `assets/` delle librerie di terze parti appartengono ai rispettivi pacchetti e non vanno eliminati insieme alla documentazione del tema.
+Il manuale operativo è **[GUIDA.md](GUIDA.md)**, con campi, classi, esempi e indicazioni per personalizzare i componenti. I README, i changelog e le licenze conservati dentro `assets/` delle librerie di terze parti appartengono ai rispettivi pacchetti e non vanno eliminati insieme alla documentazione del tema.
 
 Il codice del tema è distribuito secondo [LICENSE](LICENSE). Le dipendenze mantengono le proprie licenze; la licenza del tema non sostituisce quelle dei plugin, delle librerie, dei font o dei media.
