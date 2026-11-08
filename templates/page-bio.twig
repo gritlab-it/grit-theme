@@ -1,94 +1,88 @@
 {#
- * GRIT_SET Page Bio
- * Legend
- * 01 | Sections Before Content
- * 02 | Bio
- * 03 | Content
- * 04 | Sections After Content
+ * GRIT_SET Bio | Mobile-first profile, curated links and existing contact fields.
+ * Header and loader are omitted; WordPress footer scripts remain available.
  #}
- 
- 
- 
- 
- 
- 
-
-{% extends "base.twig" %}
+{% extends 'base.twig' %}
+{% block loader %}{% endblock %}
+{% block header %}{% endblock %}
 
 {% block content %}
-<article class="post-type-{{post.post_type}}" id="post-{{post.ID}}"> 
+    <article class="post-type-{{ post.post_type }}" id="post-{{ post.ID }}">
+        {% include 'partials/sections.twig' with {sections: sections|default([]), pre_content: true} %}
+        <section class="section_bio">
+            <div class="bio-shell">
+                <header class="bio-profile text-center">
+                    {% if post.thumbnail %}
+                        <img class="bio-avatar" src="{{ post.thumbnail.src('medium')|e('html_attr') }}" alt="{{ site.name|e('html_attr') }}" width="96" height="96">
+                    {% elseif custom_logo_url[0]|default('') %}
+                        <img class="bio-avatar bio-avatar-logo" src="{{ custom_logo_url[0]|e('html_attr') }}" alt="{{ site.name|e('html_attr') }}" width="96" height="96">
+                    {% else %}
+                        <span class="bio-avatar bio-avatar-initial" aria-hidden="true">{{ site.name|slice(0, 1)|upper|e }}</span>
+                    {% endif %}
+                    <h1 class="display-5 mt-4 mb-2">{{ site.name|e }}</h1>
+                    <div class="bio-description">
+                        {% if content is not empty %}{{ content }}{% elseif site.description %}<p>{{ site.description|e }}</p>{% endif %}
+                    </div>
+                </header>
 
-{# * GRIT_SET 01 | Sections Before Content #} 
-{% include 'partials/sections.twig' with { sections: sections|default([]), pre_content: true } %}
- 
+                <nav class="link-list-bio" aria-label="{{ __('Link principali', 'grit')|e('html_attr') }}">
+                    <a class="bio-link bio-link-featured no-load" href="{{ home|e('html_attr') }}">
+                        <span class="bio-link-icon" aria-hidden="true"><i class="fas fa-globe"></i></span>
+                        <span class="bio-link-copy"><strong>{{ __('Visita il sito', 'grit') }}</strong><span>{{ site.name|e }}</span></span>
+                        <span class="bio-link-arrow" aria-hidden="true">↗</span>
+                    </a>
+                    {% for item in bio_menu.get_items|default([]) %}
+                        {% set item_url = function('esc_url', item.link) %}
+                        {% if item_url %}
+                            <a class="bio-link no-load" href="{{ item_url|e('html_attr') }}"{% if item.target == '_blank' %} target="_blank" rel="noopener noreferrer"{% endif %}>
+                                <span class="bio-link-icon" aria-hidden="true"><i class="fas fa-link"></i></span>
+                                <span class="bio-link-copy"><strong>{{ item.title|striptags|e }}</strong>{% if item.description %}<span>{{ item.description|striptags|e }}</span>{% endif %}</span>
+                                <span class="bio-link-arrow" aria-hidden="true">↗</span>
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                </nav>
 
-{# * GRIT_SET 02 | Bio #} 
-	<section class="section_bio">
-		<div class="container my-5">
-			<div class="row d-flex justify-content-center">
-				<div class="col-12 col-sm-8 col-md-6 text-center  ">
-					 
-					<img src="{% if custom_logo_url %}{{ custom_logo_url[0] }}{% else %}https://placehold.co/100x100/000000/FFFFFF/png{% endif %}" alt="{{ site.name }}" class="rounded-circle shadow-sm mb-3">
-			
-					<!-- Nome e descrizione -->
-					<h1>{{ site.name }}</h1>
-					<p>{{ site.description }}</p>
-			
-					<!-- Link pulsanti -->
-					<div class="link-list-bio">
-						<a href="{{home}}" target="_blank" rel="noopener noreferrer" class="btn btn-lg btn-accent w-100 my-2"><i class="fas fa-home"></i> Web Site</a>
-						{% if setting_instagram %}
-							<a href="{{setting_instagram}}" target="_blank" rel="noopener noreferrer" class="btn btn-lg btn-accent w-100 my-2"><i class="fab fa-instagram"></i> Instagram</a>
-						{% endif %}
-						{% if setting_linkedin %}
-							<a href="{{setting_linkedin}}" target="_blank" rel="noopener noreferrer" class="btn btn-lg btn-accent w-100 my-2"><i class="fab fa-linkedin-in"></i> Linkedin</a>
-						{% endif %}
-						{% if setting_facebook %}
-							<a href="{{setting_facebook}}" target="_blank" rel="noopener noreferrer" class="btn btn-lg btn-accent w-100 my-2"><i class="fab fa-facebook-f"></i> Facebook</a>
-						{% endif %} 
-						{% if setting_mail_2 %}
-							<a href="mailto:{{ setting_mail_2 }}" target="_blank" rel="noopener noreferrer" class="btn btn-lg btn-accent w-100 my-2"><i class="fas fa-mail-bulk"></i> {{ setting_mail_2 }}</a>
-						{% endif %}
-						{% if setting_tel_2 %}
-							<a href="tel:{{ setting_tel_2 }}" target="_blank" rel="noopener noreferrer" class="btn btn-lg btn-accent w-100 my-2"><i class="fas fa-phone"></i> {{ setting_tel_2 }}</a>
-						{% endif %}  
-						{% if setting_tel_3 %} 
-							{% set message_wa = "Ciao! Ti contatto dal sito." %}
-							<a href="https://api.whatsapp.com/send?phone={{ setting_tel_3 }}&text={{ message_wa | url_encode }}" target="_blank" rel="noopener noreferrer" class="btn btn-lg btn-accent w-100 my-2"><i class="fab fa-whatsapp"></i> {{__('WhatsApp', 'grit_theme')}}</a>
-						{% endif %} 
-						{% if setting_indirizzo_2 %}
-							<a href="https://www.google.com/maps/dir/?api=1&destination={{ setting_indirizzo_2 | url_encode }}" target="_blank" rel="noopener noreferrer" class="btn btn-lg btn-accent w-100 my-2"><i class="fas fa-map-signs"></i> {{__('Indicazioni', 'grit_theme')}}</a>
-						{% endif %}    
-						{% set message = "Ciao! Dai un'occhiata a questo sito interessante: " ~ site.url %}
-						<a href="https://api.whatsapp.com/send?text={{ message | url_encode }}" target="_blank" rel="noopener noreferrer" class="btn btn-lg btn-accent w-100 my-2"><i class="fas fa-share-alt"></i>
-							{{__('Condividi su WhatsApp', 'grit_theme')}}
-						</a>   
-					</div> 
-				</div>
-			</div>
-		</div> 
-	</section>
- 
-	
-{# * GRIT_SET 03 | Content #} 
-	{% if content is not empty %}
-	    <section class="section_page contained py-3">
-	        <div class="container-fluid">
-	            <div class="row">
-	                <div class="col-12">  
-						
-	                    {{ content }}
-	                </div>
-	            </div>
-	        </div>
-	    </section>
-	{% endif %}
+                {% if bio_contacts %}
+                    <h2 class="bio-label">{{ __('Parliamone', 'grit') }}</h2>
+                    <div class="bio-contacts">
+                        {% for contact in bio_contacts %}
+                            <a class="bio-contact no-load" href="{{ contact.url|e('html_attr') }}"{% if contact.external|default(false) %} target="_blank" rel="noopener noreferrer"{% endif %}>
+                                <span class="bio-contact-icon" aria-hidden="true"><i class="{{ contact.icon|e('html_attr') }}"></i></span>
+                                <strong>{{ contact.title|e }}</strong>
+                                <span>{{ contact.detail|e }}</span>
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% endif %}
 
+                {% if bio_socials %}
+                    <nav class="bio-socials" aria-label="{{ __('Profili social', 'grit')|e('html_attr') }}">
+                        {% for social in bio_socials %}
+                            <a class="no-load" href="{{ social.url|e('html_attr') }}" target="_blank" rel="noopener noreferrer" aria-label="{{ social.title|e('html_attr') }}"><i class="{{ social.icon|e('html_attr') }}" aria-hidden="true"></i></a>
+                        {% endfor %}
+                    </nav>
+                {% endif %}
 
-{# * GRIT_SET 04 | Sections After Content #} 
-{% include 'partials/sections.twig' with { sections: sections|default([]), pre_content: false } %}
- 
+                <div class="text-center mt-4">
+                    {% set share_message = site.name ~ ' — ' ~ post.link %}
+                    <a class="bio-share no-load" href="https://wa.me/?text={{ share_message|url_encode|e('html_attr') }}" target="_blank" rel="noopener noreferrer"><i class="fas fa-share-alt mr-2" aria-hidden="true"></i>{{ __('Condividi questa pagina', 'grit') }}</a>
+                </div>
+            </div>
+        </section>
+        {% include 'partials/sections.twig' with {sections: sections|default([]), pre_content: false} %}
+    </article>
+{% endblock %}
 
-
-</article> 
+{% block footer %}
+    <footer class="bg-light text-center py-4 px-3">
+        <small>© {{ 'now'|date('Y') }} {{ site.name|e }}</small>
+        <nav class="small mt-2" aria-label="{{ __('Documenti del sito', 'grit')|e('html_attr') }}">
+            {% set privacy_url = function('grit_policy_url', 'privacy') %}
+            {% set cookie_url = function('grit_policy_url', 'cookie') %}
+            {% if privacy_url %}<a class="mx-2 no-load" href="{{ privacy_url|e('html_attr') }}">Privacy Policy</a>{% endif %}
+            {% if cookie_url %}<a class="mx-2 no-load" href="{{ cookie_url|e('html_attr') }}">Cookie Policy</a>{% endif %}
+        </nav>
+    </footer>
+    {{ function('wp_footer') }}
 {% endblock %}

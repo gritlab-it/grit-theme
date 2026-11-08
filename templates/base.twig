@@ -15,13 +15,15 @@
 <body class="{{ body_class }}" data-template="base.twig">
     {{ function('wp_body_open') }}
     {# * GRIT_SET 02 | Edit each header in its own headers/header_N.twig file. #}
-    {% include 'partials/loader.twig' %}
+    {% block loader %}{% include 'partials/loader.twig' %}{% endblock %}
     <a class="skip-link screen-reader-text" href="#content">{{ __('Vai al contenuto', 'grit_theme') }}</a>
 
+    {% block header %}
     {% set header_name = grit_setting_header|default('header_1') %}
     <header id="{{ header_name }}" class="grit-header">
         {% include ['headers/' ~ header_name ~ '.twig', 'headers/header_1.twig'] %}
     </header>
+    {% endblock %}
 
     {# * GRIT_SET 03 | Child templates replace the content block. #}
     <section id="content" role="main" class="content-wrapper">

@@ -406,7 +406,7 @@ function grit_theme_activation_action() {
         array(
             'title'      => __('Bio', 'grit'),
             'slug'       => 'bio',
-            'template'   => '',
+            'template'   => 'grit-bio.php',
             'menus'      => array('secondary_navigation'),
             'menu_order' => 20,
             'menu_label' => __('Bio', 'grit'),

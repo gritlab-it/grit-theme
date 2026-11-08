@@ -960,6 +960,20 @@ Gli helper `grit_template_fields()`, `grit_template_content()` e `grit_template_
 
 ## Header footer menu e form
 
+### Bio / Link in bio
+
+Assegnare alla pagina il template **Bio / Link in bio**; lo slug iniziale è `bio`, ma il template resta associato anche cambiandolo. La pagina usa un layout essenziale senza menu principale, loader o footer esteso. Le Sections ACF prima/dopo il contenuto restano disponibili.
+
+- Nome: titolo del sito. Presentazione: contenuto della pagina; se vuoto, motto del sito.
+- Foto: immagine in evidenza della pagina; in alternativa logo del sito o iniziale del nome. Non vengono richieste immagini a servizi esterni.
+- Collegamenti: creare un menu a un solo livello e assegnarlo a **Aspetto → Menu → Bio Links**. Titolo, descrizione, ordine e apertura in nuova scheda si gestiscono nel menu. Il collegamento al sito resta sempre disponibile.
+- Contatti: Theme Fields di Personalizza. Email, telefono e indirizzo usano il secondo recapito, con fallback al primo. Il terzo telefono è usato per WhatsApp e deve includere il prefisso internazionale.
+- Social: Instagram, LinkedIn, Facebook e TikTok vengono mostrati soltanto con URL HTTP(S) completi. Campi vuoti e segnaposto `#` non generano collegamenti.
+- Condivisione: il link WhatsApp condivide l’indirizzo della Bio. Il footer compatto richiama le policy pubblicate.
+
+Gli stili sono nel blocco `section_bio` di `_sections.scss` e usano la palette del tema. Non servono plugin o JavaScript aggiuntivi.
+
+
 ### Header
 
 Selezione in Personalizza; struttura conservata in file separati per rendere le varianti modificabili.

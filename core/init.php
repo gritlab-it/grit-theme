@@ -4,7 +4,7 @@
 // Theme setup, supports, navigation and widget areas.
 // 01 | Theme translations, supports and navigation
 // 02 | Register sidebar and footer widget areas
-// 03 | Selectable policy page templates
+// 03 | Selectable page templates
 
 /**
  * Roots initial setup and constants
@@ -20,7 +20,8 @@ function grit_setup() {
     'primary_navigation' => __('Primary Navigation', 'grit'),
     'secondary_navigation' => __('Secondary Navigation', 'grit'),
     'mobile_navigation' => __('Mobile Navigation', 'grit'),
-    'footer_navigation' => __('Footer Navigation', 'grit')
+    'footer_navigation' => __('Footer Navigation', 'grit'),
+    'bio_navigation' => __('Bio Links', 'grit')
   ));
 
   // Add post thumbnails
@@ -106,14 +107,15 @@ function grit_widgets_init() {
 }
 add_action('widgets_init', 'grit_widgets_init');
 
-// * GRIT_SET 03 | Selectable Twig policy templates, independent of page slugs.
+// * GRIT_SET 03 | Selectable Twig page templates, independent of page slugs.
 add_filter('theme_page_templates', function ($templates) {
     $templates['grit-privacy-policy.php'] = __('Privacy Policy', 'grit');
     $templates['grit-cookie-policy.php'] = __('Cookie Policy', 'grit');
+    $templates['grit-bio.php'] = __('Bio / Link in bio', 'grit');
     return $templates;
 });
 add_filter('template_include', function ($template) {
-    if (is_page() && in_array(get_page_template_slug(get_queried_object_id()), ['grit-privacy-policy.php', 'grit-cookie-policy.php'], true)) {
+    if (is_page() && in_array(get_page_template_slug(get_queried_object_id()), ['grit-privacy-policy.php', 'grit-cookie-policy.php', 'grit-bio.php'], true)) {
         return locate_template('page.php') ?: $template;
     }
     return $template;
