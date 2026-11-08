@@ -579,9 +579,6 @@ function allow_svg_mime_types( $data, $file, $filename, $mimes ) {
 }
 add_filter( 'wp_check_filetype_and_ext', 'allow_svg_mime_types', 10, 4 );
 
-// Existing global policy for WordPress doing_it_wrong notifications.
-add_filter('doing_it_wrong_trigger_error', '__return_false', 0);
-
 // * GRIT_SET 14 | Section Archive | Public content types and available card templates.
 // List registered public post types for the Section Archive selector; attachments are excluded.
 function grit_archive_public_types() {
