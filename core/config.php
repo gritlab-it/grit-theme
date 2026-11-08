@@ -73,9 +73,6 @@ $GLOBALS['assets_options'] = array(
     // Inserisci API key di Google Maps console.cloud.google.com
     'GRIT_SETTING_MAPS' => get_theme_mod('grit_setting_maps'),
 
-    // Inserisci API key di Google Recaptcha V3 console.cloud.google.com/security/recaptcha
-    'GRIT_SETTING_RECAPTCHA' => get_theme_mod('grit_setting_recaptcha'),
-
 );
 
 // Attivo lista percorsi CSS di terze parti in core/scripts.php

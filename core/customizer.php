@@ -25,28 +25,27 @@
 // 21 | Admin bar visibility
 // 22 | Tracking settings
 // 23 | Google Maps Api
-// 24 | Google Recaptcha V3
-// 25 | Google Tag
-// 26 | Hot Jar
-// 27 | Public company and contact fields
-// 28 | Primary company name
-// 29 | Primary VAT number
-// 30 | Company registration number
-// 31 | Share capital
-// 32 | Primary address
-// 33 | Secondary address
-// 34 | Third address
-// 35 | Primary phone
-// 36 | Secondary phone
-// 37 | Third phone
-// 38 | Primary fax
-// 39 | Primary email
-// 40 | Secondary email
-// 41 | Third email
-// 42 | LinkedIn
-// 43 | Facebook
-// 44 | Instagram
-// 45 | TikTok
+// 24 | Google Tag
+// 25 | Hot Jar
+// 26 | Public company and contact fields
+// 27 | Primary company name
+// 28 | Primary VAT number
+// 29 | Company registration number
+// 30 | Share capital
+// 31 | Primary address
+// 32 | Secondary address
+// 33 | Third address
+// 34 | Primary phone
+// 35 | Secondary phone
+// 36 | Third phone
+// 37 | Primary fax
+// 38 | Primary email
+// 39 | Secondary email
+// 40 | Third email
+// 41 | LinkedIn
+// 42 | Facebook
+// 43 | Instagram
+// 44 | TikTok
 
 /**
  * @param $wp_customize
@@ -373,19 +372,7 @@ function grit_customize_register($wp_customize)
         'description' => __('Inserisci API key di Google Maps console.cloud.google.com'),
     ));
 
-    // * GRIT_SET 24 | Google Recaptcha V3
-
-    $wp_customize->add_setting('grit_setting_recaptcha', array(
-        'capability' => 'edit_theme_options',
-    ));
-    $wp_customize->add_control('grit_setting_recaptcha', array(
-        'type' => 'text',
-        'section' => 'grit_framework_tracking_settings',
-        'label' => __('Google Recaptcha V3 API KEY'),
-        'description' => __('Inserisci API key di Google Recaptcha V3 console.cloud.google.com/security/recaptcha'),
-    ));
-
-    // * GRIT_SET 25 | Google Tag Manager fallback
+    // * GRIT_SET 24 | Google Tag Manager fallback
 
     $wp_customize->add_setting('grit_setting_gtag', array(
         'capability' => 'edit_theme_options',
@@ -398,7 +385,7 @@ function grit_customize_register($wp_customize)
         'description' => __('Inserisci un ID GTM-… per caricare GTM dal tema. Se il caricamento è affidato a Complianz, questo campo viene ignorato. Lascia vuoto per disabilitare il caricamento dal tema. La gestione del consenso va configurata separatamente.', 'grit'),
     ));
 
-    // * GRIT_SET 26 | Hot Jar
+    // * GRIT_SET 25 | Hot Jar
 
     $wp_customize->add_setting('grit_setting_hotjar', array(
         'capability' => 'edit_theme_options',
@@ -409,14 +396,14 @@ function grit_customize_register($wp_customize)
         'label' => __('Hotjar ID'),
     ));
 
-    // * GRIT_SET 27 | Public company and contact fields
+    // * GRIT_SET 26 | Public company and contact fields
 
     $wp_customize->add_section('grit_framework_theme_fileds', [
         'title' => __('Theme Fields', 'grit_framework'),
         'priority' => 120,
     ]);
 
-    // * GRIT_SET 28 | Primary company name
+    // * GRIT_SET 27 | Primary company name
 
     $wp_customize->add_setting('grit_setting_intestazione', [
         'capability' => 'edit_theme_options',
@@ -427,7 +414,7 @@ function grit_customize_register($wp_customize)
         'label' => __('Intestazione'),
     ]);
 
-    // * GRIT_SET 29 | Primary VAT number
+    // * GRIT_SET 28 | Primary VAT number
 
     $wp_customize->add_setting('grit_setting_piva', [
         'capability' => 'edit_theme_options',
@@ -438,7 +425,7 @@ function grit_customize_register($wp_customize)
         'label' => __('P. IVA'),
     ]);
 
-    // * GRIT_SET 30 | Company registration number
+    // * GRIT_SET 29 | Company registration number
 
     $wp_customize->add_setting('grit_setting_rea', [
         'capability' => 'edit_theme_options',
@@ -449,7 +436,7 @@ function grit_customize_register($wp_customize)
         'label' => __('N° REA'),
     ]);
 
-    // * GRIT_SET 31 | Share capital
+    // * GRIT_SET 30 | Share capital
 
     $wp_customize->add_setting('grit_setting_cap_soc', [
         'capability' => 'edit_theme_options',
@@ -460,7 +447,7 @@ function grit_customize_register($wp_customize)
         'label' => __('Capitale Sociale'),
     ]);
 
-    // * GRIT_SET 32 | Primary address
+    // * GRIT_SET 31 | Primary address
 
     $wp_customize->add_setting('grit_setting_indirizzo_1', [
         'capability' => 'edit_theme_options',
@@ -471,7 +458,7 @@ function grit_customize_register($wp_customize)
         'label' => __('Indirizzo 1'),
     ]);
 
-    // * GRIT_SET 33 | Secondary address
+    // * GRIT_SET 32 | Secondary address
 
     $wp_customize->add_setting('grit_setting_indirizzo_2', [
         'capability' => 'edit_theme_options',
@@ -483,7 +470,7 @@ function grit_customize_register($wp_customize)
         'description' => __('Se presente attiva link in BIO')
     ]);
 
-    // * GRIT_SET 34 | Third address
+    // * GRIT_SET 33 | Third address
 
     $wp_customize->add_setting('grit_setting_indirizzo_3', [
         'capability' => 'edit_theme_options',
@@ -496,7 +483,7 @@ function grit_customize_register($wp_customize)
 
     ]);
 
-    // * GRIT_SET 35 | Primary phone
+    // * GRIT_SET 34 | Primary phone
 
     $wp_customize->add_setting('grit_setting_tel_1', [
         'capability' => 'edit_theme_options',
@@ -507,7 +494,7 @@ function grit_customize_register($wp_customize)
         'label' => __('Telefono 1 Principale'),
     ]);
 
-    // * GRIT_SET 36 | Secondary phone
+    // * GRIT_SET 35 | Secondary phone
 
     $wp_customize->add_setting('grit_setting_tel_2', [
         'capability' => 'edit_theme_options',
@@ -519,7 +506,7 @@ function grit_customize_register($wp_customize)
         'description' => __('Se presente attiva link in BIO')
     ]);
 
-    // * GRIT_SET 37 | Third phone
+    // * GRIT_SET 36 | Third phone
 
     $wp_customize->add_setting('grit_setting_tel_3', [
         'capability' => 'edit_theme_options',
@@ -531,7 +518,7 @@ function grit_customize_register($wp_customize)
         'description' => __('Se presente attiva link Whats App in BIO')
     ]);
 
-    // * GRIT_SET 38 | Primary fax
+    // * GRIT_SET 37 | Primary fax
 
     $wp_customize->add_setting('grit_setting_fax', [
         'capability' => 'edit_theme_options',
@@ -542,7 +529,7 @@ function grit_customize_register($wp_customize)
         'label' => __('Fax'),
     ]);
 
-    // * GRIT_SET 39 | Primary email
+    // * GRIT_SET 38 | Primary email
 
     $wp_customize->add_setting('grit_setting_mail_1', [
         'capability' => 'edit_theme_options',
@@ -554,7 +541,7 @@ function grit_customize_register($wp_customize)
         'label' => __('Mail 1 Principale'),
     ]);
 
-    // * GRIT_SET 40 | Secondary email
+    // * GRIT_SET 39 | Secondary email
 
     $wp_customize->add_setting('grit_setting_mail_2', [
         'capability' => 'edit_theme_options',
@@ -565,7 +552,7 @@ function grit_customize_register($wp_customize)
         'label' => __('Mail 2 Secondaria'),
     ]);
 
-    // * GRIT_SET 41 | Third email
+    // * GRIT_SET 40 | Third email
 
     $wp_customize->add_setting('grit_setting_mail_3', [
         'capability' => 'edit_theme_options',
@@ -576,7 +563,7 @@ function grit_customize_register($wp_customize)
         'label' => __('Mail 3'),
     ]);
 
-    // * GRIT_SET 42 | LinkedIn
+    // * GRIT_SET 41 | LinkedIn
 
     $wp_customize->add_setting('grit_setting_linkedin', [
         'capability' => 'edit_theme_options',
@@ -587,7 +574,7 @@ function grit_customize_register($wp_customize)
         'label' => __('Linkedin'),
     ]);
 
-    // * GRIT_SET 43 | Facebook
+    // * GRIT_SET 42 | Facebook
 
     $wp_customize->add_setting('grit_setting_facebook', [
         'capability' => 'edit_theme_options',
@@ -598,7 +585,7 @@ function grit_customize_register($wp_customize)
         'label' => __('Facebook'),
     ]);
 
-    // * GRIT_SET 44 | Instagram
+    // * GRIT_SET 43 | Instagram
 
     $wp_customize->add_setting('grit_setting_instagram', [
         'capability' => 'edit_theme_options',
@@ -609,7 +596,7 @@ function grit_customize_register($wp_customize)
         'label' => __('Instagram'),
     ]);
 
-    // * GRIT_SET 45 | TikTok | Shared with the reusable contact shortcodes.
+    // * GRIT_SET 44 | TikTok | Shared with the reusable contact shortcodes.
     $wp_customize->add_setting('grit_setting_tiktok', [
         'capability' => 'edit_theme_options',
         'sanitize_callback' => 'esc_url_raw',

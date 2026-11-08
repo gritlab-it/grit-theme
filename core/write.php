@@ -4,7 +4,7 @@
 // Apache rules generated when WordPress permalinks are saved.
 // Rules are applied through WordPress rewrite filters; reading this file does not save permalinks.
 // 01 | Protect wp-config through Apache rules
-// 02 | Generate rewrite and compression rules
+// 02 | Generate missing-image rewrite rules
 // 03 | Generate browser cache expiry rules
 
 /**
@@ -30,19 +30,13 @@ EOD;
     return $my_content . $rules;
 }
 
-// * GRIT_SET 02 | Generate rewrite and compression rules
+// * GRIT_SET 02 | Generate missing-image rewrite rules
 function rewrite( $rules )
 {
 $my_content = <<<EOD
 \n
 <IfModule mod_rewrite.c>
 RewriteEngine On
-
-RewriteCond %{REQUEST_METHOD} POST
-RewriteCond %{REQUEST_URI} .wp-comments-post\.php*
-RewriteCond %{HTTP_REFERER} !.*xyz.* [OR]
-RewriteCond %{HTTP_USER_AGENT} ^$
-RewriteRule (.*) ^http://%{REMOTE_ADDR}/$ [R=301,L]
 
 RewriteCond %{REQUEST_URI} \.(jpg|jpeg|gif|png|ico)$ [NC]
 RewriteCond %{REQUEST_FILENAME} !-f

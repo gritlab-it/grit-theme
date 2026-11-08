@@ -5150,6 +5150,10 @@ section.section-bars.bg-primary .bar {
     transform: none !important;
   }
 }
+.grecaptcha-badge {
+  visibility: hidden;
+}
+
 :root {
   --grit-form-shadow: none;
   --grit-form-background: #ebf0e6;

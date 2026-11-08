@@ -14,6 +14,7 @@
 // 13 | Text chapter image proportions for grid, Masonry and carousel
 // 14 | Tease: standard card media shared by archives, sections and related posts.
 // 15 | Maps: canvas heights, location list and information windows
+// 16 | reCAPTCHA badge visibility.
 // Settings: _variables.scss. Owl controls: _plugins.scss. Shortcodes: _shortcodes.scss.
 
 @use "./variables" as *;
@@ -973,4 +974,9 @@ section.section-bars {
         animation: none !important;
         transform: none !important;
     }
+}
+
+// * GRIT_SET 16 | Hide the badge without disabling reCAPTCHA.
+.grecaptcha-badge {
+    visibility: hidden;
 }

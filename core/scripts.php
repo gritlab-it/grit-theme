@@ -29,9 +29,8 @@
 // 25 | Carico style.css
 // 26 | Carico il CSS custom
 // 27 | Carico il JS custom
-// 28 | Google Recaptcha
-// 29 | Google Tag Manager
-// 30 | Hotjar Tracking Code
+// 28 | Google Tag Manager
+// 29 | Hotjar Tracking Code
 
 // * GRIT_SET 01 | Add prefetching rules
 // Reference: https://authoritywebsiteincome.com/speed-up-wordpress-with-dns-prefetching/
@@ -248,25 +247,7 @@ function grit_scripts_custom()
 
 add_action('wp_enqueue_scripts', 'grit_scripts_custom', 110);
 
-// * GRIT_SET 28 | Google Recaptcha
-
-function add_recaptcha_lib() {
-    $recaptcha_api_key = get_theme_mod('grit_setting_recaptcha');
-    if (!empty($recaptcha_api_key)) {
-        echo '<script src="https://www.google.com/recaptcha/api.js?render=' . $recaptcha_api_key . '" async defer></script>';
-    }
-}
-add_action('wp_head', 'add_recaptcha_lib');
-
-    function add_recaptcha_init() {
-        $recaptcha_api_key = get_theme_mod('grit_setting_recaptcha');
-        if (!empty($recaptcha_api_key)) {
-            echo '<script>function onLoadRecaptcha(){grecaptcha.ready(function(){grecaptcha.execute("' . $recaptcha_api_key . '",{action:"submit"}).then(function(token){document.getElementById("g-recaptcha-response").value=token;});});}</script>';
-        }
-    }
-    add_action('wp_footer', 'add_recaptcha_init');
-
-// * GRIT_SET 29 | Google Tag Manager
+// * GRIT_SET 28 | Google Tag Manager
 
 // Accept container IDs only; Google Analytics measurement IDs use a different integration.
 function grit_sanitize_gtm_id($value) {
@@ -320,7 +301,7 @@ function grit_gtag_body_analytics() {
 }
 add_action('wp_body_open', 'grit_gtag_body_analytics', 20);
 
-// * GRIT_SET 30 | Hotjar Tracking Code
+// * GRIT_SET 29 | Hotjar Tracking Code
 
 if (get_theme_mod('grit_setting_hotjar') != '') {
     function grit_hotjar_analytics()
