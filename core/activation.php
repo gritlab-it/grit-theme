@@ -365,9 +365,10 @@ function grit_theme_activation_action() {
             'title'      => __('About', 'grit'),
             'slug'       => 'about',
             'template'   => '',
-            'menus'      => array('primary_navigation', 'mobile_navigation'),
+            'menus'      => array('primary_navigation', 'mobile_navigation', 'bio_navigation'),
             'menu_order' => 2,
             'menu_label' => __('About', 'grit'),
+            'bio_description' => __('Scopri chi siamo e cosa facciamo.', 'grit'),
         ),
         array(
             'title'      => __('Blog', 'grit'),
@@ -381,9 +382,10 @@ function grit_theme_activation_action() {
             'title'      => __('Contatti', 'grit'),
             'slug'       => 'contatti',
             'template'   => '',
-            'menus'      => array('primary_navigation', 'mobile_navigation'),
+            'menus'      => array('primary_navigation', 'mobile_navigation', 'bio_navigation'),
             'menu_order' => 4,
             'menu_label' => __('Contatti', 'grit'),
+            'bio_description' => __('Scrivici per informazioni o per parlare del tuo progetto.', 'grit'),
         ),
         array(
             'title'      => __('Privacy Policy', 'grit'),
@@ -516,7 +518,7 @@ if (get_theme_mod('grit_setting_footer', false) === false) {
             'secondary_navigation' => __('Secondary Navigation', 'grit'),
             'mobile_navigation'    => __('Mobile Navigation', 'grit'),
             'footer_navigation'    => __('Footer Navigation', 'grit'),
-            'bio_navigation'       => __('Bio Links', 'grit'),
+            'bio_navigation'       => 'bio-menu',
         );
     
         $nav_theme_mod = (array) get_theme_mod('nav_menu_locations', []);
@@ -555,6 +557,7 @@ if ($grit_theme_activation_options['add_pages_to_primary_navigation'] === 'true'
         'secondary_navigation' => __('Secondary Navigation', 'grit'),
         'mobile_navigation'    => __('Mobile Navigation', 'grit'),
         'footer_navigation'    => __('Footer Navigation', 'grit'),
+        'bio_navigation'       => 'bio-menu',
     );
 
     foreach ($menu_locations as $location => $menu_name) {
@@ -605,6 +608,10 @@ if ($grit_theme_activation_options['add_pages_to_primary_navigation'] === 'true'
                 'menu-item-title'     => !empty($page_data['menu_label']) ? $page_data['menu_label'] : $page_data['title'],
                 'menu-item-position'  => !empty($page_data['menu_order']) ? (int) $page_data['menu_order'] : 0,
             );
+
+            if ($location === 'bio_navigation') {
+                $item_data['menu-item-description'] = $page_data['bio_description'] ?? '';
+            }
 
             $menu_item = wp_update_nav_menu_item($menu_id, 0, $item_data);
             if (is_wp_error($menu_item)) {
