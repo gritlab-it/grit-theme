@@ -199,17 +199,6 @@ function remove_dashboard_widgets()
 }
 add_action('wp_dashboard_setup', 'remove_dashboard_widgets' );
 
-// Legacy random string helper; it is not a password or security token generator.
-function generateRandomString($length = 10) {
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $charactersLength = strlen($characters);
-    $randomString = '';
-    for ($i = 0; $i < $length; $i++) {
-        $randomString .= $characters[rand(0, $charactersLength - 1)];
-    }
-    return $randomString;
-}
-
 // * GRIT_SET 05 | Responsive image sizes and carousel column helpers
 
 // Build the HTML sizes attribute from carousel classes. This helps image selection; it does not initialize Owl.
