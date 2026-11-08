@@ -138,7 +138,7 @@ function grit_theme_activation_options_render_page() {
                                 <option value="true" <?php selected(($saved_options['create_navigation_menus'] ?? 'true') === 'true'); ?>><?php echo _e('Yes', 'grit'); ?></option>
                                 <option value="false" <?php selected(($saved_options['create_navigation_menus'] ?? 'true') !== 'true'); ?>><?php echo _e('No', 'grit'); ?></option>
                             </select>
-                            <p class="description"><?php printf(__('Create the Primary Navigation menu and set the location', 'grit')); ?></p>
+                            <p class="description"><?php printf(__('Create navigation menus, including Bio Links, and assign their locations', 'grit')); ?></p>
                         </fieldset>
                     </td>
                 </tr>
@@ -522,6 +522,7 @@ if (get_theme_mod('grit_setting_footer', false) === false) {
             'secondary_navigation' => __('Secondary Navigation', 'grit'),
             'mobile_navigation'    => __('Mobile Navigation', 'grit'),
             'footer_navigation'    => __('Footer Navigation', 'grit'),
+            'bio_navigation'       => __('Bio Links', 'grit'),
         );
     
         $nav_theme_mod = (array) get_theme_mod('nav_menu_locations', []);

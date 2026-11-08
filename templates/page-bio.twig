@@ -43,25 +43,59 @@
                     {% endfor %}
                 </nav>
 
-                {% if bio_contacts %}
+                {# Contacts use the existing Theme Fields directly. #}
+                {% if setting_mail_2 or setting_tel_2 or setting_tel_3 or setting_indirizzo_2 %}
                     <h2 class="bio-label">{{ __('Parliamone', 'grit') }}</h2>
                     <div class="bio-contacts">
-                        {% for contact in bio_contacts %}
-                            <a class="bio-contact no-load" href="{{ contact.url|e('html_attr') }}"{% if contact.external|default(false) %} target="_blank" rel="noopener noreferrer"{% endif %}>
-                                <span class="bio-contact-icon" aria-hidden="true"><i class="{{ contact.icon|e('html_attr') }}"></i></span>
-                                <strong>{{ contact.title|e }}</strong>
-                                <span>{{ contact.detail|e }}</span>
+                        {% if setting_mail_2 %}
+                            <a class="bio-contact no-load" href="mailto:{{ setting_mail_2|e('html_attr') }}">
+                                <i class="bio-contact-icon far fa-envelope" aria-hidden="true"></i>
+                                <strong>{{ __('Scrivici', 'grit') }}</strong>
+                                <span>{{ setting_mail_2|e }}</span>
                             </a>
-                        {% endfor %}
+                        {% endif %}
+                        {% if setting_tel_2 %}
+                            <a class="bio-contact no-load" href="tel:{{ function('preg_replace', '/[^0-9+]/', '', setting_tel_2)|e('html_attr') }}">
+                                <i class="bio-contact-icon fas fa-phone" aria-hidden="true"></i>
+                                <strong>{{ __('Chiamaci', 'grit') }}</strong>
+                                <span>{{ setting_tel_2|e }}</span>
+                            </a>
+                        {% endif %}
+                        {% if setting_tel_3 %}
+                            {% set whatsapp = function('preg_replace', '/[^0-9]+/', '', setting_tel_3) %}
+                            {% if whatsapp starts with '00' %}{% set whatsapp = whatsapp|slice(2) %}{% endif %}
+                            <a class="bio-contact no-load" href="https://wa.me/{{ whatsapp|e('html_attr') }}" target="_blank" rel="noopener noreferrer">
+                                <i class="bio-contact-icon fab fa-whatsapp" aria-hidden="true"></i>
+                                <strong>WhatsApp</strong>
+                                <span>{{ __('Iniziamo una conversazione', 'grit') }}</span>
+                            </a>
+                        {% endif %}
+                        {% if setting_indirizzo_2 %}
+                            <a class="bio-contact no-load" href="https://www.google.com/maps/dir/?api=1&amp;destination={{ setting_indirizzo_2|url_encode|e('html_attr') }}" target="_blank" rel="noopener noreferrer">
+                                <i class="bio-contact-icon fas fa-map-marker-alt" aria-hidden="true"></i>
+                                <strong>{{ __('Dove siamo', 'grit') }}</strong>
+                                <span>{{ setting_indirizzo_2|e }}</span>
+                            </a>
+                        {% endif %}
                     </div>
                 {% endif %}
 
-                {% if bio_socials %}
-                    <nav class="bio-socials" aria-label="{{ __('Profili social', 'grit')|e('html_attr') }}">
-                        {% for social in bio_socials %}
-                            <a class="no-load" href="{{ social.url|e('html_attr') }}" target="_blank" rel="noopener noreferrer" aria-label="{{ social.title|e('html_attr') }}"><i class="{{ social.icon|e('html_attr') }}" aria-hidden="true"></i></a>
-                        {% endfor %}
-                    </nav>
+                {# Add or remove social profiles here, using the existing Theme Fields. #}
+                {% set socials = [
+                    {title: 'Instagram', url: setting_instagram, icon: 'fab fa-instagram'},
+                    {title: 'LinkedIn', url: setting_linkedin, icon: 'fab fa-linkedin-in'},
+                    {title: 'Facebook', url: setting_facebook, icon: 'fab fa-facebook-f'},
+                    {title: 'TikTok', url: setting_tiktok, icon: 'fab fa-tiktok'}
+                ] %}
+                {% set social_links %}
+                    {% for social in socials %}
+                        {% if social.url starts with 'https://' or social.url starts with 'http://' %}
+                            <a class="no-load" href="{{ function('esc_url', social.url)|e('html_attr') }}" target="_blank" rel="noopener noreferrer" aria-label="{{ social.title|e('html_attr') }}"><i class="{{ social.icon|e('html_attr') }}" aria-hidden="true"></i></a>
+                        {% endif %}
+                    {% endfor %}
+                {% endset %}
+                {% if social_links|trim %}
+                    <nav class="bio-socials" aria-label="{{ __('Profili social', 'grit')|e('html_attr') }}">{{ social_links }}</nav>
                 {% endif %}
 
                 <div class="text-center mt-4">

@@ -126,6 +126,7 @@ class StarterSite extends Timber\Site {
 		$context['secondary_menu'] = new Timber\Menu(has_nav_menu('secondary_navigation') ? 'secondary_navigation' : 'Secondary Navigation');
 		$context['mobile_menu'] = new Timber\Menu(has_nav_menu('mobile_navigation') ? 'mobile_navigation' : 'Mobile Navigation');
 		$context['footer_menu'] = new Timber\Menu(has_nav_menu('footer_navigation') ? 'footer_navigation' : 'Footer Navigation');
+		$context['bio_menu'] = has_nav_menu('bio_navigation') ? new Timber\Menu('bio_navigation') : null;
 
 		// * GRIT_SET 03 | Parent theme assets and active child theme assets are distinct paths.
 		$theme_url = get_template_directory_uri();
