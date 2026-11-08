@@ -10,7 +10,7 @@
  
 
 <div class="blog-comment {{comment.comment_type}}" id="blog-comment-{{comment.ID}}">
-	<h5 class="comment-author">{{comment.author.name}} {{__('commenta', 'grit_theme')}}</h5>
+	<h5 class="comment-author">{{comment.author.name}} {{__('commenta', 'grit')}}</h5>
 	<div class="comment-content">{{comment.comment_content|wpautop}}</div> 
 	<section class="comment-box contact-form-style-1"> 
 
@@ -19,7 +19,7 @@
 		
 		{# * GRIT_SET 02 | child comment #}  
 		{% if post.comments %}
-			<h4> {{__('Risposte', 'grit_theme')}}</h4>
+			<h4> {{__('Risposte', 'grit')}}</h4>
 			<div class="comments">
 				{% for cmt in comment.children %}
 					{% include "comment.twig" with {comment:cmt} %}

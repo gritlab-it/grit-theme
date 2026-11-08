@@ -35,7 +35,7 @@ add_action('manage_pages_custom_column', 'posts_custom_id_columns', 5, 2);
 
 // Add the ID column label to the post/page admin tables.
 function posts_columns_id($defaults) {
-    $defaults['wpam_post_id'] = __('ID');
+    $defaults['wpam_post_id'] = __('ID', 'grit');
     return $defaults;
 }
 

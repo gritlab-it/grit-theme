@@ -4,19 +4,19 @@
             {% if video.type == 'file' %}
                 <video controls playsinline preload="{{ preview ? 'none' : 'metadata' }}"{% if loop %} loop{% endif %}{% if preview %} poster="{{ function('wp_get_attachment_image_url', preview.id|default(preview.ID)|default(preview), 'large')|e('html_attr') }}"{% endif %}>
                     <source src="{{ video.url|e('html_attr') }}" type="{{ video.mime|e('html_attr') }}">
-                    <a href="{{ video.url|e('html_attr') }}">{{ __('Apri il video', 'grit_theme') }}</a>
+                    <a href="{{ video.url|e('html_attr') }}">{{ __('Apri il video', 'grit') }}</a>
                 </video>
             {% elseif preview %}
                 <template class="video-template">{{ video.html }}</template>
                 <div class="video-embed" hidden></div>
-                {% if video.url %}<noscript><a href="{{ video.url|e('html_attr') }}" target="_blank" rel="noopener noreferrer">{{ __('Apri il video', 'grit_theme') }}</a></noscript>{% endif %}
+                {% if video.url %}<noscript><a href="{{ video.url|e('html_attr') }}" target="_blank" rel="noopener noreferrer">{{ __('Apri il video', 'grit') }}</a></noscript>{% endif %}
             {% else %}
                 <div class="video-embed">{{ video.html }}</div>
             {% endif %}
             {% if preview %}
                 <div class="video-cover" hidden>
                     {{ function('wp_get_attachment_image', preview.id|default(preview.ID)|default(preview), 'large', false, { class: 'thumbnail-img', alt: '', loading: 'lazy' }) }}
-                    <button type="button" class="play-button" aria-label="{{ __('Riproduci il video', 'grit_theme') }}"><i class="fas fa-play" aria-hidden="true"></i></button>
+                    <button type="button" class="play-button" aria-label="{{ __('Riproduci il video', 'grit') }}"><i class="fas fa-play" aria-hidden="true"></i></button>
                 </div>
             {% endif %}
         </div>

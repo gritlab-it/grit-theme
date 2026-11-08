@@ -13,8 +13,8 @@
     {# * GRIT_SET 01 | Local List.js is loaded once through WordPress dependencies #}
     <div class="row"><div class="col-12 my-5 js-collapse-search" id="{{ prefix }}-search">
         <div class="py-3">
-            <label class="sr-only" for="{{ prefix }}-query">{{ __('Search...', 'grit_theme') }}</label>
-            <input id="{{ prefix }}-query" type="search" class="search form-control" placeholder="{{ __('Search...', 'grit_theme') }}" aria-controls="{{ prefix }}-results">
+            <label class="sr-only" for="{{ prefix }}-query">{{ __('Search...', 'grit') }}</label>
+            <input id="{{ prefix }}-query" type="search" class="search form-control" placeholder="{{ __('Search...', 'grit') }}" aria-controls="{{ prefix }}-results">
         </div>
         <ul class="list p-0 w-100 list-unstyled" id="{{ prefix }}-results">
         {% for list in lists %}
@@ -26,8 +26,8 @@
             {% endfor %}
         {% endfor %}
         </ul>
-        <p class="collapse-empty" role="status" hidden>{{ __('Nessun risultato trovato.', 'grit_theme') }}</p>
-        <nav aria-label="{{ __('Paginazione risultati', 'grit_theme') }}"><ul class="pagination pagination-list-js justify-content-center"></ul></nav>
+        <p class="collapse-empty" role="status" hidden>{{ __('Nessun risultato trovato.', 'grit') }}</p>
+        <nav aria-label="{{ __('Paginazione risultati', 'grit') }}"><ul class="pagination pagination-list-js justify-content-center"></ul></nav>
     </div></div>
 {% elseif 'section_collapse_dynamic' in modifiers %}
     {# * GRIT_SET 02 | Every tab ID includes the section prefix #}

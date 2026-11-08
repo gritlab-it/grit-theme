@@ -7,7 +7,7 @@ if (!defined('ABSPATH') || post_password_required() || get_theme_mod('grit_setti
 <section class="section_page contained py-5" id="comments">
     <div class="container-fluid">
         <?php if (have_comments()) : ?>
-            <h2><?php esc_html_e('Commenti', 'grit_theme'); ?></h2>
+            <h2><?php esc_html_e('Commenti', 'grit'); ?></h2>
             <ol class="comment-list">
                 <?php wp_list_comments(['style' => 'ol', 'short_ping' => true]); ?>
             </ol>

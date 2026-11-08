@@ -76,9 +76,9 @@ if (!is_search()) {
 // * GRIT_SET 04 | Shared result counts; a search with no matches stays empty.
 $context = grit_template_query($context, $results_query);
 if ($results_query->found_posts) {
-    $heading = sprintf(__('Risultati della ricerca per: %s', 'grit_theme'), $search_term);
+    $heading = sprintf(__('Risultati della ricerca per: %s', 'grit'), $search_term);
 } else {
-    $heading = sprintf(__('Nessun risultato trovato per: %s', 'grit_theme'), $search_term);
+    $heading = sprintf(__('Nessun risultato trovato per: %s', 'grit'), $search_term);
 }
 $context['title'] = $heading;
 $context['post_title'] = $heading;

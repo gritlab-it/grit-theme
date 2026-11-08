@@ -48,7 +48,7 @@ Shared appearance is in _footer.scss.
                     <div class="col-12 col-sm-6 col-lg-4 mb-4">
                         {{ footer_col_1 }}
                         {% if footer_links %}
-                            <nav aria-label="{{ __('Menu footer', 'grit_theme')|e('html_attr') }}">
+                            <nav aria-label="{{ __('Menu footer', 'grit')|e('html_attr') }}">
                                 <ul class="footer-menu list-unstyled mb-0">
                                     {% for item in footer_links %}
                                         <li class="{{ item.classes|join(' ')|e('html_attr') }}">
@@ -76,10 +76,10 @@ Shared appearance is in _footer.scss.
                 {% endif %}
                 {# The existing newsletter page receives the email; this form does not subscribe directly. #}
                 <form class="footer-newsletter mt-4" action="{{ function('esc_url', function('home_url', '/newsletter/'))|e('html_attr') }}" method="get">
-                    <label for="footer-newsletter-email">{{ __('Iscriviti alla nostra newsletter', 'grit_theme') }}</label>
+                    <label for="footer-newsletter-email">{{ __('Iscriviti alla nostra newsletter', 'grit') }}</label>
                     <div class="footer-newsletter-controls">
-                        <input type="email" class="form-control" name="mailnewsletter" id="footer-newsletter-email" autocomplete="email" placeholder="{{ __('Indirizzo email', 'grit_theme')|e('html_attr') }}" required>
-                        <button type="submit" class="btn btn-accent">{{ __('Iscriviti', 'grit_theme') }}</button>
+                        <input type="email" class="form-control" name="mailnewsletter" id="footer-newsletter-email" autocomplete="email" placeholder="{{ __('Indirizzo email', 'grit')|e('html_attr') }}" required>
+                        <button type="submit" class="btn btn-accent">{{ __('Iscriviti', 'grit') }}</button>
                     </div>
                 </form>
                 {% if footer_bottom %}
@@ -94,7 +94,7 @@ Shared appearance is in _footer.scss.
     <div class="container-fluid">
         <div class="row align-items-center">
             <div class="col-12 col-md-6 mb-3 mb-md-0">
-                <p class="mb-0">© {{ "now"|date('Y') }} {{ setting_intestazione|default(site.name)|e }}{% if setting_piva %} · {{ __('P.IVA', 'grit_theme') }} {{ setting_piva|e }}{% endif %}</p>
+                <p class="mb-0">© {{ "now"|date('Y') }} {{ setting_intestazione|default(site.name)|e }}{% if setting_piva %} · {{ __('P.IVA', 'grit') }} {{ setting_piva|e }}{% endif %}</p>
             </div>
             <div class="col-12 col-md-6">
                 <ul class="footer-policy list-unstyled mb-0">

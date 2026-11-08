@@ -17,7 +17,7 @@ $context['content'] = '';
 $author = get_queried_object();
 if ($author instanceof WP_User) {
     $context['author'] = new Timber\User($author->ID);
-    $context['title'] = sprintf(__('Articoli di %s', 'grit_theme'), $author->display_name);
+    $context['title'] = sprintf(__('Articoli di %s', 'grit'), $author->display_name);
 }
 
 Timber::render(['author.twig', 'archive.twig', 'index.twig'], $context);

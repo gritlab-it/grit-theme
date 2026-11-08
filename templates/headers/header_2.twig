@@ -12,16 +12,16 @@
 {% if not mobile_items %}{% set mobile_items = primary_menu.get_items|default([]) %}{% endif %}
 
 {# * GRIT_SET 01 | Keep the overlay outside both bars to avoid fixed-position clipping. #}
-<div class="sidenav sidenav-close" id="header-sidenav" role="dialog" aria-modal="true" aria-label="{{ __('Menu di navigazione', 'grit_theme') }}" aria-hidden="true" inert tabindex="-1" data-mobile-panel data-lenis-prevent>
+<div class="sidenav sidenav-close" id="header-sidenav" role="dialog" aria-modal="true" aria-label="{{ __('Menu di navigazione', 'grit') }}" aria-hidden="true" inert tabindex="-1" data-mobile-panel data-lenis-prevent>
     <div class="inner-sidenav navbar">
         <a class="navbar-brand" href="{{ home|e('html_attr') }}" title="{{ site.name|e('html_attr') }}">
             <img class="logo img-fluid" src="{{ (custom_logo_url ? custom_logo_url[0] : 'https://placehold.co/100x100/000000/FFFFFF/png')|e('html_attr') }}" alt="{{ site.name|e('html_attr') }}">
         </a>
-        <button class="navbar-toggler menu-close" type="button" data-menu-close aria-label="{{ __('Chiudi menu', 'grit_theme') }}">
+        <button class="navbar-toggler menu-close" type="button" data-menu-close aria-label="{{ __('Chiudi menu', 'grit') }}">
             <i class="fas fa-times" aria-hidden="true"></i>
         </button>
     </div>
-    <nav class="overlay-content" aria-label="{{ __('Navigazione mobile', 'grit_theme') }}">
+    <nav class="overlay-content" aria-label="{{ __('Navigazione mobile', 'grit') }}">
         {% include 'headers/menu.twig' with {menu_items: mobile_items, class_menu: 'mobile_menu'} %}
     </nav>
     {% include 'headers/nav-social.twig' %}
@@ -29,13 +29,13 @@
 
 {# * GRIT_SET 02 | Main bar. #}
 <div class="header-menu">
-    <nav class="navbar navbar-expand-lg static-top" aria-label="{{ __('Navigazione principale', 'grit_theme') }}">
+    <nav class="navbar navbar-expand-lg static-top" aria-label="{{ __('Navigazione principale', 'grit') }}">
         <div class="header-brand">
             <a class="navbar-brand" href="{{ home|e('html_attr') }}" title="{{ site.name|e('html_attr') }}">
                 <img class="logo img-fluid" src="{{ (custom_logo_url ? custom_logo_url[0] : 'https://placehold.co/100x100/000000/FFFFFF/png')|e('html_attr') }}" alt="{{ site.name|e('html_attr') }}">
             </a>
         </div>
-        <button class="navbar-toggler menu-toggle" type="button" data-menu-open aria-controls="header-sidenav" aria-expanded="false" aria-label="{{ __('Apri menu', 'grit_theme') }}">
+        <button class="navbar-toggler menu-toggle" type="button" data-menu-open aria-controls="header-sidenav" aria-expanded="false" aria-label="{{ __('Apri menu', 'grit') }}">
             <i class="fas fa-bars" aria-hidden="true"></i>
         </button>
         <div class="navbar-collapse desktop-primary">
@@ -47,13 +47,13 @@
 
 {# * GRIT_SET 03 | Sticky bar. #}
 <div class="sticky sticky-fix" aria-hidden="true" inert>
-    <nav class="navbar navbar-expand-lg static-top" aria-label="{{ __('Navigazione principale', 'grit_theme') }}">
+    <nav class="navbar navbar-expand-lg static-top" aria-label="{{ __('Navigazione principale', 'grit') }}">
         <div class="header-brand">
             <a class="navbar-brand" href="{{ home|e('html_attr') }}" title="{{ site.name|e('html_attr') }}">
                 <img class="logo img-fluid" src="{{ (custom_logo_url ? custom_logo_url[0] : 'https://placehold.co/100x100/000000/FFFFFF/png')|e('html_attr') }}" alt="{{ site.name|e('html_attr') }}">
             </a>
         </div>
-        <button class="navbar-toggler menu-toggle" type="button" data-menu-open aria-controls="header-sidenav" aria-expanded="false" aria-label="{{ __('Apri menu', 'grit_theme') }}">
+        <button class="navbar-toggler menu-toggle" type="button" data-menu-open aria-controls="header-sidenav" aria-expanded="false" aria-label="{{ __('Apri menu', 'grit') }}">
             <i class="fas fa-bars" aria-hidden="true"></i>
         </button>
         <div class="navbar-collapse desktop-primary">

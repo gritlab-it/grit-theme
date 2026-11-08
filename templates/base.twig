@@ -16,7 +16,7 @@
     {{ function('wp_body_open') }}
     {# * GRIT_SET 02 | Edit each header in its own headers/header_N.twig file. #}
     {% block loader %}{% include 'partials/loader.twig' %}{% endblock %}
-    <a class="skip-link screen-reader-text" href="#content">{{ __('Vai al contenuto', 'grit_theme') }}</a>
+    <a class="skip-link screen-reader-text" href="#content">{{ __('Vai al contenuto', 'grit') }}</a>
 
     {% block header %}
     {% set header_name = grit_setting_header|default('header_1') %}

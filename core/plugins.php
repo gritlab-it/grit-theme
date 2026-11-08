@@ -205,76 +205,76 @@ function grit_framework_register_required_plugins()
 
         /*
         'strings'      => array(
-            'page_title'                      => __( 'Install Required Plugins', 'grit-framework' ),
-            'menu_title'                      => __( 'Install Plugins', 'grit-framework' ),
+            'page_title'                      => __( 'Install Required Plugins', 'grit' ),
+            'menu_title'                      => __( 'Install Plugins', 'grit' ),
             /* translators: %s: plugin name. * /
-            'installing'                      => __( 'Installing Plugin: %s', 'grit-framework' ),
+            'installing'                      => __( 'Installing Plugin: %s', 'grit' ),
             /* translators: %s: plugin name. * /
-            'updating'                        => __( 'Updating Plugin: %s', 'grit-framework' ),
-            'oops'                            => __( 'Something went wrong with the plugin API.', 'grit-framework' ),
+            'updating'                        => __( 'Updating Plugin: %s', 'grit' ),
+            'oops'                            => __( 'Something went wrong with the plugin API.', 'grit' ),
             'notice_can_install_required'     => _n_noop(
                 /* translators: 1: plugin name(s). * /
                 'This theme requires the following plugin: %1$s.',
                 'This theme requires the following plugins: %1$s.',
-                'grit-framework'
+                'grit'
             ),
             'notice_can_install_recommended'  => _n_noop(
                 /* translators: 1: plugin name(s). * /
                 'This theme recommends the following plugin: %1$s.',
                 'This theme recommends the following plugins: %1$s.',
-                'grit-framework'
+                'grit'
             ),
             'notice_ask_to_update'            => _n_noop(
                 /* translators: 1: plugin name(s). * /
                 'The following plugin needs to be updated to its latest version to ensure maximum compatibility with this theme: %1$s.',
                 'The following plugins need to be updated to their latest version to ensure maximum compatibility with this theme: %1$s.',
-                'grit-framework'
+                'grit'
             ),
             'notice_ask_to_update_maybe'      => _n_noop(
                 /* translators: 1: plugin name(s). * /
                 'There is an update available for: %1$s.',
                 'There are updates available for the following plugins: %1$s.',
-                'grit-framework'
+                'grit'
             ),
             'notice_can_activate_required'    => _n_noop(
                 /* translators: 1: plugin name(s). * /
                 'The following required plugin is currently inactive: %1$s.',
                 'The following required plugins are currently inactive: %1$s.',
-                'grit-framework'
+                'grit'
             ),
             'notice_can_activate_recommended' => _n_noop(
                 /* translators: 1: plugin name(s). * /
                 'The following recommended plugin is currently inactive: %1$s.',
                 'The following recommended plugins are currently inactive: %1$s.',
-                'grit-framework'
+                'grit'
             ),
             'install_link'                    => _n_noop(
                 'Begin installing plugin',
                 'Begin installing plugins',
-                'grit-framework'
+                'grit'
             ),
             'update_link' 					  => _n_noop(
                 'Begin updating plugin',
                 'Begin updating plugins',
-                'grit-framework'
+                'grit'
             ),
             'activate_link'                   => _n_noop(
                 'Begin activating plugin',
                 'Begin activating plugins',
-                'grit-framework'
+                'grit'
             ),
-            'return'                          => __( 'Return to Required Plugins Installer', 'grit-framework' ),
-            'plugin_activated'                => __( 'Plugin activated successfully.', 'grit-framework' ),
-            'activated_successfully'          => __( 'The following plugin was activated successfully:', 'grit-framework' ),
+            'return'                          => __( 'Return to Required Plugins Installer', 'grit' ),
+            'plugin_activated'                => __( 'Plugin activated successfully.', 'grit' ),
+            'activated_successfully'          => __( 'The following plugin was activated successfully:', 'grit' ),
             /* translators: 1: plugin name. * /
-            'plugin_already_active'           => __( 'No action taken. Plugin %1$s was already active.', 'grit-framework' ),
+            'plugin_already_active'           => __( 'No action taken. Plugin %1$s was already active.', 'grit' ),
             /* translators: 1: plugin name. * /
-            'plugin_needs_higher_version'     => __( 'Plugin not activated. A higher version of %s is needed for this theme. Please update the plugin.', 'grit-framework' ),
+            'plugin_needs_higher_version'     => __( 'Plugin not activated. A higher version of %s is needed for this theme. Please update the plugin.', 'grit' ),
             /* translators: 1: dashboard link. * /
-            'complete'                        => __( 'All plugins installed and activated successfully. %1$s', 'grit-framework' ),
-            'dismiss'                         => __( 'Dismiss this notice', 'grit-framework' ),
-            'notice_cannot_install_activate'  => __( 'There are one or more required or recommended plugins to install, update or activate.', 'grit-framework' ),
-            'contact_admin'                   => __( 'Please contact the administrator of this site for help.', 'grit-framework' ),
+            'complete'                        => __( 'All plugins installed and activated successfully. %1$s', 'grit' ),
+            'dismiss'                         => __( 'Dismiss this notice', 'grit' ),
+            'notice_cannot_install_activate'  => __( 'There are one or more required or recommended plugins to install, update or activate.', 'grit' ),
+            'contact_admin'                   => __( 'Please contact the administrator of this site for help.', 'grit' ),
 
             'nag_type'                        => '', // Determines admin notice type - can only be one of the typical WP notice classes, such as 'updated', 'update-nag', 'notice-warning', 'notice-info' or 'error'. Some of which may not work as expected in older WP versions.
         ),

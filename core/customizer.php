@@ -55,7 +55,7 @@ function grit_customize_register($wp_customize)
     // * GRIT_SET 01 | General settings
 
     $wp_customize->add_section('grit_framework_general_settings', array(
-        'title' => __('General settings', 'grit_framework'),
+        'title' => __('General settings', 'grit'),
         'priority' => 120,
     ));
 
@@ -119,8 +119,8 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_google_fonts', array(
         'type' => 'textarea',
         'section' => 'grit_framework_general_settings',
-        'label' => __('Google Fonts'),
-        'description' => __('Attiva Google Fonts per ogni riga fonts.google.com'),
+        'label' => __('Google Fonts', 'grit'),
+        'description' => __('Attiva Google Fonts per ogni riga fonts.google.com', 'grit'),
     ));
 
     // * GRIT_SET 06 | Library: GSAP
@@ -133,8 +133,8 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_gsap', array(
         'type' => 'checkbox',
         'section' => 'grit_framework_general_settings',
-        'label' => __('GSAP'),
-        'description' => __('Attiva libreria GSAP https://github.com/greensock/GSAP'),
+        'label' => __('GSAP', 'grit'),
+        'description' => __('Attiva libreria GSAP https://github.com/greensock/GSAP', 'grit'),
     ));
 
     // * GRIT_SET 07 | Library: Three.js
@@ -146,8 +146,8 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_three', array(
         'type' => 'checkbox',
         'section' => 'grit_framework_general_settings',
-        'label' => __('Three js'),
-        'description' => __('Attiva libreria Three js threejs.org'),
+        'label' => __('Three js', 'grit'),
+        'description' => __('Attiva libreria Three js threejs.org', 'grit'),
     )); 
 
     // * GRIT_SET 08 | Library: Lenis
@@ -160,8 +160,8 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_lenis', array(
         'type' => 'checkbox',
         'section' => 'grit_framework_general_settings',
-        'label' => __('Lenis'),
-        'description' => __('Attiva libreria Lenis https://github.com/darkroomengineering/lenis'),
+        'label' => __('Lenis', 'grit'),
+        'description' => __('Attiva libreria Lenis https://github.com/darkroomengineering/lenis', 'grit'),
     ));
 
     // * GRIT_SET 09 | Library: Locomotive
@@ -173,8 +173,8 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_locomotive', array(
         'type' => 'checkbox',
         'section' => 'grit_framework_general_settings',
-        'label' => __('Locomotive'),
-        'description' => __('Attiva libreria Locomotive https://github.com/locomotivemtl/locomotive-scroll'),
+        'label' => __('Locomotive', 'grit'),
+        'description' => __('Attiva libreria Locomotive https://github.com/locomotivemtl/locomotive-scroll', 'grit'),
     ));
 
     // * GRIT_SET 10 | Library: Lightbox2
@@ -186,8 +186,8 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_lightbox2', array(
         'type' => 'checkbox',
         'section' => 'grit_framework_general_settings',
-        'label' => __('Lightbox2'),
-        'description' => __('Attiva libreria Lightbox2 https://lokeshdhakar.com/projects/lightbox2/'),
+        'label' => __('Lightbox2', 'grit'),
+        'description' => __('Attiva libreria Lightbox2 https://lokeshdhakar.com/projects/lightbox2/', 'grit'),
     ));
 
     // * GRIT_SET 11 | Library: Fitty.js
@@ -199,8 +199,8 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_fitty', array(
         'type' => 'checkbox',
         'section' => 'grit_framework_general_settings',
-        'label' => __('Fitty js'),
-        'description' => __('Attiva libreria Fitty js https://rikschennink.github.io/fitty/'),
+        'label' => __('Fitty js', 'grit'),
+        'description' => __('Attiva libreria Fitty js https://rikschennink.github.io/fitty/', 'grit'),
     ));
 
     // * GRIT_SET 12 | Library: masonry.js
@@ -213,8 +213,8 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_masonry', array(
         'type' => 'checkbox',
         'section' => 'grit_framework_general_settings',
-        'label' => __('Masonry js'),
-        'description' => __('Attiva libreria Mesonry.js https://masonry.desandro.com'),
+        'label' => __('Masonry js', 'grit'),
+        'description' => __('Attiva libreria Mesonry.js https://masonry.desandro.com', 'grit'),
     ));
 
     // * GRIT_SET 13 | Library: Imagesloaded.js
@@ -227,8 +227,8 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_imagesloaded', array(
         'type' => 'checkbox',
         'section' => 'grit_framework_general_settings',
-        'label' => __('Images Loaded js'),
-        'description' => __('Attiva libreria Images Loaded js https://imagesloaded.desandro.com/'),
+        'label' => __('Images Loaded js', 'grit'),
+        'description' => __('Attiva libreria Images Loaded js https://imagesloaded.desandro.com/', 'grit'),
     ));
 
     // * GRIT_SET 14 | Library: Swiper
@@ -240,8 +240,8 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_swiper', array(
         'type' => 'checkbox',
         'section' => 'grit_framework_general_settings',
-        'label' => __('Swiper'),
-        'description' => __('Attiva libreria Swiper 10.2 https://swiperjs.com/get-started'),
+        'label' => __('Swiper', 'grit'),
+        'description' => __('Attiva libreria Swiper 10.2 https://swiperjs.com/get-started', 'grit'),
     )); 
 
     // * GRIT_SET 15 | owl_carousel CSS
@@ -253,8 +253,8 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_owl_carousel', array(
         'type' => 'checkbox',
         'section' => 'grit_framework_general_settings',
-        'label' => __('Owl Carousel CSS JS'),
-        'description' => __('Attiva libreria Owl Carousel CSS JS owlcarousel2.github.io/OwlCarousel2'),
+        'label' => __('Owl Carousel CSS JS', 'grit'),
+        'description' => __('Attiva libreria Owl Carousel CSS JS owlcarousel2.github.io/OwlCarousel2', 'grit'),
 
     ));
 
@@ -288,8 +288,8 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_nprogress', array(
         'type' => 'checkbox',
         'section' => 'grit_framework_general_settings',
-        'label' => __('NProgress CSS JS'),
-        'description' => __('Attiva libreria NProgress CSS JS https://ricostacruz.com/nprogress/'),
+        'label' => __('NProgress CSS JS', 'grit'),
+        'description' => __('Attiva libreria NProgress CSS JS https://ricostacruz.com/nprogress/', 'grit'),
     ));
 
     // * GRIT_SET 17 | Library: Magic Mouse CSS JS
@@ -301,8 +301,8 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_magic_mouse', array(
         'type' => 'checkbox',
         'section' => 'grit_framework_general_settings',
-        'label' => __('Magic Mouse CSS JS'),
-        'description' => __('Attiva libreria Magic Mouse CSS JS magicmousejs.web.app'),
+        'label' => __('Magic Mouse CSS JS', 'grit'),
+        'description' => __('Attiva libreria Magic Mouse CSS JS magicmousejs.web.app', 'grit'),
     )); 
 
     // * GRIT_SET 18 | Library: Cocoen CSS JS
@@ -313,8 +313,8 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_cocoen', array(
         'type' => 'checkbox',
         'section' => 'grit_framework_general_settings',
-        'label' => __('Cocoen CSS JS'),
-        'description' => __('Attiva libreria Cocoen CSS JS github.com/jotform/before-after.js'),
+        'label' => __('Cocoen CSS JS', 'grit'),
+        'description' => __('Attiva libreria Cocoen CSS JS github.com/jotform/before-after.js', 'grit'),
 
     ));
 
@@ -327,7 +327,7 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_gototop', array(
         'type' => 'checkbox',
         'section' => 'grit_framework_general_settings',
-        'label' => __('Go To Top Button'),
+        'label' => __('Go To Top Button', 'grit'),
     ));
 
     // * GRIT_SET 20 | Disable Comments
@@ -338,7 +338,7 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_comments', array(
         'type' => 'checkbox',
         'section' => 'grit_framework_general_settings',
-        'label' => __('Disable comments'),
+        'label' => __('Disable comments', 'grit'),
     ));
 
         // * GRIT_SET 21 | Admin bar visibility
@@ -350,13 +350,13 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_adv_adminbar', array(
         'type' => 'checkbox',
         'section' => 'grit_framework_general_settings',
-        'label' => __('Hide Admin Bar'),
+        'label' => __('Hide Admin Bar', 'grit'),
     ));
 
     // * GRIT_SET 22 | Tracking settings
 
     $wp_customize->add_section('grit_framework_tracking_settings', array(
-        'title' => __('Tracking settings', 'grit_framework'),
+        'title' => __('Tracking settings', 'grit'),
         'priority' => 120,
     ));
 
@@ -368,8 +368,8 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_maps', array(
         'type' => 'text',
         'section' => 'grit_framework_tracking_settings',
-        'label' => __('GMaps API KEY'),
-        'description' => __('Inserisci API key di Google Maps console.cloud.google.com'),
+        'label' => __('GMaps API KEY', 'grit'),
+        'description' => __('Inserisci API key di Google Maps console.cloud.google.com', 'grit'),
     ));
 
     // * GRIT_SET 24 | Google Tag Manager fallback
@@ -393,13 +393,13 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_hotjar', array(
         'type' => 'text',
         'section' => 'grit_framework_tracking_settings',
-        'label' => __('Hotjar ID'),
+        'label' => __('Hotjar ID', 'grit'),
     ));
 
     // * GRIT_SET 26 | Public company and contact fields
 
     $wp_customize->add_section('grit_framework_theme_fileds', [
-        'title' => __('Theme Fields', 'grit_framework'),
+        'title' => __('Theme Fields', 'grit'),
         'priority' => 120,
     ]);
 
@@ -411,7 +411,7 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_intestazione', [
         'type' => 'text',
         'section' => 'grit_framework_theme_fileds',
-        'label' => __('Intestazione'),
+        'label' => __('Intestazione', 'grit'),
     ]);
 
     // * GRIT_SET 28 | Primary VAT number
@@ -422,7 +422,7 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_piva', [
         'type' => 'text',
         'section' => 'grit_framework_theme_fileds',
-        'label' => __('P. IVA'),
+        'label' => __('P. IVA', 'grit'),
     ]);
 
     // * GRIT_SET 29 | Company registration number
@@ -433,7 +433,7 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_rea', [
         'type' => 'text',
         'section' => 'grit_framework_theme_fileds',
-        'label' => __('N° REA'),
+        'label' => __('N° REA', 'grit'),
     ]);
 
     // * GRIT_SET 30 | Share capital
@@ -444,7 +444,7 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_cap_soc', [
         'type' => 'text',
         'section' => 'grit_framework_theme_fileds',
-        'label' => __('Capitale Sociale'),
+        'label' => __('Capitale Sociale', 'grit'),
     ]);
 
     // * GRIT_SET 31 | Primary address
@@ -455,7 +455,7 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_indirizzo_1', [
         'type' => 'text',
         'section' => 'grit_framework_theme_fileds',
-        'label' => __('Indirizzo 1'),
+        'label' => __('Indirizzo 1', 'grit'),
     ]);
 
     // * GRIT_SET 32 | Secondary address
@@ -466,8 +466,8 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_indirizzo_2', [
         'type' => 'text',
         'section' => 'grit_framework_theme_fileds',
-        'label' => __('Indirizzo 2'),
-        'description' => __('Se presente attiva link in BIO')
+        'label' => __('Indirizzo 2', 'grit'),
+        'description' => __('Se presente attiva link in BIO', 'grit')
     ]);
 
     // * GRIT_SET 33 | Third address
@@ -478,8 +478,8 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_indirizzo_3', [
         'type' => 'text',
         'section' => 'grit_framework_theme_fileds',
-        'label' => __('Indirizzo 3'),
-        'description' => __('Se presente attiva link in BIO')
+        'label' => __('Indirizzo 3', 'grit'),
+        'description' => __('Se presente attiva link in BIO', 'grit')
 
     ]);
 
@@ -491,7 +491,7 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_tel_1', [
         'type' => 'text',
         'section' => 'grit_framework_theme_fileds',
-        'label' => __('Telefono 1 Principale'),
+        'label' => __('Telefono 1 Principale', 'grit'),
     ]);
 
     // * GRIT_SET 35 | Secondary phone
@@ -502,8 +502,8 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_tel_2', [
         'type' => 'text',
         'section' => 'grit_framework_theme_fileds',
-        'label' => __('Telefono 2'),
-        'description' => __('Se presente attiva link in BIO')
+        'label' => __('Telefono 2', 'grit'),
+        'description' => __('Se presente attiva link in BIO', 'grit')
     ]);
 
     // * GRIT_SET 36 | Third phone
@@ -514,8 +514,8 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_tel_3', [
         'type' => 'text',
         'section' => 'grit_framework_theme_fileds',
-        'label' => __('Telefono 3'),
-        'description' => __('Se presente attiva link Whats App in BIO')
+        'label' => __('Telefono 3', 'grit'),
+        'description' => __('Se presente attiva link Whats App in BIO', 'grit')
     ]);
 
     // * GRIT_SET 37 | Primary fax
@@ -526,7 +526,7 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_fax', [
         'type' => 'text',
         'section' => 'grit_framework_theme_fileds',
-        'label' => __('Fax'),
+        'label' => __('Fax', 'grit'),
     ]);
 
     // * GRIT_SET 38 | Primary email
@@ -538,7 +538,7 @@ function grit_customize_register($wp_customize)
         'type' => 'text',
         'type' => 'text',
         'section' => 'grit_framework_theme_fileds',
-        'label' => __('Mail 1 Principale'),
+        'label' => __('Mail 1 Principale', 'grit'),
     ]);
 
     // * GRIT_SET 39 | Secondary email
@@ -549,7 +549,7 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_mail_2', [
         'type' => 'text',
         'section' => 'grit_framework_theme_fileds',
-        'label' => __('Mail 2 Secondaria'),
+        'label' => __('Mail 2 Secondaria', 'grit'),
     ]);
 
     // * GRIT_SET 40 | Third email
@@ -560,7 +560,7 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_mail_3', [
         'type' => 'text',
         'section' => 'grit_framework_theme_fileds',
-        'label' => __('Mail 3'),
+        'label' => __('Mail 3', 'grit'),
     ]);
 
     // * GRIT_SET 41 | LinkedIn
@@ -571,7 +571,7 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_linkedin', [
         'type' => 'text',
         'section' => 'grit_framework_theme_fileds',
-        'label' => __('Linkedin'),
+        'label' => __('Linkedin', 'grit'),
     ]);
 
     // * GRIT_SET 42 | Facebook
@@ -582,7 +582,7 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_facebook', [
         'type' => 'text',
         'section' => 'grit_framework_theme_fileds',
-        'label' => __('Facebook'),
+        'label' => __('Facebook', 'grit'),
     ]);
 
     // * GRIT_SET 43 | Instagram
@@ -593,7 +593,7 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_instagram', [
         'type' => 'text',
         'section' => 'grit_framework_theme_fileds',
-        'label' => __('Instagram'),
+        'label' => __('Instagram', 'grit'),
     ]);
 
     // * GRIT_SET 44 | TikTok | Shared with the reusable contact shortcodes.
@@ -604,7 +604,7 @@ function grit_customize_register($wp_customize)
     $wp_customize->add_control('grit_setting_tiktok', [
         'type' => 'url',
         'section' => 'grit_framework_theme_fileds',
-        'label' => __('TikTok', 'grit_framework'),
+        'label' => __('TikTok', 'grit'),
     ]);
 
 }

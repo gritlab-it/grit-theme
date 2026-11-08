@@ -65,7 +65,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
         woocommerce_form_field('my_field_name_condizioni_generali', array(
             'type' => 'checkbox',
             'class' => array('input-checkbox'),
-            'label' => __('Accetto termi e condizioni generali ( sendsrl.it/tec )'),
+            'label' => __('Accetto termi e condizioni generali ( sendsrl.it/tec )', 'grit'),
             'required' => true,
         ), WC()->checkout->get_value('my_field_name_condizioni_generali'));
         echo '</div> ';
@@ -79,7 +79,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
         woocommerce_form_field('my_field_name_privacy_policy', array(
             'type' => 'checkbox',
             'class' => array('input-checkbox'),
-            'label' => __('Dichiaro di aver preso visione della Privacy Policy ( sendsrl.it/tec )'),
+            'label' => __('Dichiaro di aver preso visione della Privacy Policy ( sendsrl.it/tec )', 'grit'),
             'required' => true,
         ), WC()->checkout->get_value('my_field_name_privacy_policy'));
         echo '</div> ';
@@ -93,7 +93,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
         woocommerce_form_field('my_field_name_informazioni_commerciali', array(
             'type' => 'checkbox',
             'class' => array('input-checkbox'),
-            'label' => __('Acconsento a ricevere informazioni commerciali'),
+            'label' => __('Acconsento a ricevere informazioni commerciali', 'grit'),
         ), WC()->checkout->get_value('my_field_name_informazioni_commerciali'));
         echo '</div> ';
     }
@@ -106,7 +106,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
         woocommerce_form_field('my_field_name_dati_terzi', array(
             'type' => 'checkbox',
             'class' => array('input-checkbox'),
-            'label' => __('Acconsento il trasferiemnto di dati a terzi'),
+            'label' => __('Acconsento il trasferiemnto di dati a terzi', 'grit'),
         ), WC()->checkout->get_value('my_field_name_dati_terzi'));
         echo '</div>';
     }
@@ -206,8 +206,8 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
     function woo_rename_tabs($tabs)
     {
 
-        $tabs['description']['title'] = __('More Information');        // Rename the description tab
-        $tabs['additional_information']['title'] = __('Product Data');    // Rename the additional information tab
+        $tabs['description']['title'] = __('More Information', 'grit');        // Rename the description tab
+        $tabs['additional_information']['title'] = __('Product Data', 'grit');    // Rename the additional information tab
 
         return $tabs;
 
@@ -228,9 +228,9 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
     {
         global $product;
         if (has_term(get_the_childs('Viaggi'), 'product_cat', $product->get_id()))
-            $text = __('PRENOTA ORA', 'woocommerce');
+            $text = __('PRENOTA ORA', 'grit');
         elseif (has_term(get_the_childs('Membership'), 'product_cat', $product->get_id()))
-            $text = __('ENTRA NELLA COMMUNITY', 'woocommerce');
+            $text = __('ENTRA NELLA COMMUNITY', 'grit');
 
         return $text;
     }*/

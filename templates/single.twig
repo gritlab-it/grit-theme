@@ -39,18 +39,18 @@
 
                         <section class="single-{{ post.post_type }}-header py-4">
                             <p class="single-{{ post.post_type }}-author">
-                                <strong class="text-uppercase">{{ post.post_type }}</strong> {{ __(' scritto da', 'grit_theme') }}
+                                <strong class="text-uppercase">{{ post.post_type }}</strong> {{ __(' scritto da', 'grit') }}
                                 <a href="{{ post.author.link|e('html_attr') }}" class="text-decoration-none"> {{ post.author.name|e }} </a>
                             </p>
                             <p class="single-{{ post.post_type }}-date">
-                                <small>{{ __('Data: ', 'grit_theme') }} : {{ post.post_date|date('d/M/Y') }}</small>
+                                <small>{{ __('Data: ', 'grit') }} : {{ post.post_date|date('d/M/Y') }}</small>
                             </p>
 
                             {# * GRIT_SET Post categories and tags. #}
                             {% set categories = post.terms('category') %}
                             {% if categories|length %}
                                 <h5 class="single-{{ post.post_type }}-category mt-3">
-                                    <strong>{{ __('Category:', 'grit_theme') }}</strong>
+                                    <strong>{{ __('Category:', 'grit') }}</strong>
                                     {% for category in categories %}
                                         <a href="{{ category.link|e('html_attr') }}" title="{{ post.title|e('html_attr') }} - {{ category.name|e('html_attr') }}" class="badge bg-primary mr-1">{{ category.name|e }}</a>
                                     {% endfor %}
@@ -60,7 +60,7 @@
                             {% set tags = post.terms('post_tag') %}
                             {% if tags|length %}
                                 <h5 class="single-{{ post.post_type }}-tag mt-3">
-                                    <strong>{{ __('Tag:', 'grit_theme') }}</strong>
+                                    <strong>{{ __('Tag:', 'grit') }}</strong>
                                     {% for tag in tags %}
                                         <a href="{{ tag.link|e('html_attr') }}" title="{{ post.title|e('html_attr') }} - {{ tag.name|e('html_attr') }}" class="badge bg-secondary mr-1">{{ tag.name|e }}</a>
                                     {% endfor %}
@@ -75,7 +75,7 @@
                             {% endif %}
                             {% if custom_terms|length %}
                                 <h5 class="single-{{ post.post_type }}-tax mt-3">
-                                    <strong>{{ __('Tax:', 'grit_theme') }}</strong>
+                                    <strong>{{ __('Tax:', 'grit') }}</strong>
                                     {% for tax in custom_terms %}
                                         <a href="{{ tax.link|e('html_attr') }}" title="{{ post.title|e('html_attr') }} - {{ tax.name|e('html_attr') }}" class="badge bg-info mr-1">{{ tax.name|e }}</a>
                                     {% endfor %}

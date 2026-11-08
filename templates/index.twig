@@ -6,7 +6,7 @@
     {% for post in posts %}
         {% include ['partials/tease-' ~ post.post_type ~ '.twig', 'partials/tease.twig'] with {post: post, grid: grid} %}
     {% else %}
-        <div class="col-12"><p>{{ __('Nessun contenuto trovato.', 'grit_theme') }}</p></div>
+        <div class="col-12"><p>{{ __('Nessun contenuto trovato.', 'grit') }}</p></div>
     {% endfor %}
     <div class="col-12 d-flex justify-content-center">
         {% include 'partials/pagination.twig' with {pagination: posts.pagination({show_all: false, mid_size: 3, end_size: 2})} %}

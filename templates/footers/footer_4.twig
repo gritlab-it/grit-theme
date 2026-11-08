@@ -13,7 +13,7 @@ Colors: _variables.scss. Layout styles: _footer.scss.
     <div class="container-fluid">
         {% if setting_mail_1 %}
             <div class="footer-callout footer-divider pb-4 mb-5">
-                <p class="mb-2">{{ __('Parliamo del tuo prossimo progetto', 'grit_theme') }}</p>
+                <p class="mb-2">{{ __('Parliamo del tuo prossimo progetto', 'grit') }}</p>
                 <a class="footer-contact-link" href="{{ function('esc_url', 'mailto:' ~ setting_mail_1)|e('html_attr') }}">{{ setting_mail_1|e }}</a>
             </div>
         {% endif %}
@@ -49,7 +49,7 @@ Colors: _variables.scss. Layout styles: _footer.scss.
             </div>
             <div class="col-12 col-md-6 col-lg-4 mb-4">
                 {% if footer_links %}
-                    <nav aria-label="{{ __('Menu footer', 'grit_theme')|e('html_attr') }}">
+                    <nav aria-label="{{ __('Menu footer', 'grit')|e('html_attr') }}">
                         <ul class="footer-menu list-unstyled mb-0">
                             {% for item in footer_links %}
                                 <li class="{{ item.classes|join(' ')|e('html_attr') }}">
@@ -96,7 +96,7 @@ Colors: _variables.scss. Layout styles: _footer.scss.
     <div class="container-fluid">
         <div class="row align-items-center">
             <div class="col-12 col-md-6 mb-3 mb-md-0">
-                <p class="mb-0">© {{ "now"|date('Y') }} {{ setting_intestazione|default(site.name)|e }}{% if setting_piva %} · {{ __('P.IVA', 'grit_theme') }} {{ setting_piva|e }}{% endif %}
+                <p class="mb-0">© {{ "now"|date('Y') }} {{ setting_intestazione|default(site.name)|e }}{% if setting_piva %} · {{ __('P.IVA', 'grit') }} {{ setting_piva|e }}{% endif %}
                 </p>
             </div>
             <div class="col-12 col-md-6">
