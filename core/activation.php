@@ -508,18 +508,20 @@ if (get_theme_mod('grit_setting_footer', false) === false) {
     }
     // end - change_permalink_structure
 
+    // Shared by menu creation and page population; either step can run independently.
+    $menu_locations = array(
+        'primary_navigation'   => __('Primary Navigation', 'grit'),
+        'secondary_navigation' => __('Secondary Navigation', 'grit'),
+        'mobile_navigation'    => __('Mobile Navigation', 'grit'),
+        'footer_navigation'    => __('Footer Navigation', 'grit'),
+        'bio_navigation'       => __('Bio Navigation', 'grit'),
+    );
+
     // create_navigation_menus
 
     if ($grit_theme_activation_options['create_navigation_menus'] === 'true') {
         $grit_theme_activation_options['create_navigation_menus'] = false;
     
-        $menu_locations = array(
-            'primary_navigation'   => __('Primary Navigation', 'grit'),
-            'secondary_navigation' => __('Secondary Navigation', 'grit'),
-            'mobile_navigation'    => __('Mobile Navigation', 'grit'),
-            'footer_navigation'    => __('Footer Navigation', 'grit'),
-            'bio_navigation'       => __('Bio Navigation', 'grit'),
-        );
     
         $nav_theme_mod = (array) get_theme_mod('nav_menu_locations', []);
     
@@ -552,13 +554,6 @@ if (get_theme_mod('grit_setting_footer', false) === false) {
 if ($grit_theme_activation_options['add_pages_to_primary_navigation'] === 'true') {
     $grit_theme_activation_options['add_pages_to_primary_navigation'] = false;
 
-    $menu_locations = array(
-        'primary_navigation'   => __('Primary Navigation', 'grit'),
-        'secondary_navigation' => __('Secondary Navigation', 'grit'),
-        'mobile_navigation'    => __('Mobile Navigation', 'grit'),
-        'footer_navigation'    => __('Footer Navigation', 'grit'),
-        'bio_navigation'       => __('Bio Navigation', 'grit'),
-    );
 
     foreach ($menu_locations as $location => $menu_name) {
         $assigned = (array) get_theme_mod('nav_menu_locations', []);
