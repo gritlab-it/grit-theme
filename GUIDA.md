@@ -1,6 +1,6 @@
 # GRIT Theme — Guida completa
 
-Manuale operativo dello starter, consolidato sulla base del codice locale e dei documenti del tema. Per installazione e primo avvio consultare [README.md](README.md).
+Manuale operativo dello starter, con campi, classi e comportamenti dei componenti. Per installazione e primo avvio consultare [README.md](README.md).
 
 Gli esempi di classi vanno inseriti nei campi indicati, separati da spazi. ID media, slug, tipi di contenuto e nomi delle agenzie negli esempi vanno adattati al progetto. Il manuale descrive le funzioni implementate: la presenza di una libreria in elenco non crea da sola un nuovo componente.
 
@@ -39,7 +39,7 @@ GRIT è una base per realizzare progetti personalizzati, con contenuti gestiti t
 
 Usare prima le classi Bootstrap e le opzioni già disponibili. Per una pagina di presentazione non serve creare un foglio di stile specifico se la composizione si ottiene con le section. Separare i dati dai template: query e preparazione in PHP, presentazione in Twig, stili in SCSS.
 
-La homepage locale è un contenuto della pagina impostata in Lettura. Non è codificata in un foglio `_home.scss` e non viene ricreata dal normale setup del tema. Per trasferirla occorre trasferire contenuti ACF e media, rimappando gli ID quando necessario.
+La homepage usa i contenuti della pagina impostata in Lettura. Il setup crea le pagine iniziali, ma non una composizione dimostrativa: per trasferire un layout occorrono anche contenuti ACF e media, rimappando gli ID quando necessario.
 
 ## Struttura dei file
 
@@ -103,7 +103,7 @@ Le risorse si configurano in Personalizza, `core/config.php` e `core/scripts.php
 
 ### Dove compilare
 
-Usare il Flexible Content **Sections** nelle schermate abilitate dalle regole ACF. I campi comuni possono variare leggermente secondo il layout.
+Usare il Flexible Content **Sections** nelle schermate abilitate dalle regole ACF. I campi comuni possono variare leggermente secondo il layout. Ogni layout include una tab **Guida**, con note sulle classi e sulle librerie richieste; le istruzioni brevi restano accanto ai singoli campi. La tab contiene solo informazioni e non aggiunge valori ai contenuti salvati.
 
 | Campo | Uso |
 | --- | --- |
@@ -386,7 +386,7 @@ Query limitata a publish, senza contenuti protetti da password. I nuovi controll
 
 Class vuoto: griglia. `section_archive_carousel`: carosello quando ci sono almeno due risultati; un solo risultato resta statico. Riconoscimento della classe esatta.
 
-Colonne centralizzate: con Inner Class esplicito si usano le colonne richieste; senza colonne si applicano le regole condivise di Text (1 piena, 2 metà da md, 3 terzi da md, 4+ quarti da md). In carosello le classi col-* sono rimosse e restano gli altri modificatori. Le classi col-* nel campo Class controllano la colonna esterna che contiene l’elenco.
+Colonne centralizzate: con Inner Class esplicito si usano le colonne richieste; senza colonne si applicano le regole condivise di Text (1 piena, 2 metà da md, 3: due da sm e tre da md; 4+: due da sm e quattro da md). In carosello le classi col-* sono rimosse e restano gli altri modificatori. Le classi col-* nel campo Class controllano la colonna esterna che contiene l’elenco.
 
 Preset Owl Archive: 1/2/3/3/3/3 elementi a base/sm/md/lg/xl/xxl, loop disattivato. Usa le classi comuni carousel-items-*, carousel-gap-*, carousel-nav, carousel-no-nav, carousel-dots, carousel-no-dots e altri modificatori documentati in [capitolo Caroselli Owl condivisi](#caroselli-owl-condivisi).
 
@@ -465,7 +465,7 @@ File: templates/sections/section_slides.twig, templates/partials/slide.twig; SCS
 
 Parallax: nelle Slides l’immagine viene spostata nel contenitore Jarallax (keepImg=false), con livello zIndex=0 sopra il colore di fondo e sotto overlay e testo. Velocità predefinita 0.5. Negli altri componenti la configurazione Jarallax resta invariata. Esempi della pagina: confronto statico/parallax consecutivo, zoom, controlli responsive e carosello con testo breve/esteso.
 
-Full-width: disattivare Contained. Frecce standard, senza dimensioni o sfondo specifici per Slides; per posizioni esterne prevedere spazio con le classi della sezione. Stili centralizzati in assets/css/_plugins.scss. Gli esempi 1, 5, 6, 10–14 sono full-width. Controlli assenti sulla slide singola, con carousel-no-nav o sotto il breakpoint configurato; estremi attenuati con loop disattivato.
+Full-width: disattivare Contained. Frecce standard, senza dimensioni o sfondo specifici per Slides; per posizioni esterne prevedere spazio con le classi della sezione. Stili centralizzati in assets/css/_plugins.scss. Controlli assenti sulla slide singola, con carousel-no-nav o sotto il breakpoint configurato; estremi attenuati con loop disattivato.
 
 Colori e posizioni dei controlli sono descritti nel capitolo [Caroselli Owl condivisi](#caroselli-owl-condivisi).
 
@@ -788,7 +788,7 @@ Nell’ultimo esempio la label contiene uno span con le classi del pulsante; il 
 
 ## Shortcode Counter
 
-Il contatore è uno shortcode indipendente, utilizzabile nel testo dei capitoli senza una Section Counter dedicata. Le conversioni già applicate nel sito locale non costituiscono una migrazione automatica per altre copie del tema.
+Il contatore è uno shortcode indipendente, utilizzabile nel testo dei capitoli senza una Section Counter dedicata.
 
 ### Utilizzo
 
@@ -831,7 +831,7 @@ Gli attributi data-counter-* del numero hanno precedenza sulle opzioni ereditate
 
 ## Shortcode Video
 
-Il player è un componente riutilizzabile. Si usa in Section Text o nei contenuti tramite shortcode; il layout Section Video e i suoi campi non sono più previsti. Le conversioni del sito locale non si applicano automaticamente ad altri database. Stili condivisi nel blocco .grit-video di assets/css/_shortcodes.scss, nessuno stile dedicato alla vecchia sezione.
+Il player è un componente riutilizzabile. Si usa in Section Text o nei contenuti tramite shortcode; il layout Section Video e i suoi campi non sono più previsti. Stili condivisi nel blocco .grit-video di assets/css/_shortcodes.scss, nessuno stile dedicato alla vecchia sezione.
 
 `[grit_video file="266" preview="239"]`
 
@@ -1112,7 +1112,7 @@ Attivare/configurare i breadcrumb in Yoast e verificare che lo shortcode venga i
 
 ### Privacy e tracciamento
 
-L’integrazione dedicata al vecchio Google Analytics è stata rimossa. La gestione del consenso e l’eventuale Analytics si configurano nel sistema adottato dal progetto, attualmente Complianz. Rimangono impostazioni separate per Google Tag Manager e Hotjar: evitare doppie integrazioni e verificare che gli script siano effettivamente bloccati prima del consenso quando richiesto.
+L’integrazione dedicata al vecchio Google Analytics è stata rimossa. La gestione del consenso e l’eventuale Analytics si configurano nel sistema adottato dal progetto. Complianz è un’integrazione opzionale. Il campo Google Tag Manager accetta l’ID completo `GTM-…`: vuoto disattiva il caricamento dal tema. Se Complianz è configurato per caricare GTM, il tema gli delega il caricamento; senza Complianz il campo funziona autonomamente. Il caricamento dal tema non configura il consenso. Rimane un’impostazione separata per Hotjar: evitare doppie integrazioni e verificare che gli script siano effettivamente bloccati prima del consenso quando richiesto.
 
 Maps, video YouTube/Vimeo, font e altri servizi esterni possono effettuare richieste verso terzi. Il semplice caricamento al clic o l’esistenza di un campo API non sostituiscono la configurazione del consenso. Testare accettazione e revoca, oltre al primo accesso.
 
@@ -1128,7 +1128,7 @@ Template e file WooCommerce presenti non significano che l’intero modulo sia a
 
 ### Aggiornare un progetto
 
-L’import del setup ACF salta i gruppi con titolo già presente: per aggiornare le definizioni su un sito esistente usare gli strumenti ACF e verificare il risultato, non limitarsi a salvare nuovamente Theme Activation.
+L’import del setup ACF salta i gruppi con la stessa chiave già presente: per aggiornare le definizioni su un sito esistente usare gli strumenti ACF e verificare il risultato, non limitarsi a salvare nuovamente Theme Activation.
 
 1. Salvare file e database, comprese opzioni Personalizza e contenuti ACF.
 2. Verificare le modifiche locali prima di sostituire il tema o importare JSON.
@@ -1137,7 +1137,7 @@ L’import del setup ACF salta i gruppi con titolo già presente: per aggiornare
 5. Ricompilare Sass se sono cambiati i sorgenti.
 6. Svuotare la cache pertinente e verificare frontend e amministrazione.
 
-Il sito locale ha ricevuto conversioni di contenuti durante lo sviluppo. Copiare il codice su un altro sito non converte automaticamente righe ACF rimosse o rinominate. I layout Counter, Contact, Video, Hero e Page Header non sono più opzioni autonome: Counter/Contacts/Video usano shortcode; Hero/CTA/Header usano composizioni di Text/Slides. Fare una migrazione esplicita dei dati di altre copie prima di rimuovere i vecchi layout.
+Copiare il codice su un sito esistente non converte automaticamente righe ACF rimosse o rinominate. I layout Counter, Contact, Video, Hero e Page Header non sono più opzioni autonome: Counter/Contacts/Video usano shortcode; Hero/CTA/Header usano composizioni di Text/Slides. Fare una migrazione esplicita dei dati di altre copie prima di rimuovere i vecchi layout.
 
 ### Controlli proporzionati alla modifica
 
@@ -1191,6 +1191,6 @@ Questa guida sostituisce i manuali separati del tema elencati sotto. Le istruzio
 | `TEASES.md` | Card Tease. |
 | `assets/credits/README.md` | Branding dell’agenzia. |
 
-`README.md` rimane l’ingresso per requisiti e installazione. Aggiornare questi due documenti quando cambiano campi, classi, default o percorsi del codice. Le pagine dimostrative WordPress sono contenuti separati e non vengono aggiornate automaticamente modificando Markdown.
+`README.md` rimane l’ingresso per requisiti e installazione. Aggiornare questi due documenti quando cambiano campi, classi, default o percorsi del codice. Le pagine guida del CPT `section` possono essere riallineate ai capitoli di questo file con `wp eval-file bin/sync-guides.php` (anteprima) e `wp eval-file bin/sync-guides.php apply` (salvataggio con backup). Lo script aggiorna solo le guide già esistenti, conserva il riepilogo degli esempi e non modifica righe ACF, titoli o slug. Per la conversione Markdown usa il parser di Jetpack installato; Jetpack non deve essere attivo e non è necessario per visualizzare le guide salvate. Il CPT `section` deve essere registrato dal progetto, per esempio tramite ACF: l’import dei gruppi in `core/acf-fields.json` non registra CPT o tassonomie.
 
 Non eliminare i README, i changelog e le licenze delle librerie dentro `assets/`, né i file di licenza dei pacchetti Composer. Il loro contenuto e la loro manutenzione appartengono ai rispettivi autori. La licenza del tema è nel file `LICENSE`; non copre automaticamente media, font e dipendenze con licenza propria.
