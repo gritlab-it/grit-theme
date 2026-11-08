@@ -69,6 +69,16 @@ Il flag TGMPA “obbligatorio” è una scelta di distribuzione del tema: non si
 
 Le operazioni di setup possono modificare pagine, menu, impostazioni e definizioni ACF. Prima di riapplicarle su un progetto già avviato fare un backup di file e database. La procedura non importa la homepage dimostrativa e tutte le guide del sito locale.
 
+### Modulo contatti dello starter
+
+L'opzione CF7 della configurazione iniziale richiede Contact Form 7 attivo e crea il **Modulo di Contatto Demo** attraverso le API del plugin. Se esiste già, lo riutilizza senza sovrascrivere campi o email.
+
+La mail principale usa `[_site_admin_email]`, cioè l'indirizzo amministrativo in **Impostazioni → Generali**, e `Reply-To: [your-email]`. Il mittente segue il valore predefinito di CF7 per il sito: verificare che sia compatibile con il servizio di invio configurato. 
+
+**Mail (2)** contiene una conferma separata per il visitatore, inizialmente disattivata. Può essere abilitata in CF7 dopo aver verificato la configurazione e il recapito. Il modello non configura SMTP e la validazione dei campi non garantisce la consegna delle email.
+
+Il collegamento privacy usa la pagina selezionata in WordPress, oppure la pagina pubblicata `privacy-policy-gdpr` dello starter; in assenza di entrambe resta il percorso `/privacy-policy/`, da configurare prima dell'uso. Nome, cognome, email e accettazione sono obbligatori; telefono e messaggio sono facoltativi. Provenienza e pagina corrente sono campi nascosti.
+
 ## 5. Importare i campi ACF
 
 La definizione di riferimento è [`core/acf-fields.json`](core/acf-fields.json).
