@@ -1,5 +1,12 @@
 <?php
 
+// * GRIT_SET Legend | Write
+// Apache rules generated when WordPress permalinks are saved.
+// Rules are applied through WordPress rewrite filters; reading this file does not save permalinks.
+// 01 | Protect wp-config through Apache rules
+// 02 | Generate rewrite and compression rules
+// 03 | Generate browser cache expiry rules
+
 /**
  * GRIT-Framework htaccess custom rules
  *
@@ -9,6 +16,7 @@
  *
  */
 
+// * GRIT_SET 01 | Protect wp-config through Apache rules
 function wpconfig_protect( $rules )
 {
 $my_content = <<<EOD
@@ -22,6 +30,7 @@ EOD;
     return $my_content . $rules;
 }
 
+// * GRIT_SET 02 | Generate rewrite and compression rules
 function rewrite( $rules )
 {
 $my_content = <<<EOD
@@ -57,6 +66,7 @@ EOD;
 //     return $my_content . $rules;
 // }
 
+// * GRIT_SET 03 | Generate browser cache expiry rules
 function expirecache( $rules )
 {
 $my_content = <<<EOD

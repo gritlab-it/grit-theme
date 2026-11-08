@@ -1,52 +1,39 @@
 <?php
-/**
- * The template for displaying all pages.
- *
- * This is the template that displays all pages by default.
- * Please note that this is the WordPress construct of pages
- * and that other 'pages' on your WordPress site will use a
- * different template.
- *
- * To generate specific templates for your pages you can use:
- * /mytheme/templates/page-mypage.twig
- * (which will still route through this PHP file)
- * OR
- * /mytheme/page-mypage.php
- * (in which case you'll want to duplicate this file and save to the above path)
- *
- * Methods for TimberHelper can be found in the /lib sub-directory
- *
- * @package  WordPress
- * @subpackage  Timber
- * @since    Timber 0.1
- */
+// * GRIT_SET Page legend
+// 01 | Current page and password protection
+// 02 | ACF fields and page content
+// 03 | Twig template priority
+if (!defined('ABSPATH')) {
+    exit;
+}
 
-$context = Timber::context(); 
-$timber_post     = new Timber\Post();
+// * GRIT_SET 01 | Load the requested page; protected pages stop here.
+$context = Timber::context();
+$timber_post = Timber::get_post(get_queried_object_id());
+$post_id = $timber_post ? $timber_post->ID : 0;
 $context['post'] = $timber_post;
-$templates       = array( 'page.twig', 'index.twig' );
 
-// * GRIT_SET Assegno tutte le variabili di ACF a Twig
-// Verifica se ACF è attivo prima di chiamare la funzione get_field_objects()
-if (function_exists('get_field_objects')) {
-    $fields = get_field_objects(get_queried_object_id($timber_post));
-    if ($fields) {
-        foreach ($fields as $field) {
-            $name_id = $field['name'];
-            $value_id = $field['value'];
-            $context[$name_id] = $value_id;
-        }
-    }
-} else {
-    // ACF non è attivo, gestisci l'errore o continua senza i campi ACF
-    error_log('ACF non è attivo. Impossibile recuperare i campi personalizzati.');
+if ($timber_post && post_password_required($post_id)) {
+    $context['password_form'] = get_the_password_form($post_id);
+    $context['sections'] = [];
+    Timber::render('single-password.twig', $context);
+    return;
 }
 
+// * GRIT_SET 02 | Helpers load ACF and run content filters with the correct page ID.
+$context = grit_template_fields($context, $post_id);
+$context['post'] = $timber_post;
+$context['title'] = $timber_post ? $timber_post->title : '';
+$context['content'] = $timber_post ? grit_template_content($post_id) : '';
 
-if ( is_front_page() ) {  
-    array_unshift( $templates, 'home.twig' );
-} else {
-    array_unshift( $templates, 'page-' . $timber_post->post_name . '.twig', 'page.twig' ); 
+// * GRIT_SET 03 | First available file wins: home or page slug, then generic fallbacks.
+$templates = [];
+if (is_front_page()) {
+    $templates[] = 'home.twig';
+} elseif ($timber_post) {
+    $templates[] = 'page-' . $timber_post->post_name . '.twig';
 }
+$templates[] = 'page.twig';
+$templates[] = 'index.twig';
 
-Timber::render( $templates, $context );
+Timber::render($templates, $context);

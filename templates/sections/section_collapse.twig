@@ -47,8 +47,8 @@
 {{ item.text }}
 {% include 'partials/buttons.twig' with {
     buttons: [
-        { title: item.link_1.title, url: item.link_1.url, target: item.link_1.target, style: 'btn btn-' ~ section.color_link_1|default('primary') ~ ' btn-md' },
-        { title: item.link_2.title, url: item.link_2.url, target: item.link_2.target, style: 'btn btn-' ~ section.color_link_2|default('primary') ~ ' btn-md' }
+        { title: item.link_1.title, url: item.link_1.url, target: item.link_1.target, style: 'btn btn-' ~ section.color_link_1|default('primary') },
+        { title: item.link_2.title, url: item.link_2.url, target: item.link_2.target, style: 'btn btn-' ~ section.color_link_2|default('primary') }
     ],
     buttons_class: '', buttons_animation: '' 
 } only %}</div></div></div>{% endfor %}
@@ -63,8 +63,8 @@
 {{ item.text }}
 {% include 'partials/buttons.twig' with {
     buttons: [
-        { title: item.link_1.title, url: item.link_1.url, target: item.link_1.target, style: 'btn btn-' ~ section.color_link_1|default('primary') ~ ' btn-md' },
-        { title: item.link_2.title, url: item.link_2.url, target: item.link_2.target, style: 'btn btn-' ~ section.color_link_2|default('primary') ~ ' btn-md' }
+        { title: item.link_1.title, url: item.link_1.url, target: item.link_1.target, style: 'btn btn-' ~ section.color_link_1|default('primary') },
+        { title: item.link_2.title, url: item.link_2.url, target: item.link_2.target, style: 'btn btn-' ~ section.color_link_2|default('primary') }
     ],
     buttons_class: '', buttons_animation: '' 
 } only %}</div>
@@ -77,8 +77,8 @@
 {{ item.text }}
 {% include 'partials/buttons.twig' with {
     buttons: [
-        { title: item.link_1.title, url: item.link_1.url, target: item.link_1.target, style: 'btn btn-' ~ section.color_link_1|default('primary') ~ ' btn-md' },
-        { title: item.link_2.title, url: item.link_2.url, target: item.link_2.target, style: 'btn btn-' ~ section.color_link_2|default('primary') ~ ' btn-md' }
+        { title: item.link_1.title, url: item.link_1.url, target: item.link_1.target, style: 'btn btn-' ~ section.color_link_1|default('primary') },
+        { title: item.link_2.title, url: item.link_2.url, target: item.link_2.target, style: 'btn btn-' ~ section.color_link_2|default('primary') }
     ],
     buttons_class: '', buttons_animation: '' 
 } only %}</div>{% endfor %}

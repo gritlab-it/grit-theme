@@ -26,11 +26,15 @@
 col_classes: {{ col_classes|join(' ') | default('col col-12') }}<br>
 other_classes: {{ other_classes|join(' ') }}<br>  #}
  
-{# * GRIT_SET Archive sections with no matching public posts do not create empty wrappers #}
+{# * GRIT_SET Archive sections with no matching posts or terms do not create empty wrappers #}
 {% if acf_fc_layout == 'section_archive' %}
     {% set archive_data = function('grit_archive_section_data', section) %}
 {% endif %}
-{% if acf_fc_layout != 'section_archive' or archive_data.posts|length %}
+{% if acf_fc_layout == 'section_maps' %}
+    {% set maps_data = function('grit_maps_section_data', section) %}
+{% endif %}
+{% set show_section = (acf_fc_layout != 'section_archive' or (archive_data.posts|length or archive_data.terms|default([])|length)) and (acf_fc_layout != 'section_maps' or maps_data.locations|default([])|length) %}
+{% if show_section %}
 <section class="{{acf_fc_layout}} {{background_color}}{{background_half}} {{align}} {{text_color}} {{contained}} {{ other_classes|join(' ') }} " id="section_id_{{ section.section_index }}"> 
         {% include ['/sections/'~ section.acf_fc_layout ~'.twig'] with section %} 
 </section>

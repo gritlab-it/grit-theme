@@ -1,5 +1,5 @@
 {# * GRIT_SET Single button-style link; omit links without a valid URL #}
 {% set button_url = btn.url ? function('esc_url', btn.url) : '' %}
 {% if button_url %}
-<a class="{{ btn.style|default('btn btn-primary btn-md')|e('html_attr') }}" href="{{ button_url }}"{% if btn.target %} target="{{ btn.target|e('html_attr') }}"{% if btn.target == '_blank' %} rel="noopener noreferrer"{% endif %}{% endif %}>{{ btn.title|e }}</a>
+<a class="{{ btn.style|default('btn btn-primary')|e('html_attr') }}" href="{{ button_url }}"{% if btn.target %} target="{{ btn.target|e('html_attr') }}"{% if btn.target == '_blank' %} rel="noopener noreferrer"{% endif %}{% endif %}>{{ btn.title|e }}</a>
 {% endif %}

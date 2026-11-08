@@ -21,7 +21,7 @@
 			$context = Timber::context();
 			$this->assertEquals('StarterSite', get_class($context['site']));
 			$this->assertTrue(current_theme_supports('post-thumbnails'));
-			$this->assertEquals('bar', $context['foo']);
+			$this->assertEquals(home_url(), $context['home']);
 		}
 
 		function testLoading() {

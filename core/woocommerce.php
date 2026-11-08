@@ -1,18 +1,16 @@
 <?php
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * GRIT_SET WOOOCOMMERCE
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
+// * GRIT_SET Legend | Woocommerce
+// Optional WooCommerce customization module.
+// Optional module: check the include list in functions.php before enabling it.
+// 01 | WooCommerce integrations
+
+// * GRIT_SET 01 | WooCommerce integrations
 
 if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Conditional function detecting if the current user has an active subscription
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 02 | Conditional function detecting if the current user has an active subscription
+
     function has_active_subscription($user_id = null)
     {
         // if the user_id is not set in function argument we get the current user ID
@@ -32,9 +30,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
         else return false;
     }
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Conditionally checking and adding your subscription when a product is added to cart
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 03 | Conditionally checking and adding your subscription when a product is added to cart
 
     add_action('woocommerce_add_to_cart', 'add_subscription_to_cart', 10, 6);
     function add_subscription_to_cart($cart_item_key, $product_id, $quantity, $variation_id, $variation, $cart_item_data)
@@ -58,10 +54,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
             WC()->cart->add_to_cart($subscription_id);
     }
 
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Add custom checkout field: woocommerce_review_order_before_submit
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 04 | Add custom checkout field: woocommerce_review_order_before_submit
 
     add_action('woocommerce_review_order_before_submit', 'my_custom_checkout_field_condizioni_generali');
 
@@ -118,7 +111,6 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
         echo '</div>';
     }
 
-
 // Save the custom checkout field in the order meta, when checkbox has been checked
     add_action('woocommerce_checkout_update_order_meta', 'custom_checkout_field_update_order_meta', 10, 1);
     function custom_checkout_field_update_order_meta($order_id)
@@ -155,10 +147,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
             echo '<p><strong>Acconsento il trasferiemnto di dati a terzi: </strong> <span style="color:red;">Abilitiato</span></p><br>';
     }
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Inseriemnto del Prezzo Totale se disponibile nel Prodotto
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-
+    // * GRIT_SET 05 | Product total price display
 
     function show_sku_in_cart_items($item_name, $cart_item, $cart_item_key)
     {
@@ -190,15 +179,15 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
 
     add_filter('woocommerce_cart_item_name', 'show_sku_in_cart_items', 99, 3);
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Remove image zoom product
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 06 | Remove image zoom product
 
     function remove_image_zoom_support()
     {
-        /* remove image zoom hover */
+        // remove image zoom hover
+
         remove_theme_support('wc-product-gallery-zoom');
-        /* remuve image zoom galley*/
+        // remuve image zoom galley
+
         remove_theme_support('wc-product-gallery-lightbox');
     }
 
@@ -211,10 +200,8 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
         return strip_tags($html, '<img>');
     }
 
+    // * GRIT_SET 07 | Rename product data tabs
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Rename product data tabs
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
     add_filter('woocommerce_product_tabs', 'woo_rename_tabs', 98);
     function woo_rename_tabs($tabs)
     {
@@ -226,10 +213,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
 
     }
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Utility function to get the childs array from a parent product category
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-
+    // * GRIT_SET 08 | Utility function to get the childs array from a parent product category
 
     function get_the_childs($product_category)
     {
@@ -237,7 +221,6 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
         $parent = get_term_by('slug', sanitize_title($product_category), $taxonomy);
         return get_term_children($parent->term_id, $taxonomy);
     }
-
 
 // Changing the add to cart button text
 /*    add_filter('woocommerce_product_single_add_to_cart_text', 'product_cat_single_add_to_cart_button_text', 20, 1);
@@ -251,9 +234,6 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
 
         return $text;
     }*/
- 
- 
-
 
     function timber_set_product( $post ) {
         global $product;
@@ -263,5 +243,4 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
         }
     }
 }
-
 

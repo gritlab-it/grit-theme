@@ -1,7 +1,9 @@
-<form role="search" method="get" id="searchform" class="" action="{{ site.link }}/cerca">
-    <label class="" for="search_query">{{__('Cerca ora:', 'grit_theme')}}</label>
-    <div class="d-flex"> 
-        <input type="text" value="" name="s" placeholder="{{ s ?: 'Cerca' }}" id="s"/>
-        <input type="submit" id="searchsubmit" class="mx-2 btn btn-accent" value="{{__('Cerca', 'grit_theme')}}"/>
+{# * GRIT_SET Search form | Canonical home endpoint, escaped value and per-instance label ID #}
+{% set search_input_id = function('wp_unique_id', 'grit-search-') %}
+<form role="search" method="get" class="search-form" action="{{ function('home_url', '/')|e('html_attr') }}">
+    <label for="{{ search_input_id }}">{{ __('Cerca ora:', 'grit_theme') }}</label>
+    <div class="d-flex">
+        <input type="search" value="{{ search_query|default(s|default(''))|e('html_attr') }}" name="s" placeholder="{{ __('Cerca', 'grit_theme') }}" id="{{ search_input_id }}">
+        <input type="submit" class="mx-2 btn btn-accent" value="{{ __('Cerca', 'grit_theme') }}">
     </div>
 </form>

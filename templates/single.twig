@@ -1,173 +1,115 @@
 {#
- * GRIT_SET Single
- * Legend
- * 01 | Sections Before Content
- * 02 | Content
- * 03 | Sections After Content
+ * GRIT_SET Single legend
+ * 01 | Sections before content
+ * 02 | Image, title, content and post details
+ * 03 | Sections after content
+ * 04 | Related posts
+ * 05 | Native comments
  #}
- 
- 
-  
- 
- 
+{% extends 'base.twig' %}
 
-{% extends "base.twig" %}
 {% block content %}
-
-{% set article = content %}
-{% set reading_speed = 200 %}
-{% set word_count = article|split(' ')|length %}
-{% set reading_time = (word_count / reading_speed)|round(0, 'ceil') %}
-
     <article class="single single-type-{{ post.post_type }}" id="post-{{ post.ID }}">
-        
-{# * GRIT_SET 01 | Sections Before Content #} 
-{% include 'partials/sections.twig' with { sections: sections|default([]), pre_content: true } %}
- 
+        {# * GRIT_SET 01 | Local sections and one-level section-page references. #}
+        {% include 'partials/sections.twig' with {sections: sections|default([]), pre_content: true} %}
 
-{# * GRIT_SET 02 | Content #} 
-		<section class="section_page contained ">
-			<div class="container-fluid">
-				
-                
+        {# * GRIT_SET 02 | Edit the main post layout here. PHP prepares title and content. #}
+        <section class="section_page contained">
+            <div class="container-fluid">
                 {% if post.thumbnail %}
-                
                     <div class="row">
-                        <!-- Immagine Principale -->
                         <div class="col-12 text-center py-4">
-                            <img src="{% if post.thumbnail %}{{ post.thumbnail.src|resize(1800, 600) }}{% else %}{{ placeholder }}/web{% endif %}"
-                                 alt="{{ title }}" class="img-fluid shadow-sm">
+                            <img src="{{ post.thumbnail.src|resize(1800, 600) }}"
+                                 alt="{{ post.thumbnail.alt|default(title)|e('html_attr') }}"
+                                 class="img-fluid shadow-sm">
                         </div>
                     </div>
                 {% endif %}
 
                 <div class="row">
-                    <!-- Titolo e Descrizione -->
                     <div class="col-12 col-md-10 mx-auto py-4">
-                        <h1 class="display-2">{{ title }}</h1>
-                        <p class="lead">{{ post.post_excerpt }}</p>
+                        <h1 class="display-2">{{ function('esc_html', title) }}</h1>
+                        <p class="lead">{{ post.post_excerpt|e }}</p>
                     </div>
                 </div>
-            
+
                 <div class="row">
                     <div class="col-12 col-lg-10 mx-auto py-4">
-                        
-            
-                        <!-- Corpo del Post -->
-                        <div class="single-{{ post.post_type }}-body my-4">
-                            {{ post.content }}
-                        </div>
+                        <div class="single-{{ post.post_type }}-body my-4">{{ content }}</div>
 
-                        <!-- Header della Sezione -->
-                        <section class="single-{{ post.post_type }}-header py-4 ">
-                            <p class="single-{{ post.post_type }}-author  ">
-                                <strong class="text-uppercase">{{ post.post_type }}</strong> {{__(' scritto da', 'grit_theme')}} 
-                                <a href="{{ post.author.path }}" class="text-decoration-none"> {{ post.author.name }} </a>
+                        <section class="single-{{ post.post_type }}-header py-4">
+                            <p class="single-{{ post.post_type }}-author">
+                                <strong class="text-uppercase">{{ post.post_type }}</strong> {{ __(' scritto da', 'grit_theme') }}
+                                <a href="{{ post.author.link|e('html_attr') }}" class="text-decoration-none"> {{ post.author.name|e }} </a>
                             </p>
-                            <p class="single-{{ post.post_type }}-date ">
-                                <small>{{__('Data: ', 'grit_theme')}} : {{ post.post_date|date("d/M/Y") }}</small>
+                            <p class="single-{{ post.post_type }}-date">
+                                <small>{{ __('Data: ', 'grit_theme') }} : {{ post.post_date|date('d/M/Y') }}</small>
                             </p>
-            
-                            <!-- Categorie -->
-                            <h5 class="single-{{ post.post_type }}-category mt-3">
-                                <strong>{{__('Category:', 'grit_theme')}}</strong>
-                                {% for category in post.terms('category') %}
-                                    <a href="{{ category.link }}" title="{{ post.title }} - {{ category.name }}" class="badge bg-primary me-1">{{ category.name }}</a>
-                                {% endfor %}
-                            </h5>
-            
-                            <!-- Tag -->
-                            <h5 class="single-{{ post.post_type }}-tag mt-3">
-                                <strong>{{__('Tag:', 'grit_theme')}}</strong>
-                                {% for tag in post.terms('post_tag') %}
-                                    <a href="{{ tag.link }}" title="{{ post.title }} - {{ tag.name }}" class="badge bg-secondary me-1">{{ tag.name }}</a>
-                                {% endfor %}
-                            </h5>
-            
-                            <!-- Tassonomia Personalizzata -->
-                            <h5 class="single-{{ post.post_type }}-tax mt-3">
-                                <strong>{{__('Tax:', 'grit_theme')}}</strong>
-                                {% for tax in post.terms('custom_taxonomy') %}
-                                    <a href="{{ tax.link }}" title="{{ post.title }} - {{ tax.name }}" class="badge bg-info me-1">{{ tax.name }}</a>
-                                {% endfor %}
-                            </h5>
+
+                            {# * GRIT_SET Post categories and tags. #}
+                            {% set categories = post.terms('category') %}
+                            {% if categories|length %}
+                                <h5 class="single-{{ post.post_type }}-category mt-3">
+                                    <strong>{{ __('Category:', 'grit_theme') }}</strong>
+                                    {% for category in categories %}
+                                        <a href="{{ category.link|e('html_attr') }}" title="{{ post.title|e('html_attr') }} - {{ category.name|e('html_attr') }}" class="badge bg-primary mr-1">{{ category.name|e }}</a>
+                                    {% endfor %}
+                                </h5>
+                            {% endif %}
+
+                            {% set tags = post.terms('post_tag') %}
+                            {% if tags|length %}
+                                <h5 class="single-{{ post.post_type }}-tag mt-3">
+                                    <strong>{{ __('Tag:', 'grit_theme') }}</strong>
+                                    {% for tag in tags %}
+                                        <a href="{{ tag.link|e('html_attr') }}" title="{{ post.title|e('html_attr') }} - {{ tag.name|e('html_attr') }}" class="badge bg-secondary mr-1">{{ tag.name|e }}</a>
+                                    {% endfor %}
+                                </h5>
+                            {% endif %}
+
+                            {# * GRIT_SET Optional custom taxonomy: replace this slug with a registered taxonomy. #}
+                            {% set custom_taxonomy = 'custom_taxonomy' %}
+                            {% set custom_terms = [] %}
+                            {% if function('taxonomy_exists', custom_taxonomy) %}
+                                {% set custom_terms = post.terms(custom_taxonomy) %}
+                            {% endif %}
+                            {% if custom_terms|length %}
+                                <h5 class="single-{{ post.post_type }}-tax mt-3">
+                                    <strong>{{ __('Tax:', 'grit_theme') }}</strong>
+                                    {% for tax in custom_terms %}
+                                        <a href="{{ tax.link|e('html_attr') }}" title="{{ post.title|e('html_attr') }} - {{ tax.name|e('html_attr') }}" class="badge bg-info mr-1">{{ tax.name|e }}</a>
+                                    {% endfor %}
+                                </h5>
+                            {% endif %}
                         </section>
-                        <!-- Fine Header della Sezione -->
-            
-                        <!-- Separatore -->
                         <hr class="my-4">
                     </div>
                 </div>
             </div>
         </section>
- 
 
-{# * GRIT_SET 03 | Sections After Content #} 
-{% include 'partials/sections.twig' with { sections: sections|default([]), pre_content: false } %}
- 
+        {# * GRIT_SET 03 | Sections below the main post content. #}
+        {% include 'partials/sections.twig' with {sections: sections|default([]), pre_content: false} %}
 
-
-<section class="section_archive section_archive_carousel contained py-6">
-    <div class="container-fluid">
-        <div class="row ">   
-            <div class="col">
-                <div class="owl-carousel owl-theme">
-                    {% set grid = ' ' %} 
-                    {% for single_post in archive_posts %} 
-                        {% include ['./partials/tease-'~ post.post_type ~'.twig', './partials/tease.twig'] with {'post': single_post, 'grid': grid} %}
-                    {% endfor %} 
-                </div> 
-            </div>
-        </div> 
-    </div> 
-</section>
- 
- <section> 
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 py-5">
-                        <hr>
-                        <h1>{{__('Area Commenti', 'grit_theme')}}</h1>
-                        <p> {{__('Area commenti utilizzando function( comment_form)', 'grit_theme')}}</p>
-                        <section class="comment-box contact-form-style-1">
-                            <div class="comments">
-                                {% for comment in post.comments %}
-                                    <article class="comment" id="comment-{{ comment.id }}">
-                                        <h5 class="comment-author">{{ comment.author.name }}  {{__('says', 'grit_theme')}}</h5>
-                                        {{ comment.content }}
-                                    </article>
+        {# * GRIT_SET 04 | Edit the related-post query in single.php and card layout here. #}
+        {% if archive_posts|length %}
+            <section class="section_archive section_archive_carousel contained py-6">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col">
+                            <div class="owl-carousel owl-theme">
+                                {% set grid = ' ' %}
+                                {% for single_post in archive_posts %}
+                                    {% include ['partials/tease-' ~ post.post_type ~ '.twig', 'partials/tease.twig'] with {post: single_post, grid: grid} %}
                                 {% endfor %}
-                                {{ function('comment_form') }}
                             </div>
-                        </section>
-                        <hr>
-                        <h1>{{__('Area Commenti', 'grit_theme')}}</h1>
-                        <p> {{__('Area commenti utilizzando Twig', 'grit_theme')}}</p>
-                        <!-- comment box -->
-                        <section class="comment-box">
-                            <!-- comments -->
-                            <div class="comments">
-                                {% if post.comments %}
-                                    <h3>{{__('Commenti   ', 'grit_theme')}}</h3>
-                                    {% for cmt in post.comments %}
-                                        {% include "comment.twig" with {comment:cmt} %}
-                                    {% endfor %}
-                                {% endif %}
-                            </div>
-                            <hr>
-                            {% if post.comment_status == "closed" %}
-                                <p>{{__('I commenti su questo articolo sono chiusi ', 'grit_theme')}}</p>
-                            {% else %}
-                                <!-- comment form -->
-                                {% include "comment-form.twig" %}
-                            {% endif %}
-                        </section>
+                        </div>
                     </div>
-
                 </div>
+            </section>
+        {% endif %}
 
-            </div>
-
-        </section>
+        {# * GRIT_SET 05 | WordPress comments, prepared once by single.php. #}
+        {{ comments_html }}
     </article>
 {% endblock %}

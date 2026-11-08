@@ -1,9 +1,3 @@
 <?php
-/**
- * The Template for the sidebar containing the main widget area
- *
- * @package  WordPress
- * @subpackage  Timber
- */
-
-Timber::render( array( 'sidebar.twig' ), $data );
+// * GRIT_SET Sidebar | sidebar_primary is supplied by the shared site context.
+Timber::render('sidebar.twig', Timber::context());

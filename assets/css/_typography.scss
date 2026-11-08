@@ -1,13 +1,12 @@
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 01 * GRIT_SET typography */
-/* :::::::::::::: 02 * GRIT_SET btn */
-/* :::::::::::::: 03 * GRIT_SET btn-color */
-/* :::::::::::::: 04 * GRIT_SET shared button groups — wrapping and gap */
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-@use "sass:color";
+// * GRIT_SET Legend | typography
+// 01 | typography
+// 02 | btn
+// 03 | btn-color
+// 04 | shared button groups — wrapping and gap
+
 @use "./variables" as *;
 
-/* :::::::::::::: 01 * GRIT_SET typography */
+// * GRIT_SET 01 | typography
 p {
     font-family: $font-primary;
 }
@@ -23,13 +22,6 @@ p {
     font-family: $font-secondary !important;
     font-weight: normal !important;
 }
-
-// .font-tertiary,
-// .font-tertiary * {
-//   font-family: $font-tertiary !important;
-//   font-weight: normal !important;
-//   letter-spacing: 0.03em!important;
-// }
 
 h1,
 .h1,
@@ -49,8 +41,6 @@ h6,
 .h6 {
     font-family: $font-primary;
 }
-
-/* Fluid Display Fonts based on Bootstrap sizes, scaled with viewport */
 .display-1 {
     font-size: clamp(2.6rem, calc(80 / $xxl * 100vw), 5rem); // 5rem = 80px
     line-height: 1.2;
@@ -103,7 +93,7 @@ a {
     color: currentColor;
     text-decoration: none;
     background-color: transparent;
-    @include transition(all 0.5s ease-in-out);
+    @include transition(all $transition-base);
 }
 
 a:hover {
@@ -115,12 +105,12 @@ a:hover {
     text-decoration: none;
 }
 
-/* :::::::::::::: 02 * GRIT_SET btn */
+// * GRIT_SET 02 | btn
 .btn {
     font-size: $font-base;
 
-    border-radius: 25px;
-    padding: 0.545em 1.4em;
+    border-radius: $button-radius;
+    padding: $button-padding;
     text-align: center;
     display: inline-block;
     letter-spacing: 0.02em;
@@ -131,25 +121,13 @@ a:hover {
     position: relative;
     font-weight: 900;
     text-transform: uppercase;
-    @include transition(all 0.5s ease-in-out);
-    /* Standard */
-    // border-radius: 10px;
-    // font-family: Inter;
-    // font-style: normal;
-    // font-weight: normal;
-    // font-size: 18px;
-    // line-height: 20px;
-    // text-align: center;
-    // text-transform: uppercase;
-    // padding: 0.375rem 1.75rem;
-    // @include transition(all 0.5s ease-in-out);
-
+    @include transition(all $transition-base);
     &.btn-circle {
         width: 40px;
         height: 40px;
         padding: 3px;
         margin: 0px 3px;
-        border-radius: 25px;
+        border-radius: $button-radius;
         font-size: 22px;
         text-align: center;
         display: flex;
@@ -158,304 +136,553 @@ a:hover {
     }
 }
 
-// $color, $bg, $border, $h-color, $h-bg, $h-border
-@mixin btn-color($color, $bg, $border, $h-color, $h-bg, $h-border) {
+// * GRIT_SET Bootstrap sizes | Explicit selectors prevent the theme base from flattening sizes.
+// Normal: btn; small: btn btn-sm; large: btn btn-lg. btn-md remains a legacy normal-size alias.
+.btn.btn-sm,
+.btn-group-sm > .btn {
+    font-size: $button-font-size-sm;
+    padding: $button-padding-sm;
+    border-radius: $button-radius;
+    line-height: 1;
+}
+.btn.btn-lg,
+.btn-group-lg > .btn {
+    font-size: $button-font-size-lg;
+    padding: $button-padding-lg;
+    border-radius: $button-radius;
+    line-height: 1;
+}
+
+// * GRIT_SET 03 | Manual button colors: edit each class directly below.
+// Parameter guide:
+// $color / $bg / $border: normal text, fill and border.
+// $h-color / $h-bg / $h-border: hover text, fill and border.
+// $a-color / $a-bg / $a-border: pressed/selected text, fill and border (optional).
+// Example: change only $h-bg in .btn-primary to customize its hover background.
+// Color names reference _variables.scss; transparent creates an unfilled outline button.
+// Active defaults to hover; optionally pass $a-color, $a-bg and $a-border to customize it.
+// Focus preserves the current colors; disabled preserves the normal colors.
+@mixin btn-color(
+    $color,
+    $bg,
+    $border,
+    $h-color,
+    $h-bg,
+    $h-border,
+    $a-color: $h-color,
+    $a-bg: $h-bg,
+    $a-border: $h-border
+) {
     color: $color;
     background: $bg;
     border-color: $border;
-    transition: all 0.3s ease;
 
-    &:hover {
+    // Explicit colors prevent Bootstrap focus styles from introducing a different palette.
+    &:focus,
+    &.focus {
+        color: $color;
+        background: $bg;
+        border-color: $border;
+    }
+    &:not(:disabled):not(.disabled):hover {
         color: $h-color;
         background: $h-bg;
         border-color: $h-border;
     }
-
-    &:active {
-        background: color.adjust($h-color, $lightness: -30%);
-        border-color: color.adjust($h-border, $lightness: -30%);
-    }
-
-    &:not(:disabled):not(.disabled).active,
     &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled).active,
     .show > &.dropdown-toggle {
-        background: color.adjust($bg, $lightness: -30%);
-        border-color: color.adjust($border, $lightness: -30%);
-        box-shadow: 0 0 0 0.1rem color.adjust($bg, $lightness: 10%) !important;
+        color: $a-color;
+        background: $a-bg;
+        border-color: $a-border;
+        box-shadow: none;
     }
-
-    &.disabled,
-    &:disabled {
-        opacity: 0.1;
-        background: color.adjust($bg, $lightness: -30%);
-        border-color: color.adjust($border, $lightness: -30%);
-    }
-
+    &:focus,
     &.focus,
-    &:focus {
-        background: $h-bg;
-        border-color: $h-border;
-        box-shadow: 0 0 0 0.1rem color.adjust($bg, $lightness: 10%);
+    &:not(:disabled):not(.disabled):active:focus,
+    &:not(:disabled):not(.disabled).active:focus,
+    .show > &.dropdown-toggle:focus {
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+        box-shadow:
+            0 0 0 2px $button-focus-inner,
+            0 0 0 4px $button-focus-outer;
+    }
+    &:disabled,
+    &.disabled {
+        color: $color;
+        background: $bg;
+        border-color: $border;
+        opacity: $button-disabled-opacity;
+        cursor: not-allowed;
+        box-shadow: none;
     }
 }
 
-/* :::::::::::::: 03 * GRIT_SET btn-color */
-
-// Accent
-.btn-accent {
-    @include btn-color($light, $accent, $accent, $accent, $light, $light);
-}
-
-.btn-outline-accent {
-    @include btn-color($accent, $light, $accent, $accent, $light, $light);
-}
-// Primary
+// Each variant is independent: changing the project palette never chooses combinations for you.
+// Primary | Normal: text / fill / border. Hover: text / fill / border.
 .btn-primary {
-    @include btn-color($light, $primary, $primary, $primary, $light, $light);
-}
+    @include btn-color(
+        // Normal state
+        $color: $light,
+        $bg: $primary,
+        $border: $primary,
 
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $primary,
+        $h-bg: $light,
+        $h-border: $primary
+    );
+}
 .btn-outline-primary {
-    @include btn-color($primary, $light, $primary, $primary, $light, $light);
+    @include btn-color(
+        // Normal state
+        $color: $primary,
+        $bg: transparent,
+        $border: $primary,
+
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $light,
+        $h-bg: $primary,
+        $h-border: $primary
+    );
 }
 
-// Secondary
+// Secondary | Normal: text / fill / border. Hover: text / fill / border.
 .btn-secondary {
-    @include btn-color($light, $secondary, $secondary, $secondary, $light, $light);
-}
+    @include btn-color(
+        // Normal state
+        $color: $dark,
+        $bg: $secondary,
+        $border: $secondary,
 
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $light,
+        $h-bg: $dark,
+        $h-border: $dark
+    );
+}
 .btn-outline-secondary {
-    @include btn-color($secondary, $light, $secondary, $secondary, $light, $light);
+    @include btn-color(
+        // Normal state
+        $color: $secondary,
+        $bg: transparent,
+        $border: $secondary,
+
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $dark,
+        $h-bg: $secondary,
+        $h-border: $secondary
+    );
 }
 
-// Tertiary
+// Tertiary | Normal: text / fill / border. Hover: text / fill / border.
 .btn-tertiary {
-    @include btn-color($light, $tertiary, $tertiary, $tertiary, $light, $light);
-}
+    @include btn-color(
+        // Normal state
+        $color: $dark,
+        $bg: $tertiary,
+        $border: $tertiary,
 
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $light,
+        $h-bg: $dark,
+        $h-border: $dark
+    );
+}
 .btn-outline-tertiary {
-    @include btn-color($tertiary, $light, $tertiary, $tertiary, $light, $light);
+    @include btn-color(
+        // Normal state
+        $color: $tertiary,
+        $bg: transparent,
+        $border: $tertiary,
+
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $dark,
+        $h-bg: $tertiary,
+        $h-border: $tertiary
+    );
 }
 
-// Quaternary
+// Quaternary | Normal: text / fill / border. Hover: text / fill / border.
 .btn-quaternary {
-    @include btn-color($light, $quaternary, $quaternary, $quaternary, $light, $light);
-}
+    @include btn-color(
+        // Normal state
+        $color: $dark,
+        $bg: $quaternary,
+        $border: $quaternary,
 
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $light,
+        $h-bg: $dark,
+        $h-border: $dark
+    );
+}
 .btn-outline-quaternary {
-    @include btn-color($quaternary, $light, $quaternary, $quaternary, $light, $light);
+    @include btn-color(
+        // Normal state
+        $color: $quaternary,
+        $bg: transparent,
+        $border: $quaternary,
+
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $dark,
+        $h-bg: $quaternary,
+        $h-border: $quaternary
+    );
 }
 
-// Quinary
+// Quinary | Normal: text / fill / border. Hover: text / fill / border.
 .btn-quinary {
-    @include btn-color($light, $quinary, $quinary, $quinary, $light, $light);
-}
+    @include btn-color(
+        // Normal state
+        $color: $light,
+        $bg: $quinary,
+        $border: $quinary,
 
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $quinary,
+        $h-bg: $light,
+        $h-border: $quinary
+    );
+}
 .btn-outline-quinary {
-    @include btn-color($quinary, $light, $quinary, $quinary, $light, $light);
+    @include btn-color(
+        // Normal state
+        $color: $quinary,
+        $bg: transparent,
+        $border: $quinary,
+
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $light,
+        $h-bg: $quinary,
+        $h-border: $quinary
+    );
 }
 
-// Senary
+// Senary | Normal: text / fill / border. Hover: text / fill / border.
 .btn-senary {
-    @include btn-color($light, $senary, $senary, $senary, $light, $light);
-}
+    @include btn-color(
+        // Normal state
+        $color: $light,
+        $bg: $senary,
+        $border: $senary,
 
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $senary,
+        $h-bg: $light,
+        $h-border: $senary
+    );
+}
 .btn-outline-senary {
-    @include btn-color($senary, $light, $senary, $senary, $light, $light);
+    @include btn-color(
+        // Normal state
+        $color: $senary,
+        $bg: transparent,
+        $border: $senary,
+
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $light,
+        $h-bg: $senary,
+        $h-border: $senary
+    );
 }
 
-// Septenary
+// Septenary | Normal: text / fill / border. Hover: text / fill / border.
 .btn-septenary {
-    @include btn-color($light, $septenary, $septenary, $septenary, $light, $light);
-}
+    @include btn-color(
+        // Normal state
+        $color: $light,
+        $bg: $septenary,
+        $border: $septenary,
 
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $septenary,
+        $h-bg: $light,
+        $h-border: $septenary
+    );
+}
 .btn-outline-septenary {
-    @include btn-color($septenary, $light, $septenary, $septenary, $light, $light);
+    @include btn-color(
+        // Normal state
+        $color: $septenary,
+        $bg: transparent,
+        $border: $septenary,
+
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $light,
+        $h-bg: $septenary,
+        $h-border: $septenary
+    );
 }
 
-// Octonary
+// Octonary | Normal: text / fill / border. Hover: text / fill / border.
 .btn-octonary {
-    @include btn-color($light, $octonary, $octonary, $octonary, $light, $light);
-}
+    @include btn-color(
+        // Normal state
+        $color: $light,
+        $bg: $octonary,
+        $border: $octonary,
 
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $octonary,
+        $h-bg: $light,
+        $h-border: $octonary
+    );
+}
 .btn-outline-octonary {
-    @include btn-color($octonary, $light, $octonary, $octonary, $light, $light);
+    @include btn-color(
+        // Normal state
+        $color: $octonary,
+        $bg: transparent,
+        $border: $octonary,
+
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $light,
+        $h-bg: $octonary,
+        $h-border: $octonary
+    );
 }
 
-// Nonary
+// Nonary | Normal: text / fill / border. Hover: text / fill / border.
 .btn-nonary {
-    @include btn-color($light, $nonary, $nonary, $nonary, $light, $light);
-}
+    @include btn-color(
+        // Normal state
+        $color: $light,
+        $bg: $nonary,
+        $border: $nonary,
 
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $nonary,
+        $h-bg: $light,
+        $h-border: $nonary
+    );
+}
 .btn-outline-nonary {
-    @include btn-color($nonary, $light, $nonary, $nonary, $light, $light);
+    @include btn-color(
+        // Normal state
+        $color: $nonary,
+        $bg: transparent,
+        $border: $nonary,
+
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $light,
+        $h-bg: $nonary,
+        $h-border: $nonary
+    );
 }
 
-// Denary
+// Denary | Normal: text / fill / border. Hover: text / fill / border.
 .btn-denary {
-    @include btn-color($light, $denary, $denary, $denary, $light, $light);
-}
+    @include btn-color(
+        // Normal state
+        $color: $light,
+        $bg: $denary,
+        $border: $denary,
 
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $denary,
+        $h-bg: $light,
+        $h-border: $denary
+    );
+}
 .btn-outline-denary {
-    @include btn-color($denary, $light, $denary, $denary, $light, $light);
+    @include btn-color(
+        // Normal state
+        $color: $denary,
+        $bg: transparent,
+        $border: $denary,
+
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $light,
+        $h-bg: $denary,
+        $h-border: $denary
+    );
 }
 
-// Grey
-.btn-grey {
-    @include btn-color($light, $grey, $grey, $grey, $light, $light);
-}
-
-.btn-outline-grey {
-    @include btn-color($grey, $light, $grey, $grey, $light, $light);
-}
-
-// White
+// White | Normal: text / fill / border. Hover: text / fill / border.
 .btn-white {
-    @include btn-color($dark, $white, $white, $white, $dark, $dark);
-}
+    @include btn-color(
+        // Normal state
+        $color: $dark,
+        $bg: $white,
+        $border: $white,
 
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $light,
+        $h-bg: $dark,
+        $h-border: $dark
+    );
+}
 .btn-outline-white {
-    @include btn-color($white, $dark, $white, $white, $dark, $dark);
+    @include btn-color(
+        // Normal state
+        $color: $white,
+        $bg: transparent,
+        $border: $white,
+
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $dark,
+        $h-bg: $white,
+        $h-border: $white
+    );
 }
 
-// Black
+// Black | Normal: text / fill / border. Hover: text / fill / border.
 .btn-black {
-    @include btn-color($light, $black, $black, $black, $light, $light);
-}
+    @include btn-color(
+        // Normal state
+        $color: $light,
+        $bg: $black,
+        $border: $black,
 
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $black,
+        $h-bg: $light,
+        $h-border: $black
+    );
+}
 .btn-outline-black {
-    @include btn-color($black, $light, $black, $black, $light, $light);
+    @include btn-color(
+        // Normal state
+        $color: $black,
+        $bg: transparent,
+        $border: $black,
+
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $light,
+        $h-bg: $black,
+        $h-border: $black
+    );
 }
 
-// Light
+// Accent | Normal: text / fill / border. Hover: text / fill / border.
+.btn-accent {
+    @include btn-color(
+        // Normal state
+        $color: $black,
+        $bg: $accent,
+        $border: $accent,
+
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $light,
+        $h-bg: $dark,
+        $h-border: $dark
+    );
+}
+.btn-outline-accent {
+    @include btn-color(
+        // Normal state
+        $color: $accent,
+        $bg: transparent,
+        $border: $accent,
+
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $black,
+        $h-bg: $accent,
+        $h-border: $accent
+    );
+}
+
+// Light | Normal: text / fill / border. Hover: text / fill / border.
 .btn-light {
-    @include btn-color($dark, $light, $light, $light, $dark, $dark);
+    @include btn-color(
+        // Normal state
+        $color: $dark,
+        $bg: $light,
+        $border: $light,
+
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $light,
+        $h-bg: $dark,
+        $h-border: $dark
+    );
 }
 .btn-outline-light {
-    @include btn-color($light, $dark, $light, $light, $dark, $dark);
+    @include btn-color(
+        // Normal state
+        $color: $light,
+        $bg: transparent,
+        $border: $light,
+
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $dark,
+        $h-bg: $light,
+        $h-border: $light
+    );
 }
 
-// Dark
+// Dark | Normal: text / fill / border. Hover: text / fill / border.
 .btn-dark {
-    @include btn-color($light, $dark, $dark, $dark, $light, $light);
-}
+    @include btn-color(
+        // Normal state
+        $color: $light,
+        $bg: $dark,
+        $border: $dark,
 
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $dark,
+        $h-bg: $light,
+        $h-border: $dark
+    );
+}
 .btn-outline-dark {
-    @include btn-color($dark, $light, $dark, $dark, $light, $light);
+    @include btn-color(
+        // Normal state
+        $color: $dark,
+        $bg: transparent,
+        $border: $dark,
+
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $light,
+        $h-bg: $dark,
+        $h-border: $dark
+    );
 }
 
-/* Custom button styles */
-.btn-outline-transparent {
-    border-color: $light;
-    background: none;
-    outline: none;
-    color: $light; /* Testo bianco di default */
-    mix-blend-mode: screen;
-    @include transition(all 0.5s ease-in-out);
+// Grey | Normal: text / fill / border. Hover: text / fill / border.
+.btn-grey {
+    @include btn-color(
+        // Normal state
+        $color: $dark,
+        $bg: $grey,
+        $border: $grey,
 
-    // Pseudo-elemento per lo sfondo bianco
-    &::before {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        background: transparent; /* Sfondo trasparente di default */
-        border-radius: 0;
-        content: "";
-        mix-blend-mode: color-burn; /* Modalità di fusione per ottenere l'effetto desiderato */
-        z-index: -1; /* Posiziona lo sfondo sotto il testo */
-        @include transition(all 0.5s ease-in-out);
-    }
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $light,
+        $h-bg: $dark,
+        $h-border: $dark
+    );
+}
+.btn-outline-grey {
+    @include btn-color(
+        // Normal state
+        $color: $grey,
+        $bg: transparent,
+        $border: $grey,
 
-    // Effetti in hover
-    &:hover {
-        color: $dark; /* Cambia il colore del testo in nero in hover */
-
-        &::before {
-            background: $light; /* Rende lo sfondo bianco in hover */
-        }
-    }
-
-    &:focus {
-        outline: none; /* Rimuove il contorno predefinito */
-        box-shadow: 0 0 0 0.2rem $light; /* Ombra personalizzata per il focus */
-    }
-
-    &:active {
-        color: $dark; /* Mantiene il testo nero quando il pulsante è attivo */
-
-        &::before {
-            background: $light; /* Rende lo sfondo bianco quando il pulsante è attivo */
-        }
-    }
-
-    &:disabled,
-    &.disabled {
-        opacity: 0.5; /* Opacità ridotta quando il pulsante è disabilitato */
-        cursor: not-allowed; /* Cambia il cursore quando il pulsante è disabilitato */
-    }
+        // Hover state (also used when pressed, unless overridden)
+        $h-color: $dark,
+        $h-bg: $grey,
+        $h-border: $grey
+    );
 }
 
-/* Custom button styles */
+// Legacy transparent names remain available with explicitly editable combinations.
 .btn-transparent {
-    border-color: $light;
-    background: none;
-    outline: none;
-    color: $dark;
-    mix-blend-mode: screen;
-    text-transform: uppercase; /* Aggiungo la trasformazione del testo in maiuscolo */
-    @include transition(all 0.5s ease-in-out);
-    // Pseudo-elemento per lo sfondo bianco
-    &::before {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        background: $light;
-        border-radius: 0;
-        content: "";
-        mix-blend-mode: color-burn; /* Modalità di fusione per ottenere l'effetto desiderato */
-        z-index: -1; /* Posiziona lo sfondo sotto il testo */
-        @include transition(all 0.5s ease-in-out);
-    }
-
-    // Effetti in hover
-    &:hover {
-        color: $light; /* Cambia il colore del testo in bianco in hover */
-
-        &::before {
-            background: transparent; /* Rende lo sfondo trasparente in hover */
-        }
-    }
-
-    &:focus {
-        outline: none; /* Rimuove il contorno predefinito */
-        box-shadow: 0 0 0 0.2rem $light; /* Ombra personalizzata per il focus */
-    }
-
-    &:active {
-        color: $light; /* Mantiene il testo bianco quando il pulsante è attivo */
-
-        &::before {
-            background: transparent; /* Rende lo sfondo trasparente quando il pulsante è attivo */
-        }
-    }
-
-    &:disabled,
-    &.disabled {
-        opacity: 0.5; /* Opacità ridotta quando il pulsante è disabilitato */
-        cursor: not-allowed; /* Cambia il cursore quando il pulsante è disabilitato */
-    }
+    @include btn-color($dark, $white, $white, $white, $dark, $dark);
+}
+.btn-outline-transparent {
+    @include btn-color($white, transparent, $white, $dark, $white, $white);
 }
 
-// * GRIT_SET Shared button groups: horizontal/vertical gap stays correct after wrapping
+// * GRIT_SET 04 | Shared button groups: horizontal/vertical gap stays correct after wrapping
 .box-buttons {
     display: inline-flex;
     flex-wrap: wrap;
     align-items: center;
     max-width: 100%;
-    gap: 0.75rem 1rem;
+    gap: $button-group-gap;
     > .btn {
         flex: 0 1 auto;
         min-width: 0;
@@ -465,14 +692,3 @@ a:hover {
         overflow-wrap: anywhere;
     }
 }
-
-// @mixin set_size($property, $variable1, $variable2: 1920) {
-//   #{$property}: calc(#{$variable1}/#{$variable2}*100vw);
-// }
-
-// h1 {
-//   @include set_size ('font-size', 54 );
-//   @media (max-width: 950px) {
-//     @include set_size ('font-size', 30, 950 );
-//   }
-// }

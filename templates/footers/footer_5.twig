@@ -1,0 +1,103 @@
+{# * GRIT_SET Legend | Footer 5 — Split editorial layout
+01 | Main layout and navigation.
+02 | Independent widget areas.
+03 | Copyright and legal links.
+Colors: _variables.scss. Layout styles: _footer.scss.
+#}
+{% set footer_links = footer_menu.get_items ?: primary_menu.get_items %}
+{% set privacy_url = function('get_privacy_policy_url') ?: function('home_url', '/privacy-policy/') %}
+{% set cookie_url = function('home_url', '/cookie-policy/') %}
+
+{# * GRIT_SET 01 | Split editorial layout. #}
+<div class="section-footer contained py-5">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-7 mb-5 mb-lg-0">
+                <div class="footer-editorial-menu">
+                    {% if footer_links %}
+                        <nav aria-label="{{ __('Menu footer', 'grit_theme')|e('html_attr') }}">
+                            <ul class="footer-menu list-unstyled mb-0">
+                                {% for item in footer_links %}
+                                    <li class="{{ item.classes|join(' ')|e('html_attr') }}">
+                                        <a href="{{ function('esc_url', item.get_link)|e('html_attr') }}"{% if item.target %} target="{{ item.target|e('html_attr') }}"{% if item.target == '_blank' %} rel="noopener noreferrer"{% endif %}{% endif %}>{{ item.title|e }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </nav>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-12 col-lg-5 footer-company-panel">
+                <div class="footer-logo mb-4">
+                    <a href="{{ function('esc_url', home)|e('html_attr') }}">
+                        {% if custom_logo_url[0] %}
+                            <img src="{{ function('esc_url', custom_logo_url[0])|e('html_attr') }}" alt="{{ site.name|e('html_attr') }}" class="img-fluid">
+                        {% else %}
+                            <span class="h3">{{ site.name|e }}</span>
+                        {% endif %}
+                    </a>
+                </div>
+                {% if setting_intestazione %}
+                    <h3 class="h5">{{ setting_intestazione|e }}</h3>
+                {% endif %}
+                {% if setting_indirizzo_1 %}
+                    <p>
+                        <a href="https://www.google.com/maps/dir/?api=1&amp;destination={{ setting_indirizzo_1|url_encode }}" target="_blank" rel="noopener noreferrer">{{ setting_indirizzo_1|e }}</a>
+                    </p>
+                {% endif %}
+                {% if setting_mail_1 or setting_tel_1 %}
+                    <ul class="footer-contacts list-unstyled mb-0">
+                        {% if setting_mail_1 %}
+                            <li><a href="{{ function('esc_url', 'mailto:' ~ setting_mail_1)|e('html_attr') }}">{{ setting_mail_1|e }}</a></li>
+                        {% endif %}
+                        {% if setting_tel_1 %}
+                            <li><a href="{{ function('esc_url', 'tel:' ~ setting_tel_1|replace({' ': '', '(': '', ')': '', '-': '', '.': ''}))|e('html_attr') }}">{{ setting_tel_1|e }}</a></li>
+                        {% endif %}
+                    </ul>
+                {% endif %}{% if setting_facebook or setting_instagram or setting_linkedin %}
+                    <div class="footer-social">
+                        {% include 'headers/nav-social.twig' %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        {# * GRIT_SET 02 | Optional widget row. #}
+        {# Each widget remains independent; empty areas do not create columns. #}
+        {% if footer_col_1 or footer_col_2 or footer_col_3 or footer_col_4 %}
+            <div class="row mt-4">
+                {% if footer_col_1 %}
+                    <div class="col-12 col-md-6 col-lg-3 mb-4">{{ footer_col_1 }}</div>
+                {% endif %}
+                {% if footer_col_2 %}
+                    <div class="col-12 col-md-6 col-lg-3 mb-4">{{ footer_col_2 }}</div>
+                {% endif %}
+                {% if footer_col_3 %}
+                    <div class="col-12 col-md-6 col-lg-3 mb-4">{{ footer_col_3 }}</div>
+                {% endif %}
+                {% if footer_col_4 %}
+                    <div class="col-12 col-md-6 col-lg-3 mb-4">{{ footer_col_4 }}</div>
+                {% endif %}
+            </div>
+        {% endif %}
+        {% if footer_bottom %}
+            <div class="footer-widgets-bottom mt-4">{{ footer_bottom }}</div>
+        {% endif %}
+    </div>
+</div>
+{# * GRIT_SET 03 | Copyright and legal links. Empty company fields are omitted. #}
+<div class="footer-bottom contained py-3">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 mb-3 mb-md-0">
+                <p class="mb-0">© {{ "now"|date('Y') }} {{ setting_intestazione|default(site.name)|e }}{% if setting_piva %} · {{ __('P.IVA', 'grit_theme') }} {{ setting_piva|e }}{% endif %}
+                </p>
+            </div>
+            <div class="col-12 col-md-6">
+                <ul class="footer-policy list-unstyled mb-0">
+                    <li><a href="{{ function('esc_url', privacy_url)|e('html_attr') }}">Privacy Policy</a></li>
+                    <li><a href="{{ function('esc_url', cookie_url)|e('html_attr') }}">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

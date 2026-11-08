@@ -1,0 +1,10 @@
+{# * GRIT_SET Term card | Standard WordPress term link/count; no post template or image assumptions. #}
+<div class="tease tease-term {{ grid|e('html_attr') }}">
+    <div class="card h-100">
+        <div class="card-body">
+            <h3 class="card-title"><a href="{{ term.link|e('html_attr') }}">{{ term.name|e }}</a></h3>
+            {% if term.description %}<p class="card-text">{{ term.description|e }}</p>{% endif %}
+            {% if show_count %}<p class="card-text"><small>{{ __('Contenuti associati:', 'grit') }} {{ term.count }}</small></p>{% endif %}
+        </div>
+    </div>
+</div>

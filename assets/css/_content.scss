@@ -1,13 +1,13 @@
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 01 * GRIT_SET body */
-/* :::::::::::::: 02 * GRIT_SET contained */
-/* :::::::::::::: 03 * GRIT_SET equal-cols */
-/* :::::::::::::: 04 * GRIT_SET padding */
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+// * GRIT_SET Legend | content
+// 01 | body
+// 02 | contained
+// 03 | equal-cols
+// 04 | padding
 
+@use "sass:math";
 @use "./variables" as *;
 
-/* :::::::::::::: 01 * GRIT_SET body */
+// * GRIT_SET 01 | body
 body {
     font-family: $font-primary;
     font-size: $font-base;
@@ -36,31 +36,23 @@ body {
 .object-fit-cover {
     object-fit: cover;
 }
-
-/* Stile per scrollbar in browser WebKit (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
-    width: 1px; /* Larghezza della scrollbar */
+    width: 1px;
 }
-
-/* Stile per Firefox */
 * {
-    scrollbar-width: thin; /* Imposta la scrollbar sottile in Firefox */
+    scrollbar-width: thin;
 }
 
-/* :::::::::::::: 02 * GRIT_SET contained */
+// * GRIT_SET 02 | contained
 @media (min-width: $sm-res) {
     .contained {
         padding: 0 calc($c-gap / $xxl * 100vw);
     }
 }
 
-/* :::::::::::::: 03 * GRIT_SET equal-cols */
+// * GRIT_SET 03 | equal-cols
 .row.equal-cols {
-    display: -webkit-flex !important;
-    display: -ms-flexbox !important;
     display: flex !important;
-    -webkit-flex-wrap: wrap !important;
-    -ms-flex-wrap: wrap !important;
     flex-wrap: wrap;
 }
 
@@ -70,242 +62,50 @@ body {
 }
 
 .row.equal-cols > [class*="col-"] {
-    display: -webkit-flex !important;
-    display: -ms-flexbox !important;
     display: flex !important;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
     flex-direction: column;
 }
 
 .row.equal-cols > [class*="col-"] > * {
-    -webkit-flex: 1 1 auto;
-    -ms-flex: 1 1 auto;
     flex: 1 1 auto;
 }
 
 .row.equal-cols .tease {
-    display: -webkit-flex !important;
-    display: -ms-flexbox !important;
     display: flex !important;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
     flex-direction: column;
 }
 
-/* :::::::::::::: 04 * GRIT_SET padding */
-// Definisci i valori extra per padding e margin con incrementi progressivi
-$extra-spacing-values: (
-    6: 24px,
-    7: 28px,
-    8: 34px,
-    9: 40px,
-    10: 50px,
-);
-$viewport-width: 1920; // Larghezza massima del viewport di riferimento
-$scale-factor: 3.2; // Moltiplicatore per la scalabilità dello spacing
-
-// Mixin per creare padding/margin responsive con moltiplicatore
-@mixin responsive-spacing($property, $base-size, $viewport-width, $scale-factor) {
+// * GRIT_SET 04 | padding
+// * GRIT_SET Fluid spacing uses real vw units; the desktop cap preserves the previous maximum.
+// xs has unprefixed utilities; sm through xxxl use the centralized $breakpoints map.
+@mixin responsive-spacing($property, $base-size) {
     $scaled-base: $base-size * $scale-factor;
-    $vw-value: calc($scaled-base / $viewport-width * 100);
-    #{$property}: calc(#{$scaled-base} + #{$vw-value}) !important;
+    $desktop-cap: $scaled-base + math.div($scaled-base, $viewport-width) * 100;
+    $fluid: math.div(math.div($scaled-base, 1px), $viewport-width) * 100vw;
+    #{$property}: clamp(#{$base-size}, #{$fluid}, #{$desktop-cap}) !important;
 }
 
-// Generazione delle classi standard (senza media query)
-@each $size, $base-size in $extra-spacing-values {
-    // Padding standard
-    .p-#{$size} {
-        @include responsive-spacing(padding, $base-size, $viewport-width, $scale-factor);
-    }
-    .pt-#{$size} {
-        @include responsive-spacing(padding-top, $base-size, $viewport-width, $scale-factor);
-    }
-    .pr-#{$size} {
-        @include responsive-spacing(padding-right, $base-size, $viewport-width, $scale-factor);
-    }
-    .pb-#{$size} {
-        @include responsive-spacing(padding-bottom, $base-size, $viewport-width, $scale-factor);
-    }
-    .pl-#{$size} {
-        @include responsive-spacing(padding-left, $base-size, $viewport-width, $scale-factor);
-    }
-    .px-#{$size} {
-        @include responsive-spacing(padding-left, $base-size, $viewport-width, $scale-factor);
-        @include responsive-spacing(padding-right, $base-size, $viewport-width, $scale-factor);
-    }
-    .py-#{$size} {
-        @include responsive-spacing(padding-top, $base-size, $viewport-width, $scale-factor);
-        @include responsive-spacing(padding-bottom, $base-size, $viewport-width, $scale-factor);
-    }
-
-    // Margin standard
-    .m-#{$size} {
-        @include responsive-spacing(margin, $base-size, $viewport-width, $scale-factor);
-    }
-    .mt-#{$size} {
-        @include responsive-spacing(margin-top, $base-size, $viewport-width, $scale-factor);
-    }
-    .mr-#{$size} {
-        @include responsive-spacing(margin-right, $base-size, $viewport-width, $scale-factor);
-    }
-    .mb-#{$size} {
-        @include responsive-spacing(margin-bottom, $base-size, $viewport-width, $scale-factor);
-    }
-    .ml-#{$size} {
-        @include responsive-spacing(margin-left, $base-size, $viewport-width, $scale-factor);
-    }
-    .mx-#{$size} {
-        @include responsive-spacing(margin-left, $base-size, $viewport-width, $scale-factor);
-        @include responsive-spacing(margin-right, $base-size, $viewport-width, $scale-factor);
-    }
-    .my-#{$size} {
-        @include responsive-spacing(margin-top, $base-size, $viewport-width, $scale-factor);
-        @include responsive-spacing(margin-bottom, $base-size, $viewport-width, $scale-factor);
-    }
-}
-
-// Generazione dinamica delle classi per i breakpoint
-@each $breakpoint, $min-width in $breakpoints {
-    // Media query per breakpoint (eccetto xs)
-    @if $min-width > 0 {
-        @media (min-width: #{$min-width}) {
-            @each $size, $base-size in $extra-spacing-values {
-                // Padding
-                .p-#{$breakpoint}-#{$size} {
-                    @include responsive-spacing(
-                        padding,
-                        $base-size,
-                        $viewport-width,
-                        $scale-factor
-                    );
-                }
-                .pt-#{$breakpoint}-#{$size} {
-                    @include responsive-spacing(
-                        padding-top,
-                        $base-size,
-                        $viewport-width,
-                        $scale-factor
-                    );
-                }
-                .pr-#{$breakpoint}-#{$size} {
-                    @include responsive-spacing(
-                        padding-right,
-                        $base-size,
-                        $viewport-width,
-                        $scale-factor
-                    );
-                }
-                .pb-#{$breakpoint}-#{$size} {
-                    @include responsive-spacing(
-                        padding-bottom,
-                        $base-size,
-                        $viewport-width,
-                        $scale-factor
-                    );
-                }
-                .pl-#{$breakpoint}-#{$size} {
-                    @include responsive-spacing(
-                        padding-left,
-                        $base-size,
-                        $viewport-width,
-                        $scale-factor
-                    );
-                }
-                .px-#{$breakpoint}-#{$size} {
-                    @include responsive-spacing(
-                        padding-left,
-                        $base-size,
-                        $viewport-width,
-                        $scale-factor
-                    );
-                    @include responsive-spacing(
-                        padding-right,
-                        $base-size,
-                        $viewport-width,
-                        $scale-factor
-                    );
-                }
-                .py-#{$breakpoint}-#{$size} {
-                    @include responsive-spacing(
-                        padding-top,
-                        $base-size,
-                        $viewport-width,
-                        $scale-factor
-                    );
-                    @include responsive-spacing(
-                        padding-bottom,
-                        $base-size,
-                        $viewport-width,
-                        $scale-factor
-                    );
-                }
-
-                // Margin
-                .m-#{$breakpoint}-#{$size} {
-                    @include responsive-spacing(margin, $base-size, $viewport-width, $scale-factor);
-                }
-                .mt-#{$breakpoint}-#{$size} {
-                    @include responsive-spacing(
-                        margin-top,
-                        $base-size,
-                        $viewport-width,
-                        $scale-factor
-                    );
-                }
-                .mr-#{$breakpoint}-#{$size} {
-                    @include responsive-spacing(
-                        margin-right,
-                        $base-size,
-                        $viewport-width,
-                        $scale-factor
-                    );
-                }
-                .mb-#{$breakpoint}-#{$size} {
-                    @include responsive-spacing(
-                        margin-bottom,
-                        $base-size,
-                        $viewport-width,
-                        $scale-factor
-                    );
-                }
-                .ml-#{$breakpoint}-#{$size} {
-                    @include responsive-spacing(
-                        margin-left,
-                        $base-size,
-                        $viewport-width,
-                        $scale-factor
-                    );
-                }
-                .mx-#{$breakpoint}-#{$size} {
-                    @include responsive-spacing(
-                        margin-left,
-                        $base-size,
-                        $viewport-width,
-                        $scale-factor
-                    );
-                    @include responsive-spacing(
-                        margin-right,
-                        $base-size,
-                        $viewport-width,
-                        $scale-factor
-                    );
-                }
-                .my-#{$breakpoint}-#{$size} {
-                    @include responsive-spacing(
-                        margin-top,
-                        $base-size,
-                        $viewport-width,
-                        $scale-factor
-                    );
-                    @include responsive-spacing(
-                        margin-bottom,
-                        $base-size,
-                        $viewport-width,
-                        $scale-factor
-                    );
+@mixin spacing-utilities($infix: "") {
+    @each $size, $base-size in $extra-spacing-values {
+        @each $prefix, $property in (p: padding, m: margin) {
+            .#{$prefix}#{$infix}-#{$size} {
+                @include responsive-spacing($property, $base-size);
+            }
+            @each $suffix, $sides in $spacing-sides {
+                .#{$prefix}#{$suffix}#{$infix}-#{$size} {
+                    @each $side in $sides {
+                        @include responsive-spacing(#{$property}-#{$side}, $base-size);
+                    }
                 }
             }
+        }
+    }
+}
+@include spacing-utilities();
+@each $breakpoint, $min-width in $breakpoints {
+    @if $min-width > 0 {
+        @media (min-width: $min-width) {
+            @include spacing-utilities("-#{$breakpoint}");
         }
     }
 }

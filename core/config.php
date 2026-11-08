@@ -1,15 +1,15 @@
 <?php
 
+// * GRIT_SET Legend | Config
+// Frontend library switches and additional asset lists.
+// 01 | Global asset configuration
+// 02 | Frontend library options
+// 03 | Additional stylesheet URLs
+// 04 | Additional JavaScript URLs
 
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * GRIT_SET Configurazione variabili GLOBALS
-                    // Asseganzione variabili grit_setting ad array assets_options
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+// * GRIT_SET 01 | Global asset configuration
 
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * GRIT_SET assets_option third parties
-                    // Asseganzione variabili grit_setting ad array assets_options
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+// * GRIT_SET 02 | Frontend library options
 
 $GLOBALS['assets_options'] = array(
 
@@ -58,7 +58,6 @@ $GLOBALS['assets_options'] = array(
     // Attiva libreria Jarallax https://github.com/nk-o/jarallax
     'GRIT_SETTING_JARALLAX' => get_theme_mod('grit_setting_jarallax', true),
 
-
     // * GRIT_SET Search and pagination library, enabled by default
     'GRIT_SETTING_LIST' => get_theme_mod('grit_setting_list', true),
 
@@ -80,12 +79,14 @@ $GLOBALS['assets_options'] = array(
 );
 
 // Attivo lista percorsi CSS di terze parti in core/scripts.php
+// * GRIT_SET 03 | Additional stylesheet URLs
 $GLOBALS['GRIT_SETTING_CSS'] = array(
 
     // 'data_table' => 'https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css',
 );
 
 // Attivo lista percorsi JS di terze parti in core/scripts.php
+// * GRIT_SET 04 | Additional JavaScript URLs
 $GLOBALS['GRIT_SETTING_JS'] = array(
 
     // 'smoth' => 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollSmoother.min.js', 

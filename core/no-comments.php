@@ -1,5 +1,10 @@
 <?php
 
+// * GRIT_SET Legend | No-comments
+// Optional removal of comments and trackbacks.
+// 01 | Optional removal of comments and trackbacks
+
+// * GRIT_SET 01 | Optional removal of comments and trackbacks
 if (get_theme_mod('grit_setting_comments')) {
 
     // Disable support for comments and trackbacks in post types
@@ -59,5 +64,4 @@ if (get_theme_mod('grit_setting_comments')) {
     add_action('init', 'df_disable_comments_admin_bar');
 
   }
-
 

@@ -1,4 +1,10 @@
 <?php
+
+// * GRIT_SET Legend | Nav
+// Bundled Bootstrap Navwalker and theme menu class filters.
+// 01 | Theme menu item and link class filters
+
+
 /**
  * WP Bootstrap Navwalker
  *
@@ -506,6 +512,7 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
     }
 }
 
+// * GRIT_SET 01 | Theme menu item and link class filters
 add_filter('nav_menu_css_class', 'add_classes_on_li', 1, 3);
 function add_classes_on_li($classes, $item, $args)
 {

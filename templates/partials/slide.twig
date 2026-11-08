@@ -14,8 +14,8 @@
                     {% if slide.text %}<div class="lead font-weight-normal pb-3{% if slide.text_color %} color-{{ slide.text_color|e('html_attr') }}{% endif %}">{{ slide.text }}</div>{% endif %}
                     {% include 'partials/buttons.twig' with {
                         buttons: [
-                            { title: slide.link_1.title, url: slide.link_1.url, target: slide.link_1.target, style: 'btn btn-' ~ slide.color_link_1|default('primary') ~ ' btn-md' },
-                            { title: slide.link_2.title, url: slide.link_2.url, target: slide.link_2.target, style: 'btn btn-' ~ slide.color_link_2|default('primary') ~ ' btn-md' }
+                            { title: slide.link_1.title, url: slide.link_1.url, target: slide.link_1.target, style: 'btn btn-' ~ slide.color_link_1|default('primary') },
+                            { title: slide.link_2.title, url: slide.link_2.url, target: slide.link_2.target, style: 'btn btn-' ~ slide.color_link_2|default('primary') }
                         ], buttons_class: '', buttons_animation: ''
                     } only %}
                 </div>

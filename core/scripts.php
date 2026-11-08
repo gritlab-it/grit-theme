@@ -1,9 +1,40 @@
 <?php
 
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * GRIT_SET Add prefetching rules
-::::::::::::::      https://authoritywebsiteincome.com/speed-up-wordpress-with-dns-prefetching/
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+// * GRIT_SET Legend | Scripts
+// Frontend asset loading and external service integrations.
+// 01 | Add prefetching rules
+// 02 | Frontend CSS and JavaScript loading
+// 03 | Javascript for comments
+// 04 | Library: Bootstrap 4.6.2 CSS JS
+// 05 | Always load Fontawesome
+// 06 | Always load Animate CSS
+// 07 | Always load Hover CSS
+// 08 | Library: GSAP
+// 09 | Library: Three.js
+// 10 | Library: Lenis
+// 11 | Library: Locomotive
+// 12 | Library: Lightbox2
+// 13 | Library: Fitty
+// 14 | Library: Images Loaded
+// 15 | Library: Masonry
+// 16 | Library: Swiper
+// 17 | Library: Owl Carousel CSS JS
+// 18 | Configurable Jarallax core and extensions
+// 19 | Library: NProgress CSS JS
+// 20 | Library: Magic Mouse CSS JS
+// 21 | Library: Cocoen CSS JS
+// 22 | CSS
+// 23 | JS
+// 24 | Carico style.css
+// 25 | Carico style.css
+// 26 | Carico il CSS custom
+// 27 | Carico il JS custom
+// 28 | Google Recaptcha
+// 29 | Google Tag Manager
+// 30 | Hotjar Tracking Code
+
+// * GRIT_SET 01 | Add prefetching rules
+// Reference: https://authoritywebsiteincome.com/speed-up-wordpress-with-dns-prefetching/
 
 function ism_dns_prefetch()
 {
@@ -15,25 +46,7 @@ function ism_dns_prefetch()
 
 add_action('wp_head', 'ism_dns_prefetch', 0);
 
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * GRIT_SET Imposto gli script che mi interessano come async & defer
-::::::::::::::      in particolare google mappe.
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-
-function make_script_async($tag, $handle, $src)
-{
-    if ('googlemaps' != $handle) {
-        return $tag;
-    }
-
-    return str_replace('<script', '<script async defer', $tag);
-}
-
-add_filter('script_loader_tag', 'make_script_async', 10, 3);
-
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * GRIT_SET Carico la lista di CSS  e JS
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+// * GRIT_SET 02 | Frontend CSS and JavaScript loading
 
 function grit_scripts()
 {
@@ -41,52 +54,34 @@ function grit_scripts()
     // * GRIT_SET Use WordPress jQuery and its dependencies without CDN replacements
     wp_enqueue_script('jquery');
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Javascript for comments
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 03 | Javascript for comments
 
     if (is_single() && comments_open() && get_option('thread_comments')) {
         wp_enqueue_script('comment-reply');
     }
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Bootstrap 4.6.2 CSS JS
-                        // Attiva libreria Bootstrap 4.6.2 CSS JS
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 04 | Library: Bootstrap 4.6.2 CSS JS
 
     // * GRIT_SET Bootstrap is a structural dependency and is always loaded
     wp_enqueue_style('bootstrap', get_template_directory_uri() . '/assets/bootstrap-4.6.2-dist/css/bootstrap.min.css');
     wp_enqueue_script('bootstrap', get_template_directory_uri() . '/assets/bootstrap-4.6.2-dist/js/bootstrap.bundle.min.js', array('jquery'), '4.6.2', true);
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Always load Fontawesome
-                        // Attiva libreria Fontawesome fontawesome.com/icons
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 05 | Always load Fontawesome
 
     wp_enqueue_script('fa', 'https://use.fontawesome.com/releases/v5.15.1/js/all.js', array(), '5.15.1', true);
     wp_enqueue_style('fa', 'https://use.fontawesome.com/releases/v5.15.1/css/fontawesome.css');
-    /*wp_enqueue_script('fab', 'https://use.fontawesome.com/releases/v5.15.1/js/brands.js', array(), '5.15.1', true);*/
-    /*wp_enqueue_style('fab',  'https://use.fontawesome.com/releases/v5.15.1/css/brands.css');*/
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Always load Animate CSS
-                        // Attiva libreria Animate CSS animate.style
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 06 | Always load Animate CSS
 
     wp_enqueue_style('animate', get_template_directory_uri() . '/assets/animate-css/animate.css');
     wp_enqueue_script('viewportchecker', get_template_directory_uri() . '/assets/animate-css/viewportchecker.js');
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Always load Hover CSS
-                        // Attiva libreria Hover CSS ianlunn.github.io/Hover
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 07 | Always load Hover CSS
 
     wp_enqueue_style('hover', get_template_directory_uri() . '/assets/hover-css/css/hover.css');
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta GSAP
-                        // Attiva libreria GSAP https://github.com/greensock/GSAP
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 08 | Library: GSAP
+    // Reference: https://github.com/greensock/GSAP
 
     if ($GLOBALS['assets_options']['GRIT_SETTING_GSAP']) {
         wp_enqueue_script('gsap-core', get_template_directory_uri() . '/assets/gsap/gsap.min.js', array(), '3.0.0', false);
@@ -95,35 +90,24 @@ function grit_scripts()
         wp_enqueue_script('gsap-cssruleplugin', get_template_directory_uri() . '/assets/gsap/CSSRulePlugin.min.js', array('gsap-core'), '3.0.0', false);
         wp_enqueue_script('gsap-scrolltrigger', get_template_directory_uri() . '/assets/gsap/ScrollTrigger.min.js', array('gsap-core'), '3.0.0', false);
         wp_enqueue_script('gsap-scrolltoplugin', get_template_directory_uri() . '/assets/gsap/ScrollToPlugin.min.js', array('gsap-core'), '3.0.0', false);
-        wp_enqueue_script('gsap-splitext', get_template_directory_uri() . '/assets/gsap/splitext.js', array('gsap-core'), '3.0.0', false);
         //wp_enqueue_script('gsap-gsdevtools', get_template_directory_uri() . '/assets/gsap/gsdevtools.js', array(), '1.0.0', true);    
     }
 
-        /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Three.js
-                            // Attiva libreria Three js threejs.org  
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+        // * GRIT_SET 09 | Library: Three.js
 
     if ($GLOBALS['assets_options']['GRIT_SETTING_THREE']) {
         wp_enqueue_script('three', get_template_directory_uri() . '/assets/three/three.min.js', array(), '1.0.0', true);
     }
 
-
-        
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Lenis
-                        // Attiva libreria Lenis https://github.com/darkroomengineering/lenis
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 10 | Library: Lenis
+    // Reference: https://github.com/darkroomengineering/lenis
 
     if ($GLOBALS['assets_options']['GRIT_SETTING_LENIS']) { 
         wp_enqueue_script('lenis', 'https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js'); 
     }
 
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Locomotive
-                        // Attiva libreria Locomotive https://github.com/locomotivemtl/locomotive-scroll
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 11 | Library: Locomotive
+    // Reference: https://github.com/locomotivemtl/locomotive-scroll
 
     if ($GLOBALS['assets_options']['GRIT_SETTING_LOCOMOTIVE']) {
 
@@ -131,11 +115,8 @@ function grit_scripts()
         wp_enqueue_script('locomotive', 'https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js'); 
     }
 
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Lightbox2
-                        // Attiva libreria Lightbox2 https://lokeshdhakar.com/projects/lightbox2/
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 12 | Library: Lightbox2
+    // Reference: https://lokeshdhakar.com/projects/lightbox2/
 
     if ($GLOBALS['assets_options']['GRIT_SETTING_LIGHTBOX2']) {
 
@@ -143,56 +124,43 @@ function grit_scripts()
         wp_enqueue_style('lightbox2', 'https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/css/lightbox.min.css'); 
     }
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Fitty
-                            // Attiva libreria Fitty js https://rikschennink.github.io/fitty/ 
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 13 | Library: Fitty
+    // Reference: https://rikschennink.github.io/fitty/
 
     if ($GLOBALS['assets_options']['GRIT_SETTING_FITTY']) {
         wp_enqueue_script('fitty', get_template_directory_uri() . '/assets/fitty/fitty.min.js', array(), '1.0.0', true);
     }
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Images Loaded 
-                            // Attiva libreria Images Loaded js https://imagesloaded.desandro.com/
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 14 | Library: Images Loaded
+    // Reference: https://imagesloaded.desandro.com/
 
     if ($GLOBALS['assets_options']['GRIT_SETTING_IMAGESLOADED']) {
         wp_enqueue_script('imagesloaded', get_template_directory_uri() . '/assets/imagesloaded/imagesloaded.pkgd.min.js', array(), '1.0.0', true);
     }
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Masonry
-                            // Attiva libreria Masonry js https://masonry.desandro.com 
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 15 | Library: Masonry
+    // Reference: https://masonry.desandro.com
 
     if ($GLOBALS['assets_options']['GRIT_SETTING_MASONRY']) {
         wp_enqueue_script('masonry', get_template_directory_uri() . '/assets/masonry/masonry.js', array(), '1.0.0', true);
     }
  
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Swiper
-                        // Attiva libreria Swiper 10.2 https://swiperjs.com/get-started
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 16 | Library: Swiper
+    // Reference: https://swiperjs.com/get-started
 
     if ($GLOBALS['assets_options']['GRIT_SETTING_SWIPER']) {
         wp_enqueue_script('swiper', get_template_directory_uri() . '/assets/swiper/swiper-bundle.min.js', array(), '1.0.0', true);
     }
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Owl Carousel CSS JS
-                        // Attiva libreria Owl Carousel CSS JS owlcarousel2.github.io/OwlCarousel2
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 17 | Library: Owl Carousel CSS JS
 
     if ($GLOBALS['assets_options']['GRIT_SETTING_OWL_CAROUSEL']) {
         wp_enqueue_style('owl_carousel', get_template_directory_uri() . '/assets/owl-carousel/owl.carousel.min.css');
         wp_enqueue_script('owl_carousel', get_template_directory_uri() . '/assets/owl-carousel/owl.carousel.min.js', array('jquery'), '2.3.4', true);
     }
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Configurable Jarallax core and extensions
-                    // Attiva libreria Jarallax https://github.com/nk-o/jarallax
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 18 | Configurable Jarallax core and extensions
+    // Reference: https://github.com/nk-o/jarallax
 
     // * GRIT_SET One Jarallax switch controls core, Video and Element together
     if ($GLOBALS['assets_options']['GRIT_SETTING_JARALLAX']) {
@@ -202,85 +170,59 @@ function grit_scripts()
         wp_enqueue_script('jarallax_elements', get_template_directory_uri() . '/assets/jarallax-master/dist/jarallax-element.js', array('jarallax'), '', true);
     }
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta NProgress CSS JS
-                        // Attiva libreria NProgress CSS JS https://ricostacruz.com/nprogress/
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 19 | Library: NProgress CSS JS
+    // Reference: https://ricostacruz.com/nprogress/
 
     if ($GLOBALS['assets_options']['GRIT_SETTING_NPROGRESS']) {
         wp_enqueue_style('nprogress', get_template_directory_uri() . '/assets/nprogress/nprogress.css');
         wp_enqueue_script('nprogress', get_template_directory_uri() . '/assets/nprogress/nprogress.js');
     }
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Magic Mouse CSS JS
-                        // Attiva libreria Magic Mouse CSS JS magicmousejs.web.app
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 20 | Library: Magic Mouse CSS JS
 
     if ($GLOBALS['assets_options']['GRIT_SETTING_MAGIC_MOUSE']) {
         wp_enqueue_style('magic-mouse', get_template_directory_uri() . '/assets/magic-mouse-js/magic-mouse.css');
         wp_enqueue_script('magic-mouse', get_template_directory_uri() . '/assets/magic-mouse-js/magic_mouse.js');
     }
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Cocoen CSS JS
-                        // Attiva libreria Cocoen CSS JS github.com/jotform/before-after.js
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 21 | Library: Cocoen CSS JS
 
     if ($GLOBALS['assets_options']['GRIT_SETTING_COCOEN']) {
         wp_enqueue_style('cocoen', get_template_directory_uri() . '/assets/cocoen/css/cocoen.min.css');
         wp_enqueue_script('cocoen', get_template_directory_uri() . '/assets/cocoen/js/cocoen.min.js');
     }
 
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET CSS
-                        // Carico lista percorsi CSS di terze parti in core/wp-config.php
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 22 | CSS
 
     foreach ($GLOBALS['GRIT_SETTING_CSS'] as $nome => $percorso) {
         wp_enqueue_style($nome, $percorso);
     }
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET JS
-                        // Carico lista percorsi JS di terze parti in core/wp-config.php
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 23 | JS
 
     foreach ($GLOBALS['GRIT_SETTING_JS'] as $nome => $percorso) {
         wp_enqueue_script($nome, $percorso, NULL, NULL, true);
     }
 
- 
-
 }
 
 add_action('wp_enqueue_scripts', 'grit_scripts', 100);
 
-
 function grit_scripts_custom()
 {
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Carico style.css
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 24 | Carico style.css
 
     wp_enqueue_style('style', get_template_directory_uri() . '/style.css');
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Carico style.css
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 25 | Carico style.css
 
     wp_enqueue_style('main', get_template_directory_uri() . '/assets/css/main.css', array(), filemtime(get_template_directory() . '/assets/css/main.css'));
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Carico il CSS custom
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 26 | Carico il CSS custom
 
     wp_enqueue_style('custom', get_template_directory_uri() . '/assets/css/custom.css');
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Carico il JS custom
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 27 | Carico il JS custom
 
     // * GRIT_SET Load one local List.js copy before the shared frontend initializer
     $grit_script_dependencies = array('jquery');
@@ -295,23 +237,18 @@ function grit_scripts_custom()
         $grit_script_dependencies[] = 'bootstrap';
     }
     // * GRIT_SET Optional motion/layout libraries must precede their initializer
-    foreach (array('owl_carousel', 'gsap-core', 'gsap-scrolltrigger', 'gsap-splitext', 'lenis', 'imagesloaded', 'masonry') as $grit_dependency) {
+    foreach (array('owl_carousel', 'gsap-core', 'gsap-scrolltrigger', 'lenis', 'imagesloaded', 'masonry') as $grit_dependency) {
         if (wp_script_is($grit_dependency, 'enqueued')) {
             $grit_script_dependencies[] = $grit_dependency;
         }
     }
     wp_enqueue_script('scripts', get_template_directory_uri() . '/assets/js/custom.js', $grit_script_dependencies, filemtime(get_template_directory() . '/assets/js/custom.js'), true);
 
- 
-
 }
 
 add_action('wp_enqueue_scripts', 'grit_scripts_custom', 110);
 
-
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * GRIT_SET Google Recaptcha
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+// * GRIT_SET 28 | Google Recaptcha
 
 function add_recaptcha_lib() {
     $recaptcha_api_key = get_theme_mod('grit_setting_recaptcha');
@@ -321,7 +258,6 @@ function add_recaptcha_lib() {
 }
 add_action('wp_head', 'add_recaptcha_lib');
 
- 
     function add_recaptcha_init() {
         $recaptcha_api_key = get_theme_mod('grit_setting_recaptcha');
         if (!empty($recaptcha_api_key)) {
@@ -329,58 +265,10 @@ add_action('wp_head', 'add_recaptcha_lib');
         }
     }
     add_action('wp_footer', 'add_recaptcha_init');
- 
- 
 
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * GRIT_SET Google Analytics script
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+// * GRIT_SET 29 | Google Tag Manager
 
-if (get_theme_mod('grit_setting_analytics') != '') {
-    function grit_google_analytics()
-    { ?>
-        <!-- Google Analytics -->
-        <script>
-            (function (i, s, o, g, r, a, m) {
-                i['GoogleAnalyticsObject'] = r;
-                i[r] = i[r] || function () {
-                    (i[r].q = i[r].q || []).push(arguments)
-                }, i[r].l = 1 * new Date();
-                a = s.createElement(o),
-                    m = s.getElementsByTagName(o)[0];
-                a.async = 1;
-                a.src = g;
-                m.parentNode.insertBefore(a, m)
-            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-
-            ga('create', '<?php echo get_theme_mod('grit_setting_analytics'); ?>', 'auto');
-            ga('send', 'pageview');
-        </script>
-        <!-- End Google Analytics -->
-        <!-- Global Site Tag (gtag.js) - Google Analytics -->
-        <script async
-                src="https://www.googletagmanager.com/gtag/js?id=<?php echo get_theme_mod('grit_setting_analytics'); ?>"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-
-            gtag('js', new Date());
-
-            gtag('config', '<?php echo get_theme_mod('grit_setting_analytics'); ?>');
-        </script>
-    <?php }
-
-    add_action('wp_head', 'grit_google_analytics', 20);
-}
-
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * GRIT_SET Google Tag Manager
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 if (get_theme_mod('grit_setting_gtag') != '') {
-
 
     function grit_gtag_head_analytics()
     { ?>
@@ -405,7 +293,6 @@ if (get_theme_mod('grit_setting_gtag') != '') {
 
     add_action('wp_head', 'grit_gtag_head_analytics', 20);
 
-
     function grit_gtag_body_analytics()
     { ?>
         <!-- Google Tag Manager (noscript) -->
@@ -420,9 +307,7 @@ if (get_theme_mod('grit_setting_gtag') != '') {
     add_action('after_body', 'grit_gtag_body_analytics', 20);
 }
 
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * GRIT_SET Hotjar Tracking Code
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+// * GRIT_SET 30 | Hotjar Tracking Code
 
 if (get_theme_mod('grit_setting_hotjar') != '') {
     function grit_hotjar_analytics()

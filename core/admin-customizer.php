@@ -1,7 +1,15 @@
 <?php
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * GRIT_SET Aggiorno il CSS nell’area amministratore
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+
+// * GRIT_SET Legend | Admin-customizer
+// Admin branding, agency settings and ACF editor helpers.
+// 01 | Admin stylesheet loading
+// 02 | Customizer admin menu bar
+// 03 | Read agency branding configuration
+// 04 | Login logo and background branding
+// 05 | Admin, toolbar and login fonts
+// 06 | ACF Flexible Content layout titles
+
+// * GRIT_SET 01 | Admin stylesheet loading
 
 function admin_style()
 {
@@ -11,191 +19,82 @@ function admin_style()
 
 // Esegue la funzione admin_style() all’azione admin_enqueue_scripts di WP
 add_action('admin_enqueue_scripts', 'admin_style');
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::    * GRIT_SET Customizer admin menu bar
-                    https://heera.it/customize-admin-menu-bar-in-wordpress
-                    https://webriti.com/customizing-wordpress-admin-bar/
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+// * GRIT_SET 02 | Customizer admin menu bar
+// Reference: https://heera.it/customize-admin-menu-bar-in-wordpress
+// Reference: https://webriti.com/customizing-wordpress-admin-bar/
 
 function add_my_own_logo($wp_admin_bar)
 {
     $args = array(
         'id' => 'my-logo',
-        'meta' => array('class' => 'my-logo', 'title' => 'logo')
+        'href' => grit_agency_data()['agency_url'],
+        'meta' => array('class' => 'my-logo', 'title' => grit_agency_data()['agency'])
     );
     $wp_admin_bar->add_node($args);
 }
 
 add_action('admin_bar_menu', 'add_my_own_logo', 1);
 
-
-function linked_url()
-{
-    // Ottieni i dati dell'agenzia dal JSON
-    $agency_data = get_agency_data_from_json();
-
-    // Controlla se ci sono dati sull'agenzia e se esiste la chiave "agency_url" nel primo elemento
-    if (!empty($agency_data) && isset($agency_data[0]['agency_url'])) {
-        // Utilizza l'URL dell'agenzia come link per il menu
-        $agency_url = $agency_data[0]['agency_url'];
-        $agency = $agency_data[0]['agency'];
-        // Aggiungi il menu con l'URL dell'agenzia come link
-        add_menu_page('linked_url', $agency, 'read', 'gritlab_site', '', 'dashicons-info-outline', 1, $agency_url);
-    }
+function linked_url() {
+    $agency = grit_agency_data();
+    add_menu_page('Agency', $agency['agency'], 'read', 'gritlab_site', '', 'dashicons-info-outline', 1);
 }
-
 add_action('admin_menu', 'linked_url');
 
-function linkedurl_function()
-{
-    // Ottieni i dati dell'agenzia dal JSON
-    $agency_data = get_agency_data_from_json();
-
-    // Controlla se ci sono dati sull'agenzia e se esiste la chiave "agency_url" nel primo elemento
-    if (!empty($agency_data) && isset($agency_data[0]['agency_url'])) {
-        // Utilizza l'URL dell'agenzia come link per il menu
-        $agency_url = $agency_data[0]['agency_url']; 
-        // Aggiorna l'URL del primo elemento nel menu
-        global $menu;
-        $menu[1][2] = $agency_url;
+function linkedurl_function() {
+    global $menu;
+    $agency = grit_agency_data();
+    // Find our own entry: another plugin may occupy menu position 1.
+    foreach ($menu as &$item) {
+        if (($item[2] ?? '') === 'gritlab_site') {
+            $item[2] = $agency['agency_url'];
+            break;
+        }
     }
+    unset($item);
 }
-
 add_action('admin_menu', 'linkedurl_function');
 
-// function login_background_image()
-// {
-//     echo '<style type="text/css">
-//         body.login{ background: #1D1D1B!important; }
-//         .login #backtoblog a, 
-//         .login #nav a { color:#ffffff; }
-// </style>';
-// }
-
-// add_action('login_head', 'login_background_image');
-
-
-
-
-
-
+// * GRIT_SET 03 | Compatibility wrappers; all consumers now use the same validated active record.
 function get_agency_data_from_json() {
-    // Percorso del file JSON
-    $json_file_path = get_template_directory() . '/assets/credits/credits.json';
-
-    // Leggi il contenuto del file JSON
-    $json_data = file_get_contents($json_file_path);
-
-    // Decodifica il contenuto JSON in un array associativo
-    $data = json_decode($json_data, true);
-
-    // Controlla se la decodifica è avvenuta con successo e se esiste la chiave "agency"
-    if ($data !== null && isset($data['agency'])) {
-        // Restituisci i dati dell'agenzia
-        return $data['agency'];
-    } else {
-        // Restituisci un valore di default se la chiave "agency" non è definita o il file JSON non può essere letto
-        return array();
-    }
+    return [grit_agency_data()];
 }
 
 function get_agency_folder_from_json() {
-    // Ottieni i dati dell'agenzia dal JSON
-    $agency_data = get_agency_data_from_json();
-
-    // Controlla se ci sono dati sull'agenzia e se esiste la chiave "agency_folder" nel primo elemento
-    if (!empty($agency_data) && isset($agency_data[0]['agency_folder'])) {
-        // Restituisci il valore della chiave "agency_folder" del primo elemento
-        return $agency_data[0]['agency_folder'];
-    } else {
-        // Restituisci un valore di default se la chiave "agency_folder" non è definita o non ci sono dati sull'agenzia
-        return 'default';
-    }
+    return grit_agency_data()['agency_folder'];
 }
 
+// * GRIT_SET 04 | Login and toolbar assets use Grit fallbacks when custom files are missing.
 function login_logo() {
-    // Ottieni la cartella del logo dall'JSON
-    $agency_folder = get_agency_folder_from_json();
- 
-    // Percorso del file del logo in base alla cartella ottenuta
-    $logo_path = get_template_directory_uri() . '/assets/credits/' . $agency_folder . '/logo.png';
-    $icon_path = get_template_directory_uri() . '/assets/credits/' . $agency_folder . '/icon.svg';
-
-    ?>
-
-    <style type="text/css">
-        #login h1 a, .login h1 a {
-            background-image: url(<?php echo $logo_path; ?>);
-            background-size: contain; 
-            width: 100%;
-        }
-
-        #wpadminbar #wp-admin-bar-my-logo > .ab-item {
-            padding: 0 12px;
-            margin: 0 5px;
-            background-image: url(<?php echo $icon_path; ?>); 
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
-            opacity: 1;
-        }
-         
- 
-    </style>
-<?php }
-
-
-
-
- 
-
-function login_background_image() { 
-    $agency_data = get_agency_data_from_json(); 
-    // Controlla se ci sono dati sull'agenzia e se esiste la chiave "color" nel primo elemento
-    if (!empty($agency_data) && isset($agency_data[0]['color'])) {
-        // Utilizza l'URL dell'agenzia come link per il menu
-        $login_background_color = $agency_data[0]['color']; 
-        echo '<style type="text/css">
-        body.login { background-color: ' . esc_attr($login_background_color) . ' !important; }
-        .login #backtoblog a, 
-        .login #nav a { color: #ffffff; } /* Colore del testo, puoi mantenere fisso se desiderato */
-        </style>';
-    }  
+    $logo = grit_agency_asset('logo.png');
+    $icon = grit_agency_asset('icon.svg');
+    echo '<style type="text/css">';
+    if ($logo) {
+        echo '#login h1 a,.login h1 a{background-image:url("' . esc_url($logo['url']) . '");background-size:contain;width:100%;}';
+    }
+    if ($icon) {
+        echo '#wpadminbar #wp-admin-bar-my-logo>.ab-item{padding:0 12px;margin:0 5px;background-image:url("' . esc_url($icon['url']) . '");background-size:contain;background-position:center;background-repeat:no-repeat;opacity:1;}';
+    }
+    echo '</style>';
 }
 
+function login_background_image() {
+    $agency = grit_agency_data();
+    // The shared reader accepts only hexadecimal CSS colors.
+    echo '<style type="text/css">body.login{background-color:' . esc_attr($agency['color']) . '!important;}.login #backtoblog a,.login #nav a{color:#ffffff;}</style>';
+}
 add_action('login_head', 'login_background_image');
-
-
-
-
-// Aggiungi la funzione login_logo all'hook login_enqueue_scripts
 add_action('login_enqueue_scripts', 'login_logo');
-// Aggiungi la funzione login_logo anche per l'amministrazione
 add_action('admin_head', 'login_logo');
 add_action('wp_head', 'login_logo');
 
-function login_logo_url_title()
-{
-    // Ottieni l'URL dell'agenzia dal JSON
-    $agency_data = get_agency_data_from_json();
-
-    // Controlla se ci sono dati sull'agenzia e se esiste la chiave "agency_url" nel primo elemento
-    if (!empty($agency_data) && isset($agency_data[0]['agency_url'])) {
-        // Restituisci l'URL dell'agenzia
-        return $agency_data[0]['agency_url'];
-    } else {
-        // Restituisci un URL di default se la chiave "agency_url" non è definita o non ci sono dati sull'agenzia
-        return home_url('/');
-    }
+function login_logo_url_title() {
+    return grit_agency_data()['agency_url'];
 }
-
 add_filter('login_headerurl', 'login_logo_url_title');
 
-
- 
-
-
 // WordPress Custom Font @ Admin
+// * GRIT_SET 05 | Admin, toolbar and login fonts
 function custom_admin_open_sans_font()
 {
     echo '<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">' . PHP_EOL;
@@ -226,11 +125,8 @@ function custom_admin_open_sans_font_login_page()
 
 add_action('login_head', 'custom_admin_open_sans_font_login_page');
 
-
-
-
-
 // ACF Flexible Titles
+// * GRIT_SET 06 | ACF Flexible Content layout titles
 function custom_acf_flexible_titles() {
     if (!class_exists('ACF')) {
         return;
@@ -238,81 +134,52 @@ function custom_acf_flexible_titles() {
 
     ?>
     <script>
-    jQuery(document).ready(function ($) {
-        /**
-         * Funzione per aggiornare i titoli dei layout
-         */
+    jQuery(function ($) {
+        // * GRIT_SET 01 | Keep ACF's native title, order badge and controls untouched.
         function updateLayoutTitles() {
-            $('.acf-flexible-content .layout').each(function () {
-                var $layout = $(this);
-                var $layoutTitle = $layout.find('.acf-fc-layout-handle');
-                var classField = $layout.find('[data-name="class"] input[type="text"]');
+            $('.acf-flexible-content .layout').not('.acf-clone').each(function () {
+                var layout = this;
+                // ACF Extended wraps the handle in .acf-fc-layout-actions-wrap.
+                var $handle = $(layout).find('.acf-fc-layout-handle').filter(function () {
+                    return $(this).closest('.layout')[0] === layout;
+                }).first();
+                if (!$handle.length) return;
 
-                // Aggiorna il titolo solo se il campo "class" esiste
-                if (classField.length) {
-                    var classValue = classField.val();
-                    var classArray = classValue ? classValue.split(' ') : [];
-                    var firstClass = classArray.length > 0 ? `<strong>${classArray[0]}</strong>` : '';
-                    var remainingClasses = classArray.slice(1).join(' ');
+                // Read this layout's Class field, never a nested layout's field.
+                var $field = $(layout).find('.acf-field[data-name="class"]').filter(function () {
+                    return $(this).closest('.layout')[0] === layout;
+                }).first();
+                var classes = String($field.find('input[type="text"]').first().val() || '')
+                    .trim().split(/\s+/).filter(Boolean);
+                var value = classes.join(' ');
+                var $summary = $handle.children('.grit-layout-classes');
 
-                    // Memorizza il titolo originale solo una volta
-                    if (!$layout.data('original-title')) {
-                        var originalTitle = $layoutTitle.text().split(' - ')[0];
-                        $layout.data('original-title', originalTitle);
-                    }
-
-                    // Recupera il titolo originale e aggiorna
-                    var originalTitle = $layout.data('original-title');
-                    var updatedTitle = classValue ? `${originalTitle} - ${firstClass} ${remainingClasses}` : originalTitle;
-
-                    // Evita aggiornamenti ridondanti
-                    if ($layoutTitle.html() !== updatedTitle) {
-                        $layoutTitle.html(`<span class="acf-fc-layout-order">${$layout.index() + 1}</span> ${updatedTitle}`);
-                    }
+                if (!value) {
+                    $summary.remove();
+                    return;
+                }
+                if ($summary.attr('data-classes') === value) return;
+                if (!$summary.length) {
+                    $summary = $('<span>', { class: 'grit-layout-classes' }).appendTo($handle);
+                }
+                // Text nodes prevent class values from becoming executable HTML.
+                $summary.empty().attr({ 'data-classes': value, title: value });
+                $summary.append(document.createTextNode(' — '));
+                $('<strong>').text(classes[0]).appendTo($summary);
+                if (classes.length > 1) {
+                    $summary.append(document.createTextNode(' ' + classes.slice(1).join(' ')));
                 }
             });
         }
 
-        /**
-         * Funzione per ritardare l'aggiornamento dei titoli dopo la chiusura
-         */
-        function delayedUpdate() {
-            setTimeout(() => {
-                updateLayoutTitles();
-            }, 1000); // Ritardo di 1 secondo
-        }
-
-        // Inizializza i titoli
+        // * GRIT_SET 02 | Refresh live edits and native ACF lifecycle changes.
         updateLayoutTitles();
-
-        // Aggiorna i titoli quando viene modificato il campo "class"
-        $(document).on('input change', '[data-name="class"] input[type="text"]', function () {
-            updateLayoutTitles();
-        });
-
-        // Intercetta il clic sul pulsante di chiusura del layout
-        $(document).on('click', '.acf-fc-layout-handle', function () {
-            setTimeout(() => {
-                delayedUpdate(); // Aggiorna i titoli dopo un ritardo
-            }, 300); // Ritardo per consentire il completamento dell'azione di chiusura
-        });
-
-        // Ascolta l'aggiunta di nuovi layout
-        if (typeof acf.add_action !== 'undefined') {
-            acf.add_action('append', function () {
-                updateLayoutTitles();
+        $(document).on('input change', '.acf-field[data-name="class"] input[type="text"]', updateLayoutTitles);
+        if (window.acf && typeof window.acf.addAction === 'function') {
+            ['ready', 'append', 'sortstop', 'show'].forEach(function (action) {
+                window.acf.addAction(action, updateLayoutTitles);
             });
         }
-
-        // Aggiorna al caricamento della pagina
-        $(window).on('load', function () {
-            updateLayoutTitles();
-        });
-
-        // Sincronizza i titoli durante il focusout
-        $(document).on('focusout blur', '[data-name="class"] input[type="text"]', function () {
-            delayedUpdate();
-        });
     });
     </script>
     <?php

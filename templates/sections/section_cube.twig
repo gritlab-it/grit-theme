@@ -30,8 +30,8 @@
                 </div>{% endif %}
                 {% include 'partials/buttons.twig' with {
                     buttons: [
-                        { title: section.link_1.title, url: section.link_1.url, target: section.link_1.target, style: 'btn btn-' ~ section.color_link_1|default('primary') ~ ' btn-md' },
-                        { title: section.link_2.title, url: section.link_2.url, target: section.link_2.target, style: 'btn btn-' ~ section.color_link_2|default('primary') ~ ' btn-md' }
+                        { title: section.link_1.title, url: section.link_1.url, target: section.link_1.target, style: 'btn btn-' ~ section.color_link_1|default('primary') },
+                        { title: section.link_2.title, url: section.link_2.url, target: section.link_2.target, style: 'btn btn-' ~ section.color_link_2|default('primary') }
                     ], buttons_class: '', buttons_animation: ''
                 } only %}
             </div>

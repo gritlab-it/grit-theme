@@ -1,28 +1,66 @@
 <?php
 
+// * GRIT_SET Legend | Customizer
+// Customizer sections, layout choices, libraries and public company fields.
+// 01 | General settings
+// 02 | Logo
+// 03 | Header
+// 04 | Footer
+// 05 | Google Fonts
+// 06 | Library: GSAP
+// 07 | Library: Three.js
+// 08 | Library: Lenis
+// 09 | Library: Locomotive
+// 10 | Library: Lightbox2
+// 11 | Library: Fitty.js
+// 12 | Library: masonry.js
+// 13 | Library: Imagesloaded.js
+// 14 | Library: Swiper
+// 15 | owl_carousel CSS
+// 16 | Library: NProgress CSS JS
+// 17 | Library: Magic Mouse CSS JS
+// 18 | Library: Cocoen CSS JS
+// 19 | Go To Top Button
+// 20 | Disable Comments
+// 21 | Admin bar visibility
+// 22 | Tracking settings
+// 23 | Google Maps Api
+// 24 | Google Recaptcha V3
+// 25 | Google Tag
+// 26 | Hot Jar
+// 27 | Public company and contact fields
+// 28 | Primary company name
+// 29 | Primary VAT number
+// 30 | Company registration number
+// 31 | Share capital
+// 32 | Primary address
+// 33 | Secondary address
+// 34 | Third address
+// 35 | Primary phone
+// 36 | Secondary phone
+// 37 | Third phone
+// 38 | Primary fax
+// 39 | Primary email
+// 40 | Secondary email
+// 41 | Third email
+// 42 | LinkedIn
+// 43 | Facebook
+// 44 | Instagram
+// 45 | TikTok
+
 /**
  * @param $wp_customize
  */
 function grit_customize_register($wp_customize)
 {
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET GENERAL SETTINGS
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 01 | General settings
 
     $wp_customize->add_section('grit_framework_general_settings', array(
         'title' => __('General settings', 'grit_framework'),
         'priority' => 120,
     ));
 
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Post IDs viewable in the back-end
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Logo
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 02 | Logo
 
     add_theme_support( 'custom-logo', array(
         'height'      => 100,
@@ -32,15 +70,7 @@ function grit_customize_register($wp_customize)
         'header-text' => array( 'site-title', 'site-description' ),
     ) );
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Google Fonts
-                        // Attiva Google Fonts per ogni riga fonts.google.com
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Header
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 03 | Header
 
     $wp_customize->add_setting('grit_setting_header', array(
         'capability'        => 'edit_theme_options',
@@ -54,18 +84,15 @@ function grit_customize_register($wp_customize)
         'label'       => __('Header Style', 'grit'),
         'description' => __('Scegli la tipologia di header', 'grit'),
         'choices'     => array(
-            'header_1' => __('header_1', 'grit'),
-            'header_2' => __('header_2', 'grit'),
-            'header_3' => __('header_3', 'grit'),
-            'header_4' => __('header_4', 'grit'),
-            'header_5' => __('header_5', 'grit'),
+            'header_1' => __('Header 1 — Classico con menu mobile espandibile', 'grit'),
+            'header_2' => __('Header 2 — Classico con overlay mobile', 'grit'),
+            'header_3' => __('Header 3 — Barra flottante arrotondata', 'grit'),
+            'header_4' => __('Header 4 — Trasparente con blocchi separati', 'grit'),
+            'header_5' => __('Header 5 — Logo centrale tra due menu', 'grit'),
         ),
     ));
 
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Footer
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 04 | Footer
 
     $wp_customize->add_setting('grit_setting_footer', array(
         'capability' => 'edit_theme_options',
@@ -78,15 +105,15 @@ function grit_customize_register($wp_customize)
         'label' => __('Footer Style', 'grit'),
         'description' => __('Scegli la tipologia di footer', 'grit'),
         'choices' => array(
-            'footer_1' => __('footer_1'),
-            'footer_2' => __('footer_2'),
-            'footer_3' => __('footer_3'),
-            'footer_4' => __('footer_4'),
-            'footer_5' => __('footer_5'),
+            'footer_1' => __('Footer 1 — Colonne e newsletter', 'grit'),
+            'footer_2' => __('Footer 2 — Menu orizzontale', 'grit'),
+            'footer_3' => __('Footer 3 — Centrato', 'grit'),
+            'footer_4' => __('Footer 4 — Invito al contatto', 'grit'),
+            'footer_5' => __('Footer 5 — Menu editoriale', 'grit'),
         ),
     ));
 
-
+    // * GRIT_SET 05 | Google Fonts
     $wp_customize->add_setting('grit_setting_google_fonts', array(
         'capability' => 'edit_theme_options',
     ));
@@ -97,25 +124,8 @@ function grit_customize_register($wp_customize)
         'description' => __('Attiva Google Fonts per ogni riga fonts.google.com'),
     ));
 
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Bootstrap 4.6.2 CSS JS
-                        // Attiva libreria Bootstrap 4.6.2 CSS JS
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-
-
-
-
-
-
-
-
-
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta GSAP
-                        // Attiva libreria GSAP https://github.com/greensock/GSAP
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 06 | Library: GSAP
+    // Reference: https://github.com/greensock/GSAP
 
     $wp_customize->add_setting('grit_setting_gsap', array(
         'capability' => 'edit_theme_options',
@@ -128,10 +138,7 @@ function grit_customize_register($wp_customize)
         'description' => __('Attiva libreria GSAP https://github.com/greensock/GSAP'),
     ));
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Three.js
-                        // Attiva libreria Three threejs.org
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 07 | Library: Three.js
 
     $wp_customize->add_setting('grit_setting_three', array(
         'capability' => 'edit_theme_options',
@@ -144,11 +151,8 @@ function grit_customize_register($wp_customize)
         'description' => __('Attiva libreria Three js threejs.org'),
     )); 
 
-    
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Lenis
-                        // Attiva libreria Lenis https://github.com/darkroomengineering/lenis
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 08 | Library: Lenis
+    // Reference: https://github.com/darkroomengineering/lenis
 
     $wp_customize->add_setting('grit_setting_lenis', array(
         'capability' => 'edit_theme_options',
@@ -160,12 +164,9 @@ function grit_customize_register($wp_customize)
         'label' => __('Lenis'),
         'description' => __('Attiva libreria Lenis https://github.com/darkroomengineering/lenis'),
     ));
-            
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Locomotive
-                        // Attiva libreria Locomotive https://github.com/locomotivemtl/locomotive-scroll
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 09 | Library: Locomotive
+    // Reference: https://github.com/locomotivemtl/locomotive-scroll
 
     $wp_customize->add_setting('grit_setting_locomotive', array(
         'capability' => 'edit_theme_options',
@@ -177,12 +178,8 @@ function grit_customize_register($wp_customize)
         'description' => __('Attiva libreria Locomotive https://github.com/locomotivemtl/locomotive-scroll'),
     ));
 
-
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Lightbox2
-                        // Attiva libreria Lightbox2 https://lokeshdhakar.com/projects/lightbox2/
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 10 | Library: Lightbox2
+    // Reference: https://lokeshdhakar.com/projects/lightbox2/
 
     $wp_customize->add_setting('grit_setting_lightbox2', array(
         'capability' => 'edit_theme_options',
@@ -194,11 +191,8 @@ function grit_customize_register($wp_customize)
         'description' => __('Attiva libreria Lightbox2 https://lokeshdhakar.com/projects/lightbox2/'),
     ));
 
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Fitty.js
-                        // Attiva libreria Fitty js https://rikschennink.github.io/fitty/
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 11 | Library: Fitty.js
+    // Reference: https://rikschennink.github.io/fitty/
 
     $wp_customize->add_setting('grit_setting_fitty', array(
         'capability' => 'edit_theme_options',
@@ -210,11 +204,8 @@ function grit_customize_register($wp_customize)
         'description' => __('Attiva libreria Fitty js https://rikschennink.github.io/fitty/'),
     ));
 
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta masonry.js
-                        // Attiva libreria Mesonry js https://masonry.desandro.com
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 12 | Library: masonry.js
+    // Reference: https://masonry.desandro.com
 
     $wp_customize->add_setting('grit_setting_masonry', array(
         'capability' => 'edit_theme_options',
@@ -227,11 +218,8 @@ function grit_customize_register($wp_customize)
         'description' => __('Attiva libreria Mesonry.js https://masonry.desandro.com'),
     ));
 
-        
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Imagesloaded.js
-                        // Attiva libreria Images Loaded js https://imagesloaded.desandro.com
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 13 | Library: Imagesloaded.js
+    // Reference: https://imagesloaded.desandro.com
 
     $wp_customize->add_setting('grit_setting_imagesloaded', array(
         'capability' => 'edit_theme_options',
@@ -244,10 +232,8 @@ function grit_customize_register($wp_customize)
         'description' => __('Attiva libreria Images Loaded js https://imagesloaded.desandro.com/'),
     ));
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Swiper
-                        // Attiva libreria Swiper 10.2 https://swiperjs.com/get-started
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 14 | Library: Swiper
+    // Reference: https://swiperjs.com/get-started
 
     $wp_customize->add_setting('grit_setting_swiper', array(
         'capability' => 'edit_theme_options',
@@ -259,11 +245,7 @@ function grit_customize_register($wp_customize)
         'description' => __('Attiva libreria Swiper 10.2 https://swiperjs.com/get-started'),
     )); 
 
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET owl_carousel CSS
-                        // Attiva libreria Owl Carousel CSS JS owlcarousel2.github.io/OwlCarousel2
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 15 | owl_carousel CSS
 
     $wp_customize->add_setting('grit_setting_owl_carousel', array(
         'capability' => 'edit_theme_options',
@@ -277,12 +259,8 @@ function grit_customize_register($wp_customize)
 
     ));
 
-
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta NProgress CSS JS
-                        // Attiva libreria NProgress CSS JS https://ricostacruz.com/nprogress/
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 16 | Library: NProgress CSS JS
+    // Reference: https://ricostacruz.com/nprogress/
 
     // * GRIT_SET Default-on libraries with independent Customizer switches
     $grit_optional_libraries = array(
@@ -315,10 +293,7 @@ function grit_customize_register($wp_customize)
         'description' => __('Attiva libreria NProgress CSS JS https://ricostacruz.com/nprogress/'),
     ));
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Magic Mouse CSS JS
-                        // Attiva libreria Magic Mouse CSS JS magicmousejs.web.app
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 17 | Library: Magic Mouse CSS JS
 
     $wp_customize->add_setting('grit_setting_magic_mouse', array(
         'capability' => 'edit_theme_options',
@@ -331,10 +306,7 @@ function grit_customize_register($wp_customize)
         'description' => __('Attiva libreria Magic Mouse CSS JS magicmousejs.web.app'),
     )); 
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Attiva in base alla scalta Cocoen CSS JS
-                        // Attiva libreria Cocoen CSS JS github.com/jotform/before-after.js
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 18 | Library: Cocoen CSS JS
 
     $wp_customize->add_setting('grit_setting_cocoen', array(
         'capability' => 'edit_theme_options',
@@ -347,10 +319,7 @@ function grit_customize_register($wp_customize)
 
     ));
 
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Go To Top Button
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 19 | Go To Top Button
 
     $wp_customize->add_setting('grit_setting_gototop', array(
         'capability' => 'edit_theme_options',
@@ -361,11 +330,8 @@ function grit_customize_register($wp_customize)
         'section' => 'grit_framework_general_settings',
         'label' => __('Go To Top Button'),
     ));
- 
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Disable Comments
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 20 | Disable Comments
 
     $wp_customize->add_setting('grit_setting_comments', array(
         'capability' => 'edit_theme_options',
@@ -376,10 +342,7 @@ function grit_customize_register($wp_customize)
         'label' => __('Disable comments'),
     ));
 
-
-        /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET HIDE ADMIN BAR
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+        // * GRIT_SET 21 | Admin bar visibility
 
     $wp_customize->add_setting('grit_adv_adminbar', array(
         'capability' => 'edit_theme_options',
@@ -391,35 +354,14 @@ function grit_customize_register($wp_customize)
         'label' => __('Hide Admin Bar'),
     ));
 
-
-
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET TRACKING SETTINGS
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 22 | Tracking settings
 
     $wp_customize->add_section('grit_framework_tracking_settings', array(
         'title' => __('Tracking settings', 'grit_framework'),
         'priority' => 120,
     ));
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Google Analytics
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-
-    $wp_customize->add_setting('grit_setting_analytics', array(
-        'capability' => 'edit_theme_options',
-    ));
-    $wp_customize->add_control('grit_setting_analytics', array(
-        'type' => 'text',
-        'section' => 'grit_framework_tracking_settings',
-        'label' => __('Google Analytics UID'),
-    ));
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Google Maps Api
-                    Inserisci API key di Google Maps console.cloud.google.com
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 23 | Google Maps Api
 
     $wp_customize->add_setting('grit_setting_maps', array(
         'capability' => 'edit_theme_options',
@@ -431,10 +373,7 @@ function grit_customize_register($wp_customize)
         'description' => __('Inserisci API key di Google Maps console.cloud.google.com'),
     ));
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Google Recaptcha V3
-                    Inserisci API key di Google Recaptcha V3 console.cloud.google.com/security/recaptcha
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 24 | Google Recaptcha V3
 
     $wp_customize->add_setting('grit_setting_recaptcha', array(
         'capability' => 'edit_theme_options',
@@ -446,9 +385,7 @@ function grit_customize_register($wp_customize)
         'description' => __('Inserisci API key di Google Recaptcha V3 console.cloud.google.com/security/recaptcha'),
     ));
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Google Tag
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 25 | Google Tag
 
     $wp_customize->add_setting('grit_setting_gtag', array(
         'capability' => 'edit_theme_options',
@@ -459,10 +396,7 @@ function grit_customize_register($wp_customize)
         'label' => __('Google Tag ID'),
     ));
 
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Hot Jar
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 26 | Hot Jar
 
     $wp_customize->add_setting('grit_setting_hotjar', array(
         'capability' => 'edit_theme_options',
@@ -472,60 +406,16 @@ function grit_customize_register($wp_customize)
         'section' => 'grit_framework_tracking_settings',
         'label' => __('Hotjar ID'),
     ));
- 
 
- 
+    // * GRIT_SET 27 | Public company and contact fields
 
-
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET THEME FIELDS
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-
-    $wp_customize->add_section('grit_framework_theme_fileds', array(
-        'title' => __('Theme Fields', 'grit_framework'),
-        'priority' => 120,
-    ));
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Intestazione Principale
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-
-    $wp_customize->add_setting('grit_setting_intestazione', array(
-        'capability' => 'edit_theme_options',
-    ));
-    $wp_customize->add_control('grit_setting_intestazione', array(
-        'type' => 'text',
-        'section' => 'grit_framework_theme_fileds',
-        'label' => __('Intestazione'),
-    ));
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET P. IVA Principale
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-
-    $wp_customize->add_setting('grit_setting_piva', array(
-        'capability' => 'edit_theme_options',
-    ));
-    $wp_customize->add_control('grit_setting_piva', array(
-        'type' => 'text',
-        'section' => 'grit_framework_theme_fileds',
-        'label' => __('P. IVA'),
-    ));
-
-
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET THEME FIELDS
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
     $wp_customize->add_section('grit_framework_theme_fileds', [
         'title' => __('Theme Fields', 'grit_framework'),
         'priority' => 120,
     ]);
 
+    // * GRIT_SET 28 | Primary company name
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Intestazione Principale
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
     $wp_customize->add_setting('grit_setting_intestazione', [
         'capability' => 'edit_theme_options',
     ]);
@@ -535,9 +425,8 @@ function grit_customize_register($wp_customize)
         'label' => __('Intestazione'),
     ]);
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET P. IVA Principale
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 29 | Primary VAT number
+
     $wp_customize->add_setting('grit_setting_piva', [
         'capability' => 'edit_theme_options',
     ]);
@@ -547,9 +436,8 @@ function grit_customize_register($wp_customize)
         'label' => __('P. IVA'),
     ]);
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Numero Rea Principale
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 30 | Company registration number
+
     $wp_customize->add_setting('grit_setting_rea', [
         'capability' => 'edit_theme_options',
     ]);
@@ -559,9 +447,8 @@ function grit_customize_register($wp_customize)
         'label' => __('N° REA'),
     ]);
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Cap Sociale Principale
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 31 | Share capital
+
     $wp_customize->add_setting('grit_setting_cap_soc', [
         'capability' => 'edit_theme_options',
     ]);
@@ -571,9 +458,8 @@ function grit_customize_register($wp_customize)
         'label' => __('Capitale Sociale'),
     ]);
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Indirizzo 1 Principale
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 32 | Primary address
+
     $wp_customize->add_setting('grit_setting_indirizzo_1', [
         'capability' => 'edit_theme_options',
     ]);
@@ -583,9 +469,8 @@ function grit_customize_register($wp_customize)
         'label' => __('Indirizzo 1'),
     ]);
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Indirizzo 2
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 33 | Secondary address
+
     $wp_customize->add_setting('grit_setting_indirizzo_2', [
         'capability' => 'edit_theme_options',
     ]);
@@ -596,9 +481,8 @@ function grit_customize_register($wp_customize)
         'description' => __('Se presente attiva link in BIO')
     ]);
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Indirizzo 3
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 34 | Third address
+
     $wp_customize->add_setting('grit_setting_indirizzo_3', [
         'capability' => 'edit_theme_options',
     ]);
@@ -610,9 +494,8 @@ function grit_customize_register($wp_customize)
 
     ]);
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Telefono 1 Pricipale
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 35 | Primary phone
+
     $wp_customize->add_setting('grit_setting_tel_1', [
         'capability' => 'edit_theme_options',
     ]);
@@ -622,9 +505,8 @@ function grit_customize_register($wp_customize)
         'label' => __('Telefono 1 Principale'),
     ]);
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Telefono 2
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 36 | Secondary phone
+
     $wp_customize->add_setting('grit_setting_tel_2', [
         'capability' => 'edit_theme_options',
     ]);
@@ -635,9 +517,8 @@ function grit_customize_register($wp_customize)
         'description' => __('Se presente attiva link in BIO')
     ]);
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Telefono 3
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 37 | Third phone
+
     $wp_customize->add_setting('grit_setting_tel_3', [
         'capability' => 'edit_theme_options',
     ]);
@@ -648,9 +529,8 @@ function grit_customize_register($wp_customize)
         'description' => __('Se presente attiva link Whats App in BIO')
     ]);
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Fax Pricipale
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 38 | Primary fax
+
     $wp_customize->add_setting('grit_setting_fax', [
         'capability' => 'edit_theme_options',
     ]);
@@ -660,9 +540,8 @@ function grit_customize_register($wp_customize)
         'label' => __('Fax'),
     ]);
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Mail 1 Principale
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 39 | Primary email
+
     $wp_customize->add_setting('grit_setting_mail_1', [
         'capability' => 'edit_theme_options',
     ]);
@@ -673,9 +552,8 @@ function grit_customize_register($wp_customize)
         'label' => __('Mail 1 Principale'),
     ]);
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Mail 2 Secondaria
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 40 | Secondary email
+
     $wp_customize->add_setting('grit_setting_mail_2', [
         'capability' => 'edit_theme_options',
     ]);
@@ -685,9 +563,8 @@ function grit_customize_register($wp_customize)
         'label' => __('Mail 2 Secondaria'),
     ]);
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Mail 3
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 41 | Third email
+
     $wp_customize->add_setting('grit_setting_mail_3', [
         'capability' => 'edit_theme_options',
     ]);
@@ -697,9 +574,8 @@ function grit_customize_register($wp_customize)
         'label' => __('Mail 3'),
     ]);
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET LInkedin
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 42 | LinkedIn
+
     $wp_customize->add_setting('grit_setting_linkedin', [
         'capability' => 'edit_theme_options',
     ]);
@@ -709,9 +585,8 @@ function grit_customize_register($wp_customize)
         'label' => __('Linkedin'),
     ]);
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Fecebook
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 43 | Facebook
+
     $wp_customize->add_setting('grit_setting_facebook', [
         'capability' => 'edit_theme_options',
     ]);
@@ -721,9 +596,8 @@ function grit_customize_register($wp_customize)
         'label' => __('Facebook'),
     ]);
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    ::::::::::::::    * GRIT_SET Instagram
-    :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    // * GRIT_SET 44 | Instagram
+
     $wp_customize->add_setting('grit_setting_instagram', [
         'capability' => 'edit_theme_options',
     ]);
@@ -733,7 +607,7 @@ function grit_customize_register($wp_customize)
         'label' => __('Instagram'),
     ]);
 
-    // * GRIT_SET TikTok | Shared with the reusable contact shortcodes.
+    // * GRIT_SET 45 | TikTok | Shared with the reusable contact shortcodes.
     $wp_customize->add_setting('grit_setting_tiktok', [
         'capability' => 'edit_theme_options',
         'sanitize_callback' => 'esc_url_raw',
@@ -743,7 +617,6 @@ function grit_customize_register($wp_customize)
         'section' => 'grit_framework_theme_fileds',
         'label' => __('TikTok', 'grit_framework'),
     ]);
-
 
 }
 

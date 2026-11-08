@@ -1,4 +1,10 @@
 <?php
+
+// * GRIT_SET Legend | Plugins
+// Required and recommended plugins registered through TGM.
+// 01 | Plugin requirements, recommendations and TGM configuration
+
+
 /**
  * This file represents an example of the code that themes would use to register
  * the required plugins.
@@ -23,7 +29,8 @@
  * Depending on your implementation, you may want to change the include call:
  *
  * Parent Theme:
- * require_once get_template_directory() . '/path/to/class-tgm-plugin-activation.php';
+ * // * GRIT_SET 00 | Load the bundled TGM dependency
+require_once get_template_directory() . '/path/to/class-tgm-plugin-activation.php';
  *
  * Child Theme:
  * require_once get_stylesheet_directory() . '/path/to/class-tgm-plugin-activation.php';
@@ -52,6 +59,7 @@ add_action('tgmpa_register', 'grit_framework_register_required_plugins');
  *
  * This function is hooked into `tgmpa_register`, which is fired on the WP `init` action on priority 10.
  */
+// * GRIT_SET 01 | Plugin requirements, recommendations and TGM configuration
 function grit_framework_register_required_plugins()
 {
     /*

@@ -1,14 +1,25 @@
 <?php
+
+// * GRIT_SET Legend | Utils
+// Request, search, body and template utilities.
+// 01 | Cloudflare client address handling
+// 02 | Legacy search and body helpers
+// 03 | Response content type
+// 04 | Conditional debug logging
+// 05 | Admin notice and capability-based editor filters
+
 /**
  * Utility functions
  */
 
 // Adding Cloudflare support
+// * GRIT_SET 01 | Cloudflare client address handling
 if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
       $_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
 }
 
 // Tell WordPress to use searchform.php from the templates/ directory
+// * GRIT_SET 02 | Legacy search and body helpers
 if (!function_exists('grit_body_class')) {
   function grit_get_search_form() {
     $form = '';
@@ -38,8 +49,8 @@ if (!function_exists('grit_body_class')) {
   add_filter('body_class', 'grit_body_class');
 }
 
-
 // send html formatted email only
+// * GRIT_SET 03 | Response content type
 if (!function_exists('grit_set_content_type')) {
   function grit_set_content_type(){
       return "text/html";
@@ -54,6 +65,7 @@ if (defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
+// * GRIT_SET 04 | Conditional debug logging
 function debug($message, $type = '') {
     if (class_exists('Monolog\\Logger')) {
       $logs = get_template_directory().'/logs/';
@@ -75,8 +87,8 @@ function debug($message, $type = '') {
     }
 }
 
-
 // rimuovo il messaggio di benvenuto di duplicate post
+// * GRIT_SET 05 | Admin notice and capability-based editor filters
 add_action( 'init', 'remove_duplicate_post_message' );
 function remove_duplicate_post_message() {
     update_site_option('duplicate_post_show_notice', 0);

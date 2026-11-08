@@ -1,148 +1,158 @@
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 01 * GRIT_SET Color */
-/* :::::::::::::: 02 * GRIT_SET Gradinet */
-/* :::::::::::::: 03 * GRIT_SET Fonts */
-/* :::::::::::::: 04 * GRIT_SET Varriables */
-/* :::::::::::::: 05 * GRIT_SET Trasitions */ 
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+// * GRIT_SET Legend | Project variables
+// 01 | Palette, neutral shades and generated color utilities
+// 02 | Gradient stops and helper
+// 03 | Font files and font families
+// 04 | Breakpoints, layout dimensions and responsive base font
+// 05 | Transition/transform helpers
+// 06 | Buttons: sizes, spacing, focus and disabled state
+// 07 | Header: navigation, layers, sticky bar and overlay animation
+// 08 | Footer: backgrounds, logo, text and spacing
+// 09 | Media: overlays, image ratios, cards and video covers
+// 10 | Carousel: arrow/dot positions and sizes
+// 11 | Forms and Collapse controls
+// 12 | Shared transitions and responsive spacing utilities
+// Edit values here, then recompile main.scss. These are Sass defaults, not live browser settings.
+// Button color combinations: _typography.scss. Footer foreground selection: _footer.scss.
 
-@use 'sass:string'; 
+@use "sass:string";
+@use "sass:math";
 
-/* :::::::::::::: 01 * GRIT_SET Color */ 
+// * GRIT_SET 01 | Palette
+// Brand colors: use accent for emphasis and primary/secondary/etc. for the project palette.
+// light/dark are branded neutrals; white/black are separate palette entries.
+// Changing a palette entry updates its consumers; it does not select button pairings.
 
-$accent: #FA542D;
+$accent: #fa542d;
 
-$light: #FCFCF8;
-$dark: #052D28;
-$grey:#EBF0E6;
+$light: #fcfcf8;
+$dark: #052d28;
+$grey: #ebf0e6;
 
-$primary: #0F5550; 
-$secondary:  #CDDCD7;
-$tertiary: #E6FF41;
-$quaternary: #CDF002;
-$quinary: #0F5550;
-$senary: #0F5550;
-$septenary: #0F5550;
-$octonary: #0F5550;
-$nonary: #0F5550;
-$denary: #0F5550;
+$primary: #0f5550;
+$secondary: #cddcd7;
+$tertiary: #e6ff41;
+$quaternary: #cdf002;
+$quinary: #0f5550;
+$senary: #0f5550;
+$septenary: #0f5550;
+$octonary: #0f5550;
+$nonary: #0f5550;
+$denary: #0f5550;
 
-$white: #ffffff; 
-$black: #1D1D1B; 
+$white: #ffffff;
+$black: #1d1d1b;
 
 $transparent: transparent;
 
+// Default body text and page background (_content.scss).
 $text-color: $black;
 $bg-color: $white;
 
+// Opaque greys are fixed palette shades. The -rgb names are aliases, not forced CSS formatting.
+// The -rgba variants instead use $black with 50%, 20% and 5% opacity over the current background.
 $black-50: #808080;
-$black-50-rgb: rgb(128, 128, 128);
-$black-50-rgba: rgba(0, 0, 0, 0.5);
-$black-20: #CCCCCC;
-$black-20-rgb: rgb(204, 204, 204);
-$black-20-rgba: rgba(0, 0, 0, 0.2);
-$black-5: #F2F2F2;
-$black-5-rgb: rgb(242, 242, 242);
-$black-5-rgba: rgba(0, 0, 0, 0.05); 
+$black-50-rgb: $black-50;
+$black-50-rgba: rgba($black, 0.5);
+$black-20: #cccccc;
+$black-20-rgb: $black-20;
+$black-20-rgba: rgba($black, 0.2);
+$black-5: #f2f2f2;
+$black-5-rgb: $black-5;
+$black-5-rgba: rgba($black, 0.05);
 
-:root {
-  --primary: $primary;
-  --secondary: $secondary;
-  --tertiary: $tertiary;
-  --quaternary: $quaternary;
-  --quinary: $quinary;
-  --senary: $senary;
-  --septenary: $septenary;
-  --octonary: $octonary;
-  --nonary: $nonary;
-  --denary: $denary;
-}
-
+// Names in this map generate --name, .bg-name, .color-name, .border-name and .bg-name-half.
+// Button variants remain explicitly declared in _typography.scss.
 $colors: (
-  "primary": $primary,
-  "secondary": $secondary,
-  "tertiary": $tertiary,
-  "quaternary": $quaternary,
-  "quinary": $quinary,
-  "senary": $senary,
-  "septenary": $septenary,
-  "octonary": $octonary,
-  "nonary": $nonary,
-  "denary": $denary,
+    "primary": $primary,
+    "secondary": $secondary,
+    "tertiary": $tertiary,
+    "quaternary": $quaternary,
+    "quinary": $quinary,
+    "senary": $senary,
+    "septenary": $septenary,
+    "octonary": $octonary,
+    "nonary": $nonary,
+    "denary": $denary,
 
-  "white": $white,
-  "black": $black,
+    "white": $white,
+    "black": $black,
 
-  "accent": $accent,
+    "accent": $accent,
 
-  "light": $light,
-  "dark": $dark,
+    "light": $light,
+    "dark": $dark,
 
-  'grey':$grey
-
-); 
-
-@each $name, $value in $colors {
-
-  .bg-#{$name} {
-    background-color: $value !important;
-  }
-
-  .color-#{$name} {
-    color: $value !important;
-    label {
-      color: $value !important;
-    }
-  }
-
-  .border-#{$name} {
-    border-color: $value !important;
-  }
-
-  .bg-#{$name}-half {
-    background: $value;
-    background: -moz-linear-gradient(0deg, $value 50%, $transparent 50%);
-    background: -webkit-linear-gradient(0deg, $value 50%, $transparent 50%);
-    background: linear-gradient(0deg, $value 50%, $transparent 50%);
-  }
-
-} 
-
-/* :::::::::::::: 02 * GRIT_SET Gradinet */
-
-$gradient-colors-1: (
-  $dark 0%,
-  // $secondary 10%,
-  // $tertiary 20%,
-  // $quaternary 30%,
-  // $quinary 40%,
-  // $senary 50%,
-  // $septenary 60%,
-  // $octonary 70%,
-  // $nonary 80%,
-  // $denary 90%,
-  $quinary 100%
+    "grey": $grey,
 );
 
-@mixin gradient-1($direction: 90deg, $colors: ()) {
-  $gradient: ''; 
-  @each $color, $percent in $colors {
-    $gradient: #{$gradient} + ', ' + #{$color} + ' ' + #{$percent};
-  } 
-  $gradient: string.unquote($gradient);  
-  $gradient: string.slice($gradient, 3);  
-  background: linear-gradient($direction, $gradient);
+// * GRIT_SET Export the same palette to CSS; interpolation is required for custom properties.
+:root {
+    @each $name, $value in $colors {
+        --#{$name}: #{$value};
+    }
 }
 
-/* :::::::::::::: 03 * GRIT_SET Fonts */
- 
+@each $name, $value in $colors {
+    .bg-#{$name} {
+        background-color: $value !important;
+    }
+
+    .color-#{$name} {
+        color: $value !important;
+        label {
+            color: $value !important;
+        }
+    }
+
+    .border-#{$name} {
+        border-color: $value !important;
+    }
+
+    .bg-#{$name}-half {
+        background: $value;
+        background: linear-gradient(0deg, $value 50%, $transparent 50%);
+    }
+}
+
+// * GRIT_SET 02 | Gradients
+
+// Gradient stops: add palette colors with their percentage, in ascending order.
+$gradient-colors-1: (
+    $dark 0%,
+    // $secondary 10%,
+    // $tertiary 20%,
+    // $quaternary 30%,
+    // $quinary 40%,
+    // $senary 50%,
+    // $septenary 60%,
+    // $octonary 70%,
+    // $nonary 80%,
+    // $denary 90%,
+    $quinary 100%
+);
+
+// Apply the stops supplied in $colors along the requested direction.
+@mixin gradient-1($direction: 90deg, $colors: ()) {
+    $gradient: "";
+    @each $color, $percent in $colors {
+        $gradient: #{$gradient} + ", " + #{$color} + " " + #{$percent};
+    }
+    $gradient: string.unquote($gradient);
+    $gradient: string.slice($gradient, 3);
+    background: linear-gradient($direction, $gradient);
+}
+
+// * GRIT_SET 03 | Fonts
+
 @import url("../font/HostGrotesk/stylesheet.css");
 
-$font-primary: 'Host Grotesk', sans-serif;   
-$font-secondary: 'Host Grotesk', sans-serif;   
+// The CSS import loads the actual files; these variables choose which family each style uses.
+$font-primary: "Host Grotesk", sans-serif;
+$font-secondary: "Host Grotesk", sans-serif;
 
-/* :::::::::::::: 04 * GRIT_SET Varriables */
+// * GRIT_SET 04 | Layout and breakpoints
 
+// Use the -res variables for media queries; changing them affects all linked component rules.
 $xs-res: 0;
 $sm-res: 576px;
 $md-res: 768px;
@@ -151,71 +161,244 @@ $xl-res: 1200px;
 $xxl-res: 1600px;
 $xxxl-res: 1920px;
 
-$breakpoints: ( 
-  xs: $xs-res,
-  sm: $sm-res,
-  md: $md-res,
-  lg: $lg-res,
-  xl: $xl-res,
-  xxl: $xxl-res,
-  xxxl: $xxxl-res,
+$breakpoints: (
+    xs: $xs-res,
+    sm: $sm-res,
+    md: $md-res,
+    lg: $lg-res,
+    xl: $xl-res,
+    xxl: $xxl-res,
+    xxxl: $xxxl-res,
 );
 
-
+// * GRIT_SET Unitless aliases are derived from the same breakpoints for viewport calculations.
 $xs: 0;
-$sm: 576;
-$md: 768;
-$lg: 992;
-$xl: 1200;
-$xxl: 1600;
-$xxxl: 1920;
+$sm: math.div($sm-res, 1px);
+$md: math.div($md-res, 1px);
+$lg: math.div($lg-res, 1px);
+$xl: math.div($xl-res, 1px);
+$xxl: math.div($xxl-res, 1px);
+$xxxl: math.div($xxxl-res, 1px);
 
+// * GRIT_SET Gallery/Owl xxl matches the 1400px threshold in custom.js and PHP image sizes.
+// General layout xxl remains 1600px; changing the media threshold also requires those consumers.
+$media-xxl-res: 1400px;
+$media-breakpoints: (
+    sm: $sm-res,
+    md: $md-res,
+    lg: $lg-res,
+    xl: $xl-res,
+    xxl: $media-xxl-res,
+);
+
+// Unitless viewport reference for contained page/Cube gutters (scaled against $xxl).
 $c-gap: 140;
 
+// Shared form corner radius. border-radius-base is retained as an optional fluid design value.
 $general-radius: 10px;
 
+$border-radius-base: calc(40 / $xxl * 100vw);
 
-$border-radius-base: calc(40 / $xxl * 100vw); 
+// Responsive text size: minimum / fluid value / maximum. Button sizes are derived from it.
+$font-base: clamp(0.8rem, calc(17 / $xxl * 100vw), 1.2rem);
 
-$font-base: clamp(0.8rem, calc(17 / $xxl * 100vw), 1.2rem); 
+// * GRIT_SET 05 | Transitions
 
-/* :::::::::::::: 05 * GRIT_SET Trasitions */ 
-
+// * GRIT_SET Modern browsers support unprefixed transitions and transforms.
+// Keep these mixin names available to existing theme partials.
 @mixin transition($args...) {
-  -webkit-transition: $args;
-  -moz-transition: $args;
-  -ms-transition: $args;
-  -o-transition: $args;
-  transition: $args;
+    transition: $args;
 }
-
 @mixin transform($transforms) {
-  -webkit-transform: $transforms;
-  -moz-transform: $transforms;
-  -ms-transform: $transforms;
-  transform: $transforms;
+    transform: $transforms;
 }
-
 @mixin rotate($deg) {
-  @include transform(rotate(#{$deg}deg));
+    @include transform(rotate(#{$deg}deg));
 }
-
 @mixin scale($scale) {
-  @include transform(scale($scale));
+    @include transform(scale($scale));
 }
-
 @mixin translate($x, $y) {
-  @include transform(translate($x, $y));
+    @include transform(translate($x, $y));
 }
-
 @mixin skew($x, $y) {
-  @include transform(skew(#{$x}deg, #{$y}deg));
+    @include transform(skew(#{$x}deg, #{$y}deg));
 }
-
 @mixin transform-origin($origin) {
-  -webkit-transform-origin: $origin;
-  -moz-transform-origin: $origin;
-  -ms-transform-origin: $origin;
-  transform-origin: $origin;
+    transform-origin: $origin;
 }
 
+// * GRIT_SET 06 | Buttons | _typography.scss
+// Color combinations are MANUAL in each .btn-* rule in _typography.scss.
+// Here you change dimensions and shared behavior, not text/background color pairings.
+// Padding uses vertical / horizontal values. em scales with the button font.
+// Standard font: $font-base. btn-sm = 87.5%; btn-lg = 125% of that font.
+// Group gap: row / column spacing; it also applies when buttons wrap.
+// Focus inner/outer colors form the keyboard ring. Disabled opacity: 0 = hidden, 1 = opaque.
+$button-radius: 25px;
+$button-padding: 0.545em 1.4em;
+$button-font-size-sm: calc($font-base * 0.875);
+$button-font-size-lg: calc($font-base * 1.25);
+$button-padding-sm: 0.4em 0.9em;
+$button-padding-lg: 0.7em 1.7em;
+$button-group-gap: 0.75rem 1rem;
+$button-focus-inner: $white;
+$button-focus-outer: $black;
+$button-disabled-opacity: 0.65;
+
+// * GRIT_SET 07 | Header | _header.scss
+// Menu breakpoint: desktop navigation starts here. Layers control stacking above page content.
+// Logo height and negative sticky top control the normal logo and hidden sticky bar.
+// Overlay background alpha controls transparency; center-logo-width applies to header 5.
+// Panel duration controls sliding; content duration controls fading.
+// Content delay waits for panel movement to finish before revealing logo, links and close control.
+// Toggle size is the icon size; box dimensions include the clickable surrounding space.
+// Inline max-height keeps the header 1 menu scrollable on short screens.
+$header-menu-breakpoint: $lg-res;
+$header-layer: 20;
+$header-panel-layer: 1100;
+$header-logo-height: 40px;
+$header-sticky-top: -126px;
+$header-sticky-background: rgba($white, 0.304);
+$header-shadow: 0 0.125rem 0.25rem rgba($black, 0.075);
+$header-overlay-background: rgba($light, 0.8);
+$header-rounded-overlay-background: rgba($light, 0.95);
+$header-center-logo-width: 33.333333%;
+$header-panel-duration: 0.25s;
+$header-content-duration: 0.18s;
+$header-content-delay: $header-panel-duration + 0.06s;
+$header-toggle-size: 30px;
+$header-toggle-box: calc($header-toggle-size + 1rem);
+$header-block-toggle-width: calc($header-toggle-size + 4rem);
+$header-block-toggle-height: calc($header-toggle-size + 3rem);
+$header-inline-max-height: calc(100dvh - 5rem);
+
+// * GRIT_SET 08 | Footer | _footer.scss
+// Each footer has its own background. Example: $footer-1-background: $light;
+// Footer foregrounds are still AUTOMATIC: _footer.scss selects light/dark text from background lightness.
+// This behavior is separate from the manual button combinations.
+// Logo width/height are maximum bounds; small font applies to the copyright/legal bar.
+// Link gap separates vertical links; links-gap is row / column spacing for horizontal lists.
+// Contact font applies to footer 4; menu font applies to the large footer 5 navigation.
+$footer-1-background: $dark;
+$footer-2-background: $light;
+$footer-3-background: $light;
+$footer-4-background: $primary;
+$footer-5-background: $secondary;
+$footer-logo-width: 120px;
+$footer-logo-max-height: 80px;
+$footer-small-font: 0.875rem;
+$footer-link-gap: 0.75rem;
+$footer-links-gap: 0.75rem 1rem;
+$footer-contact-font-size: clamp(1.5rem, 4vw, 3.5rem);
+$footer-menu-font-size: clamp(1.5rem, 3vw, 2.75rem);
+
+// * GRIT_SET 09 | Media, overlays and cards | _sections.scss / _shortcodes.scss
+// rgba alpha changes transparency only; base colors come from the palette.
+// Image ratios: square 1:1, landscape 4:3, portrait 3:4, auto preserves natural proportions.
+// Header image height is fluid; compact width and card min-heights control tease media.
+// Video play size is the cover play control diameter; its background is independent of the video.
+$overlay-dark: rgba($black, 0.4);
+$overlay-light: rgba($white, 0.4);
+$overlay-card-gradient: linear-gradient(transparent, rgba($black, 0.85));
+$video-play-background: rgba($black, 0.7);
+$video-play-size: 5rem;
+$gallery-gap: 8px;
+$header-image-height: clamp(18rem, 45vw, 32rem);
+$tease-compact-width: 88px;
+$tease-horizontal-min-height: 180px;
+$tease-overlay-min-height: 320px;
+$image-ratios: (
+    square: 1,
+    landscape: string.unquote("4 / 3"),
+    portrait: string.unquote("3 / 4"),
+    auto: auto,
+);
+
+// Long-heading scroll size; active desktop mode only.
+$gsap-lateral-title-size: clamp(3rem, 8vw, 8rem);
+
+// Shared vertical gap for Text and Archive Masonry items.
+$masonry-item-gap: 30px;
+
+// Maps canvas heights; classes maps-height-small/large override the shared default.
+$maps-height: clamp(20rem, 40vw, 32rem);
+$maps-height-small: 18rem;
+$maps-height-large: clamp(28rem, 60vh, 48rem);
+$maps-placeholder-background: $grey;
+$maps-locations-gap: 1.5rem;
+$maps-info-text: $dark;
+// Popup title shares the native Google header row with its close button.
+$maps-popup-title-size: 1rem;
+$maps-popup-gap: 0.5rem;
+
+// * GRIT_SET 10 | Carousel controls | _plugins.scss
+// Nav offset positions arrows; contained offset is used in constrained layouts (negative = outside).
+// Controls gap reserves clearance for navigation; dots offset and inside-offset position dots.
+// Dot size and nav size change the dots diameter and navigation icon font.
+$carousel-nav-offset: 10px;
+$carousel-contained-offset: -40px;
+$carousel-controls-gap: 50px;
+$carousel-dots-offset: 30px;
+$carousel-dot-size: 15px;
+$carousel-nav-size: 22px;
+$carousel-dots-inside-offset: 20px;
+
+// * GRIT_SET 11 | Forms and Collapse | _forms.scss / _sections.scss
+// Form padding uses vertical / horizontal values.
+// Collapse page size sets the circular List.js pagination control width and height.
+// Default form preset: 1 = filled; 2 = underlined; 3 = transparent outlined fields.
+// Recompile main.scss after changing this. Explicit .form-style-1/2/3 overrides the default locally.
+$form-style: 1;
+// Form field colors are explicit, independent of button combinations.
+$form-text-color: $dark;
+$form-background: $grey;
+$form-border-color: $grey;
+// Style 3: full outline, softer corners and a subtle shadow; uses the shared palette.
+$form-outline-border-color: $secondary;
+$form-outline-radius: 1rem;
+$form-outline-shadow: 0 0.125rem 0.5rem rgba($black, 0.06);
+$form-focus-color: $primary;
+$form-focus-background: $light;
+$form-error-color: $accent;
+$form-readonly-background: $light;
+$form-control-padding: 10px 20px;
+$form-field-gap: 10px;
+$form-choice-gap: 0.5rem;
+$form-textarea-min-height: 8rem;
+$form-consent-font-size: 0.875rem;
+$form-placeholder-opacity: 0.8;
+$form-disabled-opacity: 0.65;
+$collapse-page-size: 35px;
+
+// * GRIT_SET 12 | Shared transitions and responsive spacing | _content.scss
+// Transitions combine a duration and an easing; button hover and other shared effects inherit these.
+// Extra spacing values generate Bootstrap-style p/m utilities numbered 6 to 10.
+// Values are the base sizes, growing fluidly toward the maximum set by scale-factor.
+// Viewport-width is the reference width used by that calculation, not a media query.
+// Spacing-sides maps Bootstrap 4 names: t/r/b/l for individual sides; x/y for paired sides.
+$transition-fast: 0.3s ease-in-out;
+$transition-base: 0.5s ease-in-out;
+$extra-spacing-values: (
+    6: 24px,
+    7: 28px,
+    8: 34px,
+    9: 40px,
+    10: 50px,
+);
+$viewport-width: $xxxl;
+$scale-factor: 3.2;
+$spacing-sides: (
+    t: top,
+    r: right,
+    b: bottom,
+    l: left,
+    x: (
+        left,
+        right,
+    ),
+    y: (
+        top,
+        bottom,
+    ),
+);

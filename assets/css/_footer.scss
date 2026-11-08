@@ -1,131 +1,200 @@
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 01 * GRIT_SET footer_1 */
-/* :::::::::::::: 02 * GRIT_SET footer_2 */ 
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+// * GRIT_SET Legend | Footer
+// 01 | Shared structure, links, widgets and responsive controls.
+// 02 | Shared colors derived from each background.
+// 03 | Footer 1: classic columns, light or dark.
+// 04 | Footer 2: horizontal navigation.
+// 05 | Footer 3: centered presentation.
+// 06 | Footer 4: contact invitation.
+// 07 | Footer 5: split editorial layout.
 
-@use './variables' as *;
+@use "sass:color";
+@use "./variables" as *;
 
-/* :::::::::::::: 01 * GRIT_SET footer_1 */
-#footer_1 {  
-    position: relative;
+// * GRIT_SET 01 | Shared rules are scoped to the footer; each Twig layout stays independent.
+.footer {
     width: 100%;
-    background-color: $dark;
-    color: $light; 
-    .section-footer {
-        ul {
-            list-style-type: none;
-            padding-inline-start: 0px; 
-            &.footer-menu {
-                li {
-                    padding-bottom: 15px; 
-                    &.link-footer a {
-                        color: $light;
-                        opacity: 0.5;
-                    }
-                    &.link-footer:hover a {
-                        opacity: 1;
-                        color: $accent;
-                    }
-                }
-            }
-        } 
-        .menu-policy {
-            list-style-type: disc;
-            padding-inline-start: 30px; 
-            li {
-                margin: 0 20px ;
-            }
-        }
-    
+    overflow-wrap: anywhere;
 
-        a {
-            color: $light; 
-        }
-        a:hover {
-     
+    a:not(.btn) {
+        color: inherit;
+        &:hover,
+        &:focus-visible {
             color: $accent;
         }
-        
-        hr {
-            border-color: $light ;
-            opacity: 0.2;
+    }
+
+    .footer-logo {
+        img {
+            width: auto;
+            max-width: min(100%, #{$footer-logo-width});
+            max-height: $footer-logo-max-height;
+            height: auto;
         }
     }
-    
+
+    .footer-menu,
+    .footer-contacts {
+        li + li {
+            margin-top: $footer-link-gap;
+        }
+    }
+
+    .footer-policy,
+    .nav-social {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: $footer-links-gap;
+        padding: 0;
+        list-style: none;
+        li {
+            margin: 0;
+        }
+    }
+
+    .nav-social {
+        margin: 1.5rem 0 0;
+        a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 2.75rem;
+            min-height: 2.75rem;
+        }
+    }
+
+    // Widgets may contain their own lists, images and nested menus.
+    .section-footer {
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        ul {
+            padding-left: 1.25rem;
+        }
+        .list-unstyled,
+        .nav-social {
+            padding-left: 0;
+        }
+    }
+
+    .footer-newsletter-controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: $footer-links-gap;
+        .form-control {
+            flex: 1 1 12rem;
+            min-width: 0;
+            width: 100%;
+        }
+        .btn {
+            margin: 0;
+        }
+    }
 
     .footer-bottom {
-        background-color: $primary;
-        color: $light; 
-        font-size: 10px;
-        a { 
-            color: $dark;
-        }
-        a:hover { 
-            color: $light; 
+        font-size: $footer-small-font;
+        .footer-policy {
+            justify-content: flex-start;
+            @media (min-width: $md-res) {
+                justify-content: flex-end;
+            }
         }
     }
 }
 
-/* :::::::::::::: 02 * GRIT_SET footer_2 */ 
-#footer_2 {  
-    position: relative;
-    width: 100%;
-    background-color: $light;
-    color: $dark; 
-    .footer-logo img {
-        max-width: 40px;
+// * GRIT_SET 02 | Choose foreground from the configured background at compile time.
+// Theme palette colors stay centralized. No duplicated light/dark Twig layouts are needed.
+@mixin footer-colors($background) {
+    $foreground: $light;
+    @if color.channel($background, "lightness", $space: hsl) > 55% {
+        $foreground: $dark;
     }
-    .section-footer {
-        ul {
-            list-style-type: none;
-            padding-inline-start: 0px; 
-            &.footer-menu {
-                li {
-                    padding-bottom: 15px; 
-                    &.link-footer a {
-                        color: $dark;
-                        opacity: 0.5;
-                    }
-                    &.link-footer:hover a {
-                        opacity: 1;
-                        color: $accent;
-                    }
-                }
-            }
-        } 
-        .menu-policy {
-            list-style-type: disc;
-            padding-inline-start: 30px; 
-            li {
-                margin: 0 20px ;
-            }
-        }
-    
-
-        a {
-            color: $dark; 
-        }
-        a:hover {
-     
-            color: $accent;
-        }
-        
-        hr {
-            border-color: $dark ;
-            opacity: 0.2;
-        }
-    }
-    
-
+    color: $foreground;
+    background: $background;
     .footer-bottom {
-        background-color: $dark;
-        color: $light; 
-        font-size: 10px;
-        a { 
-            color: $light; 
+        color: inherit;
+        background: rgba($foreground, 0.06);
+    }
+    .footer-divider,
+    .footer-navigation {
+        border-color: rgba($foreground, 0.2);
+    }
+}
+
+// * GRIT_SET 03 | Classic columns: only the background variable changes its color mode.
+#footer_1 {
+    @include footer-colors($footer-1-background);
+}
+
+// * GRIT_SET 04 | Horizontal menu, separate from the company contact column.
+#footer_2 {
+    @include footer-colors($footer-2-background);
+    .footer-divider {
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+    }
+    .footer-menu {
+        display: flex;
+        flex-wrap: wrap;
+        gap: $footer-links-gap;
+        li {
+            margin: 0;
         }
-        a:hover { 
-            color: $accent; 
+    }
+    .nav-social {
+        margin-top: 0;
+        @media (min-width: $md-res) {
+            justify-content: flex-end;
+        }
+    }
+}
+
+// * GRIT_SET 05 | Centered navigation wraps naturally as space becomes available.
+#footer_3 {
+    @include footer-colors($footer-3-background);
+    .footer-navigation {
+        border-top-style: solid;
+        border-bottom-style: solid;
+        border-width: 1px;
+    }
+    .footer-menu,
+    .nav-social {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: $footer-links-gap;
+        li {
+            margin: 0;
+        }
+    }
+}
+
+// * GRIT_SET 06 | Large contact link scales down and wraps even for long addresses.
+#footer_4 {
+    @include footer-colors($footer-4-background);
+    .footer-divider {
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+    }
+    .footer-contact-link {
+        display: inline-block;
+        max-width: 100%;
+        font-size: $footer-contact-font-size;
+        line-height: 1.15;
+    }
+}
+
+// * GRIT_SET 07 | Large vertical navigation and a separate company panel on desktop.
+#footer_5 {
+    @include footer-colors($footer-5-background);
+    .footer-editorial-menu {
+        font-size: $footer-menu-font-size;
+        line-height: 1.2;
+    }
+    .footer-company-panel {
+        @media (min-width: $lg-res) {
+            padding-left: 3rem;
         }
     }
 }

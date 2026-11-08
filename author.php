@@ -1,21 +1,23 @@
 <?php
-/**
- * The template for displaying Author Archive pages
- *
- * Methods for TimberHelper can be found in the /lib sub-directory
- *
- * @package  WordPress
- * @subpackage  Timber
- * @since    Timber 0.1
- */
-
+// * GRIT_SET Author legend
+// 01 | Native author results
+// 02 | Author identity and heading
+if (!defined('ABSPATH')) {
+    exit;
+}
 global $wp_query;
 
-$context          = Timber::context();
-$context['posts'] = new Timber\PostQuery();
-if ( isset( $wp_query->query_vars['author'] ) ) {
-	$author            = new Timber\User( $wp_query->query_vars['author'] );
-	$context['author'] = $author;
-	$context['title']  = 'Author Archives: ' . $author->name();
+// * GRIT_SET 01 | Keep the main query; author ACF sections are not configured.
+$context = Timber::context();
+$context = grit_template_query($context, $wp_query);
+$context['sections'] = [];
+$context['content'] = '';
+
+// * GRIT_SET 02 | Expose the author separately from the posts being listed.
+$author = get_queried_object();
+if ($author instanceof WP_User) {
+    $context['author'] = new Timber\User($author->ID);
+    $context['title'] = sprintf(__('Articoli di %s', 'grit_theme'), $author->display_name);
 }
-Timber::render( array( 'author.twig', 'archive.twig' ), $context );
+
+Timber::render(['author.twig', 'archive.twig', 'index.twig'], $context);

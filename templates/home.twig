@@ -1,43 +1,28 @@
 {#
- * GRIT_SET Home
- * Legend
- * 01 | Sections Before Content
- * 02 | Content
- * 03 | Sections After Content
+ * GRIT_SET Home legend
+ * 01 | ACF sections before content
+ * 02 | WordPress content
+ * 03 | ACF sections after content
  #}
- 
- 
- 
- 
- 
+{% extends 'base.twig' %}
 
-{% extends "base.twig" %}
 {% block content %}
+    <article class="post-type-{{ post.post_type }}" id="post-{{ post.ID }}">
+        {# * GRIT_SET 01 | Local sections and one-level section-page references. #}
+        {% include 'partials/sections.twig' with {sections: sections|default([]), pre_content: true} %}
 
-    <article class="post-type-{{post.post_type}}" id="post-{{post.ID}}">
+        {# * GRIT_SET 02 | Content is prepared by page.php, including shortcodes. #}
+        {% if content is not empty %}
+            <section class="section_page contained py-3">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">{{ content }}</div>
+                    </div>
+                </div>
+            </section>
+        {% endif %}
 
-		 {# * GRIT_SET 01 | Sections Before Content #} 
-{% include 'partials/sections.twig' with { sections: sections|default([]), pre_content: true } %}
-		 
- 
-		{# * GRIT_SET 02 | Content #} 
-		{% if content is not empty %}
-		    <section class="section_page contained py-3">
-		        <div class="container-fluid">
-		            <div class="row">
-		                <div class="col-12">
-		                    {{ content }}
-		                </div>
-		            </div>
-		        </div>
-		    </section>
-		{% endif %}
-		 
-		
-		{# * GRIT_SET 03 | Sections After Content #}
-{% include 'partials/sections.twig' with { sections: sections|default([]), pre_content: false } %}
-		
- 
+        {# * GRIT_SET 03 | Keep this position separate from sections before content. #}
+        {% include 'partials/sections.twig' with {sections: sections|default([]), pre_content: false} %}
     </article>
-	
 {% endblock %}

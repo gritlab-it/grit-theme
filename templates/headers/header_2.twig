@@ -1,128 +1,64 @@
-<div class="header-menu ">
-    <div class="sidenav sidenav-close" id="header-sidenav">
-        <div class="inner-sidenav">
-            <nav class=" navbar navbar-expand-lg static-top"> 
-                <a class="navbar-brand" href="{{ home }}" title="{{ site.name }} - {{ site.description }}" >
-                    <img class="logo img-fluid"
-                        src="{% if custom_logo_url %}{{ custom_logo_url[0] }}{% else %}https://placehold.co/100x100/000000/FFFFFF/png{% endif %}" alt="{{ site.name }} - {{ site.description }}">
-                </a>
-                <button class="navbar-toggler  " type="button"
-                    data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarNav"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span style="font-size:30px; cursor:pointer" class="closebtn" onclick="closeNav('header-sidenav');">
-                        <i class="fas fa-times"></i>
-                    </span>
-                </button>
-            </nav>
-        </div>
-        <div class="overlay-content">
-            {% include "/templates/headers/menu.twig" with {'menu_items': mobile_menu.get_items, 'class_menu': 'mobile_menu'} %}
-        </div>
+{#
+ * GRIT_SET Header 2 | Standard bar with translucent mobile overlay
+ * Legend
+ * 01 | Mobile overlay and fallback navigation
+ * 02 | Main bar
+ * 03 | Sticky bar
+ * Edit this file directly: logo, buttons and menu placement are kept here.
+ * menu.twig renders the WordPress menu tree; nav-social.twig owns social links.
+ #}
 
-        <ul class="nav-social ">
-            {% if setting_facebook %}
-                <li class="social-link">
-                    <a href="{{setting_facebook}}" target="_blank" >
-                        <i class="fab fa-facebook"></i>
-                    </a>
-                </li>
-                {% endif %}
-                {% if setting_instagram %}
-                <li class="social-link">
-                    <a href="{{setting_instagram}}" target="_blank" >
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                </li>
-                {% endif %}
-                {% if setting_linkedin %}
-                <li class="social-link">
-                    <a href="{{setting_linkedin}}" target="_blank" >
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                </li>
-            {% endif %}
-        </ul> 
-    </div>
-    <nav class=" navbar navbar-expand-lg static-top">
-        <a class="navbar-brand" href="{{ home }}" title="{{ site.name }} - {{ site.description }}">
-            <img class="logo img-fluid"
-                src="{% if custom_logo_url %}{{ custom_logo_url[0] }}{% else %}https://placehold.co/100x100/000000/FFFFFF/png{% endif %}">
+{% set mobile_items = mobile_menu.get_items|default([]) %}
+{% if not mobile_items %}{% set mobile_items = primary_menu.get_items|default([]) %}{% endif %}
+
+{# * GRIT_SET 01 | Keep the overlay outside both bars to avoid fixed-position clipping. #}
+<div class="sidenav sidenav-close" id="header-sidenav" role="dialog" aria-modal="true" aria-label="{{ __('Menu di navigazione', 'grit_theme') }}" aria-hidden="true" inert tabindex="-1" data-mobile-panel data-lenis-prevent>
+    <div class="inner-sidenav navbar">
+        <a class="navbar-brand" href="{{ home|e('html_attr') }}" title="{{ site.name|e('html_attr') }}">
+            <img class="logo img-fluid" src="{{ (custom_logo_url ? custom_logo_url[0] : 'https://placehold.co/100x100/000000/FFFFFF/png')|e('html_attr') }}" alt="{{ site.name|e('html_attr') }}">
         </a>
-        <button class="navbar-toggler  " type="button"
-            data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarNav" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span style="font-size:30px; cursor:pointer" onclick="openNav('header-sidenav');">
-                <i class="fas fa-bars"></i>
-            </span>
+        <button class="navbar-toggler menu-close" type="button" data-menu-close aria-label="{{ __('Chiudi menu', 'grit_theme') }}">
+            <i class="fas fa-times" aria-hidden="true"></i>
         </button>
-        <div class="navbar-collapse collapse  " id="navbarResponsive">
-            {% include "/templates/headers/menu.twig" with {'menu_items': primary_menu.get_items, 'class_menu': 'primary_menu'} %} 
-            <ul class="nav-social ">
-                {% if setting_facebook %}
-                    <li class="social-link">
-                        <a href="{{setting_facebook}}" target="_blank" >
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                    </li>
-                    {% endif %}
-                    {% if setting_instagram %}
-                    <li class="social-link">
-                        <a href="{{setting_instagram}}" target="_blank" >
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                    </li>
-                    {% endif %}
-                    {% if setting_linkedin %}
-                    <li class="social-link">
-                        <a href="{{setting_linkedin}}" target="_blank" title="">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                    </li>
-                {% endif %}
-            </ul> 
-        </div>  
+    </div>
+    <nav class="overlay-content" aria-label="{{ __('Navigazione mobile', 'grit_theme') }}">
+        {% include 'headers/menu.twig' with {menu_items: mobile_items, class_menu: 'mobile_menu'} %}
+    </nav>
+    {% include 'headers/nav-social.twig' %}
+</div>
+
+{# * GRIT_SET 02 | Main bar. #}
+<div class="header-menu">
+    <nav class="navbar navbar-expand-lg static-top" aria-label="{{ __('Navigazione principale', 'grit_theme') }}">
+        <div class="header-brand">
+            <a class="navbar-brand" href="{{ home|e('html_attr') }}" title="{{ site.name|e('html_attr') }}">
+                <img class="logo img-fluid" src="{{ (custom_logo_url ? custom_logo_url[0] : 'https://placehold.co/100x100/000000/FFFFFF/png')|e('html_attr') }}" alt="{{ site.name|e('html_attr') }}">
+            </a>
+        </div>
+        <button class="navbar-toggler menu-toggle" type="button" data-menu-open aria-controls="header-sidenav" aria-expanded="false" aria-label="{{ __('Apri menu', 'grit_theme') }}">
+            <i class="fas fa-bars" aria-hidden="true"></i>
+        </button>
+        <div class="navbar-collapse desktop-primary">
+            {% include 'headers/menu.twig' with {menu_items: primary_menu.get_items, class_menu: 'primary_menu'} %}
+            {% include 'headers/nav-social.twig' %}
+        </div>
     </nav>
 </div>
-<div class="sticky sticky-fix">
-    <nav class=" navbar navbar-expand-lg static-top">
-        <a class="navbar-brand" href="{{ home }}" title="{{ site.name }} - {{ site.description }}">
-            <img class="logo img-fluid"
-                src="{% if custom_logo_url %}{{ custom_logo_url[0] }}{% else %}https://placehold.co/100x100/000000/FFFFFF/png{% endif %}">
-        </a>
-        <button class="navbar-toggler  " type="button"
-            data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarNav" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span style="font-size:30px; cursor:pointer" onclick="openNav('header-sidenav');">
-                <i class="fas fa-bars"></i>
-            </span>
-        </button>
-        <div class="navbar-collapse collapse  " id="navbarResponsive">
-            {% include "/templates/headers/menu.twig" with {'menu_items': primary_menu.get_items, 'class_menu': 'primary_menu'} %} 
-            <ul class="nav-social ">
-                {% if setting_facebook %}
-                    <li class="social-link">
-                        <a href="{{setting_facebook}}" target="_blank" >
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                    </li>
-                    {% endif %}
-                    {% if setting_instagram %}
-                    <li class="social-link">
-                        <a href="{{setting_instagram}}" target="_blank" >
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                    </li>
-                    {% endif %}
-                    {% if setting_linkedin %}
-                    <li class="social-link">
-                        <a href="{{setting_linkedin}}" target="_blank" >
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                    </li>
-                {% endif %}
-            </ul> 
+
+{# * GRIT_SET 03 | Sticky bar. #}
+<div class="sticky sticky-fix" aria-hidden="true" inert>
+    <nav class="navbar navbar-expand-lg static-top" aria-label="{{ __('Navigazione principale', 'grit_theme') }}">
+        <div class="header-brand">
+            <a class="navbar-brand" href="{{ home|e('html_attr') }}" title="{{ site.name|e('html_attr') }}">
+                <img class="logo img-fluid" src="{{ (custom_logo_url ? custom_logo_url[0] : 'https://placehold.co/100x100/000000/FFFFFF/png')|e('html_attr') }}" alt="{{ site.name|e('html_attr') }}">
+            </a>
         </div>
-        
+        <button class="navbar-toggler menu-toggle" type="button" data-menu-open aria-controls="header-sidenav" aria-expanded="false" aria-label="{{ __('Apri menu', 'grit_theme') }}">
+            <i class="fas fa-bars" aria-hidden="true"></i>
+        </button>
+        <div class="navbar-collapse desktop-primary">
+            {% include 'headers/menu.twig' with {menu_items: primary_menu.get_items, class_menu: 'primary_menu'} %}
+            {% include 'headers/nav-social.twig' %}
+        </div>
     </nav>
-    
 </div>

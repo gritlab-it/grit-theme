@@ -1,38 +1,25 @@
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 01 * GRIT_SET Header layouts use Section Text / Slides */
-/* :::::::::::::: 02 * GRIT_SET section_carousel */
-/* :::::::::::::: 03 * GRIT_SET Video player styles are shared in _content.scss */
-/* :::::::::::::: 04 * GRIT_SET section_slides */
-/* :::::::::::::: 05 * GRIT_SET Hero layouts use Section Text */
-/* :::::::::::::: 06 * GRIT_SET section_cube */
-/* :::::::::::::: 07 * GRIT_SET section_gallery */
-/* :::::::::::::: 08 * GRIT_SET section_archive */
-/* :::::::::::::: 09 * GRIT_SET section_collapse — accordion, search and tabs */
-/* :::::::::::::: 10 * GRIT_SET section_bio */
-/* :::::::::::::: 11 * GRIT_SET gsap-horizontal */
-/* :::::::::::::: 12 * GRIT_SET section-gsap-vertical */
-/* :::::::::::::: 13 * GRIT_SET section-gsap-reveal */
-/* :::::::::::::: 14 * GRIT_SET section-gsap-lateral-word */
-/* :::::::::::::: 15 * GRIT_SET section-masonry  */
-/* :::::::::::::: 16 * GRIT_SET section-bars */
-/* :::::::::::::: 17 * GRIT_SET section_text image ratios */
-/* :::::::::::::: 18 * GRIT_SET standalone counter numeric alignment */
-/* Gallery detail: 07.1 defaults, 07.2 responsive columns/gaps, 07.3 ratios, 07.4 spacing.
- * Collapse detail: 09.1 accordion buttons, 09.2 search/pagination, 09.3 tabs/grid.
- * Text detail: image ratios and fit apply to standard thumbnails; parallax keeps its own sizing.
- * Owl controls: _plugins.scss. Section images and layouts: this file.
- */
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+// * GRIT_SET Legend | Sections
+// 01 | section_slides
+// 02 | section_cube
+// 03 | section_gallery
+// 04 | section_archive
+// 05 | section_collapse
+// 06 | section_bio
+// 07 | gsap-horizontal
+// 08 | section-gsap-reveal
+// 09 | section-gsap-lateral-word
+// 10 | section-masonry
+// 11 | section-bars
+// 12 | dot-cube
+// 13 | Text chapter image proportions for grid, Masonry and carousel
+// 14 | Tease: standard card media shared by archives, sections and related posts.
+// 15 | Maps: canvas heights, location list and information windows
+// Settings: _variables.scss. Owl controls: _plugins.scss. Shortcodes: _shortcodes.scss.
 
 @use "./variables" as *;
 
-/* :::::::::::::: 02 * GRIT_SET section_carousel */
-.section_carousel {
-}
-
-/* :::::::::::::: 03 * GRIT_SET Video player styles are shared in _content.scss */
-/* :::::::::::::: 04 * GRIT_SET section_slides */
-// * GRIT_SET Slides legend | Shared static/carousel layout; full viewport by default.
+// * GRIT_SET 01 | section_slides
+// Shared static/carousel layout; full viewport by default.
 // Height: slides-height-auto, slides-height-small (50vh), slides-height-medium (75vh).
 // Content: slides-content-top, slides-content-center; default bottom.
 // Overlay: slides-overlay, slides-overlay-light, slides-no-overlay. Motion: slides-zoom.
@@ -94,10 +81,10 @@
         align-items: center;
     }
     &.slides-overlay .item-slide::after {
-        background: rgba(0, 0, 0, 0.4);
+        background: $overlay-dark;
     }
     &.slides-overlay-light .item-slide::after {
-        background: rgba(255, 255, 255, 0.4);
+        background: $overlay-light;
     }
     &.slides-no-overlay .item-slide::after {
         background: transparent;
@@ -115,8 +102,8 @@
     }
 }
 
-/* :::::::::::::: 06 * GRIT_SET section_cube */
-// * GRIT_SET Cube legend | Square media minimum, cover cropping and shared static/Owl layout.
+// * GRIT_SET 02 | section_cube
+// Square media minimum, cover cropping and shared static/Owl layout.
 // Text keeps natural height; empty media columns are omitted by Twig.
 .section_cube {
     background-color: transparent !important;
@@ -168,23 +155,23 @@
     }
 }
 
-/* :::::::::::::: 07 * GRIT_SET section_gallery */
+// * GRIT_SET 03 | section_gallery
 // * GRIT_SET Static gallery: ACF columns fallback and responsive class overrides
 // Class reference and examples: GALLERY.md in the theme root.
 .section_gallery {
     .gallery {
         display: grid;
         grid-template-columns: repeat(var(--gallery-cols, 1), minmax(0, 1fr));
-        gap: var(--gallery-gap, 8px);
+        gap: var(--gallery-gap, #{$gallery-gap});
         margin: 0;
-        // * GRIT_SET 07.1 | Mobile defaults and ACF column fallback
+        // * GRIT_SET 03.1 | Mobile defaults and ACF column fallback
         --gallery-cols: var(--gallery-cols-base, 1);
-        --gallery-gap: var(--gallery-gap-base, 8px);
+        --gallery-gap: var(--gallery-gap-base, #{$gallery-gap});
 
-        // * GRIT_SET 07.2 | Build mobile-first fallback chains without repeating selectors
+        // * GRIT_SET 03.2 | Build mobile-first fallback chains without repeating selectors
         $columns: "var(--gallery-cols-base, var(--gallery-acf-cols, 2))";
-        $gap: "var(--gallery-gap-base, 8px)";
-        @each $name, $width in (sm: 576px, md: 768px, lg: 992px, xl: 1200px, xxl: 1400px) {
+        $gap: "var(--gallery-gap-base, #{$gallery-gap})";
+        @each $name, $width in $media-breakpoints {
             $columns: "var(--gallery-cols-#{$name}, #{$columns})";
             $gap: "var(--gallery-gap-#{$name}, #{$gap})";
             @media (min-width: $width) {
@@ -216,23 +203,16 @@
         }
     }
 
-    // * GRIT_SET 07.3 | Shared ratio and fit for static and carousel thumbnails
+    // * GRIT_SET 03.3 | Shared ratio and fit for static and carousel thumbnails
     &[class*="gallery-ratio-"] .gallery-item img,
     &[class*="gallery-ratio-"] .owl-carousel .item-img-gallery img {
         aspect-ratio: var(--gallery-ratio, auto);
         object-fit: var(--gallery-fit, cover);
     }
-    &.gallery-ratio-square {
-        --gallery-ratio: 1;
-    }
-    &.gallery-ratio-landscape {
-        --gallery-ratio: 4 / 3;
-    }
-    &.gallery-ratio-portrait {
-        --gallery-ratio: 3 / 4;
-    }
-    &.gallery-ratio-auto {
-        --gallery-ratio: auto;
+    @each $name, $ratio in $image-ratios {
+        &.gallery-ratio-#{$name} {
+            --gallery-ratio: #{$ratio};
+        }
     }
     &.gallery-fit-cover {
         --gallery-fit: cover;
@@ -249,7 +229,7 @@
         width: 100%;
         height: auto;
     }
-    // * GRIT_SET 07.4 | Optional full-width spacing reset
+    // * GRIT_SET 03.4 | Optional full-width spacing reset
     &.no-horizontal-padding,
     &.no-horizontal-padding .container-fluid,
     &.no-horizontal-padding .row,
@@ -261,8 +241,8 @@
     }
 }
 
-/* :::::::::::::: 08 * GRIT_SET section_archive */
-// * GRIT_SET Archive legend | Shared grid columns, Owl fallback and overlay card image ratio.
+// * GRIT_SET 04 | section_archive
+// Shared grid columns, Owl fallback and overlay card image ratio.
 .section_archive {
     // * GRIT_SET Owl is optional: keep cards readable before initialization or without the library.
     .owl-carousel:not(.owl-loaded) {
@@ -271,43 +251,11 @@
     .tease {
         min-width: 0;
     }
-    .tease-style-overlay .card > img {
-        width: 100%;
-        aspect-ratio: 4 / 5;
-        object-fit: cover;
-    }
 }
 
-/* :::::::::::::: 09 * GRIT_SET section_collapse */
+// * GRIT_SET 05 | section_collapse
 .section_collapse {
-    .pagination-list-js {
-        li {
-            background: $dark;
-            color: $light;
-            margin-right: 5px;
-            padding: 5px;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            text-align: center;
-            @include transition(all 0.5s ease-in-out);
-            &.active {
-                background: $dark;
-            }
-            &:hover {
-                background: $light;
-                a {
-                    color: $accent;
-                }
-            }
-
-            a {
-                color: $light;
-            }
-        }
-    }
-
-    // * GRIT_SET 09.1 | Real accordion buttons retain the previous heading spacing
+    // * GRIT_SET 05.1 | Real accordion buttons retain the previous heading spacing
     .collapse-trigger {
         display: block;
         width: 100%;
@@ -321,9 +269,7 @@
             outline: 2px solid $accent;
             outline-offset: 2px;
         }
-    }
-    // * GRIT_SET Icons follow Bootstrap aria-expanded, including Font Awesome SVG replacement
-    .collapse-trigger {
+        // * GRIT_SET Icons follow aria-expanded, including Font Awesome SVG replacement.
         .collapse-icon-closed {
             display: inline-block;
         }
@@ -339,18 +285,40 @@
             }
         }
     }
-    // * GRIT_SET 09.2 | Search visibility and native pagination controls
+    // * GRIT_SET 05.2 | Search visibility and native pagination controls
     .item-search[hidden],
     .collapse-empty[hidden] {
         display: none !important;
     }
+    // * GRIT_SET One rule owns both native button pagination and the legacy List.js anchor markup.
     .pagination-list-js {
         li {
+            background: $dark;
+            color: $light;
+            margin-right: 5px;
             padding: 0;
+            width: $collapse-page-size;
+            height: $collapse-page-size;
+            border-radius: 50%;
+            text-align: center;
+            @include transition(all $transition-base);
+            &.active {
+                background: $accent;
+            }
+            &:hover {
+                background: $light;
+                color: $dark;
+                a {
+                    color: $accent;
+                }
+            }
+            a {
+                color: $light;
+            }
         }
         button.page-link {
-            width: 35px;
-            height: 35px;
+            width: $collapse-page-size;
+            height: $collapse-page-size;
             padding: 0;
             border: 0;
             border-radius: 50%;
@@ -361,14 +329,8 @@
                 outline-offset: 2px;
             }
         }
-        li.active {
-            background: $accent;
-        }
-        li:hover {
-            color: $dark;
-        }
     }
-    // * GRIT_SET 09.3 | Tab navigation and grid markers
+    // * GRIT_SET 05.3 | Tab navigation and grid markers
     &.section_collapse_dynamic {
         .arg-tabs {
             justify-content: flex-start;
@@ -435,7 +397,7 @@
     }
 }
 
-/* :::::::::::::: 10 * GRIT_SET section_bio */
+// * GRIT_SET 06 | section_bio
 .section_bio {
     .link-list-bio {
         a {
@@ -447,218 +409,129 @@
     }
 }
 
-/* :::::::::::::: 11 * GRIT_SET gsap-horizontal */
-
-.section-gsap-horizontal {
-    height: 100vh;
+// * GRIT_SET 07 | GSAP structural modes | Static Bootstrap is the default without active JS.
+// JS adds is-gsap-* only on supported desktop layouts with motion enabled.
+.is-gsap-horizontal,
+.horizontal-wrapper > .section_text {
     overflow: hidden;
     position: relative;
-
-    .container,
-    .container-fluid {
-        padding: 0 !important;
-        margin: 0 !important;
-        width: auto;
-    }
-
-    .row {
-        display: flex !important;
-        flex-wrap: nowrap !important;
-        width: auto;
+    > .container-fluid {
+        padding: 0;
         height: 100%;
-        margin: 0 -4px;
+        > .row {
+            flex-wrap: nowrap !important;
+            justify-content: flex-start !important;
+            margin: 0;
+            height: 100%;
+        }
     }
-
     .item-chapters {
         flex: 0 0 auto;
-        height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
-        box-sizing: border-box;
-
+        height: 100%;
         .inner-item {
             width: 100%;
         }
     }
 }
-
-.section-gsap-vertical {
+.is-gsap-horizontal {
+    height: 100vh;
+    height: 100svh;
+}
+.is-gsap-vertical {
     position: relative;
     height: 100vh;
-    padding-top: 1px; // 👈 sufficiente per evitare il salto iniziale
-
-    #timeline {
-        position: relative;
-        height: 100vh;
-        width: 100%;
-        overflow: hidden;
+    height: 100svh;
+    overflow: hidden;
+    // Absolute panels need a definite height at every containing-block level.
+    > .container-fluid {
+        height: 100%;
+        > .row {
+            position: relative;
+            height: 100%;
+            margin: 0;
+        }
     }
-
     .item-chapters {
         position: absolute;
         top: 0;
         left: 0;
-        height: 100vh;
-        width: 100%;
+        width: 100% !important;
+        height: 100%;
+        margin-left: 0 !important;
         display: flex;
         align-items: center;
         justify-content: center;
-        z-index: 1;
-
-        &:nth-child(1) {
-            z-index: 4;
-        }
-        &:nth-child(2) {
-            z-index: 3;
-        }
-        &:nth-child(3) {
-            z-index: 2;
-        }
-
         .inner-item {
-            text-align: center;
-        }
-    }
-
-    .timeline-nav {
-        position: fixed;
-        top: 1rem;
-        right: 1rem;
-        z-index: 10;
-
-        a {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: black;
-            text-decoration: none;
-
-            &:hover {
-                text-decoration: underline;
-            }
+            width: 100%;
         }
     }
 }
-
-// =======================
-// Sezioni scroll orizzontale sequenziale
-// =======================
-// ============================
-// Scroll orizzontale 70/30vh
-// ============================
-// Scroll orizzontale sezioni 70/30
-
-@media (min-width: $md-res) {
-    .horizontal-wrapper {
-        overflow-x: hidden;
-        position: relative;
-    }
-
-    .section-gsap-70horizontal,
-    .section-gsap-30horizontal {
-        width: 100%;
-        overflow: hidden;
-        position: relative;
-
-        .container-fluid {
-            padding: 0 !important;
-            margin: 0 !important;
-
-            > .row:first-of-type {
-                padding: 0 !important;
-                margin: 0 !important;
-                display: flex !important;
-                flex-wrap: nowrap !important;
-                height: 100%;
-                width: auto;
-            }
-        }
-
-        .item-chapters {
-            flex: 0 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-sizing: border-box;
-            margin: 0px -1px;
-        }
-    }
-
-    .h-70vh {
-        min-height: 55vh;
-        height: 55vh;
-    }
-
-    .h-30vh {
-        min-height: 25vh;
-        height: 25vh;
-    }
-
-    .section-gsap-70horizontal {
-        height: 70vh;
-
-        .item-chapters {
-            height: 70vh;
-        }
-    }
-
-    .section-gsap-30horizontal {
-        height: 30vh;
-
-        .row {
-            height: 30vh;
-        }
-
-        .item-chapters {
-            height: 30vh;
-        }
-    }
-}
-
-/* :::::::::::::: 13 * GRIT_SET section-gsap-reveal */
-
-.section-gsap-reveal {
-    .word {
-        display: inline-block;
-        opacity: 0.1; // fallback
-        transition: opacity 0.3s ease-out;
-    }
-}
-
-/* :::::::::::::: 14 * GRIT_SET section-gsap-lateral-word */
-
-.section-gsap-lateral-word {
-    min-height: 100vh;
+.horizontal-wrapper {
+    position: relative;
+    height: 100vh;
+    height: 100svh;
     overflow: hidden;
-
-    .container-fluid {
-        padding: 0;
+    > .section-gsap-70horizontal {
+        height: 70%;
     }
-
-    .item-chapters {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start; // ← importante: parte da sinistra
-        height: 100vh;
+    > .section-gsap-30horizontal {
+        height: 30%;
     }
+}
+// Legacy utility names remain available inside the paired composition only.
+.horizontal-wrapper .h-70vh {
+    min-height: 55vh;
+    height: 55vh;
+}
+.horizontal-wrapper .h-30vh {
+    min-height: 25vh;
+    height: 25vh;
+}
 
+// * GRIT_SET 08 | Word reveal | One animation per text block; restored HTML without JS.
+.is-gsap-reveal .word {
+    display: inline-block;
+}
+.is-gsap-reveal .inner-text,
+.is-gsap-horizontal .in__animate,
+.is-gsap-vertical .in__animate,
+.is-gsap-lateral .in__animate,
+.horizontal-wrapper .in__animate {
+    // The scroll effect owns visibility; avoid a second entrance animation on the same content.
+    opacity: 1 !important;
+    visibility: visible !important;
+    animation: none !important;
+    transform: none !important;
+}
+
+// * GRIT_SET 09 | Long heading scroll | Normal wrapping until JS activates desktop mode.
+.is-gsap-lateral {
+    height: 100vh;
+    height: 100svh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    > .container-fluid {
+        width: 100%;
+    }
     .inner-text {
-        overflow: visible;
-        display: flex;
-        align-items: center;
-        height: 100%;
+        text-align: left;
     }
-
-    .inner-text h1 {
+    .grit-lateral-target {
         white-space: nowrap;
         display: inline-block;
-        padding: 0 2rem;
+        width: max-content;
+        max-width: none;
         margin: 0;
-        min-width: max-content; // ← CRUCIALE: forza larghezza completa del testo
+        font-size: $gsap-lateral-title-size;
+        line-height: 1.1;
     }
 }
 
-/* :::::::::::::: 15 * GRIT_SET section-masonry  */
+// * GRIT_SET 10 | Shared Text/Archive Masonry grid and item spacing
 
 .section_masonry {
     overflow: visible;
@@ -666,7 +539,7 @@
     .masonry-grid {
         position: relative;
 
-        // Fallback clearfix per sicurezza
+        // Keep the grid cleared when JavaScript is unavailable.
         &::after {
             content: "";
             display: block;
@@ -675,30 +548,34 @@
     }
 
     .masonry-item {
-        margin-bottom: 30px;
+        margin-bottom: $masonry-item-gap;
         display: block;
         float: none;
     }
 }
 
-/* :::::::::::::: 16 * GRIT_SET section-bars  */
+// * GRIT_SET 11 | section-bars
 
-.section-bars {
-    position: relative; // permette alle barre (position: absolute) di posizionarsi rispetto alla sezione
-    overflow: hidden; // contiene le barre all'interno della sezione
+// The section selector keeps content above bars despite shared Section Text background rules.
+section.section-bars {
+    position: relative; // Decorative bars are positioned relative to their own section.
+    overflow: hidden; // Keep decorative bars inside the section.
 
-    .container-fluid {
+    > .container-fluid {
+        position: relative;
         z-index: 3;
     }
 
     .bar {
         position: absolute;
-        transform: translate(-50%, -50%);
+        pointer-events: none;
         will-change: transform;
         height: 20px;
         transform-origin: center;
         z-index: 2;
         opacity: 0.9;
+        // Keep decorations visible when no background utility is selected.
+        background-color: $grey;
     }
 
     &.bg-accent .bar {
@@ -718,7 +595,7 @@
     }
 }
 
-/* :::::::::::::: 16 * GRIT_SET dot-cube  */
+// * GRIT_SET 12 | dot-cube
 
 .bg-accent .dot-cube {
     background-color: $primary !important;
@@ -756,8 +633,6 @@
     height: 64px;
     pointer-events: none;
 }
-
-/* angolo alto sinistra */
 .box-highlight-top .item-chapters::before {
     top: -1px;
     left: -1px;
@@ -765,8 +640,6 @@
     border-left: 4px solid $accent;
     border-top-left-radius: 22px;
 }
-
-/* angolo alto destra */
 .box-highlight-top .item-chapters::after {
     top: -1px;
     right: -1px;
@@ -816,7 +689,7 @@
     }
 }
 
-// * GRIT_SET Text chapter image proportions for grid, Masonry and carousel
+// * GRIT_SET 13 | Text chapter image proportions for grid, Masonry and carousel
 .section_text {
     // * GRIT_SET Section background | Decorative cover below content, including without Jarallax.
     position: relative;
@@ -846,16 +719,16 @@
         z-index: 1;
     }
     &.text-background-overlay > .text-section-background::after {
-        background: rgba(0, 0, 0, 0.4);
+        background: $overlay-dark;
     }
     &.text-background-overlay-light > .text-section-background::after {
-        background: rgba(255, 255, 255, 0.4);
+        background: $overlay-light;
     }
     // * GRIT_SET Optional header composition | A normal-flow panel overlaps a fixed-height photo.
     // Panel height remains content-driven, avoiding absolute text positioning and negative bottom offsets.
     &.text-header-overlap {
         // Keep short panels from letting the decorative image spill into the next section.
-        --header-image-height: clamp(18rem, 45vw, 32rem);
+        --header-image-height: #{$header-image-height};
         min-height: var(--header-image-height);
 
         > .text-section-background {
@@ -867,12 +740,12 @@
             padding-bottom: 2rem;
         }
         .item-chapters .inner-text {
-            background: var(--header-panel-background, #fff);
-            color: var(--header-panel-color, #111);
+            background: var(--header-panel-background, #{$white});
+            color: var(--header-panel-color, #{$black});
             padding: clamp(1.5rem, 4vw, 3rem);
         }
     }
-    // * GRIT_SET Static composition legend | Column alignment differs from content distribution.
+    // * GRIT_SET Static composition | Column alignment differs from content distribution.
     // Section: text-columns-{top|center|bottom|stretch}. Chapter or section: text-content-{top|center|bottom|between}.
     // Chapter or section: text-image-after. Section: text-height-medium (minimum 70svh per chapter).
     &:not(.section_carousel_text):not(.section_masonry) {
@@ -914,17 +787,10 @@
             min-height: 70svh;
         }
     }
-    &.text-image-ratio-square {
-        --text-image-ratio: 1;
-    }
-    &.text-image-ratio-landscape {
-        --text-image-ratio: 4 / 3;
-    }
-    &.text-image-ratio-portrait {
-        --text-image-ratio: 3 / 4;
-    }
-    &.text-image-ratio-auto {
-        --text-image-ratio: auto;
+    @each $name, $ratio in $image-ratios {
+        &.text-image-ratio-#{$name} {
+            --text-image-ratio: #{$ratio};
+        }
     }
     &.text-image-fit-cover {
         --text-image-fit: cover;
@@ -951,7 +817,7 @@
     }
 }
 
-// * GRIT_SET Tease legend | Standard card media shared by archives, sections and related posts.
+// * GRIT_SET 14 | Tease: standard card media shared by archives, sections and related posts.
 // card/vertical/editorial: 3:2 cover; horizontal: responsive split; compact: small square.
 .grit-tease-card {
     height: 100%;
@@ -970,12 +836,12 @@
     }
     &.tease-horizontal .tease-media img {
         height: 100%;
-        min-height: 180px;
+        min-height: $tease-horizontal-min-height;
     }
     .tease-compact-media {
         display: block;
-        flex: 0 0 88px;
-        width: 88px;
+        flex: 0 0 $tease-compact-width;
+        width: $tease-compact-width;
     }
     .tease-compact-media img {
         width: 100%;
@@ -988,9 +854,9 @@
     }
     &.tease-overlay-card {
         position: relative;
-        min-height: 320px;
-        background: #222;
-        color: #fff;
+        min-height: $tease-overlay-min-height;
+        background: $dark;
+        color: $white;
         .tease-overlay-image {
             position: absolute;
             inset: 0;
@@ -1005,7 +871,7 @@
             position: absolute;
             inset: 0;
             z-index: 1;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+            background: $overlay-card-gradient;
         }
         .card-body {
             position: relative;
@@ -1020,5 +886,91 @@
         .btn {
             align-self: flex-start;
         }
+    }
+}
+
+// * GRIT_SET 15 | Maps: all positioning stays outside the Twig/JavaScript data.
+.section_maps {
+    &.maps-columns-center .maps-layout {
+        align-items: center;
+    }
+    &.maps-text-right .maps-media-column {
+        @media (min-width: $lg-res) {
+            order: -1;
+        }
+    }
+    // Hide the list only after successful initialization; fallback directions remain accessible.
+    &.maps-hide-locations .is-map-ready .grit-map-locations {
+        display: none;
+    }
+    // Missing API/configuration still leaves a compact, usable location list.
+    .is-map-unavailable .grit-map-canvas {
+        display: none;
+    }
+    .grit-map-canvas {
+        width: 100%;
+        height: $maps-height;
+        background: $maps-placeholder-background;
+    }
+    &.maps-height-small .grit-map-canvas {
+        height: $maps-height-small;
+    }
+    &.maps-height-large .grit-map-canvas {
+        height: $maps-height-large;
+    }
+    .grit-map-status:empty {
+        display: none;
+    }
+    .grit-map-locations {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+        gap: $maps-locations-gap;
+        li {
+            min-width: 0;
+            overflow-wrap: anywhere;
+        }
+    }
+    .grit-map-description,
+    .grit-map-info p {
+        white-space: pre-line;
+    }
+    // * GRIT_SET | Avoid Google's forced empty scrollbars; keep scrolling for long popups.
+    .gm-style-iw-d {
+        overflow: auto !important; // Google sets overflow: scroll directly on this element.
+        padding: 0 $maps-popup-gap $maps-popup-gap 0;
+    }
+    .grit-map-info-title {
+        margin: 0;
+        color: $maps-info-text;
+        font-family: $font-primary;
+        font-size: $maps-popup-title-size;
+        font-weight: 700;
+        line-height: 1.3;
+        overflow-wrap: anywhere;
+    }
+    .grit-map-info {
+        color: $maps-info-text;
+        font-family: $font-primary;
+        line-height: 1.45;
+        p {
+            margin: 0 0 $maps-popup-gap;
+        }
+        max-width: 18rem;
+        overflow-wrap: anywhere;
+    }
+    .grit-map-marker {
+        max-width: none;
+        object-fit: contain;
+    }
+}
+
+// * GRIT_SET Reduced motion | GSAP content also skips generic entrance effects.
+@media (prefers-reduced-motion: reduce) {
+    [class*="section-gsap-"] .in__animate,
+    .section-bars .in__animate {
+        opacity: 1 !important;
+        visibility: visible !important;
+        animation: none !important;
+        transform: none !important;
     }
 }

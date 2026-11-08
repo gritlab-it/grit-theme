@@ -725,7 +725,7 @@
                                 "name": "class",
                                 "aria-label": "",
                                 "type": "text",
-                                "instructions": "",
+                                "instructions": "Classi separate da spazi. section_masonry: griglia Masonry; colonne in Inner Class. La classe di attivazione del carosello ha precedenza. Masonry deve essere attivo in Personalizza; altrimenti resta la griglia Bootstrap.",
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -1932,6 +1932,34 @@
                                 "selected": 0
                             },
                             {
+                                "key": "field_grit_archive_mode",
+                                "label": "Mostra",
+                                "name": "archive_mode",
+                                "aria-label": "",
+                                "type": "select",
+                                "instructions": "Contenuti: card di post/CPT. Termini: elenco dei termini della tassonomia scelta, con link al relativo archivio.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "posts": "Contenuti",
+                                    "terms": "Termini (categorie, tag, tassonomie)"
+                                },
+                                "default_value": "posts",
+                                "return_format": "value",
+                                "ui": 0,
+                                "multiple": 0,
+                                "allow_null": 0,
+                                "ajax": 0,
+                                "placeholder": "",
+                                "create_options": 0,
+                                "save_options": 0
+                            },
+                            {
                                 "key": "field_67a222bdc9d84",
                                 "label": "Post Type",
                                 "name": "post_type",
@@ -1939,7 +1967,15 @@
                                 "type": "select",
                                 "instructions": "Seleziona il tipo di contenuto pubblico da mostrare. La query è indipendente dagli archivi e dai correlati.",
                                 "required": 0,
-                                "conditional_logic": 0,
+                                "conditional_logic": [
+                                    [
+                                        {
+                                            "field": "field_grit_archive_mode",
+                                            "operator": "!=",
+                                            "value": "terms"
+                                        }
+                                    ]
+                                ],
                                 "wrapper": {
                                     "width": "",
                                     "class": "",
@@ -1972,7 +2008,15 @@
                                 "type": "text",
                                 "instructions": "Scrivi il nome senza tease- e senza .twig. Disponibili: card, compact, editorial, horizontal, overlay, post, section, text, title, vertical. Consigliati: card, vertical, horizontal, compact, text, title, editorial, overlay. Vuoto: template del post type, se disponibile, altrimenti card standard.",
                                 "required": 0,
-                                "conditional_logic": 0,
+                                "conditional_logic": [
+                                    [
+                                        {
+                                            "field": "field_grit_archive_mode",
+                                            "operator": "!=",
+                                            "value": "terms"
+                                        }
+                                    ]
+                                ],
                                 "wrapper": {
                                     "width": "",
                                     "class": "",
@@ -2008,11 +2052,11 @@
                             },
                             {
                                 "key": "field_grit_archive_posts_per_page",
-                                "label": "Numero contenuti",
+                                "label": "Quantità",
                                 "name": "posts_per_page",
                                 "aria-label": "",
                                 "type": "number",
-                                "instructions": "",
+                                "instructions": "Massimo 100 elementi, contenuti o termini secondo la modalità. Vuoto: impostazione Lettura di WordPress. Nessuna paginazione numerata.",
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -2036,7 +2080,15 @@
                                 "type": "select",
                                 "instructions": "",
                                 "required": 0,
-                                "conditional_logic": 0,
+                                "conditional_logic": [
+                                    [
+                                        {
+                                            "field": "field_grit_archive_mode",
+                                            "operator": "!=",
+                                            "value": "terms"
+                                        }
+                                    ]
+                                ],
                                 "wrapper": {
                                     "width": "",
                                     "class": "",
@@ -2093,7 +2145,15 @@
                                 "type": "true_false",
                                 "instructions": "",
                                 "required": 0,
-                                "conditional_logic": 0,
+                                "conditional_logic": [
+                                    [
+                                        {
+                                            "field": "field_grit_archive_mode",
+                                            "operator": "!=",
+                                            "value": "terms"
+                                        }
+                                    ]
+                                ],
                                 "wrapper": {
                                     "width": "",
                                     "class": "",
@@ -2111,7 +2171,7 @@
                                 "name": "taxonomy",
                                 "aria-label": "",
                                 "type": "select",
-                                "instructions": "",
+                                "instructions": "Contenuti: tassonomia del filtro per slug. Termini: tassonomia da elencare, obbligatoria per mostrare risultati.",
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -2142,7 +2202,15 @@
                                 "type": "text",
                                 "instructions": "Opzionale: inserisci gli slug dei termini della tassonomia selezionata, separati da virgole. Esempio: notizie,eventi. Mostra i contenuti associati ad almeno uno di questi termini. Lo slug si trova nella schermata di modifica della categoria o del termine. Vuoto: nessun filtro.",
                                 "required": 0,
-                                "conditional_logic": 0,
+                                "conditional_logic": [
+                                    [
+                                        {
+                                            "field": "field_grit_archive_mode",
+                                            "operator": "!=",
+                                            "value": "terms"
+                                        }
+                                    ]
+                                ],
                                 "wrapper": {
                                     "width": "",
                                     "class": "",
@@ -2153,6 +2221,183 @@
                                 "maxlength": "",
                                 "prepend": "",
                                 "append": ""
+                            },
+                            {
+                                "key": "field_grit_archive_terms_orderby",
+                                "label": "Ordina termini per",
+                                "name": "terms_orderby",
+                                "aria-label": "",
+                                "type": "select",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": [
+                                    [
+                                        {
+                                            "field": "field_grit_archive_mode",
+                                            "operator": "==",
+                                            "value": "terms"
+                                        }
+                                    ]
+                                ],
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "name": "Nome",
+                                    "count": "Numero contenuti associati (WordPress)",
+                                    "term_id": "ID"
+                                },
+                                "default_value": "name",
+                                "return_format": "value",
+                                "multiple": 0,
+                                "allow_null": 0,
+                                "ui": 0,
+                                "ajax": 0,
+                                "placeholder": "",
+                                "create_options": 0,
+                                "save_options": 0
+                            },
+                            {
+                                "key": "field_grit_archive_terms_hide_empty",
+                                "label": "Nascondi termini vuoti",
+                                "name": "terms_hide_empty",
+                                "aria-label": "",
+                                "type": "true_false",
+                                "instructions": "Usa il conteggio standard WordPress della tassonomia; non filtra né ricalcola per singolo CPT.",
+                                "required": 0,
+                                "conditional_logic": [
+                                    [
+                                        {
+                                            "field": "field_grit_archive_mode",
+                                            "operator": "==",
+                                            "value": "terms"
+                                        }
+                                    ]
+                                ],
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": 1,
+                                "ui": 1,
+                                "message": "",
+                                "ui_on_text": "",
+                                "ui_off_text": ""
+                            },
+                            {
+                                "key": "field_grit_archive_terms_parent",
+                                "label": "Slug termine genitore",
+                                "name": "terms_parent",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "Solo tassonomie gerarchiche: mostra i figli diretti di questo termine nella tassonomia scelta. Esempio: servizi. Ha precedenza su Solo primo livello. Slug inesistente: nessun risultato.",
+                                "required": 0,
+                                "conditional_logic": [
+                                    [
+                                        {
+                                            "field": "field_grit_archive_mode",
+                                            "operator": "==",
+                                            "value": "terms"
+                                        }
+                                    ]
+                                ],
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "maxlength": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": ""
+                            },
+                            {
+                                "key": "field_grit_archive_terms_top_level",
+                                "label": "Solo primo livello",
+                                "name": "terms_top_level",
+                                "aria-label": "",
+                                "type": "true_false",
+                                "instructions": "Mostra i termini senza genitore. Ignorato per tag/tassonomie non gerarchiche e quando compili il genitore.",
+                                "required": 0,
+                                "conditional_logic": [
+                                    [
+                                        {
+                                            "field": "field_grit_archive_mode",
+                                            "operator": "==",
+                                            "value": "terms"
+                                        }
+                                    ]
+                                ],
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": 0,
+                                "ui": 1,
+                                "message": "",
+                                "ui_on_text": "",
+                                "ui_off_text": ""
+                            },
+                            {
+                                "key": "field_grit_archive_terms_show_description",
+                                "label": "Mostra descrizione",
+                                "name": "terms_show_description",
+                                "aria-label": "",
+                                "type": "true_false",
+                                "instructions": "Anteprima testuale della descrizione del termine, massimo 35 parole.",
+                                "required": 0,
+                                "conditional_logic": [
+                                    [
+                                        {
+                                            "field": "field_grit_archive_mode",
+                                            "operator": "==",
+                                            "value": "terms"
+                                        }
+                                    ]
+                                ],
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": 1,
+                                "ui": 1,
+                                "message": "",
+                                "ui_on_text": "",
+                                "ui_off_text": ""
+                            },
+                            {
+                                "key": "field_grit_archive_terms_show_count",
+                                "label": "Mostra conteggio WordPress",
+                                "name": "terms_show_count",
+                                "aria-label": "",
+                                "type": "true_false",
+                                "instructions": "Conteggio standard del termine. Può comprendere più post type associati; nessun conteggio specifico per CPT.",
+                                "required": 0,
+                                "conditional_logic": [
+                                    [
+                                        {
+                                            "field": "field_grit_archive_mode",
+                                            "operator": "==",
+                                            "value": "terms"
+                                        }
+                                    ]
+                                ],
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": 0,
+                                "ui": 1,
+                                "message": "",
+                                "ui_on_text": "",
+                                "ui_off_text": ""
                             },
                             {
                                 "key": "field_671f811a34bcf",
@@ -2304,7 +2549,7 @@
                                 "name": "class",
                                 "aria-label": "",
                                 "type": "text",
-                                "instructions": "",
+                                "instructions": "Classi separate da spazi. section_masonry: griglia Masonry; colonne in Inner Class. La classe di attivazione del carosello ha precedenza. Masonry deve essere attivo in Personalizza; altrimenti resta la griglia Bootstrap.",
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -2582,12 +2827,120 @@
                         "display": "block",
                         "sub_fields": [
                             {
+                                "key": "field_grit_maps_tab_content",
+                                "label": "Contenuti",
+                                "name": "",
+                                "aria-label": "",
+                                "type": "tab",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": false,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "placement": "top",
+                                "endpoint": 0,
+                                "selected": 0
+                            },
+                            {
+                                "key": "field_grit_maps_title",
+                                "label": "Title",
+                                "name": "title",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "maxlength": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": ""
+                            },
+                            {
+                                "key": "field_grit_maps_text",
+                                "label": "Text",
+                                "name": "text",
+                                "aria-label": "",
+                                "type": "wysiwyg",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "tabs": "all",
+                                "toolbar": "full",
+                                "media_upload": 1,
+                                "delay": 0
+                            },
+                            {
+                                "key": "field_grit_maps_link_1",
+                                "label": "Link 1",
+                                "name": "link_1",
+                                "aria-label": "",
+                                "type": "link",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "return_format": "array"
+                            },
+                            {
+                                "key": "field_grit_maps_link_2",
+                                "label": "Link 2",
+                                "name": "link_2",
+                                "aria-label": "",
+                                "type": "link",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "return_format": "array"
+                            },
+                            {
+                                "key": "field_grit_maps_tab_map",
+                                "label": "Mappa",
+                                "name": "",
+                                "aria-label": "",
+                                "type": "tab",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": false,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "placement": "top",
+                                "endpoint": 0,
+                                "selected": 0
+                            },
+                            {
                                 "key": "field_5fadbff55da16",
-                                "label": "Section Maps",
+                                "label": "Sedi della mappa",
                                 "name": "section_maps",
                                 "aria-label": "",
                                 "type": "repeater",
-                                "instructions": "Inserisci i pin per generare la tua mappa. => section_maps",
+                                "instructions": "Aggiungi una riga per ogni sede. Le righe senza coordinate valide vengono ignorate; con più sedi la vista si adatta automaticamente se non imposti un centro manuale.",
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -2605,11 +2958,11 @@
                                 "sub_fields": [
                                     {
                                         "key": "field_5fadd1c8dc91f",
-                                        "label": "Section Maps Title",
+                                        "label": "Titolo della sede",
                                         "name": "section_maps_title",
                                         "aria-label": "",
                                         "type": "text",
-                                        "instructions": "Inserisci il titolo del tuo pin. => section_maps",
+                                        "instructions": "Nome mostrato nell’elenco e nella finestra del marker. Vuoto: viene usato un titolo progressivo.",
                                         "required": 0,
                                         "conditional_logic": 0,
                                         "wrapper": {
@@ -2627,11 +2980,11 @@
                                     },
                                     {
                                         "key": "field_5fadd204dc920",
-                                        "label": "Section Maps Description",
+                                        "label": "Indirizzo o descrizione",
                                         "name": "section_maps_description",
                                         "aria-label": "",
                                         "type": "text",
-                                        "instructions": "Inserisci la descrizione del tuo pin. => section_maps_description",
+                                        "instructions": "Testo visibile nell’elenco e nella finestra informativa. Le indicazioni stradali usano le coordinate del pin.",
                                         "required": 0,
                                         "conditional_logic": 0,
                                         "wrapper": {
@@ -2649,11 +3002,11 @@
                                     },
                                     {
                                         "key": "field_5fadd22adc921",
-                                        "label": "Section Maps Pin",
+                                        "label": "Posizione della sede",
                                         "name": "section_maps_pin",
                                         "aria-label": "",
                                         "type": "google_map",
-                                        "instructions": "Inserisci il tuo pin. => section_maps_pin",
+                                        "instructions": "Cerca o posiziona il pin della sede. Servono latitudine e longitudine valide; il solo titolo non crea un marker.",
                                         "required": 0,
                                         "conditional_logic": 0,
                                         "wrapper": {
@@ -2671,12 +3024,30 @@
                                 ]
                             },
                             {
-                                "key": "field_5fadd273dc923",
-                                "label": "Section Maps Pin Center",
-                                "name": "section_maps_pin_center",
+                                "key": "field_grit_maps_tab_style",
+                                "label": "Stile",
+                                "name": "",
                                 "aria-label": "",
-                                "type": "google_map",
-                                "instructions": "Inserisci il tuo pin centrale per centrare tua mappa. => section_maps_pin_center",
+                                "type": "tab",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": false,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "placement": "top",
+                                "endpoint": 0,
+                                "selected": 0
+                            },
+                            {
+                                "key": "field_grit_maps_align",
+                                "label": "Align",
+                                "name": "align",
+                                "aria-label": "",
+                                "type": "clone",
+                                "instructions": "",
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -2684,10 +3055,220 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "center_lat": "",
-                                "center_lng": "",
-                                "zoom": "",
-                                "height": ""
+                                "clone": [
+                                    "field_690a10173ff27"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
+                            },
+                            {
+                                "key": "field_grit_maps_text_color",
+                                "label": "Text Color",
+                                "name": "text_color",
+                                "aria-label": "",
+                                "type": "clone",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "clone": [
+                                    "field_690a10173ff41"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
+                            },
+                            {
+                                "key": "field_grit_maps_background_color",
+                                "label": "Background Color",
+                                "name": "background_color",
+                                "aria-label": "",
+                                "type": "clone",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "clone": [
+                                    "field_690b26b11cee6"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
+                            },
+                            {
+                                "key": "field_grit_maps_color_link_1",
+                                "label": "Color Link 1",
+                                "name": "color_link_1",
+                                "aria-label": "",
+                                "type": "clone",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "clone": [
+                                    "field_690b26c31cee7"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
+                            },
+                            {
+                                "key": "field_grit_maps_color_link_2",
+                                "label": "Color Link 2",
+                                "name": "color_link_2",
+                                "aria-label": "",
+                                "type": "clone",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "clone": [
+                                    "field_690b26dc1cee8"
+                                ],
+                                "display": "seamless",
+                                "layout": "block",
+                                "prefix_label": 0,
+                                "prefix_name": 0
+                            },
+                            {
+                                "key": "field_grit_maps_tab_layout",
+                                "label": "Layout",
+                                "name": "",
+                                "aria-label": "",
+                                "type": "tab",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": false,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "placement": "top",
+                                "endpoint": 0,
+                                "selected": 0
+                            },
+                            {
+                                "key": "field_grit_maps_maps_content_class",
+                                "label": "Classi colonna testo",
+                                "name": "maps_content_class",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "Classi Bootstrap 4 per la colonna testo. Esempio: col-12 col-lg-4 pr-lg-4. Utilizzata solo quando compili titolo, testo o pulsanti.",
+                                "required": 0,
+                                "conditional_logic": false,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "col-12 col-lg-5 mb-4 mb-lg-0",
+                                "maxlength": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": ""
+                            },
+                            {
+                                "key": "field_grit_maps_maps_map_class",
+                                "label": "Classi colonna mappa",
+                                "name": "maps_map_class",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "Classi Bootstrap 4 della colonna mappa quando ci sono contenuti. Esempio: col-12 col-lg-8. Senza contenuti la mappa resta col-12.",
+                                "required": 0,
+                                "conditional_logic": false,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "col-12 col-lg-7",
+                                "maxlength": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": ""
+                            },
+                            {
+                                "key": "field_grit_maps_contained",
+                                "label": "Contained",
+                                "name": "contained",
+                                "aria-label": "",
+                                "type": "true_false",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "message": "",
+                                "default_value": 0,
+                                "ui": 0,
+                                "ui_on_text": "",
+                                "ui_off_text": ""
+                            },
+                            {
+                                "key": "field_grit_maps_pre_content",
+                                "label": "Pre Content",
+                                "name": "pre_content",
+                                "aria-label": "",
+                                "type": "true_false",
+                                "instructions": "Serve in alcuni casi per mettere la section prima del content",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "message": "",
+                                "default_value": 0,
+                                "ui": 0,
+                                "ui_on_text": "",
+                                "ui_off_text": ""
+                            },
+                            {
+                                "key": "field_grit_maps_class",
+                                "label": "Class",
+                                "name": "class",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "Classi della sezione: maps-text-right, maps-columns-center, maps-height-small, maps-height-large, maps-hide-locations. Colori della cartografia sempre da assets/maps/style.json. Il centro viene calcolato automaticamente dalle sedi.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "maxlength": "",
+                                "allow_in_bindings": 0,
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": ""
                             }
                         ],
                         "min": "",

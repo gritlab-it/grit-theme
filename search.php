@@ -1,205 +1,86 @@
 <?php
- 
 /**
  * Template Name: Search
- * Search results page
- *
- * Methods for TimberHelper can be found in the /lib sub-directory
- *
- * @package  WordPress
- * @subpackage  Timber
- * @since   Timber 0.1
  */
-
-$templates = array( 'search.twig', 'archive.twig', 'index.twig' );
-
-$context          = Timber::context();
-$context['post_title'] = 'Search results for ' . get_search_query();
-
-// * GRIT_SET Assegnazione del numero di paginazione di post per pagina
-$paginazione = get_option('posts_per_page');
-$num_pagina = $paginazione -1;
-$exp_reg_pag = '%/page/('.$num_pagina.')%';
-
-// * GRIT_SET Elaborazione dell'impaginato impostare il numero successivo qui '%/page/([0-3]+)%' in base al valore assegnato nella paginazione
-preg_match($exp_reg_pag, $_SERVER['REQUEST_URI'], $matches );
-if (get_query_var('paged')) {
-    $paged = get_query_var('paged');
-} elseif (get_query_var('page')) {
-    $paged = get_query_var('page');
-} elseif (isset($matches[1])) {
-    $paged = $matches[1];
-} elseif (!isset($paged) || !$paged) {
-    $paged = 1;
-} else {
-    $paged = 1;
+// * GRIT_SET Search legend
+// 01 | Search term
+// 02 | Optional page supplying content and ACF sections
+// 03 | Results: native search or the selected Search page template
+// 04 | Result counts, heading and Twig output
+if (!defined('ABSPATH')) {
+    exit;
 }
+global $wp_query;
 
-/* ascolta url per prendere campo di ricerca */
-$search_query = isset($_GET['s']) ? sanitize_text_field($_GET['s']) : '';
-$context['search_query'] = get_search_query();
-$context['s'] = $search_query;
+// * GRIT_SET 01 | Read the native WordPress search term.
+$context = Timber::context();
+$search_term = get_query_var('s', '');
+$search_term = is_scalar($search_term) ? sanitize_text_field($search_term) : '';
+$context['search_query'] = $search_term;
+$context['s'] = $search_term;
 
-// * GRIT_SET Resolve the page supplying search sections without using a search result
+// * GRIT_SET 02 | Priority: current Search template, search/cerca slug, one unique Search template page.
 $search_page_id = 0;
 if (is_page() && get_page_template_slug(get_queried_object_id()) === 'search.php') {
     $search_page_id = get_queried_object_id();
 } else {
-    $search_page = get_page_by_path('search', OBJECT, 'page');
-    if ($search_page && $search_page->post_status === 'publish') {
-        $search_page_id = $search_page->ID;
+    foreach (['search', 'cerca'] as $slug) {
+        $candidate = get_page_by_path($slug, OBJECT, 'page');
+        if ($candidate && $candidate->post_status === 'publish') {
+            $search_page_id = $candidate->ID;
+            break;
+        }
     }
-}
 
-// * GRIT_SET Load ACF sections only from the associated search page
-$context['sections'] = array();
-if ($search_page_id) {
-    $context['page_id'] = $search_page_id;
-    $fields = function_exists('get_field_objects') ? get_field_objects($search_page_id) : null;
-    if ($fields) {
-        foreach ($fields as $field) {
-            $context[$field['name']] = $field['value'];
+    if (!$search_page_id) {
+        $candidates = get_posts([
+            'post_type'      => 'page',
+            'post_status'    => 'publish',
+            'numberposts'    => 2,
+            'fields'         => 'ids',
+            'meta_key'       => '_wp_page_template',
+            'meta_value'     => 'search.php',
+        ]);
+        if (count($candidates) === 1) {
+            $search_page_id = (int) reset($candidates);
         }
     }
 }
 
-
-
-/*
- *  Recupero da url categorie e ricerca
-$brand = $_GET['brand'];
-$context['brand'] = $brand;
-$applicazioni = $_GET['applicazioni'];
-$context['applicazioni'] = $applicazioni;
-*/
-
-/*
- * Ricerco categorie cominate
-$tax_query = array(
-    'relation' => 'AND',
-    array(
-        'taxonomy' => 'brand',
-        'field'    => 'slug',
-        'terms'    => array( $brand ),
-        'operator'  => 'AND'
-    ),
-    array(
-        'taxonomy' => 'applicazioni',
-        'field'    => 'slug',
-        'terms'    => array( $applicazioni ),
-        'operator'  => 'AND'
-    )
-);
-*/
-
-/*  * GRIT_SET Elaboro una query per la ricerca effettuata */
-
-$args = array(
-    'post_type' => 'any',
-    'posts_per_page' => $paginazione,
-    'paged' => $paged,
- 
-    's' => $search_query,
- 
-    /*'tax_query'             => $tax_query, //////////// Combo ricerca fra due categorie */
-
-    /************************ ordinamento per quelle che prima hanno immagini o no
-    'meta_query' => array(  //query post based on meta key
-    array(
-    'relation' => 'OR', // add condition if meta key is exists or not
-    array(
-    'key' => '_thumbnail_id',
-    'compare' => 'NOT EXISTS' // include post without _thumbnail_id key
-    ),
-    array(
-    'key' => '_thumbnail_id',
-    'compare' => '!NOT EXISTS' // include post with _thumbnail_id key
-    )
-    )
-    ),
-     */
-    /************************ ordinamento per titolo e poi per data */
-    'orderby' => array(
-        'title' => 'ASC',
-        'date' => 'ASC',
-    ),
-    /************************ ordinamento per meta
-    'meta_query' => array(
-    'relation' => 'AND',
-    array(
-    'key' => 'volt',
-    'value' => '36',
-    'compare' => '=',
-    ),
-    ),
-     */
-
-);
-$posts_search = new WP_Query($args);
-
-
-
-/* se query da risultiti */
-if ($posts_search->have_posts()) {
-
-    $context['post_title'] = 'Risultati della ricerca per: ' . $search_query;
-    /* elaboro query */
-    $context['posts'] = $posts = new Timber\PostQuery($args);
- 
-} /* se query è vuota */
-else {
-    /*  * GRIT_SET Elaboro una query per i related incaso non la prima quesry fosse vuota */
-    $context['post_title'] = 'Nessun risultato trovato per: ' . $search_query;
-
-    /* query delle tassonomie alternativa
-    $tax_query2 = array(
-        'relation' => 'AND',
-        array(
-            'taxonomy' => 'brand',
-            'field'    => 'slug',
-            'terms'    => array( $brand ),
-            'operator'  => 'AND'
-        ),
-        array(
-            'taxonomy' => 'applicazioni',
-            'field'    => 'slug',
-            'terms'    => array( $applicazioni ),
-            'operator'  => 'AND'
-        )
-    );
-    */
-
-    $args_empty = array(
-        'post_type'             => 'any', //////////// Nome del custom post
-        'posts_per_page'        => $paginazione, //////////// Numero custom post ( -1 = tutti )
-        'paged'                 => $paged,
-        'offset'                => 1,
-        /*'tax_query'             => $tax_query2,*/
-
-        'orderby' => array(
-            'title' => 'ASC',
-            'date' => 'ASC',
-        ),
-
-
-    );
-    /* elaboro query con risultati alternativi */
-    $posts = new Timber\PostQuery($args_empty);
+$context = grit_template_fields($context, $search_page_id);
+$context['content'] = '';
+if ($search_page_id) {
+    $context['page_id'] = $search_page_id;
+    $context['post'] = Timber::get_post($search_page_id);
+    $context['content'] = grit_template_content($search_page_id);
 }
-/*  * GRIT_SET Assegno query definitiva */
-// $context['posts'] = new Timber\PostQuery();
 
- 
+// * GRIT_SET 03 | Native search keeps its existing query, relevance and filters.
+$results_query = $wp_query;
+if (!is_search()) {
+    $paged = max(1, absint(get_query_var('paged')), absint(get_query_var('page')));
+    $search_args = [
+        'post_type'      => 'any',
+        'post_status'    => 'publish',
+        'posts_per_page' => get_option('posts_per_page'),
+        'paged'          => $paged,
+        's'              => $search_term,
+    ];
+    // An empty Search page must not show unrelated posts.
+    if ($search_term === '') {
+        $search_args['post__in'] = [0];
+    }
+    $results_query = new WP_Query($search_args);
+}
 
+// * GRIT_SET 04 | Shared result counts; a search with no matches stays empty.
+$context = grit_template_query($context, $results_query);
+if ($results_query->found_posts) {
+    $heading = sprintf(__('Risultati della ricerca per: %s', 'grit_theme'), $search_term);
+} else {
+    $heading = sprintf(__('Nessun risultato trovato per: %s', 'grit_theme'), $search_term);
+}
+$context['title'] = $heading;
+$context['post_title'] = $heading;
 
-
-//  * GRIT_SET Gestisco la numerazione della pagine e i corrispettivi valori trovati
-$context['found_posts'] = $posts->found_posts;
-$context['startpost'] = $startpost = 1;
-$context['startpost'] = $startpost = $paginazione * ($paged - 1) + 1;
-$context['endpost'] = $endpost = ($paginazione * $paged < $posts->found_posts ? $paginazione * $paged : $posts->found_posts);
-
-
-
-
-Timber::render( $templates, $context );
+Timber::render(['search.twig', 'archive.twig', 'index.twig'], $context);

@@ -1,89 +1,44 @@
 {#
- * GRIT_SET html-header
- * Legend
- * 01 | HTML Head
- * 02 | Loader
- * 03 | Header
- * 04 | Content
- * 05 | Footer
+ * GRIT_SET Base legend
+ * 01 | Document head
+ * 02 | Loader and header
+ * 03 | Page content and optional sidebar
+ * 04 | Footer and WordPress scripts
  #}
- 
- 
- 
- 
- 
-
-
 {% block html_head_container %}
-
-
-{# * GRIT_SET 01 | HTML Head #} 
-{% include 'html-header.twig' %}
-	{% block head %}
-	{% endblock %}
-	</head>
+    {# * GRIT_SET 01 | Individual templates may add content to the head block. #}
+    {% include 'html-header.twig' %}
+    {% block head %}{% endblock %}
+    </head>
 {% endblock %}
- 
 
-<body class="{{body_class}} " data-template="base.twig">
+<body class="{{ body_class }}" data-template="base.twig">
+    {# * GRIT_SET 02 | Edit each header in its own headers/header_N.twig file. #}
+    {% include 'partials/loader.twig' %}
+    <a class="skip-link screen-reader-text" href="#content">{{ __('Vai al contenuto', 'grit_theme') }}</a>
 
-	{# * GRIT_SET 02 | Loader #} 
-    {% include ['/partials/loader.twig'] %}
-     
- 	
-	<a class="skip-link screen-reader-text" href="#content">{{ _e( 'Skip to content') }}</a>
+    {% set header_name = grit_setting_header|default('header_1') %}
+    <header id="{{ header_name }}" class="grit-header">
+        {% include ['headers/' ~ header_name ~ '.twig', 'headers/header_1.twig'] %}
+    </header>
 
-	{# * GRIT_SET 03 | Header #}  
-    	{% if grit_setting_header %}
-			 <header id="{{ grit_setting_header }}">  
-				{% include ['headers/'~ grit_setting_header ~'.twig'] %}
-			</header> 
-		{% else %}
-			<header id="header_1"> 
-			 	{% include "headers/header_1.twig" %}
-			 </header>
-		{% endif %}  
-	 
- 		 
-	{# * GRIT_SET 04 | Content #} 
-	<section id="content" role="main" class="content-wrapper  ">
-	 
-		<div class="wrapper {{sidebar_class}}">
-			{% block content %}
-				Sorry, no content
-			{% endblock %}
-		</div>
+    {# * GRIT_SET 03 | Child templates replace the content block. #}
+    <section id="content" role="main" class="content-wrapper">
+        <div class="wrapper {{ sidebar_class }}">
+            {% block content %}Sorry, no content{% endblock %}
+        </div>
+        {% if sidebar %}
+            <aside class="layout-sidebar">{{ sidebar }}</aside>
+        {% endif %}
+    </section>
 
-		{% if sidebar %}
-			<aside class="layout-sidebar">
-				{{sidebar}}
-			</aside>
-		{% endif %}
-
-	</section>
-	 
-
-	{# * GRIT_SET 05 | Footer #}  
-    {% block footer %} 
-		{% if grit_setting_footer %}
-				<footer id="{{ grit_setting_footer }}" class="footer">
-					{% include ['/footers/'~ grit_setting_footer ~'.twig'] %}
-				</footer>
-			{% else %}
-				<footer id="footer_1" class="footer">
-					{% include ['/footers/footer_1.twig'] %}
-				</footer>
-		{% endif %}
-		{{ function('wp_footer') }}
-		
+    {# * GRIT_SET 04 | Footer layouts remain independent files. #}
+    {% block footer %}
+        {% set footer_name = grit_setting_footer|default('footer_1') %}
+        <footer id="{{ footer_name }}" class="footer">
+            {% include ['footers/' ~ footer_name ~ '.twig', 'footers/footer_1.twig'] %}
+        </footer>
+        {{ function('wp_footer') }}
     {% endblock %}
-	  
-	
-	{# 
-	<script> 
-        window.navLeftArrow = `{% include '/partials/arrow.twig' %}`;
-        window.navRightArrow = `{% include '/partials/arrow.twig' %}`; 
-    </script>  
-	#}
 </body>
 </html>

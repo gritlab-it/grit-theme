@@ -2,8 +2,9 @@
 {% for section in sections|default([]) %}
     {% set section_index = loop.index %}
     {% if section.acf_fc_layout == 'section_page' and section.page %}
-        {# * GRIT_SET Expand referenced page sections at one level only #}
-        {% set ref_sections = fn('get_field', 'sections', section.page.ID) %}
+        {# * GRIT_SET Expand published or draft source pages at one level; publishing the source is not required. #}
+        {# * GRIT_SET A reference does not bypass the source page password. #}
+        {% set ref_sections = function('post_password_required', section.page.ID) ? [] : fn('get_field', 'sections', section.page.ID) %}
         {% for ref_section in ref_sections|default([]) %}
             {% if ref_section.acf_fc_layout != 'section_page' and (ref_section.pre_content|default(false) ? true : false) == pre_content %}
                 {% set rendered_section = ref_section|merge({

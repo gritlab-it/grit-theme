@@ -1,133 +1,89 @@
-<section class="section-footer contained py-7 bg-light ">
-	<div class="container-fluid">
-		<div class="row  justify-content-center">
-			<div class="col-4 col-sm-3 col-md-2 ">
-				<div class="footer-logo text-center  ">
-					<a href="{{home}}" title="{{ site.name }} - {{ site.description }}">
-                        <img src="{{home}}/wp-content/uploads/2025/02/logo-grit-lab-11-68ddc1.svg" alt="{{ site.name }} - {{ site.description }}" class="img-fluid"> 
-					</a>
-				</div> 
-			</div> 
-        </div>
-        <div class="row  justify-content-center">
-			
+{# * GRIT_SET Legend | Footer 3
+01 | Centered site logo and introductory widget.
+02 | Footer navigation, contacts and social links.
+03 | Copyright and legal links.
+Keep this layout independent; shared appearance is in _footer.scss.
+#}
+{% set footer_links = footer_menu.get_items ?: primary_menu.get_items %}
+{% set privacy_url = function('get_privacy_policy_url') ?: function('home_url', '/privacy-policy/') %}
+{% set cookie_url = function('home_url', '/cookie-policy/') %}
 
-
-            {% if footer_col_1 %} 
-			    <div class="col-12 col-sm-10 col-md-8 col-lg-6 text-center ">
-			    	{{footer_col_1}}
-			    </div>
-            {% endif %}
-            
-		    <div class="col-12 py-5 ">
-		    	<hr>
-		    	{% if primary_menu.get_items %}
-		     
-                        <ul class="nav d-flex flex-column flex-md-row justify-content-around footer-main-menu list-unstyled">
-		    			{% for item in primary_menu.get_items %}
-		    				<li class="{{ item.classes | join(' ') }} text-uppercase my-1 my-md-4">
-		    					<a href="{{ item.get_link }}" {% if item.custom._menu_item_target %} target="{{item.custom._menu_item_target}}" {% endif %}>
-		    						<span data-letters="{{ item.title }}">{{ item.title }}</span>
-		    					</a>
-		    				</li>
-		    			{% endfor %}
-		    		</ul>
-         
-		    	{% endif %}
-		    	<hr>
-		    </div> 
-
-<div class="col-12 col-md-12 text-center py-2">
-	 
-					{# <p class="font-secondary">{{ setting_intestazione }}</p> #}
-                     {% if setting_indirizzo_1 %}
-                    <a href="https://www.google.com/maps/dir/?api=1&destination={{ setting_indirizzo_1 | url_encode }}" target="_blank">
-						{{ setting_indirizzo_1 }}
-					</a>
-                    {% endif %}
- 
-		 
-                {% if setting_mail_1 %}
-                
-				<p>
-					{# <span class=" ">{{__('E-Mail:', 'grit_theme')}}</span> #}
-					<a href="mailto:{{ setting_mail_1 }}" class="link-footer">{{ setting_mail_1 }}</a>
-				</p>
+{# * GRIT_SET 01 | Centered presentation. #}
+<div class="section-footer contained py-5 text-center">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <div class="footer-logo mb-4">
+                    <a href="{{ function('esc_url', home)|e('html_attr') }}">
+                        {% if custom_logo_url[0] %}
+                            <img src="{{ function('esc_url', custom_logo_url[0])|e('html_attr') }}" alt="{{ site.name|e('html_attr') }}" class="img-fluid">
+                        {% else %}
+                            <span class="h3">{{ site.name|e }}</span>
+                        {% endif %}
+                    </a>
+                </div>
+                {% if footer_col_1 %}
+                    <div class="mb-4">{{ footer_col_1 }}</div>
                 {% endif %}
-                 {% if setting_tel_1 %}
-                <p>
-					{# <span class=" ">{{__('Tel:', 'grit_theme')}}</span> #}
-					<a href="tel:{{ setting_tel_1 }}" class="link-footer">{{ setting_tel_1 }}</a>
-				</p>
-                 {% endif %}
-
-                <div class="inner-social d-inline-block my-2">
-					<p class="h1">
-                        {% if setting_facebook %}
-                        <a href="{{setting_facebook}}" target="_blank" class="mr-2 ">
-                            <i class="fab fa-facebook"></i>
-                        </a>
+                {# * GRIT_SET 02 | Navigation and company details. #}
+                {% if footer_links %}
+                    <div class="footer-navigation my-4 py-4">
+                        {% if footer_links %}
+                            <nav aria-label="{{ __('Menu footer', 'grit_theme')|e('html_attr') }}">
+                                <ul class="footer-menu list-unstyled mb-0">
+                                    {% for item in footer_links %}
+                                        <li class="{{ item.classes|join(' ')|e('html_attr') }}">
+                                            <a href="{{ function('esc_url', item.get_link)|e('html_attr') }}"{% if item.target %} target="{{ item.target|e('html_attr') }}"{% if item.target == '_blank' %} rel="noopener noreferrer"{% endif %}{% endif %}>{{ item.title|e }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </nav>
                         {% endif %}
-                        {% if setting_instagram %}
-                        <a href="{{setting_instagram}}" target="_blank" class="mr-2 ">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        {% endif %}
-                        {% if setting_linkedin %}
-                        <a href="{{setting_linkedin}}" target="_blank" class="mr-2 ">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        {% endif %}
+                    </div>
+                {% endif %}
+                {% if setting_intestazione %}
+                    <h3 class="h5">{{ setting_intestazione|e }}</h3>
+                {% endif %}
+                {% if setting_indirizzo_1 %}
+                    <p>
+                        <a href="https://www.google.com/maps/dir/?api=1&amp;destination={{ setting_indirizzo_1|url_encode }}" target="_blank" rel="noopener noreferrer">{{ setting_indirizzo_1|e }}</a>
                     </p>
-				</div>
-			</div>
-
-             
-			 
-		</div>
-	</div>
-</section>
-<section class="footer-bottom contained py-1">
-	<div class="container-fluid ">
-		<div class="row">
-			<div class="col text-center">
-				<small>
-                    Copyright
-				{{ "now"|date('Y') }}
-				-
-				<span class="text-uppercase">
-					{{ setting_intestazione }}
-				</span>
-				P.IVA
-				{{ setting_piva }}
-				{# {% if setting_indirizzo_1 %}
-					<i class="fas fa-map-marker-alt"></i>
-					{{ setting_indirizzo_1 }}
-				{% endif %}
-
-				{% if setting_mail_1 %}
-					<i class="fas fa-at"></i>
-					<a href="mailto:{{ setting_mail_1 }}">
-						{{ setting_mail_1 }}
-					</a>
-				{% endif %}
-
-				{% if setting_tel_1 %}
-					<i class="fas fa-phone"></i>
-					<a href="tel:{{ setting_tel_1 }}">
-						{{ setting_tel_1 }}
-					</a>
-				{% endif %} #}
-
-
-				<a href="{{ home }}/privacy-policy/" class="link-footer">
-					Privacy Policy
-				</a>•
-				<a href="{{ home }}/cookie-policy/" class="link-footer">
-					Cookie Policy
-				</a>
-                </small>
-			</div>
-		</div>
-	</div>
-</section>
+                {% endif %}
+                {% if setting_mail_1 or setting_tel_1 %}
+                    <ul class="footer-contacts list-unstyled mb-0">
+                        {% if setting_mail_1 %}
+                            <li><a href="{{ function('esc_url', 'mailto:' ~ setting_mail_1)|e('html_attr') }}">{{ setting_mail_1|e }}</a></li>
+                        {% endif %}
+                        {% if setting_tel_1 %}
+                            <li><a href="{{ function('esc_url', 'tel:' ~ setting_tel_1|replace({' ': '', '(': '', ')': '', '-': '', '.': ''}))|e('html_attr') }}">{{ setting_tel_1|e }}</a></li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+                {% if setting_facebook or setting_instagram or setting_linkedin %}
+                    <div class="footer-social">
+                        {% include 'headers/nav-social.twig' %}
+                    </div>
+                {% endif %}
+                {% if footer_bottom %}
+                    <div class="footer-widgets-bottom mt-4">{{ footer_bottom }}</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{# * GRIT_SET 03 | Copyright and legal links. Empty company fields are omitted. #}
+<div class="footer-bottom contained py-3">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6 mb-3 mb-md-0">
+                <p class="mb-0">© {{ "now"|date('Y') }} {{ setting_intestazione|default(site.name)|e }}{% if setting_piva %} · {{ __('P.IVA', 'grit_theme') }} {{ setting_piva|e }}{% endif %}</p>
+            </div>
+            <div class="col-12 col-md-6">
+                <ul class="footer-policy list-unstyled mb-0">
+                    <li><a href="{{ function('esc_url', privacy_url)|e('html_attr') }}">Privacy Policy</a></li>
+                    <li><a href="{{ function('esc_url', cookie_url)|e('html_attr') }}">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

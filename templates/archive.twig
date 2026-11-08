@@ -1,77 +1,68 @@
 {#
- * GRIT_SET Archive
- * Legend
- * 01 | Sections Before Content
- * 02 | Content
- * 03 | Archive Results
- * 04 | Sections After Content
+ * GRIT_SET Archive legend
+ * 01 | Sections before content
+ * 02 | Associated page or taxonomy content
+ * 03 | Heading, search, result counts and cards
+ * 04 | Sections after content
  #}
- 
-{# This file demonstrates using most of the index.twig template and modifying 
-   just a small part. See `search.twig` for an example of another approach #}
-
-{% extends "index.twig" %}
+{% extends 'base.twig' %}
 
 {% block content %}
+    <article class="archive{% if post %} post-type-{{ post.post_type|e('html_attr') }}{% endif %}"{% if page_id %} id="archive-page-{{ page_id|e('html_attr') }}"{% endif %}>
+        {# * GRIT_SET 01 | ACF sections can also come from an associated archive page. #}
+        {% include 'partials/sections.twig' with {sections: sections|default([]), pre_content: true} %}
 
-<article class="post-type-{{post.post_type}}" id="post-{{post.ID}}"> 
+        {# * GRIT_SET 02 | PHP prepares page content or the taxonomy description. #}
+        {% if content is not empty %}
+            <section class="section_page contained py-3">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">{{ content }}</div>
+                    </div>
+                </div>
+            </section>
+        {% endif %}
 
-{# * GRIT_SET 01 | Sections Before Content #} 
-{% include 'partials/sections.twig' with { sections: sections|default([]), pre_content: true } %}
- 
+        {# * GRIT_SET 03 | Search overrides only archive_heading; cards are edited directly below. #}
+        <div class="page_archive contained py-3">
+            <div class="container-fluid">
+                {% block archive_heading %}
+                    {% if title and not page_id and not sections %}
+                        <div class="row">
+                            <div class="col-12"><h1>{{ function('esc_html', title) }}</h1></div>
+                        </div>
+                    {% endif %}
+                {% endblock %}
 
-{# * GRIT_SET 02 | Content #} 
-	{% if content is not empty %}
-	    <section class="section_page contained py-3">
-	        <div class="container-fluid">
-	            <div class="row">
-	                <div class="col-12">  
-	                    {{ content }}
-	                </div>
-	            </div>
-	        </div>
-	    </section>
-	{% endif %}
- 
+                <div class="row pb-3">
+                    <div class="col-12 col-md-6 py-3">
+                        {% include 'partials/searchform.twig' %}
+                    </div>
+                    <div class="col-12 col-md-6 py-3 text-md-right">
+                        <p class="m-0">
+                            {{ __('Vista dei risultati da', 'grit_theme') }}
+                            <b>{{ startpost }}</b> {{ __('a', 'grit_theme') }}
+                            <b>{{ endpost }}</b> {{ __('di', 'grit_theme') }}
+                            <b>{{ found_posts }}</b>
+                        </p>
+                    </div>
+                </div>
 
-{# * GRIT_SET 03 | Archive Results #} 
-	<div class="page_archive contained py-3">
-		<div class="container-fluid">
-			<div class="row pb-3">
-				<div class="col-12 col-md-6 py-3">
-					{% include 'partials/searchform.twig' %}
-				</div>
-				<div class="col-12 col-md-6 py-3 text-md-right">
-					<p class="m-0">{{__('Vista dei risultati da', 'grit_theme')}}
-						<b>{{ startpost }}</b>
-						{{__('a', 'grit_theme')}}
-						<b>{{ endpost }}</b>
-						{{__('di', 'grit_theme')}}
-						<b>{{ found_posts }}</b>
-					</p>
-				</div>
-			</div>
-			<div class="row">  
-				{{ parent() }}   
-				{# 
-					// Standard parent is in index.twig
-					{% set grid = 'col col-12 col-sm-6 col-md-6 mb-3' %}   
-					{% for post in posts %}
-						{% include ['partials/tease-'~ post.post_type ~'.twig', 'partials/tease.twig'] with {'post': post, 'grid': grid}%}
-					{% endfor %}   
-					<div class="col-12 d-flex justify-content-center">
-						{% include 'partials/pagination.twig' with { pagination: posts.pagination({show_all: false, mid_size: 3, end_size: 2}) } %}
-					</div>
- 				#}
-			</div>
-		</div>
-	</div>
- 
-	
-{# * GRIT_SET 04 | Sections After Content #} 
-{% include 'partials/sections.twig' with { sections: sections|default([]), pre_content: false } %}
- 
+                <div class="row">
+                    {% set grid = 'col col-12 col-sm-6 col-md-6 mb-3' %}
+                    {% for post in posts %}
+                        {% include ['partials/tease-' ~ post.post_type ~ '.twig', 'partials/tease.twig'] with {post: post, grid: grid} %}
+                    {% else %}
+                        <div class="col-12"><p>{{ __('Nessun contenuto trovato.', 'grit_theme') }}</p></div>
+                    {% endfor %}
+                    <div class="col-12 d-flex justify-content-center">
+                        {% include 'partials/pagination.twig' with {pagination: posts.pagination({show_all: false, mid_size: 3, end_size: 2})} %}
+                    </div>
+                </div>
+            </div>
+        </div>
 
-</article>  
+        {# * GRIT_SET 04 | ACF sections below the result list. #}
+        {% include 'partials/sections.twig' with {sections: sections|default([]), pre_content: false} %}
+    </article>
 {% endblock %}
-

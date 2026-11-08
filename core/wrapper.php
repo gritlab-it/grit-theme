@@ -1,9 +1,16 @@
 <?php
+
+// * GRIT_SET Legend | Wrapper
+// Optional legacy PHP template wrapper.
+// Optional module: check the include list in functions.php before enabling it.
+// 01 | Resolve legacy PHP template parts
+// 02 | Read the selected main template
+
 /**
  * Theme wrapper
  */
 
-
+// * GRIT_SET 01 | Resolve legacy PHP template parts
 function get_part($path) {
 
       $is_header = explode("/", $path);
@@ -17,6 +24,7 @@ function get_part($path) {
       }
 }
 
+// * GRIT_SET 02 | Read the selected main template
 function grit_template_path() {
     return grit_Wrapping::$main_template;
 }

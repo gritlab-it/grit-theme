@@ -1,7 +1,14 @@
 <?php
+
+// * GRIT_SET Legend | Init
+// Theme setup, supports, navigation and widget areas.
+// 01 | Theme translations, supports and navigation
+// 02 | Register sidebar and footer widget areas
+
 /**
  * Roots initial setup and constants
  */
+// * GRIT_SET 01 | Theme translations, supports and navigation
 function grit_setup() {
   // Make theme available for translation
   load_theme_textdomain('grit', get_template_directory() . '/lang');
@@ -9,7 +16,10 @@ function grit_setup() {
   // Register wp_nav_menu() menus
   // http://codex.wordpress.org/Function_Reference/register_nav_menus
   register_nav_menus(array(
-    'primary_navigation' => __('Primary Navigation', 'grit')
+    'primary_navigation' => __('Primary Navigation', 'grit'),
+    'secondary_navigation' => __('Secondary Navigation', 'grit'),
+    'mobile_navigation' => __('Mobile Navigation', 'grit'),
+    'footer_navigation' => __('Footer Navigation', 'grit')
   ));
 
   // Add post thumbnails
@@ -18,7 +28,6 @@ function grit_setup() {
   // http://codex.wordpress.org/Function_Reference/add_image_size
   add_theme_support('post-thumbnails');
 
-  // Enable to load jQuery from the Google CDN
   // * GRIT_SET jQuery is supplied by WordPress; no CDN theme support is required.
 
   // Add post formats
@@ -34,6 +43,7 @@ add_action('after_setup_theme', 'grit_setup');
 /**
  * Register sidebars
  */
+// * GRIT_SET 02 | Register sidebar and footer widget areas
 function grit_widgets_init() {
   register_sidebar(array(
     'name'          => __('Primary', 'grit'),
@@ -91,7 +101,6 @@ function grit_widgets_init() {
        'before_title'  => '<h3>',
        'after_title'   => '</h3>',
   ));
-
 
 }
 add_action('widgets_init', 'grit_widgets_init');

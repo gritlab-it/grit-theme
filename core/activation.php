@@ -1,5 +1,16 @@
 <?php
 
+// * GRIT_SET Legend | Activation
+// Theme activation screen, setup options and initial content.
+// 01 | Reset activation options when switching themes
+// 02 | Redirect to the activation options screen
+// 03 | Register activation settings and admin screen
+// 04 | Render the setup form
+// 05 | Apply selected setup operations
+// 06 | Import the local ACF field definitions
+// 07 | Apply agency name and screenshots during setup
+// 08 | Theme activation and setup save hooks
+
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 /**
@@ -7,18 +18,21 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
  */
 
 // Funzione per la disattivazione del tema
+// * GRIT_SET 01 | Reset activation options when switching themes
 function grit_deactivation() {
     delete_option('grit_theme_activation_options');
 }
 add_action('switch_theme', 'grit_deactivation');
 
 // Reindirizzamento dopo l'attivazione del tema
+// * GRIT_SET 02 | Redirect to the activation options screen
 if (is_admin() && isset($_GET['activated']) && 'themes.php' == $GLOBALS['pagenow']) {
     wp_redirect(admin_url('themes.php?page=theme_activation_options'));
     exit;
 }
 
 // Registrazione delle impostazioni di attivazione del tema
+// * GRIT_SET 03 | Register activation settings and admin screen
 function grit_theme_activation_options_init() {
     register_setting(
         'grit_activation_options',
@@ -50,6 +64,7 @@ function grit_get_theme_activation_options() {
     return get_option('grit_theme_activation_options');
 }
 
+// * GRIT_SET 04 | Render the setup form
 function grit_theme_activation_options_render_page() { ?>
     <div class="wrap">
         <h2><?php printf(__('%s Theme Activation', 'grit'), wp_get_theme()); ?></h2>
@@ -159,6 +174,7 @@ function grit_theme_activation_options_render_page() { ?>
 
 <?php }
 
+// * GRIT_SET 05 | Apply selected setup operations
 function grit_theme_activation_action() {
 
     if (!($grit_theme_activation_options = grit_get_theme_activation_options())) {
@@ -168,9 +184,9 @@ function grit_theme_activation_action() {
     if (strpos(wp_get_referer(), 'page=theme_activation_options') === false) {
         return;
     }
-    
- 
-    /* Default pages configuration */
+
+    // Default pages configuration
+
 $default_pages = array();
 
 if ($grit_theme_activation_options['create_additional_page'] === 'true') {
@@ -250,13 +266,12 @@ if ($grit_theme_activation_options['create_additional_page'] === 'true') {
             'menu_label' => __('Search', 'grit'),
         ),
 
-
     );
 }
-/* End default pages configuration */
+// End default pages configuration
 
+// Create front page
 
-/* Create front page */
 if ($grit_theme_activation_options['create_front_page'] === 'true') {
     $grit_theme_activation_options['create_front_page'] = false;
 
@@ -322,10 +337,8 @@ if (get_theme_mod('grit_setting_footer', false) === false) {
     set_theme_mod('grit_setting_footer', 'footer_1');
 }
 
+    // change_permalink_structure
 
-
-
-    /* change_permalink_structure */
     if ($grit_theme_activation_options['change_permalink_structure'] === 'true') {
         $grit_theme_activation_options['change_permalink_structure'] = false;
 
@@ -335,9 +348,10 @@ if (get_theme_mod('grit_setting_footer', false) === false) {
             flush_rewrite_rules();
         }
     }
-    /* end - change_permalink_structure */
+    // end - change_permalink_structure
 
-    /* create_navigation_menus */
+    // create_navigation_menus
+
     if ($grit_theme_activation_options['create_navigation_menus'] === 'true') {
         $grit_theme_activation_options['create_navigation_menus'] = false;
     
@@ -364,9 +378,10 @@ if (get_theme_mod('grit_setting_footer', false) === false) {
             set_theme_mod('nav_menu_locations', $nav_theme_mod);
         }
     }
-    /* end - create_navigation_menus */
-    
-    /* add_pages_to_all_navigation_menus */
+    // end - create_navigation_menus
+
+    // add_pages_to_all_navigation_menus
+
 if ($grit_theme_activation_options['add_pages_to_primary_navigation'] === 'true') {
     $grit_theme_activation_options['add_pages_to_primary_navigation'] = false;
 
@@ -427,10 +442,10 @@ if ($grit_theme_activation_options['add_pages_to_primary_navigation'] === 'true'
         }
     }
 }
-    /* end - add_pages_to_all_navigation_menus */
-    
-    /* create_cf7_template */  
-    
+    // end - add_pages_to_all_navigation_menus
+
+    // create_cf7_template
+
         // Funzione per creare un modulo di contatto CF7 personalizzato.
         function create_custom_cf7_form() {
 
@@ -471,8 +486,7 @@ $cf7_id = wp_generate_uuid4();
                 [text current-page ]
                 [submit class:btn class:btn-primary "Invia"]
             ');
-     
-    
+
             // Corpo dell'email in HTML con campi dinamici.
         $email_body = "
         <!DOCTYPE html>
@@ -593,8 +607,7 @@ $cf7_id = wp_generate_uuid4();
                 // Puoi aggiungere il codice per gestire l'errore qui.
                 error_log('Errore durante la creazione del modulo CF7 personalizzato: ' . $post_id->get_error_message());
             }
-            
-            
+
         }
 
     // Controlla se l'opzione per creare il modulo CF7 personalizzato è selezionata.
@@ -603,10 +616,7 @@ $cf7_id = wp_generate_uuid4();
         $grit_theme_activation_options['create_cf7_template'] = false;
         create_custom_cf7_form();
     }
-    /* end - create_cf7_template */
-
-
-
+    // end - create_cf7_template
 
     // Controlla se l'opzione per importare i campi ACF è attiva
     if (isset($grit_theme_activation_options['import_acf_fields']) && $grit_theme_activation_options['import_acf_fields'] === 'true') {
@@ -623,6 +633,7 @@ add_action('admin_init','grit_theme_activation_action');
 ---------------------------------------------------- --------------------------
 ---------------------------------------------------- End - Create front page */
 
+// * GRIT_SET 06 | Import the local ACF field definitions
 function import_acf_fields_from_json() {
     // Verifica se ACF è attivo
     if (!function_exists('acf_import_field_group')) {
@@ -657,7 +668,6 @@ function import_acf_fields_from_json() {
     }
 }
 
-
 function acf_field_group_exists($group_title) {
     // Verifica se la funzione ACF esiste
     if (!function_exists('acf_get_field_groups')) {
@@ -677,91 +687,51 @@ function acf_field_group_exists($group_title) {
     return false; // Il gruppo non esiste
 }
 
-
-
-function update_theme_name() {
-	// Percorso del file JSON
-	$json_file_path = get_template_directory() . '/assets/credits/credits.json';
-  
-	// Leggi il contenuto del file JSON
-	$json_data = file_get_contents($json_file_path);
-  
-	// Decodifica il contenuto JSON in un array associativo
-	$data = json_decode($json_data, true);
-  
-	// Controlla se la decodifica è avvenuta con successo
-	if ($data !== null && isset($data['agency'][0])) {
-  
-		// Accesso alle informazioni sull'agenzia
-		$agency = $data['agency'][0]; // Prendi il primo elemento dell'array "agency" 
-		// Includi lo script JavaScript per stampare i crediti nella console 
-
-    // Nuovo nome del tema preso dal file JSON
-		$new_theme_name = esc_html($agency['theme']);
-  
-		// === Modifica del tema padre ===
-		$parent_style_css_path = get_template_directory() . '/style.css';
-  
-		// Verifica se il file style.css del tema padre esiste
-		if (file_exists($parent_style_css_path)) {
-			// Leggi il contenuto attuale di style.css del tema padre
-			$parent_style_css = file_get_contents($parent_style_css_path);
-  
-			// Cerca e sostituisci la riga con il nome del tema nel commento del file style.css
-			$parent_style_css = preg_replace('/(Theme Name:\s*)(.*)/', 'Theme Name: ' . esc_html($new_theme_name), $parent_style_css);
-  
-			// Scrivi il nuovo contenuto nel file style.css del tema padre
-			if (file_put_contents($parent_style_css_path, $parent_style_css)) {
-				// echo '<script>console.log("Il nome del tema padre è stato aggiornato a: ' . esc_js($new_theme_name) . '");</script>';
-			} else {
-				// echo '<script>console.error("Errore: impossibile aggiornare il file style.css del tema padre.");</script>';
-			}
-		} else {
-			// echo '<script>console.error("Errore: il file style.css del tema padre non esiste.");</script>';
-		}
-  
-		// === Modifica del tema child ===
-		if (is_child_theme()) {
-			$child_style_css_path = get_stylesheet_directory() . '/style.css';
-			$new_child_theme_name = $new_theme_name . ' Child'; // Aggiungi "Child" al nome del tema per il child theme
-  
-			// Verifica se il file style.css del tema child esiste
-			if (file_exists($child_style_css_path)) {
-				// Leggi il contenuto attuale di style.css del tema child
-				$child_style_css = file_get_contents($child_style_css_path);
-  
-				// Cerca e sostituisci la riga con il nome del tema nel commento del file style.css del tema child
-				$child_style_css = preg_replace('/(Theme Name:\s*)(.*)/', 'Theme Name: ' . esc_html($new_child_theme_name), $child_style_css);
-  
-				// Scrivi il nuovo contenuto nel file style.css del tema child
-				if (file_put_contents($child_style_css_path, $child_style_css)) {
-					// echo '<script>console.log("Il nome del tema child è stato aggiornato a: ' . esc_js($new_child_theme_name) . '");</script>';
-				} else {
-					// echo '<script>console.error("Errore: impossibile aggiornare il file style.css del tema child.");</script>';
-				}
-			} else {
-				// echo '<script>console.error("Errore: il file style.css del tema child non esiste.");</script>';
-			}
-		}
-	} else {
-		// Messaggio di errore se il file JSON non è stato decodificato correttamente
-		echo '<span id="footer-thankyou">Errore: impossibile caricare le informazioni sull\'agenzia.</span>';
-	}
-  }
-  
-
-  // Funzione che aggiorna il nome del tema quando vengono salvate le opzioni di attivazione del tema
-function update_theme_name_on_save() {
-    if (isset($_POST['grit_theme_activation_options'])) {
-        update_theme_name();
+// Update only an existing Theme Name header. Never rewrite unchanged or unwritable files.
+function grit_update_theme_label($path, $name) {
+    if (!is_file($path) || !is_readable($path)) {
+        return 'missing';
     }
+    $current = @file_get_contents($path);
+    if ($current === false) {
+        return 'failed';
+    }
+    $updated = preg_replace_callback('/^(\s*Theme Name:\s*)[^\r\n]*/m', function ($match) use ($name) {
+        return $match[1] . sanitize_text_field($name);
+    }, $current, 1, $count);
+    if (!$count) {
+        return 'missing-header';
+    }
+    if ($updated === $current) {
+        return 'unchanged';
+    }
+    if (!is_writable($path)) {
+        return 'not-writable';
+    }
+    return @file_put_contents($path, $updated, LOCK_EX) !== false ? 'updated' : 'failed';
 }
+
+// * GRIT_SET 07 | Apply the selected agency name and screenshots during authorized theme setup only.
+function update_theme_name() {
+    if (!current_user_can('edit_theme_options')) {
+        return [];
+    }
+    $agency = grit_agency_data();
+    $results = ['parent' => grit_update_theme_label(get_template_directory() . '/style.css', $agency['theme'])];
+    if (is_child_theme() && get_stylesheet_directory() !== get_template_directory()) {
+        $results['child'] = grit_update_theme_label(get_stylesheet_directory() . '/style.css', $agency['theme'] . ' Child');
+    }
+    $results['screenshots'] = grit_sync_agency_screenshots();
+    return $results;
+}
+
+// * GRIT_SET 08 | Initial activation and setup saves; rendering pages never triggers file writes.
+function update_theme_name_on_save() {
+    return update_theme_name();
+}
+add_action('after_switch_theme', 'update_theme_name_on_save');
+add_action('add_option_grit_theme_activation_options', 'update_theme_name_on_save');
 add_action('update_option_grit_theme_activation_options', 'update_theme_name_on_save');
-
- 
-
-
-
 
 // function my_custom_sql_views() {
 //     global $wpdb;
@@ -774,8 +744,4 @@ add_action('update_option_grit_theme_activation_options', 'update_theme_name_on_
 // }
 
 // add_action("after_switch_theme", "my_custom_sql_views");
-
-
-
-
 

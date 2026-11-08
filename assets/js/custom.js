@@ -20,7 +20,7 @@
 /* :::::::::::::: 10.2.1 * Parallax Image Scroll */ 
 /* :::::::::::::: 10.2.2 * Horizontal Scroll Container */ 
 /* :::::::::::::: 10.2.3 * Vertical Panels Scroll */ 
-/* :::::::::::::: 10.2.4 * Word Reveal (SplitText) */ 
+/* :::::::::::::: 10.2.4 * Word Reveal */
 /* :::::::::::::: 10.2.5 * Sequential Word Reveal */ 
 /* :::::::::::::: 10.2.6 * Horizontal Scroll of Long Sentences */ 
 /* :::::::::::::: 10.2.7 * Dual Horizontal Scroll */ 
@@ -154,74 +154,220 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /* :::::::::::::: 02 * GRIT_SET menu showing */
-$(document).ready(function () {
-    $(".menu-icon").on("click", function () {
-        $("nav ul").toggleClass("showing");
-        // alert('showing menu-icon');
-    });
-});
-
-$(document).ready(function () {
-    // Evento per aprire il menu
-    $(".menu-toggle").on("click", function () {
-        openNav("header-sidenav"); // Apri il menu usando la funzione openNav
-        // alert('menu-toggle');
-    });
-    
-    // Evento per chiudere il menu
-    $(".menu-close").on("click", function () {
-        closeNav("header-sidenav"); // Chiudi il menu usando la funzione closeNav
-        // alert('menu-close');
-    });
-    
-    // Evento per chiudere il menu quando si clicca su una voce del menu
-    $(".overlay-content li").on("click", function () {
-        closeNav("header-sidenav");
-        // alert('overlay-content li');
-    });
-});
-
-function openNav(elementId) {
-    var element = document.getElementById(elementId);
-    if (element) {
-        element.classList.add("sidenav-open");
-        element.classList.remove("sidenav-close");
-        setTimeout(function () {
-            element.style.width = "100%";
-        }, 20);
-    }
-}
-
-function closeNav(elementId) {
-    var element = document.getElementById(elementId);
-    if (element) {
-        element.classList.add("sidenav-close");
-        element.classList.remove("sidenav-open");
-        setTimeout(function () {
-            element.style.width = "0";
-        }, 500);
-    }  
-}
-
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 03 * GRIT_SET sticky */
+// * GRIT_SET Header navigation | Inline expansion (1), overlay dialogs (2–5), shared submenus and sticky state.
 $(function () {
-    // Caches a jQuery object containing the header element
-    var header = $(".sticky");
-    var lastScrollTop = 0;
-    
-    $(window).scroll(function () {
-        var scroll = $(window).scrollTop();
-        
-        if (scroll >= 500) {
-            header.removeClass("sticky").addClass("sticky-in");
-        } else {
-            header.removeClass("sticky-in").addClass("sticky");
+    document.querySelectorAll(".grit-header").forEach(function (header) {
+        var panel = header.querySelector("[data-mobile-panel]");
+        var inlineButtons = Array.from(header.querySelectorAll("[data-inline-menu-toggle]"));
+        if (!panel && !inlineButtons.length) return;
+        var openers = Array.from(
+            header.querySelectorAll("[data-menu-open], [data-inline-menu-toggle]"),
+        );
+        var sticky = header.querySelector(".sticky-fix");
+        var returnFocus = null;
+        var isOpen = false;
+        var stickyVisible = null;
+
+        // * GRIT_SET Preset 1 expands the matching bar in flow, independently of overlay mechanics.
+        function setInline(button, expanded) {
+            var menu = document.getElementById(button.getAttribute("aria-controls"));
+            if (!menu) return;
+            button.setAttribute("aria-expanded", String(expanded));
+            menu.classList.toggle("is-menu-open", expanded);
+            if (!expanded)
+                menu.querySelectorAll("[data-submenu-toggle]").forEach(function (child) {
+                    setSubmenu(child, false);
+                });
         }
+
+        function setSubmenu(button, expanded) {
+            var menu = document.getElementById(button.getAttribute("aria-controls"));
+            if (!menu) return;
+            button.setAttribute("aria-expanded", String(expanded));
+            menu.hidden = !expanded;
+            if (!expanded)
+                menu.querySelectorAll("[data-submenu-toggle]").forEach(function (child) {
+                    child.setAttribute("aria-expanded", "false");
+                    var nested = document.getElementById(child.getAttribute("aria-controls"));
+                    if (nested) nested.hidden = true;
+                });
+        }
+        function setPanel(expanded, opener, restoreFocus) {
+            isOpen = expanded;
+            if (expanded) returnFocus = opener || document.activeElement;
+            panel.inert = !expanded;
+            panel.setAttribute("aria-hidden", String(!expanded));
+            panel.classList.toggle("sidenav-open", expanded);
+            panel.classList.toggle("sidenav-close", !expanded);
+            document.documentElement.classList.toggle("grit-menu-open", expanded);
+            openers.forEach(function (button) {
+                button.setAttribute("aria-expanded", String(expanded));
+            });
+            if (expanded) {
+                // * GRIT_SET Keep keyboard focus inside the dialog while its content reveal is delayed.
+                panel.focus({ preventScroll: true });
+                requestAnimationFrame(function () {
+                    var closeButton = panel.querySelector("[data-menu-close]");
+                    if (isOpen && getComputedStyle(closeButton).visibility === "visible")
+                        closeButton.focus({ preventScroll: true });
+                });
+            } else {
+                panel.querySelectorAll("[data-submenu-toggle]").forEach(function (button) {
+                    setSubmenu(button, false);
+                });
+                if (
+                    restoreFocus !== false &&
+                    returnFocus &&
+                    getComputedStyle(returnFocus).display !== "none"
+                )
+                    returnFocus.focus();
+            }
+        }
+        // * GRIT_SET Focus the close button once the delayed content reveal makes it visible.
+        if (panel)
+            panel.addEventListener("transitionend", function (event) {
+                if (
+                    isOpen &&
+                    (document.activeElement === panel ||
+                        openers.indexOf(document.activeElement) !== -1) &&
+                    getComputedStyle(panel.querySelector("[data-menu-close]")).visibility ===
+                        "visible"
+                ) {
+                    panel.querySelector("[data-menu-close]").focus({ preventScroll: true });
+                }
+            });
+        header.addEventListener("click", function (event) {
+            var inlineToggle = event.target.closest("[data-inline-menu-toggle]");
+            if (inlineToggle) {
+                var expanded = inlineToggle.getAttribute("aria-expanded") !== "true";
+                inlineButtons.forEach(function (button) {
+                    setInline(button, button === inlineToggle && expanded);
+                });
+                return;
+            }
+            if (event.target.closest(".header-inline-nav a[href]"))
+                inlineButtons.forEach(function (button) {
+                    setInline(button, false);
+                });
+            var opener = event.target.closest("[data-menu-open]");
+            if (opener) {
+                setPanel(true, opener);
+                return;
+            }
+            if (event.target.closest("[data-menu-close]")) {
+                setPanel(false);
+                return;
+            }
+            var submenu = event.target.closest("[data-submenu-toggle]");
+            if (submenu) {
+                setSubmenu(submenu, submenu.getAttribute("aria-expanded") !== "true");
+                return;
+            }
+            // Only actual links close the panel; expanding a parent never closes it.
+            if (isOpen && event.target.closest(".overlay-content a[href]"))
+                setPanel(false, null, false);
+        });
+        document.addEventListener("click", function (event) {
+            if (!header.contains(event.target)) {
+                inlineButtons.forEach(function (button) {
+                    setInline(button, false);
+                });
+                header
+                    .querySelectorAll('[data-submenu-toggle][aria-expanded="true"]')
+                    .forEach(function (button) {
+                        setSubmenu(button, false);
+                    });
+            }
+        });
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape") {
+                if (isOpen) {
+                    event.preventDefault();
+                    setPanel(false);
+                } else {
+                    inlineButtons.forEach(function (button) {
+                        if (button.getAttribute("aria-expanded") === "true") {
+                            setInline(button, false);
+                            button.focus();
+                        }
+                    });
+                    var expanded = header.querySelectorAll(
+                        '[data-submenu-toggle][aria-expanded="true"]',
+                    );
+                    if (expanded.length) {
+                        expanded[expanded.length - 1].focus();
+                        expanded.forEach(function (button) {
+                            setSubmenu(button, false);
+                        });
+                    }
+                }
+            }
+            if (event.key === "Tab" && isOpen) {
+                var focusable = Array.from(
+                    panel.querySelectorAll('a[href], button:not([disabled]), [tabindex="0"]'),
+                ).filter(function (el) {
+                    return (
+                        el.getClientRects().length &&
+                        !el.closest("[hidden]") &&
+                        getComputedStyle(el).visibility === "visible"
+                    );
+                });
+                var first = focusable[0],
+                    last = focusable[focusable.length - 1];
+                if (!first) {
+                    event.preventDefault();
+                    panel.focus({ preventScroll: true });
+                } else if (document.activeElement === panel || !panel.contains(document.activeElement)) {
+                    event.preventDefault();
+                    (event.shiftKey ? last : first).focus();
+                } else if (event.shiftKey && document.activeElement === first) {
+                    event.preventDefault();
+                    last.focus();
+                } else if (!event.shiftKey && document.activeElement === last) {
+                    event.preventDefault();
+                    first.focus();
+                }
+            }
+        });
+        // Desktop hover is an enhancement; click and keyboard controls remain available everywhere.
+        header.querySelectorAll(".navbar-collapse .dropdown").forEach(function (item) {
+            var button = item.querySelector("[data-submenu-toggle]");
+            if (!button) return;
+            item.addEventListener("mouseenter", function () {
+                if (
+                    window.matchMedia("(hover: hover)").matches &&
+                    getComputedStyle(openers[0]).display === "none"
+                )
+                    setSubmenu(button, true);
+            });
+            item.addEventListener("mouseleave", function () {
+                if (!item.contains(document.activeElement)) setSubmenu(button, false);
+            });
+        });
+        function updateSticky() {
+            if (!sticky) return;
+            var visible = window.scrollY >= 500;
+            if (!visible && stickyVisible)
+                inlineButtons.forEach(function (button) {
+                    if (sticky.contains(button)) setInline(button, false);
+                });
+            stickyVisible = visible;
+            sticky.classList.toggle("sticky-in", visible);
+            sticky.inert = !visible;
+            sticky.setAttribute("aria-hidden", String(!visible));
+        }
+        window.addEventListener("scroll", updateSticky, { passive: true });
+        window.addEventListener("resize", function () {
+            inlineButtons.forEach(function (button) {
+                setInline(button, false);
+            });
+            if (isOpen && getComputedStyle(openers[0]).display === "none")
+                setPanel(false, null, false);
+        });
+        updateSticky();
     });
 });
 
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 /* :::::::::::::: 03 * GRIT_SET owl-carousel */
 // * GRIT_SET Shared Owl presets and responsive class overrides
 (function ($) {
@@ -430,11 +576,11 @@ jQuery(function ($) {
     });
 });
 
-// * GRIT_SET Initialize every text Masonry grid once with a Bootstrap fallback
+// * GRIT_SET Initialize Text and Archive Masonry grids once; Bootstrap remains the fallback.
 jQuery(function () {
     if (typeof window.Masonry !== 'function') return;
-    document.querySelectorAll('.section_text .js-grit-masonry').forEach(function (grid) {
-        if (window.Masonry.data(grid)) return;
+    document.querySelectorAll('.section_text .js-grit-masonry, .section_archive .js-grit-masonry').forEach(function (grid) {
+        if (!grid.querySelector('.masonry-item') || window.Masonry.data(grid)) return;
         var masonry = new window.Masonry(grid, {
             itemSelector: '.masonry-item',
             columnWidth: '.masonry-item',
@@ -691,492 +837,262 @@ document.addEventListener('DOMContentLoaded', startCounterAnimation);
 
 /* :::::::::::::: 10 * GRIT_SET GSAP + ScrollTrigger + Lenis */ 
 
-// * GRIT_SET GSAP and Lenis are independently optional
+// * GRIT_SET Motion legend | Shared by Section Text and image parallax.
+// 01 | Optional Lenis and anchor navigation, respecting reduced motion.
+// 02 | Per-section effects; matchMedia restores animations and pin spacing.
+// 03 | Native word wrapping: preserve HTML, links and original text on cleanup.
+// 04 | Rebuild safely after resize/fonts; images request a debounced refresh.
 (function () {
-const hasGSAP = typeof window.gsap !== 'undefined' && typeof window.ScrollTrigger !== 'undefined';
-if (hasGSAP) {
-  gsap.registerPlugin(ScrollTrigger);
-  if (typeof window.SplitText !== 'undefined') gsap.registerPlugin(SplitText);
-}
-const lenis = typeof window.Lenis === 'function' ? new Lenis({
-  duration: 1.2,
-  easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-  smooth: true,
-  smoothTouch: true,
-}) : null;
-if (lenis) {
-  if (hasGSAP) {
-    lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add(time => lenis.raf(time * 1000));
-  } else {
-    const raf = time => { lenis.raf(time); requestAnimationFrame(raf); };
-    requestAnimationFrame(raf);
-  }
-}
+    const hasGSAP = !!(window.gsap && window.ScrollTrigger && window.gsap.matchMedia);
+    const motion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+    let lenis = null, lenisFrame = 0;
+    if (hasGSAP) gsap.registerPlugin(ScrollTrigger);
 
-// Scroll to anchor on click
-if (lenis) document.querySelectorAll('a[href*="#"]').forEach(anchor => {
-  anchor.addEventListener("click", function (e) {
-    const currentUrl = window.location.href.split('#')[0];
-    const targetUrl = this.href.split('#')[0];
-
-    if (this.matches('[data-toggle], [role="tab"], [role="button"]')) return;
-    if (currentUrl === targetUrl) {
-      const targetId = this.getAttribute("href").split('#')[1];
-      const targetElement = document.getElementById(targetId);
-      if (targetElement) {
-        e.preventDefault();
-        lenis.scrollTo(targetElement);
-      }
+    // * GRIT_SET 01 | Keep smooth scrolling independent from GSAP availability.
+    function tickLenis(time) { if (lenis) lenis.raf(time * 1000); }
+    function updateLenis() {
+        if (motion && motion.matches) {
+            if (lenis) {
+                if (typeof lenis.destroy === 'function') lenis.destroy();
+                lenis = null;
+                cancelAnimationFrame(lenisFrame);
+                if (hasGSAP) gsap.ticker.remove(tickLenis);
+            }
+            return;
+        }
+        if (lenis || typeof window.Lenis !== 'function') return;
+        lenis = new Lenis({ duration: 1.2, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true, smoothTouch: true });
+        if (hasGSAP) {
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add(tickLenis);
+        } else {
+            const frame = time => {
+                if (!lenis) return;
+                lenis.raf(time);
+                lenisFrame = requestAnimationFrame(frame);
+            };
+            lenisFrame = requestAnimationFrame(frame);
+        }
     }
-  });
-});
-
-// Scroll to hash on load
-window.addEventListener("load", () => {
-  const hash = window.location.hash.substring(1);
-  const target = document.getElementById(hash);
-  if (target && lenis) lenis.scrollTo(target, { duration: 1.1 });
-  if (hasGSAP) setTimeout(() => ScrollTrigger.refresh(), 250);
-});
-
-if (hasGSAP) window.addEventListener("resize", () => ScrollTrigger.refresh());
-
-// * GRIT_SET Image-dependent animation still works when ImagesLoaded is disabled
-function whenImageReady(image, callback) {
-  if (typeof window.imagesLoaded === 'function') {
-    window.imagesLoaded(image, callback);
-  } else if (image.complete) {
-    callback();
-  } else {
-    let handled = false;
-    const complete = () => { if (!handled) { handled = true; callback(); } };
-    image.addEventListener('load', complete, { once: true });
-    image.addEventListener('error', complete, { once: true });
-  }
-}
-
-// :::::::::::::: 10.2 * Init GSAP Animations
-document.addEventListener("DOMContentLoaded", function () {
-  if (!hasGSAP) return;
-
-  // :::::::::::::: 10.2.1 * Parallax Image Scroll
-  document.querySelectorAll(".gsap-parallax-container").forEach(container => {
-    const image = container.querySelector(".gsap-parallaxImage");
-    if (image) {
-      whenImageReady(image, () => {
-        gsap.timeline({
-          scrollTrigger: {
-            trigger: container,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-          immediateRender: false
-        }).to(image, {
-          scale: 1.1,
-          y: "-10%",
-          ease: "power1.inOut"
-        });
-      });
-    }
-  });
-
-  // :::::::::::::: 10.2.2 * Horizontal Scroll Container
-  function horizontalScrollContainer() {
-    document.querySelectorAll(".section-gsap-horizontal").forEach(section => {
-      const row = section.querySelector(".row");
-      if (!section || !row) return;
-
-      ScrollTrigger.getAll().forEach(t => t.trigger === section && t.kill());
-
-      const scrollWidth = row.scrollWidth - window.innerWidth;
-      if (scrollWidth > 0) {
-        gsap.to(row, {
-          x: -scrollWidth,
-          ease: "none",
-          scrollTrigger: {
-            trigger: section,
-            pin: true,
-            scrub: 1,
-            start: "top top",
-            end: `+=${scrollWidth}`,
-            invalidateOnRefresh: true
-          }
-        });
-      }
+    updateLenis();
+    if (motion && motion.addEventListener) motion.addEventListener('change', updateLenis);
+    document.addEventListener('click', function (event) {
+        const anchor = event.target.closest('a[href*="#"]');
+        if (!anchor || !lenis || event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+        if (anchor.matches('[data-toggle], [role="tab"], [role="button"], [download]') || anchor.target === '_blank') return;
+        if (anchor.href.split('#')[0] !== window.location.href.split('#')[0]) return;
+        let id;
+        try { id = decodeURIComponent(anchor.hash.slice(1)); } catch (_) { return; }
+        const target = document.getElementById(id);
+        if (target) { event.preventDefault(); lenis.scrollTo(target); }
     });
-  }
-
-  // :::::::::::::: 10.2.3 * Vertical Panels Scroll
-  function verticalPanelsScroll() {
-    document.querySelectorAll(".section-gsap-vertical").forEach(section => {
-      const panels = section.querySelectorAll(".item-chapters");
-      if (panels.length < 2) return;
-
-      panels.forEach((p, i) => {
-        p.style.zIndex = panels.length - i;
-        p.style.boxSizing = "border-box";
-      });
-
-      const totalHeight = panels.length * window.innerHeight;
-      const spacer = document.createElement("div");
-      spacer.className = "vertical-scroll-spacer";
-      spacer.style.height = `${totalHeight}px`;
-      section.after(spacer);
-
-      setTimeout(() => {
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: `+=${totalHeight}`,
-            scrub: true,
-            pin: true,
-            pinSpacing: false,
-            invalidateOnRefresh: true
-          }
-        });
-
-        panels.forEach((panel, i) => {
-          if (i < panels.length - 1) {
-            tl.to(panel, { yPercent: -100, ease: "none", duration: 1 }, i);
-          }
-        });
-      }, 50);
+    window.addEventListener('load', function () {
+        let id;
+        try { id = decodeURIComponent(window.location.hash.slice(1)); } catch (_) { return; }
+        const target = document.getElementById(id);
+        if (target && lenis) lenis.scrollTo(target, { duration: 1.1 });
     });
-  }
 
-  // :::::::::::::: 10.2.4 * Word Reveal (SplitText)
-  function splitWordReveal() {
-    if (typeof window.SplitText === "undefined") return;
-    document.querySelectorAll(".section-gsap-reveal").forEach(section => {
-      const blocks = section.querySelectorAll(".inner-text");
+    function initMotion() {
+        if (!hasGSAP) return;
+        let media = null, resizeTimer = 0, refreshTimer = 0;
+        const refresh = () => {
+            clearTimeout(refreshTimer);
+            refreshTimer = setTimeout(() => {
+                ScrollTrigger.sort();
+                ScrollTrigger.refresh();
+            }, 100);
+        };
 
-      blocks.forEach(block => {
-        block.querySelectorAll("h1,h2,h3,h4,h5,h6,p").forEach(el => {
-          if (el.dataset.split === "true") return;
+        // * GRIT_SET 03 | Wrap text nodes without replacing the surrounding markup.
+        function wrapWords(root, cleanup) {
+            const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+            const nodes = [];
+            while (walker.nextNode()) {
+                const node = walker.currentNode;
+                if (node.textContent.trim() && !node.parentElement.closest('script, style, pre, code, textarea, button, svg, .grit-counter')) nodes.push(node);
+            }
+            const words = [];
+            nodes.forEach(node => {
+                const group = document.createElement('span');
+                group.className = 'grit-word-group';
+                node.textContent.split(/(\s+)/).forEach(part => {
+                    if (!part) return;
+                    if (/^\s+$/.test(part)) { group.appendChild(document.createTextNode(part)); return; }
+                    const word = document.createElement('span');
+                    word.className = 'word';
+                    word.textContent = part;
+                    group.appendChild(word);
+                    words.push(word);
+                });
+                node.replaceWith(group);
+                cleanup.push(() => group.replaceWith(node));
+            });
+            return words;
+        }
 
-          const split = new SplitText(el, { type: "words", wordsClass: "word" });
-          el.dataset.split = "true";
-
-          split.words.forEach((word, i) => {
-            gsap.fromTo(word,
-              { opacity: 0.1 },
-              {
-                opacity: 1,
-                duration: 0.2,
-                ease: "power2.out",
-                delay: i * 0.05,
-                scrollTrigger: {
-                  trigger: word,
-                  start: "top 85%",
-                  end: "top 15%",
-                  toggleActions: "play reverse play reverse",
+        // * GRIT_SET 02 | Every rebuild first restores the previous DOM and GSAP context.
+        function rebuild() {
+            if (media) media.revert();
+            media = gsap.matchMedia();
+            media.add('(prefers-reduced-motion: no-preference)', () => {
+                const cleanup = [], desktop = window.innerWidth >= 768, paired = new Set();
+                function activate(section, name) {
+                    section.classList.add(name);
+                    cleanup.push(() => section.classList.remove(name));
                 }
-              }
-            );
-          });
-        });
-      });
-    });
-  }
+                const sections = Array.from(document.querySelectorAll('section.section_text'));
+                const compatible = section => !section.matches('.section_masonry, .section_carousel_text');
+                function horizontal(section, row, trigger = section, pin = true) {
+                    const distance = () => Math.max(0, row.scrollWidth - row.clientWidth);
+                    if (distance() <= 1) return;
+                    gsap.to(row, { x: () => -distance(), ease: 'none', scrollTrigger: {
+                        trigger, pin, start: 'top top', end: () => '+=' + distance(), scrub: 1, invalidateOnRefresh: true
+                    } });
+                }
 
-  // :::::::::::::: 10.2.5 * Sequential Word Reveal
-  function scrollRevealStaggered() {
-    if (typeof window.SplitText === "undefined") return;
-    document.querySelectorAll(".section-gsap-reveal-scroll").forEach(section => {
-      const innerText = section.querySelector(".inner-text");
-      if (!innerText) return;
+                // * GRIT_SET Pin order | Create each pair where it occurs in the document.
+                // Earlier pins must exist before measuring any following section.
+                function initHorizontalPair(first) {
+                    const second = first.nextElementSibling;
+                    if (!second || !second.matches('section.section_text.section-gsap-30horizontal') || !compatible(second)) return;
+                    const rowA = first.querySelector(':scope > .container-fluid > .row');
+                    const rowB = second.querySelector(':scope > .container-fluid > .row');
+                    if (!rowA || !rowB) return;
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'horizontal-wrapper';
+                    first.before(wrapper); wrapper.append(first, second);
+                    paired.add(first); paired.add(second);
+                    const restorePair = () => { if (wrapper.parentNode) { wrapper.before(first, second); wrapper.remove(); } };
+                    cleanup.push(restorePair);
+                    if (Array.from(wrapper.querySelectorAll('.item-chapters')).some(panel => panel.scrollHeight > panel.clientHeight + 2)) {
+                        restorePair(); paired.delete(first); paired.delete(second); return;
+                    }
+                    const distanceA = () => Math.max(0, rowA.scrollWidth - rowA.clientWidth);
+                    const distanceB = () => Math.max(0, rowB.scrollWidth - rowB.clientWidth);
+                    const a = distanceA(), b = distanceB();
+                    if (a + b <= 1) {
+                        restorePair(); paired.delete(first); paired.delete(second); return;
+                    }
+                    const timeline = gsap.timeline({ scrollTrigger: { trigger: wrapper, pin: true, start: 'top top', end: () => '+=' + (distanceA() + distanceB()), scrub: 1, invalidateOnRefresh: true } });
+                    if (a) timeline.to(rowA, { x: () => -distanceA(), ease: 'none', duration: a });
+                    if (b) timeline.to(rowB, { x: () => -distanceB(), ease: 'none', duration: b });
+                }
 
-      const split = new SplitText(innerText, {
-        type: "words",
-        wordsClass: "word"
-      });
+                sections.filter(compatible).forEach(section => {
+                    if (desktop && section.classList.contains('section-gsap-70horizontal')) initHorizontalPair(section);
+                    if (paired.has(section)) return;
+                    const panels = Array.from(section.querySelectorAll(':scope > .container-fluid > .row > .item-chapters'));
+                    if (desktop && section.classList.contains('section-gsap-horizontal')) {
+                        const row = section.querySelector(':scope > .container-fluid > .row');
+                        if (row) {
+                            activate(section, 'is-gsap-horizontal');
+                            if (panels.some(panel => panel.scrollHeight > window.innerHeight + 2)) { section.classList.remove('is-gsap-horizontal'); return; }
+                            horizontal(section, row);
+                        }
+                    } else if (desktop && section.classList.contains('section-gsap-vertical') && panels.length > 1) {
+                        activate(section, 'is-gsap-vertical');
+                        // Long content stays in normal flow instead of being trapped in a pinned panel.
+                        if (panels.some(panel => panel.scrollHeight > window.innerHeight + 2)) { section.classList.remove('is-gsap-vertical'); return; }
+                        panels.forEach((panel, i) => gsap.set(panel, { zIndex: panels.length - i }));
+                        const timeline = gsap.timeline({ scrollTrigger: { trigger: section, pin: true, start: 'top top', end: () => '+=' + ((panels.length - 1) * window.innerHeight), scrub: true, invalidateOnRefresh: true } });
+                        panels.slice(0, -1).forEach(panel => timeline.to(panel, { yPercent: -100, ease: 'none', duration: 1 }));
+                    } else if (desktop && section.classList.contains('section-gsap-lateral-word')) {
+                        const title = section.querySelector('.inner-text .gsap-lateral-text, .inner-text h1, .inner-text h2');
+                        if (!title) return;
+                        activate(section, 'is-gsap-lateral');
+                        title.classList.add('grit-lateral-target');
+                        cleanup.push(() => title.classList.remove('grit-lateral-target'));
+                        const viewport = section.querySelector(':scope > .container-fluid') || section;
+                        const distance = () => {
+                            const style = getComputedStyle(viewport);
+                            const available = viewport.clientWidth - parseFloat(style.paddingLeft || 0) - parseFloat(style.paddingRight || 0);
+                            return Math.max(0, title.scrollWidth - available);
+                        };
+                        // Short titles keep the normal layout instead of an empty full-screen effect.
+                        if (distance() <= 1) {
+                            section.classList.remove('is-gsap-lateral');
+                            title.classList.remove('grit-lateral-target');
+                            return;
+                        }
+                        gsap.to(title, { x: () => -distance(), ease: 'none', scrollTrigger: { trigger: section, pin: true, start: 'top top', end: () => '+=' + distance(), scrub: 1, invalidateOnRefresh: true } });
+                    } else if (section.matches('.section-gsap-reveal, .section-gsap-reveal-scroll')) {
+                        activate(section, 'is-gsap-reveal');
+                        const scroll = section.classList.contains('section-gsap-reveal-scroll');
+                        section.querySelectorAll('.inner-text').forEach(block => {
+                            block.querySelectorAll('h1,h2,h3,h4,h5,h6,p,li').forEach(target => {
+                                if (target.matches('li') && target.querySelector('p,h1,h2,h3,h4,h5,h6')) return;
+                                const words = wrapWords(target, cleanup);
+                                if (!words.length) return;
+                                gsap.fromTo(words, { opacity: 0.15 }, { opacity: 1, duration: 0.6, stagger: scroll ? { amount: 1.5 } : 0.035, ease: 'none', scrollTrigger: {
+                                    trigger: target, start: 'top 85%', end: 'bottom 30%', scrub: scroll, toggleActions: scroll ? undefined : 'play reverse play reverse'
+                                } });
+                            });
+                        });
+                    }
+                });
+                document.querySelectorAll('.gsap-parallax-container').forEach(container => {
+                    if (container.closest('.is-gsap-horizontal, .is-gsap-vertical, .is-gsap-lateral, .horizontal-wrapper')) return;
+                    const image = container.querySelector('.gsap-parallaxImage');
+                    if (image) gsap.fromTo(image, { scale: 1.1, yPercent: -5 }, { yPercent: 5, ease: 'none', scrollTrigger: { trigger: container, start: 'top bottom', end: 'bottom top', scrub: true } });
+                });
 
-      gsap.from(split.words, {
-        opacity: 0.1,
-        y: 0,
-        stagger: { amount: 1.5 },
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: section,
-          start: "top 80%",
-          end: "bottom 20%",
-          scrub: true
+                // Decorative bars are section-local; scroll and pointer use separate transform axes.
+                if (desktop) document.querySelectorAll('.section-bars').forEach(section => {
+                    const bounds = {
+                        'bar-top': [0, 40, 0, 100], 'bar-bottom': [60, 100, 0, 100],
+                        'bar-left': [0, 100, 0, 40], 'bar-right': [0, 100, 60, 100],
+                        'bar-top-left': [0, 55, 0, 55], 'bar-top-right': [0, 55, 45, 100],
+                        'bar-bottom-left': [45, 100, 0, 55], 'bar-bottom-right': [45, 100, 45, 100],
+                        'bar-center': [20, 80, 20, 80], 'bar-all': [0, 100, 0, 100]
+                    };
+                    const area = bounds[Object.keys(bounds).find(name => section.classList.contains(name)) || 'bar-all'];
+                    const random = (min, max) => min + Math.random() * (max - min);
+                    // * GRIT_SET Bar sizes | Preserve the original responsive dimensions.
+                    const sizes = window.innerWidth <= 640
+                        ? { min: 180, max: 240, height: 25 }
+                        : window.innerWidth <= 1024
+                            ? { min: 220, max: 300, height: 30 }
+                            : { min: 280, max: 380, height: 35 };
+                    const placed = [], bars = [];
+                    for (let attempt = 0; attempt < 375 && bars.length < 15; attempt++) {
+                        const width = random(sizes.min, sizes.max), height = sizes.height;
+                        const left = random(area[2], area[3]), top = random(area[0], area[1]);
+                        const x = left * section.clientWidth / 100, y = top * section.clientHeight / 100;
+                        const radius = Math.hypot(width / 2, height / 2);
+                        if (placed.some(p => Math.hypot(p.x - x, p.y - y) < p.radius + radius + 5)) continue;
+                        placed.push({ x, y, radius });
+                        const bar = document.createElement('div'); bar.className = 'bar'; bar.setAttribute('aria-hidden', 'true');
+                        Object.assign(bar.style, { width: width + 'px', height: height + 'px', left: left + '%', top: top + '%' });
+                        section.append(bar); bars.push(bar);
+                        gsap.set(bar, { xPercent: -50, yPercent: -50, rotation: random(-45, 45) });
+                    }
+                    cleanup.push(() => bars.forEach(bar => bar.remove()));
+                    if (!bars.length) return;
+                    gsap.to(bars, { yPercent: -80, ease: 'none', scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: 1 } });
+                    if (window.matchMedia('(hover: hover)').matches) {
+                        const setters = bars.map(bar => [gsap.quickTo(bar, 'x', { duration: 0.8 }), gsap.quickTo(bar, 'y', { duration: 0.8 })]);
+                        const move = event => {
+                            const rect = section.getBoundingClientRect();
+                            setters.forEach((set, i) => { set[0]((event.clientX - rect.left - rect.width / 2) * 0.015 * (i % 3 + 1)); set[1]((event.clientY - rect.top - rect.height / 2) * 0.015 * (i % 3 + 1)); });
+                        };
+                        section.addEventListener('pointermove', move);
+                        cleanup.push(() => section.removeEventListener('pointermove', move));
+                    }
+                });
+                refresh();
+                return () => cleanup.reverse().forEach(restore => restore());
+            });
         }
-      });
-    });
-  }
-
-  // :::::::::::::: 10.2.6 - Horizontal Scroll of Long Sentences
-  function horizontalTextScroll() {
-    document.querySelectorAll(".section-gsap-lateral-word").forEach(section => {
-      const h1 = section.querySelector(".inner-text h1");
-      if (!h1) return;
-
-      h1.style.whiteSpace = "nowrap";
-      h1.style.display = "inline-block";
-      gsap.set(h1, { x: 0 });
-
-      const scrollDistance = h1.scrollWidth - window.innerWidth;
-      if (scrollDistance <= 0) return;
-
-      gsap.to(h1, {
-        x: -scrollDistance,
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: `+=${scrollDistance}`,
-          scrub: true,
-          pin: true,
-          pinSpacing: true,
-          invalidateOnRefresh: true
-        }
-      });
-    });
-
-    ScrollTrigger.refresh();
-  }
-
-  // :::::::::::::: 10.2.7 * Dual Horizontal Scroll
-  function horizontalScrollSequenziale() {
-    if (window.innerWidth < 768) return;
-
-    setTimeout(() => {
-      const section70 = document.querySelector(".section-gsap-70horizontal");
-      const section30 = document.querySelector(".section-gsap-30horizontal");
-      if (!section70 || !section30) return;
-
-      const wrapper = document.createElement("div");
-      wrapper.classList.add("horizontal-wrapper");
-      section70.parentNode.insertBefore(wrapper, section70);
-      wrapper.appendChild(section70);
-      wrapper.appendChild(section30);
-
-      const row70 = section70.querySelector(".row");
-      const row30 = section30.querySelector(".row");
-
-      const scroll70 = [...row70.children].reduce((acc, el) => acc + el.offsetWidth, 0) - window.innerWidth + 2;
-      const scroll30 = [...row30.children].reduce((acc, el) => acc + el.offsetWidth, 0) - window.innerWidth + 2;
-      const totalScroll = scroll70 + scroll30;
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: wrapper,
-          start: "top top",
-          end: `+=${totalScroll}`,
-          scrub: true,
-          pin: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true
-        }
-      });
-
-      if (scroll70 > 0) tl.to(row70, { x: -scroll70, ease: "none", duration: scroll70 / totalScroll });
-      if (scroll30 > 0) tl.to(row30, { x: -scroll30, ease: "none", duration: scroll30 / totalScroll });
-
-      ScrollTrigger.refresh();
-    }, 50);
-  }
-
-  // :::::::::::::: 10.3 * Initialization of Animated Functions
-  function initGSAPAnimations() {
-    horizontalScrollContainer();
-    verticalPanelsScroll();
-    splitWordReveal();
-    scrollRevealStaggered();
-    horizontalTextScroll();
-    horizontalScrollSequenziale();
-  }
-
-  // :::::::::::::: 10.4 * Responsive Refresh on Resize (Debounced)
-  function refreshResponsiveScrolls() {
-    ScrollTrigger.getAll().forEach(trigger => {
-      const el = trigger.trigger;
-      if (el?.classList.contains("section-gsap-horizontal") ||
-          el?.classList.contains("section-gsap-lateral-word") ||
-          el?.classList.contains("section-gsap-70horizontal") ||
-          el?.classList.contains("section-gsap-30horizontal") ||
-          el?.classList.contains("section-gsap-vertical")) {
-        trigger.kill();
-      }
-    });
-
-    horizontalScrollContainer();
-    horizontalTextScroll();
-    horizontalScrollSequenziale();
-    ScrollTrigger.refresh();
-  }
-
-  // Inizializza su load
-  initGSAPAnimations();
-
-  // Debounced resize
-  let resizeTimeout;
-  window.addEventListener("resize", () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-      refreshResponsiveScrolls();
-    }, 200);
-  });
-
-});
-
-
-
+        rebuild();
+        // * GRIT_SET 04 | Recreate measurements and restore split text at each settled resize.
+        window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(rebuild, 200); });
+        window.addEventListener('load', refresh);
+        document.addEventListener('load', event => { if (event.target.tagName === 'IMG') refresh(); }, true);
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(rebuild);
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initMotion, { once: true });
+    else initMotion();
 })();
 
-/* :::::::::::::: 11 * Section Bars */  
-
-const NUM_BARS = 15;
-const MIN_BARS = 5;
-
-function random(min, max) {
-  return Math.random() * (max - min) + min;
-}
-
-// 🔹 Responsive sizing
-function getResponsiveSizes() {
-  const w = window.innerWidth;
-
-  if (w <= 640) {
-    return { widthMin: 180, widthMax: 240, height: 25 };
-  } else if (w <= 1024) {
-    return { widthMin: 220, widthMax: 300, height: 30 };
-  } else {
-    return { widthMin: 280, widthMax: 380, height: 35 };
-  }
-}
-
-// 🔹 Bounding box per posizionamento
-function getPositionBounds(positionClass) {
-  switch (positionClass) {
-    case 'bar-top':           return { topMin: 0, topMax: 40, leftMin: 0, leftMax: 100 };
-    case 'bar-bottom':        return { topMin: 60, topMax: 100, leftMin: 0, leftMax: 100 };
-    case 'bar-left':          return { topMin: 0, topMax: 100, leftMin: 0, leftMax: 40 };
-    case 'bar-right':         return { topMin: 0, topMax: 100, leftMin: 60, leftMax: 100 };
-    case 'bar-top-left':      return { topMin: 0, topMax: 55, leftMin: 0, leftMax: 55 };
-    case 'bar-top-right':     return { topMin: 0, topMax: 55, leftMin: 45, leftMax: 100 };
-    case 'bar-bottom-left':   return { topMin: 45, topMax: 100, leftMin: 0, leftMax: 55 };
-    case 'bar-bottom-right':  return { topMin: 45, topMax: 100, leftMin: 45, leftMax: 100 };
-    case 'bar-center':        return { topMin: 20, topMax: 80, leftMin: 20, leftMax: 80 };
-    case 'bar-all':
-    default:                  return { topMin: 0, topMax: 100, leftMin: 0, leftMax: 100 };
-  }
-}
-
-// 🔹 Generazione barre non sovrapposte
-function generateNonOverlappingBars(container) {
-  const sizes = getResponsiveSizes();
-  const existingBars = [];
-
-  const classList = container.classList;
-  const validPositions = [
-    'bar-top','bar-bottom','bar-left','bar-right',
-    'bar-top-left','bar-top-right','bar-bottom-left','bar-bottom-right',
-    'bar-center','bar-all'
-  ];
-  const positionClass = [...classList].find(c => validPositions.includes(c)) || 'bar-all';
-  const { topMin, topMax, leftMin, leftMax } = getPositionBounds(positionClass);
-
-  let placedBars = 0;
-  let attempts = 0;
-
-  while (placedBars < NUM_BARS && attempts < NUM_BARS * 25) {
-    attempts++;
-
-    const width  = random(sizes.widthMin, sizes.widthMax);
-    const height = sizes.height;
-    const top    = random(topMin, topMax);
-    const left   = random(leftMin, leftMax);
-    const angle  = random(-45, 45);
-
-    const cx = (left / 100) * window.innerWidth;
-    const cy = (top  / 100) * window.innerHeight;
-    const radius = Math.sqrt((width / 2) ** 2 + (height / 2) ** 2);
-
-    const overlap = existingBars.some(b => {
-      const dx = b.cx - cx;
-      const dy = b.cy - cy;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      return dist < (b.radius + radius + 5);
-    });
-
-    if (!overlap) {
-      const bar = document.createElement('div');
-      bar.classList.add('bar');
-      bar.style.width = `${width}px`;
-      bar.style.height = `${height}px`;
-      bar.style.top = `${top}%`;
-      bar.style.left = `${left}%`;
-      bar.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
-      container.appendChild(bar);
-
-      existingBars.push({ cx, cy, radius });
-      placedBars++;
-    }
-  }
-}
-
-// 🔁 Osserva ogni sezione e genera barre in anticipo
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const section = entry.target;
-
-      // Solo una volta
-      if (!section.dataset.barsGenerated) {
-        generateNonOverlappingBars(section);
-        section.dataset.barsGenerated = "true";
-      }
-    }
-  });
-}, {
-  threshold: 0, // inizia appena entra
-  rootMargin: '-50% 0px' // 🔸 anticipa la generazione del 50% prima
-});
-
-document.querySelectorAll('.section-bars').forEach(section => {
-  observer.observe(section);
-});
-
-// 🔁 Parallax Mouse + Scroll relativo alla sezione
-let mouseX = 0, mouseY = 0;
-
-document.addEventListener('mousemove', e => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-  animateBars();
-});
-
-window.addEventListener('scroll', () => {
-  animateBars();
-});
-
-function animateBars() {
-  if (typeof window.gsap === "undefined") return;
-  document.querySelectorAll('.bar').forEach((el, i) => {
-    const section = el.closest('.section-bars');
-    if (!section || !section.dataset.barsGenerated) return;
-
-    const sectionTop = section.offsetTop;
-    const relScroll = window.scrollY - sectionTop;
-    const maxOffset = 100;
-    const scrollOffset = Math.max(-maxOffset, Math.min(relScroll * 0.05 * ((i % 5) + 1), maxOffset));
-
-    const offsetX = (mouseX - window.innerWidth / 2) * 0.01 * ((i % 10) + 1);
-    const offsetY = (mouseY - window.innerHeight / 2) * 0.01 * ((i % 10) + 1);
-
-    gsap.to(el, {
-      x: offsetX,
-      y: offsetY + scrollOffset,
-      duration: 1.1,
-      ease: 'power2.out'
-    });
-  });
-}
- 
- 
 })(jQuery);

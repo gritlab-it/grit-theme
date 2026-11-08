@@ -1,192 +1,187 @@
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-/* :::::::::::::: 01 * GRIT_SET form */
-/* :::::::::::::: 02 * GRIT_SET form-style-2 */ 
-/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+// * GRIT_SET Legend | Forms
+// 01 | Text fields: shared sizing, colors and keyboard focus.
+// 02 | Native checkboxes/radios, files and Contact Form 7 wrappers.
+// 03 | Disabled, read-only and invalid fields.
+// 04 | Explicit form-style-1/2/3 overrides on a form or its parent container.
+// Settings: _variables.scss. Button colors and sizes: _typography.scss.
 
-@use './variables' as *;
+@use "./variables" as *;
 
-/* :::::::::::::: 01 * GRIT_SET form */
-form {
-  
-  label {
-    display: block; 
-    font-weight: normal; 
-    width: 100%; 
-  }
-  
-  .wpcf7-form-control-wrap {
-    display: block; 
-    padding: 0px 0px 10px;
-  }
-  
-  input:not(.wpcf7-submit):not([type="submit"]),
-  button,
-  textarea, 
-  .wpcf7-form-control:not(.wpcf7-submit),
-  .form-control {
-    border-radius: $general-radius;
-    padding: 10px 20px; 
-    color: $dark; 
-    @include transition(all 0.3s ease-in-out); 
-    width: 100%;  
-  }
-  
-  
-  
-  .form-check-input {
-    position: absolute;
-    margin-top: .3rem;
-    margin-left: -1.1rem;
-  }
-  
-  .wpcf7-text,
-  input[type="text"], 
-  textarea,
-  .wpcf7-textarea,
-  input[type="email"],
-  .wpcf7-email,
-  input[type="tel"],
-  .wpcf7-date,
-  input[type="date"],
-  .wpcf7-tel,
-  .wpcf7-select,
-  input[type="select"],
-  input[type="password"],
-  input[type="url"],
-  input[type="search"]  { 
-    border: solid 1px $grey;
-    background: $grey;
-  }
-  
-  
-  .wpcf7-submit,
-  button,
-  input[type="submit"] {
-    width: auto;
-    // border: solid 1px $grey;
-    line-height: 1.5;
-  } 
-  
-  
-  
-  
-  select,
-  .wpcf7-select,
-  input[type="select"],
-  .wpcf7-date,
-  input[type="date"],
-  .wpcf7-checkbox,
-  input[type="checkbox"],
-  .wpcf7-radio,
-  input[type="radio"],
-  .wpcf7-file,
-  input[type="file"] {
-    width: auto;  
-    padding: 10px 20px; 
-    
-    // border: solid 1px $grey;
-    // background: $grey;  
-    // border-radius: 30px;
-    
-  }  
-  
-  .wpcf7-form-control:not(.wpcf7-submit):focus,
-  input:not(.wpcf7-submit):focus,
-  .form-control:focus,
-  textarea:focus {
-    background-color: $light;
-    color: $dark;
-    border: solid 1px $dark;
-    outline: 0;
-    box-shadow:none;
-    // box-shadow: 0 0 0 0.1rem $black-20-rgb !important;
-  } 
-  
-  .wpcf7-acceptance {
-    margin: 0;
-    padding: 0!important;
-    font-size: 12px;
-    line-height: 14px;
-    input, label {
-      margin: 0;
-      padding: 0;
-      font-size: 12px;
-      line-height: 14px;
-      width: auto!important;
-    }
-  } 
-  
-  ::placeholder,
-  :-ms-input-placeholder,
-  ::-ms-input-placeholder { 
-    opacity: 0.8;
-  } 
-  
-  // .wpcf7 .ajax-loader {
-  //   background: url('../img/loading.gif') no-repeat center center;
-  //   background-size: contain;
-  //   width: 124px;
-  //   height: 36px;
-  //   bottom: -15px;
-  //   border-radius: 0;
-  //   display: inline-block;
-  //   position: relative;
-  // } 
-  
-}
-
-
-/* :::::::::::::: 01 * GRIT_SET form-style-2 */
-.form-style-2 {
-  form {
-    input:not(.wpcf7-submit),
-    button,
-    textarea, 
-    .wpcf7-form-control:not(.wpcf7-submit),
-    .form-control { 
-      border-radius: 0px; 
-    }
-    
-    .wpcf7-text,
-    input[type="text"], 
-    textarea,
-    .wpcf7-textarea,
+// Text-like fields only: never apply text-field styles to buttons, hidden inputs or checkboxes.
+@mixin form-fields {
+    input:not([type]),
+    input[type="text"],
     input[type="email"],
-    .wpcf7-email,
     input[type="tel"],
-    .wpcf7-date,
-    input[type="date"],
-    .wpcf7-tel,
-    .wpcf7-select,
-    input[type="select"],
-    input[type="password"],
     input[type="url"],
-    input[type="search"]  { 
-      background-color: transparent;
-      border: none;
-      border-bottom: solid 1px $dark; 
+    input[type="password"],
+    input[type="search"],
+    input[type="number"],
+    input[type="date"],
+    input[type="datetime-local"],
+    input[type="month"],
+    input[type="week"],
+    input[type="time"],
+    select,
+    textarea {
+        @content;
     }
-    
-    .wpcf7-form-control:not(.wpcf7-submit):focus,
-    input:not(.wpcf7-submit):not([type="submit"]):focus,
-    .form-control:focus,
-    textarea:focus {
-      background-color: $light;
-      color: $dark;
-      border: none;
-      border-bottom: solid 1px $dark; 
-      outline: 0;
-      box-shadow:none;
-      // box-shadow: 0 0 0 0.1rem $black-20-rgb !important;
-    } 
-  }
 }
 
+// Appearance variables inherit from containers, so the nearest explicit style wins naturally.
+// A class on the form itself takes priority over a class on a parent section.
+@mixin form-appearance($style) {
+    @if $style == 1 {
+        --grit-form-shadow: none;
+        --grit-form-background: #{$form-background};
+        --grit-form-radius: #{$general-radius};
+        --grit-form-border: #{$form-border-color};
+        --grit-form-focus-border: #{$form-focus-color};
+        --grit-form-error-border: #{$form-error-color};
+    } @else if $style == 2 {
+        --grit-form-shadow: none;
+        --grit-form-background: transparent;
+        --grit-form-radius: 0;
+        --grit-form-border: transparent transparent #{$form-text-color};
+        --grit-form-focus-border: transparent transparent #{$form-focus-color};
+        --grit-form-error-border: transparent transparent #{$form-error-color};
+    } @else if $style == 3 {
+        // Outlined, softly rounded fields; no extra markup or floating-label logic is needed.
+        --grit-form-background: transparent;
+        --grit-form-radius: #{$form-outline-radius};
+        --grit-form-border: #{$form-outline-border-color};
+        --grit-form-focus-border: #{$form-focus-color};
+        --grit-form-error-border: #{$form-error-color};
+        --grit-form-shadow: #{$form-outline-shadow};
+    } @else {
+        @error "$form-style must be 1 (filled), 2 (underlined) or 3 (outlined).";
+    }
+}
 
+// Global default requires no class or Twig changes; local classes override these inherited values.
+:root {
+    @include form-appearance($form-style);
+}
 
+// * GRIT_SET 01 | Shared fields. Bootstrap form-control-sm/lg retain their sizing.
+form {
+    label {
+        display: block;
+        font-weight: normal;
+    }
 
+    @include form-fields {
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        color: $form-text-color;
+        background: var(--grit-form-background);
+        border: 1px solid;
+        border-color: var(--grit-form-border);
+        border-radius: var(--grit-form-radius);
+        box-shadow: var(--grit-form-shadow);
+        transition:
+            border-color $transition-fast,
+            background-color $transition-fast;
 
+        &:not(.form-control-sm):not(.form-control-lg) {
+            padding: $form-control-padding;
+            height: auto;
+        }
 
+        &:focus {
+            color: $form-text-color;
+            background: $form-focus-background;
+            border-color: var(--grit-form-focus-border);
+            outline: 2px solid $form-focus-color;
+            outline-offset: 2px;
+            box-shadow: none;
+        }
+        &::placeholder {
+            color: $form-text-color;
+            opacity: $form-placeholder-opacity;
+        }
+    }
 
+    textarea {
+        min-height: $form-textarea-min-height;
+        resize: vertical;
+    }
 
+    // * GRIT_SET 02 | Keep native controls compact; submit buttons use the shared .btn styles.
+    // CF7 example: [submit class:btn class:btn-primary "Send"].
+    input[type="checkbox"],
+    input[type="radio"] {
+        width: auto;
+        padding: 0;
+        accent-color: $form-focus-color;
+        &:focus-visible {
+            outline: 2px solid $form-focus-color;
+            outline-offset: 2px;
+        }
+    }
+    input[type="file"] {
+        max-width: 100%;
+        min-width: 0;
+    }
 
+    .wpcf7-form-control-wrap {
+        display: block;
+        margin-bottom: $form-field-gap;
+    }
+    .wpcf7-list-item {
+        &:first-child {
+            margin-left: 0;
+        }
+        label {
+            display: inline-flex;
+            align-items: flex-start;
+            gap: $form-choice-gap;
+            input {
+                flex: 0 0 auto;
+                margin: 0.25em 0 0;
+            }
+        }
+    }
+    .wpcf7-acceptance {
+        font-size: $form-consent-font-size;
+        line-height: 1.5;
+        .wpcf7-list-item {
+            margin: 0;
+        }
+    }
+
+    // * GRIT_SET 03 | Explicit invalid state avoids showing errors before interaction.
+    @include form-fields {
+        &:disabled {
+            opacity: $form-disabled-opacity;
+            cursor: not-allowed;
+        }
+        &[readonly] {
+            background: $form-readonly-background;
+        }
+        &[aria-invalid="true"],
+        &.wpcf7-not-valid,
+        &.is-invalid {
+            border-color: var(--grit-form-error-border);
+        }
+    }
+    .wpcf7-not-valid-tip {
+        color: $form-error-color;
+        margin-top: 0.25rem;
+    }
+}
+
+// * GRIT_SET 04 | Optional per-form/section overrides; all three presets are always available.
+// Examples: <form class="form-style-1"> or <section class="form-style-2"> containing a form.
+.form-style-1 {
+    @include form-appearance(1);
+}
+.form-style-2 {
+    @include form-appearance(2);
+}
+
+.form-style-3 {
+    @include form-appearance(3);
+}

@@ -1,75 +1,72 @@
 <?php
-/**
- * The Template for displaying all single posts
- *
- * Methods for TimberHelper can be found in the /lib sub-directory
- *
- * @package  WordPress
- * @subpackage  Timber
- * @since    Timber 0.1
- */
-if (!defined('ABSPATH')) exit;
+// * GRIT_SET Single legend
+// 01 | Current post and password protection
+// 02 | ACF fields and post content
+// 03 | Related posts: edit the query here
+// 04 | Native WordPress comments
+// 05 | Twig template priority
+if (!defined('ABSPATH')) {
+    exit;
+}
 
-$context         = Timber::context();
-$timber_post     = Timber::get_post();
+// * GRIT_SET 01 | Load the requested post; protected posts stop here.
+$context = Timber::context();
+$timber_post = Timber::get_post(get_queried_object_id());
+$post_id = $timber_post ? $timber_post->ID : 0;
+$post_type = $timber_post ? $timber_post->post_type : 'post';
 $context['post'] = $timber_post;
 
-
-/* GRIT_SET Assegno tutte le variabili di ACF a Twig
-in caso avessi necessità puoi sostituire il valore $post con l'ID della pagina */
-$fields = get_field_objects($timber_post);
-if ($fields):
-	foreach ($fields as $field):
-		$name_id = $field['name'];
-		$value_id = $field['value'];
-		$context[$name_id] = $value_id;
-	endforeach;
-endif;
-
-
-/* GRIT_SET Elaboro una query per estrapolare la categoria */
-$terms = get_the_terms($timber_post->ID, 'category');
-if ($terms) {
-    foreach ($terms as $term) {
-        $cat_obj = get_term($term->term_id, 'category');
-        $cat_id = $cat_obj->term_id;
-        $cat_slug = $cat_obj->slug;
-    }
+if ($timber_post && post_password_required($post_id)) {
+    $context['password_form'] = get_the_password_form($post_id);
+    $context['sections'] = [];
+    Timber::render('single-password.twig', $context);
+    return;
 }
 
-/* GRIT_SET Elaboro una query per i related con escluso i post corrente per categoria corrente */
-$args = array(
-    'post_type' => get_post_type(''), // Nome del custom post
-    'orderby' => 'post_date', 
-	'posts_per_page' => get_option('posts_per_page'), 
-    'order' => 'DESC',
-	'post__not_in' => array( get_the_ID() ) // Escludi il post corrente
-);
-$context['archive_posts'] = $archive_posts = new Timber\PostQuery($args);
-	
- 
+// * GRIT_SET 02 | Load the current post's fields and formatted content.
+$context = grit_template_fields($context, $post_id);
+$context['post'] = $timber_post;
+$context['title'] = $timber_post ? $timber_post->title : '';
+$context['content'] = $timber_post ? grit_template_content($post_id) : '';
 
-if ( post_password_required( $timber_post->ID ) ) {
-    Timber::render( 'single-password.twig', $context );
-} else {
-    if ($post->post_parent) { 
-        Timber::render( 
-			array( 
-				'single-' . $timber_post->ID . '.twig', 
-				'single-' . $timber_post->slug . '.twig', 
-				'single-' . $timber_post->post_type . '-child.twig',  
-				'single-child.twig', 
-				'single.twig' ), 
-				$context 
-			);
-    } else { 
-        Timber::render( 
-			array( 
-				'single-' . $timber_post->ID . '.twig', 
-				'single-' . $timber_post->slug . '.twig', 
-				'single-' . $timber_post->post_type . '.twig',  
-				'single.twig' ), 
-				$context 
-			);
-    }
+// * GRIT_SET 03 | Same post type, newest first, excluding the current and password-protected posts.
+$related_args = [
+    'post_type'      => $post_type,
+    'post_status'    => 'publish',
+    'has_password'   => false,
+    'posts_per_page' => max(1, (int) get_option('posts_per_page')),
+    'post__not_in'   => $timber_post ? [(int) $post_id] : [],
+    'orderby'       => ['date' => 'DESC', 'ID' => 'DESC'],
+    'no_found_rows'  => true,
+];
+$context['archive_posts'] = new Timber\PostQuery($related_args);
+
+// * GRIT_SET 04 | One comment list/form, respecting theme and post settings.
+$context['comments_html'] = '';
+$show_comments = $timber_post
+    && !get_theme_mod('grit_setting_comments', false)
+    && post_type_supports($post_type, 'comments')
+    && (comments_open($post_id) || get_comments_number($post_id));
+
+if ($show_comments) {
+    wp_reset_postdata();
+    ob_start();
+    comments_template();
+    $context['comments_html'] = ob_get_clean();
 }
+
+// * GRIT_SET 05 | Specific post, slug, child layout, post type, then single.twig.
+$templates = [];
+if ($timber_post) {
+    $templates[] = 'single-' . $post_id . '.twig';
+    $templates[] = 'single-' . $timber_post->slug . '.twig';
+
+    if ($timber_post->post_parent) {
+        $templates[] = 'single-' . $post_type . '-child.twig';
+        $templates[] = 'single-child.twig';
+    }
+    $templates[] = 'single-' . $post_type . '.twig';
+}
+$templates[] = 'single.twig';
+
+Timber::render($templates, $context);

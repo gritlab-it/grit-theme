@@ -36,31 +36,31 @@
 			
 					<!-- Link pulsanti -->
 					<div class="link-list-bio">
-						<a href="{{home}}" target="_blank" class="btn btn-lg btn-accent w-100 my-2"><i class="fas fa-home"></i> Web Site</a> 
+						<a href="{{home}}" target="_blank" rel="noopener noreferrer" class="btn btn-lg btn-accent w-100 my-2"><i class="fas fa-home"></i> Web Site</a>
 						{% if setting_instagram %}
-							<a href="{{setting_instagram}}" target="_blank" class="btn btn-lg btn-accent w-100 my-2"><i class="fab fa-instagram"></i> Instagram</a>
+							<a href="{{setting_instagram}}" target="_blank" rel="noopener noreferrer" class="btn btn-lg btn-accent w-100 my-2"><i class="fab fa-instagram"></i> Instagram</a>
 						{% endif %}
 						{% if setting_linkedin %}
-							<a href="{{setting_linkedin}}" target="_blank" class="btn btn-lg btn-accent w-100 my-2"><i class="fab fa-linkedin-in"></i> Linkedin</a> 
+							<a href="{{setting_linkedin}}" target="_blank" rel="noopener noreferrer" class="btn btn-lg btn-accent w-100 my-2"><i class="fab fa-linkedin-in"></i> Linkedin</a>
 						{% endif %}
-						{% if setting_facebok %}
-							<a href="{{setting_facebook}}" target="_blank" class="btn btn-lg btn-accent w-100 my-2"><i class="fab fa-facebook-f"></i> Facebook</a> 
+						{% if setting_facebook %}
+							<a href="{{setting_facebook}}" target="_blank" rel="noopener noreferrer" class="btn btn-lg btn-accent w-100 my-2"><i class="fab fa-facebook-f"></i> Facebook</a>
 						{% endif %} 
 						{% if setting_mail_2 %}
-							<a href="mailto:{{ setting_mail_2 }}" target="_blank" class="btn btn-lg btn-accent w-100 my-2"><i class="fas fa-mail-bulk"></i> {{ setting_mail_2 }}</a>
+							<a href="mailto:{{ setting_mail_2 }}" target="_blank" rel="noopener noreferrer" class="btn btn-lg btn-accent w-100 my-2"><i class="fas fa-mail-bulk"></i> {{ setting_mail_2 }}</a>
 						{% endif %}
 						{% if setting_tel_2 %}
-							<a href="tel:{{ setting_tel_2 }}" target="_blank" class="btn btn-lg btn-accent w-100 my-2"><i class="fas fa-phone"></i> {{ setting_tel_2 }}</a>
+							<a href="tel:{{ setting_tel_2 }}" target="_blank" rel="noopener noreferrer" class="btn btn-lg btn-accent w-100 my-2"><i class="fas fa-phone"></i> {{ setting_tel_2 }}</a>
 						{% endif %}  
 						{% if setting_tel_3 %} 
 							{% set message_wa = "Ciao! Ti contatto dal sito." %}
-							<a href="https://api.whatsapp.com/send?phone={{ setting_tel_3 }}&text={{ message_wa | url_encode }}" target="_blank" class="btn btn-lg btn-accent w-100 my-2"><i class="fab fa-whatsapp"></i> {{__('WhatsApp', 'grit_theme')}}</a>
+							<a href="https://api.whatsapp.com/send?phone={{ setting_tel_3 }}&text={{ message_wa | url_encode }}" target="_blank" rel="noopener noreferrer" class="btn btn-lg btn-accent w-100 my-2"><i class="fab fa-whatsapp"></i> {{__('WhatsApp', 'grit_theme')}}</a>
 						{% endif %} 
 						{% if setting_indirizzo_2 %}
-							<a href="https://www.google.com/maps/dir/?api=1&destination={{ setting_indirizzo_2 | url_encode }}" target="_blank" class="btn btn-lg btn-accent w-100 my-2"><i class="fas fa-map-signs"></i> {{__('Indicazioni', 'grit_theme')}}</a>
+							<a href="https://www.google.com/maps/dir/?api=1&destination={{ setting_indirizzo_2 | url_encode }}" target="_blank" rel="noopener noreferrer" class="btn btn-lg btn-accent w-100 my-2"><i class="fas fa-map-signs"></i> {{__('Indicazioni', 'grit_theme')}}</a>
 						{% endif %}    
 						{% set message = "Ciao! Dai un'occhiata a questo sito interessante: " ~ site.url %}
-						<a href="https://api.whatsapp.com/send?text={{ message | url_encode }}" target="_blank" class="btn btn-lg btn-accent w-100 my-2"><i class="fas fa-share-alt"></i>
+						<a href="https://api.whatsapp.com/send?text={{ message | url_encode }}" target="_blank" rel="noopener noreferrer" class="btn btn-lg btn-accent w-100 my-2"><i class="fas fa-share-alt"></i>
 							{{__('Condividi su WhatsApp', 'grit_theme')}}
 						</a>   
 					</div> 

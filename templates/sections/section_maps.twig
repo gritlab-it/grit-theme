@@ -1,128 +1,45 @@
-<script type="text/javascript" src="{{ google_maps_api }}" async defer></script>
-<script type="text/javascript">
-
-    // When the window has finished loading create our google map below
-
-    window.addEventListener('load', initMap);
-
-    function initMap() {
-
-        // Basic options for a simple Google Map
-
-        // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
-
-        // Create the Google Map using our element and options defined above
-
-        var locations = [
-                {% for location in section.section_maps %}["{{ location.section_maps_title }}", "{{ location.section_maps_description }}",{{ location.section_maps_pin.lat }},{{ location.section_maps_pin.lng }} , 4],{% endfor %}
-        ];
-
-        var map = new google.maps.Map(document.getElementById('section_maps_{{section.section_index}}'), {
-            zoom: {{ section.section_maps_pin_center.zoom }},
-            center: new google.maps.LatLng({{ section.section_maps_pin_center.lat }}, {{ section.section_maps_pin_center.lng }}),
-            disableDefaultUI: true,
-
-            // How you would like to style the map.
-
-            // This is where you would paste any style found on Snazzy Maps.
-
-            styles: [{
-                "featureType": "water",
-                "elementType": "geometry",
-                "stylers": [{"color": "#E3DECF"}, {"lightness": 17}]
-            }, {
-                "featureType": "landscape",
-                "elementType": "geometry",
-                "stylers": [{"color": "#F4EEE9"}, {"lightness": 20}]
-            }, {
-                "featureType": "road.highway",
-                "elementType": "geometry.fill",
-                "stylers": [{"color": "#ffffff"}, {"lightness": 17}]
-            }, {
-                "featureType": "road.highway",
-                "elementType": "geometry.stroke",
-                "stylers": [{"color": "#ffffff"}, {"lightness": 29}, {"weight": 0.2}]
-            }, {
-                "featureType": "road.arterial",
-                "elementType": "geometry",
-                "stylers": [{"color": "#ffffff"}, {"lightness": 18}]
-            }, {
-                "featureType": "road.local",
-                "elementType": "geometry",
-                "stylers": [{"color": "#ffffff"}, {"lightness": 16}]
-            }, {
-                "featureType": "poi",
-                "elementType": "geometry",
-                "stylers": [{"color": "#E3DECF"}, {"lightness": 21}]
-            }, {
-                "featureType": "poi.park",
-                "elementType": "geometry",
-                "stylers": [{"color": "#dedede"}, {"lightness": 21}]
-            }, {
-                "elementType": "labels.text.stroke",
-                "stylers": [{"visibility": "on"}, {"color": "#ffffff"}, {"lightness": 16}]
-            }, {
-                "elementType": "labels.text.fill",
-                "stylers": [{"saturation": 36}, {"color": "#655F36"}, {"lightness": 40}]
-            }, {"elementType": "labels.icon", "stylers": [{"visibility": "off"}]}, {
-                "featureType": "transit",
-                "elementType": "geometry",
-                "stylers": [{"color": "#F4EEE9"}, {"lightness": 19}]
-            }, {
-                "featureType": "administrative",
-                "elementType": "geometry.fill",
-                "stylers": [{"color": "#F4EEE9"}, {"lightness": 20}]
-            }, {
-                "featureType": "administrative",
-                "elementType": "geometry.stroke",
-                "stylers": [{"color": "#F4EEE9"}, {"lightness": 17}, {"weight": 1.2}]
-            }]
-
-        });
-
-        var infowindow = new google.maps.InfoWindow();
-
-
-        var marker, i;
-
-        // SVG icon configuration
-        const svgIcon = {
-            url: "{{template_directory_uri}}/img/pin.svg",  // Path to your SVG icon
-            scaledSize: new google.maps.Size(50, 50),  // Adjust the size of the icon
-            anchor: new google.maps.Point(25, 50),  // Adjust anchor point (center of the base of the pin)
-        };
-
-        for (i = 0; i < locations.length; i++) {
-            marker = new google.maps.Marker({
-                position: new google.maps.LatLng(locations[i][2], locations[i][3]),
-                map: map,
-                icon: svgIcon,  // Use the SVG icon
-                label: {
-                    text: locations[i][0],  // Text label
-                    fontWeight: '700',  // Font weight
-                    color: '#655F36',  // Text color
-                }
-            });
-
-            google.maps.event.addListener(marker, 'click', (function(marker, i) {
-                return function() {
-                    var name = locations[i][0];
-                    var address = locations[i][1];
-                    var html = "<b>" + name + "</b> <br/>" + address;
-                    infowindow.setContent(html);
-                    infowindow.open(map, marker);
-                }
-            })(marker, i));
-        }
-    }
-</script>
-<style type="text/css">
-    /* Set a size for our map container, the Google Map will take up 100% of this container */
-    .section_maps {
-        width: 100%;
-        height: 400px;
-    }
-</style>
-<div class="section_id_{{ section.section_index }} section_maps" id="section_maps_{{ section.section_index }}"></div>
-{# end Section #section_maps #}
-
+{# * GRIT_SET Legend | Section Maps
+01 | Independent Bootstrap columns for text and map; no text means a full-width map.
+02 | Safe JSON data and unique map canvas.
+03 | Static locations and directions remain available without the Google SDK.
+Styling: assets/maps/style.json. The viewport always follows the configured locations.
+#}
+{% set map = maps_data|default({}) %}
+{% set has_content = section.title or section.text or section.link_1.url or section.link_2.url %}
+{% if map.locations|default([])|length %}
+    {# * GRIT_SET 01 | Explicit column fields accept ordinary Bootstrap classes and spacing utilities. #}
+    <div class="container-fluid">
+        <div class="row maps-layout">
+            {% if has_content %}
+                <div class="maps-content-column {{ section.maps_content_class|default('col-12 col-lg-5 mb-4 mb-lg-0')|e('html_attr') }}">
+                    {% if section.title %}<h2>{{ section.title|e }}</h2>{% endif %}
+                    {{ section.text }}
+                    {% include 'partials/buttons.twig' with {
+                        buttons: [
+                            {title: section.link_1.title, url: section.link_1.url, target: section.link_1.target, style: 'btn btn-' ~ section.color_link_1|default('primary')},
+                            {title: section.link_2.title, url: section.link_2.url, target: section.link_2.target, style: 'btn btn-' ~ section.color_link_2|default('primary')}
+                        ]
+                    } only %}
+                </div>
+            {% endif %}
+            <div class="maps-media-column {{ (has_content ? section.maps_map_class|default('col-12 col-lg-7') : 'col-12')|e('html_attr') }}">
+                <div class="grit-map{% if not map.key %} is-map-unavailable{% endif %}" data-grit-map>
+                    {# * GRIT_SET 02 | JSON_HEX_* flags (15) protect script delimiters and quotation marks. #}
+                    <script type="application/json" class="grit-map-config">{{ map|json_encode(15)|raw }}</script>
+                    <div class="grit-map-canvas" id="{{ map.id|e('html_attr') }}" aria-label="{{ __('Mappa delle sedi', 'grit')|e('html_attr') }}" aria-describedby="{{ map.id|e('html_attr') }}-status"></div>
+                    <p class="grit-map-status mt-3" id="{{ map.id|e('html_attr') }}-status" role="status">{{ (map.key ? map.messages.waiting : map.messages.missingKey)|e }}</p>
+                    {# * GRIT_SET 03 | Escaped text and coordinate-based directions are independent of the API. #}
+                    <ul class="grit-map-locations list-unstyled mt-4 mb-0">
+                        {% for location in map.locations %}
+                            <li>
+                                <h3 class="h5">{{ location.title|e }}</h3>
+                                {% if location.description %}<p class="grit-map-description">{{ location.description|e }}</p>{% endif %}
+                                <a href="{{ function('esc_url', location.directions)|raw }}" target="_blank" rel="noopener noreferrer">{{ map.messages.directions|e }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

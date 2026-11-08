@@ -1,0 +1,24 @@
+{# * GRIT_SET Header social navigation | Shared by main bars, sticky bars and mobile overlays. #}
+<ul class="nav-social">
+    {% if setting_facebook %}
+        <li class="social-link">
+            <a href="{{ function('esc_url', setting_facebook)|e('html_attr') }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <i class="fab fa-facebook" aria-hidden="true"></i>
+            </a>
+        </li>
+    {% endif %}
+    {% if setting_instagram %}
+        <li class="social-link">
+            <a href="{{ function('esc_url', setting_instagram)|e('html_attr') }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <i class="fab fa-instagram" aria-hidden="true"></i>
+            </a>
+        </li>
+    {% endif %}
+    {% if setting_linkedin %}
+        <li class="social-link">
+            <a href="{{ function('esc_url', setting_linkedin)|e('html_attr') }}" target="_blank" rel="noopener noreferrer" aria-label="Linkedin">
+                <i class="fab fa-linkedin" aria-hidden="true"></i>
+            </a>
+        </li>
+    {% endif %}
+</ul>

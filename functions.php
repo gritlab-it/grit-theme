@@ -1,11 +1,18 @@
 <?php
 
-/*
-:::::::::::::     * GRIT_SET GRIT-Framework includes
-The $grit_includes array determines the code library included in your theme.
-Add or remove files to the array as needed. Supports child theme overrides.
-Please note that missing files will produce a fatal error.
-*/
+// * GRIT_SET Legend | Theme bootstrap
+// 01 | Load core modules (reusable helpers are in core/extras.php)
+// 02 | Load Composer/Timber and configure Twig
+// 03 | Shared context, theme supports and Twig extensions
+// 04 | WooCommerce support and site initialization
+
+// * GRIT_SET Agency selection | Match an agency_folder in assets/credits/credits.json.
+// Available: gritlab, astratto, poliedro. A child theme may define this before the parent loads.
+if (!defined('GRIT_AGENCY')) {
+    define('GRIT_AGENCY', 'gritlab');
+}
+
+// * GRIT_SET 01 | Modules support child-theme overrides; missing files produce an error.
 
 $grit_includes = array(
 	'core/plugins.php',                           // Plugins
@@ -17,14 +24,14 @@ $grit_includes = array(
 	'core/nav.php',                               // Custom nav modifications
 	'core/scripts.php',                           // Scripts and stylesheets
 	'core/write.php',                             // Writing something on files
-	'core/extras.php',                            // Custom functions
+	'core/extras.php',                            // Reusable helpers, shortcodes and plugin integrations
 	'core/customizer.php',                        // Customize your layout
 	'core/security.php',                          // Some security utils
 	'core/admin-customizer.php',                  // Admin customize
-	// 'core/woocommerce.php',                    // Customize example funtion for woocommerce
+	// 'core/woocommerce.php',                    // Optional WooCommerce customizations
 );
 
-// includini in queto file tutti i percorsi presenti nell arraydi grit_include 
+// Load each module from the include list above.
 foreach ($grit_includes as $file) {
 	if (!$filepath = locate_template($file)) {
 		trigger_error(sprintf(__('Error locating %s for inclusion', 'grit'), $file), E_USER_ERROR);
@@ -42,21 +49,14 @@ unset($file, $filepath);
 * @since   Timber 0.1
 */
 
-/**
-* If you are installing Timber as a Composer dependency in your theme, you'll need this block
-* to load your dependencies and initialize Timber. If you are using Timber via the WordPress.org
-* plug-in, you can safely delete this block.
-*/
+// * GRIT_SET 02 | Load the installed Composer dependencies and initialize Timber.
 $composer_autoload = __DIR__ . '/vendor/autoload.php';
 if ( file_exists( $composer_autoload ) ) {
 	require_once $composer_autoload;
 	$timber = new Timber\Timber();
 }
 
-/**
-* This ensures that Timber is loaded and available as a PHP class.
-* If not, it gives an error message to help direct developers on where to activate
-*/
+// Show the existing fallback if Timber is unavailable.
 if ( ! class_exists( 'Timber' ) ) {
 	
 	add_action(
@@ -69,7 +69,7 @@ if ( ! class_exists( 'Timber' ) ) {
 	add_filter(
 		'template_include',
 		function( $template ) {
-			return get_template_directory_uri() . '/static/no-timber.html';
+			return get_template_directory() . '/static/no-timber.html';
 		}
 	);
 	return;
@@ -80,17 +80,10 @@ if ( ! class_exists( 'Timber' ) ) {
 */
 Timber::$dirname = array( 'templates', 'views' );
 
-/**
-* By default, Timber does NOT autoescape values. Want to enable Twig's autoescape?
-* No prob! Just set this value to true
-*/
+// Autoescaping is disabled here; templates escape values according to their output context.
 Timber::$autoescape = false;
 
-
-/**
-* We're going to configure our theme inside of a subclass of Timber\Site
-* You can move this to its own file and include here via php's include("MySite.php")
-*/
+// * GRIT_SET 03 | Site context, WordPress theme supports and Twig extensions.
 class StarterSite extends Timber\Site {
 	/** Add timber support. */
 	public function __construct() {
@@ -110,122 +103,67 @@ class StarterSite extends Timber\Site {
 		
 	}
 	
-	/** This is where you add some context
-	*
-	* @param string $context context['this'] Being the Twig's {{ this }}.
-	*/
-	public function add_to_context( $context ) {
-		$context['foo']   = 'bar';
-		$context['stuff'] = 'I am a value set in your functions.php file';
-		$context['notes'] = 'These values are available everytime you call Timber::context();';
-		$context['menu']  = new Timber\Menu();
-		$context['site']  = $this;
-		
-		// * GRIT_SET Site
-		$context['home'] = site_url();
-		
-		// * GRIT_SET Logo
-		
+	// * GRIT_SET Shared context legend
+	// 01 | Site identity and logo
+	// 02 | Registered menu locations
+	// 03 | Theme paths and compatibility aliases
+	// 04 | Footer widgets, sidebar and layout choices
+	// 05 | Google Fonts URLs and readable family names
+	// 06 | Public company/contact fields
+	// Current post, content, heading and archive/related queries belong to the root PHP controllers.
+	public function add_to_context($context) {
+		// * GRIT_SET 01 | The public home URL may differ from the WordPress installation URL.
+		$context['site'] = $this;
+		// Active agency: validated branding from assets/credits/credits.json.
+		$context['agency'] = grit_agency_data();
+		$context['home'] = home_url();
 		$custom_logo_id = get_theme_mod('custom_logo');
-		$custom_logo_url = wp_get_attachment_image_src($custom_logo_id, 'full');
-		$context['custom_logo_url'] = $custom_logo_url;
-		
-		// * GRIT_SET Menu
-		$context['primary_menu'] 	= new Timber\Menu('Primary Navigation');
-		$context['secondary_menu'] 	= new Timber\Menu('Secondary Navigation');
-		$context['mobile_menu'] 	= new Timber\Menu('Mobile Navigation');
-		$context['footer_menu'] = new Timber\Menu('Footer Navigation');
-		
-		// * GRIT_SET Theme Dir
-		$context['tema_url'] = get_template_directory_uri();
-		$context['urltema'] = get_template_directory_uri();
-		$context['template_directory_uri'] = get_template_directory_uri();
+		$context['custom_logo_url'] = wp_get_attachment_image_src($custom_logo_id, 'full');
+
+		// * GRIT_SET 02 | Locations keep their assigned menu even when its display name changes.
+		// Named fallbacks preserve old installations without assigned locations.
+		$context['primary_menu'] = new Timber\Menu(has_nav_menu('primary_navigation') ? 'primary_navigation' : 'Primary Navigation');
+		$context['secondary_menu'] = new Timber\Menu(has_nav_menu('secondary_navigation') ? 'secondary_navigation' : 'Secondary Navigation');
+		$context['mobile_menu'] = new Timber\Menu(has_nav_menu('mobile_navigation') ? 'mobile_navigation' : 'Mobile Navigation');
+		$context['footer_menu'] = new Timber\Menu(has_nav_menu('footer_navigation') ? 'footer_navigation' : 'Footer Navigation');
+
+		// * GRIT_SET 03 | Parent theme assets and active child theme assets are distinct paths.
+		$theme_url = get_template_directory_uri();
+		$context['template_directory_uri'] = $theme_url;
 		$context['stylesheet_directory_uri'] = get_stylesheet_directory_uri();
-		
-		// * GRIT_SET Post
-		$context['post_title'] = get_the_title();
-		
-		$context['title'] = get_the_title();
-		$context['the_title'] = get_the_title();
-		
-		if (is_page() || is_single()) {
-			$context['post_class'] = get_post_class()[0];
-			$context['content'] = get_the_content();
-			$context['post_content'] = get_the_content();
-			$context['urlpage'] = get_page_link();
-			$context['page_link'] = get_page_link();
-		}
-		$context['imgpage'] = get_the_post_thumbnail_url();
-		$context['post_image'] = get_the_post_thumbnail_url();
-		$context['intro'] = get_the_excerpt();
-		$context['the_excerpt'] = get_the_excerpt();
-		
-		// * GRIT_SET Placeholder
-		//   https://picsum.photos/1920/1080?random
-		$context['placeholder'] = 'https://picsum.photos/1920/1080?';
-		
-		// * GRIT_SET Time & Data
-		$context['time'] = get_the_time('c');
-		$context['date'] = get_the_date();
-		
-		// * GRIT_SET User
-		$context['author_url'] = get_author_posts_url(get_the_author_meta('ID'));
-		$context['author'] = get_the_author();
-		
-		// * GRIT_SET User WooCommerce Memberships
-		if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
-			// $context['memberships'] = $memberships = wc_memberships_get_user_active_memberships(get_current_user_id());
-		}
-		
-		// * GRIT_SET Footer
-		$context['pre_footer'] = Timber::get_widgets('pre_footer');
+		// Retained aliases for custom Twig content and future project layouts.
+		$context['tema_url'] = $theme_url;
+		$context['urltema'] = $theme_url;
+
+		// * GRIT_SET 04 | Shared visible widget areas; pre_footer remains registered but is not rendered.
 		$context['footer_col_1'] = Timber::get_widgets('footer_col_1');
 		$context['footer_col_2'] = Timber::get_widgets('footer_col_2');
 		$context['footer_col_3'] = Timber::get_widgets('footer_col_3');
 		$context['footer_col_4'] = Timber::get_widgets('footer_col_4');
 		$context['footer_bottom'] = Timber::get_widgets('footer_bottom');
-		
-		// * GRIT_SET Sidebar
 		$context['sidebar_primary'] = Timber::get_widgets('sidebar_primary');
-		
-		// * GRIT_SET Header & Footer
 		$context['grit_setting_header'] = get_theme_mod('grit_setting_header', 'header_1');
 		$context['grit_setting_footer'] = get_theme_mod('grit_setting_footer', 'footer_1');
-		
-		$context['grit_setting_gototop'] = get_theme_mod("grit_setting_gototop");
-		$context['grit_setting_gsap'] = get_theme_mod("grit_setting_gsap");
-		$context['grit_setting_magic_mouse'] = get_theme_mod("grit_setting_magic_mouse");
 
-
-		$post_args = array(
-			'post_type' => 'post', 
-			'posts_per_page' => get_option('posts_per_page'), 
-			'orderby' => 'post_date',
-			'order' => 'ASC',
-		);
-		$context['archive_posts'] = $archive_posts = new Timber\PostQuery($post_args);  
-		
-		/*
-		// * GRIT_SET Google Fonts
-		// Attiva Google Fonts per ogni riga fonts.google.com
-		*/
-		
-		$grit_setting_google_fonts = get_theme_mod("grit_setting_google_fonts");
-		$google_fonts = explode("\n", $grit_setting_google_fonts);
-		$google_fonts = array_map('trim', $google_fonts); // remove any extra spaces from each element
-		$google_fonts = array_filter($google_fonts); // remove any empty elements
-		$context['setting_google_fonts'] = $google_fonts;
-		$fontNames = array();
-		foreach ($google_fonts as $link) {
-		    preg_match('/family=([^:]+)/i', $link, $matches);
-		    if (isset($matches[1])) {
-		        $fontNames[] = $matches[1];
-		    }
+		// * GRIT_SET 05 | One URL per line; support classic family=A|B and repeated family= parameters.
+		$font_urls = preg_split('/\R/', (string) get_theme_mod('grit_setting_google_fonts', ''));
+		$context['setting_google_fonts'] = array_values(array_filter(array_map('trim', $font_urls)));
+		$font_names = [];
+		foreach ($context['setting_google_fonts'] as $url) {
+			preg_match_all('/[?&]family=([^&]+)/', html_entity_decode($url, ENT_QUOTES, 'UTF-8'), $matches);
+			foreach ($matches[1] as $encoded_family) {
+				foreach (explode('|', urldecode($encoded_family)) as $family) {
+					$name = trim(explode(':', $family, 2)[0]);
+					$name = preg_replace('/[^\p{L}\p{N} -]/u', '', $name);
+					if ($name !== '' && !in_array($name, $font_names, true)) {
+						$font_names[] = $name;
+					}
+				}
+			}
 		}
-		$context['setting_google_font_names'] = $fontNames;
+		$context['setting_google_font_names'] = $font_names;
 
-		
-		// * GRIT_SET Setting
+		// * GRIT_SET 06 | Public company fields; also available to reusable section layouts.
 		$context['setting_intestazione'] = get_theme_mod('grit_setting_intestazione');
 		$context['setting_piva'] = get_theme_mod('grit_setting_piva');
 		$context['setting_rea'] = get_theme_mod('grit_setting_rea');
@@ -249,43 +187,7 @@ class StarterSite extends Timber\Site {
 		$context['setting_instagram'] = get_theme_mod('grit_setting_instagram');
 		$context['setting_tiktok'] = get_theme_mod('grit_setting_tiktok');
 		
-		// * GRIT_SET WooCommerce 
-		if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
-			if (WC()->cart->get_cart_contents_count() == 0) {
-				$context['carrello'] = '';
-			} else {
-				$context['carrello'] = '1';
-			}
-		}
-		
-		// * GRIT_SET Google Maps
-		$gmaps_api_key = get_theme_mod('grit_setting_maps');
-		$context['google_maps_api'] = 'https://maps.googleapis.com/maps/api/js?key=' . $gmaps_api_key . '&loading=async&callback=initMap';
 
-		
-		
-		
-		// * GRIT_SET Yoast
-		if ( is_plugin_active( 'wordpress-seo/wp-seo.php' ) || is_plugin_active( 'wordpress-seo-premium/wp-seo-premium.php' ) ) {
-			$id = get_the_ID();
-			$post = get_post($id, ARRAY_A);
-			$yoast_title = get_post_meta($id, '_yoast_wpseo_title', true);
-			$yoast_desc = get_post_meta($id, '_yoast_wpseo_metadesc', true);
-			
-			$metatitle_val = wpseo_replace_vars($yoast_title, $post);
-			$metatitle_val = apply_filters('wpseo_title', $metatitle_val, $id);  
-			
-			$metadesc_val = wpseo_replace_vars($yoast_desc, $post);
-			$metadesc_val = apply_filters('wpseo_metadesc', $metadesc_val, $id);  
-			
-			$context['metatitle'] = $metatitle_val;
-			$context['metadesc'] = $metadesc_val;
-		
-			if (function_exists('yoast_breadcrumb')) {
-				$context['breadcrumbs'] = yoast_breadcrumb('<div id="breadcrumbs" class="breadcrumb">', '</div>', false);
-			}
-		}
-		
 		return $context;
 	}
 	
@@ -364,6 +266,7 @@ class StarterSite extends Timber\Site {
  
 }
 		
+// * GRIT_SET 04 | Declare compatibility; optional shop customizations stay in their core module.
 function theme_add_woocommerce_support() {
 	add_theme_support( 'woocommerce' );
 }
@@ -372,227 +275,4 @@ add_action( 'after_setup_theme', 'theme_add_woocommerce_support' );
 
 new StarterSite();
 
-// * GRIT_SET Allow excertp in page
-add_post_type_support('page', 'excerpt');
-
-// * GRIT_SET gmap
-// Method 1: Filter.
-function my_acf_google_map_api($api) {
-    $api['key'] = get_theme_mod('grit_setting_maps');
-    return $api;
-}
-add_filter('acf/fields/google_map/api', 'my_acf_google_map_api');
-
-// Method 2: Setting.
-function my_acf_init() {
-    acf_update_setting('google_api_key', get_theme_mod('grit_setting_maps'));
-}
-add_action('acf/init', 'my_acf_init');
-
-// * GRIT_SET Remove the default search var and add a custom one
-
-if ( ! is_admin() ) {
-	add_filter('init', function () {
-		global $wp; 
-		$wp->add_query_var('search_query');
-		$wp->remove_query_var('s');
-	});
-	
-	add_filter('request', function ($request) {
-		if (isset($_REQUEST['search_query'])) {
-			$request['s'] = $_REQUEST['search_query'];
-		} 
-		return $request;
-	});
-};
-
-// * GRIT_SET CF7
-// Create post form CF7
-// function save_posted_data($posted_data)
-// {
-//     $form_id = WPCF7_ContactForm::get_current();
-//     if ($form_id->id == 'ID_FORM') {
-//         $args = array(
-//             'post_type' => 'richieste',
-//             'post_taxonomy' => 'in-attesa',
-//             'post_title' => $posted_data['referentenome'],
-//             'post_content' => $posted_data['note'],
-//             'post_status' => 'private',
-//             'post_author' => $posted_data['userid'],
-//         );
-//         $post_id = wp_insert_post($args);
-//         if (!is_wp_error($post_id)) {
-//             $my_post = array(
-//                 'ID' => $post_id,
-//                 'post_slug' => $post_id,
-//                 'post_title' => $posted_data['nomeviaggio'] . " - " . $posted_data['idviaggio'] . " - Rif. " . $posted_data['primoospitenome'] . " " . $posted_data['primoospitecognome']
-//             );
-//             wp_update_post($my_post);
-//             wp_set_object_terms($post_id, 'in-attesa', 'stati');
-//             wp_set_post_tags($post_id, $posted_data['concessionariatag']);
-//             if (isset($posted_data['concessionaria'])) {
-//                 update_post_meta($post_id, 'concessionaria_nome', $posted_data['concessionaria']);
-//             }
-//             return $posted_data;
-//         }
-//     }
-// }
-// 
-// add_filter('wpcf7_posted_data', 'save_posted_data');
- 
-// Add tag referer-page with url of previous page
-function getRefererPageForm( $form_tag ) {
-    if ( $form_tag['name'] == 'referer-page' ) {
-        // Verifica se HTTP_REFERER è definito
-        if ( isset($_SERVER['HTTP_REFERER']) ) {
-            $form_tag['values'][] = htmlspecialchars($_SERVER['HTTP_REFERER']);
-        } else {
-            // In alternativa, puoi assegnare un valore predefinito
-            $form_tag['values'][] = 'No referer';
-        }
-    }
-    return $form_tag;
-}
-if ( !is_admin() ) {
-	add_filter( 'wpcf7_form_tag', 'getRefererPageForm' );
-}
-
-// Add tag current-page with url of current page
-function getCurrentPageForm($form_tag)
-{
-    global $wp;
-    $current_url = home_url(add_query_arg(array(), $wp->request));
-
-    if ($form_tag['name'] == 'current-page') {
-        $form_tag['values'][] = htmlspecialchars($current_url);
-    }
-
-    return $form_tag;
-}
-
-if (!is_admin()) {
-    add_filter('wpcf7_form_tag', 'getCurrentPageForm');
-}
-
-
-function cc_mime_types($mimes)
-{
-	$mimes['json'] = 'application/json';
-	$mimes['svg'] = 'image/svg+xml';
-	return $mimes;
-}
-add_filter('upload_mimes', 'cc_mime_types');
-
-function allow_svg_mime_types( $data, $file, $filename, $mimes ) {
-    $ext = strtolower( pathinfo( $filename, PATHINFO_EXTENSION ) );
-    if ( $ext === 'svg' ) {
-        $data['ext']  = 'svg';
-        $data['type'] = 'image/svg+xml';
-    }
-    return $data;
-}
-add_filter( 'wp_check_filetype_and_ext', 'allow_svg_mime_types', 10, 4 );
-
-
-
-add_filter('acf/update_value', 'skip_empty_acf_fields', 10, 3);
-
-function skip_empty_acf_fields($value, $post_id, $field) {
-    // Se il valore è vuoto, restituisci null per evitare di salvare il campo
-    if (empty($value)) {
-        return null;
-    }
-    return $value;
-}
-
- 
-add_filter('doing_it_wrong_trigger_error', '__return_false', 0);
-
-// * GRIT_SET Section Archive legend | 01 public choices; 02 independent query; 03 safe excerpts.
-// * GRIT_SET 01 | Populate ACF choices from the current site's registered content types/templates.
-function grit_archive_public_types() {
-    $choices = [];
-    foreach (get_post_types(['public' => true], 'objects') as $type) {
-        if ($type->name !== 'attachment') $choices[$type->name] = $type->labels->name;
-    }
-    return $choices;
-}
-function grit_archive_tease_choices() {
-    $choices = [];
-    foreach (array_unique([get_template_directory(), get_stylesheet_directory()]) as $directory) {
-        foreach (glob($directory . '/templates/partials/tease-*.twig') ?: [] as $path) {
-            $name = substr(basename($path), 6, -5);
-            if ($name === 'product' && (!class_exists('WooCommerce') || !function_exists('timber_set_product'))) continue;
-            $choices[$name] = $name;
-        }
-    }
-    return $choices;
-}
-// * GRIT_SET Use field names and resolve the owning layout instead of hard-coded ACF keys.
-function grit_archive_admin_field($field) {
-    $parent = acf_get_raw_field($field['parent'] ?? 0);
-    $is_archive = false;
-    foreach ($parent['layouts'] ?? [] as $layout) {
-        if (($layout['key'] ?? '') === ($field['parent_layout'] ?? '') && $layout['name'] === 'section_archive') {
-            $is_archive = true;
-            break;
-        }
-    }
-    if (!$is_archive) return $field;
-    if ($field['name'] === 'post_type') {
-        $field['choices'] = grit_archive_public_types();
-    } elseif ($field['name'] === 'tease') {
-        $field['instructions'] = 'Scrivi il nome senza tease- e senza .twig. Disponibili: ' .
-            implode(', ', array_keys(grit_archive_tease_choices())) .
-            '. Consigliati: card, vertical, horizontal, compact, text, title, editorial, overlay. Vuoto: template del post type, se disponibile, altrimenti card standard.';
-    } elseif ($field['name'] === 'taxonomy') {
-        $field['choices'] = [];
-        foreach (get_taxonomies(['public' => true], 'objects') as $taxonomy) {
-            $field['choices'][$taxonomy->name] = $taxonomy->labels->name . ' (' . $taxonomy->name . ')';
-        }
-    }
-    return $field;
-}
-foreach (['post_type', 'tease', 'taxonomy'] as $grit_archive_field_name) {
-    add_filter('acf/load_field/name=' . $grit_archive_field_name, 'grit_archive_admin_field');
-}
-unset($grit_archive_field_name);
-
-// * GRIT_SET 02 | Query each section without replacing the native archive or related-post query.
-function grit_archive_section_data($section) {
-    $empty = ['posts' => [], 'tease' => ''];
-    $type = sanitize_key($section['post_type'] ?? 'post') ?: 'post';
-    if (!isset(grit_archive_public_types()[$type])) return $empty;
-    $limit = $section['posts_per_page'] ?? '';
-    $limit = $limit === '' || $limit === null || $limit === false ? (int) get_option('posts_per_page', 10) : (int) $limit;
-    $orderby = $section['orderby'] ?? 'date';
-    if (!in_array($orderby, ['date', 'title', 'menu_order'], true)) $orderby = 'date';
-    $order = strtoupper($section['order'] ?? 'DESC') === 'ASC' ? 'ASC' : 'DESC';
-    $args = [
-        'post_type' => $type, 'post_status' => 'publish', 'has_password' => false,
-        'posts_per_page' => max(1, min(100, $limit)), 'no_found_rows' => true,
-        'orderby' => [$orderby => $order, 'ID' => $order], 'ignore_sticky_posts' => true,
-    ];
-    if (!empty($section['exclude_current']) && is_singular()) {
-        $args['post__not_in'] = [(int) get_queried_object_id()];
-    }
-    $taxonomy = sanitize_key($section['taxonomy'] ?? '');
-    $terms = trim((string) ($section['term_slugs'] ?? ''));
-    if ($terms !== '') {
-        if (!$taxonomy || !is_object_in_taxonomy($type, $taxonomy)) return $empty;
-        $slugs = array_filter(array_map('sanitize_title', explode(',', $terms)));
-        if (!$slugs) return $empty;
-        $args['tax_query'] = [['taxonomy' => $taxonomy, 'field' => 'slug', 'terms' => $slugs, 'operator' => 'IN']];
-    }
-    $tease = sanitize_key($section['tease'] ?? '') ?: $type;
-    if (!isset(grit_archive_tease_choices()[$tease])) $tease = '';
-    return ['posts' => new Timber\PostQuery($args), 'tease' => $tease];
-}
-
-// * GRIT_SET 03 | Card previews never execute full-content filters or embedded shortcodes.
-function grit_archive_excerpt($post, $length = 35) {
-    $id = is_object($post) ? (int) $post->ID : (int) $post;
-    $excerpt = get_post_field('post_excerpt', $id);
-    $text = $excerpt !== '' ? $excerpt : get_post_field('post_content', $id);
-    return wp_trim_words(wp_strip_all_tags(strip_shortcodes(strip_tags((string) $text))), max(1, (int) $length), '…');
-}
+// Reusable helpers, archive queries and plugin integrations are in core/extras.php.

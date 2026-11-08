@@ -1,26 +1,35 @@
 {#
  * GRIT_SET Section Archive legend
  * 01 | Independent PHP query, validated card template and exact carousel token
- * 02 | Shared item columns; one card loop for grid and carousel
- * Class | section_archive_carousel; shared carousel-* settings and light/dark controls
+ * 02 | Shared item columns; post or term cards in grid, Masonry or carousel
+ * Class | section_masonry / section_archive_carousel; shared carousel-* settings and light/dark controls
  #}
 {% import 'partials/grid-classes.twig' as archive_grid %}
 {% if archive_data is not defined %}{% set archive_data = function('grit_archive_section_data', section) %}{% endif %}
-{% set archive_items = archive_data.posts %}
-{% set carousel = 'section_archive_carousel' in section.class|default('')|split(' ') and archive_items|length > 1 %}
+{% set is_terms = archive_data.mode|default('posts') == 'terms' %}
+{% set archive_items = is_terms ? archive_data.terms : archive_data.posts %}
+{% set modifiers = section.class|default('')|split(' ') %}
+{% set carousel_requested = 'section_archive_carousel' in modifiers %}
+{% set carousel = carousel_requested and archive_items|length > 1 %}
+{% set masonry = not carousel_requested and 'section_masonry' in modifiers %}
 {% set grid = function('html_entity_decode', archive_grid.classes(section.inner_class|default(''), archive_items|length, section.align|default(''), carousel)|trim, 3, 'UTF-8') %}
+{% if masonry %}{% set grid = grid ~ ' masonry-item' %}{% endif %}
 {% if archive_items|length %}
     {# * GRIT_SET 02 | Outer column classes control section width; Inner Class controls individual cards #}
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="{{ col_classes|default([])|join(' ')|default('col-12')|e('html_attr') }}">
-                <div class="{% if carousel %}owl-carousel owl-theme{% else %}row{% endif %}">
+                <div class="{% if carousel %}owl-carousel owl-theme{% elseif masonry %}row masonry-grid js-grit-masonry{% else %}row{% endif %}">
                     {% for archive_post in archive_items %}
+                        {% if is_terms %}
+                            {% include 'partials/tease-term.twig' with { term: archive_post, grid: grid, show_count: section.terms_show_count|default(false) } only %}
+                        {% else %}
                         {% include ['partials/tease-' ~ archive_data.tease ~ '.twig', 'partials/tease.twig'] with {
                             post: archive_post,
                             grid: carousel and not grid ? ' ' : grid,
                             tease_style: archive_data.tease
                         } %}
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>
