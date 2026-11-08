@@ -991,7 +991,7 @@ function grit_maps_section_data($section) {
     ];
 }
 
-// * GRIT_SET 19 | Resolve policy pages by identity; slugs support older installations only.
+// * GRIT_SET 19 | Resolve policy pages by identity, then by their standard slug.
 function grit_policy_page($type) {
     if (!in_array($type, ['privacy', 'cookie'], true)) {
         return null;
@@ -1004,7 +1004,7 @@ function grit_policy_page($type) {
         }
     }
     // Prefer a published assigned page; drafts remain reusable during setup.
-    foreach (['publish', 'draft', 'private', 'pending', 'future'] as $status) {
+    foreach (['publish', ['draft', 'private', 'pending', 'future']] as $status) {
         $pages = get_posts([
             'post_type' => 'page', 'post_status' => $status, 'numberposts' => 1,
             'meta_key' => '_wp_page_template', 'meta_value' => 'grit-' . $type . '-policy.php',
@@ -1014,11 +1014,9 @@ function grit_policy_page($type) {
             return $pages[0];
         }
     }
-    foreach ([$type . '-policy-gdpr', $type . '-policy'] as $slug) {
-        $page = get_page_by_path($slug, OBJECT, 'page');
-        if ($page && !in_array($page->post_status, ['trash', 'auto-draft'], true)) {
-            return $page;
-        }
+    $page = get_page_by_path($type . '-policy', OBJECT, 'page');
+    if ($page && !in_array($page->post_status, ['trash', 'auto-draft'], true)) {
+        return $page;
     }
     return null;
 }

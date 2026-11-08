@@ -578,8 +578,8 @@ if ($grit_theme_activation_options['add_pages_to_primary_navigation'] === 'true'
             }
 
             $page = !empty($page_data['policy'])
-            ? grit_policy_page($page_data['policy'])
-            : get_page_by_path($page_data['slug'], OBJECT, 'page');
+                ? grit_policy_page($page_data['policy'])
+                : get_page_by_path($page_data['slug'], OBJECT, 'page');
 
             if (!$page || $page->post_status !== 'publish') {
                 continue;

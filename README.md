@@ -73,7 +73,7 @@ Le operazioni di setup possono modificare pagine, menu, impostazioni e definizio
 
 Nell’editor della pagina selezionare il template **Privacy Policy** o **Cookie Policy**. L’associazione resta salvata anche cambiando titolo o slug. I template usano i contenuti della pagina e, quando vuoti, i rispettivi contenuti predefiniti già previsti dal tema. Per la Cookie Policy il documento automatico richiede lo shortcode di Complianz; in sua assenza viene mostrato un messaggio di documento non disponibile. È possibile compilare direttamente il contenuto della pagina.
 
-Il setup riutilizza la pagina Privacy selezionata in **Impostazioni → Privacy**, anche quando è ancora una bozza; non la pubblica e non ne sostituisce i testi. Cerca inoltre pagine già associate ai template e riconosce i vecchi slug `privacy-policy-gdpr` e `cookie-policy-gdpr`. Crea una nuova pagina solo quando non ne trova una da riutilizzare. Un template personalizzato già assegnato viene conservato.
+Il setup riutilizza la pagina Privacy selezionata in **Impostazioni → Privacy**, anche quando è ancora una bozza; non la pubblica e non ne sostituisce i testi. Cerca inoltre pagine già associate ai template oppure con gli slug standard `privacy-policy` e `cookie-policy`. Crea una nuova pagina solo quando non ne trova una da riutilizzare. Un template personalizzato già assegnato viene conservato.
 
 Per la Privacy, la pagina di riferimento si sceglie in **Impostazioni → Privacy**. Per la Cookie Policy, assegnare il relativo template a una sola pagina di riferimento. I link automatici del footer seguono i permalink delle pagine pubblicate e si aggiornano al cambio di slug; le bozze non vengono collegate.
 
@@ -85,7 +85,7 @@ La mail principale usa `[_site_admin_email]`, cioè l'indirizzo amministrativo i
 
 **Mail (2)** contiene una conferma separata per il visitatore, inizialmente disattivata. Può essere abilitata in CF7 dopo aver verificato la configurazione e il recapito. Il modello non configura SMTP e la validazione dei campi non garantisce la consegna delle email.
 
-Il collegamento privacy usa la pagina pubblicata selezionata in WordPress; sulle copie precedenti viene riconosciuta anche la pagina dello starter. Se non esiste una pagina pubblicata, l’accettazione resta senza link: configurare la pagina prima di usare il modulo. Il link salvato nel modulo CF7 va aggiornato se si cambia successivamente l’indirizzo della pagina. Nome, cognome, email e accettazione sono obbligatori; telefono e messaggio sono facoltativi. Provenienza e pagina corrente sono campi nascosti.
+Il collegamento privacy usa la pagina pubblicata individuata dalla configurazione Privacy di WordPress, dal template assegnato oppure dallo slug standard. Se non esiste una pagina pubblicata, l’accettazione resta senza link: configurare la pagina prima di usare il modulo. Il link salvato nel modulo CF7 va aggiornato se si cambia successivamente l’indirizzo della pagina. Nome, cognome, email e accettazione sono obbligatori; telefono e messaggio sono facoltativi. Provenienza e pagina corrente sono campi nascosti.
 
 ## 5. Importare i campi ACF
 
