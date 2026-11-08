@@ -3,8 +3,8 @@
 // * GRIT_SET Legend | Theme bootstrap
 // 01 | Load core modules (reusable helpers are in core/extras.php)
 // 02 | Load Composer/Timber and configure Twig
-// 03 | Shared context, theme supports and Twig extensions
-// 04 | WooCommerce support and site initialization
+// 03 | Shared context and Twig extensions
+// 04 | Site initialization
 
 // * GRIT_SET Agency selection | Match an agency_folder in assets/credits/credits.json.
 // Available: gritlab, astratto, poliedro. A child theme may define this before the parent loads.
@@ -83,11 +83,10 @@ Timber::$dirname = array( 'templates', 'views' );
 // Autoescaping is disabled here; templates escape values according to their output context.
 Timber::$autoescape = false;
 
-// * GRIT_SET 03 | Site context, WordPress theme supports and Twig extensions.
+// * GRIT_SET 03 | Site context and Twig extensions.
 class StarterSite extends Timber\Site {
 	/** Add timber support. */
 	public function __construct() {
-		add_action( 'after_setup_theme', array( $this, 'theme_supports' ) );
 		add_filter( 'timber/context', array( $this, 'add_to_context' ) );
 		add_filter( 'timber/twig', array( $this, 'add_to_twig' ) );
 		add_action( 'init', array( $this, 'register_post_types' ) );
@@ -192,60 +191,6 @@ class StarterSite extends Timber\Site {
 		return $context;
 	}
 	
-	public function theme_supports() {
-		// Add default posts and comments RSS feed links to head.
-		add_theme_support( 'automatic-feed-links' );
-		
-		/*
-		* Let WordPress manage the document title.
-		* By adding theme support, we declare that this theme does not use a
-		* hard-coded <title> tag in the document head, and expect WordPress to
-		* provide it for us.
-		*/
-		add_theme_support( 'title-tag' );
-		
-		/*
-		* Enable support for Post Thumbnails on posts and pages.
-		*
-		* @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
-		*/
-		add_theme_support( 'post-thumbnails' );
-		
-		/*
-		* Switch default core markup for search form, comment form, and comments
-		* to output valid HTML5.
-		*/
-		add_theme_support(
-			'html5',
-			array(
-				'comment-form',
-				'comment-list',
-				'gallery',
-				'caption',
-				)
-		);
-			
-		/*
-			* Enable support for Post Formats.
-			*
-			* See: https://codex.wordpress.org/Post_Formats
-			*/
-		add_theme_support(
-			'post-formats',
-			array(
-				'aside',
-				'image',
-				'video',
-				'quote',
-				'link',
-				'gallery',
-				'audio',
-				)
-			);
-			
-		add_theme_support( 'menus' );
-	}
-		
 	/** This Would return 'foo bar!'.
 	*
 	* @param string $text being 'foo', then returned 'foo bar!'.
@@ -267,13 +212,7 @@ class StarterSite extends Timber\Site {
  
 }
 		
-// * GRIT_SET 04 | Declare compatibility; optional shop customizations stay in their core module.
-function theme_add_woocommerce_support() {
-	add_theme_support( 'woocommerce' );
-}
-
-add_action( 'after_setup_theme', 'theme_add_woocommerce_support' );
-
+// * GRIT_SET 04 | Initialize the shared Timber site.
 new StarterSite();
 
 // Reusable helpers, archive queries and plugin integrations are in core/extras.php.

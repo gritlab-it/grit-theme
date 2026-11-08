@@ -5,9 +5,6 @@
 // 01 | Theme translations, supports and navigation
 // 02 | Register sidebar and footer widget areas
 
-/**
- * Roots initial setup and constants
- */
 // * GRIT_SET 01 | Theme translations, supports and navigation
 function grit_setup() {
   // Make theme available for translation
@@ -23,21 +20,18 @@ function grit_setup() {
     'bio_navigation' => __('Bio Links', 'grit')
   ));
 
-  // Add post thumbnails
-  // http://codex.wordpress.org/Post_Thumbnails
-  // http://codex.wordpress.org/Function_Reference/set_post_thumbnail_size
-  // http://codex.wordpress.org/Function_Reference/add_image_size
+  // WordPress manages document titles, feed links and featured images.
+  add_theme_support('title-tag');
+  add_theme_support('automatic-feed-links');
   add_theme_support('post-thumbnails');
 
-  // * GRIT_SET jQuery is supplied by WordPress; no CDN theme support is required.
+  // Keep the supported post formats and native HTML5 markup in one place.
+  add_theme_support('post-formats', array('aside', 'image', 'video', 'quote', 'link', 'gallery', 'audio'));
+  add_theme_support('html5', array('comment-form', 'comment-list', 'gallery', 'caption'));
 
-  // Add post formats
-  // http://codex.wordpress.org/Post_Formats
-  add_theme_support('post-formats', array('aside', 'gallery', 'link', 'image', 'quote', 'video', 'audio'));
-
-  // Add HTML5 markup for captions
-  // http://codex.wordpress.org/Function_Reference/add_theme_support#HTML5
-  add_theme_support('html5', array('caption', 'comment-form', 'comment-list'));
+  // register_nav_menus() above also enables the WordPress menus support.
+  // Declare shop compatibility; optional customizations remain in core/woocommerce.php.
+  add_theme_support('woocommerce');
 }
 add_action('after_setup_theme', 'grit_setup');
 
