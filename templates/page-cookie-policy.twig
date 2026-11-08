@@ -1,74 +1,53 @@
 {#
- * GRIT_SET Page Cookie Policy
- * Legend
- * 01 | Sections Before Content
- * 02 | Cookie Policy Content
- * 03 | Sections After Content
+ * GRIT_SET Policy page legend
+ * 01 | ACF sections before content
+ * 02 | Shared Bootstrap grid and theme typography
+ * 03 | ACF sections after content
  #}
- 
- 
- 
- 
- 
-
-{% extends "base.twig" %}
+{% extends 'base.twig' %}
 
 {% block content %}
+    <article class="post-type-{{ post.post_type }}" id="post-{{ post.ID }}">
+        {# * GRIT_SET 01 | Preserve the configured content order. #}
+        {% include 'partials/sections.twig' with {sections: sections|default([]), pre_content: true} %}
 
-<article class="post-type-{{post.post_type}}" id="post-{{post.ID}}">
-
-{# * GRIT_SET 01 | Sections Before Content #} 
-{% include 'partials/sections.twig' with { sections: sections|default([]), pre_content: true } %}
- 
-
-{# * GRIT_SET 02 | Cookie Policy Content #} 
-	{% if content is not empty %}
-	    <section class="section_page contained py-3">
-	        <div class="container-fluid">
-	            <div class="row">
-	                <div class="col-12">   
-	                    {{ content }}
-	                </div>
-	            </div>
-	        </div>
-	    </section>
-        {% elseif function('shortcode_exists', 'cmplz-document') %}
-        <section class="section_page contained py-3">
-	        <div class="container-fluid">
-	            <div class="row">
-	                <div class="col-12">
-                        {% filter shortcodes %}
-                            [cmplz-document type="cookie-statement" region="eu"]
-                        {% endfilter %}
-	                </div>
-	            </div>
-	        </div>
-	    </section> 
-
-		<style>
-        @import url("{{ function('plugins_url', 'complianz-gdpr/assets/css/document.min.css')|e('css') }}");
-        #cmplz-document {
-            max-width: 100%;
-            text-justify: inter-word;
-        }
-    	</style>
-
-    {% else %}
-        <section class="section_page contained py-3">
+        {# * GRIT_SET 02 | A centered reading column uses existing theme utilities only. #}
+        <section class="section_page contained py-5 py-md-7">
             <div class="container-fluid">
-                <h1>{{ post.title|e }}</h1>
-                <p>{{ __('Il documento non è ancora disponibile.', 'grit') }}</p>
+                <div class="row justify-content-center">
+                    <div class="col-12 col-lg-10 col-xl-8">
+                        <header class="border-bottom pb-4 mb-4 mb-md-5">
+                            <p class="small text-uppercase text-muted mb-2">{{ site.name|e }}</p>
+                            <h1 class="display-4 mb-0">{{ post.title|e }}</h1>
+                        </header>
+                        {% if content is not empty %}
+                            {{ content }}
+                        {% elseif function('shortcode_exists', 'cmplz-document') %}
+                            {% filter shortcodes %}
+                                [cmplz-document type="cookie-statement" region="eu"]
+                            {% endfilter %}
+                            {# Keep the plugin's document styling; no policy-specific CSS overrides. #}
+                            <style>
+                                @import url("{{ function('plugins_url', 'complianz-gdpr/assets/css/document.min.css')|e('css') }}");
+                            </style>
+                        {% else %}
+                            <div class="bg-light rounded p-4 p-md-5">
+                                <p class="mb-0">{{ __('Il documento non è ancora disponibile.', 'grit') }}</p>
+                            </div>
+                        {% endif %}
+
+                        <nav class="border-top pt-4 mt-5" aria-label="{{ __('Documenti del sito', 'grit')|e('html_attr') }}">
+                            {% set related_policy_url = function('grit_policy_url', 'privacy') %}
+                            {% if related_policy_url %}
+                                <a class="btn btn-outline-dark" href="{{ related_policy_url|e('html_attr') }}">Privacy Policy</a>
+                            {% endif %}
+                        </nav>
+                    </div>
+                </div>
             </div>
         </section>
-    {% endif %}
- 
 
-{# * GRIT_SET 03 | Sections After Content #} 
-{% include 'partials/sections.twig' with { sections: sections|default([]), pre_content: false } %}
- 
-
-</article>
-
+        {# * GRIT_SET 03 | Preserve sections placed after the document. #}
+        {% include 'partials/sections.twig' with {sections: sections|default([]), pre_content: false} %}
+    </article>
 {% endblock %}
-
-
