@@ -26,7 +26,7 @@
                             {% filter shortcodes %}
                                 [cmplz-document type="cookie-statement" region="eu"]
                             {% endfilter %}
-                            {# Keep the plugin's document styling; no policy-specific CSS overrides. #}
+                            {# Plugin layout; document width and body typography are adapted in _sections.scss. #}
                             <style>
                                 @import url("{{ function('plugins_url', 'complianz-gdpr/assets/css/document.min.css')|e('css') }}");
                             </style>

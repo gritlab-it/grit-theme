@@ -5154,6 +5154,26 @@ section.section-bars.bg-primary .bar {
   visibility: hidden;
 }
 
+.section_page #cmplz-document {
+  max-width: 100%;
+  text-justify: inter-word;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+.section_page #cmplz-document p,
+.section_page #cmplz-document li,
+.section_page #cmplz-document td,
+.section_page #cmplz-document .cmplz-dropdown p,
+.section_page #cmplz-document .cmplz-dropdown a,
+.section_page #cmplz-document .cmplz-dropdown .cookies-per-purpose .name-header strong,
+.section_page #cmplz-document .cmplz-dropdown .cookies-per-purpose .retention-header strong,
+.section_page #cmplz-document .cmplz-dropdown .cookies-per-purpose .function-header strong {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
 :root {
   --grit-form-shadow: none;
   --grit-form-background: #ebf0e6;

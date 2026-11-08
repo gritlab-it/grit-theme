@@ -15,6 +15,7 @@
 // 14 | Tease: standard card media shared by archives, sections and related posts.
 // 15 | Maps: canvas heights, location list and information windows
 // 16 | reCAPTCHA badge visibility.
+// 17 | Complianz documents: width and inherited body typography.
 // Settings: _variables.scss. Owl controls: _plugins.scss. Shortcodes: _shortcodes.scss.
 
 @use "./variables" as *;
@@ -979,4 +980,28 @@ section.section-bars {
 // * GRIT_SET 16 | Hide the badge without disabling reCAPTCHA.
 .grecaptcha-badge {
     visibility: hidden;
+}
+
+
+// * GRIT_SET 17 | Keep plugin controls and headings; body copy follows the surrounding theme.
+.section_page #cmplz-document {
+    max-width: 100%;
+    text-justify: inter-word;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+
+    // Override the plugin's fixed 14px copy, including cookie detail tables.
+    p,
+    li,
+    td,
+    .cmplz-dropdown p,
+    .cmplz-dropdown a,
+    .cmplz-dropdown .cookies-per-purpose .name-header strong,
+    .cmplz-dropdown .cookies-per-purpose .retention-header strong,
+    .cmplz-dropdown .cookies-per-purpose .function-header strong {
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
+    }
 }
