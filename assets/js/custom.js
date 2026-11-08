@@ -40,8 +40,22 @@ $(function () {
 
 $(document).ready(function () {
     $("a").on("click", function (e) {
+        // Preserve modified clicks, other mouse buttons and previously handled events.
+        if (
+            e.isDefaultPrevented() ||
+            (typeof e.button === "number" && e.button !== 0) ||
+            e.metaKey || e.ctrlKey || e.shiftKey || e.altKey
+        ) {
+            return;
+        }
+
         const link = $(this);
         const href = link.attr("href");
+        const target = (link.attr("target") || "").toLowerCase();
+
+        // Downloads and links targeting another browsing context keep their native behavior.
+        if (!href || this.hasAttribute("download") || (target && target !== "_self")) return;
+        if (this.protocol !== "http:" && this.protocol !== "https:") return;
         
         if (link.prop("hostname") !== window.location.hostname) return;
         
@@ -50,7 +64,6 @@ $(document).ready(function () {
         }
         
         if (
-            link.attr("target") === "_blank" ||
             link.hasClass("no-load") ||
             link.closest(".gallery-icon").length > 0 ||
             link.attr("data-lightbox-gallery")
