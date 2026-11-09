@@ -1069,6 +1069,19 @@ Gli helper `grit_template_fields()`, `grit_template_content()` e `grit_template_
 
 ## Header footer menu e form
 
+### Articoli e commenti
+
+Il layout del singolo contenuto è in `templates/single.twig`: categorie e titolo, estratto facoltativo, autore e data, immagine in evidenza, testo e tag. Le Sections ACF si possono inserire prima e dopo il contenuto; i correlati dipendono dalla query in `single.php`.
+
+`comments.php` presenta elenco e modulo nativi WordPress. Le classi in `$comment_styles` regolano riquadri, avatar, spaziature e pulsanti usando le utility del tema. I campi ereditano lo stile globale dei form; Invio, Rispondi e Annulla risposta usano le classi `btn`.
+
+- Abilitare i commenti in **Impostazioni → Discussione**, sul singolo contenuto e nel Customizer (opzione **Disable comments** disattivata). Il tipo di contenuto deve supportare i commenti.
+- Nome ed email seguono l’impostazione WordPress che li rende obbligatori. L’email non è pubblicata; il campo Sito web non è presente. Chi è collegato usa i dati del proprio account.
+- La spunta per ricordare nome ed email nel browser è facoltativa e compare se abilitata nelle impostazioni Discussione.
+- L’accettazione della privacy è obbligatoria anche per gli utenti collegati. Configurare e pubblicare la pagina Privacy in **Impostazioni → Privacy**; il modulo ne usa il link. `grit_validate_comment_form()` in `core/extras.php` controlla la spunta negli invii dal modulo nativo.
+- Registrazione obbligatoria, moderazione, notifiche e profondità delle risposte si gestiscono nelle impostazioni Discussione. Il link Modifica è riservato agli utenti autorizzati e apre il backend.
+
+
 ### Bio / Link in bio
 
 Usare lo slug `bio` e il template predefinito: il tema carica automaticamente `page-bio.twig`. Cambiando slug occorre rinominare anche il Twig corrispondente. La pagina usa un layout essenziale senza menu principale, loader o footer esteso. Le Sections ACF prima/dopo il contenuto restano disponibili.
@@ -1160,6 +1173,25 @@ L’ID deve appartenere a un modulo reale del sito. Verificare invio email, mess
 Usare le variabili della palette, come `$accent`, `$primary`, `$secondary`, `$light`, `$dark`, `$grey`, `$black` e `$white`, anziché ripetere valori esadecimali nei componenti. Le classi `bg-*`, `color-*` e le utility tipografiche esistenti consentono molte composizioni direttamente in ACF.
 
 `$breakpoints` e gli alias derivati in `_variables.scss` centralizzano i valori del tema. Bootstrap è distribuito come CSS già compilato: cambiare una mappa Sass del tema non ricompila automaticamente i breakpoint del pacchetto Bootstrap o quelli numerici di un controller JavaScript. Se si cambiano i breakpoint del progetto verificarne la coerenza fra griglia, SCSS e JS.
+
+### Tabelle nei contenuti e nelle guide
+
+Per una tabella HTML con bordi e spaziatura usa `table table-bordered`; racchiudila in `table-responsive` per consentire lo scorrimento orizzontale su mobile. Il solo tag `figure` non aggiunge bordi: l’aspetto dipende dalle classi e dal foglio di stile caricato.
+
+```html
+<div class="table-responsive mb-4">
+    <table class="table table-bordered mb-0">
+        <thead>
+            <tr><th scope="col">Campo</th><th scope="col">Utilizzo</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Class</td><td>Classi della sezione</td></tr>
+        </tbody>
+    </table>
+</div>
+```
+
+Nell’editor a blocchi, il blocco Tabella genera un wrapper `figure.wp-block-table`: conservarlo quando si modifica quel blocco. Per le guide convertite da Markdown, applicare le classi dell’esempio alle tabelle generate, incluse quelle degli esempi, senza cambiare i contenuti ACF.
 
 ### Colori e trasparenza
 
