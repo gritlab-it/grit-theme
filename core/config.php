@@ -2,6 +2,8 @@
 
 // * GRIT_SET Legend | Config
 // Frontend library switches and additional asset lists.
+// Path: core/customizer.php option -> this file -> core/scripts.php loading -> assets/js/custom.js initialization.
+// See GUIDA.md: "Percorso breve: opzione → caricamento → inizializzazione".
 // 01 | Frontend library options
 // 02 | Additional stylesheet URLs
 // 03 | Additional JavaScript URLs
@@ -10,6 +12,8 @@
 
 $GLOBALS['assets_options'] = array(
 
+    // These four entries are informational: core/scripts.php loads them unconditionally.
+    // Setting them to false does not disable their assets.
     // Library: Bootstrap 4.6.2 CSS JS
     'GRIT_SETTING_BOOTSTRAP' => true,
 

@@ -123,6 +123,8 @@ function grit_customize_register($wp_customize)
         'description' => __('Attiva Google Fonts per ogni riga fonts.google.com', 'grit'),
     ));
 
+    // Library controls: keep defaults aligned with core/config.php.
+    // Loading is in core/scripts.php; enabling an asset does not create a frontend component.
     // * GRIT_SET 06 | Library: GSAP
     // Reference: https://github.com/greensock/GSAP
 

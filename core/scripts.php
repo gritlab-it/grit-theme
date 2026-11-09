@@ -2,6 +2,8 @@
 
 // * GRIT_SET Legend | Scripts
 // Frontend asset loading and external service integrations.
+// Options come from core/config.php; component initialization belongs in assets/js/custom.js.
+// For a new library used by custom.js, also declare its conditional dependency in section 27.
 // 01 | Add prefetching rules
 // 02 | Frontend CSS and JavaScript loading
 // 03 | Comment reply script

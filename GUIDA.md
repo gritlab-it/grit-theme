@@ -115,7 +115,37 @@ Le impostazioni già salvate prevalgono sui default: una copia del sito può qui
 
 Bootstrap usa il proprio bundle e jQuery è quello fornito da WordPress: non aggiungere una seconda copia di jQuery o un altro Popper per le section Bootstrap 4. Google Maps è un servizio separato caricato quando necessario.
 
-Le risorse si configurano in Personalizza, `core/config.php` e `core/scripts.php`. Controllare dipendenze, console e rete dopo modifiche. Con librerie disattivate molti componenti hanno fallback statici, ma accordion e tab richiedono Bootstrap per l’interazione.
+### Percorso breve: opzione → caricamento → inizializzazione
+
+| Passaggio | File e responsabilità |
+| --- | --- |
+| Opzione | `core/customizer.php`: crea il controllo in Personalizza e il suo valore iniziale. `core/config.php`: legge lo stesso `grit_setting_*` e lo espone in `$GLOBALS['assets_options']`. Mantenere coerenti i default nei due file. |
+| Caricamento | `core/scripts.php`: legge l’opzione e carica CSS/JS con gli handle WordPress e le relative dipendenze. `grit_scripts()` carica le librerie alla priorità 100; `grit_scripts_custom()` carica `custom.js` alla 110. |
+| Inizializzazione | `assets/js/custom.js`: individua il componente nella pagina, verifica la disponibilità della libreria e avvia il comportamento. I commenti `GRIT_SET` permettono di trovare il blocco interessato. Il markup resta nei Twig e gli stili del tema negli SCSS. |
+
+**Esempio: Owl Carousel.** Cerca `grit_setting_owl_carousel` nel Customizer e in `config.php`: il default è `true`. In `scripts.php`, `GRIT_SETTING_OWL_CAROUSEL` abilita gli asset con handle `owl_carousel`; il blocco 27 lo aggiunge alle dipendenze di `custom.js` quando è caricato. Nel blocco **03 | Owl carousels** di `custom.js` trovi selettori e opzioni; il controllo `typeof $.fn.owlCarousel` evita l’avvio quando manca la libreria. Per modificare il numero di elementi usa prima le classi documentate dei singoli layout.
+
+### Librerie strutturali e facoltative
+
+- **Strutturali nell’implementazione attuale:** jQuery di WordPress e Bootstrap. Il codice condiviso usa jQuery; griglia, utility, accordion e tab usano Bootstrap. Rimuoverli richiede adattare template, stili e interazioni.
+- **Sempre caricate per la presentazione:** Font Awesome, Animate.css con ViewportChecker e Hover.css. Forniscono icone ed effetti usati dal tema. Non hanno un interruttore in Personalizza: prima di rimuoverle cercare le relative classi nei Twig, nei contenuti e negli stili.
+- **Facoltative:** le librerie delle due righe configurabili della tabella precedente. Si possono attivare/disattivare in Personalizza; il componente interessato può perdere carosello, ricerca, animazione o altro comportamento. Verificare il risultato anche con la libreria disattivata.
+
+**Attenzione a `config.php`:** le voci `GRIT_SETTING_BOOTSTRAP`, `GRIT_SETTING_FA`, `GRIT_SETTING_ANIMATE` e `GRIT_SETTING_HOVER` non sono interruttori effettivi. `scripts.php` carica queste risorse senza leggerle: impostarle a `false` non le disabilita.
+
+List.js segue lo stesso percorso, ma viene registrato nel blocco 27 di `scripts.php` e caricato come dipendenza di `custom.js`; la sua inizializzazione è nel blocco 09 (Collapse). GSAP e Lenis sono nel blocco 12. Google Maps segue un percorso dedicato: chiave nel Customizer, dati in `core/extras.php`, template `section_maps.twig` e controller `assets/js/maps.js`.
+
+Caricare una libreria non crea automaticamente un componente: per esempio, gli interruttori Three.js, Swiper e Cocoen caricano gli asset, ma `custom.js` non contiene un’inizializzazione dedicata per loro. Serve il markup e la configurazione previsti dal progetto.
+
+### Aggiungere, disattivare o rimuovere una libreria
+
+1. **Aggiungere:** se serve un controllo per chi configura il sito, seguire il percorso del Customizer e di `config.php`; aggiungere gli enqueue in `scripts.php`, poi l’inizializzazione nel blocco pertinente di `custom.js`. Dichiarare le dipendenze reali: se `custom.js` usa la nuova libreria, aggiungerne l’handle alle sue dipendenze soltanto quando è abilitata. Verificarne la disponibilità prima dell’avvio.
+2. **Disattivare su un progetto:** usare Personalizza per le librerie facoltative. Cambiare il default nel codice non sovrascrive un valore già salvato nel sito.
+3. **Rimuovere dallo starter:** cercare nome dell’opzione, chiave `GRIT_SETTING_*`, handle e chiamate JavaScript; eliminare le parti collegate e adattare markup/stili che le richiedono. Controllare anche gli asset e le licenze prima di eliminare file condivisi.
+
+Gli elenchi `GRIT_SETTING_CSS` e `GRIT_SETTING_JS` in `config.php` servono per URL aggiuntivi caricati senza interruttore. Non inizializzano componenti e non descrivono dipendenze fra script: quando occorre un ordine preciso, usare enqueue espliciti in `scripts.php`.
+
+Dopo una modifica verificare nella rete del browser che gli asset siano caricati una sola volta, controllare la console e provare il componente su desktop/mobile, anche con l’opzione disattivata.
 
 ## Campi comuni e colonne
 
