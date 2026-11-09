@@ -31,6 +31,7 @@
 // 17 | Controller helpers: ACF fields, content and pagination
 // 18 | Section Maps: coordinates, styles and locations
 // 19 | Policy pages and public URLs
+// 20 | Native comment form validation
 
 // * GRIT_SET 00 | Admin bar visibility
 if (get_theme_mod('grit_adv_adminbar', true)) {
@@ -1014,3 +1015,14 @@ function grit_policy_url($type) {
     $page = grit_policy_page($type);
     return $page && $page->post_status === 'publish' ? get_permalink($page->ID) : '';
 }
+
+// * GRIT_SET 20 | Native comment form validation
+// Runs on native frontend submissions, not on admin moderation or REST comment updates.
+function grit_validate_comment_form($post_id) {
+    $privacy = $_POST['grit_comment_privacy'] ?? '';
+    if ($privacy !== '1') {
+        wp_die(esc_html__('Per inviare il commento devi accettare la Privacy Policy.', 'grit'), '', ['response' => 400, 'back_link' => true]);
+    }
+
+}
+add_action('pre_comment_on_post', 'grit_validate_comment_form');

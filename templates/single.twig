@@ -1,7 +1,7 @@
 {#
  * GRIT_SET Single legend
  * 01 | Sections before content
- * 02 | Image, title, content and post details
+ * 02 | Post heading, featured image and reading column
  * 03 | Sections after content
  * 04 | Related posts
  * 05 | Native comments
@@ -9,80 +9,80 @@
 {% extends 'base.twig' %}
 
 {% block content %}
-    <article class="single single-type-{{ post.post_type }}" id="post-{{ post.ID }}">
+    <article class="single single-type-{{ post.post_type|e('html_attr') }}" id="post-{{ post.ID }}">
         {# * GRIT_SET 01 | Local sections and one-level section-page references. #}
         {% include 'partials/sections.twig' with {sections: sections|default([]), pre_content: true} %}
 
-        {# * GRIT_SET 02 | Edit the main post layout here. PHP prepares title and content. #}
-        <section class="section_page contained">
+        {# * GRIT_SET 02 | Post heading, featured image and reading column. #}
+        {% set categories = post.terms('category') %}
+        {% set tags = post.terms('post_tag') %}
+        <section class="section_page contained py-5">
             <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 col-lg-10 col-xl-8 mx-auto">
+                        <header class="mb-5">
+                            {% if categories|length %}
+                                <div class="d-flex flex-wrap mb-3">
+                                    {% for category in categories %}
+                                        <a href="{{ category.link|e('html_attr') }}" class="small text-uppercase font-weight-bold mr-3 mb-2">{{ category.name|e }}</a>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+
+                            <h1 class="display-2 mb-4">{{ title|e }}</h1>
+                            {% if post.post_excerpt %}
+                                <p class="lead mb-4">{{ post.post_excerpt|e }}</p>
+                            {% endif %}
+
+                            <div class="d-flex flex-wrap align-items-center small border-top border-bottom py-3">
+                                {% if post.author %}
+                                    <span class="mr-4 my-1">
+                                        {{ __('Di', 'grit') }} <a href="{{ post.author.link|e('html_attr') }}" class="font-weight-bold">{{ post.author.name|e }}</a>
+                                    </span>
+                                {% endif %}
+                                <time datetime="{{ post.date('c')|e('html_attr') }}" class="my-1">{{ post.date(function('get_option', 'date_format'))|e }}</time>
+                            </div>
+                        </header>
+                    </div>
+                </div>
+
                 {% if post.thumbnail %}
-                    <div class="row">
-                        <div class="col-12 text-center py-4">
-                            <img src="{{ post.thumbnail.src|resize(1800, 600) }}"
-                                 alt="{{ post.thumbnail.alt|default(title)|e('html_attr') }}"
-                                 class="img-fluid shadow-sm">
+                    <div class="row mb-5">
+                        <div class="col-12 col-xl-10 mx-auto">
+                            {{ function('wp_get_attachment_image', post.thumbnail.id, 'full', false, {
+                                class: 'img-fluid w-100 rounded',
+                                alt: post.thumbnail.alt|default(title),
+                                loading: 'eager'
+                            }) }}
                         </div>
                     </div>
                 {% endif %}
 
                 <div class="row">
-                    <div class="col-12 col-md-10 mx-auto py-4">
-                        <h1 class="display-2">{{ function('esc_html', title) }}</h1>
-                        <p class="lead">{{ post.post_excerpt|e }}</p>
-                    </div>
-                </div>
+                    <div class="col-12 col-lg-10 col-xl-8 mx-auto">
+                        <div class="single-{{ post.post_type|e('html_attr') }}-body">{{ content }}</div>
 
-                <div class="row">
-                    <div class="col-12 col-lg-10 mx-auto py-4">
-                        <div class="single-{{ post.post_type }}-body my-4">{{ content }}</div>
+                        {% if tags|length %}
+                            <div class="border-top pt-4 mt-5">
+                                <span class="small font-weight-bold mr-3">{{ __('Tag:', 'grit') }}</span>
+                                {% for tag in tags %}
+                                    <a href="{{ tag.link|e('html_attr') }}" class="d-inline-block small mr-3 mb-2">{{ tag.name|e }}</a>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
 
-                        <section class="single-{{ post.post_type }}-header py-4">
-                            <p class="single-{{ post.post_type }}-author">
-                                <strong class="text-uppercase">{{ post.post_type }}</strong> {{ __(' scritto da', 'grit') }}
-                                <a href="{{ post.author.link|e('html_attr') }}" class="text-decoration-none"> {{ post.author.name|e }} </a>
-                            </p>
-                            <p class="single-{{ post.post_type }}-date">
-                                <small>{{ __('Data: ', 'grit') }} : {{ post.post_date|date('d/M/Y') }}</small>
-                            </p>
-
-                            {# * GRIT_SET Post categories and tags. #}
-                            {% set categories = post.terms('category') %}
-                            {% if categories|length %}
-                                <h5 class="single-{{ post.post_type }}-category mt-3">
-                                    <strong>{{ __('Category:', 'grit') }}</strong>
-                                    {% for category in categories %}
-                                        <a href="{{ category.link|e('html_attr') }}" title="{{ post.title|e('html_attr') }} - {{ category.name|e('html_attr') }}" class="badge bg-primary mr-1">{{ category.name|e }}</a>
-                                    {% endfor %}
-                                </h5>
-                            {% endif %}
-
-                            {% set tags = post.terms('post_tag') %}
-                            {% if tags|length %}
-                                <h5 class="single-{{ post.post_type }}-tag mt-3">
-                                    <strong>{{ __('Tag:', 'grit') }}</strong>
-                                    {% for tag in tags %}
-                                        <a href="{{ tag.link|e('html_attr') }}" title="{{ post.title|e('html_attr') }} - {{ tag.name|e('html_attr') }}" class="badge bg-secondary mr-1">{{ tag.name|e }}</a>
-                                    {% endfor %}
-                                </h5>
-                            {% endif %}
-
-                            {# * GRIT_SET Optional custom taxonomy: replace this slug with a registered taxonomy. #}
-                            {% set custom_taxonomy = 'custom_taxonomy' %}
-                            {% set custom_terms = [] %}
-                            {% if function('taxonomy_exists', custom_taxonomy) %}
-                                {% set custom_terms = post.terms(custom_taxonomy) %}
-                            {% endif %}
+                        {# * GRIT_SET Optional custom taxonomy: replace this slug with a registered taxonomy. #}
+                        {% set custom_taxonomy = 'custom_taxonomy' %}
+                        {% if function('taxonomy_exists', custom_taxonomy) %}
+                            {% set custom_terms = post.terms(custom_taxonomy) %}
                             {% if custom_terms|length %}
-                                <h5 class="single-{{ post.post_type }}-tax mt-3">
-                                    <strong>{{ __('Tax:', 'grit') }}</strong>
+                                <div class="border-top pt-4 mt-4">
                                     {% for tax in custom_terms %}
-                                        <a href="{{ tax.link|e('html_attr') }}" title="{{ post.title|e('html_attr') }} - {{ tax.name|e('html_attr') }}" class="badge bg-info mr-1">{{ tax.name|e }}</a>
+                                        <a href="{{ tax.link|e('html_attr') }}" class="d-inline-block small mr-3 mb-2">{{ tax.name|e }}</a>
                                     {% endfor %}
-                                </h5>
+                                </div>
                             {% endif %}
-                        </section>
-                        <hr class="my-4">
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -96,7 +96,8 @@
             <section class="section_archive section_archive_carousel contained py-6">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col">
+                        <div class="col-12">
+                            <h2 class="h3 mb-4">{{ __('Altri contenuti', 'grit') }}</h2>
                             <div class="owl-carousel owl-theme">
                                 {% set grid = ' ' %}
                                 {% for single_post in archive_posts %}
