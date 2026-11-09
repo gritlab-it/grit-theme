@@ -49,7 +49,7 @@ I percorsi della tabella sono relativi al tema parent; quelli indicati come **ch
 - [Branding dell’agenzia](#branding-dellagenzia)
 - [SEO consenso servizi esterni e integrazioni](#seo-consenso-servizi-esterni-e-integrazioni)
 - [Aggiornamenti controlli e risoluzione problemi](#aggiornamenti-controlli-e-risoluzione-problemi)
-- [Documentazione consolidata e licenze](#documentazione-consolidata-e-licenze)
+- [Licenze](#licenze)
 
 ## Metodo di lavoro
 
@@ -58,6 +58,8 @@ GRIT è una base per realizzare progetti personalizzati, con contenuti gestiti t
 Usare prima le classi Bootstrap e le opzioni già disponibili. Per una pagina di presentazione non serve creare un foglio di stile specifico se la composizione si ottiene con le section. Separare i dati dai template: query e preparazione in PHP, presentazione in Twig, stili in SCSS.
 
 La homepage usa i contenuti della pagina impostata in Lettura. Il setup crea le pagine iniziali, ma non una composizione dimostrativa: per trasferire un layout occorrono anche contenuti ACF e media, rimappando gli ID quando necessario.
+
+Per i requisiti e l’installazione consultare `README.md`; per campi, classi e personalizzazione usare questa guida. Mantenere entrambi i documenti coerenti con il progetto. Se si pubblicano pagine guida in WordPress, usare le stesse istruzioni e affiancarle a esempi ACF. Il CPT `section` deve essere registrato dal progetto, per esempio tramite ACF: l’import dei gruppi in `core/acf-fields.json` non registra CPT o tassonomie.
 
 ## Struttura dei file
 
@@ -92,7 +94,7 @@ I commenti `GRIT_SET` identificano le sezioni principali del codice. Mantenere c
 
 ### Orientarsi in core/extras.php
 
-Il file resta unico. L’indice iniziale raggruppa le funzioni per responsabilità e i commenti indicano i Twig o i controller che le utilizzano. Cerca il numero `GRIT_SET` per raggiungere il blocco desiderato.
+L’indice iniziale raggruppa le funzioni per responsabilità e i commenti indicano i Twig o i controller che le utilizzano. Cerca il numero `GRIT_SET` per raggiungere il blocco desiderato.
 
 | Personalizzazione | Sezioni da consultare |
 | --- | --- |
@@ -104,7 +106,7 @@ Il file resta unico. L’indice iniziale raggruppa le funzioni per responsabilit
 | Risultati degli archivi nativi WordPress | 16: è una query diversa dalle liste inserite con Section Archive. |
 | Dati passati dai controller ai Twig | 17: campi ACF, contenuti formattati e paginazione. |
 | Dati delle mappe nel frontend | 18; struttura in `section_maps.twig`, interazioni in `maps.js`. |
-| Individuazione delle policy e relativi link | 19; il layout della pagina continua a dipendere dallo slug. |
+| Individuazione delle policy e relativi link | 19; il layout della pagina dipende dallo slug. |
 
 Per modificare l’aspetto di una card, un pulsante o una sezione partire dal Twig/SCSS indicato, non dagli helper PHP.
 
@@ -244,7 +246,7 @@ Il rendering condiviso è in `templates/partials/sections.twig`, richiamato dai 
 
 ## Section Text
 
-I campi ACF esistenti sono conservati. La sezione usa chapters (immagine, titolo, sottotitolo, WYSIWYG, due link, inner_class).
+La sezione usa il repeater ACF chapters (immagine, titolo, sottotitolo, WYSIWYG, due link, inner_class).
 
 ### Modalità
 
@@ -287,7 +289,7 @@ Le immagini usano wp_get_attachment_image con formato large e srcset quando disp
 
 ### Contenuto e accessibilità
 
-Titolo h2, sottotitolo h3. Il testo WYSIWYG mantiene il proprio HTML. Titoli e attributi sono escaped; URL filtrati tramite esc_url. I pulsanti sono generati solo con URL presente; target _blank include rel noopener noreferrer. Il partial condiviso è templates/partials/text-chapter.twig. Non sono modificati i partial immagine/pulsante usati dalle altre sezioni.
+Titolo h2, sottotitolo h3. Il testo WYSIWYG mantiene il proprio HTML. Titoli e attributi sono escaped; URL filtrati tramite esc_url. I pulsanti sono generati solo con URL presente; target _blank include rel noopener noreferrer. Il partial condiviso è templates/partials/text-chapter.twig.
 
 Masonry viene inizializzato una volta per griglia e ricalcolato al caricamento immagini/font. Jarallax è inizializzato solo se disponibile, indipendentemente da Owl. Gli stili della sezione sono in assets/css/_sections.scss; i controlli Owl restano in assets/css/_plugins.scss.
 
@@ -301,11 +303,11 @@ Campo Background Image nel pannello Style: immagine decorativa dell’intera sez
 
 ### Headers Layout: pannello sovrapposto
 
-`text-header-overlap` con Background Image e un solo capitolo statico sovrappone il pannello di testo alla parte inferiore della foto. Inner Class consigliata: col-12 col-md-10 col-lg-8. Il pannello resta nel normale flusso e cresce con il testo. Colori predefiniti bianco/scuro, personalizzabili con --header-panel-background e --header-panel-color. Non pensato per Masonry o carosello. Breadcrumb nel Testo con [wpseo_breadcrumb]. La raccolta Headers Layout sostituisce la vecchia sezione dedicata.
+`text-header-overlap` con Background Image e un solo capitolo statico sovrappone il pannello di testo alla parte inferiore della foto. Inner Class consigliata: col-12 col-md-10 col-lg-8. Il pannello resta nel normale flusso e cresce con il testo. Colori predefiniti bianco/scuro, personalizzabili con --header-panel-background e --header-panel-color. Non pensato per Masonry o carosello. Breadcrumb nel Testo con [wpseo_breadcrumb].
 
 ### Hero e CTA: distribuzione verticale
 
-Solo griglia statica: text-columns-top/center/bottom/stretch allinea le colonne fra loro (Class della sezione). text-content-top/center/bottom/between distribuisce i gruppi del capitolo (Class o Inner Class). text-image-after porta la foto dopo testo e pulsanti. text-height-medium imposta un minimo di 70svh sui capitoli, lasciandoli crescere. Non attivi in Masonry o carosello. Non usare più modalità dello stesso gruppo insieme. Between richiede spazio libero e non separa i singoli paragrafi del campo Text. La raccolta Hero & CTA Layouts sostituisce la sezione dedicata rimossa. Nessun nuovo campo ACF.
+Solo griglia statica: text-columns-top/center/bottom/stretch allinea le colonne fra loro (Class della sezione). text-content-top/center/bottom/between distribuisce i gruppi del capitolo (Class o Inner Class). text-image-after porta la foto dopo testo e pulsanti. text-height-medium imposta un minimo di 70svh sui capitoli, lasciandoli crescere. Non attivi in Masonry o carosello. Non usare più modalità dello stesso gruppo insieme. Between richiede spazio libero e non separa i singoli paragrafi del campo Text.
 
 ### Masonry condiviso con Archive
 
@@ -328,10 +330,10 @@ Le classi parallax del ramo singolo vanno nel campo Class della section. `carous
 
 Con più immagini e senza `gallery_carousel`, la sezione usa lo shortcode WordPress `[gallery]`. Per il lightbox configurare Responsive Lightbox Lite con la libreria Nivo prevista dal progetto. I collegamenti puntano esplicitamente al file immagine (`link="file"`); l'apertura in lightbox dipende dalle impostazioni del plugin.
 
-### Campi ACF conservati
+### Campi ACF
 
 - Gallery: immagini e ordine.
-- Columns: colonne sugli schermi da 576 px in assenza di classi esplicite. Il campo attuale consente 1–4 colonne.
+- Columns: colonne sugli schermi da 576 px in assenza di classi esplicite. Il campo consente 1–4 colonne.
 - Size: risorsa WordPress thumbnail / medium / large / full. La classe delle proporzioni modifica il riquadro visivo, non la risoluzione scaricata.
 
 Sotto 576 px il valore predefinito è una colonna. Distanza predefinita: 8 px. Le classi sono inserite nel campo Class della sezione, separate da spazi. JavaScript legge colonne e distanze; senza JavaScript restano i valori predefiniti ACF.
@@ -380,13 +382,13 @@ Senza classi: una colonna mobile, poi Columns di ACF, immagini nelle proporzioni
 
 Per il carosello usare `gallery_carousel` e le classi `carousel-*` documentate in [capitolo Caroselli Owl condivisi](#caroselli-owl-condivisi). Le classi `gallery-cols-*` e `gallery-gap-*` sono dedicate alla griglia. Le classi ratio e fit funzionano anche nel carosello.
 
-Il lightbox rimane gestito dal plugin, non da una nuova libreria interna al tema. Questa modifica non aggiunge una nuova gestione dei cloni Owl o del lightbox dell'immagine singola. La classe `gallery-no-lightbox` non è implementata: per ora il lightbox resta governato dal plugin.
+Il lightbox è gestito dal plugin Responsive Lightbox Lite. Configurarlo nel plugin e verificarne il comportamento sulle immagini singole e nei caroselli, inclusi gli elementi clonati da Owl.
 
 Stili della griglia: assets/css/_sections.scss. Stili Owl e controlli: assets/css/_plugins.scss. Dopo modifiche SCSS ricompilare main.scss in main.css.
 
 ### Anteprime responsive nel carosello
 
-I tre ridimensionamenti fissi basati sull’altezza di 400 px sono stati sostituiti da immagini WordPress generate con `wp_get_attachment_image`, dimensione iniziale `large`, attributi width/height e srcset quando disponibili nei metadati. Il browser sceglie tra i file realmente disponibili: non vengono creati nuovi formati né ingranditi gli originali.
+Le anteprime sono immagini WordPress generate con `wp_get_attachment_image`, dimensione iniziale `large`, attributi width/height e srcset quando disponibili nei metadati. Il browser sceglie tra i file realmente disponibili: non vengono creati nuovi formati né ingranditi gli originali.
 
 L’attributo sizes segue i conteggi `carousel-items-*` ed è una stima prudenziale basata sulla larghezza della finestra; contenimento, gap e stage padding possono ridurre la larghezza effettiva. Con autoWidth di base si usa 100vw come stima. La qualità dipende dagli originali e dalle miniature WordPress esistenti.
 
@@ -402,7 +404,7 @@ Esempio consigliato:
 gallery_carousel carousel-items-1 carousel-items-md-2 carousel-items-xl-3 gallery-ratio-landscape gallery-fit-cover
 ```
 
-Le classi ratio non hanno breakpoint. Evitare autoWidth se si desidera un numero preciso di elementi. Il campo ACF Size continua a riguardare la griglia statica.
+Le classi ratio non hanno breakpoint. Evitare autoWidth se si desidera un numero preciso di elementi. Il campo ACF Size riguarda la griglia statica.
 
 Colori e posizioni dei controlli sono descritti nel capitolo [Caroselli Owl condivisi](#caroselli-owl-condivisi).
 
@@ -416,7 +418,7 @@ Colori e posizioni dei controlli sono descritti nel capitolo [Caroselli Owl cond
 | section_collapse_search | Lista piatta con ricerca e paginazione indipendente, sette risultati per pagina |
 | section_collapse_dynamic | Schede: ciascun gruppo può contenere testo, griglia o carosello |
 
-Se sono presenti search e dynamic, search ha precedenza. I campi ACF restano invariati. Lists contiene args (nome del gruppo), args_color, inner_class e item (titolo, WYSIWYG, due link). I pulsanti non richiedono testo e vengono mostrati anche nella griglia dinamica.
+Se sono presenti search e dynamic, search ha precedenza. Il repeater ACF Lists contiene args (nome del gruppo), args_color, inner_class e item (titolo, WYSIWYG, due link). I pulsanti non richiedono testo e vengono mostrati anche nella griglia dinamica.
 
 ### Schede: Inner Class del gruppo
 
@@ -448,13 +450,13 @@ All'apertura di una scheda viene aggiornato il carosello nascosto. La ricerca e 
 - assets/css/_sections.scss: blocco Collapse condiviso.
 - assets/css/_plugins.scss: controlli Owl condivisi.
 
-Nessuna modifica ai contenuti ACF, nessuna nuova classe per cambiare il numero di risultati. Le personalizzazioni di spaziatura usano le utility del tema. Dopo modifiche SCSS ricompilare main.scss.
+Il numero di risultati per pagina si configura nel controller di ricerca in `assets/js/custom.js`. Le personalizzazioni di spaziatura usano le utility del tema. Dopo modifiche SCSS ricompilare main.scss.
 
 Colori e posizioni dei controlli sono descritti nel capitolo [Caroselli Owl condivisi](#caroselli-owl-condivisi).
 
 ## Section Archive
 
-Mostra una selezione indipendente di contenuti pubblicati. Non usa archive_posts/archive_section, non cambia la query principale e non aggiunge paginazione. Gli elenchi globali restano disponibili per i template che li usano ancora, inclusi i correlati del singolo.
+Mostra una selezione indipendente di contenuti pubblicati, senza paginazione. La query della sezione è separata dalla query principale WordPress e dagli elenchi `archive_posts`/`archive_section` usati da altri template, inclusi i correlati del singolo.
 
 ### Campi
 
@@ -471,7 +473,7 @@ Mostra una selezione indipendente di contenuti pubblicati. Non usa archive_posts
 | Slug dei termini | Slug separati da virgole; corrispondenza con almeno uno (OR/IN). Senza slug il filtro non viene applicato. Filtro invalido o senza risultati: sezione nascosta. |
 | Contained / Pre Content / colori / allineamento / Class | Funzionamento comune delle sezioni. |
 
-Query limitata a publish, senza contenuti protetti da password. I nuovi controlli non richiedono di ricompilare le vecchie righe. L’ordinamento predefinito ora è DESC; per riprodurre il precedente elenco dal più vecchio scegliere Data + ASC.
+Query limitata a publish, senza contenuti protetti da password. L’ordinamento predefinito è Data + DESC (più recenti prima); per mostrare prima i contenuti meno recenti scegliere Data + ASC.
 
 ### Griglia e carosello
 
@@ -485,7 +487,7 @@ Colori indipendenti: `carousel-nav-light`, `carousel-nav-dark`, `carousel-dots-l
 
 ### Card
 
-Le card standard usano immagini WordPress large/srcset con alt da Libreria Media. Le anteprime preferiscono l’excerpt, altrimenti testo del contenuto, senza eseguire shortcode o filtri the_content. Nessun pannello di debug nel fallback. Le card non hanno ID ripetibili: usano data-post-id, valido anche con copie Owl e più sezioni.
+Le card standard usano immagini WordPress large/srcset con alt da Libreria Media. Le anteprime preferiscono l’excerpt, altrimenti testo del contenuto, senza eseguire shortcode o filtri the_content. Le card non hanno ID ripetibili: usano data-post-id, valido anche con copie Owl e più sezioni.
 
 Codice PHP in core/extras.php; template sections/section_archive.twig e partials/tease*.twig; colonne in partials/grid-classes.twig; immagini in partials/card-image.twig.
 
@@ -493,7 +495,7 @@ Gli slug sono i nomi tecnici dei termini, non gli ID né i titoli visualizzati. 
 
 ### Modalità Termini
 
-`archive_mode`: `posts` (predefinito, mantiene gli esempi esistenti) oppure `terms`.
+`archive_mode`: `posts` (predefinito) oppure `terms`.
 
 In Termini la tassonomia pubblica scelta viene interrogata con `get_terms()`. Le card hanno nome, link all’archivio, descrizione facoltativa (35 parole) e conteggio WordPress facoltativo. Non vengono usati Post Type, Tease, filtro Slug dei termini, ordine dei post o esclusione del contenuto corrente. Non vengono registrate nuove tassonomie.
 
@@ -521,7 +523,7 @@ Il controller e gli stili sono condivisi con Section Text. La libreria Masonry s
 
 ## Section Slides
 
-Campi ACF invariati: repeater slides, titolo, testo, immagine, colori, allineamento, due pulsanti; contained, pre_content e class sulla sezione.
+Campi ACF: repeater slides, titolo, testo, immagine, colori, allineamento, due pulsanti; contained, pre_content e class sulla sezione.
 
 Zero elementi: nessun contenuto interno. Un elemento: slide statica. Due o più: Owl condiviso; senza Owl le slide sono leggibili una sotto l’altra. Titoli h2; immagini decorative responsive con alt vuoto. Inserire informazioni importanti anche nel testo.
 
@@ -554,7 +556,7 @@ Esempio: `slides-height-medium slides-content-center slides-overlay carousel-no-
 
 File: templates/sections/section_slides.twig, templates/partials/slide.twig; SCSS nel blocco section_slides di assets/css/_sections.scss; impostazioni Owl e Jarallax in assets/js/custom.js.
 
-Parallax: nelle Slides l’immagine viene spostata nel contenitore Jarallax (keepImg=false), con livello zIndex=0 sopra il colore di fondo e sotto overlay e testo. Velocità predefinita 0.5. Negli altri componenti la configurazione Jarallax resta invariata. Esempi della pagina: confronto statico/parallax consecutivo, zoom, controlli responsive e carosello con testo breve/esteso.
+Parallax: nelle Slides l’immagine viene spostata nel contenitore Jarallax (keepImg=false), con livello zIndex=0 sopra il colore di fondo e sotto overlay e testo. Velocità predefinita 0.5.
 
 Full-width: disattivare Contained. Frecce standard, senza dimensioni o sfondo specifici per Slides; per posizioni esterne prevedere spazio con le classi della sezione. Stili centralizzati in assets/css/_plugins.scss. Controlli assenti sulla slide singola, con carousel-no-nav o sotto il breakpoint configurato; estremi attenuati con loop disattivato.
 
@@ -562,7 +564,7 @@ Colori e posizioni dei controlli sono descritti nel capitolo [Caroselli Owl cond
 
 ## Section Cube
 
-Composizione testo + immagini. Campi ACF invariati: titolo, testo, elenco icona/testo, due link con colori, gallery, colori, Invert, Contained, Pre Content e Class.
+Composizione testo + immagini. Campi ACF: titolo, testo, elenco icona/testo, due link con colori, gallery, colori, Invert, Contained, Pre Content e Class.
 
 | Contenuto | Comportamento |
 | --- | --- |
@@ -582,7 +584,7 @@ Con più immagini usare le classi Owl comuni: carousel-items-*, carousel-gap-*, 
 
 Colori indipendenti dei controlli: carousel-nav-light / carousel-nav-dark; carousel-dots-light / carousel-dots-dark. Nessuna personalizzazione automatica di forma o dimensione delle frecce. Riservare spazio per controlli esterni con classi della sezione.
 
-File: templates/sections/section_cube.twig, blocco Cube in assets/css/_sections.scss; Owl/Jarallax in assets/js/custom.js. Nessuna modifica a dati o definizioni ACF.
+File: templates/sections/section_cube.twig, blocco Cube in assets/css/_sections.scss; Owl/Jarallax in assets/js/custom.js.
 
 ## Section Maps
 
@@ -592,7 +594,6 @@ La section gestisce una o più sedi tramite ACF, con titolo, testo, due pulsanti
 
 - Una sede: centratura automatica, zoom iniziale 12.
 - Più sedi: inquadratura automatica di tutti i marker, con zoom massimo 16 dopo l’adattamento.
-- Il centro manuale non è più disponibile.
 - Lo stile è sempre quello personalizzato in `assets/maps/style.json`. Modifica direttamente il JSON; non serve compilare SCSS. Il file nello stesso percorso del tema child ha precedenza.
 - Un JSON non valido viene ignorato per evitare errori di caricamento.
 - In Personalizza si configura soltanto la chiave Maps JavaScript API; non serve un Map ID.
@@ -657,7 +658,7 @@ Esempi: aumentare `reveal.wordDelay` da `0.035` a `0.06` distanzia maggiormente 
 Questi valori personalizzano gli effetti già attivati dalle classi; non attivano le librerie. Le impostazioni sono condivise dalle sezioni della pagina. Breakpoint, controlli sui contenuti troppo alti, movimento ridotto e ripristino al resize restano nella logica sottostante: non occorre modificarli per regolare la velocità degli effetti. Per il parallax mantenere un ingrandimento sufficiente a coprire i bordi durante lo spostamento.
 
 
-Gli effetti usano i campi di Section Text. GSAP resta opzionale in Personalizza. Il controller è in `assets/js/custom.js`; gli stili in `_sections.scss`. Nessun nuovo layout o campo ACF.
+Gli effetti usano i campi di Section Text. GSAP è opzionale in Personalizza. Il controller è in `assets/js/custom.js`; gli stili in `_sections.scss`.
 
 | Class sulla section | Effetto |
 | --- | --- |
@@ -675,7 +676,7 @@ Le modalità strutturali e le barre richiedono almeno 768 px e movimento consent
 
 I resize ripristinano il contesto GSAP e ricreano misure, pin e parole. Non esistono spacer verticali manuali. Immagini e font aggiornano le misure. Per contenuti troppo alti i pannelli tornano statici; usa testi sintetici nelle composizioni a schermo. Le larghezze rimangono quelle di Inner Class. Le animazioni vengono ordinate prima del refresh per far convivere pin successivi.
 
-Il vecchio SplitText trial è stato rimosso: i reveal usano una suddivisione interna dei nodi testuali, senza sostituire link/HTML e con ripristino del testo originale. Codice, pulsanti e contatori sono esclusi. Nessuna libreria GSAP è stata aggiornata.
+I reveal usano una suddivisione interna dei nodi testuali, senza sostituire link/HTML e con ripristino del testo originale. Codice, pulsanti e contatori sono esclusi.
 
 
 
@@ -690,7 +691,7 @@ Classi di posizione: `bar-top`, `bar-bottom`, `bar-left`, `bar-right`, `bar-top-
 
 Le barre sono generate nella propria section con posizioni casuali: numero e disposizione dipendono dallo spazio disponibile e dal controllo delle sovrapposizioni. Da 768 a 1024 px le dimensioni sono 220–300 × 30 px; oltre 1024 px 280–380 × 35 px. Sotto 768 px il controller non le genera. Testo sopra le barre (`z-index` 3 contro 2), decorazioni non cliccabili e nascoste alle tecnologie assistive.
 
-Il colore dipende dallo sfondo della section: `$grey` come base, con `bg-light` e `bg-primary`; `$light` con `bg-accent`, `bg-grey` e `bg-secondary`. Non sono implementate classi `bars-primary`, `bars-accent` o simili: erano una proposta, non una funzionalità disponibile. Per cambiare queste combinazioni modificare il blocco Bars in `_sections.scss`, usando le variabili comuni.
+Il colore dipende dallo sfondo della section: `$grey` come base, con `bg-light` e `bg-primary`; `$light` con `bg-accent`, `bg-grey` e `bg-secondary`. Per cambiare queste combinazioni modificare il blocco Bars in `_sections.scss`, usando le variabili comuni.
 
 ## Caroselli Owl condivisi
 
@@ -750,7 +751,7 @@ Tutte supportano `carousel-{opzione}-{breakpoint}-N`, ad esempio `carousel-items
 
 Tutte supportano il suffisso breakpoint: `carousel-no-nav-md`, `carousel-autoplay-lg`, `carousel-no-auto-height-sm`.
 
-`carousel-left` disattiva la centratura e applica il rientro laterale previsto dal tema. Non abilita più automaticamente autoWidth. Center e left mantengono i conteggi predefiniti del tipo; per riprodurre conteggi differenti usare items.
+`carousel-left` disattiva la centratura e applica il rientro laterale previsto dal tema. Non abilita autoWidth. Center e left usano i conteggi predefiniti del tipo; per scegliere conteggi differenti usare items.
 
 Con autoWidth le larghezze dipendono dagli elementi: non aspettarsi un numero fisso di card anche impostando items. L'autoplay si arresta al passaggio del mouse ed è disattivato quando il dispositivo richiede movimento ridotto.
 
@@ -769,7 +770,7 @@ Con autoWidth le larghezze dipendono dagli elementi: non aspettarsi un numero fi
 | `carousel-dots-center` | Pallini centrati |
 | `carousel-dots-right` | Pallini allineati a destra |
 
-Le posizioni non hanno suffissi responsive. Le classi legacy `owl-nav-top-left`, `owl-nav-top-right`, `owl-nav-bottom-left`, `owl-nav-bottom-right` e `owl-dots-inner` rimangono alias validi. Selezionare una sola posizione per frecce e una per pallini. Nav/dots possono essere nascosti automaticamente da Owl quando non c'è nulla da scorrere.
+Le posizioni non hanno suffissi responsive. Sono disponibili anche gli alias `owl-nav-top-left`, `owl-nav-top-right`, `owl-nav-bottom-left`, `owl-nav-bottom-right` e `owl-dots-inner`. Selezionare una sola posizione per frecce e una per pallini. Nav/dots possono essere nascosti automaticamente da Owl quando non c'è nulla da scorrere.
 
 Tutti gli stili dei controlli risiedono in `assets/css/_plugins.scss`. Variabili CSS modificabili su `.owl-carousel`: `--carousel-nav-offset`, `--carousel-controls-gap`, `--carousel-dots-offset`, `--carousel-dot-size`, `--carousel-nav-size`. Colori basati su `$light`, `$dark`, `$accent`. Per i controlli esterni prevedere spazio con padding/margini della sezione. Dopo ogni modifica SCSS ricompilare `main.scss` in `main.css`.
 
@@ -838,7 +839,7 @@ Esempio su sfondo scuro: `carousel-nav-light carousel-dots-light`. Su sfondo chi
 
 `buttons` accetta anche un solo elemento o più di due. I link senza URL sono omessi; senza link il gruppo non viene generato. `buttons_class` aggiunge classi al wrapper; `buttons_animation` è opzionale. Gli allineamenti del contenitore restano validi perché il gruppo è inline-flex.
 
-Usato da Text, Collapse, Slides, Cube e Maps. Gli esempi con un singolo pulsante possono continuare a usare direttamente btn.twig. Campi ACF invariati.
+Usato da Text, Collapse, Slides, Cube e Maps. Per un singolo pulsante si può usare direttamente `btn.twig`.
 
 ## Shortcode Contacts
 
@@ -896,7 +897,7 @@ Nell’ultimo esempio la label contiene uno span con le classi del pulsante; il 
 
 ## Shortcode Counter
 
-Il contatore è uno shortcode indipendente, utilizzabile nel testo dei capitoli senza una Section Counter dedicata.
+Il contatore è uno shortcode utilizzabile nei contenuti e nel testo dei capitoli di Section Text.
 
 ### Utilizzo
 
@@ -917,7 +918,7 @@ Usare il blocco Shortcode di Gutenberg oppure un campo WYSIWYG ACF formattato. S
 | tag | span | span, p, div, h2, h3, h4 |
 | class | vuoto | Classi del contenitore |
 
-Sono ammessi negativi e decimali con punto o virgola: 1250, -20, 12.5, 12,5. Un solo punto o virgola è interpretato come separatore decimale: 1.000 non significa mille. Massimo sei decimali e precisione numerica sicura JavaScript; gli altri testi restano visibili senza animazione. Non vengono aggiunte librerie.
+Sono ammessi negativi e decimali con punto o virgola: 1250, -20, 12.5, 12,5. Un solo punto o virgola è interpretato come separatore decimale: 1.000 non significa mille. Massimo sei decimali e precisione numerica sicura JavaScript; gli altri testi restano visibili senza animazione. L’animazione usa il controller del tema in `assets/js/custom.js`.
 
 ```text
 [grit_counter number="12,5" suffix="%" duration="2000" tag="h3"]
@@ -939,7 +940,7 @@ Gli attributi data-counter-* del numero hanno precedenza sulle opzioni ereditate
 
 ## Shortcode Video
 
-Il player è un componente riutilizzabile. Si usa in Section Text o nei contenuti tramite shortcode; il layout Section Video e i suoi campi non sono più previsti. Stili condivisi nel blocco .grit-video di assets/css/_shortcodes.scss, nessuno stile dedicato alla vecchia sezione.
+Il player si usa in Section Text o nei contenuti tramite shortcode. Gli stili condivisi sono nel blocco `.grit-video` di `assets/css/_shortcodes.scss`.
 
 `[grit_video file="266" preview="239"]`
 
@@ -955,7 +956,7 @@ Il player è un componente riutilizzabile. Si usa in Section Text o nei contenut
 | loop | false (default) o true; file locali |
 | class | Classi del contenitore del player |
 
-Gli ID degli esempi sono specifici del sito. Un file valido ha precedenza su URL. Nessuna sorgente valida: nessun output. Preview invalida viene ignorata. URL noti dei provider sono convertiti senza richieste oEmbed ripetute.
+Sostituire gli ID degli esempi con quelli dei media del progetto. Un file valido ha precedenza su URL. Nessuna sorgente valida: nessun output. Preview invalida viene ignorata. URL noti dei provider sono convertiti senza richieste oEmbed ripetute.
 
 Con copertina: vero pulsante accessibile, poster per il file locale, iframe esterno inserito al clic. Senza copertina: controlli disponibili subito; i file caricano metadati e richiedono un frame a 0.01 secondi senza autoplay. Se la sorgente inizia con nero, usare Preview. Il browser/provider può bloccare il play automatico richiesto dopo clic: restano i controlli.
 
@@ -982,11 +983,11 @@ Scrivi il nome nel campo testo Tease di Section Archive, senza tease- o .twig.
 | editorial | Immagine, categorie, data, anteprima, pulsante e tag |
 | overlay | Testo su immagine con gradiente scuro; fondo scuro se manca la foto |
 
-Compatibilità: post → editorial; section → card. I vecchi layout numerati sono stati migrati a vertical/horizontal e rimossi. Product resta un template specifico WooCommerce, disponibile solo con l’integrazione richiesta; non è una variante generica.
+Alias disponibili: post → editorial; section → card. Product è un template specifico WooCommerce, disponibile solo con l’integrazione richiesta; non è una variante generica.
 
 Tutte le card generiche estendono tease.twig: classi e data-post-id condivisi, nessun ID duplicato. Le immagini usano card-image.twig (WordPress srcset e alt Media Library), le anteprime il relativo helper senza eseguire shortcode. Nessun effetto GSAP obbligatorio. Gli stili delle varianti sono centralizzati nel blocco Tease di assets/css/_sections.scss.
 
-Inner Class governa le colonne della griglia; in carosello il numero visibile è gestito da Owl. Per horizontal preferire card sufficientemente larghe (per esempio col-12 col-lg-6). I contenuti restano visibili anche senza immagine; le varianti title e text non la mostrano intenzionalmente. Non ci sono nuovi campi ACF.
+Inner Class governa le colonne della griglia; in carosello il numero visibile è gestito da Owl. Per horizontal preferire card sufficientemente larghe (per esempio col-12 col-lg-6). I contenuti restano visibili anche senza immagine; le varianti title e text non la mostrano intenzionalmente.
 
 ### Informazioni del post nei template
 
@@ -1075,7 +1076,7 @@ Usare lo slug `bio` e il template predefinito: il tema carica automaticamente `p
 - Nome: titolo del sito. Presentazione: contenuto della pagina; se vuoto, motto del sito.
 - Foto: immagine in evidenza della pagina; in alternativa logo del sito o iniziale del nome. Non vengono richieste immagini a servizi esterni.
 - Collegamenti: il setup crea il menu **Bio Navigation**, lo assegna alla posizione **Bio Navigation** e inserisce About e Contatti con una descrizione iniziale. Aggiungere le proprie voci a un solo livello da **Aspetto → Menu → Bio Navigation**. Titolo, descrizione, ordine e apertura in nuova scheda si gestiscono nel menu. Se il campo Descrizione non è visibile, abilitarlo in **Impostazioni schermata → Descrizione**; il testo compare sotto il titolo nella Bio. Il collegamento al sito resta sempre disponibile.
-- Contatti: Theme Fields di Personalizza. Email, telefono e indirizzo usano il secondo recapito, come nel template originale. Il terzo telefono è usato per WhatsApp e deve includere il prefisso internazionale.
+- Contatti: Theme Fields di Personalizza. Email, telefono e indirizzo usano il secondo recapito. Il terzo telefono è usato per WhatsApp e deve includere il prefisso internazionale.
 - Social: Instagram, LinkedIn, Facebook e TikTok vengono mostrati quando il relativo campo è compilato, anche con il segnaposto `#` per le prove. I campi vuoti non generano collegamenti.
 - Condivisione: il link WhatsApp condivide l’indirizzo della Bio. Il footer compatto richiama le policy pubblicate.
 
@@ -1086,7 +1087,7 @@ Gli stili sono nel blocco `section_bio` di `_sections.scss` e usano la palette d
 
 ### Header
 
-Selezione in Personalizza; struttura conservata in file separati per rendere le varianti modificabili.
+Selezionare la variante in Personalizza. Ogni variante ha un proprio file Twig modificabile.
 
 | Valore | Layout |
 | --- | --- |
@@ -1130,7 +1131,7 @@ $form-style: 1; // 1, 2 oppure 3
 | 2 | Campi trasparenti con linea inferiore. |
 | 3 | Campi trasparenti con bordo, angoli morbidi e ombra leggera. |
 
-Ricompilare Sass. Le tre varianti sono definite in `_forms.scss`; `form-style-1`, `form-style-2` e `form-style-3` permettono una scelta locale esplicita sul contenitore previsto. Le classi legacy `contact-form-style-*` vanno valutate nei template che le usano: non rinominare indiscriminatamente markup salvato.
+Ricompilare Sass. Le tre varianti sono definite in `_forms.scss`; `form-style-1`, `form-style-2` e `form-style-3` permettono una scelta locale esplicita sul contenitore previsto. Prima di rinominare classi come `contact-form-style-*`, verificarne gli utilizzi nei template e nei contenuti salvati.
 
 I form CF7 si inseriscono con il loro shortcode:
 
@@ -1228,7 +1229,7 @@ Funzioni di riferimento: `grit_agency_data()`, `grit_agency_asset()`, `grit_sync
 
 ### Breadcrumb e SEO
 
-Il breadcrumb legacy del tema è stato rimosso. Usare la funzione di Yoast prevista dal progetto e il relativo shortcode, dove registrato dal plugin:
+Usare la funzione di Yoast prevista dal progetto e il relativo shortcode, dove registrato dal plugin:
 
 ```text
 [wpseo_breadcrumb]
@@ -1240,7 +1241,7 @@ Attivare/configurare i breadcrumb in Yoast e verificare che lo shortcode venga i
 
 Privacy e Cookie Policy usano il template predefinito e gli slug `privacy-policy` e `cookie-policy`, che richiamano i rispettivi file `page-{slug}.twig`. La pagina Privacy di riferimento si sceglie in Impostazioni → Privacy; per la Cookie Policy il footer cerca lo slug `cookie-policy`. Le istruzioni di setup e riutilizzo delle pagine sono nel README.
 
-L’integrazione dedicata al vecchio Google Analytics è stata rimossa. La gestione del consenso e l’eventuale Analytics si configurano nel sistema adottato dal progetto. Complianz è un’integrazione opzionale. Il campo Google Tag Manager accetta l’ID completo `GTM-…`: vuoto disattiva il caricamento dal tema. Se Complianz è configurato per caricare GTM, il tema gli delega il caricamento; senza Complianz il campo funziona autonomamente. Il caricamento dal tema non configura il consenso. Rimane un’impostazione separata per Hotjar: evitare doppie integrazioni e verificare che gli script siano effettivamente bloccati prima del consenso quando richiesto.
+La gestione del consenso e l’eventuale Analytics si configurano nel sistema adottato dal progetto. Complianz è un’integrazione opzionale. Il campo Google Tag Manager accetta l’ID completo `GTM-…`: vuoto disattiva il caricamento dal tema. Se Complianz è configurato per caricare GTM, il tema gli delega il caricamento; senza Complianz il campo funziona autonomamente. Il caricamento dal tema non configura il consenso. Hotjar ha un’impostazione separata: evitare doppie integrazioni e verificare che gli script siano effettivamente bloccati prima del consenso quando richiesto.
 
 Maps, video YouTube/Vimeo, font e altri servizi esterni possono effettuare richieste verso terzi. Il semplice caricamento al clic o l’esistenza di un campo API non sostituiscono la configurazione del consenso. Testare accettazione e revoca, oltre al primo accesso.
 
@@ -1265,7 +1266,7 @@ L’import del setup ACF salta i gruppi con la stessa chiave già presente: per 
 5. Ricompilare Sass se sono cambiati i sorgenti.
 6. Svuotare la cache pertinente e verificare frontend e amministrazione.
 
-Copiare il codice su un sito esistente non converte automaticamente righe ACF rimosse o rinominate. I layout Counter, Contact, Video, Hero e Page Header non sono più opzioni autonome: Counter/Contacts/Video usano shortcode; Hero/CTA/Header usano composizioni di Text/Slides. Fare una migrazione esplicita dei dati di altre copie prima di rimuovere i vecchi layout.
+Se il progetto modifica nomi o struttura dei layout ACF, prevedere una migrazione esplicita dei contenuti: sostituire i file del tema non converte i dati salvati nel database.
 
 ### Controlli proporzionati alla modifica
 
@@ -1297,28 +1298,6 @@ I controlli di sviluppo non certificano tutte le combinazioni future di plugin e
 
 Consultare i log pertinenti evitando di pubblicare dati personali o credenziali. Non nascondere un errore disattivando globalmente i controlli: verificare la causa nel componente coinvolto.
 
-## Documentazione consolidata e licenze
-
-Questa guida sostituisce i manuali separati del tema elencati sotto. Le istruzioni operative sono state raccolte nei capitoli corrispondenti e i riferimenti superati aggiornati.
-
-| Documento precedente | Capitolo di questo manuale |
-| --- | --- |
-| `SECTION-TEXT.md` | Section Text. |
-| `GALLERY.md` | Section Gallery. |
-| `SECTION-COLLAPSE.md` | Section Collapse. |
-| `SECTION-ARCHIVE.md` | Section Archive. |
-| `SLIDES.md` | Section Slides. |
-| `CUBE.md` | Section Cube. |
-| `MAPS.md` | Section Maps. |
-| `GSAP.md` | Effetti GSAP e barre. |
-| `CAROUSELS.md` | Caroselli Owl condivisi. |
-| `BUTTONS.md` | Pulsanti condivisi. |
-| `CONTACTS.md` | Shortcode Contacts. |
-| `COUNTER.md` | Shortcode Counter. |
-| `VIDEO.md` | Shortcode Video. |
-| `TEASES.md` | Card Tease. |
-| `assets/credits/README.md` | Branding dell’agenzia. |
-
-`README.md` rimane l’ingresso per requisiti e installazione. Aggiornare questi due documenti quando cambiano campi, classi, default o percorsi del codice. Quando il progetto include pagine guida WordPress, mantenere le istruzioni coerenti con i capitoli di questo manuale, conservando gli esempi ACF. Il CPT `section` deve essere registrato dal progetto, per esempio tramite ACF: l’import dei gruppi in `core/acf-fields.json` non registra CPT o tassonomie.
+## Licenze
 
 Non eliminare i README, i changelog e le licenze delle librerie dentro `assets/`, né i file di licenza dei pacchetti Composer. Il loro contenuto e la loro manutenzione appartengono ai rispettivi autori. La licenza del tema è nel file `LICENSE`; non copre automaticamente media, font e dipendenze con licenza propria.
