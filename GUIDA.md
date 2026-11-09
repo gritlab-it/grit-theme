@@ -4,8 +4,26 @@ Manuale operativo dello starter, con campi, classi e comportamenti dei component
 
 Gli esempi di classi vanno inseriti nei campi indicati, separati da spazi. ID media, slug, tipi di contenuto e nomi delle agenzie negli esempi vanno adattati al progetto. Il manuale descrive le funzioni implementate: la presenza di una libreria in elenco non crea da sola un nuovo componente.
 
+## Da dove iniziare: personalizzazioni frequenti
+
+I percorsi della tabella sono relativi al tema parent; quelli indicati come **child** appartengono al tema child attivo. Parti dal risultato da ottenere e consulta il capitolo completo solo quando serve.
+
+| Voglio modificare… | Dove intervenire | Approfondimento |
+| --- | --- | --- |
+| **Colori** | `assets/css/_variables.scss`: palette `$accent`, `$primary`, `$secondary`, `$light`, `$dark`. Per assegnare colori ai contenuti usa prima le classi `bg-*` e `color-*` nei campi ACF. | [Colori e SCSS](#colori-scss-e-personalizzazione) |
+| **Font** | `assets/css/_variables.scss`: caricamento del font, `$font-primary`, `$font-secondary` e `$font-base`; regole tipografiche in `_typography.scss`. Il campo Google Fonts di Personalizza carica il font, ma non lo assegna automaticamente agli elementi: aggiornare anche le famiglie usate dagli stili. | [Pulsanti e caratteri](#pulsanti-e-caratteri) |
+| **Pulsanti** | Nei campi ACF scegli testo, link e classi. Dimensioni e angoli: variabili `$button-*` in `_variables.scss`; combinazioni di colori: regole `.btn-*` in `_typography.scss`; markup condiviso: `templates/partials/buttons.twig`. | [Pulsanti condivisi](#pulsanti-condivisi) |
+| **Spaziature** | Prima usa classi come `py-5`, `mb-4`, `gap-*` dove previste dal layout. Per le utility aggiuntive del tema consulta `$extra-spacing-values` in `_variables.scss` e la loro generazione in `_content.scss`. | [Campi comuni e colonne](#campi-comuni-e-colonne) |
+| **Header e footer** | Scegli la variante in Personalizza e assegna i menu da Aspetto → Menu. Modifica il relativo Twig in `templates/headers/` o `templates/footers/`; gli stili sono in `_header.scss` e `_footer.scss`. | [Header, footer, menu e form](#header-footer-menu-e-form) |
+| **Una Section** | Prima modifica contenuti, colonne e classi nei campi ACF della pagina. Per cambiare il markup apri `templates/sections/section_NOME.twig`, segui gli eventuali partial inclusi e modifica gli stili in `_sections.scss`. Il wrapper comune è `templates/sections/section.twig`: riguarda più layout. | [Section Text come esempio](#section-text) |
+| **CSS nel child** | Scrivi nel `style.css` del child: il suo `functions.php` lo carica già dopo gli stili del parent. Copiare un partial SCSS nel child non modifica automaticamente il CSS compilato del parent. | [Colori e SCSS](#colori-scss-e-personalizzazione) |
+| **JavaScript nel child** | Il child distribuito non carica un JS personalizzato. Aggiungi il caricamento nel suo `functions.php`, tramite `wp_enqueue_scripts` dopo il parent (priorità 120), usando l’URL del child e l’handle `scripts` come dipendenza se il codice deve seguire `custom.js`. Per poche istruzioni puoi usare `wp_add_inline_script('scripts', …, 'after')` nello stesso hook, senza un file aggiuntivo. | [Percorso delle librerie](#percorso-breve-opzione--caricamento--inizializzazione) |
+
+**Dopo una modifica SCSS**, compila `assets/css/main.scss` in `assets/css/main.css`: modificare soltanto il sorgente non aggiorna il sito. Per il CSS scritto direttamente nel `style.css` del child non serve compilazione. Verifica il risultato su desktop e mobile; per gli script controlla anche la console del browser.
+
 ## Indice
 
+- [Personalizzazioni frequenti](#da-dove-iniziare-personalizzazioni-frequenti)
 - [Metodo di lavoro](#metodo-di-lavoro)
 - [Struttura dei file](#struttura-dei-file)
 - [Plugin e librerie](#plugin-e-librerie)
