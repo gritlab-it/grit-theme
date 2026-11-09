@@ -2,8 +2,10 @@
  * GRIT_SET Section Text
  * Legend
  * 01 | Layout selection
- * 02 | Chapters and column classes
- * 03 | Shared chapter content
+ * 02 | Section background
+ * 03 | Layout containers: carousel, Masonry or grid
+ * 04 | Chapters and shared content
+ * 05 | Close layout containers
  #}
 
 {# * GRIT_SET 01 | Layout selection using exact class tokens #}
@@ -12,7 +14,8 @@
 {% set is_carousel = 'section_carousel_text' in section_classes %}
 {% set is_masonry = not is_carousel and 'section_masonry' in section_classes %}
 {% set chapters = section.chapters|default([]) %}
-{# * GRIT_SET Section background | Independent from chapter images; parallax is opt-in #}
+
+{# * GRIT_SET 02 | Section background; independent from chapter images #}
 {% if section.background_image %}
     {% set background_parallax = 'parallax' in section_classes %}
     <div class="text-section-background{% if background_parallax %} jarallax-keep-img{% endif %}" aria-hidden="true"{% if background_parallax %} data-speed="0.5"{% endif %}>
@@ -22,28 +25,45 @@
         }) }}
     </div>
 {% endif %}
+
+{# * GRIT_SET 03 | Carousel needs three containers; Masonry and grid need one #}
 <div class="container-fluid{% if not is_carousel %} img-hover-inner{% endif %}">
     {% if is_carousel %}
-        <div class="row"><div class="col p-0"><div class="owl-carousel owl-theme">
+        <div class="row">
+            <div class="col p-0">
+                <div class="owl-carousel owl-theme">
     {% elseif is_masonry %}
         <div class="masonry-grid js-grit-masonry row">
     {% else %}
         <div class="row{% if section.align == 'center' %} justify-content-center{% endif %}">
     {% endif %}
 
-    {# * GRIT_SET 02 | Separate Bootstrap sizing from chapter modifiers #}
+    {# * GRIT_SET 04 | One content include for all three layouts #}
     {% for item in chapters %}
         {% set item_classes = item.inner_class|default('')|split(' ') %}
         {% if is_carousel %}
             <div class="inner-list {{ grid.classes(item.inner_class, chapters|length, section.align, true) }}">
         {% else %}
             <div class="item-chapters{% if is_masonry %} masonry-item{% endif %} {{ grid.classes(item.inner_class, chapters|length, section.align, false) }}" id="section_id_{{ section.section_index|e('html_attr') }}_{{ loop.index }}">
-            <div class="inner-item">
+                <div class="inner-item">
         {% endif %}
-            {# * GRIT_SET 03 | Image, text and links shared by all layouts #}
+            {# Edit images, headings, text and buttons in partials/text-chapter.twig. #}
             {% include 'partials/text-chapter.twig' %}
-        {% if is_carousel %}</div>{% else %}</div></div>{% endif %}
+
+        {% if is_carousel %}
+            </div> {# .inner-list #}
+        {% else %}
+                </div> {# .inner-item #}
+            </div> {# .item-chapters #}
+        {% endif %}
     {% endfor %}
 
-    {% if is_carousel %}</div></div></div>{% else %}</div>{% endif %}
+    {# * GRIT_SET 05 | Match the containers opened in section 03 #}
+    {% if is_carousel %}
+                </div> {# .owl-carousel #}
+            </div> {# .col #}
+        </div> {# .row #}
+    {% else %}
+        </div> {# .row or .masonry-grid #}
+    {% endif %}
 </div>
