@@ -574,6 +574,23 @@ Senza chiave, JavaScript, consenso o in caso di errore, resta disponibile l’el
 
 ## Effetti GSAP e barre
 
+### Dove personalizzare le animazioni
+
+In `assets/js/custom.js`, all’inizio del blocco **12 | GSAP, ScrollTrigger, Lenis and decorative bars**, l’oggetto `motionSettings` raccoglie i parametri modificabili del progetto:
+
+| Gruppo | Cosa modifica |
+| --- | --- |
+| `smoothScroll` | Durata dello scorrimento Lenis e del raggiungimento dell’ancora al caricamento. |
+| `horizontal` | Ritardo con cui pannelli orizzontali e titoli laterali seguono lo scroll (`scrub`, in secondi). |
+| `reveal` | Opacità iniziale, durata, intervallo tra parole e punti di inizio/fine dell’effetto. |
+| `parallax` | Ingrandimento e spostamento percentuale delle immagini. |
+| `bars` | Numero massimo, distanza minima, rotazione e risposta delle barre a scroll e puntatore. |
+
+Esempi: aumentare `reveal.wordDelay` da `0.035` a `0.06` distanzia maggiormente le parole nella rivelazione temporizzata; ridurre `bars.maxCount` da `15` a `8` limita le barre decorative. `reveal.scrollSpread` riguarda invece la distribuzione delle parole nell’effetto legato allo scroll, non una durata di riproduzione in secondi.
+
+Questi valori personalizzano gli effetti già attivati dalle classi; non attivano le librerie. Le impostazioni sono condivise dalle sezioni della pagina. Breakpoint, controlli sui contenuti troppo alti, movimento ridotto e ripristino al resize restano nella logica sottostante: non occorre modificarli per regolare la velocità degli effetti. Per il parallax mantenere un ingrandimento sufficiente a coprire i bordi durante lo spostamento.
+
+
 Gli effetti usano i campi di Section Text. GSAP resta opzionale in Personalizza. Il controller è in `assets/js/custom.js`; gli stili in `_sections.scss`. Nessun nuovo layout o campo ACF.
 
 | Class sulla section | Effetto |

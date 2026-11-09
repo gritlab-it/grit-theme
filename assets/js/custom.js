@@ -783,6 +783,41 @@ $(startCounterAnimation);
 // 03 | Per-section effects; matchMedia restores animations and pin spacing.
 // 04 | Rebuild safely after resize/fonts; images request a debounced refresh.
 (function () {
+    // Project settings: durations/scrub in seconds, offsets in percent, distances in pixels.
+    // Change these values to tune the effects; the initialization and cleanup follow below.
+    const motionSettings = {
+        smoothScroll: {
+            duration: 1.2,
+            initialAnchorDuration: 1.1
+        },
+        horizontal: {
+            scrub: 1 // Scroll-following delay for horizontal panels and lateral headings.
+        },
+        reveal: {
+            initialOpacity: 0.15,
+            duration: 0.6,
+            wordDelay: 0.035, // Delay between words for the timed reveal.
+            scrollSpread: 1.5, // Relative distribution of words in the scroll-driven reveal.
+            start: 'top 85%',
+            end: 'bottom 30%'
+        },
+        parallax: {
+            scale: 1.1,
+            fromY: -5,
+            toY: 5
+        },
+        bars: {
+            maxCount: 15, // Fewer bars may fit when space is limited.
+            gap: 5,
+            minRotation: -45,
+            maxRotation: 45,
+            scrollY: -80,
+            scrub: 1,
+            pointerDuration: 0.8,
+            pointerStrength: 0.015
+        }
+    };
+
     const hasGSAP = !!(window.gsap && window.ScrollTrigger && window.gsap.matchMedia);
     const motion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
     let lenis = null, lenisFrame = 0;
@@ -801,7 +836,7 @@ $(startCounterAnimation);
             return;
         }
         if (lenis || typeof window.Lenis !== 'function') return;
-        lenis = new Lenis({ duration: 1.2, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true, smoothTouch: true });
+        lenis = new Lenis({ duration: motionSettings.smoothScroll.duration, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true, smoothTouch: true });
         if (hasGSAP) {
             lenis.on('scroll', ScrollTrigger.update);
             gsap.ticker.add(tickLenis);
@@ -830,7 +865,7 @@ $(startCounterAnimation);
         let id;
         try { id = decodeURIComponent(window.location.hash.slice(1)); } catch (_) { return; }
         const target = document.getElementById(id);
-        if (target && lenis) lenis.scrollTo(target, { duration: 1.1 });
+        if (target && lenis) lenis.scrollTo(target, { duration: motionSettings.smoothScroll.initialAnchorDuration });
     });
 
     function initMotion() {
@@ -887,7 +922,7 @@ $(startCounterAnimation);
                     const distance = () => Math.max(0, row.scrollWidth - row.clientWidth);
                     if (distance() <= 1) return;
                     gsap.to(row, { x: () => -distance(), ease: 'none', scrollTrigger: {
-                        trigger, pin, start: 'top top', end: () => '+=' + distance(), scrub: 1, invalidateOnRefresh: true
+                        trigger, pin, start: 'top top', end: () => '+=' + distance(), scrub: motionSettings.horizontal.scrub, invalidateOnRefresh: true
                     } });
                 }
 
@@ -914,7 +949,7 @@ $(startCounterAnimation);
                     if (a + b <= 1) {
                         restorePair(); paired.delete(first); paired.delete(second); return;
                     }
-                    const timeline = gsap.timeline({ scrollTrigger: { trigger: wrapper, pin: true, start: 'top top', end: () => '+=' + (distanceA() + distanceB()), scrub: 1, invalidateOnRefresh: true } });
+                    const timeline = gsap.timeline({ scrollTrigger: { trigger: wrapper, pin: true, start: 'top top', end: () => '+=' + (distanceA() + distanceB()), scrub: motionSettings.horizontal.scrub, invalidateOnRefresh: true } });
                     if (a) timeline.to(rowA, { x: () => -distanceA(), ease: 'none', duration: a });
                     if (b) timeline.to(rowB, { x: () => -distanceB(), ease: 'none', duration: b });
                 }
@@ -955,7 +990,7 @@ $(startCounterAnimation);
                             title.classList.remove('grit-lateral-target');
                             return;
                         }
-                        gsap.to(title, { x: () => -distance(), ease: 'none', scrollTrigger: { trigger: section, pin: true, start: 'top top', end: () => '+=' + distance(), scrub: 1, invalidateOnRefresh: true } });
+                        gsap.to(title, { x: () => -distance(), ease: 'none', scrollTrigger: { trigger: section, pin: true, start: 'top top', end: () => '+=' + distance(), scrub: motionSettings.horizontal.scrub, invalidateOnRefresh: true } });
                     } else if (section.matches('.section-gsap-reveal, .section-gsap-reveal-scroll')) {
                         activate(section, 'is-gsap-reveal');
                         const scroll = section.classList.contains('section-gsap-reveal-scroll');
@@ -964,8 +999,8 @@ $(startCounterAnimation);
                                 if (target.matches('li') && target.querySelector('p,h1,h2,h3,h4,h5,h6')) return;
                                 const words = wrapWords(target, cleanup);
                                 if (!words.length) return;
-                                gsap.fromTo(words, { opacity: 0.15 }, { opacity: 1, duration: 0.6, stagger: scroll ? { amount: 1.5 } : 0.035, ease: 'none', scrollTrigger: {
-                                    trigger: target, start: 'top 85%', end: 'bottom 30%', scrub: scroll, toggleActions: scroll ? undefined : 'play reverse play reverse'
+                                gsap.fromTo(words, { opacity: motionSettings.reveal.initialOpacity }, { opacity: 1, duration: motionSettings.reveal.duration, stagger: scroll ? { amount: motionSettings.reveal.scrollSpread } : motionSettings.reveal.wordDelay, ease: 'none', scrollTrigger: {
+                                    trigger: target, start: motionSettings.reveal.start, end: motionSettings.reveal.end, scrub: scroll, toggleActions: scroll ? undefined : 'play reverse play reverse'
                                 } });
                             });
                         });
@@ -974,7 +1009,7 @@ $(startCounterAnimation);
                 document.querySelectorAll('.gsap-parallax-container').forEach(container => {
                     if (container.closest('.is-gsap-horizontal, .is-gsap-vertical, .is-gsap-lateral, .horizontal-wrapper')) return;
                     const image = container.querySelector('.gsap-parallaxImage');
-                    if (image) gsap.fromTo(image, { scale: 1.1, yPercent: -5 }, { yPercent: 5, ease: 'none', scrollTrigger: { trigger: container, start: 'top bottom', end: 'bottom top', scrub: true } });
+                    if (image) gsap.fromTo(image, { scale: motionSettings.parallax.scale, yPercent: motionSettings.parallax.fromY }, { yPercent: motionSettings.parallax.toY, ease: 'none', scrollTrigger: { trigger: container, start: 'top bottom', end: 'bottom top', scrub: true } });
                 });
 
                 // Decorative bars are section-local; scroll and pointer use separate transform axes.
@@ -995,26 +1030,26 @@ $(startCounterAnimation);
                             ? { min: 220, max: 300, height: 30 }
                             : { min: 280, max: 380, height: 35 };
                     const placed = [], bars = [];
-                    for (let attempt = 0; attempt < 375 && bars.length < 15; attempt++) {
+                    for (let attempt = 0; attempt < 375 && bars.length < motionSettings.bars.maxCount; attempt++) {
                         const width = random(sizes.min, sizes.max), height = sizes.height;
                         const left = random(area[2], area[3]), top = random(area[0], area[1]);
                         const x = left * section.clientWidth / 100, y = top * section.clientHeight / 100;
                         const radius = Math.hypot(width / 2, height / 2);
-                        if (placed.some(p => Math.hypot(p.x - x, p.y - y) < p.radius + radius + 5)) continue;
+                        if (placed.some(p => Math.hypot(p.x - x, p.y - y) < p.radius + radius + motionSettings.bars.gap)) continue;
                         placed.push({ x, y, radius });
                         const bar = document.createElement('div'); bar.className = 'bar'; bar.setAttribute('aria-hidden', 'true');
                         Object.assign(bar.style, { width: width + 'px', height: height + 'px', left: left + '%', top: top + '%' });
                         section.append(bar); bars.push(bar);
-                        gsap.set(bar, { xPercent: -50, yPercent: -50, rotation: random(-45, 45) });
+                        gsap.set(bar, { xPercent: -50, yPercent: -50, rotation: random(motionSettings.bars.minRotation, motionSettings.bars.maxRotation) });
                     }
                     cleanup.push(() => bars.forEach(bar => bar.remove()));
                     if (!bars.length) return;
-                    gsap.to(bars, { yPercent: -80, ease: 'none', scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: 1 } });
+                    gsap.to(bars, { yPercent: motionSettings.bars.scrollY, ease: 'none', scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: motionSettings.bars.scrub } });
                     if (window.matchMedia('(hover: hover)').matches) {
-                        const setters = bars.map(bar => [gsap.quickTo(bar, 'x', { duration: 0.8 }), gsap.quickTo(bar, 'y', { duration: 0.8 })]);
+                        const setters = bars.map(bar => [gsap.quickTo(bar, 'x', { duration: motionSettings.bars.pointerDuration }), gsap.quickTo(bar, 'y', { duration: motionSettings.bars.pointerDuration })]);
                         const move = event => {
                             const rect = section.getBoundingClientRect();
-                            setters.forEach((set, i) => { set[0]((event.clientX - rect.left - rect.width / 2) * 0.015 * (i % 3 + 1)); set[1]((event.clientY - rect.top - rect.height / 2) * 0.015 * (i % 3 + 1)); });
+                            setters.forEach((set, i) => { set[0]((event.clientX - rect.left - rect.width / 2) * motionSettings.bars.pointerStrength * (i % 3 + 1)); set[1]((event.clientY - rect.top - rect.height / 2) * motionSettings.bars.pointerStrength * (i % 3 + 1)); });
                         };
                         section.addEventListener('pointermove', move);
                         cleanup.push(() => section.removeEventListener('pointermove', move));
