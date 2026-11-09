@@ -1,32 +1,43 @@
 <?php
 
 // * GRIT_SET Legend | Extras
-// Theme helpers, responsive section images and reusable shortcodes.
-// 01 | Post IDs viewable in the back-end
-// 02 | Add Modern Social support for profiles
-// 03 | Agency configuration, admin footer and console credits
-// 04 | Remove unused dashboard metaboxes
-// 05 | Responsive image sizes and carousel column helpers
-// 06 | Counter
-// 07 | Contacts
-// 08 | Video
-// 09 | Page excerpts
-// 10 | ACF Google Maps | API field filter and ACF initialization.
-// 11 | Preserve native ?s= searches and support the legacy search_query alias.
-// 12 | Contact Form 7 | Current and referring page tags.
-// 13 | Upload MIME types | JSON and SVG registration.
-// 14 | Section Archive | Public content types and available card templates.
-// 15 | Customize named ACF fields only when they belong to section_archive.
-// 16 | Taxonomy archives | Include public CPTs registered to categories, tags or custom taxonomies.
-// 17 | Template helpers | Used by the root PHP controllers.
-// 18 | Section Maps: validated locations and independent instances
-// 19 | Policy page identities and public links
+// Shared helpers and WordPress/plugin hooks. Keep presentation in the referenced Twig/SCSS files.
+// Find a numbered section below before changing a helper; existing function names are kept for compatibility.
+//
+// Admin and branding
+// 00 | Admin bar visibility
+// 01 | Post/page ID columns
+// 02 | User profile social links
+// 03 | Agency data, assets and credits
+// 04 | Dashboard widgets
+//
+// Images and reusable content
+// 05 | Responsive images for Text and Gallery
+// 06 | Counter shortcode
+// 07 | Contact shortcode
+// 08 | Video shortcode
+// 09 | Page excerpt support
+//
+// Plugin and WordPress integrations
+// 10 | ACF Google Maps key
+// 11 | Legacy search query alias
+// 12 | Contact Form 7 page URL tags
+// 13 | JSON and SVG upload types
+//
+// Queries and template data
+// 14 | Archive post types and card choices
+// 15 | Section Archive: field options, posts, terms and excerpts
+// 16 | Native taxonomy archive queries
+// 17 | Controller helpers: ACF fields, content and pagination
+// 18 | Section Maps: coordinates, styles and locations
+// 19 | Policy pages and public URLs
 
+// * GRIT_SET 00 | Admin bar visibility
 if (get_theme_mod('grit_adv_adminbar', true)) {
   show_admin_bar( false );
 }
 
-// * GRIT_SET 01 | Post IDs viewable in the back-end
+// * GRIT_SET 01 | Post/page ID columns
 
 add_filter('manage_posts_columns', 'posts_columns_id', 5);
 add_action('manage_posts_custom_column', 'posts_custom_id_columns', 5, 2);
@@ -46,7 +57,7 @@ function posts_custom_id_columns($column_name, $id) {
     }
 }
 
-// * GRIT_SET 02 | Add Modern Social support for profiles
+// * GRIT_SET 02 | User profile social links
 // Reference: https://laceytechsolutions.co.uk/blog/add-social-media-contact-methods-wordpress-user-profiles/
 
 // User profile links are separate from company contacts configured in Personalizza.
@@ -69,7 +80,8 @@ function new_contactmethods( $contactmethods ) {
 }
 add_filter('user_contactmethods','new_contactmethods',10,1);
 
-// * GRIT_SET 03 | Agency configuration, admin footer and console credits
+// * GRIT_SET 03 | Agency data, assets and credits
+// Used by functions.php, core/activation.php and admin branding; edit assets/credits/credits.json for agency details.
 
 // One shared agency record for credits, login branding and setup operations.
 // Select GRIT_AGENCY in functions.php; credits.json contains the available agency records.
@@ -188,7 +200,7 @@ function update_theme_credits() {
 add_action('wp_footer', 'update_theme_credits');
 
 
-// * GRIT_SET 04 | Remove unused dashboard metaboxes
+// * GRIT_SET 04 | Dashboard widgets
 function remove_dashboard_widgets()
 {
     // Globalize the metaboxes array, this holds all the widgets for wp-admin
@@ -199,7 +211,8 @@ function remove_dashboard_widgets()
 }
 add_action('wp_dashboard_setup', 'remove_dashboard_widgets' );
 
-// * GRIT_SET 05 | Responsive image sizes and carousel column helpers
+// * GRIT_SET 05 | Responsive images for Text and Gallery
+// Used by partials/text-chapter.twig and sections/section_gallery.twig; layout styles remain in SCSS.
 
 // Build the HTML sizes attribute from carousel classes. This helps image selection; it does not initialize Owl.
 function grit_carousel_image_sizes($section_classes, $defaults) {
@@ -237,8 +250,6 @@ function grit_carousel_image_sizes($section_classes, $defaults) {
     return implode(', ', $rules);
 }
 
-// Preserve Gallery animation attributes and WordPress srcset generation
-
 // Render a Gallery image through WordPress so srcset, image metadata and animation attributes are preserved.
 function grit_gallery_carousel_image($attachment_id, $section_classes = '') {
     return wp_get_attachment_image(absint($attachment_id), 'large', false, array(
@@ -248,8 +259,6 @@ function grit_gallery_carousel_image($attachment_id, $section_classes = '') {
     ));
 }
 
-// Use text carousel defaults; static layouts keep a conservative sizes estimate
-
 // Render a Text image; carousel layouts estimate visible item widths, static layouts use 100vw.
 function grit_text_chapter_image($attachment_id, $image_class, $is_carousel = false, $section_classes = '') {
     $sizes = $is_carousel
@@ -258,7 +267,8 @@ function grit_text_chapter_image($attachment_id, $image_class, $is_carousel = fa
     return wp_get_attachment_image(absint($attachment_id), 'large', false, array('class' => $image_class, 'sizes' => $sizes));
 }
 
-// * GRIT_SET 06 | Counter
+// * GRIT_SET 06 | Counter shortcode
+// [grit_counter] supplies markup/data; animation is in assets/js/custom.js and styling in _shortcodes.scss.
 
 // Accept one plain decimal number and return its animation value plus a localized display label.
 function grit_counter_value($raw) {
@@ -277,8 +287,6 @@ function grit_counter_value($raw) {
     }
     return array('valid' => true, 'value' => $canonical, 'decimals' => $decimals, 'formatted' => number_format_i18n($value, $decimals));
 }
-
-// Standalone Counter shortcode: reusable in content and formatted ACF WYSIWYG
 
 // Render [grit_counter]. Invalid numbers stay readable as text; valid numbers also get animation data.
 function grit_counter_shortcode($attributes) {
@@ -304,7 +312,8 @@ function grit_counter_shortcode($attributes) {
 }
 add_shortcode('grit_counter', 'grit_counter_shortcode');
 
-// * GRIT_SET 07 | Contacts
+// * GRIT_SET 07 | Contact shortcode
+// [grit_contact] reads public Theme Fields from the Customizer; edit the allowlist below to expose another field.
 
 // Public Theme Fields allowlist: each name maps to the kind of link that the shortcode may generate.
 function grit_contact_fields() {
@@ -316,8 +325,6 @@ function grit_contact_fields() {
         'facebook' => 'social', 'instagram' => 'social', 'linkedin' => 'social', 'tiktok' => 'social',
     ];
 }
-
-// Missing fields render nothing; labels/classes never replace the stored value.
 
 // Render one [grit_contact] field. Missing values produce no markup; labels change display text, never the saved value.
 function grit_contact_shortcode($attributes) {
@@ -374,7 +381,8 @@ function grit_contact_shortcode($attributes) {
 }
 add_shortcode('grit_contact', 'grit_contact_shortcode');
 
-// * GRIT_SET 08 | Video
+// * GRIT_SET 08 | Video shortcode
+// [grit_video] prepares data for partials/video.twig; playback controls are in assets/js/custom.js.
 
 // Resolve one source: valid local video first, then a supported URL or sanitized iframe. No remote oEmbed request is made.
 function grit_video_source($section) {
@@ -447,8 +455,6 @@ function grit_video_source($section) {
     return ['type'=>'embed', 'html'=>$html, 'url'=>$url];
 }
 
-// Video shortcode | Composition belongs to Text; player settings stay local to each shortcode.
-
 // Validate [grit_video] attributes, then pass only the player data to partials/video.twig.
 function grit_video_shortcode($attributes) {
     $attributes = shortcode_atts([
@@ -478,10 +484,11 @@ function grit_video_shortcode($attributes) {
 }
 add_shortcode('grit_video', 'grit_video_shortcode');
 
-// * GRIT_SET 09 | Page excerpts
+// * GRIT_SET 09 | Page excerpt support
 add_post_type_support('page', 'excerpt');
 
-// * GRIT_SET 10 | ACF Google Maps | API field filter and ACF initialization.
+// * GRIT_SET 10 | ACF Google Maps key
+// This configures the ACF editor field. Frontend map data is prepared in section 18 below.
 // Supply the configured Maps key when ACF prepares its Google Map field.
 function my_acf_google_map_api($api) {
     $api['key'] = get_theme_mod('grit_setting_maps');
@@ -489,14 +496,14 @@ function my_acf_google_map_api($api) {
 }
 add_filter('acf/fields/google_map/api', 'my_acf_google_map_api');
 
-// Set the same API key for the ACF initialization settings.
 // Supply the same Maps key to ACF initialization settings.
 function my_acf_init() {
     acf_update_setting('google_api_key', get_theme_mod('grit_setting_maps'));
 }
 add_action('acf/init', 'my_acf_init');
 
-// * GRIT_SET 11 | Preserve native ?s= searches and support the legacy search_query alias.
+// * GRIT_SET 11 | Legacy search query alias
+// Native ?s= requests remain unchanged.
 if (!is_admin()) {
     add_filter('query_vars', function ($vars) {
         $vars[] = 'search_query';
@@ -510,8 +517,8 @@ if (!is_admin()) {
     });
 }
 
-// * GRIT_SET 12 | Contact Form 7 | Current and referring page tags.
-// Add tag referer-page with url of previous page
+// * GRIT_SET 12 | Contact Form 7 page URL tags
+// Used by the starter form created in core/activation.php; these filters do not configure email delivery.
 // CF7 referer-page: use the browser referrer when supplied; it may legitimately be unavailable.
 function getRefererPageForm( $form_tag ) {
     if ( $form_tag['name'] == 'referer-page' ) {
@@ -529,7 +536,6 @@ if ( !is_admin() ) {
 	add_filter( 'wpcf7_form_tag', 'getRefererPageForm' );
 }
 
-// Add tag current-page with url of current page
 // CF7 current-page: fill the tag with the current WordPress request URL.
 function getCurrentPageForm($form_tag)
 {
@@ -547,7 +553,7 @@ if (!is_admin()) {
     add_filter('wpcf7_form_tag', 'getCurrentPageForm');
 }
 
-// * GRIT_SET 13 | Upload MIME types | JSON and SVG registration.
+// * GRIT_SET 13 | JSON and SVG upload types
 // Register JSON and SVG MIME entries; SVG upload sanitization is a separate concern.
 function cc_mime_types($mimes)
 {
@@ -568,7 +574,7 @@ function allow_svg_mime_types( $data, $file, $filename, $mimes ) {
 }
 add_filter( 'wp_check_filetype_and_ext', 'allow_svg_mime_types', 10, 4 );
 
-// * GRIT_SET 14 | Section Archive | Public content types and available card templates.
+// * GRIT_SET 14 | Archive post types and card choices
 // List registered public post types for the Section Archive selector; attachments are excluded.
 function grit_archive_public_types() {
     $choices = [];
@@ -596,7 +602,10 @@ function grit_archive_tease_choices() {
     }
     return $choices;
 }
-// * GRIT_SET 15 | Customize named ACF fields only when they belong to section_archive.
+// * GRIT_SET 15 | Section Archive: field options, posts, terms and excerpts
+// Entry point: sections/section.twig; rendering: sections/section_archive.twig and partials/tease-*.twig.
+
+// * GRIT_SET 15.1 | ACF selector options
 // Update only post_type, tease and taxonomy fields inside section_archive; identically named fields elsewhere are unchanged.
 function grit_archive_admin_field($field) {
     $parent = acf_get_raw_field($field['parent'] ?? 0);
@@ -633,7 +642,7 @@ foreach (['post_type', 'tease', 'taxonomy'] as $grit_archive_field_name) {
 }
 unset($grit_archive_field_name);
 
-// Independent section query; the native archive and related query remain unchanged.
+// * GRIT_SET 15.2 | Posts for Section Archive
 // Prepare an independent Section Archive query. Invalid filters return an empty result instead of unrelated posts.
 function grit_archive_section_data($section) {
     if (($section['archive_mode'] ?? 'posts') === 'terms') {
@@ -688,7 +697,7 @@ function grit_archive_section_data($section) {
     return ['posts' => new Timber\PostQuery($args), 'tease' => $tease];
 }
 
-// * GRIT_SET Term archives | List public taxonomy terms, independently from post queries.
+// * GRIT_SET 15.3 | Taxonomy terms for Section Archive
 function grit_archive_terms_data($section) {
     $empty = ['posts' => [], 'terms' => [], 'mode' => 'terms', 'tease' => ''];
     $taxonomy = sanitize_key($section['taxonomy'] ?? '');
@@ -739,7 +748,7 @@ function grit_archive_terms_data($section) {
     return array_merge($empty, ['terms' => $items]);
 }
 
-// Card previews do not run full-content filters or shortcodes.
+// * GRIT_SET 15.4 | Card excerpt text
 // Prefer the manual excerpt; otherwise trim raw content without executing shortcodes or content filters.
 function grit_archive_excerpt($post, $length = 35) {
     $id = is_object($post) ? (int) $post->ID : (int) $post;
@@ -748,7 +757,8 @@ function grit_archive_excerpt($post, $length = 35) {
     return wp_trim_words(wp_strip_all_tags(strip_shortcodes(strip_tags((string) $text))), max(1, (int) $length), '…');
 }
 
-// * GRIT_SET 16 | Taxonomy archives | Include public CPTs registered to categories, tags or custom taxonomies.
+// * GRIT_SET 16 | Native taxonomy archive queries
+// Unlike Section Archive, this changes the main WordPress query rendered through archive.php.
 // WordPress otherwise limits category/tag archives to standard posts. Run before pagination/404 checks.
 // Filter the native main taxonomy query before SQL/pagination. Edit $archive_post_types below to choose visible types.
 function grit_taxonomy_archive_post_types($query) {
@@ -803,8 +813,9 @@ function grit_taxonomy_archive_post_types($query) {
 }
 add_action('pre_get_posts', 'grit_taxonomy_archive_post_types');
 
-// * GRIT_SET 17 | Template helpers | Used by the root PHP controllers.
-// Fields: expose ACF values by name. Content: preserve WordPress globals. Query: prepare counts.
+// * GRIT_SET 17 | Controller helpers: ACF fields, content and pagination
+// Used by page.php, single.php and archive/search controllers.
+// * GRIT_SET 17.1 | Expose ACF values to Twig
 // Expose ACF values by field name for a page/post ID or a taxonomy_term ID; protected numeric sources stay private.
 function grit_template_fields($context, $object_id) {
     $context['sections'] = [];
@@ -821,7 +832,7 @@ function grit_template_fields($context, $object_id) {
     return $context;
 }
 
-// Format source content and restore the original WordPress post context.
+// * GRIT_SET 17.2 | Format WordPress content
 // Run content filters using the source page as the current post, then restore every affected WordPress global.
 function grit_template_content($object_id) {
     $source = get_post((int) $object_id);
@@ -869,7 +880,7 @@ function grit_template_content($object_id) {
     }
 }
 
-// Expose query results and the visible range, e.g. 11–20 of 35.
+// * GRIT_SET 17.3 | Expose query results and pagination
 // Wrap an existing WP_Query for Timber and calculate visible result numbers; this does not create a second WP_Query.
 function grit_template_query($context, $query) {
     $context['posts'] = new Timber\PostQuery($query);
@@ -893,7 +904,8 @@ function grit_template_query($context, $query) {
     return $context;
 }
 
-// * GRIT_SET 18 | Section Maps | Validate map data and load the local controller only when needed.
+// * GRIT_SET 18 | Section Maps: coordinates, styles and locations
+// Data: sections/section.twig. Markup: sections/section_maps.twig. Behavior: assets/js/maps.js.
 // Zero is a valid latitude/longitude. Empty, nonnumeric and out-of-range values are rejected.
 function grit_maps_coordinates($value) {
     if (!is_array($value) || !isset($value['lat'], $value['lng'])) {
@@ -977,7 +989,8 @@ function grit_maps_section_data($section) {
     ];
 }
 
-// * GRIT_SET 19 | Resolve policy pages by identity, then by their standard slug.
+// * GRIT_SET 19 | Policy pages and public URLs
+// Used by setup, the starter CF7 form, footers, Bio and policy links. Twig page selection remains slug-based.
 function grit_policy_page($type) {
     if (!in_array($type, ['privacy', 'cookie'], true)) {
         return null;
@@ -996,6 +1009,7 @@ function grit_policy_page($type) {
     return null;
 }
 
+// Return a link only for a published policy page.
 function grit_policy_url($type) {
     $page = grit_policy_page($type);
     return $page && $page->post_status === 'publish' ? get_permalink($page->ID) : '';

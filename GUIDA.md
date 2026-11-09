@@ -72,6 +72,24 @@ L’elenco `$grit_includes` in `functions.php` stabilisce quali moduli sono cari
 
 I commenti `GRIT_SET` identificano le sezioni principali del codice. Mantenere commenti descrittivi coerenti e aggiornati; i file delle librerie conservano le proprie intestazioni e licenze.
 
+### Orientarsi in core/extras.php
+
+Il file resta unico. L’indice iniziale raggruppa le funzioni per responsabilità e i commenti indicano i Twig o i controller che le utilizzano. Cerca il numero `GRIT_SET` per raggiungere il blocco desiderato.
+
+| Personalizzazione | Sezioni da consultare |
+| --- | --- |
+| Branding agenzia e crediti | 03; i dati dell’agenzia sono in `assets/credits/credits.json`. |
+| Immagini responsive di Text e Gallery | 05; per cambiare la struttura visiva intervenire nei relativi Twig. |
+| Shortcode counter, contatti e video | 06–08; stili in `_shortcodes.scss`, comportamento in `custom.js`. |
+| Integrazione ACF Maps e tag del modulo CF7 | 10 e 12. |
+| Opzioni e risultati di Section Archive | 14–15: campi ACF, query dei post, termini ed estratti delle card. |
+| Risultati degli archivi nativi WordPress | 16: è una query diversa dalle liste inserite con Section Archive. |
+| Dati passati dai controller ai Twig | 17: campi ACF, contenuti formattati e paginazione. |
+| Dati delle mappe nel frontend | 18; struttura in `section_maps.twig`, interazioni in `maps.js`. |
+| Individuazione delle policy e relativi link | 19; il layout della pagina continua a dipendere dallo slug. |
+
+Per modificare l’aspetto di una card, un pulsante o una sezione partire dal Twig/SCSS indicato, non dagli helper PHP.
+
 ## Plugin e librerie
 
 ### Plugin WordPress
