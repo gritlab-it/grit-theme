@@ -117,6 +117,31 @@ Usare il Flexible Content **Sections** nelle schermate abilitate dalle regole AC
 
 Il titolo di Section Text genera un h2, il sottotitolo un h3. Per un h1 introduttivo nel testo formattato lasciare vuoto il titolo del capitolo e inserire un solo h1 nella pagina. Usare titoli gerarchici e testi alternativi descrittivi nelle immagini informative.
 
+### Classi: struttura, aspetto e comportamento
+
+Prima scegli il layout, poi le colonne e infine lo stile. Scrivi le classi separate da spazi, senza il punto iniziale. Non occorre riempire tutti i campi: lasciandoli vuoti si usano i valori predefiniti.
+
+| Scopo | Esempio | Dove usarlo |
+| --- | --- | --- |
+| Colonne | `col-12 col-md-6` | Inner Class del capitolo/card nei layout che prevedono colonne. Una colonna su mobile, due da 768 px. |
+| Spaziatura | `py-5` / `mb-4` | Class per tutta la sezione; Inner Class per il singolo elemento. |
+| Modalità di layout | `section_carousel_text` / `section_masonry` | Class di Section Text. Attivano un comportamento, non soltanto un colore o una spaziatura. |
+| Configurazione del carosello | `carousel-items-1 carousel-items-md-2` | Class della sezione con carosello attivo. Non attiva il carosello da sola. |
+| Effetto sull’immagine | `parallax` / `parallax-gsap` | Inner Class del capitolo di Section Text statica; richiede rispettivamente Jarallax o GSAP. |
+| Stile del progetto | `servizi-card` | Nel campo del contenitore da personalizzare, con la relativa regola nel CSS del progetto o del child. |
+
+Le classi di comportamento sono specifiche del layout: non copiare il comando di Section Text in Gallery o Archive. Consulta la tab Guida del layout per il nome corretto e abilita la libreria richiesta in Personalizza.
+
+**Esempi pronti per Section Text**
+
+| Risultato | Class della sezione | Inner Class di ogni capitolo | Libreria |
+| --- | --- | --- | --- |
+| Griglia a due colonne da tablet | `py-5` | `col-12 col-md-6` | Nessuna aggiuntiva |
+| Griglia Masonry a due colonne da tablet | `section_masonry py-5` | `col-12 col-md-6` | Masonry |
+| Carosello: uno su mobile, due da tablet | `section_carousel_text carousel-items-1 carousel-items-md-2` | Lasciare vuoto per la larghezza | Owl Carousel |
+
+Nel carosello, `col-*` non controlla il numero di elementi visibili. Per tornare alla griglia, rimuovere la classe che attiva il carosello. Non combinare carosello e Masonry: Section Text dà precedenza al carosello.
+
 ### Colonne condivise
 
 `col-12 col-md-6 col-lg-4` significa una colonna su mobile, due da md, tre da lg. `mb-4`, `p-4`, `py-5`, `pt-md-7` sono esempi di spaziature Bootstrap o delle estensioni del tema. Verificare i valori presenti prima di usare utility non previste.

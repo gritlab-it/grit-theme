@@ -468,7 +468,7 @@
                                         "name": "inner_class",
                                         "aria-label": "",
                                         "type": "text",
-                                        "instructions": "Classi del singolo elemento. Griglia: col-12 col-md-6. Nel carosello il numero di elementi dipende da carousel-items, non dalle colonne.",
+                                        "instructions": "Classi del singolo elemento: col-12 col-md-6 per le colonne, mb-4 per lo spazio sotto. Nel carosello usare carousel-items-* in Class della sezione, non col-*. Effetti disponibili nella tab Guida.",
                                         "required": 0,
                                         "conditional_logic": 0,
                                         "wrapper": {
@@ -725,7 +725,7 @@
                                 "name": "class",
                                 "aria-label": "",
                                 "type": "text",
-                                "instructions": "Classi sulla section, separate da spazi e senza punto iniziale. Esempio: py-5. Modalità ed esempi nella tab Guida.",
+                                "instructions": "Classi della sezione, separate da spazi e senza punto: py-5 per la spaziatura; modalità come carosello o Masonry solo dove previste nella tab Guida. Le colonne dei capitoli vanno in Inner Class.",
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -769,7 +769,7 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "message": "<p>Griglia predefinita; <code>section_masonry</code> per Masonry; <code>section_carousel_text</code> per Owl. Esempio: <code>section_carousel_text carousel-items-1 carousel-items-md-2 carousel-gap-24</code>. Proporzioni: <code>text-image-ratio-landscape</code>, <code>text-image-ratio-square</code>, <code>text-image-fit-contain</code>. Inner Class dei capitoli: <code>col-12 col-md-6</code>; <code>parallax</code> o <code>parallax-gsap</code> solo nei layout statici. Un titolo di capitolo genera h2; il sottotitolo h3.</p><p><strong>Regole comuni:</strong> classi separate da spazi, senza punto. <code>py-5</code> aggiunge spazio verticale; <code>col-12 col-md-6</code> indica una colonna su mobile e due da 768 px. Non combinare modalità opposte. Consulta GUIDA.md per tutte le varianti e abilita le librerie richieste in Personalizza.</p>",
+                                "message": "<p>Griglia predefinita; <code>section_masonry</code> per Masonry; <code>section_carousel_text</code> per Owl. Esempio: <code>section_carousel_text carousel-items-1 carousel-items-md-2 carousel-gap-24</code>. Proporzioni: <code>text-image-ratio-landscape</code>, <code>text-image-ratio-square</code>, <code>text-image-fit-contain</code>. Inner Class dei capitoli: <code>col-12 col-md-6</code>; <code>parallax</code> o <code>parallax-gsap</code> solo nei layout statici. Un titolo di capitolo genera h2; il sottotitolo h3.</p><p><strong>Come leggere le classi:</strong> <code>py-5</code> modifica la spaziatura; <code>col-12 col-md-6</code> imposta le colonne nel campo del singolo elemento, dove previsto. Le classi di comportamento, come quelle per caroselli o animazioni, funzionano solo nei layout indicati sopra e possono richiedere una libreria attiva. Le classi personalizzate richiedono una regola CSS nel progetto: il solo nome non crea uno stile. Separare le classi con spazi, senza punto; non combinare modalità opposte. Esempi completi in GUIDA.md.</p>",
                                 "new_lines": "",
                                 "esc_html": 0
                             }
@@ -850,7 +850,7 @@
                                         "name": "inner_class",
                                         "aria-label": "",
                                         "type": "text",
-                                        "instructions": "Classi del singolo elemento. Griglia: col-12 col-md-6. Nel carosello il numero di elementi dipende da carousel-items, non dalle colonne.",
+                                        "instructions": "Classi del singolo elemento: col-12 col-md-6 per le colonne, mb-4 per lo spazio sotto. Nel carosello usare carousel-items-* in Class della sezione, non col-*. Effetti disponibili nella tab Guida.",
                                         "required": 0,
                                         "conditional_logic": 0,
                                         "wrapper": {
@@ -1167,7 +1167,7 @@
                                 "name": "class",
                                 "aria-label": "",
                                 "type": "text",
-                                "instructions": "Classi sulla section, separate da spazi e senza punto iniziale. Esempio: py-5. Modalità ed esempi nella tab Guida.",
+                                "instructions": "Classi della sezione, separate da spazi e senza punto: py-5 per la spaziatura; modalità come carosello o Masonry solo dove previste nella tab Guida. Le colonne dei capitoli vanno in Inner Class.",
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -1211,7 +1211,7 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "message": "<p>Senza modificatori: accordion. <code>section_collapse_search</code>: ricerca List.js; <code>section_collapse_dynamic</code>: schede Bootstrap. Nelle schede, Inner Class del gruppo può essere <code>grid col-12 col-md-6</code> oppure <code>carousel carousel-items-1 carousel-items-md-2</code>. Se combinate, la ricerca ha precedenza sulle schede.</p><p><strong>Regole comuni:</strong> classi separate da spazi, senza punto. <code>py-5</code> aggiunge spazio verticale; <code>col-12 col-md-6</code> indica una colonna su mobile e due da 768 px. Non combinare modalità opposte. Consulta GUIDA.md per tutte le varianti e abilita le librerie richieste in Personalizza.</p>",
+                                "message": "<p>Senza modificatori: accordion. <code>section_collapse_search</code>: ricerca List.js; <code>section_collapse_dynamic</code>: schede Bootstrap. Nelle schede, Inner Class del gruppo può essere <code>grid col-12 col-md-6</code> oppure <code>carousel carousel-items-1 carousel-items-md-2</code>. Se combinate, la ricerca ha precedenza sulle schede.</p><p><strong>Come leggere le classi:</strong> <code>py-5</code> modifica la spaziatura; <code>col-12 col-md-6</code> imposta le colonne nel campo del singolo elemento, dove previsto. Le classi di comportamento, come quelle per caroselli o animazioni, funzionano solo nei layout indicati sopra e possono richiedere una libreria attiva. Le classi personalizzate richiedono una regola CSS nel progetto: il solo nome non crea uno stile. Separare le classi con spazi, senza punto; non combinare modalità opposte. Esempi completi in GUIDA.md.</p>",
                                 "new_lines": "",
                                 "esc_html": 0
                             }
@@ -1604,7 +1604,7 @@
                                 "name": "class",
                                 "aria-label": "",
                                 "type": "text",
-                                "instructions": "Classi sulla section, separate da spazi e senza punto iniziale. Esempio: py-5. Modalità ed esempi nella tab Guida.",
+                                "instructions": "Classi della sezione, separate da spazi e senza punto: py-5 per la spaziatura; modalità come carosello o Masonry solo dove previste nella tab Guida. Le colonne dei capitoli vanno in Inner Class.",
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -1648,7 +1648,7 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "message": "<p>Con una foto: immagine statica, oppure <code>parallax</code> con Jarallax. Con più foto: carosello Owl, ad esempio <code>carousel-items-1 carousel-no-autoplay</code>. Invert scambia le colonne da md; su mobile il testo precede le immagini.</p><p><strong>Regole comuni:</strong> classi separate da spazi, senza punto. <code>py-5</code> aggiunge spazio verticale; <code>col-12 col-md-6</code> indica una colonna su mobile e due da 768 px. Non combinare modalità opposte. Consulta GUIDA.md per tutte le varianti e abilita le librerie richieste in Personalizza.</p>",
+                                "message": "<p>Con una foto: immagine statica, oppure <code>parallax</code> con Jarallax. Con più foto: carosello Owl, ad esempio <code>carousel-items-1 carousel-no-autoplay</code>. Invert scambia le colonne da md; su mobile il testo precede le immagini.</p><p><strong>Come leggere le classi:</strong> <code>py-5</code> modifica la spaziatura; <code>col-12 col-md-6</code> imposta le colonne nel campo del singolo elemento, dove previsto. Le classi di comportamento, come quelle per caroselli o animazioni, funzionano solo nei layout indicati sopra e possono richiedere una libreria attiva. Le classi personalizzate richiedono una regola CSS nel progetto: il solo nome non crea uno stile. Separare le classi con spazi, senza punto; non combinare modalità opposte. Esempi completi in GUIDA.md.</p>",
                                 "new_lines": "",
                                 "esc_html": 0
                             }
@@ -1987,7 +1987,7 @@
                                 "name": "class",
                                 "aria-label": "",
                                 "type": "text",
-                                "instructions": "Classi sulla section, separate da spazi e senza punto iniziale. Esempio: py-5. Modalità ed esempi nella tab Guida.",
+                                "instructions": "Classi della sezione, separate da spazi e senza punto: py-5 per la spaziatura; modalità come carosello o Masonry solo dove previste nella tab Guida. Le colonne dei capitoli vanno in Inner Class.",
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -2031,7 +2031,7 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "message": "<p>Disattiva Contained per la piena larghezza. Esempio: <code>slides-height-medium slides-content-center slides-overlay carousel-no-autoplay</code>. Alternative: <code>slides-height-auto</code>, <code>slides-height-small</code>, <code>slides-overlay-light</code>. Il carosello mostra una slide: non usare carousel-items, gap, center o auto-width. Più slide richiedono Owl per lo scorrimento.</p><p><strong>Regole comuni:</strong> classi separate da spazi, senza punto. <code>py-5</code> aggiunge spazio verticale; <code>col-12 col-md-6</code> indica una colonna su mobile e due da 768 px. Non combinare modalità opposte. Consulta GUIDA.md per tutte le varianti e abilita le librerie richieste in Personalizza.</p>",
+                                "message": "<p>Disattiva Contained per la piena larghezza. Esempio: <code>slides-height-medium slides-content-center slides-overlay carousel-no-autoplay</code>. Alternative: <code>slides-height-auto</code>, <code>slides-height-small</code>, <code>slides-overlay-light</code>. Il carosello mostra una slide: non usare carousel-items, gap, center o auto-width. Più slide richiedono Owl per lo scorrimento.</p><p><strong>Come leggere le classi:</strong> <code>py-5</code> modifica la spaziatura; <code>col-12 col-md-6</code> imposta le colonne nel campo del singolo elemento, dove previsto. Le classi di comportamento, come quelle per caroselli o animazioni, funzionano solo nei layout indicati sopra e possono richiedere una libreria attiva. Le classi personalizzate richiedono una regola CSS nel progetto: il solo nome non crea uno stile. Separare le classi con spazi, senza punto; non combinare modalità opposte. Esempi completi in GUIDA.md.</p>",
                                 "new_lines": "",
                                 "esc_html": 0
                             }
@@ -2167,7 +2167,7 @@
                                 "name": "inner_class",
                                 "aria-label": "",
                                 "type": "text",
-                                "instructions": "Classi del singolo elemento. Griglia: col-12 col-md-6. Nel carosello il numero di elementi dipende da carousel-items, non dalle colonne.",
+                                "instructions": "Classi del singolo elemento: col-12 col-md-6 per le colonne, mb-4 per lo spazio sotto. Nel carosello usare carousel-items-* in Class della sezione, non col-*. Effetti disponibili nella tab Guida.",
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -2681,7 +2681,7 @@
                                 "name": "class",
                                 "aria-label": "",
                                 "type": "text",
-                                "instructions": "Classi sulla section, separate da spazi e senza punto iniziale. Esempio: py-5. Modalità ed esempi nella tab Guida.",
+                                "instructions": "Classi della sezione, separate da spazi e senza punto: py-5 per la spaziatura; modalità come carosello o Masonry solo dove previste nella tab Guida. Le colonne dei capitoli vanno in Inner Class.",
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -2725,7 +2725,7 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "message": "<p>Scegli la modalità prima di compilare i filtri. Griglia predefinita; <code>section_masonry</code> oppure <code>section_archive_carousel carousel-items-1 carousel-items-lg-3</code>. Inner Class regola le colonne delle card, ad esempio <code>col-12 col-md-6</code>. Usa Tease senza prefisso tease- e senza .twig, ad esempio <code>card</code>, <code>horizontal</code>, <code>editorial</code>. Non è l’archivio principale WordPress: questa lista è indipendente e non ha paginazione numerata.</p><p><strong>Regole comuni:</strong> classi separate da spazi, senza punto. <code>py-5</code> aggiunge spazio verticale; <code>col-12 col-md-6</code> indica una colonna su mobile e due da 768 px. Non combinare modalità opposte. Consulta GUIDA.md per tutte le varianti e abilita le librerie richieste in Personalizza.</p>",
+                                "message": "<p>Scegli la modalità prima di compilare i filtri. Griglia predefinita; <code>section_masonry</code> oppure <code>section_archive_carousel carousel-items-1 carousel-items-lg-3</code>. Inner Class regola le colonne delle card, ad esempio <code>col-12 col-md-6</code>. Usa Tease senza prefisso tease- e senza .twig, ad esempio <code>card</code>, <code>horizontal</code>, <code>editorial</code>. Non è l’archivio principale WordPress: questa lista è indipendente e non ha paginazione numerata.</p><p><strong>Come leggere le classi:</strong> <code>py-5</code> modifica la spaziatura; <code>col-12 col-md-6</code> imposta le colonne nel campo del singolo elemento, dove previsto. Le classi di comportamento, come quelle per caroselli o animazioni, funzionano solo nei layout indicati sopra e possono richiedere una libreria attiva. Le classi personalizzate richiedono una regola CSS nel progetto: il solo nome non crea uno stile. Separare le classi con spazi, senza punto; non combinare modalità opposte. Esempi completi in GUIDA.md.</p>",
                                 "new_lines": "",
                                 "esc_html": 0
                             }
@@ -2966,7 +2966,7 @@
                                 "name": "class",
                                 "aria-label": "",
                                 "type": "text",
-                                "instructions": "Classi sulla section, separate da spazi e senza punto iniziale. Esempio: py-5. Modalità ed esempi nella tab Guida.",
+                                "instructions": "Classi della sezione, separate da spazi e senza punto: py-5 per la spaziatura; modalità come carosello o Masonry solo dove previste nella tab Guida. Le colonne dei capitoli vanno in Inner Class.",
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -3010,7 +3010,7 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "message": "<p>Più immagini: griglia WordPress; aggiungi <code>gallery_carousel carousel-items-1 carousel-items-md-3</code> per Owl. Una sola immagine: responsive, con <code>parallax</code> oppure <code>parallax-gsap</code> opzionali. Columns e Size regolano la griglia; carousel-items regola soltanto il carosello. Per il lightbox serve configurare il plugin dedicato.</p><p><strong>Regole comuni:</strong> classi separate da spazi, senza punto. <code>py-5</code> aggiunge spazio verticale; <code>col-12 col-md-6</code> indica una colonna su mobile e due da 768 px. Non combinare modalità opposte. Consulta GUIDA.md per tutte le varianti e abilita le librerie richieste in Personalizza.</p>",
+                                "message": "<p>Più immagini: griglia WordPress; aggiungi <code>gallery_carousel carousel-items-1 carousel-items-md-3</code> per Owl. Una sola immagine: responsive, con <code>parallax</code> oppure <code>parallax-gsap</code> opzionali. Columns e Size regolano la griglia; carousel-items regola soltanto il carosello. Per il lightbox serve configurare il plugin dedicato.</p><p><strong>Come leggere le classi:</strong> <code>py-5</code> modifica la spaziatura; <code>col-12 col-md-6</code> imposta le colonne nel campo del singolo elemento, dove previsto. Le classi di comportamento, come quelle per caroselli o animazioni, funzionano solo nei layout indicati sopra e possono richiedere una libreria attiva. Le classi personalizzate richiedono una regola CSS nel progetto: il solo nome non crea uno stile. Separare le classi con spazi, senza punto; non combinare modalità opposte. Esempi completi in GUIDA.md.</p>",
                                 "new_lines": "",
                                 "esc_html": 0
                             }
@@ -3453,7 +3453,7 @@
                                 "name": "class",
                                 "aria-label": "",
                                 "type": "text",
-                                "instructions": "Classi sulla section, separate da spazi e senza punto iniziale. Esempio: py-5. Modalità ed esempi nella tab Guida.",
+                                "instructions": "Classi della sezione, separate da spazi e senza punto: py-5 per la spaziatura; modalità come carosello o Masonry solo dove previste nella tab Guida. Le colonne dei capitoli vanno in Inner Class.",
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -3497,7 +3497,7 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "message": "<p>Compila almeno una posizione valida e configura la chiave Maps in Personalizza. Classi: <code>maps-text-right</code>, <code>maps-columns-center</code>, <code>maps-height-small</code>, <code>maps-height-large</code>, <code>maps-hide-locations</code>. Colonne suggerite: testo <code>col-12 col-lg-5 mb-4 mb-lg-0</code>, mappa <code>col-12 col-lg-7</code>. Lo stile è in assets/maps/style.json; il consenso resta da configurare nel progetto.</p><p><strong>Regole comuni:</strong> classi separate da spazi, senza punto. <code>py-5</code> aggiunge spazio verticale; <code>col-12 col-md-6</code> indica una colonna su mobile e due da 768 px. Non combinare modalità opposte. Consulta GUIDA.md per tutte le varianti e abilita le librerie richieste in Personalizza.</p>",
+                                "message": "<p>Compila almeno una posizione valida e configura la chiave Maps in Personalizza. Classi: <code>maps-text-right</code>, <code>maps-columns-center</code>, <code>maps-height-small</code>, <code>maps-height-large</code>, <code>maps-hide-locations</code>. Colonne suggerite: testo <code>col-12 col-lg-5 mb-4 mb-lg-0</code>, mappa <code>col-12 col-lg-7</code>. Lo stile è in assets/maps/style.json; il consenso resta da configurare nel progetto.</p><p><strong>Come leggere le classi:</strong> <code>py-5</code> modifica la spaziatura; <code>col-12 col-md-6</code> imposta le colonne nel campo del singolo elemento, dove previsto. Le classi di comportamento, come quelle per caroselli o animazioni, funzionano solo nei layout indicati sopra e possono richiedere una libreria attiva. Le classi personalizzate richiedono una regola CSS nel progetto: il solo nome non crea uno stile. Separare le classi con spazi, senza punto; non combinare modalità opposte. Esempi completi in GUIDA.md.</p>",
                                 "new_lines": "",
                                 "esc_html": 0
                             }
@@ -3585,7 +3585,7 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "message": "<p>Seleziona una pagina sorgente: vengono richiamate le sue section a un solo livello. Sono ammesse anche bozze, i cui contenuti diventano visibili nella destinazione pubblica. Le pagine protette da password restano protette. Le section sorgenti mantengono Pre Content; altri riferimenti Section Page annidati vengono ignorati.</p><p><strong>Regole comuni:</strong> classi separate da spazi, senza punto. <code>py-5</code> aggiunge spazio verticale; <code>col-12 col-md-6</code> indica una colonna su mobile e due da 768 px. Non combinare modalità opposte. Consulta GUIDA.md per tutte le varianti e abilita le librerie richieste in Personalizza.</p>",
+                                "message": "<p>Seleziona una pagina sorgente: vengono richiamate le sue section a un solo livello. Sono ammesse anche bozze, i cui contenuti diventano visibili nella destinazione pubblica. Le pagine protette da password restano protette. Le section sorgenti mantengono Pre Content; altri riferimenti Section Page annidati vengono ignorati.</p><p><strong>Come leggere le classi:</strong> <code>py-5</code> modifica la spaziatura; <code>col-12 col-md-6</code> imposta le colonne nel campo del singolo elemento, dove previsto. Le classi di comportamento, come quelle per caroselli o animazioni, funzionano solo nei layout indicati sopra e possono richiedere una libreria attiva. Le classi personalizzate richiedono una regola CSS nel progetto: il solo nome non crea uno stile. Separare le classi con spazi, senza punto; non combinare modalità opposte. Esempi completi in GUIDA.md.</p>",
                                 "new_lines": "",
                                 "esc_html": 0
                             }
