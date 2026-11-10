@@ -12,20 +12,6 @@
 
 $GLOBALS['assets_options'] = array(
 
-    // These four entries are informational: core/scripts.php loads them unconditionally.
-    // Setting them to false does not disable their assets.
-    // Library: Bootstrap 4.6.2 CSS JS
-    'GRIT_SETTING_BOOTSTRAP' => true,
-
-    // Library: Fontawesome 5.15.1 fontawesome.com/icons
-    'GRIT_SETTING_FA' => true,
-
-    // Library: Animate CSS animate.style
-    'GRIT_SETTING_ANIMATE' => true,
-
-    // Library: Hover CSS ianlunn.github.io/Hover
-    'GRIT_SETTING_HOVER' => true,
-
     // Library: Three js threejs.org
     'GRIT_SETTING_THREE' => get_theme_mod('grit_setting_three', false),
 

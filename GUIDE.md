@@ -133,7 +133,7 @@ Shared scripts use WordPress jQuery. The grid, utilities, accordion, and tabs us
 
 For Owl, `grit_setting_owl_carousel` defaults to `true`. `GRIT_SETTING_OWL_CAROUSEL` enables the `owl_carousel` handle, added to the `custom.js` dependencies in block 27 when available. Block **03 | Owl carousels** checks `typeof $.fn.owlCarousel` and defines selectors and options. Change visible item counts through the documented classes.
 
-`scripts.php` loads the structural and presentation assets directly. The `GRIT_SETTING_BOOTSTRAP`, `GRIT_SETTING_FA`, `GRIT_SETTING_ANIMATE`, and `GRIT_SETTING_HOVER` entries in `config.php` do not control those enqueues.
+`core/scripts.php` loads Bootstrap, Font Awesome, Animate.css, and Hover.css directly. These assets have no switches in `core/config.php`; edit their enqueues in `core/scripts.php` when customizing their loading.
 
 List.js is registered in block 27 and initialized in block 09 of `custom.js`. GSAP and Lenis use block 12. Maps uses the Customizer key, data from `core/extras.php`, `section_maps.twig`, and `assets/js/maps.js`.
 

@@ -153,7 +153,7 @@ Bootstrap usa il proprio bundle e jQuery è quello fornito da WordPress: non agg
 - **Sempre caricate per la presentazione:** Font Awesome, Animate.css con ViewportChecker e Hover.css. Forniscono icone ed effetti usati dal tema. Non hanno un interruttore in Personalizza: prima di rimuoverle cercare le relative classi nei Twig, nei contenuti e negli stili.
 - **Facoltative:** le librerie delle due righe configurabili della tabella precedente. Si possono attivare/disattivare in Personalizza; il componente interessato può perdere carosello, ricerca, animazione o altro comportamento. Verificare il risultato anche con la libreria disattivata.
 
-**Attenzione a `config.php`:** le voci `GRIT_SETTING_BOOTSTRAP`, `GRIT_SETTING_FA`, `GRIT_SETTING_ANIMATE` e `GRIT_SETTING_HOVER` non sono interruttori effettivi. `scripts.php` carica queste risorse senza leggerle: impostarle a `false` non le disabilita.
+`core/scripts.php` carica direttamente Bootstrap, Font Awesome, Animate.css e Hover.css. Queste risorse non hanno interruttori in `core/config.php`: per personalizzarne il caricamento, modificare i relativi enqueue in `core/scripts.php`.
 
 List.js segue lo stesso percorso, ma viene registrato nel blocco 27 di `scripts.php` e caricato come dipendenza di `custom.js`; la sua inizializzazione è nel blocco 09 (Collapse). GSAP e Lenis sono nel blocco 12. Google Maps segue un percorso dedicato: chiave nel Customizer, dati in `core/extras.php`, template `section_maps.twig` e controller `assets/js/maps.js`.
 

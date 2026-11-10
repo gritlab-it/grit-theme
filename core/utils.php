@@ -94,13 +94,3 @@ function remove_duplicate_post_message() {
 
 // Disable W3TC footer comment for all users
 add_filter( 'w3tc_can_print_comment', '__return_false', 10, 1 );
-
-// Disable W3TC footer comment for everyone but Admins (single site) / Super Admins (network mode)
-if ( !current_user_can( 'unfiltered_html' ) ) {
-    add_filter( 'w3tc_can_print_comment', '__return_false', 10, 1 );
-}
-
-// Disable W3TC footer comment for everyone but Admins (single site & network mode)
-if ( !current_user_can( 'activate_plugins' ) ) {
-    add_filter( 'w3tc_can_print_comment', '__return_false', 10, 1 );
-}
