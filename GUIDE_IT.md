@@ -1065,6 +1065,8 @@ Duplicare il template in `templates/` seguendo la priorità del controller:
 
 ### Ricerca con section prima e dopo i risultati
 
+Le chiamate native WordPress a `get_search_form()` usano `templates/partials/searchform.twig` tramite il filtro in `core/utils.php`. Il partial conserva il termine cercato e genera un ID univoco per il campo di ogni form.
+
 `search.php` cerca una pagina associata in questo ordine: pagina corrente con Template Search, pagina pubblicata `search` o `cerca`, unica pagina pubblicata assegnata al template Search. Se la trova, carica contenuti e ACF della pagina e rende Section Text, Section Page e gli altri layout nelle posizioni pre/post content.
 
 La ricerca nativa conserva la query di WordPress. La pagina Search costruisce i risultati per il termine cercato; senza termine non mostra un elenco casuale di contenuti. I campi della pagina non sostituiscono i risultati con una seconda lista indipendente.

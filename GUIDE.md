@@ -842,6 +842,8 @@ Place variants in `templates/`. Use registered names for `post_type` and `taxono
 
 ### Search sections
 
+Native WordPress `get_search_form()` calls use `templates/partials/searchform.twig` through the filter in `core/utils.php`. The partial preserves the search query and generates a unique field ID for each form.
+
 `search.php` looks for the current page using Template Search, then a published `search` or `cerca` page, then a single published page assigned to Template Search. An associated page supplies content and ACF layouts before and after results.
 
 Native search keeps WordPress's query. The Search page queries the submitted term and shows an empty state for an empty query. `grit_template_fields()`, `grit_template_content()`, and `grit_template_query()` in `core/extras.php` prepare fields, formatted content, counts, and ranges. Use real page IDs only for views with an associated page.

@@ -3,7 +3,7 @@
 // * GRIT_SET Legend | Utils
 // Request, search, body and template utilities.
 // 01 | Cloudflare client address handling
-// 02 | Legacy search and body helpers
+// 02 | Search form and body helpers
 // 03 | Response content type
 // 04 | Conditional debug logging
 // 05 | Admin notice and capability-based editor filters
@@ -18,17 +18,15 @@ if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
       $_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
 }
 
-// Tell WordPress to use searchform.php from the templates/ directory
-// * GRIT_SET 02 | Legacy search and body helpers
-if (!function_exists('grit_body_class')) {
-  function grit_get_search_form() {
-    $form = '';
-    if (get_theme_mod('grit_adv_twig')) {
-    locate_template('/twig/searchform.php', true, false);
-    } else {
-    locate_template('/templates/searchform.php', true, false); 
+// * GRIT_SET 02 | Search form and body helpers
+if (!function_exists('grit_get_search_form')) {
+  function grit_get_search_form($form) {
+    if (!class_exists('Timber')) {
+      return $form;
     }
-    return $form;
+    return Timber::compile('partials/searchform.twig', array(
+      'search_query' => get_search_query(false),
+    ));
   }
   add_filter('get_search_form', 'grit_get_search_form');
 }
