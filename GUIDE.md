@@ -82,7 +82,7 @@ The project controls its homepage through **Settings → Reading**. Transfer its
 | `assets/js/maps.js`, `assets/maps/style.json` | Map controller and map styles. |
 | `assets/credits/` | Agency data and branding assets. |
 
-Check `$grit_includes` in `functions.php` to see which modules load. The WooCommerce and wrapper includes are currently commented out. Use the numbered `GRIT_SET` comments to navigate the code. Keep library headers and licenses with their files.
+Check `$grit_includes` in `functions.php` to see which modules load. The optional WooCommerce include is currently commented out. Use the numbered `GRIT_SET` comments to navigate the code. Keep library headers and licenses with their files.
 
 ### Navigating core/extras.php
 

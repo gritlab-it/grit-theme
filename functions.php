@@ -18,7 +18,6 @@ $grit_includes = array(
 	'core/plugins.php',                           // Plugins
 	'core/init.php',                              // Initial theme setup and constants
 	'core/utils.php',                             // Utilities
-	// 'core/wrapper.php',                           // Theme wrapper class
 	'core/config.php',                            // Configuration
 	'core/activation.php',                        // Theme activation
 	'core/nav.php',                               // Custom nav modifications

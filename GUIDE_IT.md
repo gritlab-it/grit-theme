@@ -90,7 +90,7 @@ Tutti i percorsi qui indicati sono relativi alla cartella del tema.
 | `assets/js/maps.js`, `assets/maps/style.json` | Controller e stile della cartografia. |
 | `assets/credits/` | Dati e immagini del branding agenzia. |
 
-L’elenco `$grit_includes` in `functions.php` stabilisce quali moduli sono caricati. La presenza di un file non implica che sia attivo: in particolare verificare gli include opzionali di WooCommerce e wrapper prima di usarne le funzioni. Gli include WooCommerce/wrapper attualmente commentati non vengono attivati dal solo contenuto della relativa cartella.
+L’elenco `$grit_includes` in `functions.php` stabilisce quali moduli sono caricati. La presenza di un file non implica che sia attivo: in particolare verificare l’include opzionale di WooCommerce prima di usarne le funzioni. L’include WooCommerce attualmente commentato non viene attivato dal solo contenuto della relativa cartella.
 
 I commenti `GRIT_SET` identificano le sezioni principali del codice. Mantenere commenti descrittivi coerenti e aggiornati; i file delle librerie conservano le proprie intestazioni e licenze.
 
