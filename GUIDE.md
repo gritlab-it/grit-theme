@@ -475,6 +475,8 @@ Files include `templates/sections/section_maps.twig`, `core/extras.php`, `assets
 
 ## GSAP effects and decorative bars
 
+GSAP loads its core and ScrollTrigger. CSSRulePlugin and ScrollToPlugin remain available in the assets folder; uncomment their enqueues in `core/scripts.php` only when custom code needs them.
+
 Enable GSAP in the Customizer. Effects use Section Text fields. The controller lives in `assets/js/custom.js` and styles in `_sections.scss`.
 
 | Section Class | Effect |

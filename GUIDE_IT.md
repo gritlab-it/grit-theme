@@ -643,6 +643,8 @@ Senza chiave, JavaScript, consenso o in caso di errore, resta disponibile l’el
 
 ## Effetti GSAP e barre
 
+GSAP carica il core e ScrollTrigger. CSSRulePlugin e ScrollToPlugin restano disponibili negli asset: decommentare i relativi enqueue in `core/scripts.php` solo quando servono nel codice personalizzato.
+
 ### Dove personalizzare le animazioni
 
 In `assets/js/custom.js`, all’inizio del blocco **12 | GSAP, ScrollTrigger, Lenis and decorative bars**, l’oggetto `motionSettings` raccoglie i parametri modificabili del progetto:

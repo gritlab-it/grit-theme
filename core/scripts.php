@@ -87,10 +87,10 @@ function grit_scripts()
     if ($GLOBALS['assets_options']['GRIT_SETTING_GSAP']) {
         wp_enqueue_script('gsap-core', get_template_directory_uri() . '/assets/gsap/gsap.min.js', array(), '3.0.0', false);
     
-        // Carica i plugin GSAP come dipendenti di `gsap-core`
-        wp_enqueue_script('gsap-cssruleplugin', get_template_directory_uri() . '/assets/gsap/CSSRulePlugin.min.js', array('gsap-core'), '3.0.0', false);
+        // ScrollTrigger powers the theme effects; uncomment optional plugins when needed.
+        // wp_enqueue_script('gsap-cssruleplugin', get_template_directory_uri() . '/assets/gsap/CSSRulePlugin.min.js', array('gsap-core'), '3.0.0', false);
         wp_enqueue_script('gsap-scrolltrigger', get_template_directory_uri() . '/assets/gsap/ScrollTrigger.min.js', array('gsap-core'), '3.0.0', false);
-        wp_enqueue_script('gsap-scrolltoplugin', get_template_directory_uri() . '/assets/gsap/ScrollToPlugin.min.js', array('gsap-core'), '3.0.0', false);
+        // wp_enqueue_script('gsap-scrolltoplugin', get_template_directory_uri() . '/assets/gsap/ScrollToPlugin.min.js', array('gsap-core'), '3.0.0', false);
         //wp_enqueue_script('gsap-gsdevtools', get_template_directory_uri() . '/assets/gsap/gsdevtools.js', array(), '1.0.0', true);    
     }
 
