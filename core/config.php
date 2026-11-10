@@ -3,7 +3,7 @@
 // * GRIT_SET Legend | Config
 // Frontend library switches and additional asset lists.
 // Path: core/customizer.php option -> this file -> core/scripts.php loading -> assets/js/custom.js initialization.
-// See GUIDA.md: "Percorso breve: opzione → caricamento → inizializzazione".
+// See GUIDE.md, "From setting to initialization".
 // 01 | Frontend library options
 // 02 | Additional stylesheet URLs
 // 03 | Additional JavaScript URLs

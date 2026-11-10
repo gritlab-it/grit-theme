@@ -1,6 +1,8 @@
 # GRIT Theme — Guida completa
 
-Manuale operativo dello starter, con campi, classi e comportamenti dei componenti. Per installazione e primo avvio consultare [README.md](README.md).
+[Guida in inglese](GUIDE.md) · [README in inglese](README.md)
+
+Manuale operativo dello starter, con campi, classi e comportamenti dei componenti. Per installazione e primo avvio consultare [README_IT.md](README_IT.md).
 
 Gli esempi di classi vanno inseriti nei campi indicati, separati da spazi. ID media, slug, tipi di contenuto e nomi delle agenzie negli esempi vanno adattati al progetto. Il manuale descrive le funzioni implementate: la presenza di una libreria in elenco non crea da sola un nuovo componente.
 
@@ -59,7 +61,7 @@ Usare prima le classi Bootstrap e le opzioni già disponibili. Per una pagina di
 
 La homepage usa i contenuti della pagina impostata in Lettura. Il setup crea le pagine iniziali, ma non una composizione dimostrativa: per trasferire un layout occorrono anche contenuti ACF e media, rimappando gli ID quando necessario.
 
-Per i requisiti e l’installazione consultare `README.md`; per campi, classi e personalizzazione usare questa guida. Mantenere entrambi i documenti coerenti con il progetto. Se si pubblicano pagine guida in WordPress, usare le stesse istruzioni e affiancarle a esempi ACF. Il CPT `section` deve essere registrato dal progetto, per esempio tramite ACF: l’import dei gruppi in `core/acf-fields.json` non registra CPT o tassonomie.
+Per i requisiti e l’installazione consultare `README_IT.md`; per campi, classi e personalizzazione usare questa guida. Mantenere entrambi i documenti coerenti con il progetto. Se si pubblicano pagine guida in WordPress, usare le stesse istruzioni e affiancarle a esempi ACF. Il CPT `section` deve essere registrato dal progetto, per esempio tramite ACF: l’import dei gruppi in `core/acf-fields.json` non registra CPT o tassonomie.
 
 ## Struttura dei file
 
