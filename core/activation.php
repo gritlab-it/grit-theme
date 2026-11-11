@@ -8,8 +8,8 @@
 // 04 | Render the setup form
 // 05 | Apply selected setup operations
 // 06 | Import the local ACF field definitions
-// 07 | Apply agency name and screenshots during setup
-// 08 | Theme activation and setup save hooks
+// 07 | Synchronize the selected agency name and screenshots
+// 08 | Admin, theme activation and setup save hooks
 
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
@@ -694,7 +694,7 @@ function grit_update_theme_label($path, $name) {
     return @file_put_contents($path, $updated, LOCK_EX) !== false ? 'updated' : 'failed';
 }
 
-// * GRIT_SET 07 | Apply the selected agency name and screenshots during authorized theme setup only.
+// * GRIT_SET 07 | Synchronize branding for users allowed to manage theme options.
 function update_theme_name() {
     if (!current_user_can('edit_theme_options')) {
         return [];
@@ -705,13 +705,18 @@ function update_theme_name() {
         $results['child'] = grit_update_theme_label(get_stylesheet_directory() . '/style.css', $agency['theme'] . ' Child');
     }
     $results['screenshots'] = grit_sync_agency_screenshots();
+    if (in_array('updated', array_merge([$results['parent'], $results['child'] ?? 'unchanged'], $results['screenshots']), true)) {
+        wp_clean_themes_cache(false);
+    }
     return $results;
 }
 
-// * GRIT_SET 08 | Initial activation and setup saves; rendering pages never triggers file writes.
+// * GRIT_SET 08 | Admin requests check branding; unchanged files are never rewritten.
 function update_theme_name_on_save() {
     return update_theme_name();
 }
 add_action('after_switch_theme', 'update_theme_name_on_save');
 add_action('add_option_grit_theme_activation_options', 'update_theme_name_on_save');
 add_action('update_option_grit_theme_activation_options', 'update_theme_name_on_save');
+
+add_action('admin_init', 'update_theme_name');

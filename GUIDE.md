@@ -1007,7 +1007,7 @@ Each record defines agency and client details, theme name, author credits, asset
 
 Missing assets fall back individually to `gritlab`. Folder names allow lowercase letters, digits, hyphens, and underscores.
 
-Login branding and credits use the selected record on the next request. Activation and setup saves apply the theme name and previews. Keep custom previews in the agency folder, since setup synchronizes them to the theme root. Setup writes only changed, writable files.
+Login branding and credits use the selected record on the next request. Theme names and previews also synchronize when a user with permission to manage theme options opens the admin area: change `GRIT_AGENCY` and reload an admin page. Activation and setup saves retain the same synchronization. Keep custom previews in the agency folder, from which they are copied to the parent and active child theme roots. Only different, writable files are written, and the WordPress theme cache is invalidated after an update. Synchronization does not run on the frontend.
 
 ```php
 $agency = grit_agency_data();

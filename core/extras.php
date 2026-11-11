@@ -148,7 +148,7 @@ function grit_agency_asset($filename) {
     return [];
 }
 
-// Setup-only operation: do not write theme images while rendering an admin/footer page.
+// Called by admin/setup synchronization, never while rendering a public footer.
 // Return a result per target so callers/tests can distinguish skipped, unchanged and failed writes.
 function grit_sync_agency_screenshots() {
     $targets = ['screenshot.png' => get_template_directory() . '/screenshot.png'];

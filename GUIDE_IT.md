@@ -1250,7 +1250,7 @@ File in `assets/credits/<agency_folder>/`:
 
 I singoli asset mancanti usano quelli della cartella `gritlab`. Le cartelle ammettono lettere minuscole, numeri, trattini e underscore.
 
-Logo, colore login e crediti leggono il record alla richiesta successiva. Nome del tema e anteprime vengono applicati durante attivazione/salvataggio del setup; mantenere le anteprime personalizzate nella cartella dell’agenzia, perché il setup sincronizza da lì i file nella radice. Vengono scritti soltanto i file modificati e scrivibili, non durante il rendering dei footer.
+Logo, colore login e crediti leggono il record alla richiesta successiva. Nome del tema e anteprime vengono sincronizzati anche all’apertura dell’amministrazione da parte di un utente con il permesso di gestire le opzioni del tema: basta cambiare `GRIT_AGENCY` e ricaricare una pagina amministrativa. Attivazione e salvataggio del setup mantengono la stessa sincronizzazione. Conservare le anteprime personalizzate nella cartella dell’agenzia, da cui vengono copiate nella radice del tema parent e del child attivo. Vengono scritti soltanto i file diversi e scrivibili; dopo un aggiornamento viene invalidata la cache dei temi di WordPress. La sincronizzazione non viene eseguita nel frontend.
 
 In PHP:
 
