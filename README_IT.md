@@ -63,7 +63,7 @@ Il flag TGMPA “obbligatorio” è una scelta di distribuzione del tema: non si
 ## 4. Attivare e configurare
 
 1. Aprire **Aspetto → Temi** e attivare GRIT.
-2. Controllare la schermata **Aspetto → Theme Activation**.
+2. Controllare la schermata **Aspetto → Configurazione del tema**.
 3. Su un sito nuovo selezionare le operazioni necessarie: pagine iniziali, homepage statica, permalink, menu, modulo Contact Form 7 e import dei campi ACF.
 4. Su un sito esistente scegliere **No** per le operazioni che non si vogliono applicare. La schermata contiene scelte inizialmente impostate su Yes: rivederle prima di salvare.
 5. In **Impostazioni → Lettura** verificare Home e pagina articoli. In **Aspetto → Menu** controllare le assegnazioni.

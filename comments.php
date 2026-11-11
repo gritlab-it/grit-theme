@@ -9,7 +9,7 @@ if (!defined('ABSPATH') || post_password_required() || get_theme_mod('grit_setti
         <div class="row">
             <div class="col-12 col-lg-10 col-xl-8 mx-auto">
                 <?php if (have_comments()) : ?>
-                    <h2 class="h3 mb-4"><?php esc_html_e('Commenti', 'grit'); ?></h2>
+                    <h2 class="h3 mb-4"><?php esc_html_e('Comments', 'grit'); ?></h2>
                     <ol class="comment-list list-unstyled mb-5">
                         <?php
                         // Keep WordPress markup and reply behavior; add existing theme utilities.
@@ -61,22 +61,22 @@ if (!defined('ABSPATH') || post_password_required() || get_theme_mod('grit_setti
                 $required_label = $required ? ' *' : '';
                 $privacy_url = grit_policy_url('privacy');
                 $privacy_label = $privacy_url
-                    ? sprintf(__('Ho letto e accetto la %s.', 'grit'), '<a href="' . esc_url($privacy_url) . '" target="_blank" rel="noopener noreferrer">' . esc_html__('Privacy Policy', 'grit') . '</a>')
-                    : esc_html__('Ho letto e accetto l’informativa privacy.', 'grit');
+                    ? sprintf(__('I have read and accept the %s.', 'grit'), '<a href="' . esc_url($privacy_url) . '" target="_blank" rel="noopener noreferrer">' . esc_html__('Privacy Policy', 'grit') . '</a>')
+                    : esc_html__('I have read and accept the privacy policy.', 'grit');
                 $comment_fields = [
-                    'author' => '<p class="comment-form-author"><label for="author">' . esc_html__('Nome', 'grit') . $required_label . '</label><input id="author" name="author" type="text" maxlength="245" autocomplete="name"' . $required . ' value="' . esc_attr($commenter['comment_author']) . '"></p>',
+                    'author' => '<p class="comment-form-author"><label for="author">' . esc_html__('Name', 'grit') . $required_label . '</label><input id="author" name="author" type="text" maxlength="245" autocomplete="name"' . $required . ' value="' . esc_attr($commenter['comment_author']) . '"></p>',
                     'email' => '<p class="comment-form-email"><label for="email">' . esc_html__('Email', 'grit') . $required_label . '</label><input id="email" name="email" type="email" maxlength="100" autocomplete="email" aria-describedby="email-notes"' . $required . ' value="' . esc_attr($commenter['comment_author_email']) . '"></p>',
                     'cookies' => '',
                     'privacy' => '<p class="comment-form-privacy d-flex align-items-start"><input id="grit-comment-privacy" name="grit_comment_privacy" type="checkbox" value="1" required class="mt-1 mr-2 flex-shrink-0"><label for="grit-comment-privacy" class="small mb-0">' . $privacy_label . ' *</label></p>',
                 ];
                 if (has_action('set_comment_cookies', 'wp_set_comment_cookies') && get_option('show_comments_cookies_opt_in')) {
-                    $comment_fields['cookies'] = '<p class="comment-form-cookies-consent d-flex align-items-start"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes" class="mt-1 mr-2 flex-shrink-0"><label for="wp-comment-cookies-consent" class="small mb-0">' . esc_html__('Ricorda il mio nome e la mia email in questo browser per il prossimo commento.', 'grit') . '</label></p>';
+                    $comment_fields['cookies'] = '<p class="comment-form-cookies-consent d-flex align-items-start"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes" class="mt-1 mr-2 flex-shrink-0"><label for="wp-comment-cookies-consent" class="small mb-0">' . esc_html__('Save my name and email in this browser for the next time I comment.', 'grit') . '</label></p>';
                 }
 
                 // Fields inherit the global form style; the submit uses the shared theme button.
                 comment_form([
                     'fields'             => $comment_fields,
-                    'comment_notes_before' => '<p class="comment-notes small"><span id="email-notes">' . esc_html__('L’email non sarà pubblicata.', 'grit') . '</span> ' . esc_html__('I campi contrassegnati con * sono obbligatori.', 'grit') . '</p>',
+                    'comment_notes_before' => '<p class="comment-notes small"><span id="email-notes">' . esc_html__('Your email address will not be published.', 'grit') . '</span> ' . esc_html__('Fields marked with * are required.', 'grit') . '</p>',
                     'class_form'         => 'comment-form',
                     'class_container'    => 'comment-respond mt-4',
                     'class_submit'       => 'submit btn btn-primary',

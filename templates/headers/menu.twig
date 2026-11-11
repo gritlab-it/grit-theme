@@ -8,7 +8,7 @@
             <li class="nav-item {{ children ? 'dropdown' : '' }} {{ item.classes|join(' ')|e('html_attr') }}">
                 <a href="{{ function('esc_url', item.get_link)|e('html_attr') }}"{% if item.target %} target="{{ item.target|e('html_attr') }}"{% if item.target == '_blank' %} rel="noopener noreferrer"{% endif %}{% endif %}{% if item.current %} aria-current="page"{% endif %}><span data-letters="{{ item.title|e('html_attr') }}">{{ item.title|e }}</span></a>
                 {% if children %}
-                    <button class="submenu-toggle dropdown-toggle" type="button" data-submenu-toggle aria-expanded="false" aria-controls="{{ submenu_id }}" aria-label="{{ __('Apri sottomenu:', 'grit') }} {{ item.title|e('html_attr') }}"></button>
+                    <button class="submenu-toggle dropdown-toggle" type="button" data-submenu-toggle aria-expanded="false" aria-controls="{{ submenu_id }}" aria-label="{{ __('Open submenu:', 'grit') }} {{ item.title|e('html_attr') }}"></button>
                     <div id="{{ submenu_id }}" class="submenu-container" hidden>
                         {{ _self.items(children, false, '') }}
                     </div>

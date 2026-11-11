@@ -957,7 +957,7 @@ function grit_maps_section_data($section) {
         $title = is_scalar($row['section_maps_title'] ?? null) ? sanitize_text_field($row['section_maps_title']) : '';
         $description = is_scalar($row['section_maps_description'] ?? null) ? sanitize_textarea_field($row['section_maps_description']) : '';
         $locations[] = [
-            'title' => $title !== '' ? $title : sprintf(__('Sede %d', 'grit'), count($locations) + 1),
+            'title' => $title !== '' ? $title : sprintf(__('Location %d', 'grit'), count($locations) + 1),
             'description' => $description,
             'position' => $coordinates,
             'directions' => 'https://www.google.com/maps/dir/?api=1&destination=' . rawurlencode($coordinates['lat'] . ',' . $coordinates['lng']),
@@ -980,12 +980,12 @@ function grit_maps_section_data($section) {
         'styles' => grit_maps_styles(),
         'markerUrl' => is_file($marker_path) ? get_template_directory_uri() . '/img/pin.svg' : '',
         'messages' => [
-            'waiting' => __('La mappa verrà caricata quando sarà visibile.', 'grit'),
-            'loading' => __('Caricamento della mappa…', 'grit'),
-            'missingKey' => __('La mappa non è configurata. Puoi consultare le sedi e aprire le indicazioni.', 'grit'),
-            'error' => __('La mappa non è disponibile. Puoi utilizzare i link alle indicazioni.', 'grit'),
-            'consent' => __('Per visualizzare la mappa abilita Google Maps nelle preferenze di consenso.', 'grit'),
-            'directions' => __('Apri indicazioni', 'grit'),
+            'waiting' => __('The map will load when it becomes visible.', 'grit'),
+            'loading' => __('Loading the map…', 'grit'),
+            'missingKey' => __('The map is not configured. You can browse the locations and open directions.', 'grit'),
+            'error' => __('The map is unavailable. You can use the directions links.', 'grit'),
+            'consent' => __('To view the map, enable Google Maps in your consent preferences.', 'grit'),
+            'directions' => __('Open directions', 'grit'),
         ],
     ];
 }
@@ -1021,7 +1021,7 @@ function grit_policy_url($type) {
 function grit_validate_comment_form($post_id) {
     $privacy = $_POST['grit_comment_privacy'] ?? '';
     if ($privacy !== '1') {
-        wp_die(esc_html__('Per inviare il commento devi accettare la Privacy Policy.', 'grit'), '', ['response' => 400, 'back_link' => true]);
+        wp_die(esc_html__('You must accept the Privacy Policy to submit a comment.', 'grit'), '', ['response' => 400, 'back_link' => true]);
     }
 
 }

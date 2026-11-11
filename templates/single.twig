@@ -37,7 +37,7 @@
                             <div class="d-flex flex-wrap align-items-center small border-top border-bottom py-3">
                                 {% if post.author %}
                                     <span class="mr-4 my-1">
-                                        {{ __('Di', 'grit') }} <a href="{{ post.author.link|e('html_attr') }}" class="font-weight-bold">{{ post.author.name|e }}</a>
+                                        {{ __('By', 'grit') }} <a href="{{ post.author.link|e('html_attr') }}" class="font-weight-bold">{{ post.author.name|e }}</a>
                                     </span>
                                 {% endif %}
                                 <time datetime="{{ post.date('c')|e('html_attr') }}" class="my-1">{{ post.date(function('get_option', 'date_format'))|e }}</time>
@@ -97,7 +97,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
-                            <h2 class="h3 mb-4">{{ __('Altri contenuti', 'grit') }}</h2>
+                            <h2 class="h3 mb-4">{{ __('More content', 'grit') }}</h2>
                             <div class="owl-carousel owl-theme">
                                 {% set grid = ' ' %}
                                 {% for single_post in archive_posts %}

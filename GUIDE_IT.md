@@ -1295,7 +1295,7 @@ Template e file WooCommerce presenti non significano che l’intero modulo sia a
 
 ### Aggiornare un progetto
 
-L’import del setup ACF salta i gruppi con la stessa chiave già presente: per aggiornare le definizioni su un sito esistente usare gli strumenti ACF e verificare il risultato, non limitarsi a salvare nuovamente Theme Activation.
+L’import del setup ACF salta i gruppi con la stessa chiave già presente: per aggiornare le definizioni su un sito esistente usare gli strumenti ACF e verificare il risultato, non limitarsi a salvare nuovamente Configurazione del tema.
 
 1. Salvare file e database, comprese opzioni Personalizza e contenuti ACF.
 2. Verificare le modifiche locali prima di sostituire il tema o importare JSON.
@@ -1339,3 +1339,8 @@ Consultare i log pertinenti evitando di pubblicare dati personali o credenziali.
 ## Licenze
 
 Non eliminare i README, i changelog e le licenze delle librerie dentro `assets/`, né i file di licenza dei pacchetti Composer. Il loro contenuto e la loro manutenzione appartengono ai rispettivi autori. La licenza del tema è nel file `LICENSE`; non copre automaticamente media, font e dipendenze con licenza propria.
+
+
+## Traduzioni dell’interfaccia
+
+I testi traducibili PHP e Twig del dominio `grit` usano l’inglese come lingua sorgente. `lang/grit.pot` contiene le voci correnti; `lang/it_IT.po` contiene le traduzioni italiane e `lang/it_IT.mo` è il catalogo compilato letto da WordPress. Dopo aver aggiornato il PO, ricompilare con `msgfmt --check -o lang/it_IT.mo lang/it_IT.po`. Quando si aggiungono o cambiano testi, aggiornare anche POT, riferimenti e traduzioni, conservando i segnaposto come `%s` e `%d`. La lingua dell’amministrazione segue il profilo WordPress; quella pubblica segue la lingua del sito. I contenuti demo, le email di esempio e i testi legali statici non vengono tradotti dal catalogo.

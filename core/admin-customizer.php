@@ -37,7 +37,7 @@ add_action('admin_bar_menu', 'add_my_own_logo', 1);
 
 function linked_url() {
     $agency = grit_agency_data();
-    add_menu_page('Agency', $agency['agency'], 'read', 'gritlab_site', '', 'dashicons-info-outline', 1);
+    add_menu_page(__('Agency', 'grit'), $agency['agency'], 'read', 'gritlab_site', '', 'dashicons-info-outline', 1);
 }
 add_action('admin_menu', 'linked_url');
 

@@ -57,7 +57,7 @@ TGMPA lists required and recommended WordPress plugins under **Appearance → In
 ## 4. Activate and configure the theme
 
 1. Activate GRIT under **Appearance → Themes**.
-2. Open **Appearance → Theme Activation**.
+2. Open **Appearance → Theme Setup**.
 3. On a new site, select the setup operations you need. These cover initial pages, a static homepage, permalinks, menus, a Contact Form 7 form, and ACF field import.
 4. On an existing site, review the options initially set to **Yes** and select **No** wherever you want to skip an operation.
 5. Check the homepage and posts page under **Settings → Reading**. Check menu assignments under **Appearance → Menus**.

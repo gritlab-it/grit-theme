@@ -25,10 +25,10 @@
                     </div>
                 </header>
 
-                <nav class="link-list-bio" aria-label="{{ __('Link principali', 'grit')|e('html_attr') }}">
+                <nav class="link-list-bio" aria-label="{{ __('Main links', 'grit')|e('html_attr') }}">
                     <a class="bio-link bio-link-featured no-load" href="{{ home|e('html_attr') }}">
                         <span class="bio-link-icon" aria-hidden="true"><i class="fas fa-globe"></i></span>
-                        <span class="bio-link-copy"><strong>{{ __('Visita il sito', 'grit') }}</strong><span>{{ site.name|e }}</span></span>
+                        <span class="bio-link-copy"><strong>{{ __('Visit the website', 'grit') }}</strong><span>{{ site.name|e }}</span></span>
                         <span class="bio-link-arrow" aria-hidden="true">↗</span>
                     </a>
                     {% for item in bio_menu.get_items|default([]) %}
@@ -45,19 +45,19 @@
 
                 {# Contacts use the existing Theme Fields directly. #}
                 {% if setting_mail_2 or setting_tel_2 or setting_tel_3 or setting_indirizzo_2 %}
-                    <h2 class="bio-label">{{ __('Parliamone', 'grit') }}</h2>
+                    <h2 class="bio-label">{{ __('Let’s talk', 'grit') }}</h2>
                     <div class="bio-contacts">
                         {% if setting_mail_2 %}
                             <a class="bio-contact no-load" href="mailto:{{ setting_mail_2|e('html_attr') }}">
                                 <i class="bio-contact-icon far fa-envelope" aria-hidden="true"></i>
-                                <strong>{{ __('Scrivici', 'grit') }}</strong>
+                                <strong>{{ __('Email us', 'grit') }}</strong>
                                 <span>{{ setting_mail_2|e }}</span>
                             </a>
                         {% endif %}
                         {% if setting_tel_2 %}
                             <a class="bio-contact no-load" href="tel:{{ function('preg_replace', '/[^0-9+]/', '', setting_tel_2)|e('html_attr') }}">
                                 <i class="bio-contact-icon fas fa-phone" aria-hidden="true"></i>
-                                <strong>{{ __('Chiamaci', 'grit') }}</strong>
+                                <strong>{{ __('Call us', 'grit') }}</strong>
                                 <span>{{ setting_tel_2|e }}</span>
                             </a>
                         {% endif %}
@@ -67,13 +67,13 @@
                             <a class="bio-contact no-load" href="https://wa.me/{{ whatsapp|e('html_attr') }}" target="_blank" rel="noopener noreferrer">
                                 <i class="bio-contact-icon fab fa-whatsapp" aria-hidden="true"></i>
                                 <strong>WhatsApp</strong>
-                                <span>{{ __('Iniziamo una conversazione', 'grit') }}</span>
+                                <span>{{ __('Start a conversation', 'grit') }}</span>
                             </a>
                         {% endif %}
                         {% if setting_indirizzo_2 %}
                             <a class="bio-contact no-load" href="https://www.google.com/maps/dir/?api=1&amp;destination={{ setting_indirizzo_2|url_encode|e('html_attr') }}" target="_blank" rel="noopener noreferrer">
                                 <i class="bio-contact-icon fas fa-map-marker-alt" aria-hidden="true"></i>
-                                <strong>{{ __('Dove siamo', 'grit') }}</strong>
+                                <strong>{{ __('Find us', 'grit') }}</strong>
                                 <span>{{ setting_indirizzo_2|e }}</span>
                             </a>
                         {% endif %}
@@ -95,12 +95,12 @@
                     {% endfor %}
                 {% endset %}
                 {% if social_links|trim %}
-                    <nav class="bio-socials" aria-label="{{ __('Profili social', 'grit')|e('html_attr') }}">{{ social_links }}</nav>
+                    <nav class="bio-socials" aria-label="{{ __('Social profiles', 'grit')|e('html_attr') }}">{{ social_links }}</nav>
                 {% endif %}
 
                 <div class="text-center mt-4">
                     {% set share_message = site.name ~ ' — ' ~ post.link %}
-                    <a class="bio-share no-load" href="https://wa.me/?text={{ share_message|url_encode|e('html_attr') }}" target="_blank" rel="noopener noreferrer"><i class="fas fa-share-alt mr-2" aria-hidden="true"></i>{{ __('Condividi questa pagina', 'grit') }}</a>
+                    <a class="bio-share no-load" href="https://wa.me/?text={{ share_message|url_encode|e('html_attr') }}" target="_blank" rel="noopener noreferrer"><i class="fas fa-share-alt mr-2" aria-hidden="true"></i>{{ __('Share this page', 'grit') }}</a>
                 </div>
             </div>
         </section>
@@ -111,11 +111,11 @@
 {% block footer %}
     <footer class="bg-light text-center py-4 px-3">
         <small>© {{ 'now'|date('Y') }} {{ site.name|e }}</small>
-        <nav class="small mt-2" aria-label="{{ __('Documenti del sito', 'grit')|e('html_attr') }}">
+        <nav class="small mt-2" aria-label="{{ __('Site documents', 'grit')|e('html_attr') }}">
             {% set privacy_url = function('grit_policy_url', 'privacy') %}
             {% set cookie_url = function('grit_policy_url', 'cookie') %}
-            {% if privacy_url %}<a class="mx-2 no-load" href="{{ privacy_url|e('html_attr') }}">Privacy Policy</a>{% endif %}
-            {% if cookie_url %}<a class="mx-2 no-load" href="{{ cookie_url|e('html_attr') }}">Cookie Policy</a>{% endif %}
+            {% if privacy_url %}<a class="mx-2 no-load" href="{{ privacy_url|e('html_attr') }}">{{ __('Privacy Policy', 'grit')|e }}</a>{% endif %}
+            {% if cookie_url %}<a class="mx-2 no-load" href="{{ cookie_url|e('html_attr') }}">{{ __('Cookie Policy', 'grit')|e }}</a>{% endif %}
         </nav>
     </footer>
     {{ function('wp_footer') }}

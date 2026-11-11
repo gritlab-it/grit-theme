@@ -1,289 +1,821 @@
+# Grit Theme translation catalog.
+# Previous Italian translations: Leonardo Giacone.
 msgid ""
 msgstr ""
+"Project-Id-Version: Grit Theme\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-11 00:00+0100\n"
+"PO-Revision-Date: 2026-11-11 00:00+0100\n"
+"Last-Translator: Grit Theme contributors\n"
+"Language-Team: Italian\n"
+"Language: it_IT\n"
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Project-Id-Version: \n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: Leonardo Giacone <leonardo.giacone@gmail.com>\n"
-"Language-Team: \n"
-"MIME-Version: 1.0\n"
-"X-Generator: Poedit 1.6.10\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: it_IT\n"
+"X-Domain: grit\n"
 
-#: 404.php:4
-msgid "Sorry, but the page you were trying to view does not exist."
-msgstr "Spiacente, la pagina che stai cercando di visualizzare non esiste."
+#: core/activation.php:80
+#, php-format
+msgid "%s Theme Setup"
+msgstr "Configurazione del tema %s"
 
-#: 404.php:7
-msgid "It looks like this was the result of either:"
-msgstr "Questo potrebbe essere stato causato da:"
+#: core/activation.php:667
+#, php-format
+msgid "ACF import failed: %s"
+msgstr "Importazione ACF non riuscita: %s"
 
-#: 404.php:9
-msgid "a mistyped address"
-msgstr "l'indirizzo web non è stato digitato correttamente"
+#: core/activation.php:362 core/activation.php:367
+msgid "About"
+msgstr "Chi siamo"
 
-#: 404.php:10
-msgid "an out-of-date link"
-msgstr "un link non pi&ugrave; funzionante"
+#: core/activation.php:648
+msgid "Activate ACF PRO before importing fields."
+msgstr "Attiva ACF PRO prima di importare i campi."
 
-#: base.php:6
-msgid ""
-"You are using an <strong>outdated</strong> browser. Please <a href=\"http://"
-"browsehappy.com/\">upgrade your browser</a> to improve your experience."
-msgstr ""
-"Stai usando un browser <strong>obsoleto</strong>. Per favore <a href="
-"\"\"\"http://browsehappy.com/\">aggiorna il tuo browser</a> per migliorare "
-"la \"\"navigazione."
+#: core/nav.php:337 core/nav.php:337
+msgid "Add a menu"
+msgstr "Aggiungi un menu"
 
-#: functions.php:29
-msgid "Error locating %s for inclusion"
-msgstr "Errore nell'inclusione di %s"
-
-#: index.php:5
-msgid "Sorry, no results were found."
-msgstr "Spiacente, la ricerca non ha prodotto nessun risultato."
-
-#: index.php:17
-msgid "&larr; Older posts"
-msgstr "&larr; Articoli meno recenti"
-
-#: index.php:18
-msgid "Newer posts &rarr;"
-msgstr "Articoli pi&ugrave; recenti &rarr;"
-
-#: lib/activation.php:28 lib/activation.php:29
-msgid "Theme Activation"
-msgstr "Attivazione Tema"
-
-#: lib/activation.php:50
-msgid "%s Theme Activation"
-msgstr "%s Attivazione Tema"
-
-#: lib/activation.php:52
-msgid ""
-"These settings are optional and should usually be used only on a fresh "
-"installation"
-msgstr ""
-"Queste impostazioni non sono obbligatorie e solitamente usate solo durante "
-"la fase d'installazione del tema"
-
-#: lib/activation.php:59 lib/activation.php:62
-msgid "Create static front page?"
-msgstr "Creare una front page statica?"
-
-#: lib/activation.php:64 lib/activation.php:76 lib/activation.php:88
-#: lib/activation.php:100
-msgid "Yes"
-msgstr "S&iacute;"
-
-#: lib/activation.php:65 lib/activation.php:77 lib/activation.php:89
-#: lib/activation.php:101
-msgid "No"
-msgstr "No"
-
-#: lib/activation.php:67
-msgid "Create a page called Home and set it to be the static front page"
-msgstr "Crea una pagina chiamata Home e impostala come front page statica"
-
-#: lib/activation.php:71
-msgid "Change permalink structure?"
-msgstr "Modificare la struttura dei permalink?"
-
-#: lib/activation.php:74
-msgid "Update permalink structure?"
-msgstr "Aggiornare la struttura dei permalink?"
-
-#: lib/activation.php:79
-msgid "Change permalink structure to /&#37;postname&#37;/"
-msgstr "Modifica la struttura dei permalink in /&#37;postname&#37;/"
-
-#: lib/activation.php:83 lib/activation.php:86
-msgid "Create navigation menu?"
-msgstr "Creare un men&ugrave; di navigazione?"
-
-#: lib/activation.php:91
-msgid "Create the Primary Navigation menu and set the location"
-msgstr "Crea il Primary Navigation menu e imposta la sua posizione"
-
-#: lib/activation.php:95 lib/activation.php:98
-msgid "Add pages to menu?"
-msgstr "Aggiungere pagine al menu?"
-
-#: lib/activation.php:103
+#: core/activation.php:150
 msgid "Add all current published pages to the Primary Navigation"
-msgstr "Aggiungi tutte le pagine pubblicate al menu Primary Navigation"
+msgstr "Aggiungi tutte le pagine attualmente pubblicate al menu Primary Navigation"
 
-#: lib/activation.php:126 lib/activation.php:147
+#: core/activation.php:142 core/activation.php:145
+msgid "Add pages to primary navigation"
+msgstr "Aggiungi pagine al menu principale"
+
+#: core/customizer.php:460
+msgid "Address 1"
+msgstr "Indirizzo 1"
+
+#: core/customizer.php:471
+msgid "Address 2"
+msgstr "Indirizzo 2"
+
+#: core/customizer.php:483
+msgid "Address 3"
+msgstr "Indirizzo 3"
+
+#: core/admin-customizer.php:40
+msgid "Agency"
+msgstr "Agenzia"
+
+#: templates/404.twig:18
+msgid "BACK TO HOME"
+msgstr "TORNA ALLA HOME"
+
+#: templates/single-password.twig:10
+msgid "Back to home"
+msgstr "Torna alla home"
+
+#: core/activation.php:406 core/activation.php:411
+msgid "Bio"
+msgstr "Bio"
+
+#: core/activation.php:514 core/init.php:20
+msgid "Bio Navigation"
+msgstr "Bio Navigation"
+
+#: core/activation.php:371 core/activation.php:376
+msgid "Blog"
+msgstr "Blog"
+
+#: templates/single.twig:40
+msgid "By"
+msgstr "Di"
+
+#: templates/page-bio.twig:60
+msgid "Call us"
+msgstr "Chiamaci"
+
+#: core/activation.php:126
+msgid "Change permalink structure to /&#37;postname&#37;/"
+msgstr "Imposta la struttura dei permalink su /&#37;postname&#37;/"
+
+#: core/customizer.php:105
+msgid "Choose the footer layout"
+msgstr "Scegli la tipologia di footer"
+
+#: core/customizer.php:84
+msgid "Choose the header layout"
+msgstr "Scegli la tipologia di header"
+
+#: templates/headers/header_2.twig:20 templates/headers/header_3.twig:20 templates/headers/header_4.twig:20 templates/headers/header_5.twig:20
+msgid "Close menu"
+msgstr "Chiudi menu"
+
+#: core/customizer.php:318
+msgid "Cocoen CSS JS"
+msgstr "Cocoen CSS JS"
+
+#: comments.php:12
+msgid "Comments"
+msgstr "Commenti"
+
+#: core/customizer.php:416
+msgid "Company name"
+msgstr "Intestazione"
+
+#: core/activation.php:379 core/activation.php:384
+msgid "Contact"
+msgstr "Contatti"
+
+#: core/activation.php:255 core/activation.php:313
+msgid "Contact Form 7 must be active to create the form."
+msgstr "Contact Form 7 deve essere attivo per creare il modulo."
+
+#: core/activation.php:385
+msgid "Contact us for information or to discuss your project."
+msgstr "Scrivici per informazioni o per parlare del tuo progetto."
+
+#: core/activation.php:397 core/activation.php:403 templates/footers/footer_1.twig:102 templates/footers/footer_2.twig:103 templates/footers/footer_3.twig:84 templates/footers/footer_4.twig:105 templates/footers/footer_5.twig:98 templates/page-bio.twig:118 templates/page-privacy-policy.twig:239
+msgid "Cookie Policy"
+msgstr "Informativa sui cookie"
+
+#: core/activation.php:155 core/activation.php:158
+msgid "Create a Contact Form 7 form"
+msgstr "Crea un modulo Contact Form 7"
+
+#: core/activation.php:163
+msgid "Create a demo form addressed to the WordPress administration email, with replies sent to the visitor. The Mail (2) confirmation is prepared but disabled. Existing forms are not overwritten. Check the sender and delivery settings in Contact Form 7 before using the form."
+msgstr "Crea il modulo demo con destinatario email amministrativa WordPress e risposta al visitatore. La conferma Mail (2) è pronta ma disattivata. I moduli esistenti non vengono sovrascritti. Verifica mittente e recapito in Contact Form 7 prima di usare il modulo."
+
+#: core/activation.php:100
+msgid "Create a page called Home and set it to be the static front page"
+msgstr "Crea una pagina chiamata Home e impostala come homepage statica"
+
+#: core/activation.php:92 core/activation.php:95
+msgid "Create a static homepage"
+msgstr "Crea una homepage statica"
+
+#: core/activation.php:104 core/activation.php:107
+msgid "Create additional pages"
+msgstr "Crea pagine aggiuntive"
+
+#: core/activation.php:114
+msgid "Create additional pages (Contact, Privacy Policy, etc.)"
+msgstr "Crea pagine aggiuntive (Contatti, Informativa privacy, ecc.)"
+
+#: core/activation.php:130 core/activation.php:133
+msgid "Create navigation menus"
+msgstr "Crea i menu di navigazione"
+
+#: core/activation.php:138
+msgid "Create navigation menus, including Bio Navigation, and assign their locations"
+msgstr "Crea i menu di navigazione, incluso Bio Navigation, e assegna le rispettive posizioni"
+
+#: core/customizer.php:343
+msgid "Disable comments"
+msgstr "Disabilita i commenti"
+
+#: comments.php:68
+msgid "Email"
+msgstr "Email"
+
+#: core/customizer.php:543
+msgid "Email 1 — Primary"
+msgstr "Mail 1 Principale"
+
+#: core/customizer.php:554
+msgid "Email 2 — Secondary"
+msgstr "Mail 2 Secondaria"
+
+#: core/customizer.php:565
+msgid "Email 3"
+msgstr "Mail 3"
+
+#: templates/footers/footer_1.twig:81
+msgid "Email address"
+msgstr "Indirizzo email"
+
+#: templates/page-bio.twig:53
+msgid "Email us"
+msgstr "Scrivici"
+
+#: core/customizer.php:123
+msgid "Enable Google Fonts for each fonts.google.com row"
+msgstr "Attiva Google Fonts per ogni riga fonts.google.com"
+
+#: core/customizer.php:319
+msgid "Enable the Cocoen CSS JS library github.com/jotform/before-after.js"
+msgstr "Attiva libreria Cocoen CSS JS github.com/jotform/before-after.js"
+
+#: core/customizer.php:205
+msgid "Enable the Fitty js library https://rikschennink.github.io/fitty/"
+msgstr "Attiva libreria Fitty js https://rikschennink.github.io/fitty/"
+
+#: core/customizer.php:139
+msgid "Enable the GSAP library https://github.com/greensock/GSAP"
+msgstr "Attiva libreria GSAP https://github.com/greensock/GSAP"
+
+#: core/customizer.php:233
+msgid "Enable the Images Loaded js library https://imagesloaded.desandro.com/"
+msgstr "Attiva libreria Images Loaded js https://imagesloaded.desandro.com/"
+
+#: core/customizer.php:166
+msgid "Enable the Lenis library https://github.com/darkroomengineering/lenis"
+msgstr "Attiva libreria Lenis https://github.com/darkroomengineering/lenis"
+
+#: core/customizer.php:192
+msgid "Enable the Lightbox2 library https://lokeshdhakar.com/projects/lightbox2/"
+msgstr "Attiva libreria Lightbox2 https://lokeshdhakar.com/projects/lightbox2/"
+
+#: core/customizer.php:179
+msgid "Enable the Locomotive library https://github.com/locomotivemtl/locomotive-scroll"
+msgstr "Attiva libreria Locomotive https://github.com/locomotivemtl/locomotive-scroll"
+
+#: core/customizer.php:307
+msgid "Enable the Magic Mouse CSS JS library magicmousejs.web.app"
+msgstr "Attiva libreria Magic Mouse CSS JS magicmousejs.web.app"
+
+#: core/customizer.php:219
+msgid "Enable the Masonry.js library https://masonry.desandro.com"
+msgstr "Attiva libreria Masonry.js https://masonry.desandro.com"
+
+#: core/customizer.php:294
+msgid "Enable the NProgress CSS JS library https://ricostacruz.com/nprogress/"
+msgstr "Attiva libreria NProgress CSS JS https://ricostacruz.com/nprogress/"
+
+#: core/customizer.php:259
+msgid "Enable the Owl Carousel CSS JS library owlcarousel2.github.io/OwlCarousel2"
+msgstr "Attiva libreria Owl Carousel CSS JS owlcarousel2.github.io/OwlCarousel2"
+
+#: core/customizer.php:246
+msgid "Enable the Swiper 10.2 library https://swiperjs.com/get-started"
+msgstr "Attiva libreria Swiper 10.2 https://swiperjs.com/get-started"
+
+#: core/customizer.php:152
+msgid "Enable the Three js library threejs.org"
+msgstr "Attiva libreria Three js threejs.org"
+
+#: core/customizer.php:387
+msgid "Enter a GTM-… ID to load GTM through the theme. This field is ignored when Complianz handles loading. Leave it empty to disable loading through the theme. Consent management must be configured separately."
+msgstr "Inserisci un ID GTM-… per caricare GTM dal tema. Se il caricamento è affidato a Complianz, questo campo viene ignorato. Lascia vuoto per disabilitare il caricamento dal tema. La gestione del consenso va configurata separatamente."
+
+#: core/customizer.php:374
+msgid "Enter a Google Maps API key from console.cloud.google.com"
+msgstr "Inserisci API key di Google Maps console.cloud.google.com"
+
+#: functions.php:36
+#, php-format
+msgid "Error locating %s for inclusion"
+msgstr "Impossibile trovare %s da includere"
+
+#: core/customizer.php:587
+msgid "Facebook"
+msgstr "Facebook"
+
+#: core/customizer.php:531
+msgid "Fax"
+msgstr "Fax"
+
+#: comments.php:79
+msgid "Fields marked with * are required."
+msgstr "I campi contrassegnati con * sono obbligatori."
+
+#: templates/page-bio.twig:76
+msgid "Find us"
+msgstr "Dove siamo"
+
+#: core/customizer.php:204
+msgid "Fitty js"
+msgstr "Fitty js"
+
+#: core/customizer.php:107
+msgid "Footer 1 — Columns and newsletter"
+msgstr "Footer 1 — Colonne e newsletter"
+
+#: core/customizer.php:108
+msgid "Footer 2 — Horizontal menu"
+msgstr "Footer 2 — Menu orizzontale"
+
+#: core/customizer.php:109
+msgid "Footer 3 — Centered"
+msgstr "Footer 3 — Centrato"
+
+#: core/customizer.php:110
+msgid "Footer 4 — Contact invitation"
+msgstr "Footer 4 — Invito al contatto"
+
+#: core/customizer.php:111
+msgid "Footer 5 — Editorial menu"
+msgstr "Footer 5 — Menu editoriale"
+
+#: core/init.php:92
+msgid "Footer Bottom"
+msgstr "Parte inferiore del footer"
+
+#: core/init.php:60
+msgid "Footer Col 1"
+msgstr "Colonna footer 1"
+
+#: core/init.php:68
+msgid "Footer Col 2"
+msgstr "Colonna footer 2"
+
+#: core/init.php:76
+msgid "Footer Col 3"
+msgstr "Colonna footer 3"
+
+#: core/init.php:84
+msgid "Footer Col 4"
+msgstr "Colonna footer 4"
+
+#: core/activation.php:513 core/init.php:19
+msgid "Footer Navigation"
+msgstr "Footer Navigation"
+
+#: core/customizer.php:104
+msgid "Footer Style"
+msgstr "Stile del footer"
+
+#: templates/footers/footer_1.twig:51 templates/footers/footer_2.twig:37 templates/footers/footer_3.twig:32 templates/footers/footer_4.twig:52 templates/footers/footer_5.twig:18
+msgid "Footer menu"
+msgstr "Menu footer"
+
+#: core/customizer.php:373
+msgid "GMaps API KEY"
+msgstr "Chiave API di Google Maps"
+
+#: core/customizer.php:138
+msgid "GSAP"
+msgstr "GSAP"
+
+#: core/customizer.php:58
+msgid "General settings"
+msgstr "Impostazioni generali"
+
+#: core/customizer.php:332
+msgid "Go To Top Button"
+msgstr "Pulsante Torna in alto"
+
+#: templates/partials/gototop.twig:2
+msgid "Go to top"
+msgstr "Torna in alto"
+
+#: core/customizer.php:122
+msgid "Google Fonts"
+msgstr "Google Fonts"
+
+#: core/customizer.php:386
+msgid "Google Tag Manager ID"
+msgstr "ID Google Tag Manager"
+
+#: core/customizer.php:86
+msgid "Header 1 — Classic with an expandable mobile menu"
+msgstr "Header 1 — Classico con menu mobile espandibile"
+
+#: core/customizer.php:87
+msgid "Header 2 — Classic with a mobile overlay"
+msgstr "Header 2 — Classico con overlay mobile"
+
+#: core/customizer.php:88
+msgid "Header 3 — Rounded floating bar"
+msgstr "Header 3 — Barra flottante arrotondata"
+
+#: core/customizer.php:89
+msgid "Header 4 — Transparent with separate blocks"
+msgstr "Header 4 — Trasparente con blocchi separati"
+
+#: core/customizer.php:90
+msgid "Header 5 — Centered logo between two menus"
+msgstr "Header 5 — Logo centrale tra due menu"
+
+#: core/customizer.php:83
+msgid "Header Style"
+msgstr "Stile dell’header"
+
+#: core/customizer.php:355
+msgid "Hide Admin Bar"
+msgstr "Nascondi la barra di amministrazione"
+
+#: core/activation.php:354 core/activation.php:359
 msgid "Home"
 msgstr "Home"
 
-#: lib/activation.php:173 lib/activation.php:176 lib/activation.php:190
-#: lib/init.php:13
-msgid "Primary Navigation"
-msgstr "Primary Navigation"
+#: core/customizer.php:398
+msgid "Hotjar ID"
+msgstr "ID Hotjar"
 
-#: lib/extras.php:6
-msgid "Continued"
-msgstr "Continua"
+#: core/woocommerce.php:68
+msgid "I accept the general terms and conditions ( sendsrl.it/tec )"
+msgstr "Accetto i termini e le condizioni generali ( sendsrl.it/tec )"
 
-#: lib/init.php:36
-msgid "Primary"
-msgstr "PrimarY"
+#: core/woocommerce.php:82
+msgid "I acknowledge that I have read the Privacy Policy ( sendsrl.it/tec )"
+msgstr "Dichiaro di aver preso visione della Privacy Policy ( sendsrl.it/tec )"
 
-#: lib/init.php:45
-msgid "Footer"
-msgstr "Footer"
+#: core/woocommerce.php:96
+msgid "I agree to receive marketing information"
+msgstr "Acconsento a ricevere informazioni commerciali"
 
-#: lib/titles.php:10
-msgid "Latest Posts"
-msgstr "Articoli pi&ugrave recenti"
+#: core/woocommerce.php:109
+msgid "I consent to the transfer of my data to third parties"
+msgstr "Acconsento al trasferimento dei dati a terzi"
 
-#: lib/titles.php:19
-msgid "Daily Archives: %s"
-msgstr "Archivio del giorno: %s"
+#: comments.php:64
+#, php-format
+msgid "I have read and accept the %s."
+msgstr "Ho letto e accetto la %s."
 
-#: lib/titles.php:21
-msgid "Monthly Archives: %s"
-msgstr "Archivio del mese: %s"
+#: comments.php:65
+msgid "I have read and accept the privacy policy."
+msgstr "Ho letto e accetto l’informativa privacy."
 
-#: lib/titles.php:23
-msgid "Yearly Archives: %s"
-msgstr "Archivio dell'anno: %s"
+#: core/extras.php:50
+msgid "ID"
+msgstr "ID"
 
-#: lib/titles.php:26
-msgid "Author Archives: %s"
-msgstr "Archivio dell'autore: %s"
+#: core/customizer.php:232
+msgid "Images Loaded js"
+msgstr "Images Loaded js"
 
-#: lib/titles.php:31
-msgid "Search Results for %s"
-msgstr "Risultati della ricerca per %s"
+#: core/activation.php:168 core/activation.php:171
+msgid "Import ACF field groups"
+msgstr "Importa i gruppi di campi ACF"
 
-#: lib/titles.php:33
-msgid "Not Found"
-msgstr "Non trovato"
+#: core/activation.php:176
+msgid "Import ACF fields from a predefined JSON file."
+msgstr "Importa i campi ACF da un file JSON predefinito."
 
-#: templates/comment.php:4
-msgid "%1$s"
-msgstr "%1$s"
+#: core/customizer.php:598
+msgid "Instagram"
+msgstr "Instagram"
 
-#: templates/comment.php:5
-msgid "(Edit)"
-msgstr "(Modifica)"
+#: core/activation.php:368
+msgid "Learn who we are and what we do."
+msgstr "Scopri chi siamo e cosa facciamo."
 
-#: templates/comment.php:9
-msgid "Your comment is awaiting moderation."
-msgstr "Il tuo commento &egrave; in attesa di moderazione."
+#: core/customizer.php:165
+msgid "Lenis"
+msgstr "Lenis"
 
-#: templates/comments.php:9
-msgid "One Response to &ldquo;%2$s&rdquo;"
-msgid_plural "%1$s Responses to &ldquo;%2$s&rdquo;"
-msgstr[0] "Una risposta a &ldquo;%2$s&rdquo;"
-msgstr[1] "%1$s risposte a &ldquo;%2$s&rdquo;"
+#: templates/page-bio.twig:48
+msgid "Let’s talk"
+msgstr "Parliamone"
 
-#: templates/comments.php:19
-msgid "&larr; Older comments"
-msgstr "&larr; Commenti meno recenti"
+#: templates/footers/footer_4.twig:16
+msgid "Let’s talk about your next project"
+msgstr "Parliamo del tuo prossimo progetto"
 
-#: templates/comments.php:22
-msgid "Newer comments &rarr;"
-msgstr "Commenti pi&ugrave recenti &rarr;"
+#: core/customizer.php:191
+msgid "Lightbox2"
+msgstr "Lightbox2"
 
-#: templates/comments.php:30 templates/comments.php:35
-msgid "Comments are closed."
-msgstr "I commenti sono chiusi."
+#: core/customizer.php:576
+msgid "Linkedin"
+msgstr "LinkedIn"
 
-#: templates/comments.php:42
-msgid "Leave a Reply"
-msgstr "Lascia un commento"
+#: core/extras.php:984
+msgid "Loading the map…"
+msgstr "Caricamento della mappa…"
 
-#: templates/comments.php:42
-msgid "Leave a Reply to %s"
-msgstr "Lascia un commento a %s"
+#: core/extras.php:960
+#, php-format
+msgid "Location %d"
+msgstr "Sede %d"
 
-#: templates/comments.php:45
-msgid "You must be <a href=\"%s\">logged in</a> to post a comment."
-msgstr "Devi <a href=\"%s\">loggarti</a> per pubblicare un commento."
+#: templates/sections/section_maps.twig:29
+msgid "Locations map"
+msgstr "Mappa delle sedi"
 
-#: templates/comments.php:50
-msgid "Logged in as <a href=\"%s/wp-admin/profile.php\">%s</a>."
-msgstr "Sei loggato come <a href=\"%s/wp-admin/profile.php\">%s</a>."
+#: core/customizer.php:178
+msgid "Locomotive"
+msgstr "Locomotive"
 
-#: templates/comments.php:51
-msgid "Log out of this account"
-msgstr "Esci da questo account"
+#: core/customizer.php:306
+msgid "Magic Mouse CSS JS"
+msgstr "Magic Mouse CSS JS"
 
-#: templates/comments.php:51
-msgid "Log out &raquo;"
-msgstr "Esci &raquo;"
+#: templates/page-bio.twig:28
+msgid "Main links"
+msgstr "Link principali"
 
-#: templates/comments.php:55
+#: templates/headers/header_1.twig:12 templates/headers/header_1.twig:30 templates/headers/header_2.twig:32 templates/headers/header_2.twig:50 templates/headers/header_3.twig:32 templates/headers/header_3.twig:50 templates/headers/header_4.twig:32 templates/headers/header_4.twig:50 templates/headers/header_5.twig:35 templates/headers/header_5.twig:56
+msgid "Main navigation"
+msgstr "Navigazione principale"
+
+#: core/customizer.php:218
+msgid "Masonry js"
+msgstr "Masonry js"
+
+#: core/activation.php:512 core/init.php:18
+msgid "Mobile Navigation"
+msgstr "Mobile Navigation"
+
+#: templates/headers/header_2.twig:24 templates/headers/header_3.twig:24 templates/headers/header_4.twig:24 templates/headers/header_5.twig:24
+msgid "Mobile navigation"
+msgstr "Navigazione mobile"
+
+#: core/woocommerce.php:209
+msgid "More Information"
+msgstr "Ulteriori informazioni"
+
+#: templates/single.twig:100
+msgid "More content"
+msgstr "Altri contenuti"
+
+#: core/customizer.php:293
+msgid "NProgress CSS JS"
+msgstr "NProgress CSS JS"
+
+#: comments.php:67
 msgid "Name"
 msgstr "Nome"
 
-#: templates/comments.php:55 templates/comments.php:59
-msgid " (required)"
-msgstr " (richiesto)"
+#: templates/headers/header_2.twig:15 templates/headers/header_3.twig:15 templates/headers/header_4.twig:15 templates/headers/header_5.twig:15
+msgid "Navigation menu"
+msgstr "Menu di navigazione"
 
-#: templates/comments.php:59
-msgid "Email (will not be published)"
-msgstr "Email (non sar&agrave pubblicata)"
+#: templates/partials/pagination.twig:34 templates/partials/pagination.twig:38
+msgid "Next page"
+msgstr "Pagina successiva"
 
-#: templates/comments.php:63
-msgid "Website"
-msgstr "Sito Web\t"
+#: core/activation.php:98 core/activation.php:112 core/activation.php:124 core/activation.php:136 core/activation.php:148 core/activation.php:161 core/activation.php:174
+msgid "No"
+msgstr "No"
 
-#: templates/comments.php:68
-msgid "Comment"
-msgstr "Commento"
+#: templates/archive.twig:56 templates/index.twig:9
+msgid "No content found."
+msgstr "Nessun contenuto trovato."
 
-#: templates/comments.php:71
-msgid "Submit Comment"
-msgstr "Invia il commento"
+#: search.php:81
+#, php-format
+msgid "No results found for: %s"
+msgstr "Nessun risultato trovato per: %s"
 
-#: templates/content-single.php:11
-msgid "Pages:"
-msgstr "Pagine:"
+#: templates/sections/section_collapse.twig:29
+msgid "No results found."
+msgstr "Nessun risultato trovato."
 
-#: templates/entry-meta.php:2
-msgid "By"
-msgstr "Scritto da"
+#: core/extras.php:988
+msgid "Open directions"
+msgstr "Apri indicazioni"
 
-#: templates/searchform.php:2
-msgid "Search for:"
-msgstr "Cerca:"
+#: templates/headers/header_1.twig:18 templates/headers/header_1.twig:36 templates/headers/header_2.twig:38 templates/headers/header_2.twig:56 templates/headers/header_3.twig:38 templates/headers/header_3.twig:56 templates/headers/header_4.twig:38 templates/headers/header_4.twig:56 templates/headers/header_5.twig:44 templates/headers/header_5.twig:65
+msgid "Open menu"
+msgstr "Apri menu"
 
-#: templates/searchform.php:4 templates/searchform.php:6
+#: templates/headers/menu.twig:11
+msgid "Open submenu:"
+msgstr "Apri sottomenu:"
+
+#: templates/partials/video.twig:7 templates/partials/video.twig:12
+msgid "Open the video"
+msgstr "Apri il video"
+
+#: core/customizer.php:258
+msgid "Owl Carousel CSS JS"
+msgstr "Owl Carousel CSS JS"
+
+#: templates/partials/pagination.twig:7
+msgid "Pagination"
+msgstr "Paginazione"
+
+#: core/customizer.php:496
+msgid "Phone 1 — Primary"
+msgstr "Telefono 1 Principale"
+
+#: core/customizer.php:507
+msgid "Phone 2"
+msgstr "Telefono 2"
+
+#: core/customizer.php:519
+msgid "Phone 3"
+msgstr "Telefono 3"
+
+#: templates/partials/video.twig:19
+msgid "Play the video"
+msgstr "Riproduci il video"
+
+#: author.php:20
+#, php-format
+msgid "Posts by %s"
+msgstr "Articoli di %s"
+
+#: core/init.php:52
+msgid "Pre Footer"
+msgstr "Prima del footer"
+
+#: templates/partials/pagination.twig:11 templates/partials/pagination.twig:15
+msgid "Previous page"
+msgstr "Pagina precedente"
+
+#: core/init.php:44
+msgid "Primary"
+msgstr "Principale"
+
+#: core/activation.php:510 core/init.php:16
+msgid "Primary Navigation"
+msgstr "Primary Navigation"
+
+#: comments.php:64 core/activation.php:388 core/activation.php:394 templates/footers/footer_1.twig:101 templates/footers/footer_2.twig:102 templates/footers/footer_3.twig:83 templates/footers/footer_4.twig:104 templates/footers/footer_5.twig:97 templates/page-bio.twig:117 templates/page-cookie-policy.twig:42
+msgid "Privacy Policy"
+msgstr "Informativa privacy"
+
+#: core/woocommerce.php:210
+msgid "Product Data"
+msgstr "Dati del prodotto"
+
+#: core/customizer.php:438
+msgid "REA registration number"
+msgstr "N° REA"
+
+#: templates/partials/tease-editorial.twig:34 templates/partials/tease-overlay.twig:23
+msgid "Read"
+msgstr "Leggi"
+
+#: templates/partials/tease-term.twig:7
+msgid "Related content:"
+msgstr "Contenuti associati:"
+
+#: templates/sections/section_collapse.twig:30
+msgid "Results pagination"
+msgstr "Paginazione risultati"
+
+#: comments.php:73
+msgid "Save my name and email in this browser for the next time I comment."
+msgstr "Ricorda il mio nome e la mia email in questo browser per il prossimo commento."
+
+#: core/activation.php:422 core/activation.php:427 templates/partials/searchform.twig:6 templates/partials/searchform.twig:7
 msgid "Search"
 msgstr "Cerca"
 
-#. Theme Name of the plugin/theme
-msgid "GRIT Starter Theme"
-msgstr "GRIT Starter Theme"
+#: templates/partials/searchform.twig:4
+msgid "Search now:"
+msgstr "Cerca ora:"
 
-#. Theme URI of the plugin/theme
-msgid "https://www.gritlab.it/"
-msgstr "https://www.gritlab.it/"
+#: search.php:79
+#, php-format
+msgid "Search results for: %s"
+msgstr "Risultati della ricerca per: %s"
 
-#. Description of the plugin/theme
-msgid ""
-"Roots is a WordPress starter theme based on HTML5 Boilerplate & Bootstrap. "
-"<a href=\"https://github.com/roots/roots/contributors\">Contribute on "
-"GitHub</a>"
-msgstr ""
-"Roots &egrave un Tema WordPress starter basato su HTML5 Boilerplate e "
-"Bootstrap. <a href=\"https://github.com/roots/roots/contributors"
-"\">Contribuisci su GitHub</a>"
+#: templates/sections/section_collapse.twig:16 templates/sections/section_collapse.twig:17
+msgid "Search..."
+msgstr "Cerca..."
 
-#. Author of the plugin/theme
-msgid "Roots"
-msgstr "Roots"
+#: core/activation.php:511 core/init.php:17
+msgid "Secondary Navigation"
+msgstr "Secondary Navigation"
 
-#. Author URI of the plugin/theme
-msgid "https://www.gritlab.it/"
-msgstr "https://www.gritlab.it/"
+#: core/customizer.php:449
+msgid "Share capital"
+msgstr "Capitale Sociale"
 
-#. Template Name of the plugin/theme
-msgid "Custom Template"
-msgstr "Template personalizzato"
+#: templates/page-bio.twig:103
+msgid "Share this page"
+msgstr "Condividi questa pagina"
+
+#: templates/archive.twig:43
+msgid "Showing results from"
+msgstr "Vista dei risultati da"
+
+#: templates/page-bio.twig:114 templates/page-cookie-policy.twig:39 templates/page-privacy-policy.twig:236
+msgid "Site documents"
+msgstr "Documenti del sito"
+
+#: templates/base.twig:19
+msgid "Skip to content"
+msgstr "Vai al contenuto"
+
+#: templates/page-bio.twig:98
+msgid "Social profiles"
+msgstr "Profili social"
+
+#: templates/page-bio.twig:70
+msgid "Start a conversation"
+msgstr "Iniziamo una conversazione"
+
+#: core/activation.php:414 core/activation.php:419
+msgid "Style"
+msgstr "Stile"
+
+#: templates/footers/footer_1.twig:82
+msgid "Subscribe"
+msgstr "Iscriviti"
+
+#: templates/footers/footer_1.twig:79
+msgid "Subscribe to our newsletter"
+msgstr "Iscriviti alla nostra newsletter"
+
+#: core/customizer.php:245
+msgid "Swiper"
+msgstr "Swiper"
+
+#: templates/single.twig:67
+msgid "Tag:"
+msgstr "Tag:"
+
+#: core/activation.php:657
+msgid "The ACF field group structure is invalid."
+msgstr "La struttura dei gruppi ACF non è valida."
+
+#: core/activation.php:653
+msgid "The ACF import file is missing or invalid."
+msgstr "Il file di importazione ACF è assente o non valido."
+
+#: core/activation.php:481
+msgid "The Home page is unavailable or is not published."
+msgstr "La pagina Home non è disponibile o non è pubblicata."
+
+#: templates/page-cookie-policy.twig:35
+msgid "The document is not available yet."
+msgstr "Il documento non è ancora disponibile."
+
+#: core/extras.php:985
+msgid "The map is not configured. You can browse the locations and open directions."
+msgstr "La mappa non è configurata. Puoi consultare le sedi e aprire le indicazioni."
+
+#: core/extras.php:986
+msgid "The map is unavailable. You can use the directions links."
+msgstr "La mappa non è disponibile. Puoi utilizzare i link alle indicazioni."
+
+#: core/extras.php:983
+msgid "The map will load when it becomes visible."
+msgstr "La mappa verrà caricata quando sarà visibile."
+
+#: core/customizer.php:404
+msgid "Theme Fields"
+msgstr "Dati del sito"
+
+#: core/activation.php:61 core/activation.php:62
+msgid "Theme Setup"
+msgstr "Configurazione del tema"
+
+#: core/activation.php:82
+msgid "These settings are optional and should usually be used only on a fresh installation"
+msgstr "Queste impostazioni sono facoltative e di norma vanno utilizzate solo su una nuova installazione."
+
+#: templates/404.twig:15
+msgid "This page does not exist!"
+msgstr "Questa pagina non esiste!"
+
+#: core/customizer.php:151
+msgid "Three js"
+msgstr "Three js"
+
+#: core/customizer.php:609
+msgid "TikTok"
+msgstr "TikTok"
+
+#: core/extras.php:987
+msgid "To view the map, enable Google Maps in your consent preferences."
+msgstr "Per visualizzare la mappa abilita Google Maps nelle preferenze di consenso."
+
+#: core/customizer.php:361
+msgid "Tracking settings"
+msgstr "Impostazioni di tracciamento"
+
+#: core/activation.php:331
+msgid "Unable to create the Contact Form 7 form."
+msgstr "Impossibile creare il modulo Contact Form 7."
+
+#: core/activation.php:462
+#, php-format
+msgid "Unable to create the page: %s"
+msgstr "Impossibile creare la pagina: %s"
+
+#: core/activation.php:118 core/activation.php:121
+msgid "Update permalink structure"
+msgstr "Aggiorna la struttura dei permalink"
+
+#: templates/footers/footer_1.twig:97 templates/footers/footer_2.twig:97 templates/footers/footer_3.twig:79 templates/footers/footer_4.twig:99 templates/footers/footer_5.twig:92
+msgid "VAT no."
+msgstr "P.IVA"
+
+#: core/customizer.php:427
+msgid "VAT number"
+msgstr "P. IVA"
+
+#: templates/page-bio.twig:31
+msgid "Visit the website"
+msgstr "Visita il sito"
+
+#: core/customizer.php:520
+msgid "When provided, enables the WhatsApp link on the Bio page"
+msgstr "Se presente attiva link Whats App in BIO"
+
+#: core/customizer.php:472 core/customizer.php:484 core/customizer.php:508
+msgid "When provided, enables the link on the Bio page"
+msgstr "Se presente attiva link in BIO"
+
+#: core/activation.php:97 core/activation.php:111 core/activation.php:123 core/activation.php:135 core/activation.php:147 core/activation.php:160 core/activation.php:173
+msgid "Yes"
+msgstr "Sì"
+
+#: core/extras.php:1024
+msgid "You must accept the Privacy Policy to submit a comment."
+msgstr "Per inviare il commento devi accettare la Privacy Policy."
+
+#: comments.php:79
+msgid "Your email address will not be published."
+msgstr "L’email non sarà pubblicata."
+
+#: templates/archive.twig:45
+msgid "of"
+msgstr "di"
+
+#: templates/archive.twig:44
+msgid "to"
+msgstr "a"

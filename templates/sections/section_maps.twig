@@ -26,7 +26,7 @@ Styling: assets/maps/style.json. The viewport always follows the configured loca
                 <div class="grit-map{% if not map.key %} is-map-unavailable{% endif %}" data-grit-map>
                     {# * GRIT_SET 02 | JSON_HEX_* flags (15) protect script delimiters and quotation marks. #}
                     <script type="application/json" class="grit-map-config">{{ map|json_encode(15)|raw }}</script>
-                    <div class="grit-map-canvas" id="{{ map.id|e('html_attr') }}" aria-label="{{ __('Mappa delle sedi', 'grit')|e('html_attr') }}" aria-describedby="{{ map.id|e('html_attr') }}-status"></div>
+                    <div class="grit-map-canvas" id="{{ map.id|e('html_attr') }}" aria-label="{{ __('Locations map', 'grit')|e('html_attr') }}" aria-describedby="{{ map.id|e('html_attr') }}-status"></div>
                     <p class="grit-map-status mt-3" id="{{ map.id|e('html_attr') }}-status" role="status">{{ (map.key ? map.messages.waiting : map.messages.missingKey)|e }}</p>
                     {# * GRIT_SET 03 | Escaped text and coordinate-based directions are independent of the API. #}
                     <ul class="grit-map-locations list-unstyled mt-4 mb-0">

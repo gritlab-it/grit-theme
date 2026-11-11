@@ -1,9 +1,9 @@
 {# * GRIT_SET Search form | Canonical home endpoint, escaped value and per-instance label ID #}
 {% set search_input_id = function('wp_unique_id', 'grit-search-') %}
 <form role="search" method="get" class="search-form" action="{{ function('home_url', '/')|e('html_attr') }}">
-    <label for="{{ search_input_id }}">{{ __('Cerca ora:', 'grit') }}</label>
+    <label for="{{ search_input_id }}">{{ __('Search now:', 'grit') }}</label>
     <div class="d-flex">
-        <input type="search" value="{{ search_query|default(s|default(''))|e('html_attr') }}" name="s" placeholder="{{ __('Cerca', 'grit') }}" id="{{ search_input_id }}">
-        <input type="submit" class="mx-2 btn btn-accent" value="{{ __('Cerca', 'grit') }}">
+        <input type="search" value="{{ search_query|default(s|default(''))|e('html_attr') }}" name="s" placeholder="{{ __('Search', 'grit') }}" id="{{ search_input_id }}">
+        <input type="submit" class="mx-2 btn btn-accent" value="{{ __('Search', 'grit') }}">
     </div>
 </form>

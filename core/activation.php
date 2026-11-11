@@ -58,8 +58,8 @@ add_filter('option_page_capability_grit_activation_options', 'grit_activation_op
 // Register the setup screen under Appearance.
 function grit_theme_activation_options_add_page() {
     add_theme_page(
-        __('Theme Activation', 'grit'),
-        __('Theme Activation', 'grit'),
+        __('Theme Setup', 'grit'),
+        __('Theme Setup', 'grit'),
         'edit_theme_options',
         'theme_activation_options',
         'grit_theme_activation_options_render_page'
@@ -77,7 +77,7 @@ function grit_theme_activation_options_render_page() {
     $saved_options = (array) grit_get_theme_activation_options();
     ?>
     <div class="wrap">
-        <h2><?php printf(__('%s Theme Activation', 'grit'), wp_get_theme()); ?></h2>
+        <h2><?php printf(__('%s Theme Setup', 'grit'), wp_get_theme()); ?></h2>
         <div class="update-nag">
             <?php _e('These settings are optional and should usually be used only on a fresh installation', 'grit'); ?>
         </div>
@@ -89,10 +89,10 @@ function grit_theme_activation_options_render_page() {
             <table class="form-table">
 
 
-                <tr valign="top"><th scope="row"><?php _e('Create static front page?', 'grit'); ?></th>
+                <tr valign="top"><th scope="row"><?php _e('Create a static homepage', 'grit'); ?></th>
                     <td>
                         <fieldset>
-                            <legend class="screen-reader-text"><span><?php _e('Create static front page?', 'grit'); ?></span></legend>
+                            <legend class="screen-reader-text"><span><?php _e('Create a static homepage', 'grit'); ?></span></legend>
                             <select name="grit_theme_activation_options[create_front_page]" id="create_front_page">
                                 <option value="true" <?php selected(($saved_options['create_front_page'] ?? 'true') === 'true'); ?>><?php echo _e('Yes', 'grit'); ?></option>
                                 <option value="false" <?php selected(($saved_options['create_front_page'] ?? 'true') !== 'true'); ?>><?php echo _e('No', 'grit'); ?></option>
@@ -101,24 +101,24 @@ function grit_theme_activation_options_render_page() {
                         </fieldset>
                     </td>
                 </tr>
-                <tr valign="top"><th scope="row"><?php _e('Create additional pages?', 'grit'); ?></th>
+                <tr valign="top"><th scope="row"><?php _e('Create additional pages', 'grit'); ?></th>
                     <td>
                         <fieldset>
-                            <legend class="screen-reader-text"><span><?php _e('Create additional pages?', 'grit'); ?></span>
+                            <legend class="screen-reader-text"><span><?php _e('Create additional pages', 'grit'); ?></span>
                             </legend>
                             <select name="grit_theme_activation_options[create_additional_page]"
                                     id="create_additional_page">
                                 <option value="true" <?php selected(($saved_options['create_additional_page'] ?? 'true') === 'true'); ?>><?php echo _e('Yes', 'grit'); ?></option>
                                 <option value="false" <?php selected(($saved_options['create_additional_page'] ?? 'true') !== 'true'); ?>><?php echo _e('No', 'grit'); ?></option>
                             </select>
-                            <p class="description"><?php printf(__('Create additional pages (Contatti, Privacy, etc)', 'grit')); ?></p>
+                            <p class="description"><?php printf(__('Create additional pages (Contact, Privacy Policy, etc.)', 'grit')); ?></p>
                         </fieldset>
                     </td>
                 </tr>
-                <tr valign="top"><th scope="row"><?php _e('Change permalink structure?', 'grit'); ?></th>
+                <tr valign="top"><th scope="row"><?php _e('Update permalink structure', 'grit'); ?></th>
                     <td>
                         <fieldset>
-                            <legend class="screen-reader-text"><span><?php _e('Update permalink structure?', 'grit'); ?></span></legend>
+                            <legend class="screen-reader-text"><span><?php _e('Update permalink structure', 'grit'); ?></span></legend>
                             <select name="grit_theme_activation_options[change_permalink_structure]" id="change_permalink_structure">
                                 <option value="true" <?php selected(($saved_options['change_permalink_structure'] ?? 'true') === 'true'); ?>><?php echo _e('Yes', 'grit'); ?></option>
                                 <option value="false" <?php selected(($saved_options['change_permalink_structure'] ?? 'true') !== 'true'); ?>><?php echo _e('No', 'grit'); ?></option>
@@ -127,10 +127,10 @@ function grit_theme_activation_options_render_page() {
                         </fieldset>
                     </td>
                 </tr>
-                <tr valign="top"><th scope="row"><?php _e('Create navigation menu?', 'grit'); ?></th>
+                <tr valign="top"><th scope="row"><?php _e('Create navigation menus', 'grit'); ?></th>
                     <td>
                         <fieldset>
-                            <legend class="screen-reader-text"><span><?php _e('Create navigation menu?', 'grit'); ?></span></legend>
+                            <legend class="screen-reader-text"><span><?php _e('Create navigation menus', 'grit'); ?></span></legend>
                             <select name="grit_theme_activation_options[create_navigation_menus]" id="create_navigation_menus">
                                 <option value="true" <?php selected(($saved_options['create_navigation_menus'] ?? 'true') === 'true'); ?>><?php echo _e('Yes', 'grit'); ?></option>
                                 <option value="false" <?php selected(($saved_options['create_navigation_menus'] ?? 'true') !== 'true'); ?>><?php echo _e('No', 'grit'); ?></option>
@@ -139,10 +139,10 @@ function grit_theme_activation_options_render_page() {
                         </fieldset>
                     </td>
                 </tr>
-                <tr valign="top"><th scope="row"><?php _e('Add pages to menu?', 'grit'); ?></th>
+                <tr valign="top"><th scope="row"><?php _e('Add pages to primary navigation', 'grit'); ?></th>
                     <td>
                         <fieldset>
-                            <legend class="screen-reader-text"><span><?php _e('Add pages to menu?', 'grit'); ?></span></legend>
+                            <legend class="screen-reader-text"><span><?php _e('Add pages to primary navigation', 'grit'); ?></span></legend>
                             <select name="grit_theme_activation_options[add_pages_to_primary_navigation]" id="add_pages_to_primary_navigation">
                                 <option value="true" <?php selected(($saved_options['add_pages_to_primary_navigation'] ?? 'true') === 'true'); ?>><?php echo _e('Yes', 'grit'); ?></option>
                                 <option value="false" <?php selected(($saved_options['add_pages_to_primary_navigation'] ?? 'true') !== 'true'); ?>><?php echo _e('No', 'grit'); ?></option>
@@ -152,23 +152,23 @@ function grit_theme_activation_options_render_page() {
                     </td>
                 </tr>
                 <tr valign="top">
-                    <th scope="row"><?php _e('Create Contact Form 7 template?', 'grit'); ?></th>
+                    <th scope="row"><?php _e('Create a Contact Form 7 form', 'grit'); ?></th>
                     <td>
                         <fieldset>
-                            <legend class="screen-reader-text"><span><?php _e('Create Contact Form 7 template?', 'grit'); ?></span></legend>
+                            <legend class="screen-reader-text"><span><?php _e('Create a Contact Form 7 form', 'grit'); ?></span></legend>
                             <select name="grit_theme_activation_options[create_cf7_template]" id="create_cf7_template">
                                 <option value="true" <?php selected(($saved_options['create_cf7_template'] ?? 'true') === 'true'); ?>><?php echo _e('Yes', 'grit'); ?></option>
                                 <option value="false" <?php selected(($saved_options['create_cf7_template'] ?? 'true') !== 'true'); ?>><?php echo _e('No', 'grit'); ?></option>
                             </select>
-                            <p class="description"><?php esc_html_e('Crea il modulo demo con destinatario email amministrativa WordPress e risposta al visitatore. La conferma Mail (2) è pronta ma disattivata. I moduli esistenti non vengono sovrascritti. Verifica mittente e recapito in Contact Form 7 prima di usare il modulo.', 'grit'); ?></p>
+                            <p class="description"><?php esc_html_e('Create a demo form addressed to the WordPress administration email, with replies sent to the visitor. The Mail (2) confirmation is prepared but disabled. Existing forms are not overwritten. Check the sender and delivery settings in Contact Form 7 before using the form.', 'grit'); ?></p>
                         </fieldset>
                     </td>
                 </tr>
                 <tr valign="top">
-                    <th scope="row"><?php _e('Import ACF Fields?', 'grit'); ?></th>
+                    <th scope="row"><?php _e('Import ACF field groups', 'grit'); ?></th>
                     <td>
                         <fieldset>
-                            <legend class="screen-reader-text"><span><?php _e('Import ACF Fields?', 'grit'); ?></span></legend>
+                            <legend class="screen-reader-text"><span><?php _e('Import ACF field groups', 'grit'); ?></span></legend>
                             <select name="grit_theme_activation_options[import_acf_fields]" id="import_acf_fields">
                                 <option value="true" <?php selected(($saved_options['import_acf_fields'] ?? 'true') === 'true'); ?>><?php echo _e('Yes', 'grit'); ?></option>
                                 <option value="false" <?php selected(($saved_options['import_acf_fields'] ?? 'true') !== 'true'); ?>><?php echo _e('No', 'grit'); ?></option>
@@ -252,7 +252,7 @@ HTML;
 // Build a complete CF7 starter using its native defaults and mail sender policy.
 function grit_cf7_starter_form() {
     if (!class_exists('WPCF7_ContactForm')) {
-        return new WP_Error('grit_cf7_unavailable', 'Contact Form 7 deve essere attivo per creare il modulo.');
+        return new WP_Error('grit_cf7_unavailable', __('Contact Form 7 must be active to create the form.', 'grit'));
     }
 
     $form = WPCF7_ContactForm::get_template(['title' => 'Modulo di Contatto Demo', 'locale' => 'it_IT']);
@@ -310,7 +310,7 @@ function grit_cf7_starter_form() {
 // Reuse the starter by ID/title without overwriting its customized fields or mail settings.
 function create_custom_cf7_form() {
     if (!class_exists('WPCF7_ContactForm')) {
-        return new WP_Error('grit_cf7_unavailable', 'Contact Form 7 deve essere attivo per creare il modulo.');
+        return new WP_Error('grit_cf7_unavailable', __('Contact Form 7 must be active to create the form.', 'grit'));
     }
     $saved_id = (int) get_option('grit_custom_cf7_form_id');
     $existing = $saved_id && get_post_status($saved_id) === 'publish'
@@ -328,7 +328,7 @@ function create_custom_cf7_form() {
     }
     $post_id = $existing ? $existing->id() : $form->save();
     if (!$post_id || is_wp_error($post_id)) {
-        return new WP_Error('grit_cf7_save_failed', 'Impossibile creare il modulo Contact Form 7.');
+        return new WP_Error('grit_cf7_save_failed', __('Unable to create the Contact Form 7 form.', 'grit'));
     }
     update_option('grit_custom_cf7_form_id', $post_id);
     update_option('grit_custom_cf7_shortcode', $form->shortcode());
@@ -365,7 +365,7 @@ function grit_theme_activation_action() {
             'menus'      => array('primary_navigation', 'mobile_navigation', 'bio_navigation'),
             'menu_order' => 2,
             'menu_label' => __('About', 'grit'),
-            'bio_description' => __('Scopri chi siamo e cosa facciamo.', 'grit'),
+            'bio_description' => __('Learn who we are and what we do.', 'grit'),
         ),
         array(
             'title'      => __('Blog', 'grit'),
@@ -376,13 +376,13 @@ function grit_theme_activation_action() {
             'menu_label' => __('Blog', 'grit'),
         ),
         array(
-            'title'      => __('Contatti', 'grit'),
+            'title'      => __('Contact', 'grit'),
             'slug'       => 'contatti',
             'template'   => '',
             'menus'      => array('primary_navigation', 'mobile_navigation', 'bio_navigation'),
             'menu_order' => 4,
-            'menu_label' => __('Contatti', 'grit'),
-            'bio_description' => __('Scrivici per informazioni o per parlare del tuo progetto.', 'grit'),
+            'menu_label' => __('Contact', 'grit'),
+            'bio_description' => __('Contact us for information or to discuss your project.', 'grit'),
         ),
         array(
             'title'      => __('Privacy Policy', 'grit'),
@@ -459,7 +459,7 @@ function grit_theme_activation_action() {
             $result = wp_insert_post($new_page, true);
             if (is_wp_error($result) || !$result) {
                 $pages_ok = false;
-                add_settings_error('grit_theme_activation_options', 'grit_page_failed', 'Impossibile creare la pagina: ' . $page_data['title']);
+                add_settings_error('grit_theme_activation_options', 'grit_page_failed', sprintf(__('Unable to create the page: %s', 'grit'), $page_data['title']));
             } elseif (($page_data['policy'] ?? '') === 'privacy') {
                 update_option('wp_page_for_privacy_policy', $result);
             }
@@ -478,7 +478,7 @@ function grit_theme_activation_action() {
                     update_option('page_for_posts', $blog->ID);
                 }
             } else {
-                add_settings_error('grit_theme_activation_options', 'grit_home_unavailable', 'La pagina Home non è disponibile o non è pubblicata.');
+                add_settings_error('grit_theme_activation_options', 'grit_home_unavailable', __('The Home page is unavailable or is not published.', 'grit'));
             }
         }
     }
@@ -645,16 +645,16 @@ add_action('update_option_grit_theme_activation_options', 'grit_theme_activation
 // * GRIT_SET 06 | Import the local ACF field definitions
 function import_acf_fields_from_json() {
     if (!function_exists('acf_import_field_group')) {
-        return new WP_Error('grit_acf_unavailable', 'Attiva ACF PRO prima di importare i campi.');
+        return new WP_Error('grit_acf_unavailable', __('Activate ACF PRO before importing fields.', 'grit'));
     }
     $path = get_template_directory() . '/core/acf-fields.json';
     $groups = is_readable($path) ? json_decode(file_get_contents($path), true) : null;
     if (!is_array($groups) || !$groups) {
-        return new WP_Error('grit_acf_json', 'Il file di importazione ACF è assente o non valido.');
+        return new WP_Error('grit_acf_json', __('The ACF import file is missing or invalid.', 'grit'));
     }
     foreach ($groups as $group) {
         if (empty($group['key']) || empty($group['title']) || !isset($group['fields'])) {
-            return new WP_Error('grit_acf_schema', 'La struttura dei gruppi ACF non è valida.');
+            return new WP_Error('grit_acf_schema', __('The ACF field group structure is invalid.', 'grit'));
         }
     }
     foreach ($groups as $group) {
@@ -664,7 +664,7 @@ function import_acf_fields_from_json() {
         }
         $result = acf_import_field_group($group);
         if (!$result || is_wp_error($result)) {
-            return new WP_Error('grit_acf_import', 'Importazione ACF non riuscita: ' . $group['title']);
+            return new WP_Error('grit_acf_import', sprintf(__('ACF import failed: %s', 'grit'), $group['title']));
         }
     }
     return true;

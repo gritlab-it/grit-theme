@@ -1089,3 +1089,8 @@ Check relevant logs and redact private data and credentials when sharing them. D
 ## Licenses
 
 Keep README files, changelogs, and licenses distributed with third-party libraries in `assets/` and Composer packages. The theme's license is in [LICENSE](LICENSE). Media, fonts, and dependencies retain their own licenses.
+
+
+## Interface translations
+
+Translatable PHP and Twig strings in the `grit` domain use English source text. `lang/grit.pot` lists the current messages; `lang/it_IT.po` contains Italian translations and `lang/it_IT.mo` is the compiled catalog read by WordPress. After editing the PO file, compile it with `msgfmt --check -o lang/it_IT.mo lang/it_IT.po`. When adding or changing strings, update the POT, references and translations, preserving placeholders such as `%s` and `%d`. The admin language follows the WordPress user profile; the public site follows the site language. Demo content, sample emails and static legal text are not translated by the catalog.

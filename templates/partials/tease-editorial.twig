@@ -31,7 +31,7 @@
                 </p>
             {% endif %}
             <a href="{{ post.link|e('html_attr') }}" class="btn btn-accent">
-                {{ __('Leggi', 'grit') }}
+                {{ __('Read', 'grit') }}
             </a>
         </div>
         {% set tags = post.terms('post_tag') %}

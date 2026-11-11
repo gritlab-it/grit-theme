@@ -12,16 +12,16 @@
 {% if not mobile_items %}{% set mobile_items = primary_menu.get_items|default([]) %}{% endif %}
 
 {# * GRIT_SET 01 | Keep the overlay outside both bars to avoid fixed-position clipping. #}
-<div class="sidenav sidenav-close" id="header-sidenav" role="dialog" aria-modal="true" aria-label="{{ __('Menu di navigazione', 'grit') }}" aria-hidden="true" inert tabindex="-1" data-mobile-panel data-lenis-prevent>
+<div class="sidenav sidenav-close" id="header-sidenav" role="dialog" aria-modal="true" aria-label="{{ __('Navigation menu', 'grit') }}" aria-hidden="true" inert tabindex="-1" data-mobile-panel data-lenis-prevent>
     <div class="inner-sidenav navbar">
         <a class="navbar-brand" href="{{ home|e('html_attr') }}" title="{{ site.name|e('html_attr') }}">
             <img class="logo img-fluid" src="{{ (custom_logo_url ? custom_logo_url[0] : 'https://placehold.co/100x100/000000/FFFFFF/png')|e('html_attr') }}" alt="{{ site.name|e('html_attr') }}">
         </a>
-        <button class="navbar-toggler menu-close" type="button" data-menu-close aria-label="{{ __('Chiudi menu', 'grit') }}">
+        <button class="navbar-toggler menu-close" type="button" data-menu-close aria-label="{{ __('Close menu', 'grit') }}">
             <i class="fas fa-times" aria-hidden="true"></i>
         </button>
     </div>
-    <nav class="overlay-content" aria-label="{{ __('Navigazione mobile', 'grit') }}">
+    <nav class="overlay-content" aria-label="{{ __('Mobile navigation', 'grit') }}">
         {% include 'headers/menu.twig' with {menu_items: mobile_items, class_menu: 'mobile_menu'} %}
         {% if not mobile_menu.get_items %}
             {% include 'headers/menu.twig' with {menu_items: secondary_menu.get_items, class_menu: 'secondary_mobile_menu'} %}
@@ -32,7 +32,7 @@
 
 {# * GRIT_SET 02 | Main bar. #}
 <div class="header-menu">
-    <nav class="navbar navbar-expand-lg static-top" aria-label="{{ __('Navigazione principale', 'grit') }}">
+    <nav class="navbar navbar-expand-lg static-top" aria-label="{{ __('Main navigation', 'grit') }}">
         <div class="navbar-collapse desktop-primary">
             {% include 'headers/menu.twig' with {menu_items: primary_menu.get_items, class_menu: 'primary_menu'} %}
         </div>
@@ -41,7 +41,7 @@
                 <img class="logo img-fluid" src="{{ (custom_logo_url ? custom_logo_url[0] : 'https://placehold.co/100x100/000000/FFFFFF/png')|e('html_attr') }}" alt="{{ site.name|e('html_attr') }}">
             </a>
         </div>
-        <button class="navbar-toggler menu-toggle" type="button" data-menu-open aria-controls="header-sidenav" aria-expanded="false" aria-label="{{ __('Apri menu', 'grit') }}">
+        <button class="navbar-toggler menu-toggle" type="button" data-menu-open aria-controls="header-sidenav" aria-expanded="false" aria-label="{{ __('Open menu', 'grit') }}">
             <i class="fas fa-bars" aria-hidden="true"></i>
         </button>
         <div class="navbar-collapse desktop-secondary">
@@ -53,7 +53,7 @@
 
 {# * GRIT_SET 03 | Sticky bar. #}
 <div class="sticky sticky-fix" aria-hidden="true" inert>
-    <nav class="navbar navbar-expand-lg static-top" aria-label="{{ __('Navigazione principale', 'grit') }}">
+    <nav class="navbar navbar-expand-lg static-top" aria-label="{{ __('Main navigation', 'grit') }}">
         <div class="navbar-collapse desktop-primary">
             {% include 'headers/menu.twig' with {menu_items: primary_menu.get_items, class_menu: 'primary_menu'} %}
         </div>
@@ -62,7 +62,7 @@
                 <img class="logo img-fluid" src="{{ (custom_logo_url ? custom_logo_url[0] : 'https://placehold.co/100x100/000000/FFFFFF/png')|e('html_attr') }}" alt="{{ site.name|e('html_attr') }}">
             </a>
         </div>
-        <button class="navbar-toggler menu-toggle" type="button" data-menu-open aria-controls="header-sidenav" aria-expanded="false" aria-label="{{ __('Apri menu', 'grit') }}">
+        <button class="navbar-toggler menu-toggle" type="button" data-menu-open aria-controls="header-sidenav" aria-expanded="false" aria-label="{{ __('Open menu', 'grit') }}">
             <i class="fas fa-bars" aria-hidden="true"></i>
         </button>
         <div class="navbar-collapse desktop-secondary">

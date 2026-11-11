@@ -32,14 +32,14 @@
                             </style>
                         {% else %}
                             <div class="bg-light rounded p-4 p-md-5">
-                                <p class="mb-0">{{ __('Il documento non è ancora disponibile.', 'grit') }}</p>
+                                <p class="mb-0">{{ __('The document is not available yet.', 'grit') }}</p>
                             </div>
                         {% endif %}
 
-                        <nav class="border-top pt-4 mt-5" aria-label="{{ __('Documenti del sito', 'grit')|e('html_attr') }}">
+                        <nav class="border-top pt-4 mt-5" aria-label="{{ __('Site documents', 'grit')|e('html_attr') }}">
                             {% set related_policy_url = function('grit_policy_url', 'privacy') %}
                             {% if related_policy_url %}
-                                <a class="btn btn-outline-dark" href="{{ related_policy_url|e('html_attr') }}">Privacy Policy</a>
+                                <a class="btn btn-outline-dark" href="{{ related_policy_url|e('html_attr') }}">{{ __('Privacy Policy', 'grit')|e }}</a>
                             {% endif %}
                         </nav>
                     </div>

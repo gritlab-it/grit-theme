@@ -40,9 +40,9 @@
                     </div>
                     <div class="col-12 col-md-6 py-3 text-md-right">
                         <p class="m-0">
-                            {{ __('Vista dei risultati da', 'grit') }}
-                            <b>{{ startpost }}</b> {{ __('a', 'grit') }}
-                            <b>{{ endpost }}</b> {{ __('di', 'grit') }}
+                            {{ __('Showing results from', 'grit') }}
+                            <b>{{ startpost }}</b> {{ __('to', 'grit') }}
+                            <b>{{ endpost }}</b> {{ __('of', 'grit') }}
                             <b>{{ found_posts }}</b>
                         </p>
                     </div>
@@ -53,7 +53,7 @@
                     {% for post in posts %}
                         {% include ['partials/tease-' ~ post.post_type ~ '.twig', 'partials/tease.twig'] with {post: post, grid: grid} %}
                     {% else %}
-                        <div class="col-12"><p>{{ __('Nessun contenuto trovato.', 'grit') }}</p></div>
+                        <div class="col-12"><p>{{ __('No content found.', 'grit') }}</p></div>
                     {% endfor %}
                     <div class="col-12 d-flex justify-content-center">
                         {% include 'partials/pagination.twig' with {pagination: posts.pagination({show_all: false, mid_size: 3, end_size: 2})} %}

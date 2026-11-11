@@ -233,10 +233,10 @@
                         </p>
                         {% endif %}
 
-                        <nav class="border-top pt-4 mt-5" aria-label="{{ __('Documenti del sito', 'grit')|e('html_attr') }}">
+                        <nav class="border-top pt-4 mt-5" aria-label="{{ __('Site documents', 'grit')|e('html_attr') }}">
                             {% set related_policy_url = function('grit_policy_url', 'cookie') %}
                             {% if related_policy_url %}
-                                <a class="btn btn-outline-dark" href="{{ related_policy_url|e('html_attr') }}">Cookie Policy</a>
+                                <a class="btn btn-outline-dark" href="{{ related_policy_url|e('html_attr') }}">{{ __('Cookie Policy', 'grit')|e }}</a>
                             {% endif %}
                         </nav>
                     </div>

@@ -34,7 +34,7 @@ Colors: _variables.scss. Layout styles: _footer.scss.
         <div class="row">
             <div class="col-12 col-lg-8 mb-4 mb-lg-0">
                 {% if footer_links %}
-                    <nav aria-label="{{ __('Menu footer', 'grit')|e('html_attr') }}">
+                    <nav aria-label="{{ __('Footer menu', 'grit')|e('html_attr') }}">
                         <ul class="footer-menu list-unstyled mb-0">
                             {% for item in footer_links %}
                                 <li class="{{ item.classes|join(' ')|e('html_attr') }}">
@@ -94,13 +94,13 @@ Colors: _variables.scss. Layout styles: _footer.scss.
     <div class="container-fluid">
         <div class="row align-items-center">
             <div class="col-12 col-md-6 mb-3 mb-md-0">
-                <p class="mb-0">© {{ "now"|date('Y') }} {{ setting_intestazione|default(site.name)|e }}{% if setting_piva %} · {{ __('P.IVA', 'grit') }} {{ setting_piva|e }}{% endif %}
+                <p class="mb-0">© {{ "now"|date('Y') }} {{ setting_intestazione|default(site.name)|e }}{% if setting_piva %} · {{ __('VAT no.', 'grit') }} {{ setting_piva|e }}{% endif %}
                 </p>
             </div>
             <div class="col-12 col-md-6">
                 <ul class="footer-policy list-unstyled mb-0">
-                    {% if privacy_url %}<li><a href="{{ function('esc_url', privacy_url)|e('html_attr') }}">Privacy Policy</a></li>{% endif %}
-                    {% if cookie_url %}<li><a href="{{ function('esc_url', cookie_url)|e('html_attr') }}">Cookie Policy</a></li>{% endif %}
+                    {% if privacy_url %}<li><a href="{{ function('esc_url', privacy_url)|e('html_attr') }}">{{ __('Privacy Policy', 'grit')|e }}</a></li>{% endif %}
+                    {% if cookie_url %}<li><a href="{{ function('esc_url', cookie_url)|e('html_attr') }}">{{ __('Cookie Policy', 'grit')|e }}</a></li>{% endif %}
                 </ul>
             </div>
         </div>
