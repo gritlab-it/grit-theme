@@ -806,6 +806,12 @@ $(startCounterAnimation);
             fromY: -5,
             toY: 5
         },
+        zoom: {
+            fromScale: 0.65,
+            start: 'top bottom',
+            end: 'top 20%',
+            scrub: 1
+        },
         bars: {
             maxCount: 15, // Fewer bars may fit when space is limited.
             gap: 5,
@@ -1006,6 +1012,21 @@ $(startCounterAnimation);
                         });
                     }
                 });
+                // Expand the complete image without cropping or a separate controller.
+                sections.filter(section => compatible(section) && section.classList.contains('section-gsap-zoom-scroll')).forEach(section => {
+                    if (section.matches('.is-gsap-horizontal, .is-gsap-vertical, .is-gsap-lateral') || section.closest('.horizontal-wrapper')) return;
+                    section.querySelectorAll('.inner-img > img').forEach(image => {
+                        if (image.matches('.jarallax-img, .gsap-parallaxImage, .parallax-gsap')) return;
+                        gsap.set(image, { transition: 'none' });
+                        gsap.fromTo(image, { scale: motionSettings.zoom.fromScale, transformOrigin: 'center top' }, {
+                            scale: 1, ease: 'none', scrollTrigger: {
+                                trigger: image.parentElement, start: motionSettings.zoom.start,
+                                end: motionSettings.zoom.end, scrub: motionSettings.zoom.scrub
+                            }
+                        });
+                    });
+                });
+
                 document.querySelectorAll('.gsap-parallax-container').forEach(container => {
                     if (container.closest('.is-gsap-horizontal, .is-gsap-vertical, .is-gsap-lateral, .horizontal-wrapper')) return;
                     const image = container.querySelector('.gsap-parallaxImage');

@@ -666,6 +666,7 @@ Gli effetti usano i campi di Section Text. GSAP è opzionale in Personalizza. Il
 
 | Class sulla section | Effetto |
 | --- | --- |
+| `section-gsap-zoom-scroll` | Ingrandisce l’immagine intera dal 65% alla larghezza del contenitore allo scroll; Class di Section Text statica, senza ritaglio |
 | `section-gsap-reveal` | Reveal a ingresso, un controllo scroll per titolo/paragrafo. |
 | `section-gsap-reveal-scroll` | Reveal legato allo scroll, su tutti i capitoli. |
 | `section-gsap-horizontal` | Capitoli scorrevoli orizzontali con pin. |

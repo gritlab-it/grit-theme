@@ -481,6 +481,7 @@ Enable GSAP in the Customizer. Effects use Section Text fields. The controller l
 
 | Section Class | Effect |
 | --- | --- |
+| `section-gsap-zoom-scroll` | Expand the full image from 65% to container width on scroll; static Section Text Class, no crop |
 | `section-gsap-reveal` | Entrance reveal per heading or paragraph |
 | `section-gsap-reveal-scroll` | Scroll-linked reveal across chapters |
 | `section-gsap-horizontal` | Pinned horizontal chapters |
