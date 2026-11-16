@@ -157,6 +157,9 @@ section .owl-carousel * {
     @each $horizontal in left, right {
         section.carousel-nav-#{$vertical}-#{$horizontal},
         section.owl-nav-#{$vertical}-#{$horizontal} {
+            // Controls outside the section must remain above adjacent rounded sections.
+            position: relative;
+            z-index: 5;
             .owl-carousel .owl-nav {
                 top: auto;
                 bottom: auto;

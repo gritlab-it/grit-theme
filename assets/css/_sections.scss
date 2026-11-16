@@ -16,6 +16,7 @@
 // 15 | Maps: canvas heights, location list and information windows
 // 16 | reCAPTCHA badge visibility.
 // 17 | Complianz documents: width and inherited body typography.
+// 18 | Rounded section edges with matching overlap.
 // Settings: _variables.scss. Owl controls: _plugins.scss. Shortcodes: _shortcodes.scss.
 
 @use "./variables" as *;
@@ -1155,4 +1156,26 @@ section.section-bars {
         font-size: inherit;
         line-height: inherit;
     }
+}
+
+// * GRIT_SET 18 | Match each edge overlap to the fluid radius; padding remains independent.
+.section-border-radius-top,
+.section-border-radius-bottom,
+.section-border-radius-y {
+    position: relative;
+    z-index: 6;
+}
+
+.section-border-radius-top,
+.section-border-radius-y {
+    border-top-left-radius: $border-radius-base;
+    border-top-right-radius: $border-radius-base;
+    margin-top: calc(-1 * #{$border-radius-base});
+}
+
+.section-border-radius-bottom,
+.section-border-radius-y {
+    border-bottom-left-radius: $border-radius-base;
+    border-bottom-right-radius: $border-radius-base;
+    margin-bottom: calc(-1 * #{$border-radius-base});
 }

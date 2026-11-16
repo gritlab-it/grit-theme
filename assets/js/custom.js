@@ -436,6 +436,10 @@ $(function () {
             var $carousel = $(this);
             if ($carousel.data('owl.carousel')) return;
             var $section = $carousel.closest('section');
+            // Owl clones are not observed by the entrance animation observer.
+            $carousel.on('initialized.owl.carousel refreshed.owl.carousel', function () {
+                $carousel.find('.owl-item.cloned .in__animate').removeClass('hidden');
+            });
             $carousel.owlCarousel(optionsFor($carousel, $section));
         });
     });

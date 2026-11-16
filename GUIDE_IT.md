@@ -30,6 +30,7 @@ I percorsi della tabella sono relativi al tema parent; quelli indicati come **ch
 - [Struttura dei file](#struttura-dei-file)
 - [Plugin e librerie](#plugin-e-librerie)
 - [Campi comuni e colonne](#campi-comuni-e-colonne)
+- [Arrotondamenti e sovrapposizione delle section](#arrotondamenti-e-sovrapposizione-delle-section)
 - [Section Page e contenuti riutilizzabili](#section-page-e-contenuti-riutilizzabili)
 - [Section Text](#section-text)
 - [Section Gallery](#section-gallery)
@@ -52,6 +53,7 @@ I percorsi della tabella sono relativi al tema parent; quelli indicati come **ch
 - [SEO consenso servizi esterni e integrazioni](#seo-consenso-servizi-esterni-e-integrazioni)
 - [Aggiornamenti controlli e risoluzione problemi](#aggiornamenti-controlli-e-risoluzione-problemi)
 - [Licenze](#licenze)
+- [Traduzioni dell’interfaccia](#traduzioni-dellinterfaccia)
 
 ## Metodo di lavoro
 
@@ -229,6 +231,16 @@ Una classe `col` o `col-*` in Inner Class sostituisce le colonne automatiche. Ne
 
 Breakpoint di riferimento: base 0, sm 576, md 768, lg 992, xl 1200, xxl 1400 px. Bootstrap 4 non fornisce automaticamente tutte le utility xxl: usare xxl soltanto nei sistemi del tema che lo supportano esplicitamente, come caroselli e gallery.
 
+## Arrotondamenti e sovrapposizione delle section
+
+Usa una classe di arrotondamento sulla section con colore di fondo:
+
+- `section-border-radius-top`: angoli superiori e margine superiore negativo sulla section precedente.
+- `section-border-radius-bottom`: angoli inferiori e margine inferiore negativo che porta la section successiva sotto gli angoli.
+- `section-border-radius-y`: tutti e quattro gli angoli ed entrambi i margini negativi.
+
+Raggio e sovrapposizione usano `$border-radius-base`. Le utility di spaziatura restano indipendenti, per esempio `section-border-radius-y py-9`. Le section adiacenti devono avere padding sufficiente per non coprire i contenuti. Non aggiungere altri margini negativi e non applicare insieme bottom e top alla stessa giunzione.
+
 ## Section Page e contenuti riutilizzabili
 
 Section Page richiama le section di una pagina sorgente. È adatta a CTA, contatti e gruppi condivisi da mantenere in un solo punto.
@@ -247,6 +259,9 @@ Gli ID vengono ricostruiti nel contesto della destinazione: `section_id_2-1` ind
 Il rendering condiviso è in `templates/partials/sections.twig`, richiamato dai template principali nei punti pre/post content. La disponibilità delle section dipende dall’oggetto ACF caricato dal relativo controller: non presumere che una vista autore abbia una pagina associata.
 
 ## Section Text
+
+I caroselli di testo mantengono il padding laterale delle colonne Bootstrap quando **Contained** è attivo, anche su mobile. Con **Contained** disattivato, la colonna del carosello usa `p-0` per estendere il contenuto fino ai bordi.
+
 
 La sezione usa il repeater ACF chapters (immagine, titolo, sottotitolo, WYSIWYG, due link, inner_class).
 

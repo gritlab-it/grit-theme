@@ -28,6 +28,7 @@ Compile `assets/css/main.scss` to `assets/css/main.css` after editing SCSS. The 
 - [File structure](#file-structure)
 - [Plugins and libraries](#plugins-and-libraries)
 - [Common fields and columns](#common-fields-and-columns)
+- [Rounded section edges and overlap](#rounded-section-edges-and-overlap)
 - [Section Page and reusable content](#section-page-and-reusable-content)
 - [Section Text](#section-text)
 - [Section Gallery](#section-gallery)
@@ -50,6 +51,7 @@ Compile `assets/css/main.scss` to `assets/css/main.css` after editing SCSS. The 
 - [SEO, consent, and integrations](#seo-consent-and-integrations)
 - [Updates and troubleshooting](#updates-and-troubleshooting)
 - [Licenses](#licenses)
+- [Interface translations](#interface-translations)
 
 ## Workflow
 
@@ -197,6 +199,16 @@ Explicit `col` or `col-*` tokens replace automatic widths. Owl removes column to
 
 Breakpoints are base 0, sm 576, md 768, lg 992, xl 1200, and xxl 1400 px. Use xxl where the theme implements it, such as Owl and Gallery settings. Standard Bootstrap 4 utilities have their own breakpoint coverage.
 
+## Rounded section edges and overlap
+
+Use one rounded-edge class on a section with a background color:
+
+- `section-border-radius-top`: upper corners and negative top margin over the previous section.
+- `section-border-radius-bottom`: lower corners and negative bottom margin bringing the next section underneath.
+- `section-border-radius-y`: all four corners and both negative margins.
+
+Radius and overlap share `$border-radius-base`. Keep spacing utilities independent, for example `section-border-radius-y py-9`. Adjacent sections need sufficient padding to avoid covering their content. Do not add another negative margin or apply both bottom and top overlap to the same junction.
+
 ## Section Page and reusable content
 
 Create a source page with sections for shared calls to action, contact details, or other content. Add Section Page to each destination and select the source. Editing the source updates its references.
@@ -210,6 +222,9 @@ IDs derive from the destination row and source item. `section_id_2-1` identifies
 The renderer is `templates/partials/sections.twig`. The main templates call it before and after content. Available sections depend on the ACF object loaded by the controller.
 
 ## Section Text
+
+Text carousels preserve Bootstrap column gutters when **Contained** is enabled, including on mobile. With **Contained** disabled, the carousel column uses `p-0` for edge-to-edge content.
+
 
 The ACF Chapters repeater includes an image, title, subtitle, WYSIWYG content, two links, and Inner Class.
 

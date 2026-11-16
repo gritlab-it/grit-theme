@@ -30,7 +30,7 @@
 <div class="container-fluid{% if not is_carousel %} img-hover-inner{% endif %}">
     {% if is_carousel %}
         <div class="row">
-            <div class="col p-0">
+            <div class="col{% if not section.contained|default(false) %} p-0{% endif %}">
                 <div class="owl-carousel owl-theme">
     {% elseif is_masonry %}
         <div class="masonry-grid js-grit-masonry row">
