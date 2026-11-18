@@ -201,6 +201,10 @@ Breakpoints are base 0, sm 576, md 768, lg 992, xl 1200, and xxl 1400 px. Use xx
 
 ## Rounded section edges and overlap
 
+Use `custom-border-radius-top` on any element to round only its upper corners with `$border-radius-base`. It does not change the lower corners, margin, padding, position, offsets, or z-index. For example: `<div class="custom-border-radius-top bg-primary p-4">...</div>`. In sections, enter it in the Class field.
+
+The existing `section-border-radius-*` classes retain their overlap behavior for compatibility.
+
 Use one rounded-edge class on a section with a background color:
 
 - `section-border-radius-top`: upper corners and negative top margin over the previous section.

@@ -2278,7 +2278,7 @@ a:hover {
   line-height: 1;
   position: relative;
   font-weight: 900;
-  text-transform: uppercase;
+  text-transform: inherit;
   transition: all 0.5s ease-in-out;
 }
 .btn.btn-circle {
@@ -5335,7 +5335,7 @@ section.section-bars.bg-primary .bar {
 .section-border-radius-bottom,
 .section-border-radius-y {
   position: relative;
-  z-index: 4;
+  z-index: 6;
 }
 
 .section-border-radius-top,
@@ -5350,6 +5350,18 @@ section.section-bars.bg-primary .bar {
   border-bottom-left-radius: 2.5vw;
   border-bottom-right-radius: 2.5vw;
   margin-bottom: calc(-1 * 2.5vw);
+}
+
+.custom-border-radius-top,
+.custom-border-radius-y {
+  border-top-left-radius: 2.5vw;
+  border-top-right-radius: 2.5vw;
+}
+
+.custom-border-radius-bottom,
+.custom-border-radius-y {
+  border-bottom-left-radius: 2.5vw;
+  border-bottom-right-radius: 2.5vw;
 }
 
 :root {
@@ -5751,7 +5763,7 @@ section .owl-carousel * {
 section.carousel-nav-top-left,
 section.owl-nav-top-left {
   position: relative;
-  z-index: 5;
+  z-index: 6;
 }
 section.carousel-nav-top-left .owl-carousel .owl-nav,
 section.owl-nav-top-left .owl-carousel .owl-nav {
@@ -5777,7 +5789,7 @@ section.owl-nav-top-left .owl-carousel .owl-nav button.owl-next {
 section.carousel-nav-top-right,
 section.owl-nav-top-right {
   position: relative;
-  z-index: 5;
+  z-index: 6;
 }
 section.carousel-nav-top-right .owl-carousel .owl-nav,
 section.owl-nav-top-right .owl-carousel .owl-nav {
@@ -5803,7 +5815,7 @@ section.owl-nav-top-right .owl-carousel .owl-nav button.owl-next {
 section.carousel-nav-bottom-left,
 section.owl-nav-bottom-left {
   position: relative;
-  z-index: 5;
+  z-index: 6;
 }
 section.carousel-nav-bottom-left .owl-carousel .owl-nav,
 section.owl-nav-bottom-left .owl-carousel .owl-nav {
@@ -5829,7 +5841,7 @@ section.owl-nav-bottom-left .owl-carousel .owl-nav button.owl-next {
 section.carousel-nav-bottom-right,
 section.owl-nav-bottom-right {
   position: relative;
-  z-index: 5;
+  z-index: 6;
 }
 section.carousel-nav-bottom-right .owl-carousel .owl-nav,
 section.owl-nav-bottom-right .owl-carousel .owl-nav {

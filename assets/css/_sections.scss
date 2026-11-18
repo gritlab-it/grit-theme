@@ -1179,3 +1179,19 @@ section.section-bars {
     border-bottom-right-radius: $border-radius-base;
     margin-bottom: calc(-1 * #{$border-radius-base});
 }
+
+
+ 
+
+.custom-border-radius-top,
+.custom-border-radius-y {
+    border-top-left-radius: $border-radius-base;
+    border-top-right-radius: $border-radius-base;
+ 
+}
+
+.custom-border-radius-bottom,
+.custom-border-radius-y {
+    border-bottom-left-radius: $border-radius-base;
+    border-bottom-right-radius: $border-radius-base; 
+}

@@ -120,7 +120,7 @@ a:hover {
     line-height: 1;
     position: relative;
     font-weight: 900;
-    text-transform: uppercase;
+    text-transform: inherit;
     @include transition(all $transition-base);
     &.btn-circle {
         width: 40px;

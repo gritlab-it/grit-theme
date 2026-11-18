@@ -233,6 +233,10 @@ Breakpoint di riferimento: base 0, sm 576, md 768, lg 992, xl 1200, xxl 1400 px.
 
 ## Arrotondamenti e sovrapposizione delle section
 
+Usa `custom-border-radius-top` su qualsiasi elemento per arrotondare soltanto gli angoli superiori con `$border-radius-base`. Non modifica angoli inferiori, margin, padding, position, offset o z-index. Esempio: `<div class="custom-border-radius-top bg-primary p-4">...</div>`. Nelle section inseriscila nel campo Class.
+
+Le classi esistenti `section-border-radius-*` mantengono il comportamento di sovrapposizione per retrocompatibilità.
+
 Usa una classe di arrotondamento sulla section con colore di fondo:
 
 - `section-border-radius-top`: angoli superiori e margine superiore negativo sulla section precedente.
