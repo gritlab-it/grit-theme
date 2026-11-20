@@ -476,7 +476,7 @@ msgstr ""
 msgid "Location %d"
 msgstr ""
 
-#: templates/sections/section_maps.twig:29
+#: templates/partials/blocks/maps.twig:29
 msgid "Locations map"
 msgstr ""
 
@@ -545,7 +545,7 @@ msgstr ""
 msgid "No results found for: %s"
 msgstr ""
 
-#: templates/sections/section_collapse.twig:29
+#: templates/partials/blocks/collapse.twig:29
 msgid "No results found."
 msgstr ""
 
@@ -630,7 +630,7 @@ msgstr ""
 msgid "Related content:"
 msgstr ""
 
-#: templates/sections/section_collapse.twig:30
+#: templates/partials/blocks/collapse.twig:30
 msgid "Results pagination"
 msgstr ""
 
@@ -651,7 +651,7 @@ msgstr ""
 msgid "Search results for: %s"
 msgstr ""
 
-#: templates/sections/section_collapse.twig:16 templates/sections/section_collapse.twig:17
+#: templates/partials/blocks/collapse.twig:16 templates/partials/blocks/collapse.twig:17
 msgid "Search..."
 msgstr ""
 
@@ -818,4 +818,464 @@ msgstr ""
 
 #: templates/archive.twig:44
 msgid "to"
+msgstr ""
+
+msgid "Column classes, e.g. col-12 col-md-8. For two or more Text blocks in a text-only column, use text-carousel or text-masonry."
+msgstr ""
+
+msgid "Choose a URL, label and target for the optional button. A URL is required to display it."
+msgstr ""
+
+msgid "Optional second button with its own colour."
+msgstr ""
+
+msgid "Align the text horizontally. Column position is set separately."
+msgstr ""
+
+msgid "Select and reorder images. Add alternative text in the Media Library."
+msgstr ""
+
+msgid "Use col-12 col-md-6 for item widths or mb-4 for spacing."
+msgstr ""
+
+msgid "Posts displays post cards. Terms lists taxonomy terms with links to their archives."
+msgstr ""
+
+msgid "Select the public post type for this independent query."
+msgstr ""
+
+msgid "Maximum 100 items. Leave empty to use the WordPress Reading setting. Results have no numbered pagination."
+msgstr ""
+
+msgid "Exclude the page or single post currently displayed."
+msgstr ""
+
+msgid "For posts, select the taxonomy to filter by slug. For terms, select the taxonomy to list."
+msgstr ""
+
+msgid "Enter comma-separated term slugs to match any listed term, or leave empty for all. Find slugs in the term editor."
+msgstr ""
+
+msgid "Use the standard WordPress term count across associated post types."
+msgstr ""
+
+msgid "For hierarchical taxonomies, enter the parent slug to list its direct children. This overrides the top-level setting. Unknown slugs return no results."
+msgstr ""
+
+msgid "List parentless terms. Applies to hierarchical taxonomies when the parent field is empty."
+msgstr ""
+
+msgid "Enter the template name without tease- or .twig, e.g. card, compact, editorial, horizontal, overlay, post, section, text, title or vertical. Leave empty for the post type template or default card."
+msgstr ""
+
+msgid "Show up to 35 words from the term description."
+msgstr ""
+
+msgid "Show the WordPress term count across associated post types."
+msgstr ""
+
+msgid "Add one row per location. Rows require valid coordinates. Multiple locations fit automatically unless a centre is set."
+msgstr ""
+
+msgid "Location name for the list and marker. Leave empty to use a numbered title."
+msgstr ""
+
+msgid "Shown in the list and marker. Directions use the pin coordinates."
+msgstr ""
+
+msgid "Search for an address and check the pin. Zero is a valid coordinate."
+msgstr ""
+
+msgid "Swap text and images from tablet width. Text comes first on small screens."
+msgstr ""
+
+msgid "Decorative section background. Add parallax to the Section classes for a scrolling effect."
+msgstr ""
+
+msgid "Limit the inner container width. Disable for a full-width section."
+msgstr ""
+
+msgid "Show the section before the WordPress content. Disable to show it afterwards."
+msgstr ""
+
+msgid "Enter section classes separated by spaces, without dots. See Guide for column and block examples."
+msgstr ""
+
+msgid "Select a source page. Drafts are supported. Read Guide before publishing."
+msgstr ""
+
+msgid "Guide"
+msgstr ""
+
+msgid "How to use this layout"
+msgstr ""
+
+msgid "In Block classes, text-image-after places the image after the text. Use parallax or parallax-gsap on a static image. To group several texts, set text-carousel or text-masonry on their column."
+msgstr ""
+
+msgid "For several images, enter gallery_carousel carousel-items-2 in Block classes to show two at a time. For a single image, try parallax-gsap."
+msgstr ""
+
+msgid "In Block classes, use section_collapse_search for search or section_collapse_dynamic for group tabs. Leave empty for the standard accordion."
+msgstr ""
+
+msgid "In Block classes, choose archive-masonry for staggered cards or archive-carousel carousel-items-2 for a two-card carousel. Use Card classes for card widths in a grid. Set the outer width on the column."
+msgstr ""
+
+msgid "Add a pin for each location. Set the map width on the column, e.g. col-12 col-md-8. For an introduction, add a Text block before Maps."
+msgstr ""
+
+msgid "Use a full-width column. In Block classes, try slides-height-small or slides-height-medium, slides-content-center and slides-overlay. Use parallax with a single slide."
+msgstr ""
+
+msgid "Use a full-width column. One image stays static and supports parallax in Block classes. Multiple images start a carousel automatically. Use Reverse order to swap text and images from tablet width."
+msgstr ""
+
+msgid "Use Section classes for spacing (py-5) or a background image effect (parallax). In Column → Column classes, col-12 col-md-6 sets the width. With at least two Text blocks and no other block types, text-carousel scrolls them and text-masonry arranges them in a grid."
+msgstr ""
+
+msgid "Reuse the source sections one level deep. Draft content can appear on a published destination. Password protection and each source section’s position before or after WordPress content still apply. Nested page references are skipped."
+msgstr ""
+
+msgid "Inherit from Section"
+msgstr ""
+
+msgid "Leave empty to inherit the section style."
+msgstr ""
+
+#, php-format
+msgid "Enter the template name without tease- or .twig. Available templates: %s. Leave empty to use the post type template or the default card."
+msgstr ""
+
+msgid "Sections"
+msgstr ""
+
+msgid "Section"
+msgstr ""
+
+msgid "Section Page"
+msgstr ""
+
+msgid "Columns"
+msgstr ""
+
+msgid "Blocks"
+msgstr ""
+
+msgid "Content"
+msgstr ""
+
+msgid "Background"
+msgstr ""
+
+msgid "Background image"
+msgstr ""
+
+msgid "Background colour"
+msgstr ""
+
+msgid "Text colour"
+msgstr ""
+
+msgid "Alignment"
+msgstr ""
+
+msgid "Column classes"
+msgstr ""
+
+msgid "Card classes"
+msgstr ""
+
+msgid "Group classes"
+msgstr ""
+
+msgid "Block classes"
+msgstr ""
+
+msgid "Section classes"
+msgstr ""
+
+msgid "Group title"
+msgstr ""
+
+msgid "Group colour"
+msgstr ""
+
+msgid "Button 1 colour"
+msgstr ""
+
+msgid "Button 2 colour"
+msgstr ""
+
+msgid "Button 1"
+msgstr ""
+
+msgid "Button 2"
+msgstr ""
+
+msgid "Text"
+msgstr ""
+
+msgid "Title"
+msgstr ""
+
+msgid "Subtitle"
+msgstr ""
+
+msgid "Image"
+msgstr ""
+
+msgid "Gallery"
+msgstr ""
+
+msgid "Collapse"
+msgstr ""
+
+msgid "Archive"
+msgstr ""
+
+msgid "Maps"
+msgstr ""
+
+msgid "Cube"
+msgstr ""
+
+msgid "Slides"
+msgstr ""
+
+msgid "Groups"
+msgstr ""
+
+msgid "Lists"
+msgstr ""
+
+msgid "Item"
+msgstr ""
+
+msgid "Contained"
+msgstr ""
+
+msgid "Before page content"
+msgstr ""
+
+msgid "Reverse order"
+msgstr ""
+
+msgid "Icon"
+msgstr ""
+
+msgid "Page"
+msgstr ""
+
+msgid "Size"
+msgstr ""
+
+msgid "Images"
+msgstr ""
+
+msgid "Filters"
+msgstr ""
+
+msgid "Direction"
+msgstr ""
+
+msgid "Exclude current content"
+msgstr ""
+
+msgid "Address or description"
+msgstr ""
+
+msgid "Show"
+msgstr ""
+
+msgid "Show WordPress count"
+msgstr ""
+
+msgid "Show description"
+msgstr ""
+
+msgid "Hide empty terms"
+msgstr ""
+
+msgid "Order by"
+msgstr ""
+
+msgid "Order terms by"
+msgstr ""
+
+msgid "Location pin"
+msgstr ""
+
+msgid "Post type"
+msgstr ""
+
+msgid "Number of items"
+msgstr ""
+
+msgid "Locations"
+msgstr ""
+
+msgid "Map locations"
+msgstr ""
+
+msgid "Term slugs"
+msgstr ""
+
+msgid "Parent term slug"
+msgstr ""
+
+msgid "Top level only"
+msgstr ""
+
+msgid "Taxonomy"
+msgstr ""
+
+msgid "Card template"
+msgstr ""
+
+msgid "Location title"
+msgstr ""
+
+msgid "Posts"
+msgstr ""
+
+msgid "Categories (category)"
+msgstr ""
+
+msgid "Content items"
+msgstr ""
+
+msgid "Ascending"
+msgstr ""
+
+msgid "Date"
+msgstr ""
+
+msgid "Descending"
+msgstr ""
+
+msgid "Post formats (post_format)"
+msgstr ""
+
+msgid "WordPress term count"
+msgstr ""
+
+msgid "Menu order (menu_order)"
+msgstr ""
+
+msgid "Pages"
+msgstr ""
+
+msgid "Tags (post_tag)"
+msgstr ""
+
+msgid "Terms (categories, tags, taxonomies)"
+msgstr ""
+
+msgid "Full size"
+msgstr ""
+
+msgid "Large"
+msgstr ""
+
+msgid "Medium"
+msgstr ""
+
+msgid "Thumbnail"
+msgstr ""
+
+msgid "Add slide"
+msgstr ""
+
+msgid "Add question"
+msgstr ""
+
+msgid "Add block"
+msgstr ""
+
+msgid "Add column"
+msgstr ""
+
+msgid "Add row"
+msgstr ""
+
+msgid "Add section"
+msgstr ""
+
+msgid "WordPress Reading setting"
+msgstr ""
+
+msgid "news,events"
+msgstr ""
+
+msgid "Query"
+msgstr ""
+
+msgid "Media"
+msgstr ""
+
+msgid "Layout"
+msgstr ""
+
+msgid "Slide"
+msgstr ""
+
+msgid "dark"
+msgstr ""
+
+msgid "light"
+msgstr ""
+
+msgid "accent"
+msgstr ""
+
+msgid "primary"
+msgstr ""
+
+msgid "secondary"
+msgstr ""
+
+msgid "tertiary"
+msgstr ""
+
+msgid "quaternary"
+msgstr ""
+
+msgid "quinary"
+msgstr ""
+
+msgid "senary"
+msgstr ""
+
+msgid "septenary"
+msgstr ""
+
+msgid "octonary"
+msgstr ""
+
+msgid "nonary"
+msgstr ""
+
+msgid "denary"
+msgstr ""
+
+msgid "grey"
+msgstr ""
+
+msgid "white"
+msgstr ""
+
+msgid "black"
+msgstr ""
+
+msgid "left"
+msgstr ""
+
+msgid "center"
+msgstr ""
+
+msgid "right"
+msgstr ""
+
+msgid "justify"
 msgstr ""

@@ -1,15 +1,7 @@
-{#
- * GRIT_SET gallery_carousel
- * Legend
- * 01 | gallery_carousel
- * 02 | section_gallery
- * 03 | single_image
- #}
-
-
- 
- 
- 
+{# GRIT_SET | Gallery block
+   01 Multiple images in Owl
+   02 WordPress gallery grid
+   03 Single image and optional parallax #}
 {% if section.gallery|length > 1 %}  
     {% if 'gallery_carousel' in section.class|default('')|split(' ') %} 
         {# * GRIT_SET 01 | gallery_carousel #} 
@@ -35,14 +27,12 @@
 
         
     {% else %}
-    {# * GRIT_SET 02 | section_gallery #} 
+    {# * GRIT_SET 02 | WordPress gallery grid #}
     {% set image_ids = section.gallery | map(image => image.id) | join(',') %}
     <div class="container-fluid ">
         <div class="row">
             <div class="col-12">
-                <div class="section_gallery">
-                    {{ function('do_shortcode', '[gallery ids="' ~ image_ids ~ '" columns="'~ section.columns ~'" size="' ~ section.size ~ '" link="file" ]') }}
-                </div>
+                {{ function('do_shortcode', '[gallery ids="' ~ image_ids ~ '" columns="'~ section.columns ~'" size="' ~ section.size ~ '" link="file" ]') }}
             </div>
         </div>
     </div>

@@ -5,7 +5,7 @@
     <div class="inner-img in__animate{% if is_carousel %} pb-3{% endif %}" data-animation="animate__fadeIn animate__slow">
         {% if gsap_image %}<div class="gsap-parallax-container"{% if item.image.width and item.image.height %} style="aspect-ratio: {{ item.image.width }}/{{ item.image.height }}"{% endif %}>
         {% elseif jarallax_image %}<div class="jarallax-keep-img overlay-in" data-speed="0.8">{% endif %}
-        {{ function('grit_text_chapter_image', item.image.id|default(item.image.ID), gsap_image ? 'img-fluid gsap-parallaxImage' : (jarallax_image ? 'img-fluid jarallax-img' : 'img-fluid'), is_carousel, section.class|default('')) }}
+        {{ function('grit_text_chapter_image', item.image.id|default(item.image.ID), gsap_image ? 'img-fluid gsap-parallaxImage' : (jarallax_image ? 'img-fluid jarallax-img' : 'img-fluid'), is_carousel, carousel_class|default(section.class|default(''))) }}
         {% if gsap_image or jarallax_image %}</div>{% endif %}
     </div>
 {% endif %}

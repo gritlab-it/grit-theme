@@ -7,7 +7,7 @@
 // 03 | Read agency branding configuration
 // 04 | Login logo and background branding
 // 05 | Admin, toolbar and login fonts
-// 06 | ACF Flexible Content layout titles
+// 06 | Live Section and Block class summaries
 
 // * GRIT_SET 01 | Admin stylesheet loading
 
@@ -126,7 +126,7 @@ function custom_admin_open_sans_font_login_page()
 add_action('login_head', 'custom_admin_open_sans_font_login_page');
 
 // ACF Flexible Titles
-// * GRIT_SET 06 | ACF Flexible Content layout titles
+// * GRIT_SET 06 | Live Section and Block class summaries
 function custom_acf_flexible_titles() {
     if (!class_exists('ACF')) {
         return;
@@ -135,50 +135,39 @@ function custom_acf_flexible_titles() {
     ?>
     <script>
     jQuery(function ($) {
-        // * GRIT_SET 01 | Keep ACF's native title, order badge and controls untouched.
-        function updateLayoutTitles() {
-            $('.acf-flexible-content .layout').not('.acf-clone').each(function () {
-                var layout = this;
-                // ACF Extended wraps the handle in .acf-fc-layout-actions-wrap.
-                var $handle = $(layout).find('.acf-fc-layout-handle').filter(function () {
-                    return $(this).closest('.layout')[0] === layout;
-                }).first();
-                if (!$handle.length) return;
+        var fieldSelector = '.acf-field[data-name="class"] input[type="text"]';
 
-                // Read this layout's Class field, never a nested layout's field.
-                var $field = $(layout).find('.acf-field[data-name="class"]').filter(function () {
-                    return $(this).closest('.layout')[0] === layout;
-                }).first();
-                var classes = String($field.find('input[type="text"]').first().val() || '')
-                    .trim().split(/\s+/).filter(Boolean);
-                var value = classes.join(' ');
-                var $summary = $handle.children('.grit-layout-classes');
+        function updateTitle(input) {
+            var $layout = $(input).closest('.layout[data-layout]');
+            if (!$layout.length || $layout.closest('.acf-clone').length) return;
+            var owner = $layout.closest('.acf-field-flexible-content').attr('data-name');
+            if (owner !== 'sections' && owner !== 'blocks') return;
 
-                if (!value) {
-                    $summary.remove();
-                    return;
-                }
-                if ($summary.attr('data-classes') === value) return;
-                if (!$summary.length) {
-                    $summary = $('<span>', { class: 'grit-layout-classes' }).appendTo($handle);
-                }
-                // Text nodes prevent class values from becoming executable HTML.
-                $summary.empty().attr({ 'data-classes': value, title: value });
-                $summary.append(document.createTextNode(' — '));
-                $('<strong>').text(classes[0]).appendTo($summary);
-                if (classes.length > 1) {
-                    $summary.append(document.createTextNode(' ' + classes.slice(1).join(' ')));
-                }
-            });
+            // Keep the summary beside the native title so ACF can still rename it.
+            var $handle = $layout.children('.acf-fc-layout-actions-wrap').children('.acf-fc-layout-handle')
+                .add($layout.children('.acf-fc-layout-handle')).first();
+            var $summary = $handle.children('.grit-layout-classes');
+            var value = input.value.trim().replace(/\s+/g, ' ');
+            if (!value) {
+                $summary.remove();
+                return;
+            }
+            if (!$summary.length) {
+                $summary = $('<span class="grit-layout-classes">');
+                var $title = $handle.children('.acf-fc-layout-title');
+                if ($title.length) $summary.insertAfter($title);
+                else $summary.appendTo($handle);
+            }
+            $summary.text(' · ' + value);
         }
 
-        // * GRIT_SET 02 | Refresh live edits and native ACF lifecycle changes.
-        updateLayoutTitles();
-        $(document).on('input change', '.acf-field[data-name="class"] input[type="text"]', updateLayoutTitles);
-        if (window.acf && typeof window.acf.addAction === 'function') {
-            ['ready', 'append', 'sortstop', 'show'].forEach(function (action) {
-                window.acf.addAction(action, updateLayoutTitles);
-            });
+        function refresh($scope) {
+            $($scope || document).find(fieldSelector).each(function () { updateTitle(this); });
+        }
+        refresh();
+        $(document).on('input change', fieldSelector, function () { updateTitle(this); });
+        if (window.acf && window.acf.addAction) {
+            ['append', 'show'].forEach(function (action) { window.acf.addAction(action, refresh); });
         }
     });
     </script>

@@ -26,12 +26,15 @@
 //
 // Queries and template data
 // 14 | Archive post types and card choices
-// 15 | Section Archive: field options, posts, terms and excerpts
+// 15 | Archive block: field options, posts, terms and excerpts
 // 16 | Native taxonomy archive queries
 // 17 | Controller helpers: ACF fields, content and pagination
-// 18 | Section Maps: coordinates, styles and locations
+// 18 | Maps block: coordinates, styles and locations
 // 19 | Policy pages and public URLs
 // 20 | Native comment form validation
+// 21 | Inherited block style fields
+// 22 | Visible columns and prepared block data
+// 23 | Localized ACF editor fields
 
 // * GRIT_SET 00 | Admin bar visibility
 if (get_theme_mod('grit_adv_adminbar', true)) {
@@ -213,7 +216,7 @@ function remove_dashboard_widgets()
 add_action('wp_dashboard_setup', 'remove_dashboard_widgets' );
 
 // * GRIT_SET 05 | Responsive images for Text and Gallery
-// Used by partials/text-chapter.twig and sections/section_gallery.twig; layout styles remain in SCSS.
+// Used by partials/text-chapter.twig and partials/blocks/gallery.twig; layout styles remain in SCSS.
 
 // Build the HTML sizes attribute from carousel classes. This helps image selection; it does not initialize Owl.
 function grit_carousel_image_sizes($section_classes, $defaults) {
@@ -603,18 +606,18 @@ function grit_archive_tease_choices() {
     }
     return $choices;
 }
-// * GRIT_SET 15 | Section Archive: field options, posts, terms and excerpts
-// Entry point: sections/section.twig; rendering: sections/section_archive.twig and partials/tease-*.twig.
+// * GRIT_SET 15 | Archive block: field options, posts, terms and excerpts
+// Prepared once per visible occurrence by grit_section_columns(); rendering: partials/blocks/archive.twig and partials/tease-*.twig.
 
 // * GRIT_SET 15.1 | ACF selector options
-// Update only post_type, tease and taxonomy fields inside section_archive; identically named fields elsewhere are unchanged.
+// Populate selectors only for fields owned by the Archive layout.
 function grit_archive_admin_field($field) {
-    $parent = acf_get_raw_field($field['parent'] ?? 0);
+    $parent = acf_get_local_field($field['parent'] ?? '') ?: acf_get_raw_field($field['parent'] ?? 0);
     $is_archive = false;
     foreach ($parent['layouts'] ?? [] as $layout) {
         // ACF supplies the current parent/layout keys; none are hard-coded in this theme.
         $is_current_layout = ($layout['key'] ?? '') === ($field['parent_layout'] ?? '');
-        $is_archive_layout = $layout['name'] === 'section_archive';
+        $is_archive_layout = in_array($layout['name'], ['archive', 'section_archive'], true);
         if ($is_current_layout && $is_archive_layout) {
             $is_archive = true;
             break;
@@ -627,9 +630,7 @@ function grit_archive_admin_field($field) {
     if ($field['name'] === 'post_type') {
         $field['choices'] = grit_archive_public_types();
     } elseif ($field['name'] === 'tease') {
-        $field['instructions'] = 'Scrivi il nome senza tease- e senza .twig. Disponibili: ' .
-            implode(', ', array_keys(grit_archive_tease_choices())) .
-            '. Consigliati: card, vertical, horizontal, compact, text, title, editorial, overlay. Vuoto: template del post type, se disponibile, altrimenti card standard.';
+        $field['grit_tease_help'] = true;
     } elseif ($field['name'] === 'taxonomy') {
         $field['choices'] = [];
         foreach (get_taxonomies(['public' => true], 'objects') as $taxonomy) {
@@ -643,7 +644,7 @@ foreach (['post_type', 'tease', 'taxonomy'] as $grit_archive_field_name) {
 }
 unset($grit_archive_field_name);
 
-// * GRIT_SET 15.2 | Posts for Section Archive
+// * GRIT_SET 15.2 | Posts for Archive block
 // Prepare an independent Section Archive query. Invalid filters return an empty result instead of unrelated posts.
 function grit_archive_section_data($section) {
     if (($section['archive_mode'] ?? 'posts') === 'terms') {
@@ -698,7 +699,7 @@ function grit_archive_section_data($section) {
     return ['posts' => new Timber\PostQuery($args), 'tease' => $tease];
 }
 
-// * GRIT_SET 15.3 | Taxonomy terms for Section Archive
+// * GRIT_SET 15.3 | Taxonomy terms for Archive block
 function grit_archive_terms_data($section) {
     $empty = ['posts' => [], 'terms' => [], 'mode' => 'terms', 'tease' => ''];
     $taxonomy = sanitize_key($section['taxonomy'] ?? '');
@@ -905,8 +906,8 @@ function grit_template_query($context, $query) {
     return $context;
 }
 
-// * GRIT_SET 18 | Section Maps: coordinates, styles and locations
-// Data: sections/section.twig. Markup: sections/section_maps.twig. Behavior: assets/js/maps.js.
+// * GRIT_SET 18 | Maps block: coordinates, styles and locations
+// Data: grit_section_columns(). Markup: partials/blocks/maps.twig. Behavior: assets/js/maps.js.
 // Zero is a valid latitude/longitude. Empty, nonnumeric and out-of-range values are rejected.
 function grit_maps_coordinates($value) {
     if (!is_array($value) || !isset($value['lat'], $value['lng'])) {
@@ -1026,3 +1027,105 @@ function grit_validate_comment_form($post_id) {
 
 }
 add_action('pre_comment_on_post', 'grit_validate_comment_form');
+
+// * GRIT_SET 21 | Keep the shared palette while allowing a block to inherit its section settings.
+add_filter('acf/clone_field', function ($field, $clone) {
+    if (!empty($clone['grit_editor'])) {
+        $field['grit_editor'] = true;
+        $field['label'] = $clone['label'];
+        $field['instructions'] = $clone['instructions'] ?? '';
+    }
+    if (strpos($clone['key'], 'field_grit_style_') === 0) {
+        $field['allow_null'] = 1;
+        $field['default_value'] = '';
+        $field['placeholder'] = 'Inherit from Section';
+        $field['instructions'] = 'Leave empty to inherit the section style.';
+    }
+    return $field;
+}, 20, 2);
+
+// * GRIT_SET 22 | Prepare each component after resolving its occurrence and content position.
+function grit_section_columns($section) {
+    $columns = [];
+    foreach (($section['columns'] ?? []) ?: [] as $column) {
+        $visible = [];
+        foreach (($column['blocks'] ?? []) ?: [] as $block) {
+            switch ($block['acf_fc_layout']) {
+                case 'archive':
+                    $block['archive_data'] = grit_archive_section_data($block);
+                    $show = !empty($block['archive_data']['posts']) || !empty($block['archive_data']['terms']);
+                    break;
+                case 'maps':
+                    $block['maps_data'] = grit_maps_section_data($block);
+                    $show = !empty($block['maps_data']['locations']);
+                    break;
+                case 'text':
+                case 'cube':
+                    $show = false;
+                    foreach (['title', 'subtitle', 'text', 'image', 'link_1', 'link_2', 'lists', 'gallery'] as $key) {
+                        $value = $block[$key] ?? null;
+                        // A literal zero is valid text; empty media and link fields are not content.
+                        if (!in_array($value, [null, false, '', []], true)) {
+                            $show = true;
+                            break;
+                        }
+                    }
+                    break;
+                case 'collapse':
+                    $show = !empty($block['lists']);
+                    break;
+                case 'gallery':
+                    $show = !empty($block['gallery']);
+                    break;
+                case 'slides':
+                    $show = !empty($block['slides']);
+                    break;
+                default:
+                    $show = false;
+            }
+            if ($show) {
+                $visible[] = $block;
+            }
+        }
+        if ($visible) {
+            $column['blocks'] = $visible;
+            $columns[] = $column;
+        }
+    }
+    return $columns;
+}
+
+// * GRIT_SET 23 | Translate editor labels and help in the current user's locale, leaving stored field values intact.
+add_filter('acf/prepare_field', function ($field) {
+    // English is the schema source. A previously loaded site catalogue can
+    // remain available when WordPress switches to the editor's English locale.
+    $source_locale = determine_locale() === 'en_US';
+    if (!$source_locale && !empty($field['grit_editor'])) {
+        foreach (['instructions', 'message', 'label', 'placeholder', 'button_label'] as $property) {
+            if (!empty($field[$property])) {
+                $field[$property] = translate($field[$property], 'grit');
+            }
+        }
+        // Translate display text only. ACF saves layout names and choice keys.
+        if (!empty($field['layouts'])) {
+            foreach ($field['layouts'] as &$layout) {
+                $layout['label'] = translate($layout['label'], 'grit');
+            }
+            unset($layout);
+        }
+        if (!empty($field['choices']) && !in_array($field['_name'] ?? $field['name'], ['post_type', 'taxonomy'], true)) {
+            foreach ($field['choices'] as $key => $label) {
+                $field['choices'][$key] = translate($label, 'grit');
+            }
+        }
+    }
+    if (!empty($field['grit_tease_help'])) {
+        // translators: %s is the list of installed card templates.
+        $format = 'Enter the template name without tease- or .twig. Available templates: %s. Leave empty to use the post type template or the default card.';
+        $field['instructions'] = sprintf(
+            $source_locale ? $format : translate($format, 'grit'),
+            implode(', ', array_keys(grit_archive_tease_choices()))
+        );
+    }
+    return $field;
+});

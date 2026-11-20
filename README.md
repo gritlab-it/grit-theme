@@ -89,17 +89,15 @@ The main message goes to `[_site_admin_email]`, the address in **Settings → Ge
 
 The privacy link uses the published page selected in WordPress or found by the standard slug. Publish the page before using the form so visitors have a link. Update the stored link in CF7 if the page URL changes. First name, last name, email, and acceptance are required. Phone and message are optional. Referrer and current page are hidden fields.
 
-## 5. Import ACF fields
+## 5. Load ACF definitions
 
-The source file is [core/acf-fields.json](core/acf-fields.json).
+Activate ACF PRO. [core/acf-fields.json](core/acf-fields.json) contains the Fields and Sections groups. Setup imports missing groups. To update an existing group use **ACF → Tools → Import Field Groups**. When upgrading legacy layouts, check the Text block for its title, subtitle, text, image and two buttons. If they are missing, repeat the import after taking a backup.
 
-- For a fresh installation, activate ACF PRO and use **Import ACF Fields** in setup. Setup skips groups whose keys already exist.
-- Use **ACF → Tools → Import Field Groups** to import or update definitions on an existing site. Check the resulting groups and preserve their keys.
-- Read the instructions beside each field and the **Guida** tab in each layout for available classes and options.
-- Check field groups and location rules. Register custom post types and taxonomies in the project. The field JSON covers field groups and the demo `section` post type requires separate registration.
-- Update the distributed JSON whenever fields change. Plan a data migration before changing keys or renaming layouts that contain saved data.
+On an existing site, compare the active definitions and back up both post and term metadata before converting old layouts. Updating a definition alone does not move saved content. Keep media references and block order during conversion.
 
-Transfer content, media, Customizer settings, and plugin configuration separately from field definitions.
+### Building a Section
+
+Add a Section, add columns, then add and reorder blocks in each column. Use Content for buttons and Style for colours where available. Open Guide for class examples. [Building a Section](GUIDE.md#building-a-section).
 
 ## 6. Customize the theme
 

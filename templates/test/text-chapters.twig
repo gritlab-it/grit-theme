@@ -11,20 +11,12 @@
 {# * GRIT_SET 01 | Layout selection using exact class tokens #}
 {% import 'partials/grid-classes.twig' as grid %}
 {% set section_classes = section.class|default('')|split(' ') %}
-{% set is_carousel = 'section_carousel_text' in section_classes %}
-{% set is_masonry = not is_carousel and 'section_masonry' in section_classes %}
+{% set is_carousel = 'text-carousel' in section_classes %}
+{% set is_masonry = not is_carousel and 'text-masonry' in section_classes %}
 {% set chapters = section.chapters|default([]) %}
 
 {# * GRIT_SET 02 | Section background; independent from chapter images #}
-{% if section.background_image %}
-    {% set background_parallax = 'parallax' in section_classes %}
-    <div class="text-section-background{% if background_parallax %} jarallax-keep-img{% endif %}" aria-hidden="true"{% if background_parallax %} data-speed="0.5"{% endif %}>
-        {{ function('wp_get_attachment_image', section.background_image.id|default(section.background_image.ID)|default(section.background_image), 'full', false, {
-            class: background_parallax ? 'text-background-image jarallax-img' : 'text-background-image',
-            alt: '', sizes: '100vw', loading: 'lazy'
-        }) }}
-    </div>
-{% endif %}
+{% include 'partials/section-background.twig' %}
 
 {# * GRIT_SET 03 | Carousel needs three containers; Masonry and grid need one #}
 <div class="container-fluid{% if not is_carousel %} img-hover-inner{% endif %}">

@@ -10,11 +10,11 @@
                 {% set rendered_section = ref_section|merge({
                     'section_index': section_index ~ '-' ~ loop.index
                 }) %}
-                {% include 'sections/section.twig' with { section: rendered_section } %}
+                {% include 'partials/section.twig' with { section: rendered_section } %}
             {% endif %}
         {% endfor %}
     {% elseif section.acf_fc_layout != 'section_page' and (section.pre_content|default(false) ? true : false) == pre_content %}
         {% set rendered_section = section|merge({'section_index': section_index}) %}
-        {% include 'sections/section.twig' with { section: rendered_section } %}
+        {% include 'partials/section.twig' with { section: rendered_section } %}
     {% endif %}
 {% endfor %}

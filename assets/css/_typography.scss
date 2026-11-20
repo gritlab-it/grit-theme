@@ -692,3 +692,17 @@ a:hover {
         overflow-wrap: anywhere;
     }
 }
+
+// Flex rows need their own alignment, including the last row after wrapping.
+// The nearest Section, Block or slide alignment sets the value for its buttons.
+.grit-section {
+    @each $text, $position in (left: flex-start, center: center, right: flex-end, justify: flex-start) {
+        &.text-#{$text}, .text-#{$text} {
+            --grit-button-justify: #{$position};
+        }
+    }
+    .box-buttons {
+        width: 100%;
+        justify-content: var(--grit-button-justify, flex-start);
+    }
+}

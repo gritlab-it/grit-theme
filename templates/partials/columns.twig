@@ -1,0 +1,48 @@
+{# GRIT_SET | Column widths, text-only layouts and visible block anchors #}
+{% import 'partials/grid-classes.twig' as grid %}
+{% include 'partials/section-background.twig' %}
+{# Standalone Slides and Cube supply their own internal grid and gutters. #}
+{% set single_composite = columns|length == 1 and columns[0].blocks|length == 1 and columns[0].blocks[0].acf_fc_layout in ['slides', 'cube'] %}
+<div class="container-fluid{% if single_composite %} px-0{% endif %}">
+    <div class="row{% if single_composite %} no-gutters{% endif %}">
+        {# Anchor numbering spans all visible blocks in this section, including later columns. #}
+        {% set block_number = 0 %}
+        {% for column in columns %}
+            {% set column_index = loop.index %}
+            {% set modifiers = column.inner_class|default('')|split(' ') %}
+            {% set text_group = column.blocks|length > 1 and column.blocks|filter(b => b.acf_fc_layout != 'text')|length == 0 %}
+            {% set carousel = text_group and 'text-carousel' in modifiers %}
+            {% set masonry = text_group and not carousel and 'text-masonry' in modifiers %}
+            <div class="grit-column {{ grid.classes(column.inner_class, columns|length, '', false) }}">
+                {% if carousel or masonry %}
+                    <div class="{{ carousel ? 'owl-carousel owl-theme' : 'row masonry-grid js-grit-masonry' }}">
+                {% endif %}
+                {% for block in column.blocks %}
+                    {% set block_number = block_number + 1 %}
+                    {% set kind = block.acf_fc_layout %}
+                    {# Nested control IDs use the occurrence and positions within this column. Public block anchors count across columns. #}
+                    {% set item = block|merge({
+                        section_index: section.section_index ~ '-c' ~ column_index ~ '-b' ~ loop.index,
+                        contained: kind != 'slides' and section.contained,
+                        align: block.align|default(section.align),
+                        text_color: block.text_color|default(section.text_color),
+                        background_color: block.background_color|default(section.background_color),
+                        color_link_1: block.color_link_1|default(section.color_link_1),
+                        color_link_2: block.color_link_2|default(section.color_link_2)
+                    }) %}
+                    {% set classes = [
+                        'block_' ~ kind, masonry ? 'masonry-item col-12 col-md-6', block.class|default(''),
+                        kind == 'text' ? 'img-hover-inner',
+                        block.align ? 'text-' ~ block.align,
+                        block.text_color ? 'color-' ~ block.text_color,
+                        kind == 'text' and block.background_color ? 'bg-' ~ block.background_color
+                    ] %}
+                    <div id="{{ section_id|e('html_attr') }}-b{{ block_number }}" data-grit-block class="{{ classes|filter(value => value)|join(' ')|e('html_attr') }}">
+                        {% include 'partials/blocks/' ~ kind ~ '.twig' with {section: item, archive_data: block.archive_data, maps_data: block.maps_data} %}
+                    </div>
+                {% endfor %}
+                {% if carousel or masonry %}</div>{% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</div>

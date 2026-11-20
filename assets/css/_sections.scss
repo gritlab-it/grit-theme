@@ -1,14 +1,14 @@
 // * GRIT_SET Legend | Sections
-// 01 | section_slides
-// 02 | section_cube
-// 03 | section_gallery
-// 04 | section_archive
-// 05 | section_collapse
+// 01 | block_slides
+// 02 | block_cube
+// 03 | block_gallery
+// 04 | block_archive
+// 05 | block_collapse
 // 06 | section_bio
 // 07 | gsap-horizontal
 // 08 | section-gsap-reveal
 // 09 | section-gsap-lateral-word
-// 10 | section-masonry
+// 10 | Text and Archive Masonry grids
 // 11 | section-bars
 // 12 | dot-cube
 // 13 | Text chapter image proportions for grid, Masonry and carousel
@@ -21,12 +21,21 @@
 
 @use "./variables" as *;
 
-// * GRIT_SET 01 | section_slides
+// The column supplies the outer gutter. Keep the inner Bootstrap row and its columns paired.
+[data-grit-block]:is(.block_gallery, .block_collapse, .block_maps, .block_archive) > .container-fluid {
+    padding-inline: 0;
+}
+
+.grit-column {
+    min-width: 0;
+}
+
+// * GRIT_SET 01 | block_slides
 // Shared static/carousel layout; full viewport by default.
 // Height: slides-height-auto, slides-height-small (50vh), slides-height-medium (75vh).
 // Content: slides-content-top, slides-content-center; default bottom.
 // Overlay: slides-overlay, slides-overlay-light, slides-no-overlay. Motion: slides-zoom.
-.section_slides {
+.block_slides {
     // * GRIT_SET Keep multiple slides visible when Owl is disabled or unavailable.
     .slides-track:not(.owl-loaded) {
         display: block;
@@ -105,10 +114,10 @@
     }
 }
 
-// * GRIT_SET 02 | section_cube
+// * GRIT_SET 02 | block_cube
 // Square media minimum, cover cropping and shared static/Owl layout.
 // Text keeps natural height; empty media columns are omitted by Twig.
-.section_cube {
+.block_cube {
     background-color: transparent !important;
     .col-text .inner-text {
         padding: max(1.5rem, calc($c-gap / $xxl * 100vw));
@@ -158,10 +167,10 @@
     }
 }
 
-// * GRIT_SET 03 | section_gallery
+// * GRIT_SET 03 | block_gallery
 // * GRIT_SET Static gallery: ACF columns fallback and responsive class overrides
 // Class reference and examples: GUIDE.md, Section Gallery.
-.section_gallery {
+.block_gallery {
     .gallery {
         display: grid;
         grid-template-columns: repeat(var(--gallery-cols, 1), minmax(0, 1fr));
@@ -244,9 +253,9 @@
     }
 }
 
-// * GRIT_SET 04 | section_archive
+// * GRIT_SET 04 | block_archive
 // Shared grid columns, Owl fallback and overlay card image ratio.
-.section_archive {
+:is(.block_archive, section.section_archive) {
     // * GRIT_SET Owl is optional: keep cards readable before initialization or without the library.
     .owl-carousel:not(.owl-loaded) {
         display: block;
@@ -256,8 +265,8 @@
     }
 }
 
-// * GRIT_SET 05 | section_collapse
-.section_collapse {
+// * GRIT_SET 05 | block_collapse
+.block_collapse {
     // * GRIT_SET 05.1 | Real accordion buttons retain the previous heading spacing
     .collapse-trigger {
         display: block;
@@ -566,7 +575,7 @@
 // * GRIT_SET 07 | GSAP structural modes | Static Bootstrap is the default without active JS.
 // JS adds is-gsap-* only on supported desktop layouts with motion enabled.
 .is-gsap-horizontal,
-.horizontal-wrapper > .section_text {
+.horizontal-wrapper > :is(.section_text, .grit-section) {
     overflow: hidden;
     position: relative;
     > .container-fluid {
@@ -579,7 +588,7 @@
             height: 100%;
         }
     }
-    .item-chapters {
+    > .container-fluid > .row > :is(.item-chapters, .grit-column) {
         flex: 0 0 auto;
         display: flex;
         align-items: center;
@@ -588,6 +597,12 @@
         .inner-item {
             width: 100%;
         }
+    }
+}
+.is-gsap-horizontal, .is-gsap-vertical, .horizontal-wrapper > .grit-section {
+    > .container-fluid > .row > .grit-column {
+        flex-direction: column;
+        align-items: stretch;
     }
 }
 .is-gsap-horizontal {
@@ -608,7 +623,7 @@
             margin: 0;
         }
     }
-    .item-chapters {
+    > .container-fluid > .row > :is(.item-chapters, .grit-column) {
         position: absolute;
         top: 0;
         left: 0;
@@ -687,7 +702,7 @@
 
 // * GRIT_SET 10 | Shared Text/Archive Masonry grid and item spacing
 
-.section_masonry {
+.text-masonry, .archive-masonry {
     overflow: visible;
 
     .masonry-grid {
@@ -802,7 +817,7 @@ section.section-bars {
     border-top-right-radius: 22px;
 }
 
-.box-bordered .container-fluid {
+.box-bordered > .container-fluid {
     margin-top: -1px;
     border: 1px solid $grey;
 }
@@ -811,7 +826,7 @@ section.section-bars {
     margin-top: -1px;
     border-top: 1px solid $grey;
     border-bottom: 1px solid $grey;
-    .container-fluid {
+    > .container-fluid {
         position: relative;
 
         &::before {
@@ -844,7 +859,7 @@ section.section-bars {
 }
 
 // * GRIT_SET 13 | Text chapter image proportions for grid, Masonry and carousel
-.section_text {
+.grit-section, section.section_text {
     // * GRIT_SET Section background | Decorative cover below content, including without Jarallax.
     position: relative;
     isolation: isolate;
@@ -902,44 +917,46 @@ section.section-bars {
     // * GRIT_SET Static composition | Column alignment differs from content distribution.
     // Section: text-columns-{top|center|bottom|stretch}. Chapter or section: text-content-{top|center|bottom|between}.
     // Chapter or section: text-image-after. Section: text-height-medium (minimum 70svh per chapter).
-    &:not(.section_carousel_text):not(.section_masonry) {
-        @each $name, $value in (top: flex-start, center: center, bottom: flex-end, stretch: stretch)
-        {
-            &.text-columns-#{$name} > .container-fluid > .row {
-                align-items: $value;
-            }
+    @each $name, $value in (top: flex-start, center: center, bottom: flex-end, stretch: stretch)
+    {
+        &.text-columns-#{$name} > .container-fluid > .row {
+            align-items: $value;
         }
-        @each $name,
-            $value in (top: flex-start, center: center, bottom: flex-end, between: space-between)
-        {
-            &.text-content-#{$name} .item-chapters,
-            .item-chapters.text-content-#{$name} {
-                display: flex;
-                flex-direction: column;
-            }
-            &.text-content-#{$name} .item-chapters > .inner-item,
-            .item-chapters.text-content-#{$name} > .inner-item {
-                display: flex;
-                flex-direction: column;
-                justify-content: $value;
-                flex: 1;
-                width: 100%;
-                gap: 1.5rem;
-            }
-        }
-        &.text-image-after .item-chapters > .inner-item,
-        .item-chapters.text-image-after > .inner-item {
+    }
+}
+
+// Apply text modifiers to a single block or as defaults across a section.
+.grit-section, section.section_text, .block_text {
+    @each $name,
+        $value in (top: flex-start, center: center, bottom: flex-end, between: space-between)
+    {
+        &.text-content-#{$name} .item-chapters,
+        .item-chapters.text-content-#{$name} {
             display: flex;
             flex-direction: column;
         }
-        &.text-image-after .item-chapters > .inner-item > .inner-img,
-        .item-chapters.text-image-after > .inner-item > .inner-img {
-            order: 3;
+        &.text-content-#{$name} .item-chapters > .inner-item,
+        .item-chapters.text-content-#{$name} > .inner-item {
+            display: flex;
+            flex-direction: column;
+            justify-content: $value;
+            flex: 1;
+            width: 100%;
+            gap: 1.5rem;
         }
-        &.text-height-medium .item-chapters > .inner-item {
-            min-height: 70vh;
-            min-height: 70svh;
-        }
+    }
+    &.text-image-after .item-chapters > .inner-item,
+    .item-chapters.text-image-after > .inner-item {
+        display: flex;
+        flex-direction: column;
+    }
+    &.text-image-after .item-chapters > .inner-item > .inner-img,
+    .item-chapters.text-image-after > .inner-item > .inner-img {
+        order: 3;
+    }
+    &.text-height-medium .item-chapters > .inner-item {
+        min-height: 70vh;
+        min-height: 70svh;
     }
     @each $name, $ratio in $image-ratios {
         &.text-image-ratio-#{$name} {
@@ -1044,7 +1061,7 @@ section.section-bars {
 }
 
 // * GRIT_SET 15 | Maps: all positioning stays outside the Twig/JavaScript data.
-.section_maps {
+.block_maps {
     &.maps-columns-center .maps-layout {
         align-items: center;
     }

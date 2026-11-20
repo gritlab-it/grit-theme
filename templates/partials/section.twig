@@ -1,0 +1,16 @@
+{# References and content position are resolved by partials/sections.twig.
+   PHP prepares Archive and Maps and removes empty blocks before we size the columns. #}
+{% set columns = function('grit_section_columns', section) %}
+{% if columns %}
+    {% set classes = [
+        'grit-section', section.class|default(''),
+        section.contained ? 'contained',
+        section.align ? 'text-' ~ section.align,
+        section.text_color ? 'color-' ~ section.text_color,
+        section.background_color ? 'bg-' ~ section.background_color
+    ] %}
+    {% set section_id = 's' ~ section.section_index %}
+    <section id="{{ section_id|e('html_attr') }}" class="{{ classes|filter(value => value)|join(' ')|e('html_attr') }}">
+        {% include 'partials/columns.twig' %}
+    </section>
+{% endif %}

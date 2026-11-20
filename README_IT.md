@@ -93,17 +93,15 @@ La mail principale usa `[_site_admin_email]`, cioè l'indirizzo amministrativo i
 
 Il collegamento privacy usa la pagina pubblicata individuata dalla configurazione Privacy di WordPress oppure dallo slug standard. Se non esiste una pagina pubblicata, l’accettazione resta senza link: configurare la pagina prima di usare il modulo. Il link salvato nel modulo CF7 va aggiornato se si cambia successivamente l’indirizzo della pagina. Nome, cognome, email e accettazione sono obbligatori; telefono e messaggio sono facoltativi. Provenienza e pagina corrente sono campi nascosti.
 
-## 5. Importare i campi ACF
+## 5. Caricare le definizioni ACF
 
-La definizione di riferimento è [`core/acf-fields.json`](core/acf-fields.json).
+Attiva ACF PRO. Il file [core/acf-fields.json](core/acf-fields.json) contiene i gruppi Fields e Sections. Il setup importa i gruppi mancanti. Per aggiornare un gruppo esistente, usa **ACF → Strumenti → Importa gruppi di campi**. Dopo il passaggio dai vecchi layout verifica i campi del blocco Testo (titolo, sottotitolo, testo, immagine e due pulsanti). Se mancano, ripeti l’importazione dopo aver salvato il backup.
 
-- Su una nuova installazione usare l’opzione **Import ACF Fields** del setup, con ACF PRO già attivo. Il setup salta i gruppi che trova già con la stessa chiave: non è un aggiornamento automatico dei campi esistenti.
-- Per importare o aggiornare le definizioni usare **ACF → Strumenti → Importa gruppi di campi**, verificando il risultato sui gruppi esistenti e mantenendo le chiavi.
-- Le istruzioni accanto ai campi e la tab **Guida** di ogni layout aiutano a scegliere classi e opzioni.
-- Verificare gruppi e regole di posizione. I CPT e le tassonomie si registrano separatamente nel progetto: il JSON dei campi non crea il CPT dimostrativo `section`.
-- Dopo modifiche ai campi aggiornare anche il JSON distribuito. Non rigenerare le chiavi o rinominare layout con dati già salvati senza una migrazione.
+Su un sito esistente confronta le definizioni attive e salva i metadati di post e termini prima di convertire i vecchi layout. La modifica dello schema da sola non sposta i contenuti salvati. Nella conversione conserva riferimenti ai media e ordine dei blocchi.
 
-L’import descrive la struttura dei campi; non trasferisce contenuti, media, opzioni Personalizza e tutte le configurazioni dei plugin.
+### Comporre una Section
+
+Aggiungi una Section, inserisci le colonne e poi aggiungi e riordina i blocchi in ciascuna colonna. I pulsanti sono in Contenuto e i colori in Stile dove disponibili. Apri Guida per gli esempi di classi. [Comporre una Section](GUIDE_IT.md#comporre-una-section).
 
 ## 6. Prima personalizzazione
 

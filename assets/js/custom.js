@@ -4,11 +4,11 @@
 // 00 | Loader and native link behavior
 // 01 | Entrance animations
 // 02 | Header menus and sticky state
-// 03 | Owl carousels
+// 03 | Owl settings per block or text column
 // 04 | Gallery sizing and Nivo Lightbox
 // 05 | Magic Mouse
 // 06 | Jarallax
-// 07 | Masonry
+// 07 | Masonry for text columns and Archive cards
 // 08 | NProgress
 // 09 | Collapse and tabs
 // 10 | Video player
@@ -338,7 +338,7 @@ $(function () {
     });
 });
 
-// * GRIT_SET 03 | Owl carousels
+// * GRIT_SET 03 | Owl settings per block or text column
 // * GRIT_SET Shared Owl presets and responsive class overrides
 (function ($) {
     var breakpoints = { base: 0, sm: 576, md: 768, lg: 992, xl: 1200, xxl: 1400 };
@@ -379,7 +379,7 @@ $(function () {
     }
 
     // * GRIT_SET Resolve content defaults independently from visual modifiers
-    function optionsFor($carousel, $section) {
+    function optionsFor($carousel, $owner) {
         var options = {
             loop: true, margin: 20, autoHeight: false, autoWidth: false,
             center: false, nav: true, dots: true, autoplay: false,
@@ -390,23 +390,24 @@ $(function () {
             ]
         };
         var counts = [1, 2, 3, 4, 5, 5];
-        if ($section.hasClass('section_carousel_text')) counts = [1, 2, 3, 3, 4, 4];
-        if ($section.hasClass('section_archive_carousel')) {
+        var textGroup = $owner.is('.grit-column.text-carousel');
+        if (textGroup) counts = [1, 2, 3, 3, 4, 4];
+        if ($owner.hasClass('archive-carousel')) {
             counts = [1, 2, 3, 3, 3, 3];
             options.loop = false;
         }
-        if ($section.hasClass('section_cube') || $section.hasClass('section_slides')) {
+        if ($owner.hasClass('block_cube') || $owner.hasClass('block_slides')) {
             counts = [1, 1, 1, 1, 1, 1];
             options.margin = 0;
         }
-        if ($section.hasClass('section_slides')) {
+        if ($owner.hasClass('block_slides')) {
             options.autoplay = true;
             options.animateOut = 'fadeOut';
             options.animateIn = 'fadeIn';
             options.smartSpeed = 1000;
         }
         var overrides = {};
-        readClasses($section[0], overrides);
+        readClasses($owner[0], overrides);
         readClasses($carousel[0], overrides);
         var accumulated = {};
         options.responsive = {};
@@ -414,8 +415,10 @@ $(function () {
             var bp = breakpoints[name];
             Object.assign(accumulated, overrides[bp] || {});
             options.responsive[bp] = Object.assign({ items: counts[index] }, accumulated);
+            // Loop clones would duplicate the anchors of the text blocks.
+            if (textGroup) options.responsive[bp].loop = false;
             // * GRIT_SET Full-width Slides use a single item: Owl fade does not support multi-item layouts.
-            if ($section.hasClass('section_slides')) {
+            if ($owner.hasClass('block_slides')) {
                 Object.assign(options.responsive[bp], { items: 1, autoWidth: false, center: false, margin: 0 });
             }
         });
@@ -435,20 +438,20 @@ $(function () {
         $('.owl-carousel').each(function () {
             var $carousel = $(this);
             if ($carousel.data('owl.carousel')) return;
-            var $section = $carousel.closest('section');
+            var $owner = $carousel.closest('[data-grit-block], .grit-column.text-carousel, section');
             // Owl clones are not observed by the entrance animation observer.
             $carousel.on('initialized.owl.carousel refreshed.owl.carousel', function () {
                 $carousel.find('.owl-item.cloned .in__animate').removeClass('hidden');
             });
-            $carousel.owlCarousel(optionsFor($carousel, $section));
+            $carousel.owlCarousel(optionsFor($carousel, $owner));
         });
     });
 })(jQuery);
 
 // * GRIT_SET 04 | Gallery sizing and Nivo Lightbox
-// * GRIT_SET Static gallery columns and gaps from section class tokens
+// * GRIT_SET Static gallery columns and gaps from the Gallery block classes
 jQuery(function ($) {
-    $('section.section_gallery').each(function () {
+    $('[data-grit-block].block_gallery').each(function () {
         var section = this;
         Array.from(section.classList).forEach(function (token) {
             var match = token.match(/^gallery-(cols|gap)-(?:((?:sm|md|lg|xl|xxl))-)?(\d+)$/);
@@ -524,10 +527,10 @@ jQuery(function ($) {
     if (typeof $.fn.jarallax !== 'function') return;
     $('.jarallax, .jarallax-keep-img, .jarallax-overlay').each(function () {
         if (this.jarallax) return;
-        if (($(this).closest('.section_slides, .section_cube').length || $(this).hasClass('text-section-background')) && window.matchMedia &&
+        if (($(this).closest('.block_slides, .block_cube').length || $(this).hasClass('text-section-background')) && window.matchMedia &&
             window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         var speed = $(this).data('speed');
-        var isCover = $(this).closest('.section_slides, .section_cube').length > 0 || $(this).hasClass('text-section-background');
+        var isCover = $(this).closest('.block_slides, .block_cube').length > 0 || $(this).hasClass('text-section-background');
         // * GRIT_SET Slides/Cube | Move the image into Jarallax: a retained cover image would hide its motion.
         // Keep the animated layer above the slide background and below overlay/text.
         $(this).jarallax({
@@ -539,11 +542,11 @@ jQuery(function ($) {
     });
 });
 
-// * GRIT_SET 07 | Masonry
+// * GRIT_SET 07 | Masonry for text columns and Archive cards
 // * GRIT_SET Initialize Text and Archive Masonry grids once; Bootstrap remains the fallback.
 jQuery(function () {
     if (typeof window.Masonry !== 'function') return;
-    document.querySelectorAll('.section_text .js-grit-masonry, .section_archive .js-grit-masonry').forEach(function (grid) {
+    document.querySelectorAll('.grit-column.text-masonry > .js-grit-masonry, .block_text .js-grit-masonry, .block_archive .js-grit-masonry, section.section_archive .js-grit-masonry').forEach(function (grid) {
         if (!grid.querySelector('.masonry-item') || window.Masonry.data(grid)) return;
         var masonry = new window.Masonry(grid, {
             itemSelector: '.masonry-item',
@@ -612,7 +615,7 @@ jQuery(function ($) {
     });
 
     // * GRIT_SET Follow actual Bootstrap transitions instead of predicting state on click
-    $('.section_collapse').on('shown.bs.collapse hidden.bs.collapse', '.accordion_body', function (event) {
+    $('.block_collapse').on('shown.bs.collapse hidden.bs.collapse', '.accordion_body', function (event) {
         if (event.target !== this) return;
         var trigger = document.getElementById(this.getAttribute('aria-labelledby'));
         if (!trigger) return;
@@ -622,7 +625,7 @@ jQuery(function ($) {
     });
 
     // * GRIT_SET Recalculate Owl after a previously hidden tab becomes measurable
-    $('.section_collapse [data-toggle="tab"]').on('shown.bs.tab', function () {
+    $('.block_collapse [data-toggle="tab"]').on('shown.bs.tab', function () {
         var id = this.getAttribute('aria-controls');
         var panel = id ? document.getElementById(id) : null;
         if (!panel) return;
@@ -735,7 +738,7 @@ function startCounterAnimation() {
 
     // * GRIT_SET Section settings apply to all counters; item duration may override them
     counters.forEach(element => {
-        const section = element.closest('section');
+        const section = element.closest('[data-grit-block], section');
         const item = element.closest('.item-chapters, .item-counter');
         const component = element.closest('.grit-counter');
         const tokens = [...(section ? section.classList : []), ...(item ? item.classList : []), ...(component ? component.classList : []), ...element.classList];
@@ -926,8 +929,8 @@ $(startCounterAnimation);
                     section.classList.add(name);
                     cleanup.push(() => section.classList.remove(name));
                 }
-                const sections = Array.from(document.querySelectorAll('section.section_text'));
-                const compatible = section => !section.matches('.section_masonry, .section_carousel_text');
+                const sections = Array.from(document.querySelectorAll('section.section_text, section.grit-section'));
+                const compatible = section => !section.querySelector('.grit-column > .owl-carousel, .grit-column > .js-grit-masonry');
                 function horizontal(section, row, trigger = section, pin = true) {
                     const distance = () => Math.max(0, row.scrollWidth - row.clientWidth);
                     if (distance() <= 1) return;
@@ -940,7 +943,7 @@ $(startCounterAnimation);
                 // Earlier pins must exist before measuring any following section.
                 function initHorizontalPair(first) {
                     const second = first.nextElementSibling;
-                    if (!second || !second.matches('section.section_text.section-gsap-30horizontal') || !compatible(second)) return;
+                    if (!second || !second.matches('section:is(.section_text, .grit-section).section-gsap-30horizontal') || !compatible(second)) return;
                     const rowA = first.querySelector(':scope > .container-fluid > .row');
                     const rowB = second.querySelector(':scope > .container-fluid > .row');
                     if (!rowA || !rowB) return;
@@ -950,7 +953,7 @@ $(startCounterAnimation);
                     paired.add(first); paired.add(second);
                     const restorePair = () => { if (wrapper.parentNode) { wrapper.before(first, second); wrapper.remove(); } };
                     cleanup.push(restorePair);
-                    if (Array.from(wrapper.querySelectorAll('.item-chapters')).some(panel => panel.scrollHeight > panel.clientHeight + 2)) {
+                    if (Array.from(wrapper.querySelectorAll(':scope > section > .container-fluid > .row > :is(.item-chapters, .grit-column)')).some(panel => panel.scrollHeight > panel.clientHeight + 2)) {
                         restorePair(); paired.delete(first); paired.delete(second); return;
                     }
                     const distanceA = () => Math.max(0, rowA.scrollWidth - rowA.clientWidth);
@@ -967,7 +970,7 @@ $(startCounterAnimation);
                 sections.filter(compatible).forEach(section => {
                     if (desktop && section.classList.contains('section-gsap-70horizontal')) initHorizontalPair(section);
                     if (paired.has(section)) return;
-                    const panels = Array.from(section.querySelectorAll(':scope > .container-fluid > .row > .item-chapters'));
+                    const panels = Array.from(section.querySelectorAll(':scope > .container-fluid > .row > :is(.item-chapters, .grit-column)'));
                     if (desktop && section.classList.contains('section-gsap-horizontal')) {
                         const row = section.querySelector(':scope > .container-fluid > .row');
                         if (row) {

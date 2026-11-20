@@ -60,7 +60,7 @@ $black-5: #f2f2f2;
 $black-5-rgb: $black-5;
 $black-5-rgba: rgba($black, 0.05);
 
-// Names in this map generate --name, .bg-name, .color-name, .border-name and .bg-name-half.
+// Names in this map generate --name, .bg-name, .color-name and .border-name.
 // Button variants remain explicitly declared in _typography.scss.
 $colors: (
     "primary": $primary,
@@ -107,7 +107,6 @@ $colors: (
     .border-#{$name} {
         border-color: $value !important;
     }
-
     .bg-#{$name}-half {
         background: $value;
         background: linear-gradient(0deg, $value 50%, $transparent 50%);

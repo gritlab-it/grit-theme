@@ -119,10 +119,10 @@ section.contained .owl-carousel {
         --carousel-nav-offset: #{$carousel-contained-offset};
     }
 }
-section.carousel-center .col {
+:is(section, [data-grit-block], .text-carousel).carousel-center .col {
     padding: 0;
 }
-section.carousel-left {
+:is(section, [data-grit-block], .text-carousel).carousel-left {
     @media (min-width: $sm-res) {
         padding-left: calc(($c-gap) / $xxl * 100vw);
     }
@@ -139,11 +139,11 @@ section .owl-carousel * {
 // * GRIT_SET Shared color modes | Apply to a section or directly to an Owl carousel.
 // Light/dark changes only arrow glyphs and dot colors; existing shapes/positions remain intact.
 @each $mode, $color in (light: $light, dark: $dark) {
-    :where(section.carousel-nav-#{$mode}) .owl-carousel,
+    :where(:is(section, [data-grit-block], .text-carousel).carousel-nav-#{$mode}) .owl-carousel,
     .owl-carousel.carousel-nav-#{$mode} {
         --carousel-nav-color: #{$color};
     }
-    :where(section.carousel-dots-#{$mode}) .owl-carousel,
+    :where(:is(section, [data-grit-block], .text-carousel).carousel-dots-#{$mode}) .owl-carousel,
     .owl-carousel.carousel-dots-#{$mode} {
         --carousel-dot-color: #{$color};
         --carousel-dot-background: transparent;
@@ -155,8 +155,8 @@ section .owl-carousel * {
 // * GRIT_SET Shared navigation positions, with backwards-compatible aliases
 @each $vertical in top, bottom {
     @each $horizontal in left, right {
-        section.carousel-nav-#{$vertical}-#{$horizontal},
-        section.owl-nav-#{$vertical}-#{$horizontal} {
+        :is(section, [data-grit-block], .text-carousel).carousel-nav-#{$vertical}-#{$horizontal},
+        :is(section, [data-grit-block], .text-carousel).owl-nav-#{$vertical}-#{$horizontal} {
             // Controls outside the section must remain above adjacent rounded sections.
             position: relative;
             z-index: 6;
@@ -180,7 +180,7 @@ section .owl-carousel * {
         }
     }
 }
-section.carousel-nav-sides .owl-carousel .owl-nav {
+:is(section, [data-grit-block], .text-carousel).carousel-nav-sides .owl-carousel .owl-nav {
     top: 50%;
     bottom: auto;
     left: 0;
@@ -189,15 +189,15 @@ section.carousel-nav-sides .owl-carousel .owl-nav {
     transform: translateY(-50%);
     justify-content: space-between;
 }
-section.carousel-dots-inside .owl-carousel .owl-dots,
-section.owl-dots-inner .owl-carousel .owl-dots {
+:is(section, [data-grit-block], .text-carousel).carousel-dots-inside .owl-carousel .owl-dots,
+:is(section, [data-grit-block], .text-carousel).owl-dots-inner .owl-carousel .owl-dots {
     bottom: $carousel-dots-inside-offset;
 }
-section.carousel-dots-outside .owl-carousel .owl-dots {
+:is(section, [data-grit-block], .text-carousel).carousel-dots-outside .owl-carousel .owl-dots {
     bottom: calc(-1 * var(--carousel-dots-offset));
 }
 @each $align in left, center, right {
-    section.carousel-dots-#{$align} .owl-carousel .owl-dots {
+    :is(section, [data-grit-block], .text-carousel).carousel-dots-#{$align} .owl-carousel .owl-dots {
         text-align: $align;
     }
 }
