@@ -1,6 +1,6 @@
 {# * GRIT_SET Pagination | Use the caller's pagination object, or build it from posts. #}
 {% if pagination is not defined and posts is defined %}
-    {% set pagination = posts.pagination({show_all: false, mid_size: 3, end_size: 2}) %}
+    {% set pagination = posts.pagination(function('grit_pagination_options')) %}
 {% endif %}
 
 {% if pagination.pages|default([])|length > 1 %}
@@ -8,7 +8,7 @@
         <ul class="pagination">
             <li class="mx-1 prev">
                 {% if pagination.prev %}
-                    <a class="btn btn-accent" href="{{ pagination.prev.link|e('html_attr') }}" aria-label="{{ __('Previous page', 'grit') }}">
+                    <a class="btn btn-accent" href="{{ function('esc_url', pagination.prev.link) }}" aria-label="{{ __('Previous page', 'grit') }}">
                         <i class="fas fa-chevron-left" aria-hidden="true"></i>
                     </a>
                 {% else %}
@@ -22,7 +22,7 @@
                 {% set page_label = page.class == 'dots' ? '…' : page.title %}
                 <li class="mx-1{% if page.current %} current{% endif %}">
                     {% if page.link and not page.current %}
-                        <a class="btn btn-accent {{ page.class|e('html_attr') }}" href="{{ page.link|e('html_attr') }}">{{ page_label|e }}</a>
+                        <a class="btn btn-accent {{ page.class|e('html_attr') }}" href="{{ function('esc_url', page.link) }}">{{ page_label|e }}</a>
                     {% else %}
                         <span class="{{ page.class|e('html_attr') }} btn btn-accent disabled"{% if page.current %} aria-current="page"{% endif %}>{{ page_label|e }}</span>
                     {% endif %}
@@ -31,7 +31,7 @@
 
             <li class="mx-1 next">
                 {% if pagination.next %}
-                    <a class="btn btn-accent" href="{{ pagination.next.link|e('html_attr') }}" aria-label="{{ __('Next page', 'grit') }}">
+                    <a class="btn btn-accent" href="{{ function('esc_url', pagination.next.link) }}" aria-label="{{ __('Next page', 'grit') }}">
                         <i class="fas fa-chevron-right" aria-hidden="true"></i>
                     </a>
                 {% else %}

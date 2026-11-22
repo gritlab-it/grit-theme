@@ -34,7 +34,7 @@
                     {% for item in bio_menu.get_items|default([]) %}
                         {% set item_url = function('esc_url', item.link) %}
                         {% if item_url %}
-                            <a class="bio-link no-load" href="{{ item_url|e('html_attr') }}"{% if item.target == '_blank' %} target="_blank" rel="noopener noreferrer"{% endif %}>
+                            <a class="bio-link no-load" href="{{ item_url }}"{% if item.target == '_blank' %} target="_blank" rel="noopener noreferrer"{% endif %}>
                                 <span class="bio-link-icon" aria-hidden="true"><i class="fas fa-link"></i></span>
                                 <span class="bio-link-copy"><strong>{{ item.title|striptags|e }}</strong>{% if item.description %}<span>{{ item.description|striptags|e }}</span>{% endif %}</span>
                                 <span class="bio-link-arrow" aria-hidden="true">↗</span>
@@ -90,7 +90,7 @@
                 {% set social_links %}
                     {% for social in socials %}
                         {% if social.url %}
-                            <a class="no-load" href="{{ function('esc_url', social.url)|e('html_attr') }}" target="_blank" rel="noopener noreferrer" aria-label="{{ social.title|e('html_attr') }}"><i class="{{ social.icon|e('html_attr') }}" aria-hidden="true"></i></a>
+                            <a class="no-load" href="{{ function('esc_url', social.url) }}" target="_blank" rel="noopener noreferrer" aria-label="{{ social.title|e('html_attr') }}"><i class="{{ social.icon|e('html_attr') }}" aria-hidden="true"></i></a>
                         {% endif %}
                     {% endfor %}
                 {% endset %}

@@ -740,7 +740,7 @@ function grit_archive_terms_data($section) {
         }
         $items[] = [
             'name' => $term->name,
-            'link' => esc_url($link),
+            'link' => $link,
             'description' => (!array_key_exists('terms_show_description', $section) || !empty($section['terms_show_description']))
                 ? wp_trim_words(wp_strip_all_tags(strip_shortcodes($term->description)), 35, '…') : '',
             // WordPress owns this count; no per-CPT recalculation is performed.
@@ -754,6 +754,9 @@ function grit_archive_terms_data($section) {
 // Prefer the manual excerpt; otherwise trim raw content without executing shortcodes or content filters.
 function grit_archive_excerpt($post, $length = 35) {
     $id = is_object($post) ? (int) $post->ID : (int) $post;
+    if ($id <= 0 || post_password_required($id)) {
+        return '';
+    }
     $excerpt = get_post_field('post_excerpt', $id);
     $text = $excerpt !== '' ? $excerpt : get_post_field('post_content', $id);
     return wp_trim_words(wp_strip_all_tags(strip_shortcodes(strip_tags((string) $text))), max(1, (int) $length), '…');
@@ -906,6 +909,21 @@ function grit_template_query($context, $query) {
     return $context;
 }
 
+// * GRIT_SET 17.4 | Preserve search and filter values in pagination links.
+function grit_pagination_options() {
+    global $wp_rewrite;
+    $options = ['show_all' => false, 'mid_size' => 3, 'end_size' => 2];
+    if (!$wp_rewrite->using_permalinks()) {
+        // Timber 1 encodes query values twice when they are part of the base URL.
+        $parts = explode('?', get_pagenum_link(1, false), 2);
+        if (isset($parts[1])) {
+            $options['base'] = $parts[0] . '%_%';
+            wp_parse_str($parts[1], $options['add_args']);
+        }
+    }
+    return $options;
+}
+
 // * GRIT_SET 18 | Maps block: coordinates, styles and locations
 // Data: grit_section_columns(). Markup: partials/blocks/maps.twig. Behavior: assets/js/maps.js.
 // Zero is a valid latitude/longitude. Empty, nonnumeric and out-of-range values are rejected.
@@ -1053,7 +1071,7 @@ function grit_section_columns($section) {
             switch ($block['acf_fc_layout']) {
                 case 'archive':
                     $block['archive_data'] = grit_archive_section_data($block);
-                    $show = !empty($block['archive_data']['posts']) || !empty($block['archive_data']['terms']);
+                    $show = count($block['archive_data']['terms'] ?? $block['archive_data']['posts']) > 0;
                     break;
                 case 'maps':
                     $block['maps_data'] = grit_maps_section_data($block);

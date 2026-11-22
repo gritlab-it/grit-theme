@@ -7,7 +7,7 @@
 {% macro classes(inner_class, total, align, carousel) -%}
     {%- set tokens = inner_class|default('')|split(' ') -%}
     {%- set columns = tokens|filter(value => value == 'col' or value matches '/^col-.*$/') -%}
-    {%- set modifiers = tokens|filter(value => value != 'col' and not (value matches '/^col-.*$/')) -%}
+    {%- set modifiers = tokens|filter(value => value not in columns) -%}
     {%- if carousel -%}
         {%- set columns = [] -%}
     {%- elseif not columns -%}
@@ -21,5 +21,5 @@
             {%- set columns = ['col-12', 'col-sm-6', 'col-md-3'] -%}
         {%- endif -%}
     {%- endif -%}
-    {{- columns|merge(modifiers)|join(' ')|trim|e('html_attr') -}}
+    {{- columns|merge(modifiers)|join(' ')|trim -}}
 {%- endmacro %}

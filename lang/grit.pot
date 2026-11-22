@@ -1279,3 +1279,32 @@ msgstr ""
 
 msgid "justify"
 msgstr ""
+
+msgid "Row classes"
+msgstr ""
+
+msgid "Classes on the main row, e.g. bg-primary mb-4. Separate classes with spaces and omit the dots."
+msgstr ""
+
+msgid "For a spacer, leave Columns empty and enter py-5 in Section classes."
+msgstr ""
+
+msgid "Use Section classes for spacing (py-5) or a background image effect (parallax). In Column → Column classes, col-12 col-md-6 sets the width. With at least two Text blocks and no other block types, text-carousel scrolls them and text-masonry arranges them in a grid. Use Row classes for a row background or margin, e.g. bg-primary mb-4. For a spacer, leave Columns empty and enter py-5 in Section classes."
+msgstr ""
+
+#: core/acf-fields.json:351
+#: core/acf-fields.json:373
+#: core/acf-fields.json:848
+#: core/acf-fields.json:893
+#: core/acf-fields.json:1856
+#: core/acf-fields.json:2164
+msgid "You can use inline HTML for formatting, such as bold, emphasis and line breaks."
+msgstr ""
+
+#: core/acf-fields.json:396
+#: core/acf-fields.json:916
+#: core/acf-fields.json:1878
+#: core/acf-fields.json:2185
+#: core/acf-fields.json:2254
+msgid "Use the Visual tab to format the text or the Text tab to edit its HTML."
+msgstr ""

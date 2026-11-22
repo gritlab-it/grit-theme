@@ -4,7 +4,7 @@
 {# Standalone Slides and Cube supply their own internal grid and gutters. #}
 {% set single_composite = columns|length == 1 and columns[0].blocks|length == 1 and columns[0].blocks[0].acf_fc_layout in ['slides', 'cube'] %}
 <div class="container-fluid{% if single_composite %} px-0{% endif %}">
-    <div class="row{% if single_composite %} no-gutters{% endif %}">
+    <div class="row{% if section.row_class|default('')|trim %} {{ section.row_class|trim|e('html_attr') }}{% endif %}{% if single_composite %} no-gutters{% endif %}">
         {# Anchor numbering spans all visible blocks in this section, including later columns. #}
         {% set block_number = 0 %}
         {% for column in columns %}
@@ -13,7 +13,7 @@
             {% set text_group = column.blocks|length > 1 and column.blocks|filter(b => b.acf_fc_layout != 'text')|length == 0 %}
             {% set carousel = text_group and 'text-carousel' in modifiers %}
             {% set masonry = text_group and not carousel and 'text-masonry' in modifiers %}
-            <div class="grit-column {{ grid.classes(column.inner_class, columns|length, '', false) }}">
+            <div class="grit-column {{ grid.classes(column.inner_class, columns|length, '', false)|e('html_attr') }}">
                 {% if carousel or masonry %}
                     <div class="{{ carousel ? 'owl-carousel owl-theme' : 'row masonry-grid js-grit-masonry' }}">
                 {% endif %}

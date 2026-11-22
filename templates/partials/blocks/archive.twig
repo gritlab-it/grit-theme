@@ -11,7 +11,7 @@
 {% set carousel_requested = 'archive-carousel' in modifiers %}
 {% set carousel = carousel_requested and archive_items|length > 1 %}
 {% set masonry = not carousel_requested and 'archive-masonry' in modifiers %}
-{% set grid = function('html_entity_decode', archive_grid.classes(section.inner_class|default(''), archive_items|length, section.align|default(''), carousel)|trim, 3, 'UTF-8') %}
+{% set grid = archive_grid.classes(section.inner_class|default(''), archive_items|length, section.align|default(''), carousel)|trim %}
 {% if masonry %}{% set grid = grid ~ ' masonry-item' %}{% endif %}
 {% if archive_items|length %}
     {# * GRIT_SET 02 | Outer column classes control section width; Inner Class controls individual cards #}
@@ -23,11 +23,11 @@
                         {% if is_terms %}
                             {% include 'partials/tease-term.twig' with { term: archive_post, grid: grid, show_count: section.terms_show_count|default(false) } only %}
                         {% else %}
-                        {% include ['partials/tease-' ~ archive_data.tease ~ '.twig', 'partials/tease.twig'] with {
-                            post: archive_post,
-                            grid: carousel and not grid ? ' ' : grid,
-                            tease_style: archive_data.tease
-                        } %}
+                            {% include ['partials/tease-' ~ archive_data.tease ~ '.twig', 'partials/tease.twig'] with {
+                                post: archive_post,
+                                grid: grid,
+                                tease_style: archive_data.tease
+                            } %}
                         {% endif %}
                     {% endfor %}
                 </div>

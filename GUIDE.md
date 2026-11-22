@@ -154,11 +154,12 @@ Add a Section in **Sections**. Add one to four columns, then add blocks in the o
 | Where | What to set |
 | --- | --- |
 | Section and blocks | Edit columns and blocks in ACF. The shared wrapper is `templates/partials/section.twig`. Each component has a template in `templates/partials/blocks/`. |
+| Section → Layout → Row classes | Set the background or margin on the row containing the columns, e.g. `bg-primary mb-4`. |
 | Column → Column classes | Override the automatic Bootstrap width, e.g. `col-12 col-md-8`. One visible column spans the row even with centred text. |
 | Block → Content | Text, media, buttons or component settings. |
 | Block → Style | Where available, override inherited colours and set component classes on this instance. Archive Card classes sizes individual cards. |
 
-Each Section renders one composition row. Empty blocks are skipped, including Archive without results and Maps without valid pins. Empty columns drop out before widths are calculated. An empty Section produces no wrapper. With two, three or four visible columns the automatic widths from md are one half, one third or one quarter.
+Each Section renders its `<section>` element and row, even when it has no content or custom classes. Empty blocks are skipped, including Archive without results and Maps without valid pins. Empty columns drop out before widths are calculated. For a spacer, leave Columns empty and enter `py-5` in Section classes. You can also use Row classes. With two, three or four visible columns the automatic widths from md are one half, one third or one quarter.
 
 The Guide tab describes the classes available for each layout in the editor’s language (English or Italian). Enter tokens separated by spaces. The Section and Block headers show their own classes as you type. The automatic anchor `#s2-b3` points to the third visible block across all columns of Section 2. Reordering visible blocks can change link targets.
 
@@ -191,6 +192,8 @@ The renderer is `templates/partials/sections.twig`. The main templates call it b
 ## Block Text
 
 Each Text block holds its own title (h2), subtitle (h3), rich text, image and two optional buttons. Use `text-image-after` to put the image after the text. Choose a frame such as `text-image-ratio-landscape` and `text-image-fit-cover` in Block classes. A static image supports `parallax` or `parallax-gsap` when its library is enabled.
+
+Enter inline HTML directly in **Title** and **Subtitle**, for example `Our <em>latest</em><br>projects`. For the body in Text, Cube, Slides and Collapse, choose **Visual** for the full WordPress editor or **Text** to edit the HTML. In Visual, **Toolbar Toggle** opens the second row of controls. If the Visual tab is missing, check that visual editing is enabled in your WordPress profile.
 
 For at least two visible Text blocks in a text-only column, enter `text-carousel carousel-items-1 carousel-items-md-2` in **Column → Column classes**. For staggered rows use `text-masonry`. The carousel takes precedence if both are present. Text carousels disable looping to keep block anchors unique. A mixed column stacks its blocks in editor order.
 
@@ -270,7 +273,7 @@ Section options apply to all carousels. Group options take priority for the same
 
 List.js 2.3.1 ships in `assets/list-js` with its license. When enabled, WordPress loads it once as a `custom.js` dependency. Each section has its own seven-result pagination. Search matches title, content, and group case-insensitively. Accent handling follows List.js. Searches and resets return to page one. Each section handles its own empty states. The complete list remains available without JavaScript. Set the page size in the search controller.
 
-Bootstrap 4 drives accordions and tabs. Opening a tab refreshes its hidden Owl carousel. IDs derive from section, group, and item positions, so duplicate group names work. Headings use buttons with ARIA attributes. Bootstrap events update decorative icons. Titles are escaped, WYSIWYG HTML is retained, and URLs pass through `esc_url`. Links targeting `_blank` use `rel="noopener noreferrer"`. Standard groups can each keep an item open. Search uses one accordion per section.
+Bootstrap 4 drives accordions and tabs. Opening a tab refreshes its hidden Owl carousel. IDs derive from section, group, and item positions, so duplicate group names work. Headings use buttons with ARIA attributes. Bootstrap events update decorative icons. Group and item titles support inline formatting. Titles inside a tab or accordion button keep their formatting and leave the click to that control. The body uses the WYSIWYG editor and URLs pass through `esc_url`. Links targeting `_blank` use `rel="noopener noreferrer"`. Standard groups can each keep an item open. Search uses one accordion per section.
 
 Edit modes and IDs in `templates/partials/blocks/collapse.twig`, accordion markup in `templates/partials/collapse-item.twig`, and buttons in `templates/partials/buttons.twig`. Search, pagination, icons, and tab updates live in `assets/js/custom.js`. Use `assets/css/_sections.scss` for Collapse and `assets/css/_plugins.scss` for shared controls.
 
@@ -691,7 +694,11 @@ Aliases are `post` → `editorial` and `section` → `card`. Product cards requi
 
 Generic cards extend `tease.twig` and share classes and `data-post-id`. The `card-image.twig` partial uses WordPress `srcset` and Media Library alt text. Excerpt helpers skip shortcode execution. GSAP is optional. Tease styles live in `assets/css/_sections.scss`.
 
+For a password-protected post, the card shows the excerpt only after WordPress accepts the password.
+
 Card classes controls columns and Owl controls visible counts. Use a generous width such as `col-12 col-lg-6` for horizontal cards. Cards remain readable without images. Text and title variants intentionally omit them.
+
+In custom Twig templates, omit `grid` to use the card’s default widths, or pass `grid: ''` to let Owl size the card. The `classes()` macro in `partials/grid-classes.twig` returns the class names. Apply `|e('html_attr')` when printing them in a `class` attribute.
 
 ### Post data in Twig
 

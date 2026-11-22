@@ -9,14 +9,14 @@
 {% set carousel = gallery|length > 1 %}
 {% set modifiers = section.class|default('')|split(' ') %}
 {% set parallax = not carousel and has_media and 'parallax' in modifiers %}
-{% set has_text = section.title or section.text or section.lists or section.link_1.url or section.link_2.url %}
+{% set has_text = section.title is not empty or section.text or section.lists or section.link_1.url or section.link_2.url %}
 {% if has_media or has_text %}
 <div class="container-fluid">
     <div class="row align-items-stretch{% if section.contained and section.background_color %} bg-{{ section.background_color|e('html_attr') }}{% endif %}">
         {% if has_text %}
         <div class="col-12{% if has_media %} col-md-8 col-lg-6{% endif %} p-0 col-text d-flex flex-column justify-content-center{% if not section.contained and section.background_color %} bg-{{ section.background_color|e('html_attr') }}{% endif %} order-first{% if section.invert %} order-md-last{% endif %}">
             <div class="inner-text{% if section.text_color %} color-{{ section.text_color|e('html_attr') }}{% endif %}">
-                {% if section.title %}<h2>{{ section.title|e }}</h2>{% endif %}
+                {% if section.title is not empty %}<h2>{{ function('wp_kses_post', section.title) }}</h2>{% endif %}
                 {% if section.text %}<div class="py-3">{{ section.text }}</div>{% endif %}
                 {% if section.lists %}<div class="row pb-4">
                     {% for item in section.lists %}

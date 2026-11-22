@@ -9,6 +9,6 @@
         <div class="col-12"><p>{{ __('No content found.', 'grit') }}</p></div>
     {% endfor %}
     <div class="col-12 d-flex justify-content-center">
-        {% include 'partials/pagination.twig' with {pagination: posts.pagination({show_all: false, mid_size: 3, end_size: 2})} %}
+        {% include 'partials/pagination.twig' %}
     </div>
 {% endblock %}

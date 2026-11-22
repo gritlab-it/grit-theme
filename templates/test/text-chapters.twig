@@ -34,9 +34,9 @@
     {% for item in chapters %}
         {% set item_classes = item.inner_class|default('')|split(' ') %}
         {% if is_carousel %}
-            <div class="inner-list {{ grid.classes(item.inner_class, chapters|length, section.align, true) }}">
+            <div class="inner-list {{ grid.classes(item.inner_class, chapters|length, section.align, true)|e('html_attr') }}">
         {% else %}
-            <div class="item-chapters{% if is_masonry %} masonry-item{% endif %} {{ grid.classes(item.inner_class, chapters|length, section.align, false) }}" id="section_id_{{ section.section_index|e('html_attr') }}_{{ loop.index }}">
+            <div class="item-chapters{% if is_masonry %} masonry-item{% endif %} {{ grid.classes(item.inner_class, chapters|length, section.align, false)|e('html_attr') }}" id="section_id_{{ section.section_index|e('html_attr') }}_{{ loop.index }}">
                 <div class="inner-item">
         {% endif %}
             {# Edit images, headings, text and buttons in partials/text-chapter.twig. #}

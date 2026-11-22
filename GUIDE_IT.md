@@ -178,11 +178,12 @@ In **Sections** aggiungi una Section, scegli da una a quattro colonne e inserisc
 | Dove | Cosa impostare |
 | --- | --- |
 | Section e blocchi | Componi colonne e blocchi in ACF. Il wrapper è `templates/partials/section.twig`. Ogni componente ha un template in `templates/partials/blocks/`. |
+| Section → Layout → Classi della riga | Applica uno sfondo o un margine alla riga che contiene le colonne, ad esempio `bg-primary mb-4`. |
 | Colonna → Classi della colonna | Larghezza Bootstrap esplicita, per esempio `col-12 col-md-8`. Una sola colonna visibile occupa tutta la riga anche con testo centrato. |
 | Blocco → Contenuto | Testi, media, pulsanti e opzioni del componente. |
 | Blocco → Stile | Dove disponibili, imposta i colori che sostituiscono quelli ereditati e le classi del componente. In Archive, Classi delle card regola le singole card. |
 
-Ogni Section produce una riga di composizione. I blocchi vuoti vengono saltati, compresi Archive senza risultati e Maps senza sedi valide. Le colonne vuote vengono escluse prima del calcolo delle larghezze. Una Section vuota non produce markup. Da md, due, tre o quattro colonne visibili occupano automaticamente metà, un terzo o un quarto della riga.
+Ogni Section genera il tag `<section>` e la sua riga, anche quando è vuota o priva di classi personalizzate. I blocchi vuoti vengono saltati, compresi Archive senza risultati e Maps senza sedi valide. Le colonne vuote vengono escluse prima del calcolo delle larghezze. Per uno spaziatore lascia Colonne vuoto e inserisci `py-5` in Classi della sezione. Puoi anche usare Classi della riga. Da md, due, tre o quattro colonne visibili occupano automaticamente metà, un terzo o un quarto della riga.
 
 La tab Guida descrive le classi di ogni layout nella lingua dell’editor (italiano o inglese). Scrivi le classi separate da spazi. Le intestazioni di Section e Block mostrano le proprie classi durante la digitazione. L’ancora automatica `#s2-b3` identifica il terzo blocco visibile, contando tutte le colonne della seconda Section. Riordinare i blocchi visibili può cambiare la destinazione dei link.
 
@@ -220,6 +221,8 @@ Il rendering condiviso è in `templates/partials/sections.twig`, richiamato dai 
 ## Block Text
 
 Ogni blocco Text contiene titolo (h2), sottotitolo (h3), testo formattato, immagine e due pulsanti facoltativi. Usa `text-image-after` per spostare l’immagine dopo il testo. In Classi del blocco puoi combinare `text-image-ratio-landscape` e `text-image-fit-cover`. Un’immagine statica supporta `parallax` o `parallax-gsap` con la relativa libreria attiva.
+
+Scrivi l’HTML direttamente nei campi **Titolo** e **Sottotitolo**, ad esempio `I nostri <em>ultimi</em><br>progetti`. Per il corpo dei blocchi Text, Cube, Slides e Collapse scegli **Visuale** per usare l’editor completo di WordPress oppure **Testo** per modificare l’HTML. In Visuale il pulsante della barra degli strumenti apre la seconda riga di comandi. Se manca la scheda Visuale, verifica che l’editor visuale sia abilitato nel tuo profilo WordPress.
 
 Con almeno due blocchi Text visibili in una colonna composta solo da Text, inserisci `text-carousel carousel-items-1 carousel-items-md-2` in **Colonna → Classi della colonna**. Per una griglia sfalsata usa `text-masonry`. Il carosello ha la precedenza se sono presenti entrambe le classi. Il loop è disattivato per mantenere univoche le ancore dei blocchi. Una colonna mista impila i blocchi nell’ordine dell’editor.
 
@@ -347,7 +350,7 @@ List.js 2.3.1 è distribuito localmente in assets/list-js con la licenza origina
 
 ### Dipendenze e accessibilità
 
-Accordion e tab usano Bootstrap 4; il carosello usa Owl. Bootstrap deve essere attivo per apertura e tab. Gli ID derivano da sezione, gruppo e posizione della voce: nomi uguali o vuoti non creano conflitti. Le intestazioni sono button con attributi ARIA; icone decorative aggiornate in base agli eventi reali Bootstrap. I titoli sono escaped, il WYSIWYG conserva HTML, link filtrati con esc_url e target _blank con rel noopener noreferrer.
+Accordion e tab usano Bootstrap 4; il carosello usa Owl. Bootstrap deve essere attivo per apertura e tab. Gli ID derivano da sezione, gruppo e posizione della voce: nomi uguali o vuoti non creano conflitti. Le intestazioni sono button con attributi ARIA; icone decorative aggiornate in base agli eventi reali Bootstrap. I titoli delle voci e dei gruppi accettano formattazione HTML. Nei titoli che aprono una scheda o un pannello, il clic rimane assegnato al controllo. Il corpo si modifica con il WYSIWYG. I link sono filtrati con `esc_url` e quelli con `target="_blank"` usano `rel="noopener noreferrer"`.
 
 All'apertura di una scheda viene aggiornato il carosello nascosto. La ricerca e gli accordion sono indipendenti tra sezioni; ogni gruppo standard può mantenere un elemento aperto, mentre la ricerca usa un unico accordion per blocco.
 
@@ -863,7 +866,11 @@ Alias disponibili: post → editorial; section → card. Product è un template 
 
 Tutte le card generiche estendono tease.twig: classi e data-post-id condivisi, nessun ID duplicato. Le immagini usano card-image.twig (WordPress srcset e alt Media Library), le anteprime il relativo helper senza eseguire shortcode. Nessun effetto GSAP obbligatorio. Gli stili delle varianti sono centralizzati nel blocco Tease di assets/css/_sections.scss.
 
+Per un articolo protetto da password, la card mostra l’anteprima solo dopo che WordPress ha accettato la password.
+
 Classi delle card governa le colonne della griglia; in carosello il numero visibile è gestito da Owl. Per horizontal preferire card sufficientemente larghe (per esempio col-12 col-lg-6). I contenuti restano visibili anche senza immagine; le varianti title e text non la mostrano intenzionalmente.
+
+Nei template Twig personalizzati, ometti `grid` per usare le larghezze predefinite della card, oppure passa `grid: ''` per lasciare che Owl la dimensioni. La macro `classes()` in `partials/grid-classes.twig` restituisce i nomi delle classi. Applica `|e('html_attr')` quando li stampi nell’attributo `class`.
 
 ### Informazioni del post nei template
 

@@ -5,9 +5,23 @@
  * 02 | Tabs with standard, grid or Owl content
  * 03 | Grouped standard accordion
  #}
+{% macro tab_content(item, section) %}
+    {% if item.title is not empty %}<h3>{{ function('wp_kses_post', item.title) }}</h3>{% endif %}
+    {{ item.text }}
+    {% include 'partials/buttons.twig' with {
+        buttons: [
+            { title: item.link_1.title, url: item.link_1.url, target: item.link_1.target, style: 'btn btn-' ~ section.color_link_1|default('primary') },
+            { title: item.link_2.title, url: item.link_2.url, target: item.link_2.target, style: 'btn btn-' ~ section.color_link_2|default('primary') }
+        ],
+        buttons_class: '', buttons_animation: ''
+    } only %}
+{% endmacro %}
+
 {% set modifiers = section.class|default('')|split(' ') %}
 {% set prefix = 'collapse-' ~ section.section_index %}
 {% set lists = section.lists|default([]) %}
+{# Collapse triggers and tab links accept inline formatting inside the control. #}
+{% set label_tags = {strong: {}, b: {}, em: {}, i: {}, small: {}, br: {}, span: {class: true}, u: {}, mark: {}, sub: {}, sup: {}} %}
 <div class="container-fluid">
 {% if 'section_collapse_search' in modifiers %}
     {# * GRIT_SET 01 | Local List.js is loaded once through WordPress dependencies #}
@@ -34,7 +48,7 @@
     <div class="row"><div class="col-12 pb-sm-5">
         <ul class="nav arg-tabs d-flex justify-content-start" role="tablist" id="{{ prefix }}-tabs">
         {% for list in lists %}
-            <li role="presentation"><a class="{{ loop.first ? 'active' : '' }}" id="{{ prefix }}-tab-{{ loop.index }}" data-toggle="tab" href="#{{ prefix }}-panel-{{ loop.index }}" role="tab" aria-controls="{{ prefix }}-panel-{{ loop.index }}" aria-selected="{{ loop.first ? 'true' : 'false' }}">{{ list.args|e }}</a></li>
+            <li role="presentation"><a class="{{ loop.first ? 'active' : '' }}" id="{{ prefix }}-tab-{{ loop.index }}" data-toggle="tab" href="#{{ prefix }}-panel-{{ loop.index }}" role="tab" aria-controls="{{ prefix }}-panel-{{ loop.index }}" aria-selected="{{ loop.first ? 'true' : 'false' }}">{{ function('wp_kses', list.args|default(''), label_tags) }}</a></li>
         {% endfor %}
         </ul>
     </div><div class="col-12"><div class="tab-content pt-5">
@@ -43,45 +57,31 @@
             <div class="tab-pane fade{{ loop.first ? ' show active' : '' }}" id="{{ prefix }}-panel-{{ loop.index }}" role="tabpanel" aria-labelledby="{{ prefix }}-tab-{{ loop.index }}">
             {% if 'carousel' in list_classes %}
                 <div class="owl-carousel owl-theme pb-5 {{ list_classes|filter(value => value != 'carousel')|join(' ')|e('html_attr') }}">
-                    {% for item in list.item|default([]) %}<div class="item"><div class="card"><div class="card-body inner-text">{% if item.title %}<h3>{{ item.title|e }}</h3>{% endif %}
-{{ item.text }}
-{% include 'partials/buttons.twig' with {
-    buttons: [
-        { title: item.link_1.title, url: item.link_1.url, target: item.link_1.target, style: 'btn btn-' ~ section.color_link_1|default('primary') },
-        { title: item.link_2.title, url: item.link_2.url, target: item.link_2.target, style: 'btn btn-' ~ section.color_link_2|default('primary') }
-    ],
-    buttons_class: '', buttons_animation: '' 
-} only %}</div></div></div>{% endfor %}
+                    {% for item in list.item|default([]) %}
+                        <div class="item">
+                            <div class="card">
+                                <div class="card-body inner-text">{{ _self.tab_content(item, section) }}</div>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
             {% elseif 'grid' in list_classes %}
                 {% set columns = list_classes|filter(value => value == 'col' or value matches '/^col-.*$/') %}
-                <div class="collapse-grid position-relative px-3"><div class="row">
+                <div class="collapse-grid position-relative px-1"><div class="row">
                 {% for item in list.item|default([]) %}
                     <div class="{{ columns ? columns|join(' ')|e('html_attr') : 'col-12 col-md-4' }} position-relative mb-5">
                         <div class="grid-marker" aria-hidden="true"><span class="dot"></span><div class="line"></div></div>
-                        <div class="pr-md-3 pr-lg-4 inner-text">{% if item.title %}<h3>{{ item.title|e }}</h3>{% endif %}
-{{ item.text }}
-{% include 'partials/buttons.twig' with {
-    buttons: [
-        { title: item.link_1.title, url: item.link_1.url, target: item.link_1.target, style: 'btn btn-' ~ section.color_link_1|default('primary') },
-        { title: item.link_2.title, url: item.link_2.url, target: item.link_2.target, style: 'btn btn-' ~ section.color_link_2|default('primary') }
-    ],
-    buttons_class: '', buttons_animation: '' 
-} only %}</div>
+                        <div class="pr-md-3 pr-lg-4 inner-text">
+                            {{ _self.tab_content(item, section) }}
+                        </div>
                     </div>
                 {% endfor %}
                 </div></div>
             {% else %}
                 <div class="collapse-standard {{ list.inner_class|e('html_attr') }}">
-                {% for item in list.item|default([]) %}<div class="pb-5 inner-text">{% if item.title %}<h3>{{ item.title|e }}</h3>{% endif %}
-{{ item.text }}
-{% include 'partials/buttons.twig' with {
-    buttons: [
-        { title: item.link_1.title, url: item.link_1.url, target: item.link_1.target, style: 'btn btn-' ~ section.color_link_1|default('primary') },
-        { title: item.link_2.title, url: item.link_2.url, target: item.link_2.target, style: 'btn btn-' ~ section.color_link_2|default('primary') }
-    ],
-    buttons_class: '', buttons_animation: '' 
-} only %}</div>{% endfor %}
+                {% for item in list.item|default([]) %}
+                    <div class="pb-5 inner-text">{{ _self.tab_content(item, section) }}</div>
+                {% endfor %}
                 </div>
             {% endif %}
             </div>
@@ -93,7 +93,7 @@
     {% for list in lists %}
         {% set group_index = loop.index %}
         {% set accordion_id = prefix ~ '-group-' ~ group_index %}
-        {% if list.args %}<div class="col-12 pt-5"><h2 class="color-{{ list.args_color|e('html_attr') }}">{{ list.args|e }}</h2></div>{% endif %}
+        {% if list.args is not empty %}<div class="col-12 pt-5"><h2 class="color-{{ list.args_color|e('html_attr') }}">{{ function('wp_kses_post', list.args) }}</h2></div>{% endif %}
         <div class="col-12"><div class="accordion w-100" id="{{ accordion_id }}">
         {% for item in list.item|default([]) %}
             {% include 'partials/collapse-item.twig' with { item_id: prefix ~ '-' ~ group_index ~ '-' ~ loop.index, searchable: false, opened: loop.first } %}

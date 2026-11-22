@@ -99,9 +99,8 @@
                         <div class="col-12">
                             <h2 class="h3 mb-4">{{ __('More content', 'grit') }}</h2>
                             <div class="owl-carousel owl-theme">
-                                {% set grid = ' ' %}
                                 {% for single_post in archive_posts %}
-                                    {% include ['partials/tease-' ~ post.post_type ~ '.twig', 'partials/tease.twig'] with {post: single_post, grid: grid} %}
+                                    {% include ['partials/tease-' ~ post.post_type ~ '.twig', 'partials/tease.twig'] with {post: single_post, grid: ''} %}
                                 {% endfor %}
                             </div>
                         </div>

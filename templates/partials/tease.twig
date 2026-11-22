@@ -84,7 +84,7 @@
         Author, parent and child lookups may require extra database queries.
 
  * 08 | Card context and repetition
-    grid                                  Classes assigned by the calling template
+    grid                                  Omit for default columns, pass '' for a card sized by Owl.
     tease_style                           Validated variant from Section Archive
     section                               Containing ACF section, when provided
         The same post may appear in multiple sections and Owl clones.
@@ -92,7 +92,7 @@
  #}
 {# * GRIT_SET Shared card shell | data-post-id remains valid when a post appears in several sections or Owl clones #}
 {% set card_style = tease_style is defined ? tease_style : section.tease|default('') %}
-<article class="tease tease-{{ post.post_type|e('html_attr') }}{% if card_style %} tease-style-{{ card_style|e('html_attr') }}{% endif %} {{ grid|default('col-12 col-sm-6 col-md-6')|e('html_attr') }}" data-post-id="{{ post.ID|e('html_attr') }}">
+<article class="tease tease-{{ post.post_type|e('html_attr') }}{% if card_style %} tease-style-{{ card_style|e('html_attr') }}{% endif %} {{ (grid ?? 'col-12 col-sm-6 col-md-6')|e('html_attr') }}" data-post-id="{{ post.ID|e('html_attr') }}">
     {% block content %}
         {# * GRIT_SET Clean fallback for unknown card variants #}
         <div class="card h-100">

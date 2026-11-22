@@ -1279,3 +1279,32 @@ msgstr "Destra"
 
 msgid "justify"
 msgstr "Giustificato"
+
+msgid "Row classes"
+msgstr "Classi della riga"
+
+msgid "Classes on the main row, e.g. bg-primary mb-4. Separate classes with spaces and omit the dots."
+msgstr "Classi sulla riga principale, ad esempio bg-primary mb-4. Separale con spazi e scrivile senza punto."
+
+msgid "For a spacer, leave Columns empty and enter py-5 in Section classes."
+msgstr "Per creare uno spaziatore, lascia vuoto il campo Colonne e inserisci py-5 in Classi della sezione."
+
+msgid "Use Section classes for spacing (py-5) or a background image effect (parallax). In Column → Column classes, col-12 col-md-6 sets the width. With at least two Text blocks and no other block types, text-carousel scrolls them and text-masonry arranges them in a grid. Use Row classes for a row background or margin, e.g. bg-primary mb-4. For a spacer, leave Columns empty and enter py-5 in Section classes."
+msgstr "In Classi della sezione usa py-5 per la spaziatura o parallax per animare lo sfondo. In Colonna → Classi della colonna usa col-12 col-md-6 per la larghezza. Con almeno due blocchi Text e nessun altro tipo, text-carousel li fa scorrere e text-masonry li dispone a griglia. Usa Classi della riga per lo sfondo o il margine della riga, ad esempio bg-primary mb-4. Per creare uno spaziatore, lascia vuoto il campo Colonne e inserisci py-5 in Classi della sezione."
+
+#: core/acf-fields.json:351
+#: core/acf-fields.json:373
+#: core/acf-fields.json:848
+#: core/acf-fields.json:893
+#: core/acf-fields.json:1856
+#: core/acf-fields.json:2164
+msgid "You can use inline HTML for formatting, such as bold, emphasis and line breaks."
+msgstr "Puoi formattare il titolo con HTML, ad esempio per il grassetto, il corsivo e le interruzioni di riga."
+
+#: core/acf-fields.json:396
+#: core/acf-fields.json:916
+#: core/acf-fields.json:1878
+#: core/acf-fields.json:2185
+#: core/acf-fields.json:2254
+msgid "Use the Visual tab to format the text or the Text tab to edit its HTML."
+msgstr "Usa la scheda Visuale per formattare il contenuto o la scheda Testo per modificarne l’HTML."

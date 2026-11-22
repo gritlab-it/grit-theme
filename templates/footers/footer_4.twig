@@ -14,15 +14,15 @@ Colors: _variables.scss. Layout styles: _footer.scss.
         {% if setting_mail_1 %}
             <div class="footer-callout footer-divider pb-4 mb-5">
                 <p class="mb-2">{{ __('Let’s talk about your next project', 'grit') }}</p>
-                <a class="footer-contact-link" href="{{ function('esc_url', 'mailto:' ~ setting_mail_1)|e('html_attr') }}">{{ setting_mail_1|e }}</a>
+                <a class="footer-contact-link" href="{{ function('esc_url', 'mailto:' ~ setting_mail_1) }}">{{ setting_mail_1|e }}</a>
             </div>
         {% endif %}
         <div class="row">
             <div class="col-12 col-md-6 col-lg-5 mb-4">
                 <div class="footer-logo mb-4">
-                    <a href="{{ function('esc_url', home)|e('html_attr') }}">
+                    <a href="{{ function('esc_url', home) }}">
                         {% if custom_logo_url[0] %}
-                            <img src="{{ function('esc_url', custom_logo_url[0])|e('html_attr') }}" alt="{{ site.name|e('html_attr') }}" class="img-fluid">
+                            <img src="{{ function('esc_url', custom_logo_url[0]) }}" alt="{{ site.name|e('html_attr') }}" class="img-fluid">
                         {% else %}
                             <span class="h3">{{ site.name|e }}</span>
                         {% endif %}
@@ -39,10 +39,10 @@ Colors: _variables.scss. Layout styles: _footer.scss.
                 {% if setting_mail_1 or setting_tel_1 %}
                     <ul class="footer-contacts list-unstyled mb-0">
                         {% if setting_mail_1 %}
-                            <li><a href="{{ function('esc_url', 'mailto:' ~ setting_mail_1)|e('html_attr') }}">{{ setting_mail_1|e }}</a></li>
+                            <li><a href="{{ function('esc_url', 'mailto:' ~ setting_mail_1) }}">{{ setting_mail_1|e }}</a></li>
                         {% endif %}
                         {% if setting_tel_1 %}
-                            <li><a href="{{ function('esc_url', 'tel:' ~ setting_tel_1|replace({' ': '', '(': '', ')': '', '-': '', '.': ''}))|e('html_attr') }}">{{ setting_tel_1|e }}</a></li>
+                            <li><a href="{{ function('esc_url', 'tel:' ~ setting_tel_1|replace({' ': '', '(': '', ')': '', '-': '', '.': ''})) }}">{{ setting_tel_1|e }}</a></li>
                         {% endif %}
                     </ul>
                 {% endif %}
@@ -53,7 +53,7 @@ Colors: _variables.scss. Layout styles: _footer.scss.
                         <ul class="footer-menu list-unstyled mb-0">
                             {% for item in footer_links %}
                                 <li class="{{ item.classes|join(' ')|e('html_attr') }}">
-                                    <a href="{{ function('esc_url', item.get_link)|e('html_attr') }}"{% if item.target %} target="{{ item.target|e('html_attr') }}"{% if item.target == '_blank' %} rel="noopener noreferrer"{% endif %}{% endif %}>{{ item.title|e }}</a>
+                                    <a href="{{ function('esc_url', item.get_link) }}"{% if item.target %} target="{{ item.target|e('html_attr') }}"{% if item.target == '_blank' %} rel="noopener noreferrer"{% endif %}{% endif %}>{{ item.title|e }}</a>
                                 </li>
                             {% endfor %}
                         </ul>
@@ -101,8 +101,8 @@ Colors: _variables.scss. Layout styles: _footer.scss.
             </div>
             <div class="col-12 col-md-6">
                 <ul class="footer-policy list-unstyled mb-0">
-                    {% if privacy_url %}<li><a href="{{ function('esc_url', privacy_url)|e('html_attr') }}">{{ __('Privacy Policy', 'grit')|e }}</a></li>{% endif %}
-                    {% if cookie_url %}<li><a href="{{ function('esc_url', cookie_url)|e('html_attr') }}">{{ __('Cookie Policy', 'grit')|e }}</a></li>{% endif %}
+                    {% if privacy_url %}<li><a href="{{ function('esc_url', privacy_url) }}">{{ __('Privacy Policy', 'grit')|e }}</a></li>{% endif %}
+                    {% if cookie_url %}<li><a href="{{ function('esc_url', cookie_url) }}">{{ __('Cookie Policy', 'grit')|e }}</a></li>{% endif %}
                 </ul>
             </div>
         </div>

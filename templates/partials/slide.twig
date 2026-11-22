@@ -1,4 +1,4 @@
-{# * GRIT_SET Shared slide | Responsive decorative image, escaped title and shared buttons #}
+{# * GRIT_SET Shared slide | Responsive decorative image, title and shared buttons #}
 <div class="item-slide{% if single %} item-slide-single{% endif %}{% if slide.background_color %} bg-{{ slide.background_color|e('html_attr') }}{% endif %}{% if parallax and slide.background %} jarallax-keep-img{% endif %}">
     {% if slide.background %}
         {{ function('wp_get_attachment_image', slide.background.id|default(slide.background.ID)|default(slide.background), 'full', false, {
@@ -10,7 +10,7 @@
         <div class="container-fluid{% if contained %} contained{% endif %}">
             <div class="row">
                 <div class="col-12{% if slide.align in ['left', 'center', 'right', 'justify'] %} text-{{ slide.align|e('html_attr') }}{% endif %}">
-                    {% if slide.title %}<h2{% if slide.text_color %} class="color-{{ slide.text_color|e('html_attr') }}"{% endif %}>{{ slide.title|e }}</h2>{% endif %}
+                    {% if slide.title is not empty %}<h2{% if slide.text_color %} class="color-{{ slide.text_color|e('html_attr') }}"{% endif %}>{{ function('wp_kses_post', slide.title) }}</h2>{% endif %}
                     {% if slide.text %}<div class="lead font-weight-normal pb-3{% if slide.text_color %} color-{{ slide.text_color|e('html_attr') }}{% endif %}">{{ slide.text }}</div>{% endif %}
                     {% include 'partials/buttons.twig' with {
                         buttons: [

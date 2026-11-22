@@ -15,9 +15,9 @@ Shared appearance is in _footer.scss.
         <div class="row">
             <div class="col-12 col-md-5 col-lg-4 mb-5 mb-md-0">
                 <div class="footer-logo mb-4">
-                    <a href="{{ function('esc_url', home)|e('html_attr') }}">
+                    <a href="{{ function('esc_url', home) }}">
                         {% if custom_logo_url[0] %}
-                            <img src="{{ function('esc_url', custom_logo_url[0])|e('html_attr') }}" alt="{{ site.name|e('html_attr') }}" class="img-fluid">
+                            <img src="{{ function('esc_url', custom_logo_url[0]) }}" alt="{{ site.name|e('html_attr') }}" class="img-fluid">
                         {% else %}
                             <span class="h3">{{ site.name|e }}</span>
                         {% endif %}
@@ -34,10 +34,10 @@ Shared appearance is in _footer.scss.
                 {% if setting_mail_1 or setting_tel_1 %}
                     <ul class="footer-contacts list-unstyled mb-0">
                         {% if setting_mail_1 %}
-                            <li><a href="{{ function('esc_url', 'mailto:' ~ setting_mail_1)|e('html_attr') }}">{{ setting_mail_1|e }}</a></li>
+                            <li><a href="{{ function('esc_url', 'mailto:' ~ setting_mail_1) }}">{{ setting_mail_1|e }}</a></li>
                         {% endif %}
                         {% if setting_tel_1 %}
-                            <li><a href="{{ function('esc_url', 'tel:' ~ setting_tel_1|replace({' ': '', '(': '', ')': '', '-': '', '.': ''}))|e('html_attr') }}">{{ setting_tel_1|e }}</a></li>
+                            <li><a href="{{ function('esc_url', 'tel:' ~ setting_tel_1|replace({' ': '', '(': '', ')': '', '-': '', '.': ''})) }}">{{ setting_tel_1|e }}</a></li>
                         {% endif %}
                     </ul>
                 {% endif %}
@@ -52,7 +52,7 @@ Shared appearance is in _footer.scss.
                                 <ul class="footer-menu list-unstyled mb-0">
                                     {% for item in footer_links %}
                                         <li class="{{ item.classes|join(' ')|e('html_attr') }}">
-                                            <a href="{{ function('esc_url', item.get_link)|e('html_attr') }}"{% if item.target %} target="{{ item.target|e('html_attr') }}"{% if item.target == '_blank' %} rel="noopener noreferrer"{% endif %}{% endif %}>{{ item.title|e }}</a>
+                                            <a href="{{ function('esc_url', item.get_link) }}"{% if item.target %} target="{{ item.target|e('html_attr') }}"{% if item.target == '_blank' %} rel="noopener noreferrer"{% endif %}{% endif %}>{{ item.title|e }}</a>
                                         </li>
                                     {% endfor %}
                                 </ul>
@@ -75,7 +75,7 @@ Shared appearance is in _footer.scss.
                     </div>
                 {% endif %}
                 {# The existing newsletter page receives the email; this form does not subscribe directly. #}
-                <form class="footer-newsletter mt-4" action="{{ function('esc_url', function('home_url', '/newsletter/'))|e('html_attr') }}" method="get">
+                <form class="footer-newsletter mt-4" action="{{ function('esc_url', function('home_url', '/newsletter/')) }}" method="get">
                     <label for="footer-newsletter-email">{{ __('Subscribe to our newsletter', 'grit') }}</label>
                     <div class="footer-newsletter-controls">
                         <input type="email" class="form-control" name="mailnewsletter" id="footer-newsletter-email" autocomplete="email" placeholder="{{ __('Email address', 'grit')|e('html_attr') }}" required>
@@ -98,8 +98,8 @@ Shared appearance is in _footer.scss.
             </div>
             <div class="col-12 col-md-6">
                 <ul class="footer-policy list-unstyled mb-0">
-                    {% if privacy_url %}<li><a href="{{ function('esc_url', privacy_url)|e('html_attr') }}">{{ __('Privacy Policy', 'grit')|e }}</a></li>{% endif %}
-                    {% if cookie_url %}<li><a href="{{ function('esc_url', cookie_url)|e('html_attr') }}">{{ __('Cookie Policy', 'grit')|e }}</a></li>{% endif %}
+                    {% if privacy_url %}<li><a href="{{ function('esc_url', privacy_url) }}">{{ __('Privacy Policy', 'grit')|e }}</a></li>{% endif %}
+                    {% if cookie_url %}<li><a href="{{ function('esc_url', cookie_url) }}">{{ __('Cookie Policy', 'grit')|e }}</a></li>{% endif %}
                 </ul>
             </div>
         </div>

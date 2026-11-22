@@ -311,7 +311,7 @@
                                 "label": "Columns",
                                 "type": "repeater",
                                 "layout": "block",
-                                "min": 1,
+                                "min": 0,
                                 "max": 4,
                                 "sub_fields": [
                                     {
@@ -348,7 +348,7 @@
                                                         "name": "title",
                                                         "aria-label": "",
                                                         "type": "text",
-                                                        "instructions": "",
+                                                        "instructions": "You can use inline HTML for formatting, such as bold, emphasis and line breaks.",
                                                         "required": 0,
                                                         "conditional_logic": 0,
                                                         "wrapper": {
@@ -370,7 +370,7 @@
                                                         "name": "subtitle",
                                                         "aria-label": "",
                                                         "type": "text",
-                                                        "instructions": "",
+                                                        "instructions": "You can use inline HTML for formatting, such as bold, emphasis and line breaks.",
                                                         "required": 0,
                                                         "conditional_logic": 0,
                                                         "wrapper": {
@@ -393,7 +393,7 @@
                                                         "name": "text",
                                                         "aria-label": "",
                                                         "type": "wysiwyg",
-                                                        "instructions": "",
+                                                        "instructions": "Use the Visual tab to format the text or the Text tab to edit its HTML.",
                                                         "required": 0,
                                                         "conditional_logic": 0,
                                                         "wrapper": {
@@ -845,7 +845,7 @@
                                                                 "name": "args",
                                                                 "aria-label": "",
                                                                 "type": "text",
-                                                                "instructions": "",
+                                                                "instructions": "You can use inline HTML for formatting, such as bold, emphasis and line breaks.",
                                                                 "required": 0,
                                                                 "conditional_logic": 0,
                                                                 "wrapper": {
@@ -890,7 +890,7 @@
                                                                         "name": "title",
                                                                         "aria-label": "",
                                                                         "type": "text",
-                                                                        "instructions": "",
+                                                                        "instructions": "You can use inline HTML for formatting, such as bold, emphasis and line breaks.",
                                                                         "required": 0,
                                                                         "conditional_logic": 0,
                                                                         "wrapper": {
@@ -913,7 +913,7 @@
                                                                         "name": "text",
                                                                         "aria-label": "",
                                                                         "type": "wysiwyg",
-                                                                        "instructions": "",
+                                                                        "instructions": "Use the Visual tab to format the text or the Text tab to edit its HTML.",
                                                                         "required": 0,
                                                                         "conditional_logic": 0,
                                                                         "wrapper": {
@@ -1853,7 +1853,7 @@
                                                                 "name": "title",
                                                                 "aria-label": "",
                                                                 "type": "text",
-                                                                "instructions": "",
+                                                                "instructions": "You can use inline HTML for formatting, such as bold, emphasis and line breaks.",
                                                                 "required": 0,
                                                                 "conditional_logic": 0,
                                                                 "wrapper": {
@@ -1875,7 +1875,7 @@
                                                                 "name": "text",
                                                                 "aria-label": "",
                                                                 "type": "wysiwyg",
-                                                                "instructions": "",
+                                                                "instructions": "Use the Visual tab to format the text or the Text tab to edit its HTML.",
                                                                 "required": 0,
                                                                 "conditional_logic": 0,
                                                                 "wrapper": {
@@ -2161,7 +2161,7 @@
                                                         "name": "title",
                                                         "aria-label": "",
                                                         "type": "text",
-                                                        "instructions": "",
+                                                        "instructions": "You can use inline HTML for formatting, such as bold, emphasis and line breaks.",
                                                         "required": 0,
                                                         "conditional_logic": 0,
                                                         "wrapper": {
@@ -2182,7 +2182,7 @@
                                                         "name": "text",
                                                         "aria-label": "",
                                                         "type": "wysiwyg",
-                                                        "instructions": "",
+                                                        "instructions": "Use the Visual tab to format the text or the Text tab to edit its HTML.",
                                                         "required": 0,
                                                         "conditional_logic": 0,
                                                         "wrapper": {
@@ -2251,7 +2251,7 @@
                                                                 "name": "text",
                                                                 "aria-label": "",
                                                                 "type": "wysiwyg",
-                                                                "instructions": "",
+                                                                "instructions": "Use the Visual tab to format the text or the Text tab to edit its HTML.",
                                                                 "required": 0,
                                                                 "conditional_logic": 0,
                                                                 "wrapper": {
@@ -2533,13 +2533,14 @@
                                                 "max": ""
                                             }
                                         },
-                                        "min": 1,
+                                        "min": 0,
                                         "button_label": "Add block",
                                         "grit_editor": true
                                     }
                                 ],
                                 "button_label": "Add column",
-                                "grit_editor": true
+                                "grit_editor": true,
+                                "instructions": "For a spacer, leave Columns empty and enter py-5 in Section classes."
                             },
                             {
                                 "key": "field_grit_section_style",
@@ -2764,6 +2765,28 @@
                                 "grit_editor": true
                             },
                             {
+                                "key": "field_grit_section_row_class",
+                                "label": "Row classes",
+                                "name": "row_class",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "Classes on the main row, e.g. bg-primary mb-4. Separate classes with spaces and omit the dots.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "maxlength": "",
+                                "allow_in_bindings": 0,
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "grit_editor": true
+                            },
+                            {
                                 "key": "field_grit_help_tab_section",
                                 "label": "Guide",
                                 "name": "",
@@ -2793,7 +2816,7 @@
                                     "class": "",
                                     "id": ""
                                 },
-                                "message": "Use Section classes for spacing (py-5) or a background image effect (parallax). In Column → Column classes, col-12 col-md-6 sets the width. With at least two Text blocks and no other block types, text-carousel scrolls them and text-masonry arranges them in a grid.",
+                                "message": "Use Section classes for spacing (py-5) or a background image effect (parallax). In Column → Column classes, col-12 col-md-6 sets the width. With at least two Text blocks and no other block types, text-carousel scrolls them and text-masonry arranges them in a grid. Use Row classes for a row background or margin, e.g. bg-primary mb-4. For a spacer, leave Columns empty and enter py-5 in Section classes.",
                                 "new_lines": "",
                                 "esc_html": 0,
                                 "grit_editor": true

@@ -5,14 +5,14 @@
 Styling: assets/maps/style.json. The viewport always follows the configured locations.
 #}
 {% set map = maps_data|default({}) %}
-{% set has_content = section.title or section.text or section.link_1.url or section.link_2.url %}
+{% set has_content = section.title is not empty or section.text or section.link_1.url or section.link_2.url %}
 {% if map.locations|default([])|length %}
     {# * GRIT_SET 01 | Explicit column fields accept ordinary Bootstrap classes and spacing utilities. #}
     <div class="container-fluid">
         <div class="row maps-layout">
             {% if has_content %}
                 <div class="maps-content-column {{ section.maps_content_class|default('col-12 col-lg-5 mb-4 mb-lg-0')|e('html_attr') }}">
-                    {% if section.title %}<h2>{{ section.title|e }}</h2>{% endif %}
+                    {% if section.title is not empty %}<h2>{{ function('wp_kses_post', section.title) }}</h2>{% endif %}
                     {{ section.text }}
                     {% include 'partials/buttons.twig' with {
                         buttons: [
