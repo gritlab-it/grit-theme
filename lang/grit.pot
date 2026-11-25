@@ -940,7 +940,7 @@ msgstr ""
 msgid "Inherit from Section"
 msgstr ""
 
-msgid "Leave empty to inherit the section style."
+msgid "Choose a value for this block, or leave empty to use the Section setting."
 msgstr ""
 
 #, php-format

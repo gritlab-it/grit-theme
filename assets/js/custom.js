@@ -18,13 +18,15 @@
 $(function () {
     const loader = document.getElementById("loader-wrapper");
     const motion = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
-    if (!loader || !motion || motion.matches) {
+    if (!loader || loader.hidden || !motion || motion.matches) {
         document.body.classList.add("loaded");
         return;
     }
 
-    const reveal = window.setTimeout(() => document.body.classList.add("loaded"), 1500);
-    loader.hidden = false;
+    window.clearTimeout(loader.gritFallbackTimer);
+    // Establish the covered state even when a cached page is ready before its first paint.
+    loader.getBoundingClientRect();
+    document.body.classList.add("loaded");
 
     window.addEventListener("pageshow", function (event) {
         if (event.persisted) document.body.classList.add("loaded");
@@ -63,7 +65,6 @@ $(function () {
         }
         
         e.preventDefault();
-        window.clearTimeout(reveal);
         document.body.classList.remove("loaded");
         window.setTimeout(() => window.location.assign(href), 1000);
     });
@@ -791,12 +792,12 @@ $(startCounterAnimation);
             scrub: 1 // Scroll-following delay for horizontal panels and lateral headings.
         },
         reveal: {
-            initialOpacity: 0.15,
-            duration: 0.6,
-            wordDelay: 0.035, // Delay between words for the timed reveal.
-            scrollSpread: 1.5, // Relative distribution of words in the scroll-driven reveal.
+            initialOpacity: 0.4,
+            duration: 0.45,
+            wordDelay: 0.025, // Delay between words for the timed reveal.
+            scrollSpread: 1, // Relative distribution of words in the scroll-driven reveal.
             start: 'top 95%',
-            end: 'bottom 60%'
+            end: 'clamp(bottom 65%)'
         },
         parallax: {
             scale: 1.1,
@@ -814,7 +815,8 @@ $(startCounterAnimation);
             gap: 5,
             minRotation: -45,
             maxRotation: 45,
-            scrollY: -80,
+            maxScrollOffset: 100, // Pixels on either side of the resting position.
+            scrollSpeed: 0.05, // Pixels per scrolled pixel for the slowest bar.
             scrub: 1,
             pointerDuration: 0.8,
             pointerStrength: 0.015
@@ -1003,7 +1005,7 @@ $(startCounterAnimation);
                                 const words = wrapWords(target, cleanup);
                                 if (!words.length) return;
                                 gsap.fromTo(words, { opacity: motionSettings.reveal.initialOpacity }, { opacity: 1, duration: motionSettings.reveal.duration, stagger: scroll ? { amount: motionSettings.reveal.scrollSpread } : motionSettings.reveal.wordDelay, ease: 'none', scrollTrigger: {
-                                    trigger: target, start: motionSettings.reveal.start, end: motionSettings.reveal.end, scrub: scroll, toggleActions: scroll ? undefined : 'play reverse play reverse'
+                                    trigger: target, start: motionSettings.reveal.start, end: motionSettings.reveal.end, scrub: scroll, toggleActions: scroll ? undefined : 'play none none reverse'
                                 } });
                             });
                         });
@@ -1031,7 +1033,7 @@ $(startCounterAnimation);
                 });
 
                 // Decorative bars are section-local; scroll and pointer use separate transform axes.
-                if (desktop) document.querySelectorAll('.section-bars').forEach(section => {
+                document.querySelectorAll('.section-bars').forEach(section => {
                     const bounds = {
                         'bar-top': [0, 40, 0, 100], 'bar-bottom': [60, 100, 0, 100],
                         'bar-left': [0, 100, 0, 40], 'bar-right': [0, 100, 60, 100],
@@ -1062,7 +1064,23 @@ $(startCounterAnimation);
                     }
                     cleanup.push(() => bars.forEach(bar => bar.remove()));
                     if (!bars.length) return;
-                    gsap.to(bars, { yPercent: motionSettings.bars.scrollY, ease: 'none', scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: motionSettings.bars.scrub } });
+                    bars.forEach((bar, index) => {
+                        const { maxScrollOffset, scrollSpeed, scrub } = motionSettings.bars;
+                        const speed = scrollSpeed * (index % 5 + 1);
+                        const scrollDistance = maxScrollOffset / speed;
+                        // Keep x/y free for the pointer while expressing the scroll offsets in pixels.
+                        const offsetPercent = 100 * maxScrollOffset / sizes.height;
+                        gsap.fromTo(bar, { yPercent: -50 - offsetPercent }, {
+                            yPercent: -50 + offsetPercent,
+                            ease: 'none',
+                            scrollTrigger: {
+                                trigger: section,
+                                start: 'top top+=' + scrollDistance,
+                                end: 'top top-=' + scrollDistance,
+                                scrub
+                            }
+                        });
+                    });
                     if (window.matchMedia('(hover: hover)').matches) {
                         const setters = bars.map(bar => [gsap.quickTo(bar, 'x', { duration: motionSettings.bars.pointerDuration }), gsap.quickTo(bar, 'y', { duration: motionSettings.bars.pointerDuration })]);
                         const move = event => {

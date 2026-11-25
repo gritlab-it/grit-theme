@@ -15,7 +15,7 @@
                     {% include 'partials/buttons.twig' with {
                         buttons: [
                             { title: slide.link_1.title, url: slide.link_1.url, target: slide.link_1.target, style: 'btn btn-' ~ slide.color_link_1|default('primary') },
-                            { title: slide.link_2.title, url: slide.link_2.url, target: slide.link_2.target, style: 'btn btn-' ~ slide.color_link_2|default('primary') }
+                            { title: slide.link_2.title, url: slide.link_2.url, target: slide.link_2.target, style: 'btn btn-' ~ slide.color_link_2|default('secondary') }
                         ], buttons_class: '', buttons_animation: ''
                     } only %}
                 </div>

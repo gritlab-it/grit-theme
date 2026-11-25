@@ -7,8 +7,8 @@
  * Classes | slides-overlay / slides-overlay-light / slides-no-overlay; slides-zoom
  * Parallax | Exact `parallax` token, single slide only; reduced motion disables it
  #}
-{% set slides = section.slides|default([]) %}
-{% set slide_classes = section.class|default('')|split(' ') %}
+{% set slides = block.slides|default([]) %}
+{% set slide_classes = block.class|default('')|split(' ') %}
 {% if slides|length %}
     {# * GRIT_SET 01 | Keep a single slide static; Owl is only needed for multiple slides #}
     <div class="slides-track{% if slides|length > 1 %} owl-carousel owl-theme carousel-slider{% endif %}">
@@ -16,7 +16,7 @@
             {% include 'partials/slide.twig' with {
                 slide: slide,
                 single: slides|length == 1,
-                contained: section.contained|default(false),
+                contained: block.contained|default(false),
                 parallax: slides|length == 1 and 'parallax' in slide_classes,
                 first: loop.first
             } only %}

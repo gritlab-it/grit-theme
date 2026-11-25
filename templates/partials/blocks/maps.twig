@@ -4,25 +4,25 @@
 03 | Static locations and directions remain available without the Google SDK.
 Styling: assets/maps/style.json. The viewport always follows the configured locations.
 #}
-{% set map = maps_data|default({}) %}
-{% set has_content = section.title is not empty or section.text or section.link_1.url or section.link_2.url %}
+{% set map = block.maps_data|default({}) %}
+{% set has_content = block.title is not empty or block.text or block.link_1.url or block.link_2.url %}
 {% if map.locations|default([])|length %}
     {# * GRIT_SET 01 | Explicit column fields accept ordinary Bootstrap classes and spacing utilities. #}
     <div class="container-fluid">
         <div class="row maps-layout">
             {% if has_content %}
-                <div class="maps-content-column {{ section.maps_content_class|default('col-12 col-lg-5 mb-4 mb-lg-0')|e('html_attr') }}">
-                    {% if section.title is not empty %}<h2>{{ function('wp_kses_post', section.title) }}</h2>{% endif %}
-                    {{ section.text }}
+                <div class="maps-content-column {{ block.maps_content_class|default('col-12 col-lg-5 mb-4 mb-lg-0')|e('html_attr') }}">
+                    {% if block.title is not empty %}<h2>{{ function('wp_kses_post', block.title) }}</h2>{% endif %}
+                    {{ block.text }}
                     {% include 'partials/buttons.twig' with {
                         buttons: [
-                            {title: section.link_1.title, url: section.link_1.url, target: section.link_1.target, style: 'btn btn-' ~ section.color_link_1|default('primary')},
-                            {title: section.link_2.title, url: section.link_2.url, target: section.link_2.target, style: 'btn btn-' ~ section.color_link_2|default('primary')}
+                            {title: block.link_1.title, url: block.link_1.url, target: block.link_1.target, style: 'btn btn-' ~ block.color_link_1|default('primary')},
+                            {title: block.link_2.title, url: block.link_2.url, target: block.link_2.target, style: 'btn btn-' ~ block.color_link_2|default('secondary')}
                         ]
                     } only %}
                 </div>
             {% endif %}
-            <div class="maps-media-column {{ (has_content ? section.maps_map_class|default('col-12 col-lg-7') : 'col-12')|e('html_attr') }}">
+            <div class="maps-media-column {{ (has_content ? block.maps_map_class|default('col-12 col-lg-7') : 'col-12')|e('html_attr') }}">
                 <div class="grit-map{% if not map.key %} is-map-unavailable{% endif %}" data-grit-map>
                     {# * GRIT_SET 02 | JSON_HEX_* flags (15) protect script delimiters and quotation marks. #}
                     <script type="application/json" class="grit-map-config">{{ map|json_encode(15)|raw }}</script>

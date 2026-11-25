@@ -1,25 +1,25 @@
 {# * GRIT_SET Shared chapter content; parallax stays limited to static layouts #}
-{% if item.image %}
+{% if block.image %}
     {% set gsap_image = not is_carousel and 'parallax-gsap' in item_classes %}
     {% set jarallax_image = not is_carousel and not gsap_image and 'parallax' in item_classes %}
     <div class="inner-img in__animate{% if is_carousel %} pb-3{% endif %}" data-animation="animate__fadeIn animate__slow">
-        {% if gsap_image %}<div class="gsap-parallax-container"{% if item.image.width and item.image.height %} style="aspect-ratio: {{ item.image.width }}/{{ item.image.height }}"{% endif %}>
+        {% if gsap_image %}<div class="gsap-parallax-container"{% if block.image.width and block.image.height %} style="aspect-ratio: {{ block.image.width }}/{{ block.image.height }}"{% endif %}>
         {% elseif jarallax_image %}<div class="jarallax-keep-img overlay-in" data-speed="0.8">{% endif %}
-        {{ function('grit_text_chapter_image', item.image.id|default(item.image.ID), gsap_image ? 'img-fluid gsap-parallaxImage' : (jarallax_image ? 'img-fluid jarallax-img' : 'img-fluid'), is_carousel, carousel_class|default(section.class|default(''))) }}
+        {{ function('grit_text_chapter_image', block.image.id|default(block.image.ID), gsap_image ? 'img-fluid gsap-parallaxImage' : (jarallax_image ? 'img-fluid jarallax-img' : 'img-fluid'), is_carousel, carousel_class|default('')) }}
         {% if gsap_image or jarallax_image %}</div>{% endif %}
     </div>
 {% endif %}
-{% if item.title is not empty or item.subtitle is not empty or item.text is not empty %}
+{% if block.title is not empty or block.subtitle is not empty or block.text is not empty %}
     <div class="inner-text in__animate" data-animation="animate__fadeIn animate__slow">
-        {% if item.title is not empty %}<h2>{{ function('wp_kses_post', item.title) }}</h2>{% endif %}
-        {% if item.subtitle is not empty %}<h3>{{ function('wp_kses_post', item.subtitle) }}</h3>{% endif %}
-        {{ item.text }}
+        {% if block.title is not empty %}<h2>{{ function('wp_kses_post', block.title) }}</h2>{% endif %}
+        {% if block.subtitle is not empty %}<h3>{{ function('wp_kses_post', block.subtitle) }}</h3>{% endif %}
+        {{ block.text }}
     </div>
 {% endif %}
 {% include 'partials/buttons.twig' with {
     buttons: [
-        { title: item.link_1.title, url: item.link_1.url, target: item.link_1.target, style: 'btn btn-' ~ section.color_link_1|default('primary') },
-        { title: item.link_2.title, url: item.link_2.url, target: item.link_2.target, style: 'btn btn-' ~ section.color_link_2|default('primary') }
+        { title: block.link_1.title, url: block.link_1.url, target: block.link_1.target, style: 'btn btn-' ~ block.color_link_1|default('primary') },
+        { title: block.link_2.title, url: block.link_2.url, target: block.link_2.target, style: 'btn btn-' ~ block.color_link_2|default('secondary') }
     ],
     buttons_class: 'in__animate', buttons_animation: 'animate__fadeIn animate__slow' 
 } only %}

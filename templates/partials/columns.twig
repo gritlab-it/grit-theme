@@ -21,14 +21,12 @@
                     {% set block_number = block_number + 1 %}
                     {% set kind = block.acf_fc_layout %}
                     {# Nested control IDs use the occurrence and positions within this column. Public block anchors count across columns. #}
-                    {% set item = block|merge({
-                        section_index: section.section_index ~ '-c' ~ column_index ~ '-b' ~ loop.index,
+                    {% set block_context = block|merge({
+                        block_index: section.section_index ~ '-c' ~ column_index ~ '-b' ~ loop.index,
                         contained: kind != 'slides' and section.contained,
                         align: block.align|default(section.align),
                         text_color: block.text_color|default(section.text_color),
-                        background_color: block.background_color|default(section.background_color),
-                        color_link_1: block.color_link_1|default(section.color_link_1),
-                        color_link_2: block.color_link_2|default(section.color_link_2)
+                        background_color: block.background_color|default(section.background_color)
                     }) %}
                     {% set classes = [
                         'block_' ~ kind, masonry ? 'masonry-item col-12 col-md-6', block.class|default(''),
@@ -38,7 +36,7 @@
                         kind == 'text' and block.background_color ? 'bg-' ~ block.background_color
                     ] %}
                     <div id="{{ section_id|e('html_attr') }}-b{{ block_number }}" data-grit-block class="{{ classes|filter(value => value)|join(' ')|e('html_attr') }}">
-                        {% include 'partials/blocks/' ~ kind ~ '.twig' with {section: item, archive_data: block.archive_data, maps_data: block.maps_data} %}
+                        {% include 'partials/blocks/' ~ kind ~ '.twig' with {block: block_context} %}
                     </div>
                 {% endfor %}
                 {% if carousel or masonry %}</div>{% endif %}

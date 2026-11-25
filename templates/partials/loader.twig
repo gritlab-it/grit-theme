@@ -25,4 +25,13 @@
 #}
 
 </div>
+<script>
+    (function () {
+        if (!window.matchMedia || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const loader = document.getElementById('loader-wrapper');
+        loader.hidden = false;
+        // Release the page if the footer script fails to initialize.
+        loader.gritFallbackTimer = window.setTimeout(() => { loader.hidden = true; }, 5000);
+    })();
+</script>
 

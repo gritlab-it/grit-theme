@@ -18,7 +18,7 @@ I percorsi della tabella sono relativi al tema parent; quelli indicati come **ch
 | **Spaziature** | Prima usa classi come `py-5`, `mb-4`, `gap-*` dove previste dal layout. Per le utility aggiuntive del tema consulta `$extra-spacing-values` in `_variables.scss` e la loro generazione in `_content.scss`. | [Comporre una Section](#comporre-una-section) |
 | **Header e footer** | Scegli la variante in Personalizza e assegna i menu da Aspetto → Menu. Modifica il relativo Twig in `templates/headers/` o `templates/footers/`; gli stili sono in `_header.scss` e `_footer.scss`. | [Header, footer, menu e form](#header-footer-menu-e-form) |
 | Section e blocchi | Componi colonne e blocchi in ACF. Il wrapper è `templates/partials/section.twig`. Ogni componente ha un template in `templates/partials/blocks/`. |
-| **CSS nel child** | Scrivi nel `style.css` del child: il suo `functions.php` lo carica già dopo gli stili del parent. Copiare un partial SCSS nel child non modifica automaticamente il CSS compilato del parent. | [Colori e SCSS](#colori-scss-e-personalizzazione) |
+| **CSS nel child** | Scrivi nel `style.css` del child: il suo `functions.php` lo carica già dopo gli stili del parent. Per sostituire il foglio principale, compila `assets/css/main.scss` del child nel suo `assets/css/main.css`. In assenza del file WordPress carica quello del padre. | [Colori e SCSS](#colori-scss-e-personalizzazione) |
 | **JavaScript nel child** | Il child distribuito non carica un JS personalizzato. Aggiungi il caricamento nel suo `functions.php`, tramite `wp_enqueue_scripts` dopo il parent (priorità 120), usando l’URL del child e l’handle `scripts` come dipendenza se il codice deve seguire `custom.js`. Per poche istruzioni puoi usare `wp_add_inline_script('scripts', …, 'after')` nello stesso hook, senza un file aggiuntivo. | [Percorso delle librerie](#percorso-breve-opzione--caricamento--inizializzazione) |
 
 **Dopo una modifica SCSS**, compila `assets/css/main.scss` in `assets/css/main.css`: modificare soltanto il sorgente non aggiorna il sito. Per il CSS scritto direttamente nel `style.css` del child non serve compilazione. Verifica il risultato su desktop e mobile; per gli script controlla anche la console del browser.
@@ -181,7 +181,9 @@ In **Sections** aggiungi una Section, scegli da una a quattro colonne e inserisc
 | Section → Layout → Classi della riga | Applica uno sfondo o un margine alla riga che contiene le colonne, ad esempio `bg-primary mb-4`. |
 | Colonna → Classi della colonna | Larghezza Bootstrap esplicita, per esempio `col-12 col-md-8`. Una sola colonna visibile occupa tutta la riga anche con testo centrato. |
 | Blocco → Contenuto | Testi, media, pulsanti e opzioni del componente. |
-| Blocco → Stile | Dove disponibili, imposta i colori che sostituiscono quelli ereditati e le classi del componente. In Archive, Classi delle card regola le singole card. |
+| Blocco → Stile | In Text e Cube puoi scegliere sfondo, colore del testo e allineamento separatamente. Ogni campo vuoto usa il valore della Section. Per esempio, scegli solo Accent per il testo per mantenere sfondo e allineamento della Section. In Archive, Classi delle card regola le singole card. |
+
+Nei template Twig dei blocchi, `block` contiene il componente corrente e `section` indica la sezione che lo ospita. Imposta gli stili dei pulsanti in Text, Cube, Collapse e Maps, oppure nella singola slide. Il primo pulsante parte da Primary e il secondo da Secondary. In Collapse la scelta vale per tutte le voci del blocco.
 
 Ogni Section genera il tag `<section>` e la sua riga, anche quando è vuota o priva di classi personalizzate. I blocchi vuoti vengono saltati, compresi Archive senza risultati e Maps senza sedi valide. Le colonne vuote vengono escluse prima del calcolo delle larghezze. Per uno spaziatore lascia Colonne vuoto e inserisci `py-5` in Classi della sezione. Puoi anche usare Classi della riga. Da md, due, tre o quattro colonne visibili occupano automaticamente metà, un terzo o un quarto della riga.
 
@@ -331,7 +333,7 @@ Colori e posizioni dei controlli sono descritti nel capitolo [Caroselli Owl cond
 | section_collapse_search | Lista piatta con ricerca e paginazione indipendente, sette risultati per pagina |
 | section_collapse_dynamic | Schede: ciascun gruppo può contenere testo, griglia o carosello |
 
-Se sono presenti search e dynamic, search ha precedenza. Il repeater ACF Lists contiene args (nome del gruppo), args_color, inner_class e item (titolo, WYSIWYG, due link). I pulsanti non richiedono testo e vengono mostrati anche nella griglia dinamica.
+Se sono presenti search e dynamic, search ha precedenza. Il repeater ACF Lists contiene args (nome del gruppo), Colore del gruppo (sfondo della testata negli accordion standard e con ricerca; testo e icone ereditano il colore della sezione), inner_class e item (titolo, WYSIWYG, due link). I pulsanti non richiedono testo e vengono mostrati anche nella griglia dinamica.
 
 ### Schede: Classi del gruppo
 
@@ -531,7 +533,7 @@ In `assets/js/custom.js`, all’inizio del blocco **12 | GSAP, ScrollTrigger, Le
 | `parallax` | Ingrandimento e spostamento percentuale delle immagini. |
 | `bars` | Numero massimo, distanza minima, rotazione e risposta delle barre a scroll e puntatore. |
 
-Esempi: aumentare `reveal.wordDelay` da `0.035` a `0.06` distanzia maggiormente le parole nella rivelazione temporizzata; ridurre `bars.maxCount` da `15` a `8` limita le barre decorative. `reveal.scrollSpread` riguarda invece la distribuzione delle parole nell’effetto legato allo scroll, non una durata di riproduzione in secondi.
+Esempi: aumentare `reveal.wordDelay` da `0.025` a `0.06` distanzia maggiormente le parole nella rivelazione temporizzata; ridurre `bars.maxCount` da `15` a `8` limita le barre decorative. `reveal.scrollSpread` riguarda invece la distribuzione delle parole nell’effetto legato allo scroll, non una durata di riproduzione in secondi.
 
 Questi valori personalizzano gli effetti già attivati dalle classi; non attivano le librerie. Le impostazioni sono condivise dalle sezioni della pagina. Breakpoint, controlli sui contenuti troppo alti, movimento ridotto e ripristino al resize restano nella logica sottostante: non occorre modificarli per regolare la velocità degli effetti. Per il parallax mantenere un ingrandimento sufficiente a coprire i bordi durante lo spostamento.
 

@@ -217,7 +217,8 @@ function grit_scripts_custom()
 
     // * GRIT_SET 25 | Compiled main stylesheet
 
-    wp_enqueue_style('main', get_template_directory_uri() . '/assets/css/main.css', array(), filemtime(get_template_directory() . '/assets/css/main.css'));
+    $main_css = 'assets/css/main.css';
+    wp_enqueue_style('main', get_theme_file_uri($main_css), array(), filemtime(get_theme_file_path($main_css)));
 
     // * GRIT_SET 26 | Custom stylesheet
 

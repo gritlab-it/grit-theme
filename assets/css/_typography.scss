@@ -6,6 +6,7 @@
 
 @use "./variables" as *;
 
+
 // * GRIT_SET 01 | typography
 p {
     font-family: $font-primary;
@@ -14,13 +15,13 @@ p {
 .font-primary,
 .font-primary * {
     font-family: $font-primary !important;
-    font-weight: normal !important;
+     font-weight: normal ;
 }
 
 .font-secondary,
 .font-secondary * {
     font-family: $font-secondary !important;
-    font-weight: normal !important;
+     font-weight: normal ;
 }
 
 h1,
@@ -30,7 +31,7 @@ h2,
 h3,
 .h3 {
     font-family: $font-secondary;
-    font-weight: bold;
+     font-weight: normal ;
 }
 
 h4,
@@ -40,41 +41,42 @@ h5,
 h6,
 .h6 {
     font-family: $font-primary;
+     font-weight: normal ;
 }
 .display-1 {
     font-size: clamp(2.6rem, calc(80 / $xxl * 100vw), 5rem); // 5rem = 80px
     line-height: 1.2;
-    font-weight: bold;
+    font-weight: normal;
 }
 
 .display-2 {
     font-size: clamp(2.4rem, calc(70 / $xxl * 100vw), 5rem); // Come fornito, ~4.375rem = 70px
     line-height: 1.2;
-    font-weight: bold;
+    font-weight: normal;
 }
 
 .display-3 {
     font-size: clamp(2rem, calc(64 / $xxl * 100vw), 4rem); // 4rem = 64px
     line-height: 1.2;
-    font-weight: bold;
+    font-weight: normal;
 }
 
 .display-4 {
     font-size: clamp(1.8rem, calc(56 / $xxl * 100vw), 3.5rem); // 3.5rem = 56px
     line-height: 1.2;
-    font-weight: bold;
+    font-weight: normal;
 }
 
 .display-5 {
     font-size: clamp(1.6rem, calc(48 / $xxl * 100vw), 3rem); // 3rem = 48px
     line-height: 1.2;
-    font-weight: bold;
+    font-weight: normal;
 }
 
 .display-6 {
     font-size: clamp(1.4rem, calc(40 / $xxl * 100vw), 2.5rem); // 2.5rem = 40px
     line-height: 1.2;
-    font-weight: bold;
+    font-weight: normal;
 }
 
 .lead {
@@ -102,7 +104,7 @@ a:hover {
     // border-radius: 3px;
     // font-variation-settings: 'wght' 300;
     font-variation-settings: "slnt" 12;
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 // * GRIT_SET 02 | btn

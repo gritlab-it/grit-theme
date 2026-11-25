@@ -940,8 +940,8 @@ msgstr "Richiama le Section della sorgente per un solo livello. Il contenuto di 
 msgid "Inherit from Section"
 msgstr "Eredita dalla Section"
 
-msgid "Leave empty to inherit the section style."
-msgstr "Lascia vuoto per usare lo stile della Section."
+msgid "Choose a value for this block, or leave empty to use the Section setting."
+msgstr "Scegli un valore per questo blocco oppure lascia vuoto per usare quello della Section."
 
 #, php-format
 msgid "Enter the template name without tease- or .twig. Available templates: %s. Leave empty to use the post type template or the default card."

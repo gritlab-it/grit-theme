@@ -40,7 +40,10 @@
                 <div class="inner-item">
         {% endif %}
             {# Edit images, headings, text and buttons in partials/text-chapter.twig. #}
-            {% include 'partials/text-chapter.twig' %}
+            {% include 'partials/text-chapter.twig' with {
+                block: item|merge({color_link_1: section.color_link_1, color_link_2: section.color_link_2}),
+                carousel_class: section.class|default(''), is_carousel: is_carousel, item_classes: item_classes
+            } only %}
 
         {% if is_carousel %}
             </div> {# .inner-list #}

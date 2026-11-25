@@ -2,22 +2,22 @@
    01 Multiple images in Owl
    02 WordPress gallery grid
    03 Single image and optional parallax #}
-{% if section.gallery|length > 1 %}  
-    {% if 'gallery_carousel' in section.class|default('')|split(' ') %} 
+{% if block.gallery|length > 1 %}
+    {% if 'gallery_carousel' in block.class|default('')|split(' ') %}
         {# * GRIT_SET 01 | gallery_carousel #} 
         <div class="container-fluid ">
             <div class="row">
                 <div class="col ">
                     <div class="owl-carousel owl-theme ">
-                        {% for item in section.gallery %}
+                        {% for item in block.gallery %}
                             {% set image = Image(item.id) %}
                             <a class="item item-img-gallery no-load"
-                               data-lightbox-gallery="item-gallery-{{ section.section_index|e('html_attr') }}"
+                               data-lightbox-gallery="item-gallery-{{ block.block_index|e('html_attr') }}"
                                data-width="{{ image.width }}"
                                data-height="{{ image.height }}"
                                href="{{ image.src|e('html_attr') }}"
                                title="{{ item.alt|e('html_attr') }}">
-                                {{ function('grit_gallery_carousel_image', item.id, section.class|default('')) }}
+                                {{ function('grit_gallery_carousel_image', item.id, block.class|default('')) }}
                             </a>
                         {% endfor %}
                     </div> 
@@ -28,11 +28,11 @@
         
     {% else %}
     {# * GRIT_SET 02 | WordPress gallery grid #}
-    {% set image_ids = section.gallery | map(image => image.id) | join(',') %}
+    {% set image_ids = block.gallery | map(image => image.id) | join(',') %}
     <div class="container-fluid ">
         <div class="row">
             <div class="col-12">
-                {{ function('do_shortcode', '[gallery ids="' ~ image_ids ~ '" columns="'~ section.columns ~'" size="' ~ section.size ~ '" link="file" ]') }}
+                {{ function('do_shortcode', '[gallery ids="' ~ image_ids ~ '" columns="'~ block.columns ~'" size="' ~ block.size ~ '" link="file" ]') }}
             </div>
         </div>
     </div>
@@ -43,15 +43,15 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 in__animate " data-animation="animate__fadeIn animate__slow ">
-                {% set classes = section.class ? section.class|split(' ') : [] %}
+                {% set classes = block.class ? block.class|split(' ') : [] %}
 
-                {% if section.gallery[0] %} 
+                {% if block.gallery[0] %}
                     {% if 'parallax-gsap' in classes %}
                           
                         <div class="gsap-parallax-container">
                             {% set image = {
-                            'alt': section.gallery[0].alt,
-                            'src': Image(section.gallery[0].id).src,
+                            'alt': block.gallery[0].alt,
+                            'src': Image(block.gallery[0].id).src,
                             'class': 'gsap-parallaxImage'
                         } %}
                             {% include ['/partials/img.twig'] with image %}
@@ -61,16 +61,16 @@
                 
                     <div class="jarallax-keep-img overlay-in" data-speed="0.2">
                         {% set image = {
-                                'alt': section.gallery[0].alt,
-                                'src': Image(section.gallery[0].id).src,
+                                'alt': block.gallery[0].alt,
+                                'src': Image(block.gallery[0].id).src,
                                 'class': 'img-fluid jarallax-img'
                             } %}
                         {% include ['/partials/img.twig'] with image %}
                     </div> 
                 {% else %}
                     {% set image = {
-                            'alt': section.gallery[0].alt,
-                            'src': Image(section.gallery[0].id).src,
+                            'alt': block.gallery[0].alt,
+                            'src': Image(block.gallery[0].id).src,
                             'class': 'img-fluid'
                         } %}
                     {% include ['/partials/img.twig'] with image %}

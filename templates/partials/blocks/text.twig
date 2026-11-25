@@ -1,7 +1,7 @@
 {# GRIT_SET | Render the direct Text fields and inherit the column carousel settings. #}
 <div class="item-chapters"><div class="inner-item">
     {% include 'partials/text-chapter.twig' with {
-        item: section, section: section, is_carousel: carousel|default(false), carousel_class: column.inner_class|default(''),
-        item_classes: section.class|default('')|split(' ')
+        block: block, is_carousel: carousel|default(false), carousel_class: column.inner_class|default(block.class|default('')),
+        item_classes: block.class|default('')|split(' ')
     } only %}
 </div></div>

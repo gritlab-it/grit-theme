@@ -1038,6 +1038,52 @@
                                                         "grit_editor": true
                                                     },
                                                     {
+                                                        "key": "field_grit_collapse_color_link_1",
+                                                        "label": "Button 1 colour",
+                                                        "name": "color_link_1",
+                                                        "aria-label": "",
+                                                        "type": "clone",
+                                                        "instructions": "",
+                                                        "required": 0,
+                                                        "conditional_logic": 0,
+                                                        "wrapper": {
+                                                            "width": "",
+                                                            "class": "",
+                                                            "id": ""
+                                                        },
+                                                        "clone": [
+                                                            "field_690b26c31cee7"
+                                                        ],
+                                                        "display": "seamless",
+                                                        "layout": "block",
+                                                        "prefix_label": 0,
+                                                        "prefix_name": 0,
+                                                        "grit_editor": true
+                                                    },
+                                                    {
+                                                        "key": "field_grit_collapse_color_link_2",
+                                                        "label": "Button 2 colour",
+                                                        "name": "color_link_2",
+                                                        "aria-label": "",
+                                                        "type": "clone",
+                                                        "instructions": "",
+                                                        "required": 0,
+                                                        "conditional_logic": 0,
+                                                        "wrapper": {
+                                                            "width": "",
+                                                            "class": "",
+                                                            "id": ""
+                                                        },
+                                                        "clone": [
+                                                            "field_690b26dc1cee8"
+                                                        ],
+                                                        "display": "seamless",
+                                                        "layout": "block",
+                                                        "prefix_label": 0,
+                                                        "prefix_name": 0,
+                                                        "grit_editor": true
+                                                    },
+                                                    {
                                                         "key": "field_grit_block_collapse_class",
                                                         "name": "class",
                                                         "label": "Block classes",
@@ -1751,11 +1797,92 @@
                                                         "grit_editor": true
                                                     },
                                                     {
+                                                        "key": "field_grit_maps_link_1",
+                                                        "label": "Button 1",
+                                                        "name": "link_1",
+                                                        "aria-label": "",
+                                                        "type": "link",
+                                                        "instructions": "Choose a URL, label and target for the optional button. A URL is required to display it.",
+                                                        "required": 0,
+                                                        "conditional_logic": 0,
+                                                        "wrapper": {
+                                                            "width": "",
+                                                            "class": "",
+                                                            "id": ""
+                                                        },
+                                                        "return_format": "array",
+                                                        "grit_editor": true
+                                                    },
+                                                    {
+                                                        "key": "field_grit_maps_link_2",
+                                                        "label": "Button 2",
+                                                        "name": "link_2",
+                                                        "aria-label": "",
+                                                        "type": "link",
+                                                        "instructions": "Optional second button with its own colour.",
+                                                        "required": 0,
+                                                        "conditional_logic": 0,
+                                                        "wrapper": {
+                                                            "width": "",
+                                                            "class": "",
+                                                            "id": ""
+                                                        },
+                                                        "return_format": "array",
+                                                        "allow_in_bindings": 1,
+                                                        "grit_editor": true
+                                                    },
+                                                    {
                                                         "key": "field_grit_maps_view",
                                                         "type": "tab",
                                                         "name": "",
                                                         "label": "Style",
                                                         "placement": "top",
+                                                        "grit_editor": true
+                                                    },
+                                                    {
+                                                        "key": "field_grit_maps_color_link_1",
+                                                        "label": "Button 1 colour",
+                                                        "name": "color_link_1",
+                                                        "aria-label": "",
+                                                        "type": "clone",
+                                                        "instructions": "",
+                                                        "required": 0,
+                                                        "conditional_logic": 0,
+                                                        "wrapper": {
+                                                            "width": "",
+                                                            "class": "",
+                                                            "id": ""
+                                                        },
+                                                        "clone": [
+                                                            "field_690b26c31cee7"
+                                                        ],
+                                                        "display": "seamless",
+                                                        "layout": "block",
+                                                        "prefix_label": 0,
+                                                        "prefix_name": 0,
+                                                        "grit_editor": true
+                                                    },
+                                                    {
+                                                        "key": "field_grit_maps_color_link_2",
+                                                        "label": "Button 2 colour",
+                                                        "name": "color_link_2",
+                                                        "aria-label": "",
+                                                        "type": "clone",
+                                                        "instructions": "",
+                                                        "required": 0,
+                                                        "conditional_logic": 0,
+                                                        "wrapper": {
+                                                            "width": "",
+                                                            "class": "",
+                                                            "id": ""
+                                                        },
+                                                        "clone": [
+                                                            "field_690b26dc1cee8"
+                                                        ],
+                                                        "display": "seamless",
+                                                        "layout": "block",
+                                                        "prefix_label": 0,
+                                                        "prefix_name": 0,
                                                         "grit_editor": true
                                                     },
                                                     {
@@ -2638,52 +2765,6 @@
                                 },
                                 "clone": [
                                     "field_690a10173ff27"
-                                ],
-                                "display": "seamless",
-                                "layout": "block",
-                                "prefix_label": 0,
-                                "prefix_name": 0,
-                                "grit_editor": true
-                            },
-                            {
-                                "key": "field_66d976bac817e",
-                                "label": "Button 1 colour",
-                                "name": "color_link_1",
-                                "aria-label": "",
-                                "type": "clone",
-                                "instructions": "",
-                                "required": 0,
-                                "conditional_logic": 0,
-                                "wrapper": {
-                                    "width": "",
-                                    "class": "",
-                                    "id": ""
-                                },
-                                "clone": [
-                                    "field_690b26c31cee7"
-                                ],
-                                "display": "seamless",
-                                "layout": "block",
-                                "prefix_label": 0,
-                                "prefix_name": 0,
-                                "grit_editor": true
-                            },
-                            {
-                                "key": "field_66d976dcc817f",
-                                "label": "Button 2 colour",
-                                "name": "color_link_2",
-                                "aria-label": "",
-                                "type": "clone",
-                                "instructions": "",
-                                "required": 0,
-                                "conditional_logic": 0,
-                                "wrapper": {
-                                    "width": "",
-                                    "class": "",
-                                    "id": ""
-                                },
-                                "clone": [
-                                    "field_690b26dc1cee8"
                                 ],
                                 "display": "seamless",
                                 "layout": "block",

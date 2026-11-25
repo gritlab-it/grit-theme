@@ -5,13 +5,14 @@
  * Class | archive-masonry / archive-carousel; shared carousel-* settings and light/dark controls
  #}
 {% import 'partials/grid-classes.twig' as archive_grid %}
+{% set archive_data = block.archive_data %}
 {% set is_terms = archive_data.mode|default('posts') == 'terms' %}
 {% set archive_items = is_terms ? archive_data.terms : archive_data.posts %}
-{% set modifiers = section.class|default('')|split(' ') %}
+{% set modifiers = block.class|default('')|split(' ') %}
 {% set carousel_requested = 'archive-carousel' in modifiers %}
 {% set carousel = carousel_requested and archive_items|length > 1 %}
 {% set masonry = not carousel_requested and 'archive-masonry' in modifiers %}
-{% set grid = archive_grid.classes(section.inner_class|default(''), archive_items|length, section.align|default(''), carousel)|trim %}
+{% set grid = archive_grid.classes(block.inner_class|default(''), archive_items|length, block.align|default(''), carousel)|trim %}
 {% if masonry %}{% set grid = grid ~ ' masonry-item' %}{% endif %}
 {% if archive_items|length %}
     {# * GRIT_SET 02 | Outer column classes control section width; Inner Class controls individual cards #}
@@ -21,7 +22,7 @@
                 <div class="{% if carousel %}owl-carousel owl-theme{% elseif masonry %}row masonry-grid js-grit-masonry{% else %}row{% endif %}">
                     {% for archive_post in archive_items %}
                         {% if is_terms %}
-                            {% include 'partials/tease-term.twig' with { term: archive_post, grid: grid, show_count: section.terms_show_count|default(false) } only %}
+                            {% include 'partials/tease-term.twig' with { term: archive_post, grid: grid, show_count: block.terms_show_count|default(false) } only %}
                         {% else %}
                             {% include ['partials/tease-' ~ archive_data.tease ~ '.twig', 'partials/tease.twig'] with {
                                 post: archive_post,

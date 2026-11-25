@@ -696,6 +696,7 @@ function grit_archive_section_data($section) {
     if (!isset(grit_archive_tease_choices()[$tease])) {
         $tease = '';
     }
+    $args = apply_filters('grit_archive_section_query_args', $args, $section);
     return ['posts' => new Timber\PostQuery($args), 'tease' => $tease];
 }
 
@@ -1053,11 +1054,11 @@ add_filter('acf/clone_field', function ($field, $clone) {
         $field['label'] = $clone['label'];
         $field['instructions'] = $clone['instructions'] ?? '';
     }
-    if (strpos($clone['key'], 'field_grit_style_') === 0) {
+    if (strpos($clone['key'], 'field_grit_style_') === 0 && in_array($clone['name'], ['background_color', 'text_color', 'align'], true)) {
         $field['allow_null'] = 1;
         $field['default_value'] = '';
         $field['placeholder'] = 'Inherit from Section';
-        $field['instructions'] = 'Leave empty to inherit the section style.';
+        $field['instructions'] = 'Choose a value for this block, or leave empty to use the Section setting.';
     }
     return $field;
 }, 20, 2);
