@@ -149,7 +149,7 @@ Use `GRIT_SETTING_CSS` and `GRIT_SETTING_JS` for additional asset URLs. Use expl
 
 ## Building a Section
 
-Add a Section in **Sections**. Add one to four columns, then add blocks in the order you want them to appear within each column. For example, place Text followed by Gallery in the first column and Collapse followed by Text in the second. Dragging a block within one column changes only that sequence.
+Add a Section in **Sections**. Add as many columns as the section needs, then add blocks in the order you want them to appear within each column. For example, place Text followed by Gallery in the first column and Collapse followed by Text in the second. Dragging a block within one column changes only that sequence.
 
 | Where | What to set |
 | --- | --- |
@@ -161,7 +161,7 @@ Add a Section in **Sections**. Add one to four columns, then add blocks in the o
 
 In Twig block templates, `block` contains the current component and `section` is the outer section. Set button styles in Text, Cube, Collapse and Maps, or on each individual slide. Button 1 defaults to Primary and Button 2 to Secondary. The Collapse settings apply to all its items.
 
-Each Section renders its `<section>` element and row, even when it has no content or custom classes. Empty blocks are skipped, including Archive without results and Maps without valid pins. Empty columns drop out before widths are calculated. For a spacer, leave Columns empty and enter `py-5` in Section classes. You can also use Row classes. With two, three or four visible columns the automatic widths from md are one half, one third or one quarter.
+Each Section renders its `<section>` element and row, even when it has no content or custom classes. Empty blocks are skipped, including Archive without results and Maps without valid pins. Empty columns drop out before widths are calculated. For a spacer, leave Columns empty and enter `py-5` in Section classes. You can also use Row classes. From 768 px, two visible columns each take half the row and three each take a third. With four or more, the default is four per row. A fifth column starts the next row. Use Column classes to choose different widths.
 
 The Guide tab describes the classes available for each layout in the editor’s language (English or Italian). Enter tokens separated by spaces. The Section and Block headers show their own classes as you type. The automatic anchor `#s2-b3` points to the third visible block across all columns of Section 2. Reordering visible blocks can change link targets.
 

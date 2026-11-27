@@ -312,7 +312,7 @@
                                 "type": "repeater",
                                 "layout": "block",
                                 "min": 0,
-                                "max": 4,
+                                "max": 0,
                                 "sub_fields": [
                                     {
                                         "key": "field_grit_column_class",

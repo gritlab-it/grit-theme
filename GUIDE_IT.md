@@ -173,7 +173,7 @@ Dopo una modifica verificare nella rete del browser che gli asset siano caricati
 
 ## Comporre una Section
 
-In **Sections** aggiungi una Section, scegli da una a quattro colonne e inserisci i blocchi nell’ordine di lettura di ciascuna colonna. Per esempio, nella prima inserisci Text seguito da Gallery, nella seconda Collapse seguito da Text. Trascinando un blocco nella prima colonna cambi soltanto quella sequenza.
+In **Sections** aggiungi una Section, aggiungi tutte le colonne che servono e inserisci i blocchi nell’ordine di lettura di ciascuna colonna. Per esempio, nella prima inserisci Text seguito da Gallery, nella seconda Collapse seguito da Text. Trascinando un blocco nella prima colonna cambi soltanto quella sequenza.
 
 | Dove | Cosa impostare |
 | --- | --- |
@@ -185,7 +185,7 @@ In **Sections** aggiungi una Section, scegli da una a quattro colonne e inserisc
 
 Nei template Twig dei blocchi, `block` contiene il componente corrente e `section` indica la sezione che lo ospita. Imposta gli stili dei pulsanti in Text, Cube, Collapse e Maps, oppure nella singola slide. Il primo pulsante parte da Primary e il secondo da Secondary. In Collapse la scelta vale per tutte le voci del blocco.
 
-Ogni Section genera il tag `<section>` e la sua riga, anche quando è vuota o priva di classi personalizzate. I blocchi vuoti vengono saltati, compresi Archive senza risultati e Maps senza sedi valide. Le colonne vuote vengono escluse prima del calcolo delle larghezze. Per uno spaziatore lascia Colonne vuoto e inserisci `py-5` in Classi della sezione. Puoi anche usare Classi della riga. Da md, due, tre o quattro colonne visibili occupano automaticamente metà, un terzo o un quarto della riga.
+Ogni Section genera il tag `<section>` e la sua riga, anche quando è vuota o priva di classi personalizzate. I blocchi vuoti vengono saltati, compresi Archive senza risultati e Maps senza sedi valide. Le colonne vuote vengono escluse prima del calcolo delle larghezze. Per uno spaziatore lascia Colonne vuoto e inserisci `py-5` in Classi della sezione. Puoi anche usare Classi della riga. Da 768 px, due colonne visibili occupano metà riga ciascuna e tre occupano un terzo ciascuna. Con quattro o più colonne, la griglia predefinita ne mostra quattro per riga. La quinta inizia la riga successiva. Puoi scegliere larghezze diverse nel campo Classi della colonna.
 
 La tab Guida descrive le classi di ogni layout nella lingua dell’editor (italiano o inglese). Scrivi le classi separate da spazi. Le intestazioni di Section e Block mostrano le proprie classi durante la digitazione. L’ancora automatica `#s2-b3` identifica il terzo blocco visibile, contando tutte le colonne della seconda Section. Riordinare i blocchi visibili può cambiare la destinazione dei link.
 
