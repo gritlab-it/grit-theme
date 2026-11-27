@@ -996,11 +996,16 @@ $(startCounterAnimation);
                             return;
                         }
                         gsap.to(title, { x: () => -distance(), ease: 'none', scrollTrigger: { trigger: section, pin: true, start: 'top top', end: () => '+=' + distance(), scrub: motionSettings.horizontal.scrub, invalidateOnRefresh: true } });
-                    } else if (section.matches('.section-gsap-reveal, .section-gsap-reveal-scroll')) {
-                        activate(section, 'is-gsap-reveal');
-                        const scroll = section.classList.contains('section-gsap-reveal-scroll');
-                        section.querySelectorAll('.inner-text').forEach(block => {
-                            block.querySelectorAll('h1,h2,h3,h4,h5,h6,p,li').forEach(target => {
+                    } else {
+                        const selector = '.section-gsap-reveal, .section-gsap-reveal-scroll';
+                        const roots = Array.from(section.querySelectorAll(selector));
+                        if (section.matches(selector)) roots.unshift(section);
+                        roots.forEach(root => {
+                            if (root.closest('section.section_text, section.grit-section') !== section) return;
+                            activate(root, 'is-gsap-reveal');
+                            const scroll = root.classList.contains('section-gsap-reveal-scroll');
+                            root.querySelectorAll('.inner-text :is(h1,h2,h3,h4,h5,h6,p,li)').forEach(target => {
+                                if (target.closest(selector) !== root) return;
                                 if (target.matches('li') && target.querySelector('p,h1,h2,h3,h4,h5,h6')) return;
                                 const words = wrapWords(target, cleanup);
                                 if (!words.length) return;
